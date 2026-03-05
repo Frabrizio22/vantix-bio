@@ -4,33 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify Batch - VANTIX BIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0B0E11; color: #E2E8F0; }
-        .header { background: #1A2B44; padding: 20px; text-align: center; border-bottom: 2px solid #00B4D8; }
-        .logo { font-size: 28px; font-weight: 700; color: #E2E8F0; letter-spacing: 1px; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F8FAFC; color: #1A2B44; }
+
+        /* Header */
+        .header { background: #FFFFFF; padding: 20px; text-align: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); }
+        .logo { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 800; color: #1A2B44; letter-spacing: 1px; }
         .logo span { color: #00B4D8; }
+
+        /* Container */
         .container { max-width: 1100px; margin: 60px auto; padding: 20px; }
-        h1 { font-size: 36px; margin-bottom: 12px; color: #00B4D8; font-weight: 700; }
-        .subtitle { color: #94A3B8; margin-bottom: 40px; font-size: 15px; }
-        .search-box { background: #1A2B44; padding: 40px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        h1 { font-family: 'Inter', sans-serif; font-size: 36px; margin-bottom: 12px; color: #1A2B44; font-weight: 800; }
+        .subtitle { color: #64748B; margin-bottom: 40px; font-size: 15px; }
+
+        /* Search Box */
+        .search-box { background: #FFFFFF; padding: 40px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(26,43,68,0.08); }
         .input-group { position: relative; }
-        input { width: 100%; padding: 18px 20px; font-size: 16px; border: 2px solid #334155; border-radius: 8px; background: #0B0E11; color: #E2E8F0; transition: border-color 0.3s; font-family: monospace; letter-spacing: 1px; }
-        input:focus { outline: none; border-color: #00B4D8; box-shadow: 0 0 0 3px rgba(0,180,216,0.1); }
+        input { width: 100%; padding: 18px 20px; font-size: 16px; border: 2px solid #E2E8F0; border-radius: 8px; background: #F8FAFC; color: #1A2B44; transition: border-color 0.3s; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
+        input:focus { outline: none; border-color: #00B4D8; box-shadow: 0 0 0 3px rgba(0,180,216,0.12); }
+        input::placeholder { color: #94A3B8; }
         .error { color: #EF4444; font-size: 13px; margin-top: 8px; }
-        button { width: 100%; margin-top: 16px; padding: 18px; background: #00B4D8; color: #0B0E11; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+        button { width: 100%; margin-top: 16px; padding: 18px; background: #00B4D8; color: #FFFFFF; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s; text-transform: uppercase; letter-spacing: 1px; font-family: 'Inter', sans-serif; }
         button:hover { background: #0096C7; }
-        button:disabled { background: #334155; cursor: not-allowed; }
-        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; }
-        .pdf-panel { background: #1A2B44; padding: 24px; border-radius: 12px; border: 1px solid #334155; min-height: 650px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-        .pdf-panel h3 { color: #00B4D8; margin-bottom: 8px; font-size: 18px; }
-        .pdf-panel .meta { font-size: 12px; color: #64748B; margin-bottom: 16px; font-family: monospace; }
-        iframe { width: 100%; height: 550px; border: none; background: #fff; border-radius: 8px; }
-        .loading { text-align: center; padding: 40px; color: #00B4D8; }
-        .watermark-badge { display: inline-block; background: #00B4D8; color: #0B0E11; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-top: 8px; }
+        button:disabled { background: #CBD5E1; cursor: not-allowed; color: #94A3B8; }
+
+        /* Terminal Overlay */
+        .terminal-overlay { position: fixed; inset: 0; background: rgba(26,43,68,0.95); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .terminal-overlay.active { opacity: 1; pointer-events: all; }
+        .terminal-text { font-family: 'JetBrains Mono', monospace; color: #00B4D8; font-size: 18px; letter-spacing: 3px; animation: terminalBlink 1s step-end infinite; }
+        @keyframes terminalBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .terminal-cursor { display: inline-block; width: 10px; height: 20px; background: #00B4D8; margin-left: 4px; animation: cursorBlink 0.8s step-end infinite; vertical-align: middle; }
+        @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Split View */
+        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; opacity: 0; transform: scale(0.92); animation: revealPanels 0.6s ease forwards; }
+        @keyframes revealPanels { to { opacity: 1; transform: scale(1); } }
+
+        /* PDF Panels */
+        .pdf-panel { background: #FFFFFF; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0; min-height: 650px; box-shadow: 0 4px 16px rgba(26,43,68,0.08); }
+        .pdf-panel h3 { font-family: 'Inter', sans-serif; color: #1A2B44; margin-bottom: 8px; font-size: 18px; font-weight: 700; }
+        .pdf-panel .meta { font-size: 12px; color: #64748B; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; line-height: 1.8; }
+        .meta .task-id { color: #1A2B44; font-weight: 500; }
+
+        /* Iframe wrapper with watermark */
+        .iframe-wrap { position: relative; border-radius: 8px; overflow: hidden; }
+        .iframe-wrap iframe { width: 100%; height: 550px; border: none; background: #fff; display: block; }
+        .iframe-wrap::after {
+            content: 'VANTIX FORENSIC TRACE';
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px; font-weight: 700; letter-spacing: 6px;
+            color: rgba(0,180,216,0.10);
+            transform: rotate(-35deg);
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+        /* Watermark badge */
+        .watermark-badge { display: inline-block; background: #00B4D8; color: #FFFFFF; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-left: 8px; }
+
+        .loading-placeholder { text-align: center; padding: 40px; color: #00B4D8; font-family: 'JetBrains Mono', monospace; }
+
         @media (max-width: 768px) {
             .split-view { grid-template-columns: 1fr; }
         }
@@ -39,17 +80,46 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect, useRef } = React;
 
         function VerifyApp() {
             const [bundleId, setBundleId] = useState('');
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState('');
             const [result, setResult] = useState(null);
+            const [showOverlay, setShowOverlay] = useState(false);
+            const [overlayText, setOverlayText] = useState('');
 
             const validateBundleId = (id) => {
                 const pattern = /^VX-[A-Z]{2,4}-\d{4}$/;
                 return pattern.test(id);
+            };
+
+            const animateTerminal = () => {
+                return new Promise((resolve) => {
+                    setShowOverlay(true);
+                    const lines = [
+                        'FORENSIC AUDIT LOADING...',
+                        'AUTHENTICATING BUNDLE...',
+                        'RETRIEVING JANOSHIK REPORTS...',
+                        'VALIDATING WATERMARKS...',
+                        'COMPLETE.'
+                    ];
+                    let i = 0;
+                    setOverlayText(lines[0]);
+                    const interval = setInterval(() => {
+                        i++;
+                        if (i < lines.length) {
+                            setOverlayText(lines[i]);
+                        } else {
+                            clearInterval(interval);
+                            setTimeout(() => {
+                                setShowOverlay(false);
+                                resolve();
+                            }, 400);
+                        }
+                    }, 500);
+                });
             };
 
             const handleVerify = async () => {
@@ -66,7 +136,11 @@
                 }
 
                 setError('');
+                setResult(null);
                 setLoading(true);
+
+                // Start terminal overlay animation
+                const terminalDone = animateTerminal();
                 
                 try {
                     // PRODUCTION: Replace with your secure API endpoint
@@ -83,21 +157,24 @@
                         molecule1: {
                             name: 'Tirzepatide',
                             method: 'HPLC-DAD',
-                            pdfUrl: 'about:blank', // Replace with real PDF URL
+                            pdfUrl: 'about:blank',
                             watermark: 'JANOSHIK-2026-TZ-A',
                             taskId: 'J-50234'
                         },
                         molecule2: {
                             name: 'Semaglutide',
                             method: 'Triple Quad LC-MS/MS',
-                            pdfUrl: 'about:blank', // Replace with real PDF URL
+                            pdfUrl: 'about:blank',
                             watermark: 'JANOSHIK-2026-SM-B',
                             taskId: 'J-50235'
                         }
                     };
-                    
+
+                    // Wait for terminal animation to finish
+                    await terminalDone;
                     setResult(data);
                 } catch (err) {
+                    await terminalDone;
                     setError('Verification failed. Please check Bundle ID or try again.');
                 } finally {
                     setLoading(false);
@@ -106,6 +183,13 @@
 
             return (
                 <>
+                    {/* Terminal Overlay */}
+                    <div className={`terminal-overlay ${showOverlay ? 'active' : ''}`}>
+                        <div className="terminal-text">
+                            {overlayText}<span className="terminal-cursor"></span>
+                        </div>
+                    </div>
+
                     <div className="header">
                         <div className="logo"><span>VX</span> VANTIX BIO</div>
                     </div>
@@ -130,27 +214,29 @@
                             </button>
                         </div>
 
-                        {loading && <div className="loading">Retrieving forensic reports...</div>}
-
                         {result && (
                             <div className="split-view">
                                 <div className="pdf-panel">
                                     <h3>{result.molecule1.name}</h3>
                                     <div className="meta">
                                         Method: {result.molecule1.method}<br/>
-                                        Task ID: {result.molecule1.taskId}
+                                        Task ID: <span className="task-id">{result.molecule1.taskId}</span>
                                         <span className="watermark-badge">🔒 WATERMARKED</span>
                                     </div>
-                                    <iframe src={result.molecule1.pdfUrl} title="Molecule 1 Report"></iframe>
+                                    <div className="iframe-wrap">
+                                        <iframe src={result.molecule1.pdfUrl} title="Molecule 1 Report"></iframe>
+                                    </div>
                                 </div>
                                 <div className="pdf-panel">
                                     <h3>{result.molecule2.name}</h3>
                                     <div className="meta">
                                         Method: {result.molecule2.method}<br/>
-                                        Task ID: {result.molecule2.taskId}
+                                        Task ID: <span className="task-id">{result.molecule2.taskId}</span>
                                         <span className="watermark-badge">🔒 WATERMARKED</span>
                                     </div>
-                                    <iframe src={result.molecule2.pdfUrl} title="Molecule 2 Report"></iframe>
+                                    <div className="iframe-wrap">
+                                        <iframe src={result.molecule2.pdfUrl} title="Molecule 2 Report"></iframe>
+                                    </div>
                                 </div>
                             </div>
                         )}
