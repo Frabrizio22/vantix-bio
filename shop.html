@@ -1175,8 +1175,8 @@
         /* Responsive */
         @media (max-width: 768px) {
             .header-content { padding: 0 12px; overflow-x: hidden; justify-content: center; }
-            header { padding: 8px 0; }
-            .logo img { height: 60px !important; }
+            header { padding: 6px 0; }
+            .logo img { height: 50px !important; }
             .header-left { justify-content: center; width: 100%; }
             .nav-icons { position: absolute; right: 12px; }
             .hero h1 { font-size: 1.5rem; }
@@ -1188,8 +1188,8 @@
             nav { display: none; }
             .trust-item { font-size: 0.62rem; padding: 0 10px; }
             .hamburger { display: flex !important; }
-            main { padding: 0 1rem 2rem; }
-            .filter-section { margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem; }
+            main { padding: 0 0 2rem; }
+            .filter-section { padding: 12px 12px; margin: 0; }
             body { overflow-x: hidden; }
         }
 
@@ -1269,15 +1269,23 @@
 /* Mobile responsive fixes */
 @media (max-width: 768px) {
     body { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
-    .product-card { display: flex; flex-direction: column; }
-    .product-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
-    .product-actions button, .product-actions .btn { width: 100%; }
-    .product-chips, .category-chips, .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip, .badge, .category-badge { white-space: nowrap; flex: 0 0 auto; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .logo img { height: 50px !important; }
+    .filter-pills { gap: 6px; }
+    .filter-pill { font-size: 12px; padding: 6px 12px; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 12px; }
+    .product-card { padding: 14px; }
+    .product-name { font-size: 14px; margin-bottom: 6px; }
+    .product-price { font-size: 20px; margin: 6px 0; }
+    .category-badge { font-size: 9px; padding: 3px 6px; }
+    .product-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .product-actions button { width: 100%; padding: 10px; font-size: 13px; }
+    .coa-badge { font-size: 10px; padding: 4px 8px; right: 10px; top: 10px; }
 }
 @media (max-width: 420px) {
-    .product-grid { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
+    .product-card { padding: 12px; }
+    .product-name { font-size: 13px; }
+    .product-price { font-size: 18px; }
 }
 
 /* Premium Boutique Enhancements */
