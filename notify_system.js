@@ -1,245 +1,194 @@
-/**
- * VANTIX BIO - EMAIL NOTIFICATION SYSTEM
- * Two-layer storage: localStorage fallback + optional endpoint
- * Lightweight, dependency-free, future-proof
- */
+// notify_system.js - Email notification system for Phase 2 products
+// Version 1.1 - March 5, 2026
 
-// Email capture state
 const NotifySystem = {
-  
-  /**
-   * Open notify modal for a product
-   * @param {string} productName - Display name
-   * @param {string} sku - Product SKU code
-   * @param {string} category - Product category
-   */
-  openModal: function(productName, sku, category) {
-    const modal = document.getElementById('notifyModal');
-    const productNameEl = document.getElementById('notifyProductName');
+    // Local queue (localStorage backup)
+    queue: JSON.parse(localStorage.getItem('vxNotifyQueue') || '[]'),
     
-    if (!modal || !productNameEl) return;
+    // Optional backend endpoint (set via VX_NOTIFY_ENDPOINT env var)
+    endpoint: null, // Set to Cloudflare Worker URL when ready
     
-    // Store current product context
-    modal.dataset.product = productName;
-    modal.dataset.sku = sku;
-    modal.dataset.category = category;
+    // Add email to notification queue (with dedupe and error handling)
+    addToQueue(email, product, sku, category) {
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return { success: false, error: 'invalid_email', message: 'Please enter a valid email address.' };
+        }
+        
+        const normalizedEmail = email.toLowerCase().trim();
+        
+        // Dedupe check: email + SKU combo
+        const exists = this.queue.find(item => 
+            item.email === normalizedEmail && item.sku === sku
+        );
+        
+        if (exists) {
+            return { success: false, error: 'duplicate', message: "You're already on the list for this item." };
+        }
+        
+        // Create entry with full context
+        const entry = {
+            email: normalizedEmail,
+            product: product,
+            sku: sku,
+            category: category,
+            timestamp: Date.now(),
+            pageUrl: window.location.href,
+            source: 'shop_page',
+            status: 'pending'
+        };
+        
+        // Add to queue
+        this.queue.push(entry);
+        localStorage.setItem('vxNotifyQueue', JSON.stringify(this.queue));
+        
+        // Send to backend if endpoint configured (async, non-blocking)
+        if (this.endpoint) {
+            this.sendToBackend(entry).catch(err => {
+                console.warn('Backend sync failed (saved locally):', err);
+            });
+        }
+        
+        return { success: true, savedLocally: !this.endpoint };
+    },
     
-    // Update modal text
-    productNameEl.textContent = productName;
+    // Send notification request to backend
+    async sendToBackend(entry) {
+        try {
+            const response = await fetch(this.endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'notify_signup',
+                    ...entry
+                })
+            });
+            
+            if (response.ok) {
+                console.log('Notification signup synced to backend');
+                // Update status in queue
+                const queueEntry = this.queue.find(e => 
+                    e.email === entry.email && e.sku === entry.sku
+                );
+                if (queueEntry) {
+                    queueEntry.status = 'synced';
+                    localStorage.setItem('vxNotifyQueue', JSON.stringify(this.queue));
+                }
+                return { success: true };
+            } else {
+                throw new Error(`Backend returned ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Failed to sync with backend:', error);
+            throw error;
+        }
+    },
     
-    // Reset form
-    document.getElementById('notifyEmail').value = '';
-    document.getElementById('notifySuccess').style.display = 'none';
-    document.getElementById('notifyError').style.display = 'none';
+    // Open modal with product details
+    openModal(product, sku, category) {
+        document.getElementById('modalProductName').textContent = `Get Notified: ${product}`;
+        document.getElementById('notifyProduct').value = product;
+        document.getElementById('notifySKU').value = sku;
+        document.getElementById('notifyCategory').value = category;
+        
+        // Reset form state
+        document.getElementById('notifyForm').style.display = 'block';
+        document.getElementById('notifySuccess').style.display = 'none';
+        document.getElementById('notifyError').style.display = 'none';
+        document.getElementById('notifyEmail').value = '';
+        
+        document.getElementById('notifyModal').classList.add('active');
+        
+        // Focus email input
+        setTimeout(() => {
+            document.getElementById('notifyEmail').focus();
+        }, 100);
+    },
     
-    // Show modal
-    modal.style.display = 'flex';
+    // Close modal
+    closeModal() {
+        document.getElementById('notifyModal').classList.remove('active');
+    },
     
-    // Focus email input
-    setTimeout(() => {
-      document.getElementById('notifyEmail').focus();
-    }, 100);
-  },
-  
-  /**
-   * Close notify modal
-   */
-  closeModal: function() {
-    const modal = document.getElementById('notifyModal');
-    if (modal) {
-      modal.style.display = 'none';
+    // Submit form with error handling
+    submitForm(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('notifyEmail').value;
+        const product = document.getElementById('notifyProduct').value;
+        const sku = document.getElementById('notifySKU').value;
+        const category = document.getElementById('notifyCategory').value;
+        
+        // Hide previous errors
+        document.getElementById('notifyError').style.display = 'none';
+        
+        const result = this.addToQueue(email, product, sku, category);
+        
+        if (result.success) {
+            // Show success message
+            document.getElementById('notifyForm').style.display = 'none';
+            
+            const successText = result.savedLocally 
+                ? "You're on the list! (Saved locally — we'll sync when you're online.)"
+                : "You're on the list! We'll notify you at launch.";
+            
+            document.getElementById('notifySuccessText').textContent = successText;
+            document.getElementById('notifySuccess').style.display = 'flex';
+            
+            // Auto-close after 2.5 seconds
+            setTimeout(() => {
+                this.closeModal();
+            }, 2500);
+            
+            // Track analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'notify_signup', {
+                    product_name: product,
+                    product_sku: sku,
+                    product_category: category
+                });
+            }
+        } else {
+            // Show error message
+            document.getElementById('notifyErrorText').textContent = result.message;
+            document.getElementById('notifyError').style.display = 'flex';
+            
+            // Shake animation
+            const errorEl = document.getElementById('notifyError');
+            errorEl.style.animation = 'none';
+            setTimeout(() => {
+                errorEl.style.animation = 'shake 0.4s';
+            }, 10);
+        }
+    },
+    
+    // Get queue summary (for admin/debugging)
+    getQueueStats() {
+        return {
+            total: this.queue.length,
+            pending: this.queue.filter(e => e.status === 'pending').length,
+            synced: this.queue.filter(e => e.status === 'synced').length,
+            products: [...new Set(this.queue.map(e => e.product))],
+            categories: [...new Set(this.queue.map(e => e.category))]
+        };
     }
-  },
-  
-  /**
-   * Validate email format
-   * @param {string} email
-   * @returns {boolean}
-   */
-  validateEmail: function(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  },
-  
-  /**
-   * Check if email already subscribed to this product
-   * @param {string} email
-   * @param {string} sku
-   * @returns {boolean}
-   */
-  isDuplicate: function(email, sku) {
-    const stored = this.getStoredNotifications();
-    return stored.some(item => 
-      item.email.toLowerCase() === email.toLowerCase() && 
-      item.sku === sku
-    );
-  },
-  
-  /**
-   * Get all stored notifications from localStorage
-   * @returns {Array}
-   */
-  getStoredNotifications: function() {
-    try {
-      const data = localStorage.getItem('vantixNotifications');
-      return data ? JSON.parse(data) : [];
-    } catch (e) {
-      console.error('Error reading notifications:', e);
-      return [];
-    }
-  },
-  
-  /**
-   * Store notification locally (Layer A)
-   * @param {Object} data
-   */
-  storeLocally: function(data) {
-    try {
-      const stored = this.getStoredNotifications();
-      stored.push(data);
-      localStorage.setItem('vantixNotifications', JSON.stringify(stored));
-      return true;
-    } catch (e) {
-      console.error('Error storing notification:', e);
-      return false;
-    }
-  },
-  
-  /**
-   * Send notification to endpoint (Layer B - optional)
-   * @param {Object} data
-   * @returns {Promise}
-   */
-  sendToEndpoint: async function(data) {
-    if (typeof VX_NOTIFY_ENDPOINT === 'undefined' || !VX_NOTIFY_ENDPOINT) {
-      // Endpoint not configured - skip network request
-      return Promise.resolve({ status: 'skipped', reason: 'no_endpoint' });
-    }
-    
-    try {
-      const response = await fetch(VX_NOTIFY_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      
-      return await response.json();
-    } catch (error) {
-      console.error('Network request failed:', error);
-      // Don't throw - local storage still worked
-      return { status: 'error', error: error.message };
-    }
-  },
-  
-  /**
-   * Submit notification request
-   */
-  submit: async function() {
-    const modal = document.getElementById('notifyModal');
-    const emailInput = document.getElementById('notifyEmail');
-    const successEl = document.getElementById('notifySuccess');
-    const errorEl = document.getElementById('notifyError');
-    const submitBtn = document.getElementById('notifySubmitBtn');
-    
-    const email = emailInput.value.trim();
-    const productName = modal.dataset.product;
-    const sku = modal.dataset.sku;
-    const category = modal.dataset.category;
-    
-    // Validate email
-    if (!this.validateEmail(email)) {
-      errorEl.textContent = 'Please enter a valid email address';
-      errorEl.style.display = 'block';
-      return;
-    }
-    
-    // Check for duplicate
-    if (this.isDuplicate(email, sku)) {
-      errorEl.textContent = 'You\'re already on the list for this product';
-      errorEl.style.display = 'block';
-      return;
-    }
-    
-    // Disable submit button
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
-    
-    // Prepare data
-    const data = {
-      email: email,
-      product: productName,
-      sku: sku,
-      category: category,
-      timestamp: new Date().toISOString(),
-      pageUrl: window.location.href,
-      source: 'shop_notify_modal'
-    };
-    
-    // Layer A: Store locally (always)
-    const localSuccess = this.storeLocally(data);
-    
-    if (!localSuccess) {
-      errorEl.textContent = 'Error saving request. Please try again.';
-      errorEl.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Notify Me';
-      return;
-    }
-    
-    // Layer B: Send to endpoint (if configured)
-    await this.sendToEndpoint(data);
-    
-    // Show success
-    successEl.innerHTML = `✅ You're on the list.<br>We'll notify you when <strong>${productName}</strong> launches.`;
-    successEl.style.display = 'block';
-    errorEl.style.display = 'none';
-    
-    // Close modal after delay
-    setTimeout(() => {
-      this.closeModal();
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Notify Me';
-    }, 3000);
-  }
 };
 
-// Initialize modal event listeners
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('notifyModal');
-  
-  if (!modal) return;
-  
-  // Close on ESC key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.style.display === 'flex') {
-      NotifySystem.closeModal();
-    }
-  });
-  
-  // Close when clicking outside
-  modal.addEventListener('click', function(e) {
+// Close modal on outside click
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('notifyModal');
     if (e.target === modal) {
-      NotifySystem.closeModal();
+        NotifySystem.closeModal();
     }
-  });
-  
-  // Submit on Enter key in email input
-  const emailInput = document.getElementById('notifyEmail');
-  if (emailInput) {
-    emailInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        NotifySystem.submit();
-      }
-    });
-  }
 });
 
-// Export for use in HTML onclick handlers
-window.NotifySystem = NotifySystem;
+// Close modal on ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+        const modal = document.getElementById('notifyModal');
+        if (modal && modal.classList.contains('active')) {
+            NotifySystem.closeModal();
+        }
+    }
+});
