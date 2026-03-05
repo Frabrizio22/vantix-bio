@@ -25,7 +25,7 @@ const VX_PRODUCTS = {
             sku: 'VX-TIRZ-30',
             name: 'Tirzepatide 30mg',
             shortName: 'Tirzepatide',
-            slug: 'tirzepatide',
+            slug: 'tirzepatide-30mg',
             category: 'glp1',
             categoryLabel: 'GLP-1 Agonist',
             dosage: '30mg',
