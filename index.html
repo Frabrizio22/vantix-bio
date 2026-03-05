@@ -29,9 +29,17 @@
         .logo-hex .hex-frame { fill: none; stroke: #1A2B44; stroke-width: 2; }
         .logo-hex .hex-nodes { fill: #00B4D8; animation: nodeGlow 3s ease-in-out infinite; }
         .logo-hex .hex-text { fill: #1A2B44; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; font-size: 14px; }
-        nav { display: flex; gap: 32px; }
+        nav { display: flex; gap: 32px; align-items: center; }
         nav a { color: #1A2B44; text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
         nav a:hover { color: #00B4D8; }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        .nav-dropdown-menu { position: absolute; top: 100%; left: 0; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 8px 0; min-width: 180px; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s ease; z-index: 1000; }
+        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .nav-dropdown-menu a { display: block; padding: 10px 20px; font-size: 13px; color: #1A2B44; text-decoration: none; transition: background 0.15s; }
+        .nav-dropdown-menu a:hover { background: #F8FAFC; color: #00B4D8; }
+        .dropdown-arrow { font-size: 10px; color: #64748B; transition: transform 0.2s; }
+        .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
         /* Hero */
         .hero { max-width: 1200px; margin: 0 auto; padding: 100px 24px 80px; text-align: center; }
@@ -151,11 +159,23 @@
                 <img src="logo.jpg" alt="Vantix Bio - Research Peptides" style="height:140px">
             </a>
             <nav>
-                <a href="verify.html" aria-label="Verify authenticity of Vantix materials via Janoshik Task ID">Verify</a>
-                <a href="shop.html" aria-label="Access the Vantix Catalog of Analytical Reference Materials for Research Purposes only">Shop</a>
-                <a href="the-matrix.html" aria-label="Learn about Vantix 8-Step Verification Protocol">The Matrix</a>
-                <a href="blog/" aria-label="Read research articles and peptide information">Research</a>
-                <a href="#faq" aria-label="Frequently asked questions about Vantix Bio">FAQ</a>
+                <a href="shop.html">Shop</a>
+                <a href="verify.html">Verify</a>
+                <div class="nav-dropdown">
+                    <a>Science <span class="dropdown-arrow">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="the-matrix.html">The Matrix</a>
+                        <a href="blog/">Research</a>
+                        <a href="about.html">About Us</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a>Support <span class="dropdown-arrow">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="#faq">FAQ</a>
+                        <a href="mailto:support@vantixbio.com">Contact</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </div>
