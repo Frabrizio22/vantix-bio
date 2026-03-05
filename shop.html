@@ -8,16 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VANTIX BIO - High-Purity Peptides</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes nodeGlow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(0,180,216,0.4)); }
+            50% { filter: drop-shadow(0 0 8px rgba(0,180,216,0.8)); }
         }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #E2E8F0;
-            color: #1E293B;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            background: #F8FAFC;
+            color: #1A2B44;
             line-height: 1.6;
         }
 
@@ -25,28 +24,27 @@
         .promo-bar {
             background: #1A2B44;
             text-align: center;
-            padding: 6px 16px;
-            font-size: 0.68rem;
+            padding: 8px 16px;
+            font-size: 0.72rem;
             color: rgba(255,255,255,0.9);
-            letter-spacing: 0.3px;
-            font-weight: 500;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         /* Header */
         header {
-            background: #E2E8F0;
+            background: #FFFFFF;
             border-bottom: 1px solid #E2E8F0;
-            padding: 10px 16px;
+            padding: 14px 16px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 1px 3px rgba(0,0,0,0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
             transition: box-shadow 0.2s;
         }
 
         header.scrolled {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-bottom-color: transparent;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
 
         .header-content {
@@ -60,7 +58,7 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 28px;
         }
 
         .logo-block { white-space: nowrap; }
@@ -84,15 +82,15 @@
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             align-items: center;
         }
 
         nav a {
-            color: #475569;
+            color: #1A2B44;
             text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.82rem;
+            font-weight: 600;
             transition: color 0.2s;
         }
 
@@ -109,10 +107,10 @@
             position: absolute;
             top: 100%;
             left: -8px;
-            background: #fff;
+            background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             padding: 8px 0;
             min-width: 220px;
             z-index: 200;
@@ -132,7 +130,7 @@
         }
 
         .nav-dropdown-menu a:hover {
-            background: #0B0E11;
+            background: #F0FDFF;
             color: #00B4D8;
         }
 
@@ -146,7 +144,7 @@
             position: relative;
             cursor: pointer;
             font-size: 0.85rem;
-            color: #94A3B8;
+            color: #64748B;
             transition: color 0.2s;
             background: none;
             border: none;
@@ -189,23 +187,24 @@
         .search-box {
             max-width: 600px;
             margin: 0 auto;
-            background: #fff;
-            border-radius: 12px;
+            background: #FFFFFF;
+            border-radius: 14px;
             padding: 16px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
         .search-box input {
             width: 100%;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 12px 16px;
             font-size: 1rem;
             outline: none;
             font-family: inherit;
+            background: #F8FAFC;
         }
 
-        .search-box input:focus { border-color: #00B4D8; }
+        .search-box input:focus { border-color: #00B4D8; background: #FFFFFF; }
 
         .search-results {
             max-height: 400px;
@@ -215,12 +214,12 @@
 
         .search-result-item {
             padding: 10px 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.15s;
         }
 
-        .search-result-item:hover { background: #0B0E11; }
+        .search-result-item:hover { background: #F0FDFF; }
 
         .search-result-item .sr-name {
             font-weight: 600;
@@ -252,10 +251,11 @@
         .page-panel {
             max-width: 700px;
             margin: 0 auto;
-            background: #fff;
-            border-radius: 12px;
+            background: #FFFFFF;
+            border-radius: 14px;
             padding: 32px 24px;
             position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
         }
 
         .page-close {
@@ -278,7 +278,7 @@
 
         .page-panel h2 {
             font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #1A2B44;
             margin-bottom: 24px;
         }
@@ -337,9 +337,10 @@
 
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
-            padding: 1.75rem 1rem;
+            background: #FFFFFF;
+            padding: 2.5rem 1rem;
             text-align: center;
+            border-bottom: 1px solid #E2E8F0;
         }
 
         .hero-content {
@@ -348,25 +349,27 @@
         }
 
         .hero h1 {
-            font-size: 1.6rem;
+            font-size: 2rem;
             font-weight: 800;
-            color: #E2E8F0;
+            color: #1A2B44;
             margin-bottom: 0.35rem;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
 
+        .hero h1 .hero-accent { color: #00B4D8; }
+
         .hero p {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+            color: #64748B;
             margin: 0;
             letter-spacing: 0.3px;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         /* Trust Bar */
         .trust-bar {
-            background: #0B0E11;
-            padding: 8px 16px;
+            background: #FFFFFF;
+            padding: 10px 16px;
             border-bottom: 1px solid #E2E8F0;
         }
 
@@ -380,17 +383,17 @@
         }
 
         .trust-item {
-            font-size: 0.68rem;
+            font-size: 0.72rem;
             font-weight: 600;
-            color: #475569;
+            color: #1A2B44;
             text-align: center;
             letter-spacing: 0.2px;
-            padding: 0 16px;
+            padding: 0 20px;
         }
 
         .trust-item::before {
             content: '✓ ';
-            color: #059669;
+            color: #00B4D8;
             font-weight: 700;
         }
 
@@ -402,7 +405,7 @@
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem 2rem;
+            padding: 0 1.5rem 2rem;
         }
 
         /* Featured Products Section */
@@ -411,11 +414,11 @@
         }
 
         .section-heading {
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 800;
             color: #1A2B44;
             margin-bottom: 0.75rem;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.3px;
         }
 
         .section-sub {
@@ -427,7 +430,7 @@
 
         .featured-products {
             display: flex;
-            gap: 8px;
+            gap: 12px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 4px;
@@ -436,20 +439,21 @@
         .featured-products::-webkit-scrollbar { height: 0; }
 
         .featured-card {
-            background: #0B0E11;
+            background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 10px 14px;
-            min-width: 155px;
+            border-radius: 12px;
+            padding: 14px 16px;
+            min-width: 165px;
             flex-shrink: 0;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .featured-card:hover {
             border-color: #00B4D8;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            background: #E2E8F0;
+            box-shadow: 0 8px 24px rgba(0,180,216,0.12);
+            transform: translateY(-2px);
         }
 
         .featured-card .product-category {
@@ -463,7 +467,7 @@
         }
 
         .featured-card .product-name {
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: #1A2B44;
             margin-bottom: 0;
@@ -481,7 +485,7 @@
         /* Shop by Category Section */
         .categories-section {
             padding: 1.25rem 0 1.25rem;
-            border-top: 1px solid #F1F5F9;
+            border-top: 1px solid #E2E8F0;
         }
 
         .category-grid {
@@ -491,21 +495,22 @@
         }
 
         .category-card {
-            background: #E2E8F0;
+            background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 10px;
+            padding: 12px 14px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s;
             border-left: 3px solid;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .category-card:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
         }
 
         .category-card-name {
@@ -520,8 +525,8 @@
         }
 
         /* Category-specific borders and colors */
-        .cat-glp { border-left-color: #2563EB; }
-        .cat-glp .category-card-name { color: #2563EB; }
+        .cat-glp { border-left-color: #00B4D8; }
+        .cat-glp .category-card-name { color: #00B4D8; }
         
         .cat-tissue { border-left-color: #059669; }
         .cat-tissue .category-card-name { color: #059669; }
@@ -552,7 +557,7 @@
 
         /* Catalog Section */
         .catalog-section {
-            padding: 0.25rem 0 0;
+            padding: 0.5rem 0 0;
         }
 
         .catalog-header {
@@ -570,22 +575,22 @@
 
         /* Category Filter */
         .filter-section {
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             position: sticky;
-            top: 47px;
-            background: #E2E8F0;
+            top: 53px;
+            background: #F8FAFC;
             z-index: 90;
-            padding: 10px 0 6px;
-            margin-left: -1rem;
-            margin-right: -1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            padding: 12px 0 8px;
+            margin-left: -1.5rem;
+            margin-right: -1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
             border-bottom: 1px solid transparent;
         }
 
         .filter-pills {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 8px;
@@ -594,15 +599,15 @@
         .filter-pills::-webkit-scrollbar { height: 0; }
 
         .filter-pill {
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1.5px solid #E2E8F0;
-            background: #E2E8F0;
-            font-size: 0.7rem;
+            background: #FFFFFF;
+            font-size: 0.72rem;
             font-weight: 600;
             color: #64748B;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s;
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -614,58 +619,70 @@
 
         .filter-pill.active {
             background: #00B4D8;
-            color: #E2E8F0;
+            color: #FFFFFF;
             border-color: #00B4D8;
+            box-shadow: 0 2px 8px rgba(0,180,216,0.25);
         }
 
         /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            gap: 12px;
         }
 
         .product-card {
-            background: #E2E8F0;
+            background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 10px 12px;
-            transition: all 0.2s;
+            border-radius: 14px;
+            padding: 16px;
+            transition: all 0.25s;
             cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
         }
 
         .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
             border-color: #CBD5E1;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .product-card:hover .coa-badge {
+            box-shadow: 0 0 8px rgba(0,180,216,0.3);
         }
 
         .product-category {
             display: inline-block;
-            font-size: 0.6rem;
+            background: rgba(0,180,216,0.08);
+            color: #00B4D8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.58rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
+            transition: box-shadow 0.3s;
         }
 
-        .category-glp { color: #2563EB; }
-        .category-tissue { color: #059669; }
-        .category-gh { color: #EA580C; }
-        .category-metabolic { color: #DC2626; }
-        .category-antioxidants { color: #7C3AED; }
-        .category-neuropeptides { color: #0891B2; }
-        .category-longevity { color: #B45309; }
-        .category-melanocortin { color: #DB2777; }
-        .category-cosmetic { color: #A21CAF; }
-        .category-advanced { color: #475569; }
-        .category-supplies { color: #475569; }
+        .category-glp { background: rgba(0,180,216,0.08); color: #00B4D8; }
+        .category-tissue { background: rgba(5,150,105,0.08); color: #059669; }
+        .category-gh { background: rgba(234,88,12,0.08); color: #EA580C; }
+        .category-metabolic { background: rgba(220,38,38,0.08); color: #DC2626; }
+        .category-antioxidants { background: rgba(124,58,237,0.08); color: #7C3AED; }
+        .category-neuropeptides { background: rgba(8,145,178,0.08); color: #0891B2; }
+        .category-longevity { background: rgba(180,83,9,0.08); color: #B45309; }
+        .category-melanocortin { background: rgba(219,39,119,0.08); color: #DB2777; }
+        .category-cosmetic { background: rgba(162,28,175,0.08); color: #A21CAF; }
+        .category-advanced { background: rgba(71,85,105,0.08); color: #475569; }
+        .category-supplies { background: rgba(71,85,105,0.08); color: #475569; }
 
         .product-name {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: #1A2B44;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             line-height: 1.3;
         }
 
@@ -677,51 +694,58 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .product-price {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 6px;
+            color: #00B4D8;
+            margin-bottom: 8px;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .featured-card .product-price {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 800;
-            color: #1A2B44;
-            margin: 2px 0 0;
+            color: #00B4D8;
+            margin: 4px 0 0;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .coa-badge {
             font-size: 0.55rem;
             font-weight: 700;
-            color: #059669;
+            color: #00B4D8;
             letter-spacing: 0.3px;
+            background: rgba(0,180,216,0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: box-shadow 0.3s;
         }
 
         .order-btn {
             display: inline-block;
             background: #00B4D8;
-            color: #E2E8F0;
-            padding: 5px 18px;
-            border-radius: 4px;
+            color: #FFFFFF;
+            padding: 7px 20px;
+            border-radius: 8px;
             border: none;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-decoration: none;
             letter-spacing: 0.2px;
             transition: all 0.2s;
+            cursor: pointer;
         }
 
         .order-btn:hover {
-            background: #1E6FD9;
-            color: #E2E8F0;
+            background: #0096C7;
+            box-shadow: 0 4px 16px rgba(0,180,216,0.3);
         }
 
         .order-btn.oos {
-            background: #E2E8F0;
+            background: #F1F5F9;
             color: #94A3B8;
             cursor: not-allowed;
             pointer-events: none;
@@ -735,7 +759,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .info-icon {
@@ -759,10 +783,10 @@
 
         .cart-drawer {
             position: fixed;
-            top: 0; right: -320px; width: 300px; height: 100%;
-            background: #E2E8F0;
+            top: 0; right: -340px; width: 320px; height: 100%;
+            background: #FFFFFF;
             z-index: 201;
-            box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+            box-shadow: -4px 0 24px rgba(0,0,0,0.12);
             transition: right 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -770,51 +794,54 @@
         .cart-drawer.active { right: 0; }
 
         .cart-drawer-header {
-            padding: 16px;
+            padding: 18px 20px;
             border-bottom: 1px solid #E2E8F0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .cart-drawer-header h3 {
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            font-weight: 800;
             color: #1A2B44;
         }
         .cart-close {
             background: none; border: none;
-            font-size: 1.3rem; color: #64748b;
+            font-size: 1.3rem; color: #94A3B8;
             cursor: pointer; padding: 4px;
         }
+        .cart-close:hover { color: #1A2B44; }
 
         .cart-drawer-items {
             flex: 1;
             overflow-y: auto;
-            padding: 12px 16px;
+            padding: 12px 20px;
         }
 
         .cart-drawer-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
         }
         .cart-drawer-item:last-child { border-bottom: none; }
 
         .cdi-info { flex: 1; }
-        .cdi-name { font-size: 0.82rem; font-weight: 600; color: #1A2B44; }
-        .cdi-price { font-size: 0.75rem; color: #64748b; }
+        .cdi-name { font-size: 0.85rem; font-weight: 600; color: #1A2B44; }
+        .cdi-price { font-size: 0.75rem; color: #64748B; font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace; }
 
         .cdi-qty {
             display: flex; align-items: center; gap: 6px;
         }
         .cdi-qty-btn {
-            width: 26px; height: 26px; border: 1px solid #E2E8F0;
-            background: #fff; border-radius: 4px; font-size: 0.85rem;
+            width: 28px; height: 28px; border: 1px solid #E2E8F0;
+            background: #F8FAFC; border-radius: 6px; font-size: 0.85rem;
             font-weight: 700; cursor: pointer; color: #1A2B44;
+            transition: all 0.15s;
         }
-        .cdi-qty-num { font-size: 0.82rem; font-weight: 600; min-width: 18px; text-align: center; }
+        .cdi-qty-btn:hover { border-color: #00B4D8; color: #00B4D8; }
+        .cdi-qty-num { font-size: 0.85rem; font-weight: 700; min-width: 18px; text-align: center; }
 
         .cdi-remove {
             color: #ef4444; font-size: 0.7rem; font-weight: 600;
@@ -822,21 +849,23 @@
         }
 
         .cart-drawer-footer {
-            padding: 16px;
+            padding: 18px 20px;
             border-top: 1px solid #E2E8F0;
         }
         .cart-drawer-total {
             display: flex; justify-content: space-between;
-            font-size: 0.9rem; font-weight: 700; color: #1A2B44;
-            margin-bottom: 12px;
+            font-size: 0.95rem; font-weight: 800; color: #1A2B44;
+            margin-bottom: 14px;
         }
         .cart-checkout-btn {
-            display: block; width: 100%; padding: 12px;
+            display: block; width: 100%; padding: 14px;
             background: #00B4D8; color: #fff; border: none;
-            border-radius: 6px; font-size: 0.85rem; font-weight: 700;
+            border-radius: 10px; font-size: 0.88rem; font-weight: 700;
             cursor: pointer; text-align: center; text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
         }
-        .cart-checkout-btn:hover { background: #1e5fb8; }
+        .cart-checkout-btn:hover { background: #0096C7; box-shadow: 0 4px 20px rgba(0,180,216,0.4); }
 
         .cart-empty {
             text-align: center; padding: 40px 16px;
@@ -847,11 +876,12 @@
             position: fixed;
             bottom: 80px; left: 50%; transform: translateX(-50%);
             background: #1A2B44; color: #fff;
-            padding: 10px 20px; border-radius: 8px;
-            font-size: 0.8rem; font-weight: 600;
+            padding: 12px 24px; border-radius: 10px;
+            font-size: 0.82rem; font-weight: 600;
             z-index: 300; opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
         .cart-added-toast.show { opacity: 1; }
 
@@ -865,7 +895,7 @@
         }
 
         .view-details:hover {
-            color: #1E40AF;
+            color: #0096C7;
         }
 
         /* Modal */
@@ -889,14 +919,15 @@
         }
 
         .modal-content {
-            background: #E2E8F0;
+            background: #FFFFFF;
             max-width: 700px;
             width: 100%;
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 2rem;
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
         }
 
         .modal-close {
@@ -917,7 +948,7 @@
 
         .modal-close:hover {
             background: #F1F5F9;
-            color: #1E293B;
+            color: #1A2B44;
         }
 
         .modal-header {
@@ -926,7 +957,7 @@
 
         .modal-title {
             font-size: 1.75rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #1A2B44;
             margin-bottom: 0.5rem;
         }
@@ -959,20 +990,24 @@
 
         .contact-button {
             display: inline-block;
-            background: #06B6D4;
-            color: #E2E8F0;
+            background: #00B4D8;
+            color: #FFFFFF;
             padding: 0.875rem 2rem;
-            border-radius: 6px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
             margin-top: 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
         }
 
         .contact-button:hover {
+            background: #0096C7;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 20px rgba(0,180,216,0.4);
         }
 
         /* Age Gate Overlay */
@@ -995,24 +1030,25 @@
         }
 
         .age-gate-card {
-            background: #E2E8F0;
-            border-radius: 12px;
-            padding: 2rem;
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 2.5rem;
             max-width: 460px;
             width: 100%;
             text-align: center;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
         .age-gate-card h2 {
             font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #1A2B44;
             margin-bottom: 1rem;
         }
 
         .age-gate-card p {
             font-size: 0.9rem;
-            color: #475569;
+            color: #64748B;
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
@@ -1025,9 +1061,9 @@
 
         .age-gate-btn {
             padding: 0.875rem 1.5rem;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
             border: none;
@@ -1036,29 +1072,32 @@
 
         .age-gate-btn-enter {
             background: #00B4D8;
-            color: #E2E8F0;
+            color: #FFFFFF;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
         }
 
         .age-gate-btn-enter:hover {
-            background: #1E40AF;
+            background: #0096C7;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(43, 125, 233, 0.3);
+            box-shadow: 0 4px 20px rgba(0,180,216,0.4);
         }
 
         .age-gate-btn-leave {
-            background: #F1F5F9;
+            background: #F8FAFC;
             color: #64748B;
+            border: 2px solid #E2E8F0;
         }
 
         .age-gate-btn-leave:hover {
-            background: #E2E8F0;
+            border-color: #CBD5E1;
         }
 
         /* Footer */
         footer {
-            background: #1A2B44;
+            background: #FFFFFF;
             padding: 2.5rem 2rem 2rem;
             margin-top: 3rem;
+            border-top: 1px solid #E2E8F0;
         }
 
         .footer-content {
@@ -1069,7 +1108,7 @@
         .footer-logo {
             font-size: 1.1rem;
             font-weight: 800;
-            color: #E2E8F0;
+            color: #1A2B44;
             margin-bottom: 0.25rem;
             letter-spacing: 2px;
         }
@@ -1082,22 +1121,23 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.6);
+            color: #64748B;
             text-decoration: none;
             font-size: 0.8rem;
+            font-weight: 500;
             transition: color 0.2s;
         }
 
         .footer-links a:hover {
-            color: #E2E8F0;
+            color: #00B4D8;
         }
 
         .footer-disclaimer {
             font-size: 0.68rem;
-            color: rgba(255,255,255,0.35);
+            color: #94A3B8;
             line-height: 1.6;
             padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid #E2E8F0;
             max-width: 800px;
         }
 
@@ -1126,16 +1166,18 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.4rem; }
+            .hero h1 { font-size: 1.5rem; }
             .hero p { font-size: 0.85rem; }
-            .hero { padding: 1.5rem 1rem; }
+            .hero { padding: 1.75rem 1rem; }
             .section-heading { font-size: 1rem; }
             .section-sub { display: none; }
-            .featured-card { min-width: 145px; }
+            .featured-card { min-width: 155px; }
             nav { display: none; }
             .header-left { gap: 0; }
             .trust-item { font-size: 0.62rem; padding: 0 10px; }
             .hamburger { display: flex !important; }
+            main { padding: 0 1rem 2rem; }
+            .filter-section { margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem; }
         }
 
         @media (min-width: 769px) {
@@ -1144,13 +1186,13 @@
             }
             .product-grid {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1.25rem;
+                gap: 20px;
             }
             .product-card {
-                padding: 1.25rem;
+                padding: 24px;
             }
             .product-name {
-                font-size: 1.125rem;
+                font-size: 1.1rem;
             }
             .product-description {
                 font-size: 0.875rem;
@@ -1167,7 +1209,7 @@
             right: 0;
             width: 260px;
             height: 100%;
-            background: #fff;
+            background: #FFFFFF;
             box-shadow: -4px 0 24px rgba(0,0,0,0.1);
             z-index: 150;
             padding: 60px 24px 24px;
@@ -1178,10 +1220,10 @@
         .mobile-menu a {
             display: block;
             padding: 12px 0;
-            color: #1E293B;
+            color: #1A2B44;
             text-decoration: none;
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             border-bottom: 1px solid #F1F5F9;
         }
 
@@ -1436,34 +1478,34 @@
     </div>
 
     <!-- Why PRC Section -->
-    <section style="max-width:700px;margin:1.5rem auto 0;padding:0 1rem 1.5rem">
-        <h2 style="font-size:0.85rem;font-weight:700;color:#1A2B44;text-align:center;margin-bottom:1rem;letter-spacing:-0.2px">Why Researchers Choose PRC</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;font-size:0.72rem">
-            <div style="background:#0B0E11;padding:8px 12px;font-weight:700;color:#475569;border-bottom:1px solid #E2E8F0"></div>
-            <div style="background:#0B0E11;padding:8px 12px;font-weight:700;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0">VANTIX BIO</div>
-            <div style="padding:8px 12px;color:#64748B;border-bottom:1px solid #E2E8F0">Purity Testing</div>
-            <div style="padding:8px 12px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Double-verified: Manufacturer + Independent Lab</div>
-            <div style="padding:8px 12px;color:#64748B;border-bottom:1px solid #E2E8F0">COA Transparency</div>
-            <div style="padding:8px 12px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Available for every product</div>
-            <div style="padding:8px 12px;color:#64748B;border-bottom:1px solid #E2E8F0">Pricing</div>
-            <div style="padding:8px 12px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Direct sourcing — no middleman markup</div>
-            <div style="padding:8px 12px;color:#64748B;border-bottom:1px solid #E2E8F0">Shipping</div>
-            <div style="padding:8px 12px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Next business day, discreet packaging</div>
-            <div style="padding:8px 12px;color:#64748B;border-bottom:1px solid #E2E8F0">Every Order Includes</div>
-            <div style="padding:8px 12px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Free laboratory solvent kit + analytical solvents</div>
-            <div style="padding:8px 12px;color:#64748B">Support</div>
-            <div style="padding:8px 12px;color:#1A2B44;border-left:1px solid #E2E8F0;font-weight:600">Real humans, same-day responses</div>
+    <section style="max-width:700px;margin:2rem auto 0;padding:0 1.5rem 1.5rem">
+        <h2 style="font-size:0.95rem;font-weight:800;color:#1A2B44;text-align:center;margin-bottom:1rem;letter-spacing:-0.3px">Why Researchers Choose PRC</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;font-size:0.75rem;background:#FFFFFF;box-shadow:0 4px 16px rgba(0,0,0,0.03)">
+            <div style="background:#F8FAFC;padding:10px 14px;font-weight:700;color:#64748B;border-bottom:1px solid #E2E8F0"></div>
+            <div style="background:#F8FAFC;padding:10px 14px;font-weight:800;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0">VANTIX BIO</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Purity Testing</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Double-verified: Manufacturer + Independent Lab</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">COA Transparency</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Available for every product</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Pricing</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Direct sourcing — no middleman markup</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Shipping</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Next business day, discreet packaging</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Every Order Includes</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Free laboratory solvent kit + analytical solvents</div>
+            <div style="padding:10px 14px;color:#64748B">Support</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-left:1px solid #E2E8F0;font-weight:600">Real humans, same-day responses</div>
         </div>
     </section>
 
     <!-- Email Signup -->
-    <div style="background:#F1F5F9;padding:2rem 1.5rem;text-align:center">
+    <div style="background:#FFFFFF;padding:2.5rem 1.5rem;text-align:center;border-top:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0">
         <div style="max-width:500px;margin:0 auto">
-            <div style="font-size:1rem;font-weight:700;color:#1A2B44;margin-bottom:0.25rem">Get Restock Alerts + Exclusive Pricing</div>
-            <div style="font-size:0.75rem;color:#64748B;margin-bottom:1rem">Be first to know about new compounds and subscriber-only discounts. No spam — ever.</div>
-            <div style="display:flex;gap:8px;max-width:400px;margin:0 auto">
-                <input type="email" placeholder="Your email" style="flex:1;padding:10px 14px;border:1px solid #E2E8F0;border-radius:6px;font-size:0.85rem;font-family:inherit;outline:none">
-                <button style="background:#00B4D8;color:#fff;border:none;padding:10px 20px;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Sign Up</button>
+            <div style="font-size:1.1rem;font-weight:800;color:#1A2B44;margin-bottom:0.35rem;letter-spacing:-0.3px">Get Restock Alerts + Exclusive Pricing</div>
+            <div style="font-size:0.78rem;color:#64748B;margin-bottom:1.25rem">Be first to know about new compounds and subscriber-only discounts. No spam — ever.</div>
+            <div style="display:flex;gap:10px;max-width:420px;margin:0 auto">
+                <input type="email" placeholder="Your email" style="flex:1;padding:12px 16px;border:1px solid #E2E8F0;border-radius:10px;font-size:0.88rem;font-family:inherit;outline:none;background:#F8FAFC">
+                <button style="background:#00B4D8;color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;box-shadow:0 2px 12px rgba(0,180,216,0.3);transition:all 0.2s">Sign Up</button>
             </div>
         </div>
     </div>
@@ -1472,7 +1514,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo"><span style="color:#00B4D8">PRC</span> PEPTIDES</div>
-            <div style="font-size:0.75rem;color:#94A3B8;margin-bottom:1.5rem">Research-grade compounds for in vitro use</div>
+            <div style="font-size:0.75rem;color:#94A3B8;margin-bottom:1.5rem;font-weight:400">Research-grade compounds for in vitro use</div>
             <div class="footer-links">
                 <a href="#shop">Shop</a>
                 <a href="faq.html">FAQ</a>
@@ -1481,7 +1523,7 @@
                 <a href="mailto:support@vantixbio.com">Contact</a>
             </div>
             <div style="font-size:0.72rem;color:#94A3B8;margin-bottom:1rem">support@vantixbio.com</div>
-            <div class="footer-disclaimer" style="background:#7F1D1D;padding:16px;border-radius:8px;margin-bottom:16px">
+            <div class="footer-disclaimer" style="background:#FEF2F2;padding:16px;border-radius:10px;margin-bottom:16px;border:1px solid #FECACA">
                 <span class="research-only">FOR RESEARCH PURPOSES ONLY.</span> Vantix Bio LLC provides high-purity reagents strictly for in vitro laboratory research. Our products are not for human or veterinary use, nor are they intended to diagnose, treat, cure, or prevent any disease. By purchasing, the buyer acknowledges the hazards associated with the use of these chemicals and confirms they are a qualified researcher. Headquartered in Santa Cruz, CA.
             </div>
             <div style="font-size:0.65rem;color:#94A3B8;margin-top:1rem">© 2026 Vantix Bio LLC. All rights reserved.</div>
@@ -2353,7 +2395,7 @@
     </div>
     <div id="cartToast" class="cart-added-toast"></div>
     <div id="tosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:10000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
-        <div style="background:#fff;border-radius:12px;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;padding:28px">
+        <div style="background:#FFFFFF;border-radius:14px;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;padding:28px;box-shadow:0 12px 40px rgba(0,0,0,0.12)">
             <h2 style="font-size:18px;margin-bottom:16px">Terms of Service</h2>
             <div style="font-size:12.5px;line-height:1.7;color:#475569">
                 <p><strong>Vantix Bio LLC — Terms of Service</strong><br>Last updated: March 4, 2026</p>

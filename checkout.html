@@ -9,29 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Checkout - VANTIX BIO</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes nodeGlow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(0,180,216,0.4)); }
+            50% { filter: drop-shadow(0 0 8px rgba(0,180,216,0.8)); }
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0B0E11;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            background: #F8FAFC;
             color: #1A2B44;
             line-height: 1.6;
             padding-bottom: 100px;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Header - Clinical White */
         .header {
-            background: #1A2B44;
-            color: #E2E8F0;
-            padding: 14px 20px;
+            background: #FFFFFF;
+            color: #1A2B44;
+            padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border-bottom: 2px solid #00B4D8;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
         .header-content {
@@ -43,28 +45,37 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #1A2B44;
+            text-decoration: none;
         }
 
-        .logo span { color: #00B4D8; }
+        .logo-hex { width: 32px; height: 32px; }
+        .logo-hex svg { width: 32px; height: 32px; }
+        .logo-hex .hex-frame { fill: none; stroke: #1A2B44; stroke-width: 2; }
+        .logo-hex .hex-nodes { fill: #00B4D8; animation: nodeGlow 3s ease-in-out infinite; }
+        .logo-hex .hex-text { fill: #1A2B44; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; font-size: 14px; }
 
         .back-link {
-            color: #94A3B8;
+            color: #64748B;
             text-decoration: none;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             transition: color 0.2s;
         }
 
-        .back-link:hover { color: #E2E8F0; }
+        .back-link:hover { color: #00B4D8; }
 
         /* Progress Bar */
         .progress-bar {
-            background: #E2E8F0;
+            background: #FFFFFF;
             border-bottom: 1px solid #E2E8F0;
-            padding: 12px 20px;
+            padding: 14px 20px;
         }
 
         .progress-content {
@@ -85,19 +96,15 @@
             transition: color 0.3s;
         }
 
-        .progress-step.active {
-            color: #00B4D8;
-        }
-
-        .progress-step.done {
-            color: #059669;
-        }
+        .progress-step.active { color: #00B4D8; }
+        .progress-step.done { color: #059669; }
 
         .progress-dot {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: #E2E8F0;
+            background: #F1F5F9;
+            border: 2px solid #E2E8F0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -109,54 +116,56 @@
 
         .progress-step.active .progress-dot {
             background: #00B4D8;
-            color: #E2E8F0;
+            border-color: #00B4D8;
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(0,180,216,0.3);
         }
 
         .progress-step.done .progress-dot {
             background: #059669;
-            color: #E2E8F0;
+            border-color: #059669;
+            color: #FFFFFF;
         }
 
         .progress-line {
             flex: 1;
             height: 2px;
             background: #E2E8F0;
-            margin: 0 4px;
+            margin: 0 6px;
             transition: background 0.3s;
         }
 
-        .progress-line.done {
-            background: #059669;
-        }
+        .progress-line.done { background: #059669; }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 16px;
+            padding: 20px 16px;
         }
 
         .disclaimer {
             font-size: 11px;
             color: #94A3B8;
             text-align: center;
-            padding: 8px 0 4px;
+            padding: 8px 0 12px;
             letter-spacing: 0.3px;
         }
 
-        /* Sections */
+        /* Sections - White panels with shadow */
         .section {
-            background: #E2E8F0;
+            background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 12px;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
             transition: opacity 0.3s;
         }
 
         .section-title {
             font-size: 16px;
             font-weight: 700;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             color: #1A2B44;
         }
 
@@ -164,13 +173,12 @@
         .cart-item {
             display: flex;
             align-items: center;
-            padding: 12px 0;
+            padding: 14px 0;
             border-bottom: 1px solid #F1F5F9;
             gap: 12px;
         }
 
         .cart-item:last-child { border-bottom: none; }
-
         .cart-item-info { flex: 1; min-width: 0; }
 
         .cart-item-name {
@@ -183,6 +191,7 @@
         .cart-item-price {
             font-size: 13px;
             color: #64748B;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .cart-item-actions {
@@ -195,14 +204,15 @@
             display: flex;
             align-items: center;
             gap: 0;
-            background: #F1F5F9;
-            border-radius: 6px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
             overflow: hidden;
         }
 
         .qty-btn {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border: none;
             background: transparent;
             color: #475569;
@@ -212,14 +222,16 @@
             transition: background 0.15s;
         }
 
+        .qty-btn:hover { background: #F1F5F9; }
         .qty-btn:active { background: #E2E8F0; }
 
         .qty-display {
-            min-width: 24px;
+            min-width: 28px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             color: #1A2B44;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .remove-btn {
@@ -228,19 +240,20 @@
             text-decoration: none;
             cursor: pointer;
             line-height: 1;
-            padding: 2px;
-            transition: color 0.2s;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
         }
 
-        .remove-btn:hover { color: #94A3B8; }
+        .remove-btn:hover { color: #EF4444; background: #FEF2F2; }
 
         /* Cart Summary Mini */
         .cart-summary-mini {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 12px;
-            border-top: 1px solid #E2E8F0;
+            padding-top: 14px;
+            border-top: 1px solid #F1F5F9;
             margin-top: 4px;
         }
 
@@ -250,9 +263,10 @@
         }
 
         .cart-summary-mini .amount {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 800;
             color: #1A2B44;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         /* Forms */
@@ -260,7 +274,7 @@
 
         .form-label {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             font-size: 13px;
             font-weight: 600;
             color: #475569;
@@ -268,12 +282,12 @@
 
         .form-input {
             width: 100%;
-            padding: 11px 12px;
+            padding: 12px 14px;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             color: #1A2B44;
-            background: #E2E8F0;
+            background: #F8FAFC;
             transition: border-color 0.2s, box-shadow 0.2s;
             font-family: inherit;
         }
@@ -281,41 +295,41 @@
         .form-input:focus {
             outline: none;
             border-color: #00B4D8;
-            box-shadow: 0 0 0 3px rgba(43, 125, 233, 0.08);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
         }
 
-        .form-row {
-            display: flex;
-            gap: 10px;
-        }
-
+        .form-row { display: flex; gap: 10px; }
         .form-row .form-group { flex: 1; }
 
         /* Shipping & Payment Options */
         .option-card {
             border: 2px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 14px 16px;
+            border-radius: 12px;
+            padding: 16px 18px;
             margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            background: #FFFFFF;
         }
 
         .option-card:last-child { margin-bottom: 0; }
 
         .option-card.selected {
             border-color: #00B4D8;
-            background: rgba(43, 125, 233, 0.03);
+            background: rgba(0,180,216,0.03);
+            box-shadow: 0 2px 8px rgba(0,180,216,0.1);
         }
 
+        .option-card:hover { border-color: #CBD5E1; }
         .option-card:active { transform: scale(0.995); }
 
         .option-radio {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border: 2px solid #CBD5E1;
             border-radius: 50%;
             display: flex;
@@ -331,8 +345,8 @@
 
         .option-card.selected .option-radio::after {
             content: '';
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #00B4D8;
             border-radius: 50%;
         }
@@ -353,18 +367,19 @@
         }
 
         .option-price {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 15px;
             color: #1A2B44;
             flex-shrink: 0;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .discount-tag {
             display: inline-block;
             background: #ECFDF5;
             color: #059669;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
             font-size: 11px;
             font-weight: 700;
             margin-top: 4px;
@@ -372,22 +387,15 @@
         }
 
         /* Promo Code */
-        .promo-row {
-            display: flex;
-            gap: 8px;
-        }
-
-        .promo-row input {
-            flex: 1;
-            text-transform: uppercase;
-        }
+        .promo-row { display: flex; gap: 8px; }
+        .promo-row input { flex: 1; text-transform: uppercase; }
 
         .promo-btn {
-            padding: 11px 18px;
-            background: #F1F5F9;
+            padding: 11px 20px;
+            background: #F8FAFC;
             color: #475569;
             border: 1px solid #E2E8F0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
@@ -395,12 +403,9 @@
             transition: all 0.2s;
         }
 
-        .promo-btn:hover { background: #E2E8F0; }
+        .promo-btn:hover { background: #F1F5F9; border-color: #CBD5E1; }
 
-        .promo-msg {
-            font-size: 12px;
-            margin-top: 6px;
-        }
+        .promo-msg { font-size: 12px; margin-top: 6px; }
 
         /* Order Summary */
         .summary-row {
@@ -411,17 +416,18 @@
             color: #475569;
         }
 
-        .summary-row.discount {
-            color: #059669;
-            font-weight: 600;
+        .summary-row span:last-child {
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
+
+        .summary-row.discount { color: #059669; font-weight: 600; }
 
         .summary-row.total {
             border-top: 2px solid #E2E8F0;
             margin-top: 8px;
-            padding-top: 12px;
-            font-size: 17px;
-            font-weight: 700;
+            padding-top: 14px;
+            font-size: 18px;
+            font-weight: 800;
             color: #1A2B44;
         }
 
@@ -431,10 +437,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: #E2E8F0;
+            background: #FFFFFF;
             border-top: 1px solid #E2E8F0;
-            padding: 12px 16px;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+            padding: 14px 16px;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
             z-index: 50;
         }
 
@@ -454,40 +460,34 @@
 
         .footer-total strong {
             display: block;
-            font-size: 17px;
+            font-size: 18px;
             color: #1A2B44;
-            font-weight: 700;
+            font-weight: 800;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .footer-btn {
             flex: 1;
             max-width: 220px;
-            padding: 13px 24px;
+            padding: 14px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             background: #00B4D8;
-            color: #E2E8F0;
+            color: #FFFFFF;
             font-family: inherit;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
         }
 
-        .footer-btn:active {
-            background: #1E6FD9;
-        }
-
-        .footer-btn:disabled {
-            background: #CBD5E1;
-            cursor: not-allowed;
-        }
+        .footer-btn:hover { background: #0096C7; box-shadow: 0 4px 20px rgba(0,180,216,0.4); }
+        .footer-btn:active { background: #0096C7; }
+        .footer-btn:disabled { background: #CBD5E1; cursor: not-allowed; box-shadow: none; }
 
         /* Empty Cart */
-        .empty-cart {
-            text-align: center;
-            padding: 48px 20px;
-        }
+        .empty-cart { text-align: center; padding: 48px 20px; }
 
         .empty-cart-text {
             font-size: 16px;
@@ -498,83 +498,89 @@
         .browse-btn {
             display: inline-block;
             background: #00B4D8;
-            color: #E2E8F0;
-            padding: 12px 28px;
-            border-radius: 8px;
+            color: #FFFFFF;
+            padding: 14px 32px;
+            border-radius: 10px;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
+            transition: all 0.2s;
         }
+
+        .browse-btn:hover { background: #0096C7; }
 
         /* Order Confirmation */
         .confirmation-header {
             text-align: center;
-            padding: 32px 20px 24px;
+            padding: 40px 20px 28px;
         }
 
         .success-check {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             background: #059669;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
+            box-shadow: 0 4px 16px rgba(5,150,105,0.3);
         }
 
-        .success-check svg {
-            width: 28px;
-            height: 28px;
-        }
+        .success-check svg { width: 28px; height: 28px; }
 
         .confirmation-title {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 22px;
+            font-weight: 800;
             color: #1A2B44;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .confirmation-order {
             font-size: 14px;
             color: #64748B;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .payment-instructions {
-            background: #0B0E11;
+            background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 12px;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
         }
 
         .payment-instructions h3 {
             font-size: 15px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             color: #1A2B44;
         }
 
         .instruction-step {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #334155;
         }
 
         .highlight {
-            background: #EFF6FF;
+            background: rgba(0,180,216,0.08);
             color: #00B4D8;
-            padding: 1px 6px;
-            border-radius: 4px;
+            padding: 2px 8px;
+            border-radius: 6px;
             font-weight: 700;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
         .warning-note {
             background: #FEF2F2;
-            border-radius: 6px;
-            padding: 10px 12px;
-            margin-top: 12px;
+            border: 1px solid #FECACA;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 14px;
             font-size: 12px;
             color: #991B1B;
             line-height: 1.5;
@@ -583,33 +589,40 @@
         .confirm-actions {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-top: 16px;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .confirm-btn {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             display: block;
             font-family: inherit;
+            transition: all 0.2s;
         }
 
         .confirm-btn.primary {
             background: #00B4D8;
-            color: #E2E8F0;
+            color: #FFFFFF;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
         }
 
+        .confirm-btn.primary:hover { background: #0096C7; }
+
         .confirm-btn.secondary {
-            background: #F1F5F9;
+            background: #F8FAFC;
             color: #475569;
+            border: 1px solid #E2E8F0;
         }
+
+        .confirm-btn.secondary:hover { background: #F1F5F9; }
 
         .hidden { display: none !important; }
 
@@ -621,6 +634,7 @@
                 border-top: none;
                 padding: 0;
                 margin-top: 16px;
+                background: transparent;
             }
             .footer-inner { justify-content: flex-end; }
         }
@@ -636,9 +650,23 @@
     <!-- Header -->
     <div class="header">
         <div class="header-content">
-            <a href="/" class="logo" style="text-decoration:none;color:inherit"><span>PRC</span> Peptides</a>
-            <div style="display:flex;align-items:center;gap:12px">
-                <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:#059669;font-weight:600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure</span>
+            <a href="/" class="logo">
+                <div class="logo-hex">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <polygon class="hex-frame" points="24,2 44,14 44,34 24,46 4,34 4,14" />
+                        <circle class="hex-nodes" cx="24" cy="2" r="3" />
+                        <circle class="hex-nodes" cx="44" cy="14" r="3" />
+                        <circle class="hex-nodes" cx="44" cy="34" r="3" />
+                        <circle class="hex-nodes" cx="24" cy="46" r="3" />
+                        <circle class="hex-nodes" cx="4" cy="34" r="3" />
+                        <circle class="hex-nodes" cx="4" cy="14" r="3" />
+                        <text class="hex-text" x="24" y="28" text-anchor="middle">VX</text>
+                    </svg>
+                </div>
+                <span>VANTIX BIO</span>
+            </a>
+            <div style="display:flex;align-items:center;gap:14px">
+                <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#059669;font-weight:600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure</span>
                 <a href="shop.html" class="back-link">← Shop</a>
             </div>
         </div>
@@ -753,7 +781,7 @@
             </div>
             
             <!-- Compliance Certification -->
-            <div style="margin-top:20px;padding:16px;background:#FFF9E6;border:1px solid #FDB022;border-radius:8px">
+            <div style="margin-top:20px;padding:16px;background:#FFFBEB;border:1px solid #FDB022;border-radius:10px">
                 <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
                     <input type="checkbox" id="complianceCheck" required style="margin-top:3px;width:18px;height:18px;cursor:pointer">
                     <span style="font-size:13px;line-height:1.5;color:#1A2B44"><strong style="color:#DC2626">Required:</strong> I am 18+, certify these products are for research/in vitro use only, and agree to the <a href="#" onclick="document.getElementById('tosModal').style.display='flex';return false" style="color:#00B4D8;text-decoration:underline">Terms of Service</a>.</span>
