@@ -1272,6 +1272,81 @@
 @media (max-width: 420px) {
     .product-grid { grid-template-columns: 1fr; }
 }
+
+/* Premium Boutique Enhancements */
+.logo {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.8; }
+
+.product-card {
+    box-shadow: 0 2px 12px rgba(26,43,68,0.06);
+    border: 1px solid rgba(226,232,240,0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(26,43,68,0.12);
+    border-color: rgba(0,180,216,0.3);
+}
+
+.coa-badge, .janoshik-badge {
+    background: linear-gradient(135deg, #00B4D8 0%, #0096C7 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,180,216,0.2);
+}
+
+.product-price {
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+button, .btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+button:hover:not(:disabled), .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,180,216,0.25);
+}
+button:active, .btn:active {
+    transform: translateY(0);
+}
+
+.trust-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(0,180,216,0.08);
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1A2B44;
+    border: 1px solid rgba(0,180,216,0.15);
+}
+
+.premium-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #1A2B44 0%, #334155 100%);
+    color: #00B4D8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(26,43,68,0.3);
+}
     </style>
 </head>
 <body>
@@ -1299,7 +1374,7 @@
         <div class="header-content">
             <div class="header-left">
                 <div class="logo-block">
-                    <div class="logo">VANTIX BIO</div>
+                    <a href="index.html" class="logo">VANTIX BIO</a>
                 </div>
                 <nav>
                 <a href="#shop" class="active">Shop</a>
