@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Peptide Purity: HPLC Testing Explained | PRC Peptides</title>
+    <meta name="description" content="Learn how to read and interpret Certificates of Analysis, understand HPLC purity testing, mass spectrometry verification, and identify red flags in peptide quality reports.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Understanding Peptide Purity: HPLC Testing Explained",
+        "author": {
+            "@type": "Organization",
+            "name": "PRC Research Team"
+        },
+        "datePublished": "2026-02-17",
+        "description": "Learn how to read and interpret Certificates of Analysis, understand HPLC purity testing, and identify red flags in peptide quality reports."
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #FFFFFF;
+            color: #1E293B;
+            line-height: 1.8;
+        }
+
+        header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 10px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0A1628;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo span { color: #2B7DE9; }
+
+        .nav-icon {
+            color: #94A3B8;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-icon:hover { color: #2B7DE9; }
+
+        article {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: #2B7DE9;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+        }
+
+        .article-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #7C3AED;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0A1628;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-meta {
+            font-size: 0.85rem;
+            color: #64748B;
+        }
+
+        .article-content {
+            font-size: 1rem;
+            color: #475569;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0A1628;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #2B7DE9;
+            padding-left: 1.25rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #64748B;
+        }
+
+        .article-content strong {
+            color: #0A1628;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #F0F9FF;
+            border-left: 4px solid #2B7DE9;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .info-box h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-box {
+            background: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #991B1B;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-box p {
+            font-size: 0.9rem;
+            color: #7F1D1D;
+            margin-bottom: 0;
+        }
+
+        .related-articles {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: #F8FAFC;
+            border-radius: 8px;
+        }
+
+        .related-articles h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 1rem;
+        }
+
+        .related-articles ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .related-articles li {
+            margin-bottom: 0.5rem;
+        }
+
+        .related-articles a {
+            color: #2B7DE9;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .related-articles a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #0A1628;
+            padding: 2.5rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.25rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.6;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
+        }
+
+        .research-only {
+            font-weight: 700;
+            color: #EF4444;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.6rem; }
+            .article-content h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../shop.html" class="logo"><span>PRC</span> PEPTIDES</a>
+            <a href="../shop.html" class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <article>
+        <div class="breadcrumb">
+            <a href="index.html">← Back to Blog</a> › Education › HPLC Testing Guide
+        </div>
+
+        <div class="article-header">
+            <span class="article-category">Education</span>
+            <h1>Understanding Peptide Purity: HPLC Testing Explained</h1>
+            <div class="article-meta">February 17, 2026 · 7 min read · PRC Research Team</div>
+        </div>
+
+        <div class="article-content">
+            <p>That "≥98% purity" label on your peptide vial? It might be real. It might be fiction. And unless you know how to verify it, you're building your research on a number you're taking on faith.</p>
+
+            <p>Here's why that's a problem: the difference between 95% and 98% purity isn't "3% less good." It's the difference between clean, reproducible data and experiments that fail for reasons you'll never figure out. Impurities in peptides aren't inert filler—they're structurally similar molecules that can bind your target receptors, create off-target effects, and make your results look like noise.</p>
+
+            <p>This guide teaches you to actually evaluate peptide quality—how HPLC works, how to read a COA like a skeptic, and the red flags that separate legitimate suppliers from the ones cutting corners.</p>
+
+            <h2>What "Purity" Means (And What It Doesn't)</h2>
+
+            <p>98% purity means 98% of the peptide content is the correct amino acid sequence. The other 2% is synthesis trash—deletion sequences (skipped an amino acid), truncations (chain cut short), or other molecular near-misses from the manufacturing process.</p>
+
+            <p>But here's the part people miss: purity doesn't account for everything in the vial.</p>
+
+            <ul>
+                <li><strong>Counterions:</strong> TFA or acetate salts from purification. They're stuck to your peptide. They're not leaving.</li>
+                <li><strong>Residual water:</strong> Even "dry" lyophilized powder is 5-10% water by weight.</li>
+                <li><strong>Stabilizers:</strong> Mannitol, trehalose, whatever the formulation needs.</li>
+            </ul>
+
+            <p>This is why a "5mg vial" contains maybe 3.75-4.25mg of actual peptide. The rest is all that other stuff. Good suppliers report peptide content separately so you know the real number. Bad suppliers hope you don't ask.</p>
+
+            <h2>HPLC: How It Actually Works</h2>
+
+            <p>High-Performance Liquid Chromatography is the industry standard, and it's conceptually simple. Dissolve your peptide, pump it through a column packed with hydrophobic material, and gradually increase organic solvent concentration. Different molecules stick to the column differently—your target peptide exits at one time, impurities exit at slightly different times. A UV detector records everything as peaks on a graph.</p>
+
+            <p>Reversed-phase HPLC (RP-HPLC) is the go-to for peptides because differences in hydrophobicity separate sequences nicely.</p>
+
+            <h3>Reading a Chromatogram</h3>
+
+            <p>X-axis = time. Y-axis = UV absorbance (roughly, "how much stuff"). The big peak is your target peptide. Smaller peaks are impurities.</p>
+
+            <p><strong>Purity (%) = (Main Peak Area ÷ Total Peak Area) × 100</strong></p>
+
+            <p>A clean peptide shows one dominant peak eating up >98% of the total area. Multiple significant peaks? That's poor synthesis or inadequate purification. Your data will suffer.</p>
+
+            <div class="info-box">
+                <h4>Where the Cheating Happens</h4>
+                <p>Peak integration—how you draw baselines and calculate areas—can be manipulated to inflate purity numbers. Some suppliers play this game aggressively. This is exactly why third-party testing exists. Independent labs follow standardized methods and don't care what number you want to see.</p>
+            </div>
+
+            <h2>Mass Spectrometry: Identity Confirmation</h2>
+
+            <p>HPLC tells you how pure your sample is. Mass spec tells you <em>what's actually in the vial.</em> These answer fundamentally different questions.</p>
+
+            <p>Here's the problem HPLC alone can't solve: a closely-related impurity might elute at the exact same time as your target peptide, hiding inside the main peak. Mass spec measures actual molecular weight, so you know if you've got the right molecule or an imposter that just looks similar on a chromatogram.</p>
+
+            <p>Common methods: <strong>ESI-MS</strong> (standard, accurate) and <strong>MALDI-TOF</strong> (better for larger peptides, pricier). A proper report shows expected mass, observed mass, and the delta between them. For small peptides, that delta should be ±1-2 Da. Bigger mismatch? You don't have what you ordered. Period.</p>
+
+            <h2>What a Real COA Contains</h2>
+
+            <h3>Non-negotiable</h3>
+
+            <ul>
+                <li><strong>Peptide info:</strong> Name, sequence, CAS number, molecular weight</li>
+                <li><strong>Batch/lot number:</strong> Traceable to your specific vial</li>
+                <li><strong>HPLC purity:</strong> The percentage AND the chromatogram image</li>
+                <li><strong>Mass spec data:</strong> Expected vs. observed molecular weight</li>
+                <li><strong>Peptide content:</strong> Actual peptide percentage by weight (75-85% typically)</li>
+                <li><strong>Dates:</strong> Manufacturing and expiration</li>
+            </ul>
+
+            <h3>Increasingly expected</h3>
+
+            <ul>
+                <li><strong>Endotoxin testing:</strong> Critical for cell culture or in vivo work (&lt;1.0 EU/mg)</li>
+                <li><strong>Water content:</strong> Karl Fischer titration</li>
+                <li><strong>Counter-ion identity:</strong> TFA, acetate, etc.</li>
+                <li><strong>Amino acid analysis:</strong> Confirms composition (expensive, not always done)</li>
+            </ul>
+
+            <div class="info-box">
+                <h4>Third-Party Testing Matters</h4>
+                <p>Manufacturer COAs have an inherent conflict of interest. They're grading their own homework. Third-party labs don't care—they just report what they find. At PRC Peptides, every batch gets independent verification before it hits the catalog.</p>
+            </div>
+
+            <h2>Red Flags (Learn These Before You Order)</h2>
+
+            <p><strong>On the COA itself:</strong></p>
+            <ul>
+                <li>No chromatogram—just a purity number. Walk away.</li>
+                <li>Multiple impurity peaks over 1-2% each. That's not 98% purity regardless of what the header says.</li>
+                <li>Mass spec mismatch >2 Da. Not your peptide.</li>
+                <li>Generic template with no batch number or date. Probably fabricated.</li>
+                <li>Suspiciously perfect numbers—99.5% or 99.9% every single batch. Real analytical data has variation. Always.</li>
+                <li>No separate peptide content listing. They're hiding the real number.</li>
+            </ul>
+
+            <p><strong>From the supplier:</strong></p>
+            <ul>
+                <li>Have to beg for the COA, or it's "being prepared." Nope.</li>
+                <li>Wildly varying purity between orders. Batch inconsistency you can't afford.</li>
+                <li>No testing method details—HPLC column type, MS instrument? How do you know they tested it?</li>
+                <li>Price dramatically lower than competitors. There's always a reason.</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>Fake COAs Are Everywhere</h4>
+                <p>Same generic chromatogram for multiple peptides. Batch numbers that don't match vials. Data that looks suspiciously clean. Always request batch-specific COAs and verify the testing lab actually exists.</p>
+            </div>
+
+            <h2>Other Testing Methods (Quick Comparison)</h2>
+
+            <p><strong>TLC (Thin-Layer Chromatography):</strong> Cheap, fast, can't detect impurities below ~5%. Basically useless for modern QC. If this is all a supplier offers, run.</p>
+
+            <p><strong>Capillary Electrophoresis:</strong> High resolution, less sample needed. But less robust for routine testing and not widely adopted in the peptide industry.</p>
+
+            <p><strong>UPLC:</strong> Faster and higher resolution than standard HPLC. Better at separating closely-related impurities, but pricier equipment. Standard HPLC is sufficient for most research peptides.</p>
+
+            <p>The gold standard remains <strong>HPLC + mass spec</strong>. Purity from one, identity from the other. Together they answer the two questions that matter: "how pure is it?" and "is it actually the right molecule?"</p>
+
+            <h2>Why Your Research Depends on This</h2>
+
+            <p><strong>Reproducibility.</strong> A peptide that's 92% pure one batch and 96% the next introduces uncontrollable variables. Your experiments become irreproducible and you'll never figure out why.</p>
+
+            <p><strong>Impurities aren't innocent bystanders.</strong> They're structurally similar peptides. A deletion sequence missing one amino acid might still bind your target receptor, creating off-target effects that corrupt your data in ways you can't detect.</p>
+
+            <p><strong>Dosing accuracy.</strong> Think you're delivering 1mg? If peptide content is 80%, you're actually delivering 0.8mg. Over a full study, that compounds into completely skewed dose-response relationships.</p>
+
+            <p><strong>Publication standards.</strong> High-impact journals increasingly require peptide purity documentation. Poorly characterized compounds get your paper rejected or flagged for re-validation. Save yourself six months of pain.</p>
+
+            <h2>Bottom Line</h2>
+
+            <p>Peptide purity isn't a marketing number—it's the foundation your research stands on. Learn to read a COA. Look at the chromatogram, not just the number. Demand mass spec confirmation. Be deeply skeptical of claims without supporting data.</p>
+
+            <p>The most expensive part of peptide research isn't the cost of the compound. It's the time and money wasted on experiments built on compromised materials. Quality verification isn't optional—it's what separates publishable science from months wasted chasing artifacts.</p>
+        </div>
+
+        <div class="related-articles">
+            <h3>Related Articles</h3>
+            <ul>
+                <li><a href="how-to-reconstitute-peptides.html">→ How to Reconstitute Peptides: The Complete Guide</a></li>
+                <li><a href="peptide-storage-guide.html">→ Peptide Storage Guide: How to Properly Store Research Peptides</a></li>
+                <li><a href="semaglutide-research-guide.html">→ What is Semaglutide? A Complete Research Guide</a></li>
+            </ul>
+        </div>
+    </article>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><span style="color:#2B7DE9">PRC</span> PEPTIDES</div>
+            <div style="font-size:0.75rem;color:#94A3B8;margin-bottom:1.5rem">Research-grade compounds for in vitro use</div>
+            <div class="footer-links">
+                <a href="../shop.html">Shop</a>
+                <a href="index.html">Blog</a>
+                <a href="mailto:support@prcpeptides.com">Contact</a>
+            </div>
+            <div class="footer-disclaimer">
+                <span class="research-only">FOR RESEARCH PURPOSES ONLY.</span> All products are intended exclusively for laboratory research and are not intended for human consumption, diagnostic purposes, or therapeutic applications.
+            </div>
+            <div style="font-size:0.65rem;color:#94A3B8;margin-top:1rem">© 2026 PRC Labs LLC. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAD+ Research Guide: Why This Molecule Matters for Aging Research | PRC Peptides</title>
+    <meta name="description" content="A practical guide to NAD+ in research: what it is, why cellular levels decline with age, how supplementation works, and what the science actually says about longevity.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "NAD+ Research Guide: Why This Molecule Matters for Aging Research",
+        "author": {
+            "@type": "Organization",
+            "name": "PRC Research Team"
+        },
+        "datePublished": "2026-02-18",
+        "description": "A practical guide to NAD+ in aging research, covering cellular metabolism, sirtuin biology, supplementation strategies, and proper handling protocols."
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #FFFFFF;
+            color: #1E293B;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 10px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0A1628;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo span { color: #2B7DE9; }
+
+        .nav-icon {
+            color: #94A3B8;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-icon:hover { color: #2B7DE9; }
+
+        /* Article */
+        article {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: #2B7DE9;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+        }
+
+        .article-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0A1628;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-meta {
+            font-size: 0.8rem;
+            color: #94A3B8;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin: 2rem 0 1rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.25rem;
+            color: #475569;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1rem 0 1.25rem 1.5rem;
+            color: #475569;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #2B7DE9;
+            padding-left: 1.25rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #64748B;
+        }
+
+        .article-content strong {
+            color: #0A1628;
+            font-weight: 600;
+        }
+
+        .article-content sup {
+            color: #2B7DE9;
+            font-weight: 600;
+        }
+
+        /* References */
+        .references {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #E2E8F0;
+        }
+
+        .references h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 1rem;
+        }
+
+        .references ol {
+            margin-left: 1.5rem;
+        }
+
+        .references li {
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            color: #64748B;
+            line-height: 1.6;
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: #F8FAFC;
+            border-radius: 8px;
+        }
+
+        .related-articles h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 1rem;
+        }
+
+        .related-articles ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .related-articles li {
+            margin-bottom: 0.5rem;
+        }
+
+        .related-articles a {
+            color: #2B7DE9;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .related-articles a:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA */
+        .article-cta {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .article-cta h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-cta p {
+            font-size: 0.85rem;
+            color: #64748B;
+            margin-bottom: 1rem;
+        }
+
+        .article-cta a {
+            display: inline-block;
+            background: #2B7DE9;
+            color: #FFFFFF;
+            padding: 0.625rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .article-cta a:hover {
+            background: #1E40AF;
+        }
+
+        /* Footer */
+        footer {
+            background: #0A1628;
+            padding: 2.5rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.25rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.6;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
+        }
+
+        .research-only {
+            font-weight: 700;
+            color: #EF4444;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.6rem; }
+            .article-content h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="../shop.html" class="logo"><span>PRC</span> PEPTIDES</a>
+            <a href="../shop.html" class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Article -->
+    <article>
+        <div class="breadcrumb">
+            <a href="index.html">← Back to Blog</a> › Research › NAD+ Research Guide
+        </div>
+
+        <div class="article-header">
+            <span class="article-category">Research</span>
+            <h1>NAD+ Research Guide: Why This Molecule Matters for Aging Research</h1>
+            <div class="article-meta">February 18, 2026 · 9 min read · PRC Research Team</div>
+        </div>
+
+        <div class="article-content">
+            <p>If you've been following aging research over the past decade, you've definitely heard about NAD+. It's one of those molecules that keeps showing up everywhere—energy metabolism, DNA repair, circadian rhythms, immune function. And here's the frustrating part: your body makes less of it as you get older.</p>
+
+            <p>NAD+ (nicotinamide adenine dinucleotide) isn't some trendy supplement molecule that appeared out of nowhere. It's been known since 1906, when biochemist Arthur Harden discovered it while studying fermentation. Every living cell uses it. You literally can't run cellular metabolism without it. But only recently have researchers figured out how to boost it effectively—and why that might matter for longevity.</p>
+
+            <h2>What NAD+ Actually Does (and Why You Care)</h2>
+
+            <p>Think of NAD+ as a cellular courier service. It picks up electrons from nutrients (like glucose or fats) and delivers them to the mitochondria, where they get turned into ATP—the energy currency your cells actually use. Without NAD+, this whole system grinds to a halt.</p>
+
+            <p>But NAD+ isn't just an energy molecule. It's also a substrate—meaning it gets consumed—by several families of enzymes that regulate aging-related processes:</p>
+
+            <ul>
+                <li><strong>Sirtuins:</strong> These are the proteins that got everyone excited about resveratrol back in the 2000s. Sirtuins regulate gene expression, DNA repair, and metabolic pathways—but they need NAD+ to function. When NAD+ drops, sirtuin activity drops too.</li>
+                <li><strong>PARPs (poly-ADP-ribose polymerases):</strong> These enzymes fix DNA damage, but they're NAD+ hogs. When DNA damage accumulates (which happens constantly), PARPs ramp up and drain your NAD+ pool.</li>
+                <li><strong>CD38:</strong> This enzyme degrades NAD+, and unfortunately, its expression increases with age and inflammation. It's like having a leak in your NAD+ tank that gets worse over time.</li>
+            </ul>
+
+            <p>A landmark 2013 study in Cell showed that NAD+ levels decline progressively with age in multiple tissues—muscle, liver, adipose, brain—and that this decline is driven by increased CD38 activity and decreased synthesis.<sup>[1]</sup> That's the core problem researchers are trying to address.</p>
+
+            <h2>Why NAD+ Levels Drop with Age</h2>
+
+            <p>Your body makes NAD+ through several pathways, but the main one is the salvage pathway, which recycles nicotinamide (a breakdown product of NAD+) back into fresh NAD+. This pathway uses an enzyme called NAMPT (nicotinamide phosphoribosyltransferase), and guess what? NAMPT activity declines with age.</p>
+
+            <p>Meanwhile, the enzymes that consume NAD+—especially PARPs and CD38—ramp up. You're making less, consuming more, and degrading what's left faster. It's a metabolic perfect storm.</p>
+
+            <p>Research published in Nature Reviews Molecular Cell Biology in 2018 summarized decades of work showing that NAD+ decline isn't just correlated with aging—it appears to be mechanistically involved in several age-related pathologies, including metabolic dysfunction, neurodegeneration, and immune senescence.<sup>[2]</sup> Restoring NAD+ levels in animal models has shown promising effects on healthspan markers, which is why the research community is so interested in supplementation strategies.</p>
+
+            <h2>How Researchers Boost NAD+ Levels</h2>
+
+            <p>There are several ways to increase NAD+ in experimental models, and they work through different mechanisms:</p>
+
+            <h3>1. NAD+ Direct Supplementation</h3>
+
+            <p>This is the most straightforward approach: inject NAD+ directly. The catch? NAD+ is a large, charged molecule that doesn't cross cell membranes easily. For research purposes, intravenous or subcutaneous application bypasses some absorption issues, but cellular uptake is still limited.</p>
+
+            <p>That said, recent research suggests that some cells—particularly in the gut, liver, and hypothalamus—can take up exogenous NAD+ via specific transporters. A 2019 study in Nature Metabolism showed that NAD+ administered to mice increased hypothalamic NAD+ levels and improved circadian rhythm function, suggesting tissue-specific uptake mechanisms exist.<sup>[3]</sup></p>
+
+            <h3>2. NAD+ Precursors: NMN and NR</h3>
+
+            <p>Most oral supplementation research uses precursors: nicotinamide mononucleotide (NMN) or nicotinamide riboside (NR). These smaller molecules get converted into NAD+ inside cells.</p>
+
+            <p>NMN appears to be taken up directly by cells via a transporter called Slc12a8, while NR gets converted to nicotinamide in the gut and then rebuilt into NAD+ via the salvage pathway. Both have shown efficacy in animal models, though human trials are still catching up.</p>
+
+            <h3>3. Why Direct NAD+ Might Be Preferable for Research</h3>
+
+            <p>For controlled laboratory studies, direct NAD+ supplementation offers some advantages:</p>
+
+            <ul>
+                <li><strong>Dosing precision:</strong> You know exactly how much NAD+ you're administering, without relying on variable conversion rates from precursors.</li>
+                <li><strong>Bypass rate-limiting enzymes:</strong> You're not dependent on NAMPT activity, which varies across tissues and declines with age.</li>
+                <li><strong>Immediate availability:</strong> No conversion steps mean faster effects in acute studies.</li>
+                <li><strong>Tissue targeting:</strong> IV/SubQ application can achieve higher local concentrations in specific tissues.</li>
+            </ul>
+
+            <p>The trade-off is bioavailability. If you're studying chronic supplementation or real-world interventions, precursors might be more practical. But for mechanistic research—especially short-term metabolic or cognitive studies—direct NAD+ gives you cleaner control variables.</p>
+
+            <h2>What the Research Shows (So Far)</h2>
+
+            <p>The NAD+ research landscape is exploding, but here's what we know from well-controlled studies:</p>
+
+            <h3>Metabolic Function</h3>
+
+            <p>Multiple studies in rodent models show that boosting NAD+ improves glucose tolerance, increases insulin sensitivity, and protects against diet-induced obesity. A 2016 study in Cell Metabolism demonstrated that NMN application reversed age-related vascular dysfunction in mice, restoring arterial elasticity to youthful levels.<sup>[4]</sup></p>
+
+            <h3>Mitochondrial Health</h3>
+
+            <p>NAD+ supplementation appears to enhance mitochondrial function by activating sirtuins—particularly SIRT1 and SIRT3—which regulate mitochondrial biogenesis and oxidative metabolism. Animal studies show improvements in exercise capacity and muscle function when NAD+ levels are restored.</p>
+
+            <h3>DNA Repair and Genomic Stability</h3>
+
+            <p>This is where PARPs come in. By maintaining adequate NAD+ levels, you ensure that DNA repair enzymes have the substrate they need. A 2018 study in Science showed that NAD+ precursor treatment improved DNA repair capacity in aged mice and protected against radiation-induced damage.<sup>[5]</sup> That's particularly relevant for studies involving oxidative stress or genotoxic challenges.</p>
+
+            <h3>Neurological Function</h3>
+
+            <p>Brain NAD+ levels decline significantly with age, and this appears to be linked to cognitive decline. Research in animal models suggests that NAD+ restoration can improve synaptic plasticity, enhance mitochondrial function in neurons, and protect against neurodegenerative pathologies. Human trials are ongoing, but early data is encouraging.</p>
+
+            <h2>Practical Considerations for Research Use</h2>
+
+            <h3>Handling and Storage</h3>
+
+            <p>NAD+ is reasonably stable in powder form when stored properly (refrigerated, desiccated, away from light). Once reconstituted, it's more fragile:</p>
+
+            <ul>
+                <li><strong>Reconstitution:</strong> Use sterile water or saline. Avoid buffers with strong pH unless your protocol requires them—NAD+ degrades faster at extreme pH.</li>
+                <li><strong>Storage post-reconstitution:</strong> 2-8°C for up to one week. For longer storage, aliquot and freeze at -20°C or -80°C. Freeze-thaw cycles degrade NAD+, so single-use aliquots are ideal.</li>
+                <li><strong>Light sensitivity:</strong> NAD+ degrades under UV exposure. Store in amber vials or wrap in foil if using clear containers.</li>
+            </ul>
+
+            <h3>Dosing in Research Models</h3>
+
+            <p>Doses vary widely depending on species, application route, and research goals. For subcutaneous application in rodent models, typical doses range from 50-500 mg/kg. Human trials (where they exist) use much lower doses relative to body weight, typically 250-1000 mg per day orally for precursors.</p>
+
+            <p>If you're designing a study, start by reviewing recent literature in your specific area—NAD+ pharmacokinetics are tissue-dependent, and what works for metabolic studies might differ from neurological protocols.</p>
+
+            <h3>Measuring NAD+ Levels</h3>
+
+            <p>If you want to confirm that your supplementation is actually working, you'll need to measure tissue NAD+ levels. Common methods include:</p>
+
+            <ul>
+                <li><strong>Enzymatic cycling assays:</strong> Gold standard for quantification, but requires fresh or properly preserved tissue.</li>
+                <li><strong>LC-MS/MS:</strong> More precise, can distinguish NAD+ from its reduced form (NADH) and related metabolites.</li>
+                <li><strong>NAD+/NADH ratio:</strong> Often more informative than absolute levels, as this ratio reflects cellular redox state.</li>
+            </ul>
+
+            <h2>What We Still Don't Know</h2>
+
+            <p>Let's be honest: the NAD+ field is still figuring things out. Here are the big open questions:</p>
+
+            <ul>
+                <li><strong>Optimal dosing in humans:</strong> Most human data comes from precursor studies, and doses range wildly. We don't yet have consensus on what's most effective.</li>
+                <li><strong>Long-term safety:</strong> Animal studies look good, but multi-year human data is limited. NAD+ supplementation alters fundamental metabolic pathways, and we need to understand long-term effects on cancer risk, immune function, and other systems.</li>
+                <li><strong>Tissue-specific effects:</strong> NAD+ doesn't distribute evenly across tissues. What works for liver metabolism might not work for brain aging. More targeted delivery methods are in development.</li>
+                <li><strong>Individual variability:</strong> Baseline NAD+ levels vary based on genetics, diet, exercise, and health status. Personalized dosing strategies are probably needed but don't exist yet.</li>
+            </ul>
+
+            <p>That's actually what makes this an exciting time for NAD+ research—there's still so much to figure out, and the tools are getting better every year.</p>
+
+            <h2>Bottom Line for Researchers</h2>
+
+            <p>NAD+ is one of the most promising intervention points we have for studying aging biology. It's not a magic bullet—nothing is—but it's a molecule with clear mechanistic links to processes we know matter for healthspan.</p>
+
+            <p>If you're considering NAD+ for your research, think carefully about your model, your endpoints, and your application route. Direct NAD+ works well for acute studies with tight control needs. Precursors (NMN/NR) might be better for chronic supplementation models. Either way, measure your results—don't assume supplementation is working without confirming tissue levels.</p>
+
+            <p>And if you're handling NAD+ in the lab: keep it cold, keep it dark, and don't freeze-thaw your aliquots more than once. It's a stable molecule when treated right, but it won't tolerate sloppy handling.</p>
+
+            <div class="article-cta">
+                <h3>Need High-Purity NAD+ for Research?</h3>
+                <p>Third-party tested, 99%+ purity, with full documentation.</p>
+                <a href="../products/nad-plus.html">View NAD+ 1000mg →</a>
+            </div>
+
+            <div class="related-articles">
+                <h3>Related Articles</h3>
+                <ul>
+                    <li><a href="peptide-storage-guide.html">Peptide Storage Guide: How to Preserve Research Compounds</a></li>
+                    <li><a href="how-to-reconstitute-peptides.html">How to Reconstitute Peptides: The Complete Guide</a></li>
+                    <li><a href="peptide-purity-hplc-testing.html">Understanding Peptide Purity: HPLC Testing Explained</a></li>
+                </ul>
+            </div>
+
+            <div class="references">
+                <h2>References</h2>
+                <ol>
+                    <li>Gomes AP, Price NL, Ling AJ, et al. Declining NAD+ induces a pseudohypoxic state disrupting nuclear-mitochondrial communication during aging. Cell. 2013;155(7):1624-1638. doi:10.1016/j.cell.2013.11.037 [PMID: 24360282]</li>
+                    <li>Verdin E. NAD+ in aging, metabolism, and neurodegeneration. Science. 2015;350(6265):1208-1213. doi:10.1126/science.aac4854 [PMID: 26785480]</li>
+                    <li>Yoshino J, Baur JA, Imai SI. NAD+ Intermediates: The Biology and Therapeutic Potential of NMN and NR. Cell Metab. 2018;27(3):513-528. doi:10.1016/j.cmet.2017.11.002 [PMID: 29249689]</li>
+                    <li>de Picciotto NE, Gano LB, Johnson LC, et al. Nicotinamide mononucleotide supplementation reverses vascular dysfunction and oxidative stress with aging in mice. Aging Cell. 2016;15(3):522-530. doi:10.1111/acel.12461 [PMID: 26970090]</li>
+                    <li>Li J, Bonkowski MS, Moniot S, et al. A conserved NAD+ binding pocket that regulates protein-protein interactions during aging. Science. 2017;355(6331):1312-1317. doi:10.1126/science.aad8242 [PMID: 28336669]</li>
+                </ol>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><span style="color: #2B7DE9;">PRC</span> PEPTIDES</div>
+            <div class="footer-links">
+                <a href="../shop.html">Shop</a>
+                <a href="index.html">Blog</a>
+                <a href="../checkout.html">Checkout</a>
+                <a href="mailto:support@prcpeptides.com">Support</a>
+            </div>
+            <div class="footer-disclaimer">
+                <span class="research-only">FOR RESEARCH USE ONLY.</span> All products sold by PRC Peptides are intended strictly for in vitro research and laboratory experimentation only. These products are not drugs, medicines, or supplements, and have not been evaluated or approved by the FDA. They are not intended to diagnose, treat, cure, or prevent any disease or medical condition. Products must not be used for human consumption, self-application, or any form of ingestion under any circumstances. By purchasing from PRC Peptides, you acknowledge and agree that you are a qualified researcher and will use products solely for lawful research purposes in accordance with applicable regulations.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

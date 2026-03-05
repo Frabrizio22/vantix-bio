@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Checkout - VANTIX BIO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0B0E11;
+            color: #1A2B44;
+            line-height: 1.6;
+            padding-bottom: 100px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .header {
+            background: #1A2B44;
+            color: #E2E8F0;
+            padding: 14px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .header-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: #00B4D8; }
+
+        .back-link {
+            color: #94A3B8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: #E2E8F0; }
+
+        /* Progress Bar */
+        .progress-bar {
+            background: #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 12px 20px;
+        }
+
+        .progress-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #CBD5E1;
+            transition: color 0.3s;
+        }
+
+        .progress-step.active {
+            color: #00B4D8;
+        }
+
+        .progress-step.done {
+            color: #059669;
+        }
+
+        .progress-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #94A3B8;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active .progress-dot {
+            background: #00B4D8;
+            color: #E2E8F0;
+        }
+
+        .progress-step.done .progress-dot {
+            background: #059669;
+            color: #E2E8F0;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 2px;
+            background: #E2E8F0;
+            margin: 0 4px;
+            transition: background 0.3s;
+        }
+
+        .progress-line.done {
+            background: #059669;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .disclaimer {
+            font-size: 11px;
+            color: #94A3B8;
+            text-align: center;
+            padding: 8px 0 4px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Sections */
+        .section {
+            background: #E2E8F0;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: opacity 0.3s;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #1A2B44;
+        }
+
+        /* Cart Items */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+            gap: 12px;
+        }
+
+        .cart-item:last-child { border-bottom: none; }
+
+        .cart-item-info { flex: 1; min-width: 0; }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1A2B44;
+            margin-bottom: 2px;
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            color: #64748B;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: #F1F5F9;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: transparent;
+            color: #475569;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .qty-btn:active { background: #E2E8F0; }
+
+        .qty-display {
+            min-width: 24px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1A2B44;
+        }
+
+        .remove-btn {
+            color: #CBD5E1;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            line-height: 1;
+            padding: 2px;
+            transition: color 0.2s;
+        }
+
+        .remove-btn:hover { color: #94A3B8; }
+
+        /* Cart Summary Mini */
+        .cart-summary-mini {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #E2E8F0;
+            margin-top: 4px;
+        }
+
+        .cart-summary-mini .label {
+            font-size: 13px;
+            color: #64748B;
+        }
+
+        .cart-summary-mini .amount {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1A2B44;
+        }
+
+        /* Forms */
+        .form-group { margin-bottom: 14px; }
+
+        .form-label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #1A2B44;
+            background: #E2E8F0;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #00B4D8;
+            box-shadow: 0 0 0 3px rgba(43, 125, 233, 0.08);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-row .form-group { flex: 1; }
+
+        /* Shipping & Payment Options */
+        .option-card {
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-card:last-child { margin-bottom: 0; }
+
+        .option-card.selected {
+            border-color: #00B4D8;
+            background: rgba(43, 125, 233, 0.03);
+        }
+
+        .option-card:active { transform: scale(0.995); }
+
+        .option-radio {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #CBD5E1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option-card.selected .option-radio {
+            border-color: #00B4D8;
+        }
+
+        .option-card.selected .option-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #00B4D8;
+            border-radius: 50%;
+        }
+
+        .option-info { flex: 1; }
+
+        .option-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1A2B44;
+            margin-bottom: 2px;
+        }
+
+        .option-desc {
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.4;
+        }
+
+        .option-price {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1A2B44;
+            flex-shrink: 0;
+        }
+
+        .discount-tag {
+            display: inline-block;
+            background: #ECFDF5;
+            color: #059669;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Promo Code */
+        .promo-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .promo-row input {
+            flex: 1;
+            text-transform: uppercase;
+        }
+
+        .promo-btn {
+            padding: 11px 18px;
+            background: #F1F5F9;
+            color: #475569;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .promo-btn:hover { background: #E2E8F0; }
+
+        .promo-msg {
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        /* Order Summary */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .summary-row.discount {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #E2E8F0;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1A2B44;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #E2E8F0;
+            border-top: 1px solid #E2E8F0;
+            padding: 12px 16px;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+            z-index: 50;
+        }
+
+        .footer-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-total {
+            font-size: 13px;
+            color: #64748B;
+            white-space: nowrap;
+        }
+
+        .footer-total strong {
+            display: block;
+            font-size: 17px;
+            color: #1A2B44;
+            font-weight: 700;
+        }
+
+        .footer-btn {
+            flex: 1;
+            max-width: 220px;
+            padding: 13px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            background: #00B4D8;
+            color: #E2E8F0;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+        .footer-btn:active {
+            background: #1E6FD9;
+        }
+
+        .footer-btn:disabled {
+            background: #CBD5E1;
+            cursor: not-allowed;
+        }
+
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .empty-cart-text {
+            font-size: 16px;
+            color: #64748B;
+            margin-bottom: 20px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            background: #00B4D8;
+            color: #E2E8F0;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Order Confirmation */
+        .confirmation-header {
+            text-align: center;
+            padding: 32px 20px 24px;
+        }
+
+        .success-check {
+            width: 56px;
+            height: 56px;
+            background: #059669;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .success-check svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .confirmation-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 4px;
+        }
+
+        .confirmation-order {
+            font-size: 14px;
+            color: #64748B;
+        }
+
+        .payment-instructions {
+            background: #0B0E11;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .payment-instructions h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1A2B44;
+        }
+
+        .instruction-step {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .highlight {
+            background: #EFF6FF;
+            color: #00B4D8;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .warning-note {
+            background: #FEF2F2;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #991B1B;
+            line-height: 1.5;
+        }
+
+        .confirm-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-family: inherit;
+        }
+
+        .confirm-btn.primary {
+            background: #00B4D8;
+            color: #E2E8F0;
+        }
+
+        .confirm-btn.secondary {
+            background: #F1F5F9;
+            color: #475569;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (min-width: 768px) {
+            body { padding-bottom: 0; }
+            .footer {
+                position: static;
+                box-shadow: none;
+                border-top: none;
+                padding: 0;
+                margin-top: 16px;
+            }
+            .footer-inner { justify-content: flex-end; }
+        }
+
+        @media (max-width: 380px) {
+            .progress-step span { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Age gate removed — shop handles age verification -->
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo" style="text-decoration:none;color:inherit"><span>PRC</span> Peptides</a>
+            <div style="display:flex;align-items:center;gap:12px">
+                <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:#059669;font-weight:600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure</span>
+                <a href="shop.html" class="back-link">← Shop</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-content">
+            <div class="progress-step active" id="prog1"><div class="progress-dot">1</div><span>Cart</span></div>
+            <div class="progress-line" id="line1"></div>
+            <div class="progress-step" id="prog2"><div class="progress-dot">2</div><span>Info</span></div>
+            <div class="progress-line" id="line2"></div>
+            <div class="progress-step" id="prog3"><div class="progress-dot">3</div><span>Ship</span></div>
+            <div class="progress-line" id="line3"></div>
+            <div class="progress-step" id="prog4"><div class="progress-dot">4</div><span>Pay</span></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="disclaimer">All products are for laboratory research purposes only. Not for human consumption.</div>
+
+        <!-- Step 1: Cart -->
+        <div id="cartSection" class="section">
+            <div class="section-title">Your Cart</div>
+            <div id="cartItems"></div>
+            <div id="cartMini" class="cart-summary-mini hidden">
+                <span class="label">Subtotal</span>
+                <span class="amount" id="miniSubtotal">$0.00</span>
+            </div>
+        </div>
+
+        <!-- Step 2: Registered Institution Info -->
+        <div id="customerSection" class="section hidden">
+            <div class="section-title">Shipping Information</div>
+            <div style="font-size:11px;color:#94A3B8;margin-bottom:12px">US shipping addresses only</div>
+            <form id="customerForm" onsubmit="return false">
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-input" id="fullName" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address *</label>
+                    <input type="email" class="form-input" id="email" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Street Address *</label>
+                    <input type="text" class="form-input" id="address" required autocomplete="street-address">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">City *</label>
+                        <input type="text" class="form-input" id="city" required autocomplete="address-level2">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">State *</label>
+                        <input type="text" class="form-input" id="state" maxlength="2" required autocomplete="address-level1" style="text-transform:uppercase">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">ZIP Code *</label>
+                        <input type="text" class="form-input" id="zip" maxlength="10" required autocomplete="postal-code">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" id="phone" autocomplete="tel">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Step 3: Shipping -->
+        <div id="shippingSection" class="section hidden">
+            <div class="section-title">Shipping Method</div>
+            <div class="option-card selected" onclick="selectShipping(this, 'standard', 9.99)">
+                <div class="option-radio"></div>
+                <div class="option-info">
+                    <div class="option-name">Standard Shipping</div>
+                    <div class="option-desc">3-5 business days</div>
+                </div>
+                <div class="option-price">$9.99</div>
+            </div>
+            <div class="option-card" onclick="selectShipping(this, 'expedited', 19.99)">
+                <div class="option-radio"></div>
+                <div class="option-info">
+                    <div class="option-name">Expedited Shipping</div>
+                    <div class="option-desc">1-2 business days</div>
+                </div>
+                <div class="option-price">$19.99</div>
+            </div>
+            <div id="freeShipNote" class="hidden" style="font-size:12px;color:#059669;font-weight:600;margin-top:8px;text-align:center">Free shipping on orders over $150</div>
+        </div>
+
+        <!-- Step 4: Payment -->
+        <div id="paymentSection" class="section hidden">
+            <div class="section-title">Payment Method</div>
+            <div class="option-card" onclick="selectPayment(this, 'crypto')">
+                <div class="option-radio"></div>
+                <div class="option-info">
+                    <div class="option-name">Pay with Crypto</div>
+                    <div class="option-desc">Bitcoin, Ethereum, USDC &amp; more — instant redirect to secure Coinbase checkout</div>
+                </div>
+            </div>
+            <div class="option-card" onclick="selectPayment(this, 'zelle')">
+                <div class="option-radio"></div>
+                <div class="option-info">
+                    <div class="option-name">Pay with Zelle</div>
+                    <div class="option-desc">Send directly from your bank app — no fees, no account needed</div>
+                    <span class="discount-tag">SAVE 5%</span>
+                </div>
+            </div>
+            
+            <!-- Compliance Certification -->
+            <div style="margin-top:20px;padding:16px;background:#FFF9E6;border:1px solid #FDB022;border-radius:8px">
+                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+                    <input type="checkbox" id="complianceCheck" required style="margin-top:3px;width:18px;height:18px;cursor:pointer">
+                    <span style="font-size:13px;line-height:1.5;color:#1A2B44"><strong style="color:#DC2626">Required:</strong> I am 18+, certify these products are for research/in vitro use only, and agree to the <a href="#" onclick="document.getElementById('tosModal').style.display='flex';return false" style="color:#00B4D8;text-decoration:underline">Terms of Service</a>.</span>
+                </label>
+            </div>
+            
+            <div style="margin-top:12px;font-size:11px;color:#64748B;text-align:center">Charges will appear as "PRC LABS" on your statement.</div>
+        </div>
+
+        <!-- Order Summary + Promo -->
+        <div id="summarySection" class="section hidden">
+            <div class="section-title">Order Summary</div>
+            <div id="orderSummary"></div>
+            <div id="promoSection" style="margin-top:12px;padding-top:12px;border-top:1px solid #E2E8F0">
+                <div style="font-size:13px;font-weight:600;color:#475569;margin-bottom:6px">Promo Code</div>
+                <div class="promo-row">
+                    <input type="text" class="form-input" id="promoInput" placeholder="Enter code" style="font-size:14px;padding:9px 12px">
+                    <button class="promo-btn" onclick="applyPromo()">Apply</button>
+                </div>
+                <div id="promoMsg" class="promo-msg"></div>
+            </div>
+        </div>
+
+        <!-- Order Confirmation -->
+        <div id="confirmationSection" class="hidden">
+            <div class="confirmation-header">
+                <div class="success-check"><svg viewBox="0 0 24 24" fill="none" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="confirmation-title">Order Placed</div>
+                <div class="confirmation-order" id="orderNumberText"></div>
+            </div>
+            <div id="paymentInstructions"></div>
+            <div class="section">
+                <div class="section-title">Order Details</div>
+                <div id="orderDetails"></div>
+            </div>
+            <div class="confirm-actions">
+                <button class="confirm-btn primary" onclick="emailOrder()">Send Order Confirmation</button>
+                <a href="shop.html" class="confirm-btn secondary">Continue Shopping</a>
+            </div>
+            <div style="text-align:center;padding:16px 0 8px;font-size:11px;color:#94A3B8">Questions? Email support@vantixbio.com</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="footer-total">
+                <span id="footerLabel">Subtotal</span>
+                <strong id="footerAmount">$0.00</strong>
+            </div>
+            <button id="actionBtn" class="footer-btn" onclick="nextStep()">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // ES5 compatible
+        var cart = [];
+        var savedOrder = null;
+        var currentStep = 1;
+        var selectedShipping = { name: 'Standard Shipping', price: 9.99 };
+        var selectedPayment = null;
+        var orderNumber = '';
+        var customerInfo = {};
+        var promoApplied = false;
+
+        function checkAgeGate() {
+            initCheckout();
+        }
+
+        function initCheckout() {
+            loadCart();
+            renderCart();
+            updateFooter();
+        }
+
+        function getUrlParam(name) {
+            var search = window.location.search.substring(1);
+            var pairs = search.split('&');
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                if (decodeURIComponent(pair[0]) === name) {
+                    return decodeURIComponent(pair[1] || '');
+                }
+            }
+            return null;
+        }
+
+        function loadCart() {
+            var product = getUrlParam('product');
+            var price = getUrlParam('price');
+            var saved = localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
+            if (saved) { cart = JSON.parse(saved); localStorage.setItem('prcCart', saved); }
+
+            if (product && price) {
+                var decoded = decodeURIComponent(product);
+                var found = false;
+                for (var i = 0; i < cart.length; i++) {
+                    if (cart[i].name === decoded) { cart[i].quantity += 1; found = true; break; }
+                }
+                if (!found) cart.push({ name: decoded, price: parseFloat(price), quantity: 1 });
+                saveCart();
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState({}, '', 'checkout.html');
+                }
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('prcCart', JSON.stringify(cart));
+        }
+
+        function renderCart() {
+            var container = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart"><div class="empty-cart-text">Your cart is empty</div><a href="shop.html" class="browse-btn">Browse Products</a></div>';
+                document.getElementById('footer').style.display = 'none';
+                document.getElementById('cartMini').classList.add('hidden');
+                return;
+            }
+
+            var html = '';
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i];
+                html += '<div class="cart-item">';
+                html += '<div class="cart-item-info">';
+                html += '<div class="cart-item-name">' + item.name + '</div>';
+                var lineTotal = (item.price * item.quantity).toFixed(2);
+                html += '<div class="cart-item-price">$' + item.price.toFixed(2) + (item.quantity > 1 ? ' × ' + item.quantity + ' = $' + lineTotal : '') + '</div>';
+                html += '</div>';
+                html += '<div class="cart-item-actions">';
+                html += '<div class="qty-control">';
+                html += '<button class="qty-btn" onclick="updateQty(' + i + ',-1)">−</button>';
+                html += '<span class="qty-display">' + item.quantity + '</span>';
+                html += '<button class="qty-btn" onclick="updateQty(' + i + ',1)">+</button>';
+                html += '</div>';
+                html += '<a class="remove-btn" onclick="removeItem(' + i + ')" title="Remove">×</a>';
+                html += '</div>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+
+            // Show mini subtotal
+            var mini = document.getElementById('cartMini');
+            mini.classList.remove('hidden');
+            document.getElementById('miniSubtotal').textContent = '$' + getSubtotal().toFixed(2);
+        }
+
+        function updateQty(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity < 1) cart[index].quantity = 1;
+            saveCart();
+            renderCart();
+            updateFooter();
+            updateSummary();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+            renderCart();
+            updateFooter();
+            updateSummary();
+        }
+
+        function getSubtotal() {
+            var t = 0;
+            for (var i = 0; i < cart.length; i++) t += cart[i].price * cart[i].quantity;
+            return t;
+        }
+
+        function getDiscount() {
+            if (selectedPayment === 'zelle') return getSubtotal() * 0.05;
+            if (promoApplied) return getSubtotal() * 0.05;
+            return 0;
+        }
+
+        function getShipping() {
+            if (getSubtotal() >= 150) return 0;
+            return selectedShipping.price;
+        }
+
+        function getTotal() {
+            return getSubtotal() - getDiscount() + getShipping();
+        }
+
+        function updateFooter() {
+            var label = document.getElementById('footerLabel');
+            var amount = document.getElementById('footerAmount');
+            if (currentStep <= 2) {
+                label.textContent = 'Subtotal';
+                amount.textContent = '$' + getSubtotal().toFixed(2);
+            } else {
+                label.textContent = 'Total';
+                amount.textContent = '$' + getTotal().toFixed(2);
+            }
+
+            var btn = document.getElementById('actionBtn');
+            if (currentStep === 1) { btn.textContent = 'Continue'; btn.disabled = false; }
+            else if (currentStep === 2) { btn.textContent = 'Continue to Shipping'; btn.disabled = false; }
+            else if (currentStep === 3) { btn.textContent = 'Continue to Payment'; btn.disabled = false; }
+            else if (currentStep === 4) {
+                btn.textContent = selectedPayment ? 'Place Order' : 'Select Payment Method';
+                btn.disabled = !selectedPayment;
+            }
+        }
+
+        function updateProgress(step) {
+            for (var i = 1; i <= 4; i++) {
+                var el = document.getElementById('prog' + i);
+                var line = document.getElementById('line' + (i - 1));
+                el.className = 'progress-step';
+                if (i < step) { el.className = 'progress-step done'; }
+                if (i === step) { el.className = 'progress-step active'; }
+                if (line) { line.className = i < step ? 'progress-line done' : 'progress-line'; }
+            }
+        }
+
+        function updateSummary() {
+            var el = document.getElementById('orderSummary');
+            if (!el) return;
+            var html = '';
+            html += '<div class="summary-row"><span>Subtotal</span><span>$' + getSubtotal().toFixed(2) + '</span></div>';
+            if (getDiscount() > 0) {
+                var lbl = promoApplied ? 'Promo (5%)' : 'Discount (5%)';
+                html += '<div class="summary-row discount"><span>' + lbl + '</span><span>-$' + getDiscount().toFixed(2) + '</span></div>';
+            }
+            var shipLabel = getShipping() === 0 ? 'FREE' : '$' + getShipping().toFixed(2);
+            html += '<div class="summary-row"><span>' + selectedShipping.name + '</span><span>' + shipLabel + '</span></div>';
+            html += '<div class="summary-row total"><span>Total</span><span>$' + getTotal().toFixed(2) + '</span></div>';
+            el.innerHTML = html;
+        }
+
+        function selectShipping(el, type, price) {
+            selectedShipping = { name: type === 'standard' ? 'Standard Shipping' : 'Expedited Shipping', price: price };
+            var options = el.parentNode.querySelectorAll('.option-card');
+            for (var i = 0; i < options.length; i++) options[i].classList.remove('selected');
+            el.classList.add('selected');
+            updateShippingDisplay();
+            updateSummary();
+            updateFooter();
+        }
+
+        function updateShippingDisplay() {
+            var note = document.getElementById('freeShipNote');
+            var isFree = getSubtotal() >= 150;
+            if (isFree) {
+                note.classList.remove('hidden');
+                note.textContent = '✓ Your order qualifies for free shipping!';
+            } else {
+                note.classList.add('hidden');
+            }
+        }
+
+        function selectPayment(el, method) {
+            selectedPayment = method;
+            var options = el.parentNode.querySelectorAll('.option-card');
+            for (var i = 0; i < options.length; i++) options[i].classList.remove('selected');
+            el.classList.add('selected');
+            updateSummary();
+            updateFooter();
+        }
+
+        function applyPromo() {
+            var code = document.getElementById('promoInput');
+            var msg = document.getElementById('promoMsg');
+            if (!code || !msg) return;
+            if (code.value.trim().toUpperCase() === 'RESEARCH') {
+                promoApplied = true;
+                msg.textContent = '✓ Code applied — 5% off!';
+                msg.style.color = '#059669';
+                code.disabled = true;
+                updateSummary();
+                updateFooter();
+            } else {
+                msg.textContent = 'Invalid code';
+                msg.style.color = '#EF4444';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep === 1) {
+                if (cart.length === 0) return;
+                document.getElementById('customerSection').classList.remove('hidden');
+                currentStep = 2;
+                updateProgress(2);
+                scrollToEl('customerSection');
+            } else if (currentStep === 2) {
+                var form = document.getElementById('customerForm');
+                if (!form.checkValidity()) { form.reportValidity(); return; }
+                customerInfo = {
+                    name: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value.toUpperCase(),
+                    zip: document.getElementById('zip').value,
+                    phone: document.getElementById('phone').value
+                };
+                document.getElementById('shippingSection').classList.remove('hidden');
+                // Show free shipping note if applicable
+                if (getSubtotal() >= 150) document.getElementById('freeShipNote').classList.remove('hidden');
+                currentStep = 3;
+                updateProgress(3);
+                scrollToEl('shippingSection');
+            } else if (currentStep === 3) {
+                document.getElementById('paymentSection').classList.remove('hidden');
+                document.getElementById('summarySection').classList.remove('hidden');
+                updateSummary();
+                currentStep = 4;
+                updateProgress(4);
+                scrollToEl('paymentSection');
+            } else if (currentStep === 4) {
+                if (!selectedPayment) return;
+                var compCheck = document.getElementById('complianceCheck');
+                if (!compCheck.checked) {
+                    alert('Please certify that you are a qualified researcher before placing your order.');
+                    return;
+                }
+                placeOrder();
+            }
+            updateFooter();
+        }
+
+        function scrollToEl(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                setTimeout(function() {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        function generateOrderNumber() {
+            return 'PRC-' + (Math.floor(10000 + Math.random() * 90000));
+        }
+
+        function notifyOrder(orderNum, order) {
+            try {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://prc-checkout.prcpeptides.workers.dev/order', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    order_number: orderNum,
+                    customer_name: order['Registered Institution'].name,
+                    customer_email: order['Registered Institution'].email,
+                    customer_phone: order['Registered Institution'].phone || '',
+                    customer_address: order['Registered Institution'].address,
+                    customer_city: order['Registered Institution'].city,
+                    customer_state: order['Registered Institution'].state,
+                    customer_zip: order['Registered Institution'].zip,
+                    items: order.items,
+                    subtotal: order.subtotal,
+                    discount: order.discount,
+                    shipping: order.shipping,
+                    shipping_name: order.shippingName,
+                    total: order.total,
+                    payment: order.payment
+                }));
+            } catch(e) { /* silent fail — notification is best-effort */ }
+        }
+
+        function placeOrder() {
+            orderNumber = generateOrderNumber();
+            savedOrder = {
+                items: [], subtotal: getSubtotal(), discount: getDiscount(),
+                shipping: getShipping(), shippingName: selectedShipping.name,
+                total: getTotal(), payment: selectedPayment, 'Registered Institution': customerInfo
+            };
+            for (var i = 0; i < cart.length; i++) {
+                savedOrder.items.push({ name: cart[i].name, price: cart[i].price, quantity: cart[i].quantity });
+            }
+
+            // Notify via Telegram for ALL orders
+            notifyOrder(orderNumber, savedOrder);
+
+            // If crypto, auto-create Coinbase charge and redirect
+            if (selectedPayment === 'crypto') {
+                var btn = document.getElementById('actionBtn');
+                btn.textContent = 'Creating payment...';
+                btn.disabled = true;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://prc-checkout.prcpeptides.workers.dev', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        var resp = JSON.parse(xhr.responseText);
+                        // Save order before redirecting
+                        localStorage.setItem('prcLastOrder', JSON.stringify({
+                            orderNumber: orderNumber,
+                            savedOrder: savedOrder,
+                            checkoutUrl: resp.checkout_url
+                        }));
+                        cart = [];
+                        saveCart();
+                        // Redirect to Coinbase hosted checkout
+                        window.location.href = resp.checkout_url;
+                    } else {
+                        // Fallback to manual flow
+                        btn.textContent = 'Place Order';
+                        btn.disabled = false;
+                        showConfirmation();
+                    }
+                };
+                xhr.onerror = function() {
+                    // Fallback to manual flow
+                    btn.textContent = 'Place Order';
+                    btn.disabled = false;
+                    showConfirmation();
+                };
+                xhr.send(JSON.stringify({
+                    order_number: orderNumber,
+                    total: savedOrder.total.toFixed(2),
+                    email: savedOrder['Registered Institution'].email,
+                    name: savedOrder['Registered Institution'].name
+                }));
+                return;
+            }
+
+            showConfirmation();
+        }
+
+        function showConfirmation() {
+            // Hide all checkout sections
+            var ids = ['cartSection','customerSection','shippingSection','paymentSection','summarySection','footer'];
+            for (var j = 0; j < ids.length; j++) document.getElementById(ids[j]).classList.add('hidden');
+            document.querySelector('.progress-bar').classList.add('hidden');
+            document.querySelector('.disclaimer').style.display = 'none';
+
+            // Show confirmation
+            document.getElementById('confirmationSection').classList.remove('hidden');
+            document.getElementById('orderNumberText').textContent = orderNumber;
+            renderPaymentInstructions();
+            renderOrderDetails();
+
+            cart = [];
+            saveCart();
+            window.scrollTo(0, 0);
+        }
+
+        function renderPaymentInstructions() {
+            var container = document.getElementById('paymentInstructions');
+            var total = savedOrder.total.toFixed(2);
+            var html = '<div class="payment-instructions">';
+
+            if (selectedPayment === 'crypto') {
+                html += '<h3>Cryptocurrency Payment</h3>';
+                html += '<div class="instruction-step">You should have been redirected to Coinbase Commerce to complete payment.</div>';
+                html += '<div class="instruction-step">If the redirect didn\'t work, email us at <strong>support@vantixbio.com</strong> with your order number and we\'ll send a payment link.</div>';
+                html += '<div class="instruction-step">Your order ships once payment confirms.</div>';
+            } else if (selectedPayment === 'zelle') {
+                html += '<h3>Zelle Payment</h3>';
+                html += '<div class="instruction-step"><strong>1.</strong> Open Zelle in your banking app</div>';
+                html += '<div class="instruction-step"><strong>2.</strong> Send <span class="highlight">$' + total + '</span> to <span class="highlight">(619) 587-1812</span></div>';
+                html += '<div class="instruction-step"><strong>3.</strong> In the memo, write only: <span class="highlight">' + orderNumber + '</span></div>';
+                html += '<div class="instruction-step" style="margin-top:8px;color:#059669;font-weight:600">Your order ships within 1 business day of payment confirmation.</div>';
+                html += '<div class="warning-note">Do not mention peptides, product names, or research purposes in the payment memo. Only include the order number.</div>';
+            }
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderOrderDetails() {
+            var o = savedOrder;
+            var html = '';
+            for (var i = 0; i < o.items.length; i++) {
+                html += '<div class="summary-row"><span>' + o.items[i].name + ' × ' + o.items[i].quantity + '</span><span>$' + (o.items[i].price * o.items[i].quantity).toFixed(2) + '</span></div>';
+            }
+            html += '<div class="summary-row"><span>Subtotal</span><span>$' + o.subtotal.toFixed(2) + '</span></div>';
+            if (o.discount > 0) html += '<div class="summary-row discount"><span>Discount (5%)</span><span>-$' + o.discount.toFixed(2) + '</span></div>';
+            html += '<div class="summary-row"><span>' + o.shippingName + '</span><span>' + (o.shipping === 0 ? 'FREE' : '$' + o.shipping.toFixed(2)) + '</span></div>';
+            html += '<div class="summary-row total"><span>Total</span><span>$' + o.total.toFixed(2) + '</span></div>';
+            html += '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #E2E8F0">';
+            html += '<div style="font-weight:700;font-size:13px;margin-bottom:6px;color:#1A2B44">Ship to</div>';
+            html += '<div style="font-size:13px;color:#64748B;line-height:1.6">';
+            html += o['Registered Institution'].name + '<br>' + o['Registered Institution'].address + '<br>' + o['Registered Institution'].city + ', ' + o['Registered Institution'].state + ' ' + o['Registered Institution'].zip;
+            if (o['Registered Institution'].phone) html += '<br>' + o['Registered Institution'].phone;
+            html += '<br>' + o['Registered Institution'].email + '</div></div>';
+            document.getElementById('orderDetails').innerHTML = html;
+        }
+
+        function emailOrder() {
+            var o = savedOrder;
+            var subject = 'Order ' + orderNumber + ' - Payment Confirmation';
+            var body = 'Hello VANTIX BIO,\n\n';
+            body += 'I have placed order ' + orderNumber + ' and ';
+            if (o.payment === 'crypto') body += 'am ready to pay with cryptocurrency. Please send me the Coinbase Commerce payment link.\n\n';
+            else if (o.payment === 'zelle') body += 'have sent payment via Zelle.\n\n';
+            // cashapp removed
+            body += 'Order Details:\n';
+            for (var i = 0; i < o.items.length; i++) {
+                body += '- ' + o.items[i].name + ' x' + o.items[i].quantity + ' ($' + (o.items[i].price * o.items[i].quantity).toFixed(2) + ')\n';
+            }
+            body += '\nSubtotal: $' + o.subtotal.toFixed(2) + '\n';
+            if (o.discount > 0) body += 'Discount: -$' + o.discount.toFixed(2) + '\n';
+            body += 'Shipping: ' + (o.shipping === 0 ? 'FREE' : '$' + o.shipping.toFixed(2)) + '\n';
+            body += 'Total: $' + o.total.toFixed(2) + '\n\n';
+            body += 'Shipping Address:\n' + o['Registered Institution'].name + '\n' + o['Registered Institution'].address + '\n';
+            body += o['Registered Institution'].city + ', ' + o['Registered Institution'].state + ' ' + o['Registered Institution'].zip + '\n';
+            if (o['Registered Institution'].phone) body += o['Registered Institution'].phone + '\n';
+            body += o['Registered Institution'].email + '\n\nThank you!';
+            window.location.href = 'mailto:support@vantixbio.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        }
+
+        checkAgeGate();
+    </script>
+    <div id="tosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:10000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+        <div style="background:#fff;border-radius:12px;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;padding:28px">
+            <h2 style="font-size:18px;margin-bottom:16px">Terms of Service</h2>
+            <div style="font-size:12.5px;line-height:1.7;color:#475569">
+                <p><strong>Vantix Bio LLC — Terms of Service</strong><br>Last updated: March 4, 2026</p>
+
+                <p><strong>1. Research Use Only.</strong> ALL PRODUCTS SOLD BY PRC LABS LLC ARE INTENDED EXCLUSIVELY FOR IN VITRO LABORATORY AND RESEARCH PURPOSES. THEY ARE NOT FOR HUMAN OR ANIMAL CONSUMPTION, UNDER ANY CIRCUMSTANCE, IN ANY FORM, UNDER ANY CONDITION. Products are not drugs, supplements, medical treatments, or therapeutic compounds and are not approved by the FDA or any regulatory agency.</p>
+
+                <p><strong>2. Not a Compounding Pharmacy.</strong> Vantix Bio LLC is not a compounding pharmacy under Section 503A nor an outsourcing facility under Section 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+
+                <p><strong>3. No Medical Claims.</strong> All information on this site is for educational and informational purposes only. Nothing constitutes medical advice, claims of safety or efficacy, instructions for therapeutic use, or guidance for clinical practice. These products have not been evaluated by the US Food and Drug Administration and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+
+                <p><strong>4. Age &amp; Qualification.</strong> You must be 18 years or older to place an order. By purchasing, you represent that you are a licensed or qualified professional, or conducting research in an appropriate setting, and have conducted your own due diligence regarding intended use, safety hazards, and all applicable legal and regulatory considerations in your jurisdiction.</p>
+
+                <p><strong>5. Customer Warranty.</strong> By placing an order, you warrant that products will be used solely for research purposes, will not be adulterated, misbranded, or introduced into interstate commerce in violation of Sections 404, 505, or 512 of the Federal Food, Drug, and Cosmetic Act, and will not be resold or redistributed outside of research channels.</p>
+
+                <p><strong>6. Refund Policy.</strong> Due to the sensitive nature of research materials, all sales are final. No returns, refunds, or exchanges. Damaged or incorrect orders will be replaced at no charge — contact support@vantixbio.com within 48 hours of delivery.</p>
+
+                <p><strong>7. Shipping.</strong> Orders ship within 1 business day. Risk of loss transfers to the customer once the order is tendered to the carrier. Vantix Bio LLC is not responsible for delays, loss, or damage caused by carriers, customs, weather, or incorrect shipping addresses provided by the customer.</p>
+
+                <p><strong>8. Limitation of Liability.</strong> Products are provided "as is" and "as available." Vantix Bio LLC disclaims all warranties, express or implied, including merchantability, fitness for a particular purpose, and non-infringement. In no event shall Vantix Bio LLC be liable for any direct, indirect, incidental, special, punitive, or consequential damages arising from the use or misuse of products.</p>
+
+                <p><strong>9. Indemnification.</strong> You agree to indemnify, defend, and hold harmless Vantix Bio LLC, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including attorney fees) arising from your use or misuse of products, violation of these terms, or breach of any applicable law.</p>
+
+                <p><strong>10. Right to Refuse Service.</strong> Vantix Bio LLC reserves the right to refuse, cancel, or limit any order for any reason, including verification of identity or proof of research intent.</p>
+
+                <p><strong>11. Intellectual Property.</strong> All content, logos, trademarks, and images on this site are the property of Vantix Bio LLC. No copying, distribution, modification, or commercial use is permitted without written permission.</p>
+
+                <p><strong>12. Governing Law.</strong> These terms are governed by the laws of the State of California, without regard to conflict of law principles. Any disputes shall be resolved through binding arbitration in California.</p>
+
+                <p><strong>13. Force Majeure.</strong> Vantix Bio LLC shall not be liable for failure to perform due to causes beyond reasonable control, including natural disasters, government actions, supply chain disruptions, carrier delays, or internet outages.</p>
+
+                <p><strong>14. Severability.</strong> If any provision is found unenforceable, the remaining provisions remain in full effect.</p>
+
+                <p><strong>15. Modifications.</strong> Vantix Bio LLC may update these terms at any time. Continued use of the site constitutes acceptance of the updated terms.</p>
+
+                <p><strong>16. Entire Agreement.</strong> These Terms of Service and our Privacy Policy constitute the entire agreement between you and Vantix Bio LLC.</p>
+            </div>
+            <button onclick="document.getElementById('tosModal').style.display='none'" style="margin-top:16px;width:100%;padding:12px;background:#00B4D8;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Close</button>
+        </div>
+    </div>
+</body>
+</html>
