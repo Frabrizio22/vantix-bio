@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Matrix - 8-Step Verification Protocol | Vantix Bio</title>
+    <link rel="canonical" href="https://vantixbio.com/the-matrix.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vantixbio.com/the-matrix.html">
+    <meta property="og:title" content="The Matrix - 8-Step Verification Protocol | Vantix Bio">
+    <meta property="og:description" content="Our forensic-grade verification protocol: from blind entry to permanent audit trail. Absolute transparency for serious researchers.">
+    <meta property="og:site_name" content="Vantix Bio">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="The Vantix Matrix: Our 8-step verification protocol ensuring forensic-grade authenticity for every analytical reference material.">
+    <style>
+        @keyframes nodeGlow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(0,180,216,0.4)); }
+            50% { filter: drop-shadow(0 0 8px rgba(0,180,216,0.8)); }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; background: #F8FAFC; color: #1A2B44; line-height: 1.6; }
+
+        /* Header */
+        .header { background: #FFFFFF; padding: 18px 0; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 800; color: #1A2B44; text-decoration: none; letter-spacing: 1px; }
+        nav { display: flex; gap: 32px; }
+        nav a { color: #1A2B44; text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+        nav a:hover { color: #00B4D8; }
+
+        /* Hero */
+        .hero { max-width: 1200px; margin: 0 auto; padding: 100px 24px 60px; text-align: center; }
+        h1 { font-size: 56px; font-weight: 800; color: #1A2B44; margin-bottom: 20px; letter-spacing: -1.5px; }
+        .hero-accent { color: #00B4D8; }
+        .hero-subtitle { font-size: 19px; color: #64748B; margin-bottom: 44px; max-width: 660px; margin-left: auto; margin-right: auto; font-weight: 400; }
+
+        /* Protocol Steps */
+        .protocol { max-width: 1000px; margin: 0 auto; padding: 0 24px 100px; }
+        .step-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 40px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.25s, box-shadow 0.25s; }
+        .step-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .step-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 16px; }
+        .step-number { min-width: 56px; height: 56px; background: linear-gradient(135deg, #00B4D8, #0096C7); color: #FFFFFF; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; box-shadow: 0 4px 12px rgba(0,180,216,0.25); }
+        .step-title { font-size: 24px; color: #1A2B44; font-weight: 700; margin: 0; line-height: 1.3; }
+        .step-description { font-size: 16px; color: #64748B; line-height: 1.8; margin-left: 76px; }
+
+        /* CTA Section */
+        .cta-section { background: linear-gradient(135deg, #F0FDFF, #FFFFFF); padding: 80px 24px; text-align: center; border-top: 1px solid #E2E8F0; }
+        .cta-section h2 { font-size: 36px; font-weight: 800; color: #1A2B44; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .cta-section p { color: #64748B; font-size: 16px; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn { padding: 16px 36px; border-radius: 10px; font-size: 15px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.2s; }
+        .btn-primary { background: #00B4D8; color: #FFFFFF; box-shadow: 0 2px 12px rgba(0,180,216,0.3); }
+        .btn-primary:hover { background: #0096C7; box-shadow: 0 4px 20px rgba(0,180,216,0.4); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: #1A2B44; border: 2px solid #CBD5E1; margin-left: 12px; }
+        .btn-secondary:hover { border-color: #00B4D8; color: #00B4D8; }
+
+        /* Footer */
+        footer { background: #FFFFFF; padding: 48px 24px; border-top: 1px solid #E2E8F0; text-align: center; }
+        footer p { color: #94A3B8; font-size: 14px; }
+        footer strong { color: #64748B; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .step-header { flex-direction: column; gap: 12px; }
+            .step-description { margin-left: 0; }
+            .step-title { font-size: 20px; }
+            .cta-section h2 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <a href="/" class="logo" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+                <img src="logo.png" alt="Vantix Bio Logo" style="height:100px">
+                <span style="color:#1A2B44;font-weight:700;font-size:20px">VANTIX BIO</span>
+            </a>
+            <nav>
+                <a href="index.html" aria-label="Return to Vantix Bio homepage">Home</a>
+                <a href="shop.html" aria-label="Access the Vantix Catalog of Analytical Reference Materials for Research Purposes only">Shop</a>
+                <a href="verify.html" aria-label="Verify authenticity of Vantix materials via Janoshik Task ID">Verify</a>
+                <a href="the-matrix.html" aria-label="Learn about Vantix 8-Step Verification Protocol">The Matrix</a>
+                <a href="blog/" aria-label="Read research articles and peptide information">Research</a>
+                <a href="index.html#faq" aria-label="Frequently asked questions about Vantix Bio">FAQ</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>The <span class="hero-accent">Matrix</span></h1>
+        <p class="hero-subtitle">Our 8-Step Verification Protocol: From blind entry to permanent audit trail. Absolute transparency for serious researchers.</p>
+    </div>
+
+    <!-- Protocol Steps -->
+    <div class="protocol">
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h2 class="step-title">The Blind Entry</h2>
+            </div>
+            <p class="step-description">Raw materials are assigned an internal VX Batch ID immediately upon receipt to ensure unbiased internal tracking. No preconceptions. No bias. Just data.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h2 class="step-title">Quarantine Protocol</h2>
+            </div>
+            <p class="step-description">Materials are held in a controlled, clinical environment until the "Gate" is cleared. Nothing enters our catalog without passing through the next step.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <h2 class="step-title">The Janoshik Gate</h2>
+            </div>
+            <p class="step-description">Samples are dispatched to Janoshik Analytical for HPLC/MS analysis. No product is released without a verified Task ID. This is our non-negotiable standard.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <h2 class="step-title">Digital Mirroring</h2>
+            </div>
+            <p class="step-description">Our portal provides a direct bridge to the Janoshik server via Task ID for authentic, real-time verification. You don't trust our screenshots — you verify the source.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <h2 class="step-title">Forensic Watermarking</h2>
+            </div>
+            <p class="step-description">All hosted reports feature a dynamic, session-linked watermark to prevent data leaching and ensure integrity. Every view is tracked. Every download is traceable.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <h2 class="step-title">The 1-1 Protocol</h2>
+            </div>
+            <p class="step-description">Every component in our kits (like the 20mg/30mg Retatrutide) is audited individually. We never use "representative" data for secondary components. One batch, one test, one truth.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">7</div>
+                <h2 class="step-title">Split-Screen Rendering</h2>
+            </div>
+            <p class="step-description">Our 'Verify' portal renders synchronized, dual-pane data dashboards for all bundles, proving both halves of your research kit were audited. See the complete picture, side by side.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">8</div>
+                <h2 class="step-title">Permanent Audit Trail</h2>
+            </div>
+            <p class="step-description">Data remains searchable and archived even after a batch is sold out, providing long-term accountability to the research community. Your verification never expires.</p>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>Experience The Matrix</h2>
+        <p>Verify any VX Batch ID right now. See forensic-grade transparency in action.</p>
+        <a href="verify.html" class="btn btn-primary">Verify a Batch →</a>
+        <a href="shop.html" class="btn btn-secondary">Browse Catalog</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <strong>Vantix Bio</strong>. All analytical reference materials are for research purposes only.</p>
+        <p style="margin-top:8px;font-size:12px">Not for human consumption. Not 503A/503B compounding pharmacy products.</p>
+    </footer>
+</body>
+</html>
