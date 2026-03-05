@@ -77,23 +77,23 @@
         @keyframes cursorBlink { 0%,100%{opacity:1}50%{opacity:0} }
 
         /* ── Results Layout ── */
-        .results-area { margin-top: 20px; animation: fadeUp 0.5s ease both; }
+        .results-area { margin-top: 16px; animation: fadeUp 0.5s ease both; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .single-view { display: grid; grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; }
 
         /* ── Chromatogram Panel ── */
-        .chrom-panel { background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(26,43,68,0.08); overflow: hidden; position: relative; }
-        .panel-header { padding: 20px 24px 0; }
-        .panel-header h3 { font-size: 17px; font-weight: 700; color: #1A2B44; }
-        .panel-meta { font-size: 11px; color: #64748B; font-family: 'JetBrains Mono', monospace; line-height: 1.9; margin-top: 6px; }
+        .chrom-panel { background: #FFFFFF; border-radius: 10px; border: 1px solid #E2E8F0; box-shadow: 0 2px 8px rgba(26,43,68,0.04); overflow: hidden; position: relative; }
+        .panel-header { padding: 16px 20px 0; }
+        .panel-header h3 { font-size: 15px; font-weight: 700; color: #1A2B44; }
+        .panel-meta { font-size: 10px; color: #64748B; font-family: 'JetBrains Mono', monospace; line-height: 1.6; margin-top: 4px; }
         .panel-meta .val { color: #1A2B44; font-weight: 500; }
-        .badge { display: inline-block; background: #00B4D8; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 6px; vertical-align: middle; }
+        .badge { display: inline-block; background: #00B4D8; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; margin-left: 4px; vertical-align: middle; }
         .badge-green { background: #10B981; }
 
         /* Canvas container with flashlight + watermark */
-        .canvas-wrap { position: relative; margin: 16px; border-radius: 8px; overflow: hidden; cursor: crosshair; user-select: none; -webkit-user-select: none; }
-        .canvas-wrap canvas { display: block; width: 100%; height: 320px; }
+        .canvas-wrap { position: relative; margin: 12px; border-radius: 8px; overflow: hidden; cursor: crosshair; user-select: none; -webkit-user-select: none; }
+        .canvas-wrap canvas { display: block; width: 100%; height: 240px; }
         /* Flashlight mask overlay */
         .flashlight-mask { position: absolute; inset: 0; pointer-events: none; z-index: 3; background: rgba(26,43,68,0.88); transition: none; }
         /* Forensic watermark layer */
@@ -105,12 +105,12 @@
 
         /* ── Janoshik Button ── */
         .janoshik-row { padding: 0 24px 20px; margin-top: 12px; }
-        .btn-janoshik { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #F8FAFC; border: 1.5px solid #00B4D8; border-radius: 8px; color: #00B4D8; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; letter-spacing: 0.5px; }
+        .btn-janoshik { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #F8FAFC; border: 1.5px solid #00B4D8; border-radius: 6px; color: #00B4D8; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; letter-spacing: 0.3px; }
         .btn-janoshik:hover { background: #00B4D8; color: #fff; }
-        .btn-janoshik svg { width: 14px; height: 14px; }
+        .btn-janoshik svg { width: 12px; height: 12px; }
 
         /* ── Disclaimer ── */
-        .disclaimer { margin-top: 40px; padding: 20px 24px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; font-size: 11px; color: #94A3B8; line-height: 1.7; }
+        .disclaimer { margin-top: 20px; padding: 14px 18px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 10px; color: #94A3B8; line-height: 1.5; }
         .disclaimer strong { color: #64748B; }
 
         @media (max-width: 768px) {
