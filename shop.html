@@ -2569,5 +2569,24 @@ h1 {
             <button onclick="document.getElementById('tosModal').style.display='none'" style="margin-top:16px;width:100%;padding:12px;background:#00B4D8;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Close</button>
         </div>
     </div>
+    
+    <script>
+        // Mobile dropdown handling
+        document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dropdown = trigger.parentElement;
+                const wasOpen = dropdown.classList.contains('open');
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                if (!wasOpen) dropdown.classList.add('open');
+            });
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+            }
+        });
+    </script>
 </body>
 </html>
