@@ -1347,6 +1347,61 @@ button:active, .btn:active {
     text-transform: uppercase;
     box-shadow: 0 2px 8px rgba(26,43,68,0.3);
 }
+
+/* Premium Catalog Refinements */
+.product-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1A2B44;
+    letter-spacing: -0.3px;
+}
+
+.product-price {
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 24px;
+    color: #00B4D8;
+    font-weight: 700;
+}
+
+.category-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+button, .btn {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(0,180,216,0.15);
+}
+
+button:hover:not(:disabled), .btn:hover {
+    box-shadow: 0 4px 16px rgba(0,180,216,0.3);
+}
+
+.coa-badge {
+    background: linear-gradient(135deg, #00B4D8 0%, #0096C7 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,180,216,0.25);
+    transition: all 0.2s;
+}
+
+.coa-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,180,216,0.4);
+}
+
+h1 {
+    font-weight: 800;
+    color: #1A2B44;
+    letter-spacing: -1px;
+}
     </style>
 </head>
 <body>
@@ -1368,13 +1423,12 @@ button:active, .btn:active {
 
     <!-- Header -->
     <!-- Promo Bar -->
-    <div class="promo-bar" id="promoBar"><strong>FREE SHIPPING</strong> over $150 &nbsp;·&nbsp; Lab supplies included</div>
 
     <header>
         <div class="header-content">
             <div class="header-left">
                 <div class="logo-block">
-                    <a href="index.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none"><img src="logo.png" alt="VX Logo" style="height:50px"><span style="color:#1A2B44;font-weight:700;font-size:18px">VANTIX BIO</span></a>
+                    <a href="index.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none"><img src="logo.png" alt="VX Logo" style="height:75px"><span style="color:#1A2B44;font-weight:700;font-size:18px">VANTIX BIO</span></a>
                 </div>
                 <nav>
 <nav>
@@ -1405,23 +1459,6 @@ button:active, .btn:active {
     </div>
 
     <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <!-- logo removed from hero -->
-            <h1>Forensic-Grade Research Peptides</h1>
-            <p>Data-driven transparency. Janoshik-verified.</p>
-            <!-- subtitle removed -->
-        </div>
-    </section>
-
-    <!-- Trust Bar -->
-    <section class="trust-bar">
-        <div class="trust-content">
-            <div class="trust-item">Janoshik Switzerland Verification</div>
-            <div class="trust-item">Next Business Day Dispatch</div>
-            <div class="trust-item">Pharmaceutical-Grade Purity</div>
-        </div>
-    </section>
 
     <!-- Main Content -->
     <main id="shop">
@@ -2153,7 +2190,7 @@ button:active, .btn:active {
                 var categoryClass = 'category-' + product.category;
                 var categoryName = getCategoryName(product.category);
                 
-                var coaBadge = product.coa ? '<span class="coa-badge">COA ✓</span>' : '';
+                var coaBadge = product.coa ? '<a href="verify.html" class="coa-badge" style="text-decoration:none">COA ✓</a>' : '';
                 var btnClass = isOOS ? 'order-btn oos' : 'order-btn';
                 var btnText = isOOS ? 'Out of Stock' : 'Add to Cart';
                 
@@ -2207,7 +2244,7 @@ button:active, .btn:active {
             var categoryClass = 'category-' + product.category;
             var categoryName = getCategoryName(product.category);
             
-            var coaLine = product.coa ? '<div style="margin-top:0.5rem;font-size:0.8rem;color:#059669;font-weight:600">✓ Certificate of Analysis — <a href="mailto:support@vantixbio.com?subject=COA Request: ' + encodeURIComponent(product.name) + '" style="color:#059669;text-decoration:underline">Request COA</a></div>' : '';
+            var coaLine = product.coa ? '<div style="margin-top:0.5rem;font-size:0.8rem;color:#059669;font-weight:600">✓ Certificate of Analysis — <a href="mailto:support@vantixbio.com?subject=COA Request: ' + encodeURIComponent(product.name) + '" style="color:#059669;text-decoration:underline">View Matrix Verification</a></div>' : '';
             
             var header = '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
                         '<h2 class="modal-title">' + product.name + '</h2>' +
