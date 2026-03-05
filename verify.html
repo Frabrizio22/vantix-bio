@@ -275,7 +275,7 @@
             html += `<div class="search-box">
                 <label>Matrix Verification — Enter Standard ID or Bundle ID</label>
                 <div class="input-row">
-                    <input id="q" type="text" value="${state.query}" placeholder="VX-TZ-2026 or VX-7841" ${state.loading ? 'disabled' : ''} />
+                    <input id="q" type="text" value="${state.query}" placeholder="VX-TZ-2026 or VX-7841" ${state.loading ? 'disabled' : ''}" />
                     <button class="btn-primary" id="btn-verify" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Verifying…' : 'Verify'}</button>
                 </div>
                 ${state.error ? `<div class="error-msg">${state.error}</div>` : ''}
@@ -335,6 +335,7 @@
             const btn = document.getElementById('btn-verify');
             if (inp) {
                 inp.addEventListener('input', e => { state.query = e.target.value; });
+                inp.addEventListener('paste', e => { setTimeout(() => { state.query = e.target.value; }, 0); });
                 inp.addEventListener('keydown', e => { if (e.key === 'Enter') doVerify(); });
             }
             if (btn) btn.addEventListener('click', doVerify);
