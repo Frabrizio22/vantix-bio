@@ -63,12 +63,11 @@
         .section-subtitle { text-align: center; font-size: 15px; color: #64748B; margin-bottom: 40px; max-width: 580px; margin-left: auto; margin-right: auto; text-wrap: pretty; line-height: 1.6; }
 
         /* Why Vantix - Trust Pillars */
-        .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        .pillar { background: #FFFFFF; padding: 36px 28px; border-radius: 14px; border: 1px solid #E2E8F0; box-shadow: 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.25s, box-shadow 0.25s; text-align: center; }
-        .pillar:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
-        .pillar-icon { font-size: 36px; margin-bottom: 20px; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; background: #F0FDFF; border-radius: 14px; margin: 0 auto 20px; }
-        .pillar h3 { font-size: 15px; color: #1A2B44; font-weight: 700; margin-bottom: 8px; text-wrap: balance; }
-        .pillar p { color: #64748B; font-size: 13px; line-height: 1.6; text-wrap: pretty; }
+        .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .pillar { background: #FFFFFF; padding: 40px 32px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.03); transition: transform 0.25s, box-shadow 0.25s; text-align: center; }
+        .pillar:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        .pillar h3 { font-size: 16px; color: #1A2B44; font-weight: 700; margin-bottom: 12px; text-wrap: balance; }
+        .pillar p { color: #64748B; font-size: 13px; line-height: 1.7; text-wrap: pretty; }
 
         /* How It Works */
         .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
@@ -136,11 +135,7 @@
             nav { gap: 14px; font-size: 13px; justify-content: center; }
             nav a { font-size: 13px; }
             .nav-dropdown-menu { min-width: 140px; font-size: 12px; }
-            .pillars { grid-template-columns: 1fr 1fr; }
-            .steps { grid-template-columns: 1fr; }
-            .steps::before { display: none; }
-            .categories { grid-template-columns: 1fr 1fr; }
-            .verify-preview { grid-template-columns: 1fr; }
+            .pillars { grid-template-columns: 1fr; gap: 16px; }
             .cta-row { flex-direction: column; align-items: center; }
             .hero-badges { flex-direction: column; align-items: center; }
         }
@@ -150,8 +145,6 @@
             .logo-link img { height: 50px !important; }
             nav { gap: 10px; font-size: 12px; }
             nav a { font-size: 12px; }
-            .pillars { grid-template-columns: 1fr; }
-            .categories { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -203,128 +196,27 @@
     <div class="section">
         <h2 class="section-title">Why Researchers Choose Vantix</h2>
         <p class="section-subtitle">Data-driven integrity at every step of the supply chain.</p>
-        <div class="pillars">
+        <div class="pillars" style="grid-template-columns: repeat(3, 1fr);">
             <div class="pillar">
-                <div class="pillar-icon">🔬</div>
                 <h3>Janoshik Verification</h3>
-                <p>Exclusive partnership with Janoshik Analytical (Czech Republic). Every batch undergoes independent third-party chromatographic analysis before release.</p>
+                <p>Exclusive partnership with Janoshik Analytical. Every batch undergoes independent third-party HPLC-DAD and LC-MS/MS chromatographic analysis before release.</p>
             </div>
             <div class="pillar">
-                <div class="pillar-icon">📊</div>
                 <h3>Forensic Transparency</h3>
-                <p>Split-screen COA reports with forensic watermarking. HPLC-DAD and Triple Quad LC-MS/MS data presented side-by-side — tamper-evident by design.</p>
+                <p>Split-screen COA reports with immutable watermarking. Dual chromatography data presented side-by-side — tamper-evident by design.</p>
             </div>
             <div class="pillar">
-                <div class="pillar-icon">💰</div>
-                <h3>Competitive Pricing</h3>
-                <p>Clinical-grade verification without the clinical markup. Direct-source partnerships eliminate intermediary costs while maintaining analytical rigor.</p>
-            </div>
-            <div class="pillar">
-                <div class="pillar-icon">⚡</div>
                 <h3>Instant Verification</h3>
-                <p>Enter any VX Bundle ID to retrieve full dual-molecule verification reports in seconds. No email requests. No wait times. Audit on demand.</p>
+                <p>Enter any VX Bundle ID to retrieve full verification reports in seconds. No email requests. No wait times. Audit on demand.</p>
             </div>
         </div>
     </div>
 
-    <!-- How It Works -->
-    <div class="section">
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-subtitle">From selection to verification in three steps.</p>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Browse</h3>
-                <p>Explore our catalog of Janoshik-verified research compounds. Every listing includes purity data, molecular weight, and batch-specific chromatography references.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Verify</h3>
-                <p>Use the Verification Portal to audit any batch. Split-screen forensic reports display HPLC and LC-MS/MS results with immutable watermarking.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Order</h3>
-                <p>Place your order with confidence. Each shipment includes a unique Bundle ID linking directly to its full analytical documentation.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Featured Categories -->
-    <div class="section">
-        <h2 class="section-title">Research Categories</h2>
-        <p class="section-subtitle">Forensic-grade compounds across key research domains.</p>
-        <div class="categories">
-            <a href="shop.html?category=glp" class="category-card">
-                <div class="category-icon">🧬</div>
-                <h3>GLP-1 Receptor Agonists</h3>
-                <p>Semaglutide, Tirzepatide, Retatrutide</p>
-                <span class="arrow">View Compounds →</span>
-            </a>
-            <a href="shop.html?category=tissue" class="category-card">
-                <div class="category-icon">🔧</div>
-                <h3>Tissue Repair</h3>
-                <p>BPC-157, TB-500, GHK-Cu</p>
-                <span class="arrow">View Compounds →</span>
-            </a>
-            <a href="shop.html?category=gh" class="category-card">
-                <div class="category-icon">📈</div>
-                <h3>Growth Hormone Secretagogues</h3>
-                <p>CJC-1295, Ipamorelin, Tesamorelin</p>
-                <span class="arrow">View Compounds →</span>
-            </a>
-            <a href="shop.html?category=cognitive" class="category-card">
-                <div class="category-icon">🧠</div>
-                <h3>Cognitive Research</h3>
-                <p>Selank, Semax, Dihexa</p>
-                <span class="arrow">View Compounds →</span>
-            </a>
-            <a href="shop.html?category=antimicrobial" class="category-card">
-                <div class="category-icon">🛡️</div>
-                <h3>Antimicrobial Peptides</h3>
-                <p>LL-37, Thymosin Alpha-1</p>
-                <span class="arrow">View Compounds →</span>
-            </a>
-            <a href="shop.html?category=all" class="category-card">
-                <div class="category-icon">📋</div>
-                <h3>Full Catalog</h3>
-                <p>Browse all Janoshik-verified compounds</p>
-                <span class="arrow">View All →</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- Verification Portal Preview -->
-    <div class="section">
-        <div class="verify-preview">
-            <div class="verify-content">
-                <h3>Verification Portal</h3>
-                <p>The industry's first split-screen forensic verification system. Every Vantix compound ships with a unique Bundle ID that maps directly to its Janoshik chromatography data.</p>
-                <ul class="verify-features">
-                    <li>HPLC-DAD purity confirmation</li>
-                    <li>Triple Quad LC-MS/MS identity verification</li>
-                    <li>Forensic watermarking prevents COA fraud</li>
-                    <li>Real-time batch lookup — no delays</li>
-                    <li>Split-screen report comparison</li>
-                </ul>
-                <a href="verify.html" class="btn btn-primary">Open Verification Portal</a>
-            </div>
-            <div class="verify-mockup">
-                <div class="mockup-header">
-                    <div class="mockup-dot red"></div>
-                    <div class="mockup-dot yellow"></div>
-                    <div class="mockup-dot green"></div>
-                </div>
-                <div class="mockup-input">VX-2026-0301-RETA</div>
-                <div class="mockup-result">
-                    <div class="mockup-result-badge">✓ VERIFIED</div>
-                    <p><strong>Retatrutide 20mg</strong></p>
-                    <p style="margin-top:6px">Purity: <strong style="color:#00B4D8">99.2%</strong> (HPLC-DAD)</p>
-                    <p>Identity: <strong style="color:#00B4D8">Confirmed</strong> (LC-MS/MS)</p>
-                    <p style="margin-top:8px; font-size:12px;">Janoshik Report #JA-26-04821</p>
-                </div>
-            </div>
-        </div>
+    <!-- CTA Section -->
+    <div class="final-cta">
+        <h2>Ready to Experience Forensic-Grade Standards?</h2>
+        <p>Browse our catalog of Janoshik-verified research compounds.</p>
+        <a href="shop.html" class="btn btn-primary">Browse Catalog</a>
     </div>
 
     <!-- FAQ -->
