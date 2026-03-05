@@ -17,134 +17,501 @@
             0%, 100% { filter: drop-shadow(0 0 2px rgba(0,180,216,0.4)); }
             50% { filter: drop-shadow(0 0 8px rgba(0,180,216,0.8)); }
         }
+        @keyframes hexFloat {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -10px); }
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; background: #F8FAFC; color: #1A2B44; line-height: 1.6; overflow-x: hidden; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; 
+            background: #FAFBFC; 
+            color: #1A2B44; 
+            line-height: 1.7; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
         html { overflow-x: hidden; }
 
         /* Header */
-        .header { background: #FFFFFF; padding: 18px 0; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 800; color: #1A2B44; text-decoration: none; letter-spacing: 1px; }
-        .logo-hex { width: 42px; height: 42px; position: relative; }
-        .logo-hex svg { width: 42px; height: 42px; }
-        .logo-hex .hex-frame { fill: none; stroke: #1A2B44; stroke-width: 2; }
-        .logo-hex .hex-nodes { fill: #00B4D8; animation: nodeGlow 3s ease-in-out infinite; }
-        .logo-hex .hex-text { fill: #1A2B44; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; font-size: 14px; }
-        nav { display: flex; gap: 32px; align-items: center; }
-        nav a { color: #1A2B44; text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
-        nav a:hover { color: #00B4D8; }
+        .header { 
+            background: rgba(255,255,255,0.98); 
+            padding: 20px 0; 
+            border-bottom: 1px solid rgba(226,232,240,0.6); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .header-content { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 0 32px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo-link { text-decoration: none; }
+        .logo-link img { height: 140px; width: auto; transition: opacity 0.2s; }
+        .logo-link:hover img { opacity: 0.85; }
+        nav { display: flex; gap: 40px; align-items: center; }
+        nav a { 
+            color: #1A2B44; 
+            text-decoration: none; 
+            font-size: 15px; 
+            font-weight: 600; 
+            transition: color 0.2s;
+            letter-spacing: 0.2px;
+        }
+        nav a:hover { color: #2563EB; }
         .nav-dropdown { position: relative; }
         .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-        .nav-dropdown-menu { position: absolute; top: 100%; left: 0; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 8px 0; min-width: 180px; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s ease; z-index: 1000; }
-        .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-        .nav-dropdown-menu a { display: block; padding: 10px 20px; font-size: 13px; color: #1A2B44; text-decoration: none; transition: background 0.15s; }
-        .nav-dropdown-menu a:hover { background: #F8FAFC; color: #00B4D8; }
+        .nav-dropdown-menu { 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            background: #FFFFFF; 
+            border: 1px solid #E2E8F0; 
+            border-radius: 10px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1); 
+            padding: 8px 0; 
+            min-width: 200px; 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(-8px); 
+            transition: all 0.2s ease; 
+            z-index: 1000; 
+        }
+        .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+        .nav-dropdown-menu a { 
+            display: block; 
+            padding: 12px 24px; 
+            font-size: 14px; 
+            color: #1A2B44; 
+            text-decoration: none; 
+            transition: background 0.15s; 
+        }
+        .nav-dropdown-menu a:hover { background: #F8FAFC; color: #2563EB; }
         .dropdown-arrow { font-size: 10px; color: #64748B; transition: transform 0.2s; }
         .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-        /* Hero */
-        .hero { max-width: 1200px; margin: 0 auto; padding: 80px 24px 60px; text-align: center; }
-        h1 { font-size: 42px; font-weight: 700; color: #1A2B44; margin-bottom: 16px; letter-spacing: -1px; text-wrap: balance; }
-        .hero-accent { color: #00B4D8; }
-        .hero-subtitle { font-size: 16px; color: #64748B; margin-bottom: 36px; max-width: 620px; margin-left: auto; margin-right: auto; font-weight: 400; text-wrap: pretty; line-height: 1.6; }
-        .hero-badges { display: flex; gap: 20px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
-        .hero-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #64748B; }
-        .hero-badge span { color: #00B4D8; }
-        .cta-row { display: flex; gap: 16px; justify-content: center; }
-        .btn { padding: 14px 32px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
-        .btn-primary { background: #00B4D8; color: #FFFFFF; box-shadow: 0 2px 12px rgba(0,180,216,0.3); }
-        .btn-primary:hover { background: #0096C7; box-shadow: 0 4px 20px rgba(0,180,216,0.4); }
-        .btn-secondary { background: transparent; color: #1A2B44; border: 2px solid #CBD5E1; }
-        .btn-secondary:hover { border-color: #00B4D8; color: #00B4D8; }
+        /* Hero with Scientific Background */
+        .hero { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 120px 32px 100px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background: 
+                linear-gradient(30deg, #1A2B44 12%, transparent 12.5%, transparent 87%, #1A2B44 87.5%, #1A2B44),
+                linear-gradient(150deg, #1A2B44 12%, transparent 12.5%, transparent 87%, #1A2B44 87.5%, #1A2B44),
+                linear-gradient(30deg, #1A2B44 12%, transparent 12.5%, transparent 87%, #1A2B44 87.5%, #1A2B44),
+                linear-gradient(150deg, #1A2B44 12%, transparent 12.5%, transparent 87%, #1A2B44 87.5%, #1A2B44),
+                linear-gradient(60deg, #2563EB 25%, transparent 25.5%, transparent 75%, #2563EB 75%, #2563EB),
+                linear-gradient(60deg, #2563EB 25%, transparent 25.5%, transparent 75%, #2563EB 75%, #2563EB);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        h1 { 
+            font-size: 56px; 
+            font-weight: 700; 
+            color: #1A2B44; 
+            margin-bottom: 24px; 
+            letter-spacing: -1.5px; 
+            text-wrap: balance;
+            line-height: 1.1;
+        }
+        .hero-accent { color: #2563EB; }
+        .hero-subtitle { 
+            font-size: 19px; 
+            color: #64748B; 
+            margin-bottom: 32px; 
+            max-width: 700px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            font-weight: 400; 
+            text-wrap: pretty; 
+            line-height: 1.7; 
+        }
+        .hero-verification {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(37,99,235,0.06);
+            border: 1px solid rgba(37,99,235,0.15);
+            padding: 12px 24px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A2B44;
+        }
+        .verification-badge {
+            background: #2563EB;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { 
+            padding: 16px 36px; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.2px;
+        }
+        .btn-primary { 
+            background: #2563EB; 
+            color: #FFFFFF; 
+            box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+        }
+        .btn-primary:hover { 
+            background: #1D4ED8; 
+            box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+            transform: translateY(-2px);
+        }
+        .btn-secondary { 
+            background: transparent; 
+            color: #1A2B44; 
+            border: 2px solid #CBD5E1; 
+        }
+        .btn-secondary:hover { 
+            border-color: #2563EB; 
+            color: #2563EB;
+            transform: translateY(-2px);
+        }
 
         /* Section common */
-        .section { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
-        .section-title { text-align: center; font-size: 28px; color: #1A2B44; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; text-wrap: balance; }
-        .section-subtitle { text-align: center; font-size: 15px; color: #64748B; margin-bottom: 40px; max-width: 580px; margin-left: auto; margin-right: auto; text-wrap: pretty; line-height: 1.6; }
+        .section { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 120px 32px; 
+        }
+        .section-title { 
+            text-align: center; 
+            font-size: 38px; 
+            color: #1A2B44; 
+            font-weight: 700; 
+            margin-bottom: 16px; 
+            letter-spacing: -0.8px; 
+            text-wrap: balance; 
+        }
+        .section-subtitle { 
+            text-align: center; 
+            font-size: 18px; 
+            color: #64748B; 
+            margin-bottom: 64px; 
+            max-width: 680px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            text-wrap: pretty; 
+            line-height: 1.7; 
+        }
 
         /* Why Vantix - Trust Pillars */
-        .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-        .pillar { background: #FFFFFF; padding: 40px 32px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.03); transition: transform 0.25s, box-shadow 0.25s; text-align: center; }
-        .pillar:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-        .pillar h3 { font-size: 16px; color: #1A2B44; font-weight: 700; margin-bottom: 12px; text-wrap: balance; }
-        .pillar p { color: #64748B; font-size: 13px; line-height: 1.7; text-wrap: pretty; }
+        .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .pillar { 
+            background: #FFFFFF; 
+            padding: 48px 36px; 
+            border-radius: 12px; 
+            border: 1px solid #E2E8F0; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            text-align: center; 
+        }
+        .pillar:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 32px rgba(37,99,235,0.08);
+            border-color: #BFDBFE;
+        }
+        .pillar-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 28px;
+        }
+        .pillar h3 { 
+            font-size: 18px; 
+            color: #1A2B44; 
+            font-weight: 700; 
+            margin-bottom: 14px; 
+            text-wrap: balance; 
+        }
+        .pillar p { 
+            color: #64748B; 
+            font-size: 15px; 
+            line-height: 1.7; 
+            text-wrap: pretty; 
+        }
 
-        /* How It Works */
-        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
-        .steps::before { content: ''; position: absolute; top: 44px; left: 16%; right: 16%; height: 2px; background: linear-gradient(90deg, #E2E8F0, #00B4D8, #E2E8F0); z-index: 0; }
-        .step { background: #FFFFFF; padding: 40px 32px; border-radius: 14px; border: 1px solid #E2E8F0; box-shadow: 0 8px 24px rgba(0,0,0,0.04); text-align: center; position: relative; z-index: 1; }
-        .step-number { width: 48px; height: 48px; background: #00B4D8; color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; margin: 0 auto 20px; }
-        .step h3 { font-size: 16px; color: #1A2B44; font-weight: 700; margin-bottom: 8px; text-wrap: balance; }
-        .step p { color: #64748B; font-size: 13px; line-height: 1.6; text-wrap: pretty; }
-
-        /* Categories */
-        .categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .category-card { background: #FFFFFF; padding: 32px 24px; border-radius: 14px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.03); text-decoration: none; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; text-align: center; }
-        .category-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); border-color: #00B4D8; }
-        .category-icon { font-size: 32px; margin-bottom: 14px; }
-        .category-card h3 { font-size: 16px; color: #1A2B44; font-weight: 700; margin-bottom: 6px; text-wrap: balance; }
-        .category-card p { color: #64748B; font-size: 13px; text-wrap: pretty; }
-        .category-card .arrow { color: #00B4D8; font-size: 14px; font-weight: 700; margin-top: 12px; display: block; }
-
-        /* Verify Preview */
-        .verify-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-        .verify-content h3 { font-size: 28px; color: #1A2B44; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.5px; text-wrap: balance; }
-        .verify-content p { color: #64748B; font-size: 15px; line-height: 1.8; margin-bottom: 24px; text-wrap: pretty; }
-        .verify-features { list-style: none; margin-bottom: 32px; }
-        .verify-features li { padding: 8px 0; color: #1A2B44; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; }
-        .verify-features li::before { content: '✓'; color: #00B4D8; font-weight: 800; }
-        .verify-mockup { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 32px; box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
-        .mockup-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #F1F5F9; }
-        .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
-        .mockup-dot.red { background: #FCA5A5; }
-        .mockup-dot.yellow { background: #FDE68A; }
-        .mockup-dot.green { background: #86EFAC; }
-        .mockup-input { width: 100%; padding: 14px 16px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 14px; color: #94A3B8; font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace; background: #F8FAFC; margin-bottom: 16px; }
-        .mockup-result { background: #F0FDFF; border: 1px solid #B2F5EA; border-radius: 8px; padding: 16px; }
-        .mockup-result-badge { display: inline-block; background: rgba(0,180,216,0.1); color: #00B4D8; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; font-family: monospace; letter-spacing: 0.5px; margin-bottom: 8px; }
-        .mockup-result p { font-size: 13px; color: #64748B; }
-        .mockup-result strong { color: #1A2B44; }
-
-        /* FAQ */
-        .faq-list { max-width: 760px; margin: 0 auto; }
-        .faq-item { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
-        .faq-question { width: 100%; padding: 20px 24px; background: none; border: none; text-align: left; font-size: 15px; font-weight: 600; color: #1A2B44; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: inherit; }
-        .faq-question:hover { background: #F8FAFC; }
-        .faq-chevron { transition: transform 0.3s; font-size: 18px; color: #94A3B8; }
-        .faq-item.open .faq-chevron { transform: rotate(180deg); }
-        .faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
-        .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
-        .faq-answer p { color: #64748B; font-size: 14px; line-height: 1.7; text-wrap: pretty; }
+        /* Verification Visuals Section */
+        .verification-section {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-radius: 16px;
+            padding: 64px 48px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border: 1px solid #E2E8F0;
+        }
+        .verification-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .verification-content h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .verification-content p {
+            font-size: 17px;
+            color: #64748B;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+        .verification-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .verification-badge-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(37,99,235,0.04);
+            border-radius: 10px;
+            border: 1px solid rgba(37,99,235,0.1);
+        }
+        .verification-badge-item .icon {
+            width: 48px;
+            height: 48px;
+            background: #2563EB;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .verification-badge-item .text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A2B44;
+        }
+        .verification-visual {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        .chromatogram {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 30%, #93C5FD 50%, #3B82F6 80%, #2563EB 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chromatogram::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #1A2B44;
+        }
+        .chromatogram-label {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #64748B;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
 
         /* Final CTA */
-        .final-cta { text-align: center; padding: 80px 24px; background: #FFFFFF; border-top: 1px solid #E2E8F0; }
-        .final-cta h2 { font-size: 28px; font-weight: 700; color: #1A2B44; margin-bottom: 12px; text-wrap: balance; }
-        .final-cta p { color: #64748B; font-size: 15px; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; text-wrap: pretty; line-height: 1.6; }
+        .final-cta {
+            text-align: center;
+            padding: 80px 32px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-radius: 16px;
+            max-width: 1280px;
+            margin: 0 auto 120px;
+        }
+        .final-cta h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .final-cta p {
+            font-size: 18px;
+            color: #64748B;
+            margin-bottom: 32px;
+        }
+
+        /* FAQ */
+        .faq-list { max-width: 900px; margin: 0 auto; }
+        .faq-item { 
+            background: #FFFFFF; 
+            border: 1px solid #E2E8F0; 
+            border-radius: 12px; 
+            margin-bottom: 16px; 
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .faq-item:hover {
+            box-shadow: 0 4px 16px rgba(37,99,235,0.06);
+            border-color: #BFDBFE;
+        }
+        .faq-question { 
+            width: 100%; 
+            padding: 24px 28px; 
+            text-align: left; 
+            background: none; 
+            border: none; 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: #1A2B44; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: color 0.2s;
+        }
+        .faq-question:hover { color: #2563EB; }
+        .faq-chevron { 
+            color: #64748B; 
+            font-size: 14px; 
+            transition: transform 0.3s; 
+        }
+        .faq-item.active .faq-chevron { transform: rotate(180deg); }
+        .faq-answer { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.3s ease-out; 
+        }
+        .faq-item.active .faq-answer { max-height: 500px; }
+        .faq-answer p { 
+            padding: 0 28px 24px; 
+            color: #64748B; 
+            font-size: 15px; 
+            line-height: 1.7; 
+        }
+
+        /* Footer Trust Bar */
+        .footer-trust-bar {
+            background: linear-gradient(135deg, #1A2B44 0%, #2563EB 100%);
+            padding: 48px 32px;
+            margin-bottom: 0;
+        }
+        .trust-items {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+        .trust-item {
+            text-align: center;
+            color: white;
+        }
+        .trust-item-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 24px;
+        }
+        .trust-item h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+        .trust-item p {
+            font-size: 13px;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
 
         /* Footer */
-        footer { background: #FFFFFF; padding: 48px 24px; border-top: 1px solid #E2E8F0; text-align: center; }
-        footer p { color: #94A3B8; font-size: 14px; }
-        footer strong { color: #64748B; }
+        .footer { background: #1A2B44; color: rgba(255,255,255,0.7); padding: 48px 32px 32px; text-align: center; }
+        .footer p { font-size: 14px; margin-bottom: 8px; }
+        .footer-links { display: flex; gap: 24px; justify-content: center; margin-top: 16px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer-links a:hover { color: #FFFFFF; }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            h1 { font-size: 36px; }
+            .section { padding: 80px 20px; }
+            h1 { font-size: 36px; margin-bottom: 20px; }
+            .hero { padding: 80px 20px 60px; }
             .hero-subtitle { font-size: 16px; }
-            .header { padding: 10px 0; }
-            .header-content { padding: 0 16px; flex-direction: column; align-items: center; gap: 12px; }
+            .header-content { padding: 0 20px; flex-direction: column; align-items: center; gap: 12px; }
             .logo-link img { height: 60px !important; }
-            nav { gap: 14px; font-size: 13px; justify-content: center; }
+            nav { gap: 16px; font-size: 13px; justify-content: center; flex-wrap: wrap; }
             nav a { font-size: 13px; }
-            .nav-dropdown-menu { min-width: 140px; font-size: 12px; }
-            .pillars { grid-template-columns: 1fr; gap: 16px; }
-            .cta-row { flex-direction: column; align-items: center; }
-            .hero-badges { flex-direction: column; align-items: center; }
+            .nav-dropdown-menu { min-width: 160px; font-size: 12px; }
+            .pillars { grid-template-columns: 1fr; gap: 20px; }
+            .pillar { padding: 32px 24px; }
+            .verification-grid { grid-template-columns: 1fr; }
+            .trust-items { grid-template-columns: 1fr 1fr; gap: 24px; }
+            .section-title { font-size: 28px; }
+            .section-subtitle { font-size: 16px; }
+            .btn { width: 100%; justify-content: center; }
+            .cta-row { flex-direction: column; width: 100%; }
+            .final-cta { padding: 60px 24px; }
+            .final-cta h2 { font-size: 28px; }
+            .verification-section { padding: 40px 24px; }
         }
         @media (max-width: 480px) {
             h1 { font-size: 32px; }
             .hero-subtitle { font-size: 15px; }
             .logo-link img { height: 50px !important; }
-            nav { gap: 10px; font-size: 12px; }
+            nav { gap: 12px; font-size: 12px; }
             nav a { font-size: 12px; }
+            .trust-items { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -152,43 +519,44 @@
     <!-- Header -->
     <div class="header">
         <div class="header-content">
-<a href="/" class="logo" style="display:flex;align-items:center;text-decoration:none">
-                <img src="logo.jpg" alt="Vantix Bio - Research Peptides" style="height:140px">
+            <a href="index.html" class="logo-link">
+                <img src="logo.jpg" alt="VANTIX BIO Logo">
             </a>
             <nav>
-                <a href="shop.html">Shop</a>
+                <a href="shop.html">Catalog</a>
                 <a href="verify.html">Verify</a>
                 <div class="nav-dropdown">
                     <a>Science <span class="dropdown-arrow">▼</span></a>
                     <div class="nav-dropdown-menu">
                         <a href="the-matrix.html">The Matrix</a>
-                        <a href="blog/">Research</a>
-                        <a href="about.html">About Us</a>
                     </div>
                 </div>
                 <div class="nav-dropdown">
                     <a>Support <span class="dropdown-arrow">▼</span></a>
                     <div class="nav-dropdown-menu">
                         <a href="#faq">FAQ</a>
-                        <a href="mailto:support@vantixbio.com">Contact</a>
                     </div>
                 </div>
             </nav>
         </div>
     </div>
 
-    <!-- Hero -->
+    <!-- Hero with Scientific Background -->
     <div class="hero">
-        <h1>Forensic-Grade <span class="hero-accent">Research Peptides</span></h1>
-        <p class="hero-subtitle">Every compound independently verified through Janoshik chromatography. HPLC-DAD and LC-MS/MS dual analysis with immutable split-screen&nbsp;audit&nbsp;trails.</p>
-        <div class="hero-badges">
-            <div class="hero-badge"><span>◆</span> Janoshik-Verified</div>
-            <div class="hero-badge"><span>◆</span> Dual Chromatography</div>
-            <div class="hero-badge"><span>◆</span> Forensic Audit Trail</div>
-        </div>
-        <div class="cta-row">
-            <a href="shop.html" class="btn btn-primary">Browse Catalog</a>
-            <a href="verify.html" class="btn btn-secondary">Verify a Batch</a>
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Forensic-Grade <span class="hero-accent">Research Peptides</span></h1>
+            <p class="hero-subtitle">Every compound independently verified through Janoshik chromatography. HPLC-DAD and LC-MS/MS dual analysis with immutable split-screen audit trails.</p>
+            
+            <div class="hero-verification">
+                <span class="verification-badge">✓ Janoshik Verified</span>
+                <span>HPLC-DAD · LC-MS/MS · Forensic Watermarking</span>
+            </div>
+
+            <div class="cta-row">
+                <a href="shop.html" class="btn btn-primary">Browse Catalog →</a>
+                <a href="verify.html" class="btn btn-secondary">Verify a Batch</a>
+            </div>
         </div>
     </div>
 
@@ -196,18 +564,51 @@
     <div class="section">
         <h2 class="section-title">Why Researchers Choose Vantix</h2>
         <p class="section-subtitle">Data-driven integrity at every step of the supply chain.</p>
-        <div class="pillars" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="pillars">
             <div class="pillar">
+                <div class="pillar-icon">🔬</div>
                 <h3>Janoshik Verification</h3>
                 <p>Exclusive partnership with Janoshik Analytical. Every batch undergoes independent third-party HPLC-DAD and LC-MS/MS chromatographic analysis before release.</p>
             </div>
             <div class="pillar">
+                <div class="pillar-icon">📊</div>
                 <h3>Forensic Transparency</h3>
                 <p>Split-screen COA reports with immutable watermarking. Dual chromatography data presented side-by-side — tamper-evident by design.</p>
             </div>
             <div class="pillar">
+                <div class="pillar-icon">⚡</div>
                 <h3>Instant Verification</h3>
                 <p>Enter any VX Bundle ID to retrieve full verification reports in seconds. No email requests. No wait times. Audit on demand.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Visuals Section -->
+    <div class="section">
+        <div class="verification-section">
+            <div class="verification-grid">
+                <div class="verification-content">
+                    <h3>Laboratory-Grade Analytical Verification</h3>
+                    <p>Every Vantix compound ships with comprehensive chromatographic analysis from Janoshik Analytical, the industry standard for peptide verification.</p>
+                    <div class="verification-badges">
+                        <div class="verification-badge-item">
+                            <div class="icon">✓</div>
+                            <div class="text">HPLC-DAD Purity Confirmation</div>
+                        </div>
+                        <div class="verification-badge-item">
+                            <div class="icon">✓</div>
+                            <div class="text">LC-MS/MS Identity Verification</div>
+                        </div>
+                        <div class="verification-badge-item">
+                            <div class="icon">✓</div>
+                            <div class="text">Forensic Watermarking</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="verification-visual">
+                    <div class="chromatogram"></div>
+                    <div class="chromatogram-label">HPLC-DAD Chromatogram · Janoshik Analytical</div>
+                </div>
             </div>
         </div>
     </div>
@@ -216,11 +617,11 @@
     <div class="final-cta">
         <h2>Ready to Experience Forensic-Grade Standards?</h2>
         <p>Browse our catalog of Janoshik-verified research compounds.</p>
-        <a href="shop.html" class="btn btn-primary">Browse Catalog</a>
+        <a href="shop.html" class="btn btn-primary">Browse Catalog →</a>
     </div>
 
     <!-- FAQ -->
-    <div class="section">
+    <div class="section" id="faq">
         <h2 class="section-title">Frequently Asked Questions</h2>
         <p class="section-subtitle">Transparency extends to how we communicate.</p>
         <div class="faq-list">
@@ -246,54 +647,72 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question">Are these products for human consumption? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>No. All Vantix compounds are sold strictly for in-vitro research and analytical reference purposes. They are not approved for human or animal use and are not marketed as such.</p></div>
+                <div class="faq-answer"><p>No. All Vantix compounds are sold strictly for in vitro research purposes only. They are not intended for human or animal consumption, and are not approved by the FDA for therapeutic use.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question">What shipping methods are available? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>We offer discreet domestic shipping with tracking. Orders are processed within 24 hours and typically arrive within 3-5 business days. Each package includes the Bundle ID card for immediate verification upon receipt.</p></div>
+                <div class="faq-answer"><p>We offer standard USPS shipping (3-5 business days) and expedited options. All orders are shipped with discreet packaging and include the VX Bundle ID for immediate verification upon receipt.</p></div>
             </div>
         </div>
     </div>
 
-    <!-- Final CTA -->
-    <div class="final-cta">
-        <h2>Verified Compounds. Transparent Data.</h2>
-        <p>Every peptide in our catalog is backed by independent Janoshik chromatography. See the data for yourself.</p>
-        <a href="shop.html" class="btn btn-primary">Browse Catalog</a>
+    <!-- Footer Trust Bar -->
+    <div class="footer-trust-bar">
+        <div class="trust-items">
+            <div class="trust-item">
+                <div class="trust-item-icon">🔬</div>
+                <h4>Independent Testing</h4>
+                <p>Third-party Janoshik analysis on every batch</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">🔗</div>
+                <h4>Batch Traceability</h4>
+                <p>Unique Bundle IDs link to full COA data</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">🛡️</div>
+                <h4>Tamper-Evident Data</h4>
+                <p>Forensic watermarking prevents fraud</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">⚠️</div>
+                <h4>Research Use Only</h4>
+                <p>Not for human or animal consumption</p>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
-    <footer>
+    <div class="footer">
         <p><strong>FOR RESEARCH PURPOSES ONLY.</strong> Not for human or animal consumption.</p>
-        <p style="margin-top:12px">© 2026 Vantix Bio LLC. All rights reserved.</p>
-    </footer>
+        <p>© 2026 Vantix Bio LLC. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Shipping Policy</a>
+        </div>
+    </div>
 
     <script>
-        document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.parentElement;
-                const wasOpen = item.classList.contains('open');
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-                if (!wasOpen) item.classList.add('open');
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
             });
         });
-        
+
         // Mobile dropdown handling
-        document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                const dropdown = trigger.parentElement;
-                const wasOpen = dropdown.classList.contains('open');
-                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
-                if (!wasOpen) dropdown.classList.add('open');
+        document.querySelectorAll('.nav-dropdown > a').forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const parent = dropdown.parentElement;
+                    parent.classList.toggle('open');
+                }
             });
-        });
-        
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.nav-dropdown')) {
-                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
-            }
         });
     </script>
 </body>
