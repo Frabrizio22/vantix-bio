@@ -2313,7 +2313,7 @@
         });
 
         // ======= CART SYSTEM =======
-        var shopCart = JSON.parse(localStorage.getItem('prcCart') || '[]');
+        var shopCart = JSON.parse(localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || '[]');
 
         function addToCart(name, price) {
             var found = false;
@@ -2327,7 +2327,7 @@
             if (!found) {
                 shopCart.push({ name: name, price: price, quantity: 1 });
             }
-            localStorage.setItem('prcCart', JSON.stringify(shopCart));
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
             updateCartBadge();
             renderCartDrawer();
             showToast(name + ' added to cart');
@@ -2336,14 +2336,14 @@
         function updateCartQty(index, change) {
             shopCart[index].quantity += change;
             if (shopCart[index].quantity < 1) shopCart.splice(index, 1);
-            localStorage.setItem('prcCart', JSON.stringify(shopCart));
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
             updateCartBadge();
             renderCartDrawer();
         }
 
         function removeCartItem(index) {
             shopCart.splice(index, 1);
-            localStorage.setItem('prcCart', JSON.stringify(shopCart));
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
             updateCartBadge();
             renderCartDrawer();
         }
@@ -2406,7 +2406,7 @@
 
         function goToCheckout() {
             if (shopCart.length === 0) return;
-            localStorage.setItem('prcCart', JSON.stringify(shopCart));
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
             window.location.href = 'checkout.html';
         }
 

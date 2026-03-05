@@ -872,8 +872,8 @@
         function loadCart() {
             var product = getUrlParam('product');
             var price = getUrlParam('price');
-            var saved = localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
-            if (saved) { cart = JSON.parse(saved); localStorage.setItem('prcCart', saved); }
+            var saved = localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('vxCart');
+            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vxCart', saved); }
 
             if (product && price) {
                 var decoded = decodeURIComponent(product);
@@ -890,7 +890,7 @@
         }
 
         function saveCart() {
-            localStorage.setItem('prcCart', JSON.stringify(cart));
+            localStorage.setItem('vxCart', JSON.stringify(cart));
         }
 
         function renderCart() {
