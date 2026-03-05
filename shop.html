@@ -1174,9 +1174,11 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header-content { padding: 0 12px; overflow-x: hidden; }
+            .header-content { padding: 0 12px; overflow-x: hidden; justify-content: center; }
             header { padding: 8px 0; }
             .logo img { height: 60px !important; }
+            .header-left { justify-content: center; width: 100%; }
+            .nav-icons { position: absolute; right: 12px; }
             .hero h1 { font-size: 1.5rem; }
             .hero p { font-size: 0.85rem; }
             .hero { padding: 1.75rem 1rem; }
@@ -1184,7 +1186,6 @@
             .section-sub { display: none; }
             .featured-card { min-width: 155px; }
             nav { display: none; }
-            .header-left { gap: 0; }
             .trust-item { font-size: 0.62rem; padding: 0 10px; }
             .hamburger { display: flex !important; }
             main { padding: 0 1rem 2rem; }
