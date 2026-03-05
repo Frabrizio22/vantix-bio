@@ -29,30 +29,35 @@
         }
 
         /* ── Header ── */
-        .header { background: #FFFFFF; padding: 8px 24px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); }
+        .header { background: #FFFFFF; padding: 20px 24px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); transition: padding 0.3s ease; }
+        .header.compact { padding: 12px 24px; }
         .logo-link { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-link img { height: 80px; }
+        .logo-link img { height: 110px; transition: height 0.3s ease; }
+        .header.compact .logo-link img { height: 70px; }
         .logo-text { font-size: 24px; font-weight: 800; color: #1A2B44; letter-spacing: 1px; }
 
         /* ── Container ── */
-        .container { max-width: 1200px; margin: 0 auto; padding: 16px 24px 80px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 24px 80px; transition: padding 0.3s ease; }
+        .container.compact { padding: 20px 24px 80px; }
 
         /* ── Section Titles ── */
-        h1 { font-size: 24px; font-weight: 800; color: #1A2B44; margin-bottom: 3px; }
-        .page-sub { color: #64748B; font-size: 12px; margin-bottom: 16px; }
+        h1 { font-size: 42px; font-weight: 800; color: #1A2B44; margin-bottom: 12px; letter-spacing: -0.5px; transition: all 0.3s ease; }
+        .page-sub { color: #64748B; font-size: 16px; margin-bottom: 48px; line-height: 1.6; transition: all 0.3s ease; }
 
         /* ── Matrix Protocol ── */
-        .protocol-section { margin-bottom: 20px; }
-        .protocol-section h2 { font-size: 12px; font-weight: 700; color: #1A2B44; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.2px; }
-        .protocol-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-        .protocol-step { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 6px; padding: 8px 6px; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
-        .protocol-step:hover { border-color: #00B4D8; box-shadow: 0 2px 12px rgba(0,180,216,0.10); }
-        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: #00B4D8; color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 4px; }
-        .step-label { font-size: 10px; font-weight: 600; color: #1A2B44; line-height: 1.2; }
-        .step-desc { font-size: 8px; color: #64748B; margin-top: 2px; line-height: 1.2; }
+        .protocol-section { margin-bottom: 48px; overflow: hidden; max-height: 500px; opacity: 1; transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; }
+        .protocol-section.hidden { max-height: 0; opacity: 0; margin-bottom: 0; }
+        .protocol-section h2 { font-size: 14px; font-weight: 700; color: #1A2B44; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .protocol-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .protocol-step { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px 16px; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
+        .protocol-step:hover { border-color: #00B4D8; box-shadow: 0 4px 16px rgba(0,180,216,0.12); }
+        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: #00B4D8; color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+        .step-label { font-size: 13px; font-weight: 600; color: #1A2B44; line-height: 1.4; margin-bottom: 6px; }
+        .step-desc { font-size: 11px; color: #64748B; margin-top: 4px; line-height: 1.5; }
 
         /* ── Search Box ── */
-        .search-box { background: #FFFFFF; padding: 18px 24px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(26,43,68,0.08); }
+        .search-box { background: #FFFFFF; padding: 40px 48px; border-radius: 16px; border: 1px solid #E2E8F0; box-shadow: 0 8px 32px rgba(26,43,68,0.08); transition: all 0.3s ease; }
+        .search-box.compact { padding: 24px 32px; }
         .search-box label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #64748B; margin-bottom: 10px; }
         .input-row { display: flex; gap: 12px; }
         .input-row input { flex: 1; padding: 16px 18px; font-size: 15px; border: 2px solid #E2E8F0; border-radius: 8px; background: #F8FAFC; color: #1A2B44; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; transition: border-color 0.2s; }
@@ -72,7 +77,7 @@
         @keyframes cursorBlink { 0%,100%{opacity:1}50%{opacity:0} }
 
         /* ── Results Layout ── */
-        .results-area { margin-top: 16px; animation: fadeUp 0.5s ease both; }
+        .results-area { margin-top: 32px; animation: fadeUp 0.5s ease both; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .single-view { display: grid; grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; }
@@ -240,7 +245,19 @@
 
         function render() {
             const app = document.getElementById('app');
+            const header = document.querySelector('.header');
+            
             app.innerHTML = buildHTML();
+            
+            // Apply compact mode when results shown
+            if (state.result) {
+                header?.classList.add('compact');
+                app?.classList.add('compact');
+            } else {
+                header?.classList.remove('compact');
+                app?.classList.remove('compact');
+            }
+            
             bindEvents();
             if (state.result) initChromatograms();
         }
@@ -258,8 +275,8 @@
             html += `<h1>Vantix Matrix Verification</h1>
                 <p class="page-sub">Chromatographic Purity Portal — Research-Only Analytical Reference Data</p>`;
 
-            // 8-Step Protocol
-            html += `<div class="protocol-section">
+            // 8-Step Protocol (hide when results shown)
+            html += `<div class="protocol-section ${state.result ? 'hidden' : ''}">
                 <h2>8-Step Matrix Protocol</h2>
                 <div class="protocol-grid">
                     ${PROTOCOL_STEPS.map(s => `<div class="protocol-step">
@@ -271,10 +288,10 @@
             </div>`;
 
             // Search
-            html += `<div class="search-box">
+            html += `<div class="search-box ${state.result ? 'compact' : ''}">
                 <label>Matrix Verification — Enter Standard ID or Bundle ID</label>
                 <div class="input-row">
-                    <input id="q" type="text" value="${state.query}" placeholder="VX-TZ-2026 or VX-7841" ${state.loading ? 'disabled' : ''}" />
+                    <input id="q" type="text" placeholder="VX-TZ-2026 or VX-7841" ${state.loading ? 'disabled' : ''}" />
                     <button class="btn-primary" id="btn-verify" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Verifying…' : 'Verify'}</button>
                 </div>
                 ${state.error ? `<div class="error-msg">${state.error}</div>` : ''}
@@ -333,14 +350,10 @@
             const inp = document.getElementById('q');
             const btn = document.getElementById('btn-verify');
             if (inp) {
+                // Restore value from state
+                if (state.query) inp.value = state.query;
+                
                 inp.addEventListener('input', e => { state.query = e.target.value; });
-                inp.addEventListener('paste', e => { 
-                    e.preventDefault();
-                    const text = (e.clipboardData || window.clipboardData).getData('text');
-                    inp.value = text;
-                    state.query = text;
-                    render();
-                });
                 inp.addEventListener('keydown', e => { if (e.key === 'Enter') doVerify(); });
             }
             if (btn) btn.addEventListener('click', doVerify);
@@ -385,7 +398,9 @@
 
         // ─── Verify Action ───
         async function doVerify() {
-            const raw = state.query.trim().toUpperCase();
+            const inp = document.getElementById('q');
+            const raw = (inp?.value || state.query).trim().toUpperCase();
+            state.query = raw;
             if (!raw) { state.error = 'Enter a Standard ID or Bundle ID'; render(); return; }
 
             const idType = detectIdType(raw);
