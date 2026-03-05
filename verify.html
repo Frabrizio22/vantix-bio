@@ -121,8 +121,13 @@
     </style>
 </head>
 <body>
-    <!-- Disable right-click globally -->
-    <script>document.addEventListener('contextmenu', e => e.preventDefault());</script>
+    <!-- Allow paste in input fields -->
+    <script>
+    document.addEventListener('contextmenu', e => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        e.preventDefault();
+    });
+    </script>
 
     <div class="header">
         <a href="/" class="logo-link">
@@ -291,7 +296,7 @@
             html += `<div class="search-box ${state.result ? 'compact' : ''}">
                 <label>Matrix Verification — Enter Standard ID or Bundle ID</label>
                 <div class="input-row">
-                    <input id="q" type="text" placeholder="VX-TZ-2026 or VX-7841" autocomplete="off" spellcheck="false" ${state.loading ? 'disabled' : ''} />
+                    <input id="q" type="text" placeholder="VX-TZ-2026 or VX-7841" autocomplete="off" spellcheck="false" onpaste="return true;" ${state.loading ? 'disabled' : ''} />
                     <button class="btn-primary" id="btn-verify" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Verifying…' : 'Verify'}</button>
                 </div>
                 ${state.error ? `<div class="error-msg">${state.error}</div>` : ''}
