@@ -350,11 +350,7 @@
             const inp = document.getElementById('q');
             const btn = document.getElementById('btn-verify');
             if (inp) {
-                // Restore value from state
                 if (state.query) inp.value = state.query;
-                
-                inp.addEventListener('input', e => { state.query = e.target.value; });
-                inp.addEventListener('paste', e => { setTimeout(() => { state.query = inp.value; }, 10); });
                 inp.addEventListener('keydown', e => { if (e.key === 'Enter') doVerify(); });
             }
             if (btn) btn.addEventListener('click', doVerify);
