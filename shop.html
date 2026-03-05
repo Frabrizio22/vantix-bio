@@ -1709,15 +1709,12 @@ h1 {
             <div class="filter-section">
                 <div class="filter-pills">
                     <button class="filter-pill active" data-category="all">All</button>
-                    <button class="filter-pill" data-category="glp">GLP</button>
-                    <button class="filter-pill" data-category="tissue">Structural</button>
-                    <button class="filter-pill" data-category="gh">Growth Hormone</button>
-                    <button class="filter-pill" data-category="metabolic">Metabolic</button>
-                    <button class="filter-pill" data-category="antioxidants">Antioxidants</button>
-                    <button class="filter-pill" data-category="neuropeptides">Neuro</button>
-                    <button class="filter-pill" data-category="longevity">Cellular</button>
-                    <button class="filter-pill" data-category="melanocortin">Melanocortin</button>
-                    <button class="filter-pill" data-category="advanced">Advanced</button>
+                    <button class="filter-pill" data-category="glp1">GLP-1</button>
+                    <button class="filter-pill" data-category="tissue-repair">Tissue Repair</button>
+                    <button class="filter-pill" data-category="growth-hormone">Growth Hormone</button>
+                    <button class="filter-pill" data-category="longevity">Longevity</button>
+                    <button class="filter-pill" data-category="cosmetic">Cosmetic</button>
+                    <button class="filter-pill" data-category="supplies">Supplies</button>
                 </div>
             </div>
 
@@ -1934,408 +1931,34 @@ h1 {
             <div style="font-size:0.72rem;color:#94A3B8;margin-bottom:1rem">support@vantixbio.com</div>
             <div class="footer-disclaimer" style="background:#FEF2F2;padding:16px;border-radius:10px;margin-bottom:16px;border:1px solid #FECACA">
                 <span class="research-only">FOR RESEARCH PURPOSES ONLY.</span> Vantix Bio LLC provides high-purity reagents strictly for in vitro laboratory research. Our products are not for human or veterinary use, nor are they intended to diagnose, treat, cure, or prevent any disease. By purchasing, the buyer acknowledges the hazards associated with the use of these chemicals and confirms they are a qualified researcher. Headquartered in Santa Cruz, CA.
-            </div>
-            <div style="font-size:0.65rem;color:#94A3B8;margin-top:1rem">© 2026 Vantix Bio LLC. All rights reserved.</div>
-        </div>
-    </footer>
-
     <script>
-        // Product Data
-        var products = [
-            {
-                name: "Semaglutide 10mg",
-                category: "glp",
-                price: 30,
-                coa: true,
-                shortDesc: "Benchmark long-acting GLP-1 receptor agonist with fatty acid modification for extended half-life.",
-                fullDesc: "Semaglutide represents the culmination of decades of incretin biology research. Novo Nordisk's scientists engineered this glucagon-like peptide-1 analogue with a strategic fatty acid modification that enables albumin binding, dramatically extending its half-life from minutes to days. This single molecular modification transformed GLP-1 into a sustained metabolic signaling tool.",
-                applications: "GLP-1 receptor binding and signaling studies, glucose homeostasis mechanisms, pancreatic beta-cell function research, appetite regulation pathways, incretin pharmacology, metabolic disease models"
-            },
-            {
-                name: "Tirzepatide 30mg",
-                category: "glp",
-                price: 46,
-                coa: true,
-                shortDesc: "Higher-dose dual GLP-1/GIP receptor agonist for advanced incretin research.",
-                fullDesc: "Tirzepatide represents a paradigm shift in incretin biology. Where previous research focused on single-receptor agonism, Eli Lilly scientists engineered this novel peptide to activate both glucose-dependent insulinotropic polypeptide (GIP) and glucagon-like peptide-1 (GLP-1) receptors with balanced potency.",
-                applications: "Dual incretin pathway research, GIP/GLP-1 receptor synergy, incretin receptor pharmacology, metabolic signaling cascade studies, pancreatic islet function, comparative incretin biology"
-            },
-            {
-                name: "Tirzepatide 20mg",
-                category: "glp",
-                price: 44,
-                coa: true,
-                shortDesc: "First dual GLP-1/GIP receptor agonist with balanced potency for incretin synergy research.",
-                fullDesc: "Tirzepatide represents a paradigm shift in incretin biology. Where previous research focused on single-receptor agonism, Eli Lilly scientists engineered this novel peptide to activate both glucose-dependent insulinotropic polypeptide (GIP) and glucagon-like peptide-1 (GLP-1) receptors with balanced potency. This dual incretin activation reveals synergistic metabolic effects.",
-                applications: "Dual incretin pathway research, GIP/GLP-1 receptor synergy, incretin receptor pharmacology, metabolic signaling cascade studies, pancreatic islet function, comparative incretin biology"
-            },
-            {
-                name: "Retatrutide 20mg",
-                category: "glp",
-                price: 55,
-                coa: true,
-                shortDesc: "World's first triple GLP-1/GIP/Glucagon receptor agonist for multi-pathway metabolic research.",
-                fullDesc: "Retatrutide represents the frontier of incretin research. Building on tirzepatide's dual-agonist success, Eli Lilly scientists engineered this peptide with an unprecedented pharmacological profile: balanced activation of three distinct hormone receptors—GLP-1, GIP, and glucagon. This triple agonism creates a metabolic phenotype unattainable through any combination of existing compounds.",
-                applications: "Triple-receptor agonism studies, GLP-1/GIP/glucagon pathway synergy, energy expenditure mechanisms, complex metabolic signaling, thermogenesis research, next-generation incretin biology"
-            },
-            {
-                name: "Cagrilintide 5mg",
-                category: "glp",
-                price: 25,
-                coa: true,
-                shortDesc: "Long-acting amylin receptor agonist for sustained satiety and gastric emptying research.",
-                fullDesc: "Cagrilintide reimagines amylin pharmacology. While the first-generation amylin analogue pramlintide required frequent dosing and suffered from limited stability, Novo Nordisk's structural modifications created a compound with dramatically extended receptor residence time and proteolytic resistance. This long-acting analogue enables researchers to study sustained amylin receptor activation.",
-                applications: "Amylin receptor signaling research, gastric emptying mechanisms, satiety pathway studies, pancreatic beta-cell co-secretion, pramlintide comparison pharmacology, calcitonin receptor family research"
-            },
-            {
-                name: "BPC-157/TB-500 10mg/10mg",
-                category: "tissue",
-                price: 40,
-                coa: true,
-                shortDesc: "Dual tissue repair complex pairing cytoprotective and actin-mediated cell migration mechanisms.",
-                fullDesc: "Tissue repair requires coordinated processes: inflammatory resolution, angiogenesis, cell migration, extracellular matrix remodeling, and cytoprotection. This combination targets multiple phases simultaneously. BPC-157 demonstrates remarkable cytoprotective properties while promoting angiogenesis through VEGF modulation. TB-500 facilitates actin polymerization and cytoskeletal reorganization, driving cell migration.",
-                applications: "Wound tissue signaling models, angiogenesis research, cytoprotection mechanisms, cell migration assays, collagen synthesis studies, anti-inflammatory pathway research, musculoskeletal repair models"
-            },
-            {
-                name: "KPV 10mg",
-                category: "tissue",
-                price: 36,
-                coa: true,
-                shortDesc: "Anti-inflammatory tripeptide from α-MSH that retains NF-κB inhibition without melanocortin activation.",
-                fullDesc: "KPV (Lysine-Proline-Valine) represents molecular dissection of anti-inflammatory signaling. As the C-terminal tripeptide of alpha-melanocyte stimulating hormone, KPV retains the parent molecule's remarkable anti-inflammatory properties while eliminating melanocortin receptor-mediated effects like pigmentation. This separation of functions makes KPV uniquely valuable.",
-                applications: "NF-κB signaling inhibition, inflammatory cytokine modulation, inflammatory bowel disease models, mucosal immunity research, wound tissue signaling inflammation control, melanocortin peptide fragment studies"
-            },
-            {
-                name: "GHK-Cu (Copper Peptide) 100mg",
-                category: "tissue",
-                price: 31,
-                coa: true,
-                shortDesc: "Copper-binding tripeptide that chelates Cu²⁺ to modulate metalloproteinases and collagen synthesis.",
-                fullDesc: "Glycyl-L-Histidyl-L-Lysine bound to copper represents one of nature's elegant metal-mediated signaling systems. First isolated from human plasma, GHK-Cu demonstrates the biological importance of copper-peptide coordination chemistry. The copper ion, precisely positioned by the peptide, activates biological functions: stimulating collagen synthesis, modulating metalloproteinase activity, and providing antioxidant effects.",
-                applications: "Collagen synthesis mechanisms, metalloproteinase regulation, copper-dependent enzyme research, extracellular matrix remodeling, wound tissue signaling biology, antioxidant copper chemistry, tissue regeneration models"
-            },
-            {
-                name: "LL-37 5mg",
-                category: "tissue",
-                price: 29,
-                coa: true,
-                shortDesc: "The sole human cathelicidin with broad-spectrum antimicrobial and immunomodulatory activity.",
-                fullDesc: "LL-37 occupies a unique position in human immunology: it is the only antimicrobial peptide produced by the human cathelicidin family. Cleaved from the C-terminus of the hCAP18 precursor protein, this amphipathic alpha-helical peptide demonstrates broad-spectrum antimicrobial activity against bacteria, fungi, and enveloped viruses through membrane disruption.",
-                applications: "Antimicrobial mechanism studies, innate immunity research, membrane disruption models, biofilm penetration research, immune cell chemotaxis, wound tissue signaling immunity, vitamin D-dependent peptide regulation"
-            },
-            {
-                name: "Thymalin 10mg",
-                category: "tissue",
-                price: 37,
-                coa: true,
-                shortDesc: "Pharmaceutical-grade thymic bioregulator for T-cell differentiation and adaptive immunity research.",
-                fullDesc: "Thymalin belongs to a unique category of biological compounds developed in the Soviet Union: bioregulators—short peptides extracted from specific organs that demonstrate tissue-specific regulatory effects. Isolated from thymus tissue, Thymalin contains peptides that appear to modulate T-cell differentiation and thymic function through mechanisms involving chromatin remodeling.",
-                applications: "T-cell differentiation studies, thymic function research, bioregulator peptide mechanisms, immune system modulation, immunosenescence models, adaptive immunity research, peptide-DNA interaction studies"
-            },
-            {
-                name: "Sermorelin 5mg",
-                category: "gh",
-                price: 38,
-                coa: true,
-                shortDesc: "GHRH(1-29) fragment retaining complete growth hormone releasing activity.",
-                fullDesc: "Sermorelin represents elegant peptide design: by identifying the minimal bioactive sequence within full-length GHRH(1-44), researchers created a compound with identical receptor activity but enhanced stability and reduced immunogenicity. This 29-amino acid fragment contains the entire receptor-binding domain, making it indispensable for studying GHRH receptor pharmacology.",
-                applications: "GHRH receptor binding studies, pituitary somatotroph function, growth hormone secretion dynamics, pulsatile GH release mechanisms, IGF-1 pathway research, growth hormone axis physiology"
-            },
-            {
-                name: "Ipamorelin 5mg",
-                category: "gh",
-                price: 21,
-                coa: true,
-                shortDesc: "Most selective growth hormone secretagogue with exceptional GH specificity.",
-                fullDesc: "Ipamorelin solved a critical problem in growth hormone secretagogue research: earlier ghrelin mimetics stimulated GH release but also elevated prolactin and cortisol through off-target receptor activation. Novo Nordisk's Ipamorelin demonstrates near-exclusive selectivity for the ghrelin receptor (GHS-R1a) on somatotrophs, triggering GH secretion without hormonal side effects.",
-                applications: "Ghrelin receptor (GHS-R1a) pharmacology, selective GH secretion mechanisms, growth hormone pulse dynamics, somatotroph receptor selectivity, GHRP comparative studies, non-GHRH secretagogue pathways"
-            },
-            {
-                name: "CJC-1295 No DAC (Mod GRF 1-29)",
-                category: "gh",
-                price: 42,
-                coa: true,
-                shortDesc: "Modified GHRH analogue with enhanced proteolytic resistance for pulsatile GH research.",
-                fullDesc: "CJC-1295 without Drug Affinity Complex (commonly called Modified GRF 1-29) represents refined GHRH analogue design. Through targeted amino acid substitutions at positions vulnerable to enzymatic cleavage, researchers created a peptide significantly more stable than natural GHRH yet without the week-long half-life of DAC-conjugated versions.",
-                applications: "GHRH analogue pharmacology, pulsatile GH release patterns, GHRH receptor binding kinetics, peptide stability mechanisms, growth hormone secretion dynamics, somatotroph physiology"
-            },
-            {
-                name: "CJC-1295/Ipamorelin Blend",
-                category: "gh",
-                price: 42,
-                coa: true,
-                shortDesc: "Precision-balanced dual growth hormone secretagogue targeting GHRH and ghrelin pathways.",
-                fullDesc: "Growth hormone release is governed by two parallel pathways: GHRH signaling through pituitary GHRH receptors, and ghrelin acting via GHS-R1a receptors. This combination recognizes that dual-pathway activation produces supra-additive effects—the GH pulse amplitude from combined GHRH/ghrelin agonism exceeds the sum of individual stimulation.",
-                applications: "Dual-pathway GH secretagogue studies, GHRH/ghrelin synergy mechanisms, amplified GH pulse research, combined secretagogue pharmacodynamics, maximal endogenous GH release models"
-            },
-            {
-                name: "rHGH 191aa 1500iu (Somatropin)",
-                category: "gh",
-                price: 28,
-                coa: true,
-                shortDesc: "Bioidentical 191-amino acid recombinant human growth hormone for direct GH receptor research.",
-                fullDesc: "This represents human somatotropin in its native form: 191 amino acids in the precise sequence and tertiary structure found in pituitary-derived growth hormone. Produced through recombinant DNA technology in E. coli expression systems, this rHGH is structurally indistinguishable from endogenous GH, making it the unambiguous choice for studying growth hormone receptor biology.",
-                applications: "GH receptor binding and signaling, IGF-1 pathway research, somatotropin receptor pharmacology, anabolic signaling mechanisms, direct GH effects vs. secretagogue comparison, protein synthesis research"
-            },
-            {
-                name: "AOD-9604 2mg",
-                category: "metabolic",
-                price: 20,
-                coa: true,
-                shortDesc: "Modified growth hormone fragment retaining lipolytic activity without GH receptor activation.",
-                fullDesc: "AOD-9604 represents molecular surgery on growth hormone. Australian researchers at Monash University identified the 176-191 C-terminal region as responsible for GH's lipolytic effects, then added stabilizing modifications to create a fragment that stimulates lipolysis without growth hormone receptor binding. The result: fat-mobilizing properties without effects on growth or IGF-1.",
-                applications: "Lipolysis mechanism research, GH fragment biology, lipid metabolism studies, adipocyte signaling independent of GH receptor, selective metabolic pathway activation, non-receptor GH effects"
-            },
-            {
-                name: "MOTS-c 10mg",
-                category: "metabolic",
-                price: 28,
-                coa: true,
-                shortDesc: "Mitochondrial genome-encoded peptide that translocates to nucleus to regulate metabolism.",
-                fullDesc: "MOTS-c represents a paradigm shift in cellular biology. Discovered in 2015, this peptide revealed that the mitochondrial genome contains open reading frames for signaling peptides that regulate nuclear gene expression. MOTS-c, encoded within the mitochondrial 12S rRNA gene, acts as a mitochondrial-to-nuclear messenger: during metabolic stress, it translocates to the nucleus and modulates gene expression.",
-                applications: "Mitochondrial-nuclear signaling, metabolic homeostasis mechanisms, AMPK pathway research, insulin sensitivity studies, mitochondrial genome function, retrograde signaling research, exercise mimetic studies"
-            },
-            {
-                name: "5-Amino-1MQ 5mg",
-                category: "metabolic",
-                price: 25,
-                coa: true,
-                shortDesc: "Small molecule NNMT inhibitor increasing cellular NAD+ availability through enzymatic blockade.",
-                fullDesc: "5-Amino-1-methylquinolinium targets a metabolic bottleneck: nicotinamide N-methyltransferase (NNMT), an enzyme that consumes NAD+ precursors by methylating nicotinamide for excretion. By inhibiting NNMT, 5-Amino-1MQ preserves intracellular nicotinamide, allowing its recycling back to NAD+ through the salvage pathway. Note: This is an oral small molecule, not an Liquid Reagent peptide."
-            },
-            {
-                name: "Lipo-C MAX Blend",
-                category: "metabolic",
-                price: 42,
-                coa: true,
-                shortDesc: "MIC lipotropic blend: L-Carnitine 20mg, L-Arginine 20mg, Methionine 25mg, Inositol 50mg, Choline 50mg, B6 25mg, B5 25mg.",
-                fullDesc: "A comprehensive lipotropic formula combining the classic MIC stack (Methionine 25mg, Inositol 50mg, Choline 50mg) with L-Carnitine 20mg for mitochondrial fatty acid transport, L-Arginine 20mg for nitric oxide support, and B-vitamins (B6 25mg, B5 25mg) as essential metabolic cofactors. Darker red liquid.",
-                applications: "Lipotropic factor research, hepatic lipid metabolism, methyl donor biology, choline metabolism, mitochondrial fatty acid transport, one-carbon metabolism, phospholipid synthesis studies"
-            },
-            {
-                name: "L-Carnitine 600mg",
-                category: "metabolic",
-                price: 26,
-                coa: true,
-                shortDesc: "Essential cofactor shuttling long-chain fatty acids across the mitochondrial membrane.",
-                fullDesc: "L-Carnitine solves a fundamental problem in cellular energetics: long-chain fatty acids cannot cross the inner mitochondrial membrane where beta-oxidation occurs. Carnitine serves as the shuttle—the carnitine palmitoyltransferase (CPT) system conjugates fatty acids to carnitine, transports them across the membrane, then releases them inside the mitochondrial matrix.",
-                applications: "Mitochondrial fatty acid transport, beta-oxidation mechanisms, carnitine shuttle system research, acyl-carnitine metabolism, energy substrate utilization, mitochondrial function studies, carnitine deficiency models"
-            },
-            {
-                name: "Amino Acid Blend",
-                category: "metabolic",
-                price: 42,
-                coa: true,
-                shortDesc: "9-amino acid + NAC blend for multi-pathway metabolic research.",
-                fullDesc: "A comprehensive 9-component amino acid formulation combining nitric oxide pathway precursors (L-Arginine, L-Ornithine, L-Citrulline), collagen synthesis substrates (L-Lysine, L-Proline), mitochondrial cofactors (L-Carnitine, L-Taurine), and antioxidant support (NAC, L-Glutamine) for multi-pathway metabolic research.",
-                applications: "Comprehensive metabolic system research, multi-pathway integration studies, maximal metabolic capacity models, system-level bioenergetics, performance optimization research, complex metabolic phenotyping"
-            },
-            {
-                name: "NAD+ 1000mg",
-                category: "antioxidants",
-                price: 30,
-                coa: true,
-                shortDesc: "High-dose cellular cofactor for energy metabolism, DNA repair, and cellular signaling.",
-                fullDesc: "Nicotinamide adenine dinucleotide occupies a position of unparalleled importance in cellular biochemistry. This dinucleotide serves simultaneously as an electron carrier in redox reactions, a substrate for sirtuins, a substrate for PARPs (DNA repair enzymes), and a precursor for calcium signaling molecules. NAD+ levels decline with age across tissues.",
-                applications: "Redox biochemistry, sirtuin activation research, cellular energy metabolism, PARP enzyme function, mitochondrial studies, NAD+/NADH ratio measurement, cellular aging mechanisms, DNA repair pathways"
-            },
-            {
-                name: "NAD+ 500mg",
-                category: "antioxidants",
-                price: 30,
-                coa: true,
-                shortDesc: "Central redox cofactor essential for over 500 enzymatic reactions governing cellular metabolism.",
-                fullDesc: "Nicotinamide adenine dinucleotide occupies a position of unparalleled importance in cellular biochemistry. This dinucleotide serves simultaneously as an electron carrier in redox reactions, a substrate for sirtuins (deacetylases that regulate metabolism and longevity pathways), a substrate for PARPs (DNA repair enzymes), and a precursor for calcium signaling molecules.",
-                applications: "Redox biochemistry, sirtuin activation research, cellular energy metabolism, PARP enzyme function, mitochondrial studies, NAD+/NADH ratio measurement, cellular aging mechanisms, DNA repair pathways"
-            },
-            {
-                name: "Glutathione 1200mg (Korea) x10 Vials",
-                category: "antioxidants",
-                price: 85,
-                coa: true,
-                shortDesc: "Pharmaceutical-grade master antioxidant tripeptide maintaining cellular redox homeostasis.",
-                fullDesc: "Glutathione (γ-L-glutamyl-L-cysteinyl-glycine) represents the first line of antioxidant defense. This tripeptide, present in millimolar concentrations in cells, functions as the primary reducing agent that neutralizes reactive oxygen species before they damage proteins, lipids, or DNA. The peptide's cysteine thiol group provides the reducing power.",
-                applications: "Redox biology, oxidative stress models, glutathione peroxidase studies, cellular detoxification pathways, thiol biochemistry, xenobiotic metabolism, GSH/GSSG ratio studies, antioxidant defense mechanisms"
-            },
-            {
-                name: "Glutathione 1500mg",
-                category: "antioxidants",
-                price: 38,
-                coa: true,
-                shortDesc: "Higher-dose master antioxidant tripeptide for cellular protection and detoxification research.",
-                fullDesc: "Glutathione represents the first line of antioxidant defense. This tripeptide functions as the primary reducing agent that neutralizes reactive oxygen species before they damage cellular components. Beyond direct antioxidant action, glutathione serves as a cofactor for glutathione peroxidases and glutathione S-transferases.",
-                applications: "Redox biology, oxidative stress models, glutathione peroxidase studies, cellular detoxification pathways, thiol biochemistry, xenobiotic metabolism, GSH/GSSG ratio studies, antioxidant defense mechanisms"
-            },
-            {
-                name: "SS-31 (Elamipretide)",
-                category: "antioxidants",
-                price: 55,
-                coa: true,
-                shortDesc: "First peptide to selectively target inner mitochondrial membrane and protect cristae structure.",
-                fullDesc: "SS-31 represents a breakthrough in mitochondria-targeted therapeutics. This cell-permeable tetrapeptide contains alternating cationic and aromatic residues that enable it to penetrate cells and selectively accumulate at the inner mitochondrial membrane, where it binds with high affinity to cardiolipin. This interaction stabilizes cristae architecture and reduces ROS production at the source.",
-                applications: "Mitochondrial membrane research, cardiolipin interaction studies, cristae structure biology, mitochondrial ROS modulation, ischemia-reperfusion models, mitochondrial bioenergetics, targeted mitochondrial protection"
-            },
-            {
-                name: "Thioctic Acid (ALA) 25mg/5ml",
-                category: "antioxidants",
-                price: 75,
-                coa: true,
-                shortDesc: "Universal antioxidant functioning in both aqueous and lipid environments.",
-                fullDesc: "Alpha-lipoic acid occupies a unique position in antioxidant biology: its amphipathic structure allows it to scavenge reactive species in both water-soluble compartments and lipid-rich environments—a property no other antioxidant possesses. Beyond direct free radical neutralization, lipoic acid serves as an essential cofactor for mitochondrial α-ketoacid dehydrogenase complexes.",
-                applications: "Mitochondrial cofactor function, universal antioxidant mechanisms, antioxidant regeneration studies, glucose metabolism research, neuroprotection models, metal chelation research, redox signaling pathways"
-            },
-            {
-                name: "Vitamin C 10mg/20ml",
-                category: "antioxidants",
-                price: 75,
-                coa: true,
-                shortDesc: "Pharmaceutical-grade water-soluble antioxidant required for collagen synthesis and immune function.",
-                fullDesc: "L-Ascorbic acid serves multiple critical biochemical roles beyond its antioxidant function. As a cofactor for prolyl and lysyl hydroxylases, ascorbate is absolutely required for collagen triple helix stability. The vitamin also serves as cofactor for dopamine β-hydroxylase and other copper-containing monooxygenases essential for neurotransmitter synthesis.",
-                applications: "Collagen hydroxylation research, ascorbate-dependent enzyme studies, antioxidant mechanism research, iron metabolism, neurotransmitter synthesis pathways, immune cell function studies, vitamin C-dependent biochemistry"
-            },
-            {
-                name: "Cerebrolysin 60mg",
-                category: "neuropeptides",
-                price: 23,
-                coa: true,
-                shortDesc: "Pharmaceutical-grade neurotrophic peptide complex mimicking endogenous brain-derived growth factors.",
-                fullDesc: "Cerebrolysin stands apart in neuroprotection research: where most compounds target a single pathway, this pharmaceutical-grade preparation contains a complex mixture of low-molecular-weight neuropeptides and amino acids derived from porcine brain tissue. The result is a biological profile that simultaneously activates multiple neurotrophic signaling cascades.",
-                applications: "Multi-pathway neuroprotection, neurodegenerative disease models, post-stroke neuroplasticity, synaptic preservation studies, neurotrophic factor signaling, cognitive impairment research"
-            },
-            {
-                name: "Selank 5mg",
-                category: "neuropeptides",
-                price: 36,
-                coa: true,
-                shortDesc: "Synthetic anxiolytic peptide with cytokine-modulating activity for neurochemical research.",
-                fullDesc: "Developed at Moscow's Institute of Molecular Genetics, Selank represents a rational design approach to neuropeptide therapeutics—a synthetic heptapeptide built upon the immune peptide tuftsin's structural scaffold. This derivative demonstrates the rare capacity to simultaneously modulate IL-6 expression and influence monoaminergic neurotransmitter systems, bridging neuroimmune signaling in ways few compounds can.",
-                applications: "Anxiety model studies, cognitive function research, immune-neuro axis modulation, GABAergic pathway studies, stress response mechanisms, cytokine regulation research"
-            },
-            {
-                name: "Selank 10mg",
-                category: "neuropeptides",
-                price: 36,
-                coa: true,
-                shortDesc: "Higher-dose synthetic anxiolytic peptide with documented cytokine-modulating activity.",
-                fullDesc: "Developed at Moscow's Institute of Molecular Genetics, Selank represents a rational design approach to neuropeptide therapeutics—a synthetic heptapeptide built upon the immune peptide tuftsin's structural scaffold. This derivative demonstrates the rare capacity to simultaneously modulate IL-6 expression and influence monoaminergic neurotransmitter systems.",
-                applications: "Anxiety model studies, cognitive function research, immune-neuro axis modulation, GABAergic pathway studies, stress response mechanisms, cytokine regulation research"
-            },
-            {
-                name: "Semax 5mg",
-                category: "neuropeptides",
-                price: 31,
-                coa: true,
-                shortDesc: "ACTH-derived nootropic peptide engineered to penetrate the blood-brain barrier and elevate BDNF.",
-                fullDesc: "Semax emerged from the same Moscow laboratory that produced Selank, but with an entirely different objective: augmenting cognitive capacity through neurotrophic upregulation. This heptapeptide analogue of the ACTH(4-10) fragment demonstrates a mechanism rare among small peptides—it crosses the blood-brain barrier intact and directly increases brain-derived neurotrophic factor expression.",
-                applications: "BDNF upregulation research, cognitive enhancement models, neuroprotection studies, cerebrovascular function research, attention and memory mechanisms, stroke recovery pathways"
-            },
-            {
-                name: "DSIP 5mg",
-                category: "neuropeptides",
-                price: 31,
-                coa: true,
-                shortDesc: "The original sleep-inducing peptide—a naturally occurring nonapeptide for circadian research.",
-                fullDesc: "Delta Sleep-Inducing Peptide represents a landmark discovery in chronobiology. Isolated from the cerebral venous blood of sleeping rabbits in 1977 by Swiss researchers, DSIP opened scientific inquiry into endogenous sleep architecture modulation. Unlike sedatives that suppress neural activity, this nonapeptide appears to facilitate natural sleep-wake transitions through circadian rhythm entrainment.",
-                applications: "Sleep architecture studies, circadian rhythm regulation, stress-response neuroendocrine pathways, pain perception modulation, cortisol dynamics research, delta wave sleep mechanisms"
-            },
-            {
-                name: "DSIP Night Blend",
-                category: "neuropeptides",
-                price: 42,
-                coa: true,
-                shortDesc: "Synergistic sleep research complex combining complementary neuropeptides for circadian biology.",
-                fullDesc: "Sleep architecture involves layered neurochemical systems—GABAergic inhibition, serotonergic tone, melatonergic timing, and neuropeptide signaling all converge to orchestrate restorative sleep. This proprietary blend recognizes that complexity, combining DSIP with complementary peptides that target distinct but overlapping pathways in sleep-wake regulation.",
-                applications: "Multi-peptide sleep architecture studies, circadian entrainment mechanisms, neurotransmitter interaction models in sleep, restorative sleep pathway research, sleep disorder neurochemistry"
-            },
-            {
-                name: "FOXO4-DRI (Proxofim) 10mg",
-                category: "longevity",
-                price: 67,
-                coa: true,
-                shortDesc: "First peptide-based senolytic disrupting FOXO4-p53 interaction in senescent cells.",
-                fullDesc: "FOXO4-DRI represents molecular precision in senescence research. Senescent cells accumulate with age and secrete inflammatory factors that damage surrounding tissues. Dutch researchers discovered that in senescent cells, FOXO4 protein binds and sequesters p53, preventing apoptosis. FOXO4-DRI competitively disrupts this interaction—freeing p53 to trigger apoptosis specifically in senescent cells.",
-                applications: "Senescent cell biology, FOXO4-p53 interaction studies, senolytic mechanism research, cellular aging models, apoptosis pathway research, SASP modulation, targeted cellular aging interventions"
-            },
-            {
-                name: "Epithalon (Epitalon) 50mg",
-                category: "longevity",
-                price: 66,
-                coa: true,
-                shortDesc: "Synthetic tetrapeptide demonstrating telomerase activation and circadian regulation in aging research.",
-                fullDesc: "Epithalon emerged from decades of Russian gerontology research. This tetrapeptide, designed to replicate bioactive sequences from the pineal peptide epithalamin, demonstrates two remarkable properties: activation of telomerase (the enzyme that maintains telomere length) and modulation of circadian rhythms through melatonin regulation.",
-                applications: "Telomerase activity research, telomere biology, circadian rhythm regulation, pineal peptide research, cellular aging mechanisms, melatonin regulation studies, longevity pathway research"
-            },
-            {
-                name: "PE 22-28 10mg",
-                category: "longevity",
-                price: 30,
-                coa: true,
-                shortDesc: "Synthetic fragment of sortilin propeptide modulating TREK-1 channels for neuroplasticity research.",
-                fullDesc: "PE 22-28 represents targeted neuroplasticity research. This heptapeptide, corresponding to amino acids 22-28 of the propeptide region of sortilin, was identified through research into spadin—an endogenous peptide with neuroprotective properties. PE 22-28 interacts with TREK-1, a background potassium channel involved in neuronal excitability and synaptic plasticity.",
-                applications: "TREK-1 channel modulation, neuroplasticity mechanisms, neuroprotection studies, potassium channel biology, synaptic plasticity research, neurogenesis studies, neurotrophic signaling pathways"
-            },
-            {
-                name: "PT-141 (Bremelanotide)",
-                category: "melanocortin",
-                price: 36,
-                coa: true,
-                shortDesc: "Cyclic heptapeptide melanocortin agonist with preferential activity at MC3R and MC4R.",
-                fullDesc: "PT-141 emerged from structure-activity relationship studies of Melanotan II. While Melanotan II activates multiple melanocortin receptor subtypes, its metabolite PT-141 demonstrates preferential activity at MC3R and MC4R with reduced MC1R activation—eliminating pigmentation effect while retaining central melanocortin activity.",
-                applications: "Melanocortin receptor subtype pharmacology, MC3R/MC4R signaling research, central melanocortin pathway studies, receptor selectivity research, hypothalamic signaling mechanisms, melanocortin system biology"
-            },
-            {
-                name: "Dermorphin 5mg",
-                category: "melanocortin",
-                price: 22,
-                coa: true,
-                shortDesc: "Naturally occurring heptapeptide with extraordinary μ-opioid receptor selectivity.",
-                fullDesc: "Dermorphin stands as one of pharmacology's most intriguing discoveries. Isolated from South American frog skin secretions, this heptapeptide contains an unusual D-alanine in position 2. This structural quirk contributes to dermorphin's exceptional properties: nanomolar μ-opioid receptor affinity, selectivity ratios exceeding 1000:1, and resistance to peptidase degradation.",
-                applications: "μ-opioid receptor pharmacology, receptor subtype selectivity studies, opioid receptor binding kinetics, structure-activity relationships, receptor signaling mechanisms, D-amino acid peptide biology, opioid tolerance mechanisms"
-            },
-            {
-                name: "ARA-290 (Cibinetide) 10mg",
-                category: "advanced",
-                price: 24,
-                coa: true,
-                shortDesc: "EPO-derived peptide selectively activating innate repair receptor without erythropoietic activity.",
-                fullDesc: "ARA-290 represents molecular refinement of erythropoietin's tissue-protective properties. While full-length EPO stimulates red blood cell production, it also activates a distinct receptor complex called the innate repair receptor. ARA-290, an 11-amino acid EPO-derived peptide, selectively activates the IRR without engaging the erythropoietic EPO receptor.",
-                applications: "Innate repair receptor signaling, tissue protection mechanisms, EPO receptor biology, neuroprotection studies, anti-inflammatory pathways, ischemia-reperfusion injury models, diabetic neuropathy research"
-            },
-            {
-                name: "Laboratory Solvent Kit",
-                category: "supplies",
-                price: 6,
-                coa: false,
-                shortDesc: "Analytical-grade solvents and handling tools for the stabilization and preparation of research reagents.",
-                fullDesc: "Laboratory solvent kit contains pharmaceutical-grade solvents with preservatives for maintaining sterility across multiple uses. Essential for preparing lyophilized research compounds. Each kit is sealed under sterile conditions and suitable for laboratory use.",
-                applications: "Research compound preparation, laboratory stabilization, sterile dilution"
-            }
+        // Product Data (loaded from shop_products_data.js via external script)
+        // VX_PRODUCTS contains phase1 (in stock), phase2 (coming soon), and stacks
+        
+        // Featured product SKUs for homepage
+        var featuredSKUs = [
+            'VX-SEMA-10',
+            'VX-TIRZ-30',
+            'VX-RETA-20',
+            'VX-BPC-5',
+            'VX-EPI-50'
         ];
 
-        // Featured products list
-        var featuredProductNames = [
-            "Semaglutide",
-            "Tirzepatide 30mg",
-            "Retatrutide 20mg",
-            "BPC-157/TB-500",
-            "NAD+ 1000mg",
-            "Sermorelin 5mg"
-        ];
-
-        // Category data
+        // Category data with updated slugs
         var categoryData = [
-            { id: 'glp', name: 'GLP Receptor Agonists', count: 5 },
-            { id: 'tissue', name: 'Structural Research', count: 6 },
-            { id: 'gh', name: 'Growth Hormone', count: 5 },
-            { id: 'metabolic', name: 'Metabolic Pathway Reagents', count: 7 },
-            { id: 'antioxidants', name: 'Antioxidants', count: 7 },
-            { id: 'neuropeptides', name: 'Neuropeptides', count: 6 },
-            { id: 'longevity', name: 'Cellular Research Reagents', count: 3 },
-            { id: 'melanocortin', name: 'Melanocortin', count: 2 },
-            { id: 'advanced', name: 'Advanced', count: 1 },
-            { id: 'supplies', name: 'Supplies', count: 1 }
+            { id: 'all', name: 'All Products', count: 0 },
+            { id: 'glp1', name: 'GLP-1 Agonists', count: 4 },
+            { id: 'tissue-repair', name: 'Tissue Repair', count: 2 },
+            { id: 'growth-hormone', name: 'Growth Hormone', count: 2 },
+            { id: 'longevity', name: 'Longevity', count: 2 },
+            { id: 'cosmetic', name: 'Cosmetic', count: 1 },
+            { id: 'supplies', name: 'Supplies', count: 1 },
+            { id: 'cognitive', name: 'Cognitive', count: 0 },
+            { id: 'immune', name: 'Immune Support', count: 0 },
+            { id: 'metabolic', name: 'Metabolic', count: 0 }
         ];
 
+        // Initialize
         // Initialize
         var currentCategory = 'all';
         var modal = document.getElementById('productModal');
@@ -2462,7 +2085,11 @@ h1 {
             var grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             
-            var filtered = category === 'all' ? products : products.filter(function(p) {
+            // Combine Phase 1 and Phase 2 products
+            var allProducts = VX_PRODUCTS.phase1.concat(VX_PRODUCTS.phase2);
+            
+            // Filter by category
+            var filtered = category === 'all' ? allProducts : allProducts.filter(function(p) {
                 return p.category === category;
             });
 
@@ -2474,40 +2101,115 @@ h1 {
 
             filtered.forEach(function(product) {
                 var card = document.createElement('div');
-                var isOOS = product.inStock === false;
-                card.className = 'product-card' + (isOOS ? ' oos' : '');
-                card.setAttribute('data-product', JSON.stringify(product));
+                var isPhase2 = product.comingSoon === true;
+                card.className = 'product-card' + (isPhase2 ? ' coming-soon' : '');
+                card.setAttribute('data-sku', product.sku);
+                card.setAttribute('data-category', product.category);
                 
                 var categoryClass = 'category-' + product.category;
                 var categoryName = getCategoryName(product.category);
                 
-                var coaBadge = product.coa ? '<a href="verify.html" class="coa-badge" style="text-decoration:none">COA ✓</a>' : '';
-                var btnClass = isOOS ? 'order-btn oos' : 'order-btn';
-                var btnText = isOOS ? 'Out of Stock' : 'Add to Cart';
+                // Badge logic
+                var badge = '';
+                if (isPhase2) {
+                    // Phase 2: Coming Soon badge
+                    badge = '<div class="coming-soon-badge">' +
+                           '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">' +
+                           '<circle cx="12" cy="12" r="10"/>' +
+                           '<polyline points="12 6 12 12 16 14"/>' +
+                           '</svg>' +
+                           '<span>Coming Soon</span>' +
+                           '</div>';
+                } else if (product.dualTested) {
+                    // Phase 1: Dual Tested badge (only if dualTested === true)
+                    badge = '<div class="dual-tested-badge">' +
+                           '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">' +
+                           '<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>' +
+                           '</svg>' +
+                           '<span>Dual Tested</span>' +
+                           '</div>';
+                }
                 
-                var slug = getProductSlug(product.name);
+                // Product specs (dosage or volume + purity/type)
+                var specs = '';
+                if (product.dosage) {
+                    specs += '<span class="dosage">' + product.dosage + '</span>';
+                }
+                if (product.volume) {
+                    specs += '<span class="dosage">' + product.volume + '</span>';
+                }
+                if (product.purity) {
+                    specs += '<span class="purity">' + product.purity + '</span>';
+                }
+                if (product.type) {
+                    specs += '<span class="type">' + product.type + '</span>';
+                }
+                
+                // Price display
+                var priceClass = isPhase2 ? 'product-price coming-soon-price' : 'product-price';
+                var pricePrefix = isPhase2 ? '~$' : '$';
+                
+                // Button
+                var button = '';
+                if (isPhase2) {
+                    // Phase 2: Notify Me button
+                    button = '<button class="btn-notify" ' +
+                            'data-product="' + product.name.replace(/"/g, '&quot;') + '" ' +
+                            'data-sku="' + product.sku + '" ' +
+                            'data-category="' + product.category + '" ' +
+                            'onclick="NotifySystem.openModal(this.dataset.product, this.dataset.sku, this.dataset.category); event.stopPropagation();">' +
+                            '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>' +
+                            '</svg>' +
+                            'Notify Me' +
+                            '</button>';
+                } else {
+                    // Phase 1: Add to Cart button
+                    button = '<button class="btn-add-cart" ' +
+                            'data-name="' + product.name.replace(/"/g, '&quot;') + '" ' +
+                            'data-price="' + product.price + '" ' +
+                            'data-sku="' + product.sku + '" ' +
+                            'data-category="' + product.category + '" ' +
+                            'onclick="addToCart(this); event.stopPropagation();">' +
+                            '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>' +
+                            '</svg>' +
+                            'Add to Cart' +
+                            '</button>';
+                }
+                
+                // View Details link (only for Phase 1)
+                var detailsLink = '';
+                if (!isPhase2 && product.url) {
+                    detailsLink = '<a href="' + product.url + '" class="product-link">View Details →</a>';
+                }
+                
+                // Image styling (grayed for Phase 2)
+                var imageStyle = isPhase2 ? 'opacity: 0.6;' : '';
                 
                 card.innerHTML = 
-                    '<div class="card-top-row"><span class="product-category ' + categoryClass + '">' + categoryName + '</span>' + coaBadge + '</div>' +
-                    '<div class="product-name">' + product.name + '</div>' +
-                    '<div class="product-price">$' + product.price + '</div>' +
-                    '<div class="card-actions"><button class="' + btnClass + '" data-name="' + product.name.replace(/"/g, '&quot;') + '" data-price="' + product.price + '">' + btnText + '</button></div>';
+                    badge +
+                    '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy" style="' + imageStyle + '">' +
+                    '<div class="product-info">' +
+                    '<h3>' + product.shortName + '</h3>' +
+                    '<div class="product-specs">' + specs + '</div>' +
+                    '<div class="' + priceClass + '">' +
+                    '<span class="price-main">' + pricePrefix + product.price + '</span>' +
+                    '<span class="price-unit">/ vial</span>' +
+                    '</div>' +
+                    button +
+                    detailsLink +
+                    '</div>';
                 
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function(e) {
-                    var t = e.target;
-                    // Add to cart if clicking the button (not if OOS)
-                    if (t.classList.contains('order-btn') && !t.classList.contains('oos')) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        addToCart(t.getAttribute('data-name'), parseFloat(t.getAttribute('data-price')));
-                        return;
-                    }
-                    // Everything else → product page
-                    if (!t.classList.contains('order-btn')) {
-                        window.location.href = 'products/' + slug + '.html';
-                    }
-                });
+                // Click handler for Phase 1 (go to product page)
+                if (!isPhase2 && product.url) {
+                    card.style.cursor = 'pointer';
+                    card.addEventListener('click', function(e) {
+                        // Don't navigate if clicking button
+                        if (e.target.closest('button')) return;
+                        window.location.href = product.url;
+                    });
+                }
                 
                 grid.appendChild(card);
             });
@@ -2516,16 +2218,15 @@ h1 {
         // Get category display name
         function getCategoryName(cat) {
             var names = {
-                'neuropeptides': 'Neuropeptides',
-                'glp': 'GLP Agonists',
-                'gh': 'Growth Hormone',
-                'tissue': 'Structural Research',
-                'metabolic': 'Metabolic Pathway Reagents',
-                'antioxidants': 'Antioxidants',
-                'longevity': 'Cellular Research Reagents',
-                'melanocortin': 'Melanocortin',
-                'advanced': 'Advanced',
-                'supplies': 'Supplies'
+                'glp1': 'GLP-1 Agonist',
+                'tissue-repair': 'Tissue Repair',
+                'growth-hormone': 'Growth Hormone',
+                'longevity': 'Longevity',
+                'cosmetic': 'Cosmetic',
+                'supplies': 'Supplies',
+                'cognitive': 'Cognitive',
+                'immune': 'Immune Support',
+                'metabolic': 'Metabolic'
             };
             return names[cat] || cat;
         }
@@ -2667,7 +2368,11 @@ h1 {
         // ======= CART SYSTEM =======
         var shopCart = JSON.parse(localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || '[]');
 
-        function addToCart(name, price) {
+        function addToCart(button) {
+            var name = button.getAttribute('data-name');
+            var price = parseFloat(button.getAttribute('data-price'));
+            var sku = button.getAttribute('data-sku');
+            
             var found = false;
             for (var i = 0; i < shopCart.length; i++) {
                 if (shopCart[i].name === name) {
@@ -2677,7 +2382,7 @@ h1 {
                 }
             }
             if (!found) {
-                shopCart.push({ name: name, price: price, quantity: 1 });
+                shopCart.push({ name: name, price: price, sku: sku, quantity: 1 });
             }
             localStorage.setItem('vxCart', JSON.stringify(shopCart));
             updateCartBadge();
