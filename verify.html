@@ -3,255 +3,633 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Batch - VANTIX BIO</title>
-<link rel="canonical" href="https://vantixbio.com/verify.html">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://vantixbio.com/verify.html">
-<meta property="og:title" content="Verify Batch - Forensic COA Portal | Vantix Bio">
-<meta property="og:site_name" content="Vantix Bio">
-<meta name="twitter:card" content="summary">
+    <title>Matrix Verification — VANTIX BIO</title>
+    <link rel="canonical" href="https://vantixbio.com/verify.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vantixbio.com/verify.html">
+    <meta property="og:title" content="Vantix Matrix — Forensic Verification Portal | Vantix Bio">
+    <meta property="og:site_name" content="Vantix Bio">
+    <meta name="twitter:card" content="summary">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F8FAFC; color: #1A2B44; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F8FAFC; color: #1A2B44; -webkit-font-smoothing: antialiased; }
 
-        /* Header */
-        .header { background: #FFFFFF; padding: 20px; text-align: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); }
-        .logo { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 800; color: #1A2B44; letter-spacing: 1px; }
-        .logo span { color: #00B4D8; }
-
-        /* Container */
-        .container { max-width: 1100px; margin: 60px auto; padding: 20px; }
-        h1 { font-family: 'Inter', sans-serif; font-size: 36px; margin-bottom: 12px; color: #1A2B44; font-weight: 800; }
-        .subtitle { color: #64748B; margin-bottom: 40px; font-size: 15px; }
-
-        /* Search Box */
-        .search-box { background: #FFFFFF; padding: 40px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(26,43,68,0.08); }
-        .input-group { position: relative; }
-        input { width: 100%; padding: 18px 20px; font-size: 16px; border: 2px solid #E2E8F0; border-radius: 8px; background: #F8FAFC; color: #1A2B44; transition: border-color 0.3s; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
-        input:focus { outline: none; border-color: #00B4D8; box-shadow: 0 0 0 3px rgba(0,180,216,0.12); }
-        input::placeholder { color: #94A3B8; }
-        .error { color: #EF4444; font-size: 13px; margin-top: 8px; }
-        button { width: 100%; margin-top: 16px; padding: 18px; background: #00B4D8; color: #FFFFFF; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s; text-transform: uppercase; letter-spacing: 1px; font-family: 'Inter', sans-serif; }
-        button:hover { background: #0096C7; }
-        button:disabled { background: #CBD5E1; cursor: not-allowed; color: #94A3B8; }
-
-        /* Terminal Overlay */
-        .terminal-overlay { position: fixed; inset: 0; background: rgba(26,43,68,0.95); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-        .terminal-overlay.active { opacity: 1; pointer-events: all; }
-        .terminal-text { font-family: 'JetBrains Mono', monospace; color: #00B4D8; font-size: 18px; letter-spacing: 3px; animation: terminalBlink 1s step-end infinite; }
-        @keyframes terminalBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .terminal-cursor { display: inline-block; width: 10px; height: 20px; background: #00B4D8; margin-left: 4px; animation: cursorBlink 0.8s step-end infinite; vertical-align: middle; }
-        @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* Split View */
-        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; opacity: 0; transform: scale(0.92); animation: revealPanels 0.6s ease forwards; }
-        @keyframes revealPanels { to { opacity: 1; transform: scale(1); } }
-
-        /* PDF Panels */
-        .pdf-panel { background: #FFFFFF; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0; min-height: 650px; box-shadow: 0 4px 16px rgba(26,43,68,0.08); }
-        .pdf-panel h3 { font-family: 'Inter', sans-serif; color: #1A2B44; margin-bottom: 8px; font-size: 18px; font-weight: 700; }
-        .pdf-panel .meta { font-size: 12px; color: #64748B; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; line-height: 1.8; }
-        .meta .task-id { color: #1A2B44; font-weight: 500; }
-
-        /* Iframe wrapper with watermark */
-        .iframe-wrap { position: relative; border-radius: 8px; overflow: hidden; }
-        .iframe-wrap iframe { width: 100%; height: 550px; border: none; background: #fff; display: block; }
-        .iframe-wrap::after {
-            content: 'VANTIX FORENSIC TRACE';
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 28px; font-weight: 700; letter-spacing: 6px;
-            color: rgba(0,180,216,0.10);
-            transform: rotate(-35deg);
-            pointer-events: none;
-            white-space: nowrap;
-            z-index: 2;
+        /* ── Print Block ── */
+        @media print {
+            body * { visibility: hidden !important; }
+            body::after {
+                content: 'PRINT DISABLED — VANTIX MATRIX FORENSIC SECURITY';
+                visibility: visible !important;
+                position: fixed; inset: 0;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 32px; font-weight: 800; color: #1A2B44; background: #F8FAFC;
+                font-family: 'Inter', sans-serif; letter-spacing: 4px; z-index: 99999;
+            }
         }
 
-        /* Watermark badge */
-        .watermark-badge { display: inline-block; background: #00B4D8; color: #FFFFFF; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-left: 8px; }
+        /* ── Header ── */
+        .header { background: #FFFFFF; padding: 16px 24px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); }
+        .logo-link { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-link img { height: 44px; }
+        .logo-text { font-size: 24px; font-weight: 800; color: #1A2B44; letter-spacing: 1px; }
 
-        .loading-placeholder { text-align: center; padding: 40px; color: #00B4D8; font-family: 'JetBrains Mono', monospace; }
+        /* ── Container ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }
+
+        /* ── Section Titles ── */
+        h1 { font-size: 34px; font-weight: 800; color: #1A2B44; margin-bottom: 6px; }
+        .page-sub { color: #64748B; font-size: 14px; margin-bottom: 48px; }
+
+        /* ── Matrix Protocol ── */
+        .protocol-section { margin-bottom: 56px; }
+        .protocol-section h2 { font-size: 18px; font-weight: 700; color: #1A2B44; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .protocol-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .protocol-step { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 18px 16px; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
+        .protocol-step:hover { border-color: #00B4D8; box-shadow: 0 2px 12px rgba(0,180,216,0.10); }
+        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #00B4D8; color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+        .step-label { font-size: 12px; font-weight: 600; color: #1A2B44; line-height: 1.3; }
+        .step-desc { font-size: 10px; color: #64748B; margin-top: 4px; line-height: 1.4; }
+
+        /* ── Search Box ── */
+        .search-box { background: #FFFFFF; padding: 36px 40px; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(26,43,68,0.08); }
+        .search-box label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #64748B; margin-bottom: 10px; }
+        .input-row { display: flex; gap: 12px; }
+        .input-row input { flex: 1; padding: 16px 18px; font-size: 15px; border: 2px solid #E2E8F0; border-radius: 8px; background: #F8FAFC; color: #1A2B44; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; transition: border-color 0.2s; }
+        .input-row input:focus { outline: none; border-color: #00B4D8; box-shadow: 0 0 0 3px rgba(0,180,216,0.12); }
+        .input-row input::placeholder { color: #94A3B8; }
+        .btn-primary { padding: 16px 36px; background: #00B4D8; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Inter', sans-serif; transition: background 0.2s; white-space: nowrap; }
+        .btn-primary:hover { background: #0096C7; }
+        .btn-primary:disabled { background: #CBD5E1; cursor: not-allowed; color: #94A3B8; }
+        .error-msg { color: #EF4444; font-size: 13px; margin-top: 10px; }
+        .id-hint { font-size: 11px; color: #94A3B8; margin-top: 8px; font-family: 'JetBrains Mono', monospace; }
+
+        /* ── Terminal Overlay ── */
+        .terminal-overlay { position: fixed; inset: 0; background: rgba(26,43,68,0.96); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+        .terminal-overlay.active { opacity: 1; pointer-events: all; }
+        .terminal-text { font-family: 'JetBrains Mono', monospace; color: #00B4D8; font-size: 16px; letter-spacing: 3px; }
+        .terminal-cursor { display: inline-block; width: 9px; height: 18px; background: #00B4D8; margin-left: 4px; animation: cursorBlink 0.7s step-end infinite; vertical-align: middle; }
+        @keyframes cursorBlink { 0%,100%{opacity:1}50%{opacity:0} }
+
+        /* ── Results Layout ── */
+        .results-area { margin-top: 48px; animation: fadeUp 0.5s ease both; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .single-view { display: grid; grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; }
+
+        /* ── Chromatogram Panel ── */
+        .chrom-panel { background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(26,43,68,0.08); overflow: hidden; position: relative; }
+        .panel-header { padding: 20px 24px 0; }
+        .panel-header h3 { font-size: 17px; font-weight: 700; color: #1A2B44; }
+        .panel-meta { font-size: 11px; color: #64748B; font-family: 'JetBrains Mono', monospace; line-height: 1.9; margin-top: 6px; }
+        .panel-meta .val { color: #1A2B44; font-weight: 500; }
+        .badge { display: inline-block; background: #00B4D8; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 6px; vertical-align: middle; }
+        .badge-green { background: #10B981; }
+
+        /* Canvas container with flashlight + watermark */
+        .canvas-wrap { position: relative; margin: 16px; border-radius: 8px; overflow: hidden; cursor: crosshair; user-select: none; -webkit-user-select: none; }
+        .canvas-wrap canvas { display: block; width: 100%; height: 320px; }
+        /* Flashlight mask overlay */
+        .flashlight-mask { position: absolute; inset: 0; pointer-events: none; z-index: 3; background: rgba(26,43,68,0.88); transition: none; }
+        /* Forensic watermark layer */
+        .watermark-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.06; }
+        /* Tooltip */
+        .chrom-tooltip { position: absolute; background: #1A2B44; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 8px 12px; border-radius: 6px; pointer-events: none; z-index: 5; white-space: nowrap; transform: translate(-50%, -110%); box-shadow: 0 4px 12px rgba(0,0,0,0.25); opacity: 0; transition: opacity 0.15s; line-height: 1.6; }
+        .chrom-tooltip.visible { opacity: 1; }
+        .chrom-tooltip::after { content:''; position:absolute; bottom:-5px; left:50%; transform:translateX(-50%); border-left:5px solid transparent; border-right:5px solid transparent; border-top:5px solid #1A2B44; }
+
+        /* ── Janoshik Button ── */
+        .janoshik-row { padding: 0 24px 20px; margin-top: 12px; }
+        .btn-janoshik { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #F8FAFC; border: 1.5px solid #00B4D8; border-radius: 8px; color: #00B4D8; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; letter-spacing: 0.5px; }
+        .btn-janoshik:hover { background: #00B4D8; color: #fff; }
+        .btn-janoshik svg { width: 14px; height: 14px; }
+
+        /* ── Disclaimer ── */
+        .disclaimer { margin-top: 40px; padding: 20px 24px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; font-size: 11px; color: #94A3B8; line-height: 1.7; }
+        .disclaimer strong { color: #64748B; }
 
         @media (max-width: 768px) {
+            .protocol-grid { grid-template-columns: repeat(2, 1fr); }
             .split-view { grid-template-columns: 1fr; }
+            .input-row { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+    <!-- Disable right-click globally -->
+    <script>document.addEventListener('contextmenu', e => e.preventDefault());</script>
 
-        function VerifyApp() {
-            const [bundleId, setBundleId] = useState('');
-            const [loading, setLoading] = useState(false);
-            const [error, setError] = useState('');
-            const [result, setResult] = useState(null);
-            const [showOverlay, setShowOverlay] = useState(false);
-            const [overlayText, setOverlayText] = useState('');
+    <div class="header">
+        <a href="/" class="logo-link">
+            <img src="logo.png" alt="Vantix Bio" />
+            <span class="logo-text">VANTIX BIO</span>
+        </a>
+    </div>
 
-            const validateBundleId = (id) => {
-                const pattern = /^VX-[A-Z]{2,4}-\d{4}$/;
-                return pattern.test(id);
-            };
+    <div class="container" id="app"></div>
 
-            const animateTerminal = () => {
-                return new Promise((resolve) => {
-                    setShowOverlay(true);
-                    const lines = [
-                        'FORENSIC AUDIT LOADING...',
-                        'AUTHENTICATING BUNDLE...',
-                        'RETRIEVING JANOSHIK REPORTS...',
-                        'VALIDATING WATERMARKS...',
-                        'COMPLETE.'
-                    ];
-                    let i = 0;
-                    setOverlayText(lines[0]);
-                    const interval = setInterval(() => {
-                        i++;
-                        if (i < lines.length) {
-                            setOverlayText(lines[i]);
-                        } else {
-                            clearInterval(interval);
-                            setTimeout(() => {
-                                setShowOverlay(false);
-                                resolve();
-                            }, 400);
-                        }
-                    }, 500);
-                });
-            };
+    <script>
+    (function() {
+        "use strict";
 
-            const handleVerify = async () => {
-                const cleanId = bundleId.trim().toUpperCase();
-                
-                if (!cleanId) {
-                    setError('Please enter a Bundle ID');
-                    return;
-                }
-                
-                if (!validateBundleId(cleanId)) {
-                    setError('Invalid Bundle ID format. Example: VX-TZ-2026');
-                    return;
-                }
+        // ─── Session Fingerprint ───
+        const SESSION_ID = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
 
-                setError('');
-                setResult(null);
-                setLoading(true);
+        // ─── Demo Data ───
+        const DEMO_DB = {
+            // Bundle IDs (two molecules)
+            'VX-TZ-2026': {
+                type: 'bundle',
+                molecules: [
+                    {
+                        name: 'Tirzepatide',
+                        designation: 'Analytical Reference Compound A',
+                        method: 'HPLC-DAD (C18 RP, 220nm)',
+                        purity: '99.12%',
+                        taskId: 'J-50234',
+                        peaks: [
+                            { rt: 2.1, height: 0.12, width: 0.4, label: 'Solvent Front', purity: null },
+                            { rt: 5.8, height: 0.08, width: 0.5, label: 'Impurity A', purity: '0.41%' },
+                            { rt: 8.4, height: 0.92, width: 0.7, label: 'Tirzepatide', purity: '99.12%' },
+                            { rt: 11.2, height: 0.05, width: 0.4, label: 'Impurity B', purity: '0.31%' }
+                        ]
+                    },
+                    {
+                        name: 'Semaglutide',
+                        designation: 'Analytical Reference Compound B',
+                        method: 'Triple Quad LC-MS/MS',
+                        purity: '98.74%',
+                        taskId: 'J-50235',
+                        peaks: [
+                            { rt: 1.9, height: 0.10, width: 0.35, label: 'Solvent Front', purity: null },
+                            { rt: 4.6, height: 0.06, width: 0.45, label: 'Degradant 1', purity: '0.62%' },
+                            { rt: 7.9, height: 0.88, width: 0.75, label: 'Semaglutide', purity: '98.74%' },
+                            { rt: 10.8, height: 0.04, width: 0.35, label: 'Degradant 2', purity: '0.28%' }
+                        ]
+                    }
+                ]
+            },
+            'VX-SM-2026': {
+                type: 'bundle',
+                molecules: [
+                    {
+                        name: 'Retatrutide',
+                        designation: 'Analytical Reference Compound A',
+                        method: 'HPLC-DAD (C18 RP, 214nm)',
+                        purity: '98.95%',
+                        taskId: 'J-50280',
+                        peaks: [
+                            { rt: 2.0, height: 0.11, width: 0.38, label: 'Solvent Front', purity: null },
+                            { rt: 6.3, height: 0.07, width: 0.5, label: 'Related Substance', purity: '0.55%' },
+                            { rt: 9.1, height: 0.90, width: 0.72, label: 'Retatrutide', purity: '98.95%' }
+                        ]
+                    },
+                    {
+                        name: 'Cagrilintide',
+                        designation: 'Analytical Reference Compound B',
+                        method: 'UHPLC-UV (C18, 210nm)',
+                        purity: '99.31%',
+                        taskId: 'J-50281',
+                        peaks: [
+                            { rt: 1.8, height: 0.09, width: 0.3, label: 'Solvent Front', purity: null },
+                            { rt: 7.5, height: 0.94, width: 0.68, label: 'Cagrilintide', purity: '99.31%' },
+                            { rt: 10.1, height: 0.03, width: 0.32, label: 'Impurity C', purity: '0.22%' }
+                        ]
+                    }
+                ]
+            },
+            // Standard IDs (single molecule)
+            'VX-7841': {
+                type: 'standard',
+                molecules: [{
+                    name: 'Tirzepatide',
+                    designation: 'In Vitro Analytical Reference',
+                    method: 'HPLC-DAD (C18 RP, 220nm)',
+                    purity: '99.12%',
+                    taskId: 'J-50234',
+                    peaks: [
+                        { rt: 2.1, height: 0.12, width: 0.4, label: 'Solvent Front', purity: null },
+                        { rt: 5.8, height: 0.08, width: 0.5, label: 'Impurity A', purity: '0.41%' },
+                        { rt: 8.4, height: 0.92, width: 0.7, label: 'Tirzepatide', purity: '99.12%' },
+                        { rt: 11.2, height: 0.05, width: 0.4, label: 'Impurity B', purity: '0.31%' }
+                    ]
+                }]
+            }
+        };
 
-                // Start terminal overlay animation
-                const terminalDone = animateTerminal();
-                
-                try {
-                    // PRODUCTION: Replace with your secure API endpoint
-                    // const response = await fetch(`/api/verify/${cleanId}`, {
-                    //     method: 'GET',
-                    //     headers: { 'Content-Type': 'application/json' }
-                    // });
-                    // const data = await response.json();
-                    
-                    // DEMO MODE - Replace with real backend
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    const data = {
-                        bundleId: cleanId,
-                        molecule1: {
-                            name: 'Tirzepatide',
-                            method: 'HPLC-DAD',
-                            pdfUrl: 'about:blank',
-                            watermark: 'JANOSHIK-2026-TZ-A',
-                            taskId: 'J-50234'
-                        },
-                        molecule2: {
-                            name: 'Semaglutide',
-                            method: 'Triple Quad LC-MS/MS',
-                            pdfUrl: 'about:blank',
-                            watermark: 'JANOSHIK-2026-SM-B',
-                            taskId: 'J-50235'
-                        }
-                    };
-
-                    // Wait for terminal animation to finish
-                    await terminalDone;
-                    setResult(data);
-                } catch (err) {
-                    await terminalDone;
-                    setError('Verification failed. Please check Bundle ID or try again.');
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-            return (
-                <>
-                    {/* Terminal Overlay */}
-                    <div className={`terminal-overlay ${showOverlay ? 'active' : ''}`}>
-                        <div className="terminal-text">
-                            {overlayText}<span className="terminal-cursor"></span>
-                        </div>
-                    </div>
-
-                    <div className="header">
-                        <a href="/" className="logo" style={{display:"flex",alignItems:"center",gap:"12px",textDecoration:"none"}}><img src="logo.png" alt="Vantix Bio" style={{height:"50px"}} /><span style={{color:"#1A2B44"}}>VANTIX BIO</span></a>
-                    </div>
-                    <div className="container">
-                        <h1>Forensic Batch Verification</h1>
-                        <p className="subtitle">Enter your Bundle ID to view Janoshik-verified chromatography reports with forensic watermarking</p>
-                        
-                        <div className="search-box">
-                            <div className="input-group">
-                                <input 
-                                    type="text" 
-                                    value={bundleId}
-                                    onChange={(e) => setBundleId(e.target.value)}
-                                    onKeyPress={(e) => e.key === 'Enter' && handleVerify()}
-                                    placeholder="VX-TZ-2026"
-                                    disabled={loading}
-                                />
-                                {error && <div className="error">{error}</div>}
-                            </div>
-                            <button onClick={handleVerify} disabled={loading}>
-                                {loading ? 'Verifying...' : 'Verify Batch'}
-                            </button>
-                        </div>
-
-                        {result && (
-                            <div className="split-view">
-                                <div className="pdf-panel">
-                                    <h3>{result.molecule1.name}</h3>
-                                    <div className="meta">
-                                        Method: {result.molecule1.method}<br/>
-                                        Task ID: <span className="task-id">{result.molecule1.taskId}</span>
-                                        <span className="watermark-badge">🔒 WATERMARKED</span>
-                                    </div>
-                                    <div className="iframe-wrap">
-                                        <iframe src={result.molecule1.pdfUrl} title="Molecule 1 Report"></iframe>
-                                    </div>
-                                </div>
-                                <div className="pdf-panel">
-                                    <h3>{result.molecule2.name}</h3>
-                                    <div className="meta">
-                                        Method: {result.molecule2.method}<br/>
-                                        Task ID: <span className="task-id">{result.molecule2.taskId}</span>
-                                        <span className="watermark-badge">🔒 WATERMARKED</span>
-                                    </div>
-                                    <div className="iframe-wrap">
-                                        <iframe src={result.molecule2.pdfUrl} title="Molecule 2 Report"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </>
-            );
+        // ─── ID Detection ───
+        function detectIdType(id) {
+            if (/^VX-[A-Z]{2,4}-\d{4}$/.test(id)) return 'bundle';
+            if (/^VX-\d{4,6}$/.test(id)) return 'standard';
+            return null;
         }
 
-        ReactDOM.render(<VerifyApp />, document.getElementById('root'));
+        // ─── 8-Step Protocol Data ───
+        const PROTOCOL_STEPS = [
+            { num: 1, label: 'Blind Entry', desc: 'Randomized sample intake with no pre-labeling bias' },
+            { num: 2, label: 'Quarantine', desc: 'Isolated storage under controlled conditions' },
+            { num: 3, label: 'Janoshik Gate', desc: 'Independent third-party chromatographic analysis' },
+            { num: 4, label: 'Digital Mirroring', desc: 'Cryptographic hash of raw analytical data' },
+            { num: 5, label: 'Forensic Watermarking', desc: 'Session-bound dynamic trace embedded in render' },
+            { num: 6, label: '1-to-1 Protocol', desc: 'Single vial, single test, no pooled samples' },
+            { num: 7, label: 'Split-Screen Render', desc: 'Canvas-rendered chromatograms, no downloadable files' },
+            { num: 8, label: 'Permanent Audit Trail', desc: 'Immutable verification log per batch' }
+        ];
+
+        // ─── State ───
+        let state = { query: '', loading: false, error: '', result: null, showOverlay: false, overlayText: '' };
+
+        function render() {
+            const app = document.getElementById('app');
+            app.innerHTML = buildHTML();
+            bindEvents();
+            if (state.result) initChromatograms();
+        }
+
+        // ─── Build HTML ───
+        function buildHTML() {
+            let html = '';
+
+            // Terminal overlay
+            html += `<div class="terminal-overlay ${state.showOverlay ? 'active' : ''}" id="overlay">
+                <div class="terminal-text">${state.overlayText}<span class="terminal-cursor"></span></div>
+            </div>`;
+
+            // Title
+            html += `<h1>Vantix Matrix Verification</h1>
+                <p class="page-sub">Chromatographic Purity Portal — Research-Only Analytical Reference Data</p>`;
+
+            // 8-Step Protocol
+            html += `<div class="protocol-section">
+                <h2>8-Step Matrix Protocol</h2>
+                <div class="protocol-grid">
+                    ${PROTOCOL_STEPS.map(s => `<div class="protocol-step">
+                        <div class="step-num">${s.num}</div>
+                        <div class="step-label">${s.label}</div>
+                        <div class="step-desc">${s.desc}</div>
+                    </div>`).join('')}
+                </div>
+            </div>`;
+
+            // Search
+            html += `<div class="search-box">
+                <label>Matrix Verification — Enter Standard ID or Bundle ID</label>
+                <div class="input-row">
+                    <input id="q" type="text" value="${state.query}" placeholder="VX-TZ-2026 or VX-7841" ${state.loading ? 'disabled' : ''} />
+                    <button class="btn-primary" id="btn-verify" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Verifying…' : 'Verify'}</button>
+                </div>
+                ${state.error ? `<div class="error-msg">${state.error}</div>` : ''}
+                <div class="id-hint">Bundle ID: VX-XX-0000 &nbsp;|&nbsp; Standard ID: VX-0000</div>
+            </div>`;
+
+            // Results
+            if (state.result) {
+                const r = state.result;
+                const isBundle = r.type === 'bundle' && r.molecules.length > 1;
+                html += `<div class="results-area">
+                    <div class="${isBundle ? 'split-view' : 'single-view'}">
+                        ${r.molecules.map((m, i) => buildPanel(m, i)).join('')}
+                    </div>
+                </div>`;
+
+                // Disclaimer
+                html += `<div class="disclaimer">
+                    <strong>Research-Only Notice:</strong> All data rendered on this portal is for in vitro analytical reference purposes only. 
+                    Chromatographic purity values are sourced from independent Janoshik Analytical testing. Canvas-rendered data cannot be saved, printed, or reproduced. 
+                    A dynamic forensic watermark is embedded per session. This material is not intended for human consumption.
+                </div>`;
+            }
+
+            return html;
+        }
+
+        function buildPanel(mol, idx) {
+            return `<div class="chrom-panel" id="panel-${idx}">
+                <div class="panel-header">
+                    <h3>${mol.name}</h3>
+                    <div class="panel-meta">
+                        ${mol.designation}<br/>
+                        Method: <span class="val">${mol.method}</span><br/>
+                        Chromatographic Purity: <span class="val">${mol.purity}</span> <span class="badge badge-green">PASS</span><br/>
+                        Task ID: <span class="val">${mol.taskId}</span> <span class="badge">WATERMARKED</span>
+                    </div>
+                </div>
+                <div class="canvas-wrap" id="cwrap-${idx}">
+                    <canvas id="chrom-${idx}" width="800" height="320"></canvas>
+                    <div class="flashlight-mask" id="flash-${idx}"></div>
+                    <svg class="watermark-layer" id="wm-${idx}"></svg>
+                    <div class="chrom-tooltip" id="tip-${idx}"></div>
+                </div>
+                <div class="janoshik-row">
+                    <a class="btn-janoshik" href="https://janoshik.com/report/${mol.taskId}" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Verify on Janoshik — ${mol.taskId}
+                    </a>
+                </div>
+            </div>`;
+        }
+
+        // ─── Event Binding ───
+        function bindEvents() {
+            const inp = document.getElementById('q');
+            const btn = document.getElementById('btn-verify');
+            if (inp) {
+                inp.addEventListener('input', e => { state.query = e.target.value; });
+                inp.addEventListener('keydown', e => { if (e.key === 'Enter') doVerify(); });
+            }
+            if (btn) btn.addEventListener('click', doVerify);
+        }
+
+        // ─── Terminal Animation ───
+        function terminalAnim() {
+            return new Promise(resolve => {
+                const lines = [
+                    'MATRIX PROTOCOL INITIATED…',
+                    'BLIND ENTRY VALIDATED',
+                    'QUARANTINE CHECK — PASS',
+                    'JANOSHIK GATE — AUTHENTICATING…',
+                    'DIGITAL MIRROR HASH VERIFIED',
+                    'FORENSIC WATERMARK GENERATED',
+                    'RENDERING CHROMATOGRAMS…',
+                    'MATRIX VERIFICATION COMPLETE'
+                ];
+                let i = 0;
+                state.showOverlay = true;
+                state.overlayText = lines[0];
+                updateOverlay();
+                const iv = setInterval(() => {
+                    i++;
+                    if (i < lines.length) {
+                        state.overlayText = lines[i];
+                        updateOverlay();
+                    } else {
+                        clearInterval(iv);
+                        setTimeout(() => { state.showOverlay = false; updateOverlay(); resolve(); }, 350);
+                    }
+                }, 380);
+            });
+        }
+
+        function updateOverlay() {
+            const el = document.getElementById('overlay');
+            if (!el) return;
+            el.className = 'terminal-overlay' + (state.showOverlay ? ' active' : '');
+            el.querySelector('.terminal-text').innerHTML = state.overlayText + '<span class="terminal-cursor"></span>';
+        }
+
+        // ─── Verify Action ───
+        async function doVerify() {
+            const raw = state.query.trim().toUpperCase();
+            if (!raw) { state.error = 'Enter a Standard ID or Bundle ID'; render(); return; }
+
+            const idType = detectIdType(raw);
+            if (!idType) { state.error = 'Invalid format. Bundle: VX-XX-0000 | Standard: VX-0000'; render(); return; }
+
+            state.error = '';
+            state.result = null;
+            state.loading = true;
+            render();
+
+            const anim = terminalAnim();
+
+            // Simulate lookup
+            await new Promise(r => setTimeout(r, 600));
+            const data = DEMO_DB[raw];
+
+            await anim;
+
+            if (!data) {
+                state.error = 'No matching record found. Verify your ID and retry.';
+                state.loading = false;
+                render();
+                return;
+            }
+
+            state.result = data;
+            state.loading = false;
+            render();
+        }
+
+        // ─── Chromatogram Rendering ───
+        function initChromatograms() {
+            if (!state.result) return;
+            state.result.molecules.forEach((mol, idx) => {
+                drawChromatogram(mol, idx);
+                setupFlashlight(idx);
+                drawWatermark(idx);
+                setupTooltip(mol, idx);
+            });
+        }
+
+        function drawChromatogram(mol, idx) {
+            const canvas = document.getElementById('chrom-' + idx);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width, H = canvas.height;
+            const pad = { top: 30, bottom: 45, left: 55, right: 20 };
+            const plotW = W - pad.left - pad.right;
+            const plotH = H - pad.top - pad.bottom;
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Background
+            ctx.fillStyle = '#FAFCFF';
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid
+            ctx.strokeStyle = '#E8ECF1';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 5; i++) {
+                const y = pad.top + (plotH / 5) * i;
+                ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+            }
+            for (let t = 0; t <= 14; t += 2) {
+                const x = pad.left + (t / 14) * plotW;
+                ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, H - pad.bottom); ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#94A3B8';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(pad.left, pad.top);
+            ctx.lineTo(pad.left, H - pad.bottom);
+            ctx.lineTo(W - pad.right, H - pad.bottom);
+            ctx.stroke();
+
+            // Axis labels
+            ctx.fillStyle = '#64748B';
+            ctx.font = '500 11px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            for (let t = 0; t <= 14; t += 2) {
+                const x = pad.left + (t / 14) * plotW;
+                ctx.fillText(t + '', x, H - pad.bottom + 18);
+            }
+            ctx.fillText('Retention Time (min)', pad.left + plotW / 2, H - 6);
+
+            ctx.save();
+            ctx.translate(14, pad.top + plotH / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.textAlign = 'center';
+            ctx.fillText('Response (mAU)', 0, 0);
+            ctx.restore();
+
+            // Y axis values
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 5; i++) {
+                const v = (1 - i / 5);
+                const y = pad.top + (plotH / 5) * i;
+                ctx.fillText((v * 100).toFixed(0), pad.left - 8, y + 4);
+            }
+
+            // Baseline
+            const baseY = H - pad.bottom;
+
+            // Draw peaks as gaussian curves
+            ctx.beginPath();
+            ctx.moveTo(pad.left, baseY);
+
+            const resolution = 2;
+            for (let px = 0; px <= plotW; px += resolution) {
+                const t = (px / plotW) * 14;
+                let y = 0;
+                mol.peaks.forEach(peak => {
+                    const sigma = peak.width / 2.355;
+                    y += peak.height * Math.exp(-0.5 * Math.pow((t - peak.rt) / sigma, 2));
+                });
+                ctx.lineTo(pad.left + px, baseY - y * plotH);
+            }
+            ctx.lineTo(W - pad.right, baseY);
+
+            // Gradient fill
+            const grad = ctx.createLinearGradient(0, pad.top, 0, baseY);
+            grad.addColorStop(0, 'rgba(0,180,216,0.18)');
+            grad.addColorStop(1, 'rgba(0,180,216,0.02)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Stroke
+            ctx.strokeStyle = '#00B4D8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(pad.left, baseY);
+            for (let px = 0; px <= plotW; px += resolution) {
+                const t = (px / plotW) * 14;
+                let y = 0;
+                mol.peaks.forEach(peak => {
+                    const sigma = peak.width / 2.355;
+                    y += peak.height * Math.exp(-0.5 * Math.pow((t - peak.rt) / sigma, 2));
+                });
+                ctx.lineTo(pad.left + px, baseY - y * plotH);
+            }
+            ctx.stroke();
+
+            // Peak labels
+            ctx.fillStyle = '#1A2B44';
+            ctx.font = '600 10px "Inter", sans-serif';
+            ctx.textAlign = 'center';
+            mol.peaks.forEach(peak => {
+                if (peak.height < 0.15) return;
+                const px = pad.left + (peak.rt / 14) * plotW;
+                const py = baseY - peak.height * plotH - 10;
+                ctx.fillText(peak.label, px, py);
+            });
+        }
+
+        // ─── Flashlight Effect ───
+        function setupFlashlight(idx) {
+            const wrap = document.getElementById('cwrap-' + idx);
+            const mask = document.getElementById('flash-' + idx);
+            if (!wrap || !mask) return;
+
+            const RADIUS = 90;
+
+            wrap.addEventListener('mousemove', e => {
+                const rect = wrap.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                mask.style.background = `radial-gradient(circle ${RADIUS}px at ${x}px ${y}px, transparent 0%, rgba(26,43,68,0.88) 100%)`;
+            });
+
+            wrap.addEventListener('mouseleave', () => {
+                mask.style.background = 'rgba(26,43,68,0.88)';
+            });
+        }
+
+        // ─── Forensic Watermark ───
+        function drawWatermark(idx) {
+            const svg = document.getElementById('wm-' + idx);
+            if (!svg) return;
+
+            // Generate session-specific node pattern
+            const seed = hashCode(SESSION_ID + idx);
+            let inner = '';
+            for (let i = 0; i < 24; i++) {
+                const x = pseudoRand(seed + i * 7) * 100;
+                const y = pseudoRand(seed + i * 13 + 3) * 100;
+                const r = 2 + pseudoRand(seed + i * 19) * 4;
+                inner += `<circle cx="${x.toFixed(1)}%" cy="${y.toFixed(1)}%" r="${r.toFixed(1)}" fill="#00B4D8"/>`;
+                if (i > 0) {
+                    const px = pseudoRand(seed + (i-1) * 7) * 100;
+                    const py = pseudoRand(seed + (i-1) * 13 + 3) * 100;
+                    inner += `<line x1="${px.toFixed(1)}%" y1="${py.toFixed(1)}%" x2="${x.toFixed(1)}%" y2="${y.toFixed(1)}%" stroke="#00B4D8" stroke-width="0.5"/>`;
+                }
+            }
+            // Session text
+            inner += `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#00B4D8" letter-spacing="6" transform="rotate(-30, 400, 160)">VANTIX MATRIX — ${SESSION_ID.slice(0,8).toUpperCase()}</text>`;
+
+            svg.innerHTML = inner;
+        }
+
+        function hashCode(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; } return Math.abs(h); }
+        function pseudoRand(seed) { let x = Math.sin(seed) * 10000; return x - Math.floor(x); }
+
+        // ─── Tooltip ───
+        function setupTooltip(mol, idx) {
+            const wrap = document.getElementById('cwrap-' + idx);
+            const tip = document.getElementById('tip-' + idx);
+            const canvas = document.getElementById('chrom-' + idx);
+            if (!wrap || !tip || !canvas) return;
+
+            const pad = { top: 30, bottom: 45, left: 55, right: 20 };
+            const plotW = canvas.width - pad.left - pad.right;
+
+            wrap.addEventListener('mousemove', e => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const mx = (e.clientX - rect.left) * scaleX;
+                const t = ((mx - pad.left) / plotW) * 14;
+
+                // Find nearest peak
+                let nearest = null, minDist = Infinity;
+                mol.peaks.forEach(p => {
+                    const d = Math.abs(p.rt - t);
+                    if (d < minDist && d < 0.8) { minDist = d; nearest = p; }
+                });
+
+                if (nearest) {
+                    const px = (e.clientX - rect.left);
+                    const plotH = canvas.height - pad.top - pad.bottom;
+                    const py = (canvas.height - pad.bottom - nearest.height * plotH) / scaleX;
+                    tip.style.left = px + 'px';
+                    tip.style.top = py + 'px';
+                    tip.innerHTML = `<strong>${nearest.label}</strong><br/>RT: ${nearest.rt.toFixed(2)} min` +
+                        (nearest.purity ? `<br/>Purity: ${nearest.purity}` : '');
+                    tip.classList.add('visible');
+                } else {
+                    tip.classList.remove('visible');
+                }
+            });
+
+            wrap.addEventListener('mouseleave', () => {
+                tip.classList.remove('visible');
+            });
+        }
+
+        // ─── Init ───
+        render();
+
+    })();
     </script>
 </body>
 </html>
