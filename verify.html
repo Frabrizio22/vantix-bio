@@ -334,7 +334,13 @@
             const btn = document.getElementById('btn-verify');
             if (inp) {
                 inp.addEventListener('input', e => { state.query = e.target.value; });
-                inp.addEventListener('paste', e => { setTimeout(() => { state.query = e.target.value; }, 0); });
+                inp.addEventListener('paste', e => { 
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text');
+                    inp.value = text;
+                    state.query = text;
+                    render();
+                });
                 inp.addEventListener('keydown', e => { if (e.key === 'Enter') doVerify(); });
             }
             if (btn) btn.addEventListener('click', doVerify);
