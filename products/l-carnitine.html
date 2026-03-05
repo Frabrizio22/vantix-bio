@@ -71,7 +71,15 @@
 .trust-badges{display:flex;gap:12px;flex-wrap:wrap;padding:12px;background:#F0F9FF;border:1px solid #DBEAFE;border-radius:6px;margin-bottom:1rem}
 .trust-badge-item{font-size:0.75rem;font-weight:600;color:#1E40AF;white-space:nowrap}
 
-@media(max-width:768px){.quality-verification{padding:1rem}.btn-coa{width:100%;text-align:center}.trust-badges{justify-content:center}}
+
+/* Verification Buttons */
+.verification-btns{display:flex;gap:12px;margin-bottom:1rem;flex-wrap:wrap}
+.btn-verify-primary{flex:1;min-width:200px;background:#2563EB;color:#FFF;padding:12px 20px;border-radius:6px;text-decoration:none;font-size:0.9rem;font-weight:600;text-align:center;transition:background 0.2s}
+.btn-verify-primary:hover{background:#1D4ED8}
+.btn-verify-secondary{flex:1;min-width:200px;background:#F8FAFC;color:#2563EB;border:2px solid #2563EB;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:0.9rem;font-weight:600;text-align:center;transition:all 0.2s}
+.btn-verify-secondary:hover{background:#EFF6FF}
+
+@media(max-width:768px){.quality-verification{padding:1rem}.verification-btns{flex-direction:column}.btn-verify-primary,.btn-verify-secondary{min-width:100%}.trust-badges{justify-content:center}}
 
 </style>
 </head>
@@ -91,7 +99,7 @@
 <h1>L-Carnitine</h1>
 <div class="product-meta">
 <div class="product-price">$26</div>
-<div class="coa-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> COA Available</div>
+<a href="../verify.html" class="coa-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> COA Available — View</a>
 </div>
 <div class="short-desc">The essential cofactor for mitochondrial fatty acid oxidation—a quaternary ammonium compound that shuttles long-chain fatty acids across the impermeable inner mitochondrial membrane.</div>
 <div class="specs-table"><table>
@@ -108,16 +116,20 @@
 <div class="trust-item">Next Day Ship</div>
 <div class="trust-item">Free $150+</div>
 </div>
-<!-- Quality Verification Section -->
+
+<!-- Quality Verification -->
 <div class="quality-verification">
 <h3 style="font-size:1.1rem;font-weight:700;color:#0A1628;margin-bottom:1rem">Quality Verification</h3>
 <ul class="verification-list">
-<li>Third-party tested by Janoshik Analytical</li>
-<li>HPLC purity and LC-MS identity confirmation</li>
-<li>Most recent batch testing available below</li>
+<li>Third-party tested (Janoshik)</li>
+<li>HPLC purity + LC-MS identity</li>
+<li>Verify your vial by batch number after delivery</li>
 </ul>
-<a href="https://janoshik.com" target="_blank" class="btn-coa">View Certificate of Analysis</a>
-<p class="verification-disclaimer">Testing shown reflects the most recent third-party analysis of this compound. Batch numbers may vary. Each product can be verified using the batch number printed on the vial.</p>
+<div class="verification-btns">
+<a href="../verify.html" class="btn-verify-primary">View Most Recent COA</a>
+<a href="../verify.html" class="btn-verify-secondary">Verify a Batch Number</a>
+</div>
+<p class="verification-disclaimer">Displayed COA reflects the most recent third-party analysis for this compound. Batch numbers may vary. Every vial can be verified using the batch number printed on the label.</p>
 </div>
 
 <div class="qty-controls">
@@ -136,7 +148,7 @@
 
 <div class="action-btns">
 <button class="btn-primary" onclick="addToCart()">Add to Cart — $<span id="totalPrice">26</span></button>
-<a href="mailto:support@vantixbio.com?subject=COA%20Request%3A%20L-Carnitine" class="btn-secondary">Request COA</a>
+<a href="../verify.html" class="btn-secondary">View COA</a>
 </div>
 <h2>What is L-Carnitine?</h2>
 <p>L-Carnitine (β-hydroxy-γ-trimethylaminobutyric acid) solves a fundamental problem in cellular energetics: long-chain fatty acids cannot cross the inner mitochondrial membrane where beta-oxidation occurs. Carnitine serves as the shuttle—the carnitine palmitoyltransferase (CPT) system conjugates fatty acids to carnitine, transports them across the membrane, then releases them inside the mitochondrial matrix. Without adequate carnitine, long-chain fatty acids cannot be oxidized for energy, regardless of other metabolic factors.</p><p>This bottleneck role makes L-carnitine fundamental to metabolic research. Studies of mitochondrial fatty acid oxidation, investigation of the carnitine shuttle mechanism, research into acyl-carnitine species as metabolic biomarkers, and exploration of carnitine's role in various metabolic states all require this essential cofactor.</p>

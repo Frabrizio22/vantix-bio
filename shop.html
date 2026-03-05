@@ -1525,6 +1525,24 @@ h1 {
     background: #475569;
 }
 
+/* COA Link in Product Cards */
+.coa-link-wrapper {
+    margin: 6px 0;
+}
+
+.coa-link {
+    font-size: 0.7rem;
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.coa-link:hover {
+    color: #047857;
+    text-decoration: underline;
+}
+
 /* Notify Modal Styles */
 #notifyModal.modal .modal-content {
     max-width: 440px;
@@ -2145,6 +2163,12 @@ h1 {
                     specs += '<span class="type">' + product.type + '</span>';
                 }
                 
+                // Add Janoshik COA link for Phase 1 products (not supplies)
+                var coaLink = '';
+                if (!isPhase2 && product.category !== 'supplies') {
+                    coaLink = '<a href="verify.html" class="coa-link" onclick="event.stopPropagation();">Janoshik COA: View</a>';
+                }
+                
                 // Price display
                 var priceClass = isPhase2 ? 'product-price coming-soon-price' : 'product-price';
                 var pricePrefix = isPhase2 ? '~$' : '$';
@@ -2193,6 +2217,7 @@ h1 {
                     '<div class="product-info">' +
                     '<h3>' + product.shortName + '</h3>' +
                     '<div class="product-specs">' + specs + '</div>' +
+                    (coaLink ? '<div class="coa-link-wrapper">' + coaLink + '</div>' : '') +
                     '<div class="' + priceClass + '">' +
                     '<span class="price-main">' + pricePrefix + product.price + '</span>' +
                     '<span class="price-unit">/ vial</span>' +

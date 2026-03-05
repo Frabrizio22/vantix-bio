@@ -71,7 +71,15 @@
 .trust-badges{display:flex;gap:12px;flex-wrap:wrap;padding:12px;background:#F0F9FF;border:1px solid #DBEAFE;border-radius:6px;margin-bottom:1rem}
 .trust-badge-item{font-size:0.75rem;font-weight:600;color:#1E40AF;white-space:nowrap}
 
-@media(max-width:768px){.quality-verification{padding:1rem}.btn-coa{width:100%;text-align:center}.trust-badges{justify-content:center}}
+
+/* Verification Buttons */
+.verification-btns{display:flex;gap:12px;margin-bottom:1rem;flex-wrap:wrap}
+.btn-verify-primary{flex:1;min-width:200px;background:#2563EB;color:#FFF;padding:12px 20px;border-radius:6px;text-decoration:none;font-size:0.9rem;font-weight:600;text-align:center;transition:background 0.2s}
+.btn-verify-primary:hover{background:#1D4ED8}
+.btn-verify-secondary{flex:1;min-width:200px;background:#F8FAFC;color:#2563EB;border:2px solid #2563EB;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:0.9rem;font-weight:600;text-align:center;transition:all 0.2s}
+.btn-verify-secondary:hover{background:#EFF6FF}
+
+@media(max-width:768px){.quality-verification{padding:1rem}.verification-btns{flex-direction:column}.btn-verify-primary,.btn-verify-secondary{min-width:100%}.trust-badges{justify-content:center}}
 
 </style>
 </head>
@@ -91,7 +99,7 @@
 <h1>Lipo-C MAX Blend</h1>
 <div class="product-meta">
 <div class="product-price">$42</div>
-<div class="coa-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> COA Available</div>
+<a href="../verify.html" class="coa-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> COA Available — View</a>
 </div>
 <div class="short-desc">MIC lipotropic blend: L-Carnitine 20mg, L-Arginine 20mg, Methionine 25mg, Inositol 50mg, Choline 50mg, B6 25mg, B5 25mg. Darker red liquid.</div>
 <div class="specs-table"><table>
@@ -109,16 +117,20 @@
 <div class="trust-item">Next Day Ship</div>
 <div class="trust-item">Free $150+</div>
 </div>
-<!-- Quality Verification Section -->
+
+<!-- Quality Verification -->
 <div class="quality-verification">
 <h3 style="font-size:1.1rem;font-weight:700;color:#0A1628;margin-bottom:1rem">Quality Verification</h3>
 <ul class="verification-list">
-<li>Third-party tested by Janoshik Analytical</li>
-<li>HPLC purity and LC-MS identity confirmation</li>
-<li>Most recent batch testing available below</li>
+<li>Third-party tested (Janoshik)</li>
+<li>HPLC purity + LC-MS identity</li>
+<li>Verify your vial by batch number after delivery</li>
 </ul>
-<a href="https://janoshik.com" target="_blank" class="btn-coa">View Certificate of Analysis</a>
-<p class="verification-disclaimer">Testing shown reflects the most recent third-party analysis of this compound. Batch numbers may vary. Each product can be verified using the batch number printed on the vial.</p>
+<div class="verification-btns">
+<a href="../verify.html" class="btn-verify-primary">View Most Recent COA</a>
+<a href="../verify.html" class="btn-verify-secondary">Verify a Batch Number</a>
+</div>
+<p class="verification-disclaimer">Displayed COA reflects the most recent third-party analysis for this compound. Batch numbers may vary. Every vial can be verified using the batch number printed on the label.</p>
 </div>
 
 <div class="qty-controls">
@@ -137,7 +149,7 @@
 
 <div class="action-btns">
 <button class="btn-primary" onclick="addToCart()">Add to Cart — $<span id="totalPrice">42</span></button>
-<a href="mailto:support@vantixbio.com?subject=COA%20Request%3A%20Lipo-C%20MAX%20Blend" class="btn-secondary">Request COA</a>
+<a href="../verify.html" class="btn-secondary">View COA</a>
 </div>
 <h2>What is Lipo-C MAX Blend?</h2>
 <p>The Lipo-C MAX formulation recognizes that lipid metabolism requires multiple cofactors working in concert. Methionine provides the methyl groups essential for phosphatidylcholine synthesis and methylation reactions. Inositol participates in lipid messenger signaling and cell membrane formation. Choline serves as a precursor for phosphatidylcholine and prevents hepatic lipid accumulation. L-carnitine shuttles long-chain fatty acids into mitochondria for beta-oxidation. Together, these lipotropic factors create the biochemical environment for efficient hepatic lipid processing.</p><p>Researchers studying hepatic steatosis models, investigating lipotropic factor deficiencies, or exploring the interplay between methylation and lipid metabolism find this standardized combination valuable for consistent multi-factor supplementation. The blend enables study of synergistic lipotropic mechanisms that isolated factor research cannot reveal.</p>
