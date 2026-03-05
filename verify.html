@@ -295,7 +295,7 @@
             </div>`;
 
             // Search
-            html += `<div class="search-box ${state.result ? 'compact' : ''}">
+            html += `<div id="verify" class="search-box ${state.result ? 'compact' : ''}">
                 <label>Matrix Verification — Enter Standard ID or Bundle ID</label>
                 <div class="input-row">
                     <input id="q" type="text" placeholder="VX-TZ-2026 or VX-7841" autocomplete="off" spellcheck="false" onpaste="return true;" ${state.loading ? 'disabled' : ''} />
@@ -309,7 +309,7 @@
             if (state.result) {
                 const r = state.result;
                 const isBundle = r.type === 'bundle' && r.molecules.length > 1;
-                html += `<div class="results-area">
+                html += `<div id="latest" class="results-area">
                     <div class="${isBundle ? 'split-view' : 'single-view'}">
                         ${r.molecules.map((m, i) => buildPanel(m, i)).join('')}
                     </div>
@@ -651,8 +651,70 @@
             });
         }
 
+        // ─── URL Parameter Handling ───
+        function handleURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            const hash = window.location.hash;
+            
+            // Product slug to Bundle ID mapping
+            const productToBundleId = {
+                'semaglutide': 'VX-SM-2026',
+                'tirzepatide': 'VX-TZ-2026',
+                'retatrutide': 'VX-TZ-2026',
+                'bpc157': 'VX-SM-2026',
+                'tb500': 'VX-SM-2026',
+                'cjc1295': 'VX-TZ-2026',
+                'ipamorelin': 'VX-SM-2026',
+                'epithalon': 'VX-TZ-2026',
+                'melanotan': 'VX-SM-2026'
+            };
+            
+            // If product parameter is present
+            const productSlug = params.get('product');
+            if (productSlug) {
+                const bundleId = productToBundleId[productSlug.toLowerCase()];
+                if (bundleId) {
+                    // Auto-populate the search field
+                    const input = document.getElementById('q');
+                    if (input) {
+                        input.value = bundleId;
+                        // Optionally auto-trigger verification
+                        // document.getElementById('btn-verify').click();
+                    }
+                }
+            }
+            
+            // If batch parameter is present (prefill batch number)
+            const batch = params.get('batch');
+            if (batch) {
+                const input = document.getElementById('q');
+                if (input) {
+                    input.value = batch;
+                }
+            }
+            
+            // Handle hash anchors
+            if (hash === '#latest' || hash === '#verify') {
+                setTimeout(() => {
+                    const target = document.querySelector(hash);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    
+                    // Auto-focus input if #verify
+                    if (hash === '#verify') {
+                        const input = document.getElementById('q');
+                        if (input) {
+                            input.focus();
+                        }
+                    }
+                }, 300);
+            }
+        }
+
         // ─── Init ───
         render();
+        handleURLParams();
 
     })();
     </script>

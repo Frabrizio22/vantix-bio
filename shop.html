@@ -2166,7 +2166,8 @@ h1 {
                 // Add Janoshik COA link for Phase 1 products (not supplies)
                 var coaLink = '';
                 if (!isPhase2 && product.category !== 'supplies') {
-                    coaLink = '<a href="verify.html" class="coa-link" onclick="event.stopPropagation();">Janoshik COA: View</a>';
+                    var slug = product.slug || 'semaglutide';
+                    coaLink = '<a href="verify.html?product=' + slug + '#latest" class="coa-link" onclick="event.stopPropagation();">Janoshik COA: View</a>';
                 }
                 
                 // Price display
