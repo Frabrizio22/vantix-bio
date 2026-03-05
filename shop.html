@@ -1421,6 +1421,211 @@ h1 {
     color: #1A2B44;
     letter-spacing: -1px;
 }
+
+/* Dual Tested Badge */
+.dual-tested-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(37, 99, 235, 0.95);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 10;
+}
+
+/* Coming Soon Badge */
+.coming-soon-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(148, 163, 184, 0.95);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 10;
+}
+
+/* Product Price */
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 12px 0;
+}
+
+.price-main {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1A2B44;
+}
+
+.price-unit {
+    font-size: 0.75rem;
+    color: #64748B;
+}
+
+.coming-soon-price .price-main {
+    color: #94A3B8;
+}
+
+/* Add to Cart Button */
+.btn-add-cart {
+    width: 100%;
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-add-cart:hover {
+    background: #1D4ED8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Notify Me Button */
+.btn-notify {
+    width: 100%;
+    background: #64748B;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-notify:hover {
+    background: #475569;
+}
+
+/* Notify Modal Styles */
+#notifyModal.modal .modal-content {
+    max-width: 440px;
+    padding: 32px;
+}
+
+#notifyModal .modal-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+#notifyModal .modal-header svg {
+    margin-bottom: 12px;
+}
+
+#notifyModal .modal-header h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: #1A2B44;
+}
+
+#notifyModal .modal-header p {
+    font-size: 0.9rem;
+    color: #64748B;
+}
+
+#notifyForm input[type="email"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-submit:hover {
+    background: #1D4ED8;
+}
+
+.notify-success {
+    text-align: center;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.notify-success p {
+    color: #059669;
+    font-weight: 500;
+}
+
+.notify-error {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    color: #DC2626;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* Mobile Modal Adjustments */
+@media (max-width: 480px) {
+    #notifyModal .modal-content {
+        padding: 24px;
+        max-width: 90%;
+    }
+    
+    .dual-tested-badge, .coming-soon-badge {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1529,6 +1734,61 @@ h1 {
             <span class="modal-close" id="modalClose">&times;</span>
             <div class="modal-header" id="modalHeader"></div>
             <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Email Notification Modal -->
+    <div id="notifyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="NotifySystem.closeModal()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            
+            <div class="modal-header">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#2563EB" stroke-width="2">
+                    <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+                <h3 id="modalProductName">Get Notified</h3>
+                <p>We'll email you when this product launches</p>
+            </div>
+            
+            <form id="notifyForm" onsubmit="NotifySystem.submitForm(event)">
+                <input type="email" 
+                       id="notifyEmail" 
+                       placeholder="your@email.com" 
+                       required
+                       autocomplete="email">
+                
+                <input type="hidden" id="notifyProduct" name="product">
+                <input type="hidden" id="notifySKU" name="sku">
+                <input type="hidden" id="notifyCategory" name="category">
+                
+                <div id="notifyError" class="notify-error" style="display:none;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#DC2626" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    <span id="notifyErrorText"></span>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Notify Me
+                </button>
+            </form>
+            
+            <div id="notifySuccess" class="notify-success" style="display:none;">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#10B981" stroke-width="2">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                <p id="notifySuccessText">You're on the list! We'll notify you at launch.</p>
+            </div>
         </div>
     </div>
 
@@ -2603,5 +2863,9 @@ h1 {
             }
         });
     </script>
+    
+    <!-- Product Data & Notification System -->
+    <script src="shop_products_data.js"></script>
+    <script src="notify_system.js"></script>
 </body>
 </html>
