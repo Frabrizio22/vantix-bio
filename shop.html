@@ -2170,9 +2170,12 @@ h1 {
                 // Image styling (grayed for Phase 2)
                 var imageStyle = isPhase2 ? 'opacity: 0.6;' : '';
                 
+                // Default placeholder for missing images
+                var placeholderSVG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23F1F5F9" width="200" height="280"/%3E%3Cg transform="translate(100,140)"%3E%3Crect x="-30" y="-60" width="60" height="100" rx="8" fill="%23E2E8F0" stroke="%2394A3B8" stroke-width="2"/%3E%3Crect x="-25" y="-55" width="50" height="20" rx="4" fill="%23CBD5E1"/%3E%3Ctext x="0" y="80" text-anchor="middle" font-family="system-ui" font-size="14" fill="%2364748B" font-weight="600"%3EVANTIX BIO%3C/text%3E%3C/g%3E%3C/svg%3E';
+                
                 card.innerHTML = 
                     badge +
-                    '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy" style="' + imageStyle + '">' +
+                    '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy" style="' + imageStyle + '" onerror="this.src=\'' + placeholderSVG + '\'">' +
                     '<div class="product-info">' +
                     '<h3>' + product.shortName + '</h3>' +
                     '<div class="product-specs">' + specs + '</div>' +
