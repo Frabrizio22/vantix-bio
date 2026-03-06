@@ -635,7 +635,7 @@
         /* Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 10px;
             margin-bottom: 1.5rem;
         }
@@ -1395,6 +1395,18 @@ h1 {
     height: auto;
     border-radius: 6px;
     margin-bottom: 6px;
+    background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+    min-height: 180px;
+    object-fit: cover;
+}
+
+.product-info img[src*="placeholder"],
+.product-info img:not([src]) {
+    background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-specs {
@@ -2092,23 +2104,23 @@ h1 {
                 // Product specs (dosage or volume + purity/type)
                 var specs = '';
                 if (product.dosage) {
-                    specs += '<span class="dosage">' + product.dosage + '</span>';
+                    specs += '<span class="dosage">' + product.dosage.replace(/(\d+)(mg|g)/i, '$1 $2') + '</span>';
                 }
                 if (product.volume) {
-                    specs += '<span class="dosage">' + product.volume + '</span>';
+                    specs += '<span class="dosage">' + product.volume.replace(/(\d+)(ml)/i, '$1 $2') + '</span>';
                 }
                 if (product.purity) {
-                    specs += '<span class="purity">' + product.purity + '</span>';
+                    specs += '<span class="purity"> • ' + product.purity + ' purity</span>';
                 }
                 if (product.type) {
-                    specs += '<span class="type">' + product.type + '</span>';
+                    specs += '<span class="type"> • ' + product.type + '</span>';
                 }
                 
                 // Add Janoshik COA link for Phase 1 products (not supplies)
                 var coaLink = '';
                 if (!isPhase2 && product.category !== 'supplies') {
                     var slug = product.slug || 'semaglutide';
-                    coaLink = '<a href="verify.html?product=' + slug + '#latest" class="coa-link" onclick="event.stopPropagation();">Janoshik COA: View</a>';
+                    coaLink = '<a href="verify.html?product=' + slug + '#latest" class="coa-link" onclick="event.stopPropagation();">View Janoshik COA →</a>';
                 }
                 
                 // Price display

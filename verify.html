@@ -316,6 +316,7 @@
             if (!state.result) {
                 html += `<section id="latest" class="latest-coas">
                     <h2>Most Recent COAs — Phase 1 Products</h2>
+                    <p style="font-size: 0.9rem; color: #64748B; margin-bottom: 1.5rem; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">Every batch is independently verified through Janoshik Analytical. Click any report below to view the full chromatographic analysis.</p>
                     <div class="coa-grid">
                         ${PHASE1_PRODUCTS.map(p => `<div class="coa-card ${state.highlightedProduct === p.slug ? 'highlighted' : ''}" data-product="${p.slug}" data-bundle="${p.bundleId}">
                             <div class="coa-card-title">${p.name}</div>
