@@ -5,7 +5,7 @@
     'use strict';
 
     // Exempt pages (don't enforce gate on these)
-    const EXEMPT_PAGES = ['gate.html', 'terms.html', 'privacy.html'];
+    const EXEMPT_PAGES = ['gate.html', 'terms.html', 'privacy.html', 'faq.html', 'contact.html'];
     
     // Get current page filename
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
