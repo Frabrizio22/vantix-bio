@@ -319,6 +319,7 @@
                         ${PHASE1_PRODUCTS.map(p => `<div class="coa-card ${state.highlightedProduct === p.slug ? 'highlighted' : ''}" data-product="${p.slug}" data-bundle="${p.bundleId}">
                             <div class="coa-card-title">${p.name}</div>
                             <div class="coa-badge">Janoshik Verified</div>
+                            <div style="font-size: 10px; color: #64748B; margin-top: 4px; margin-bottom: 8px;">HPLC purity + LC-MS identity</div>
                             <div class="coa-meta">
                                 SKU: ${p.sku}<br/>
                                 Bundle: ${p.bundleId}<br/>
@@ -344,13 +345,13 @@
 
             // Search
             html += `<section id="verify" class="search-box ${state.result ? 'compact' : ''}">
-                <label>Verify a Batch Number — Enter Standard ID or Bundle ID</label>
+                <label>Verify a Batch ID (from vial label) or Bundle ID</label>
                 <div class="input-row">
-                    <input id="q" type="text" placeholder="VX-TZ-2026 or VX-7841" autocomplete="off" spellcheck="false" onpaste="return true;" ${state.loading ? 'disabled' : ''} />
+                    <input id="q" type="text" placeholder="VX-SEMA-10-240305 or VX-TZ-2026" autocomplete="off" spellcheck="false" onpaste="return true;" ${state.loading ? 'disabled' : ''} />
                     <button class="btn-primary" id="btn-verify" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Verifying…' : 'Verify'}</button>
                 </div>
                 ${state.error ? `<div class="error-msg">${state.error}</div>` : ''}
-                <div class="id-hint">Bundle ID: VX-XX-0000 &nbsp;|&nbsp; Standard ID: VX-0000</div>
+                <div class="id-hint">Batch ID format: VX-SEMA-10-240305 &nbsp;|&nbsp; Bundle ID: VX-TZ-2026</div>
             </section>`;
 
             // Results
@@ -730,17 +731,31 @@
                 state.highlightedProduct = productSlug;
                 const bundleId = productToBundleId[productSlug];
                 
-                // If hash is #latest, just highlight the card
+                // If hash is #latest, highlight and scroll to the card
                 if (hash === '#latest') {
                     render();
                     setTimeout(() => {
                         const card = document.querySelector(`[data-product="${productSlug}"]`);
                         if (card) {
+                            // Scroll into view
                             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Add temporary highlight (already has .highlighted from render)
+                            // Remove highlight after 3 seconds
+                            setTimeout(() => {
+                                state.highlightedProduct = null;
+                                card.classList.remove('highlighted');
+                            }, 3000);
+                            
+                            // Optional: Focus the button inside the card
+                            const btn = card.querySelector('.btn-view-report');
+                            if (btn) {
+                                setTimeout(() => btn.focus(), 500);
+                            }
                         }
                     }, 100);
                 }
-                // If hash is #verify, auto-populate and focus
+                // If hash is #verify, auto-populate and focus input
                 else if (hash === '#verify') {
                     if (bundleId) {
                         state.query = bundleId;
