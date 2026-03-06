@@ -44,7 +44,7 @@
             align-items: center; 
         }
         .logo-link { text-decoration: none; }
-        .logo-link img { height: 140px; width: auto; transition: opacity 0.2s; }
+        .logo-link img { height: 60px; width: auto; transition: opacity 0.2s; }
         .logo-link:hover img { opacity: 0.85; }
         nav { display: flex; gap: 40px; align-items: center; }
         nav a { 
@@ -60,7 +60,7 @@
         .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
         .nav-dropdown-menu { 
             position: absolute; 
-            top: 100%; 
+            top: calc(100% + 8px); 
             left: 0; 
             background: #FFFFFF; 
             border: 1px solid #E2E8F0; 
@@ -70,14 +70,22 @@
             min-width: 200px; 
             opacity: 0; 
             visibility: hidden; 
-            transform: translateY(-8px); 
-            transition: all 0.2s ease; 
+            transition: opacity 0.2s ease, visibility 0.2s ease; 
             z-index: 1000; 
+            pointer-events: none;
+        }
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
         }
         .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { 
             opacity: 1; 
             visibility: visible; 
-            transform: translateY(0); 
+            pointer-events: auto;
         }
         .nav-dropdown-menu a { 
             display: block; 
@@ -95,7 +103,7 @@
         .hero { 
             max-width: 1320px; 
             margin: 0 auto; 
-            padding: 100px 32px 60px; 
+            padding: 48px 32px 40px; 
             text-align: center; 
         }
         h1 { 
@@ -359,13 +367,15 @@
                     <a>Science <span class="dropdown-arrow">▼</span></a>
                     <div class="nav-dropdown-menu">
                         <a href="the-matrix.html">The Matrix</a>
+                        <a href="blog/">Research</a>
+                        <a href="about.html">About Us</a>
                     </div>
                 </div>
                 <div class="nav-dropdown">
                     <a>Support <span class="dropdown-arrow">▼</span></a>
                     <div class="nav-dropdown-menu">
-                        <a href="index.html#faq">FAQ</a>
-                        <a href="mailto:support@vantixbio.com">Contact</a>
+                        <a href="faq.html">FAQ</a>
+                        <a href="contact.html">Contact</a>
                     </div>
                 </div>
             </nav>
