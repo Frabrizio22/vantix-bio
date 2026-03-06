@@ -1023,87 +1023,6 @@
         }
 
         /* Age Gate Overlay */
-        .age-gate {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 22, 40, 0.85);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .age-gate.active {
-            display: flex;
-        }
-
-        .age-gate-card {
-            background: #FFFFFF;
-            border-radius: 14px;
-            padding: 2.5rem;
-            max-width: 460px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-
-        .age-gate-card h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 1rem;
-        }
-
-        .age-gate-card p {
-            font-size: 0.9rem;
-            color: #64748B;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .age-gate-buttons {
-            display: flex;
-            gap: 0.75rem;
-            flex-direction: column;
-        }
-
-        .age-gate-btn {
-            padding: 0.875rem 1.5rem;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            font-family: inherit;
-        }
-
-        .age-gate-btn-enter {
-            background: #00B4D8;
-            color: #FFFFFF;
-            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
-        }
-
-        .age-gate-btn-enter:hover {
-            background: #0096C7;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,180,216,0.4);
-        }
-
-        .age-gate-btn-leave {
-            background: #F8FAFC;
-            color: #64748B;
-            border: 2px solid #E2E8F0;
-        }
-
-        .age-gate-btn-leave:hover {
-            border-color: #CBD5E1;
-        }
-
         /* Footer */
         footer {
             background: #FFFFFF;
@@ -1648,21 +1567,6 @@ h1 {
     <script src="gate-check.js"></script>
 </head>
 <body>
-    <!-- Age Gate -->
-    <div class="age-gate" id="ageGate">
-        <div class="age-gate-card">
-            <h2>Age Verification Required</h2>
-            <p>You must be 18 or older to access this site. All products are intended for research purposes only and are not for human consumption.</p>
-            <label style="display:flex;align-items:flex-start;gap:8px;margin:16px 0;text-align:left;cursor:pointer">
-                <input type="checkbox" id="tosCheck" style="margin-top:3px;width:18px;height:18px;flex-shrink:0">
-                <span style="font-size:12px;line-height:1.5;color:#94A3B8">I am 18+, these products are for research only, and I agree to the <a href="#" onclick="document.getElementById('tosModal').style.display='flex';event.stopPropagation();return false" style="color:#00B4D8;text-decoration:underline">Terms of Service</a>.</span>
-            </label>
-            <div class="age-gate-buttons">
-                <button class="age-gate-btn age-gate-btn-enter" onclick="if(!document.getElementById('tosCheck').checked){alert('Please agree to the Terms of Service');return;}acceptAgeGate()">Enter Site</button>
-                <button class="age-gate-btn age-gate-btn-leave" onclick="rejectAgeGate()">Leave</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Header -->
     <!-- Promo Bar -->
@@ -1982,23 +1886,6 @@ h1 {
         var currentCategory = 'all';
         var modal = document.getElementById('productModal');
         var modalClose = document.getElementById('modalClose');
-
-        // Age gate check
-        function checkAgeGate() {
-            var verified = sessionStorage.getItem('ageVerified');
-            if (!verified) {
-                document.getElementById('ageGate').classList.add('active');
-            }
-        }
-
-        function acceptAgeGate() {
-            sessionStorage.setItem('ageVerified', 'true');
-            document.getElementById('ageGate').classList.remove('active');
-        }
-
-        function rejectAgeGate() {
-            window.location.href = 'https://www.google.com';
-        }
 
         // Render featured products
         // Product name to URL slug mapping
@@ -2517,7 +2404,6 @@ h1 {
         }
 
         // Initial render
-        checkAgeGate();
         // bestsellers removed
         renderProducts('all');
         updateCartBadge();
