@@ -167,8 +167,8 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-BAC-30',
-            name: 'BAC Water 30ml',
-            shortName: 'BAC Water',
+            name: 'Bacteriostatic Water — 30 ml',
+            shortName: 'Bacteriostatic Water',
             slug: 'bacwater',
             category: 'supplies',
             categoryLabel: 'Supplies',
