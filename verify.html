@@ -29,11 +29,11 @@
         }
 
         /* ── Header ── */
-        .header { background: #FFFFFF; padding: 12px 24px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); transition: padding 0.3s ease; }
-        .header.compact { padding: 10px 24px; }
+        .header { background: #FFFFFF; padding: 16px 24px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #00B4D8; box-shadow: 0 1px 4px rgba(26,43,68,0.06); transition: padding 0.3s ease; }
+        .header.compact { padding: 12px 24px; }
         .logo-link { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-link img { height: 60px; transition: height 0.3s ease; }
-        .header.compact .logo-link img { height: 55px; }
+        .logo-link img { height: 76px; transition: height 0.3s ease; }
+        .header.compact .logo-link img { height: 68px; }
         .logo-text { font-size: 24px; font-weight: 800; color: #1A2B44; letter-spacing: 1px; }
 
         /* ── Container ── */
@@ -375,6 +375,70 @@
         .disclaimer { margin-top: 20px; padding: 14px 18px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 10px; color: #94A3B8; line-height: 1.5; }
         .disclaimer strong { color: #64748B; }
 
+        /* ── Footer ── */
+        footer { 
+            background: #0F172A; 
+            padding: 60px 32px 32px; 
+            margin-top: 80px; 
+            color: rgba(255,255,255,0.9);
+        }
+        .footer-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .footer-top { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 48px; 
+            margin-bottom: 48px; 
+        }
+        .footer-col h5 { 
+            font-size: 14px; 
+            font-weight: 700; 
+            color: #FFFFFF; 
+            margin-bottom: 16px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+        .footer-col p { 
+            font-size: 14px; 
+            line-height: 1.7; 
+            color: rgba(255,255,255,0.7); 
+        }
+        .footer-col ul { 
+            list-style: none; 
+        }
+        .footer-col ul li { 
+            margin-bottom: 12px; 
+        }
+        .footer-col a { 
+            color: rgba(255,255,255,0.7); 
+            text-decoration: none; 
+            font-size: 14px; 
+            transition: color 0.2s; 
+        }
+        .footer-col a:hover { 
+            color: #FFFFFF; 
+        }
+        .footer-bottom { 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            padding-top: 32px; 
+            text-align: center; 
+        }
+        .footer-bottom p { 
+            font-size: 13px; 
+            color: rgba(255,255,255,0.6); 
+            margin-bottom: 8px; 
+        }
+
+        @media (max-width: 968px) {
+            footer { padding: 48px 24px 32px; margin-top: 60px; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media (max-width: 640px) {
+            .footer-top { grid-template-columns: 1fr; gap: 32px; }
+        }
+
         @media (max-width: 968px) {
             .verify-hero { padding: 32px 24px 24px; }
             .verify-hero h1 { font-size: 26px; }
@@ -386,7 +450,7 @@
             .coa-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
-            .logo-link img { height: 50px !important; }
+            .logo-link img { height: 58px !important; }
             .split-view { grid-template-columns: 1fr; }
             .input-row-hero { flex-direction: column; }
             .btn-primary-hero { width: 100%; padding: 16px 24px; }
@@ -572,8 +636,8 @@
 
             // Hero Title + Verification Input (ABOVE FOLD)
             html += `<div class="verify-hero ${state.result ? 'compact' : ''}">
-                <h1>Forensic Verification Portal</h1>
-                <p class="hero-desc">Every Vantix batch is independently verified through Janoshik Analytical using dual chromatography (HPLC-DAD + LC-MS/MS). Enter your Bundle ID or Batch ID below to view the full forensic report.</p>
+                <h1>Batch Verification Portal</h1>
+                <p class="hero-desc">Every Vantix Bio compound is independently tested through Janoshik Analytical using HPLC-DAD and LC-MS/MS dual chromatography. Enter a Batch ID or Bundle ID to view the verified analytical record.</p>
                 
                 <section id="verify" class="search-box-hero">
                     <div class="input-row-hero">
@@ -1076,5 +1140,42 @@
 
     })();
     </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <h5>About Vantix</h5>
+                    <p>Every peptide in our catalog is backed by independent Janoshik chromatography. Forensic-grade verification for serious research.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Verification</h5>
+                    <ul>
+                        <li><a href="verify.html">Verification Portal</a></li>
+                        <li><a href="the-matrix.html">Analytical Methods</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="shop.html">Catalog</a></li>
+                        <li><a href="blog/">Research Blog</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="mailto:support@vantixbio.com">support@vantixbio.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p><strong>FOR RESEARCH PURPOSES ONLY.</strong> Not for human or animal consumption.</p>
+                <p>© 2026 Vantix Bio LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
