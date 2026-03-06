@@ -1103,7 +1103,7 @@
         }
 
         function generateOrderNumber() {
-            return 'PRC-' + (Math.floor(10000 + Math.random() * 90000));
+            return 'VX-' + (Math.floor(10000 + Math.random() * 90000));
         }
 
         function notifyOrder(orderNum, order) {
@@ -1158,7 +1158,7 @@
                     if (xhr.status === 200) {
                         var resp = JSON.parse(xhr.responseText);
                         // Save order before redirecting
-                        localStorage.setItem('prcLastOrder', JSON.stringify({
+                        localStorage.setItem('vxLastOrder', JSON.stringify({
                             orderNumber: orderNumber,
                             savedOrder: savedOrder,
                             checkoutUrl: resp.checkout_url
