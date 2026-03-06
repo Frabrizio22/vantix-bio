@@ -565,7 +565,7 @@
 
         /* Catalog Section */
         .catalog-section {
-            padding: 0.5rem 0 0;
+            padding: 0.5rem 0 1.5rem;
         }
 
         .catalog-header {
@@ -636,14 +636,15 @@
         .product-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
+            margin-bottom: 1.5rem;
         }
 
         .product-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 10px;
+            padding: 12px;
             transition: all 0.25s;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
@@ -687,11 +688,11 @@
         .category-supplies { background: rgba(71,85,105,0.08); color: #475569; }
 
         .product-name {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: #1A2B44;
-            margin-bottom: 10px;
-            line-height: 1.25;
+            margin-bottom: 6px;
+            line-height: 1.2;
             letter-spacing: -0.3px;
         }
 
@@ -1195,20 +1196,19 @@
     .logo img { height: 50px !important; }
     .filter-pills { gap: 6px; }
     .filter-pill { font-size: 12px; padding: 6px 12px; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 12px; }
-    .product-card { padding: 14px; }
-    .product-name { font-size: 14px; margin-bottom: 6px; }
-    .product-price { font-size: 20px; margin: 6px 0; }
-    .category-badge { font-size: 9px; padding: 3px 6px; }
-    .product-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-    .product-actions button { width: 100%; padding: 10px; font-size: 13px; }
-    .coa-badge { font-size: 10px; padding: 4px 8px; right: 10px; top: 10px; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 12px; }
+    .product-card { padding: 11px; }
+    .product-info h3 { font-size: 0.88rem; margin: 6px 0 3px; }
+    .product-price { margin: 5px 0 7px; }
+    .price-main { font-size: 1.3rem; }
+    .btn-add-cart, .btn-notify { padding: 9px 12px; font-size: 0.78rem; }
+    .dual-tested-badge, .coming-soon-badge { top: 10px; right: 10px; font-size: 0.6rem; padding: 3px 6px; }
 }
 @media (max-width: 420px) {
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
-    .product-card { padding: 12px; }
-    .product-name { font-size: 13px; }
-    .product-price { font-size: 18px; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 10px; }
+    .product-card { padding: 10px; }
+    .product-info h3 { font-size: 0.85rem; }
+    .price-main { font-size: 1.2rem; }
 }
 
 /* Premium Boutique Enhancements */
@@ -1375,12 +1375,47 @@ h1 {
     z-index: 10;
 }
 
+/* Product Card Content */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.product-info h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1A2B44;
+    margin: 8px 0 4px;
+    line-height: 1.2;
+}
+
+.product-info img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.product-specs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 2px 0 4px;
+}
+
+.dosage, .purity, .type {
+    font-size: 0.7rem;
+    color: #64748B;
+    font-weight: 500;
+}
+
 /* Product Price */
 .product-price {
     display: flex;
     align-items: baseline;
     gap: 4px;
-    margin: 12px 0;
+    margin: 6px 0 8px;
 }
 
 .price-main {
@@ -1404,15 +1439,15 @@ h1 {
     background: #2563EB;
     color: white;
     border: none;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.2s;
 }
 
@@ -1428,15 +1463,15 @@ h1 {
     background: #64748B;
     color: white;
     border: none;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.2s;
 }
 
@@ -1446,11 +1481,11 @@ h1 {
 
 /* COA Link in Product Cards */
 .coa-link-wrapper {
-    margin: 6px 0;
+    margin: 3px 0 5px;
 }
 
 .coa-link {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: #059669;
     text-decoration: none;
     font-weight: 600;
