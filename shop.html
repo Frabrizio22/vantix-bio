@@ -1854,8 +1854,13 @@ h1 {
             <div style="font-size:0.72rem;color:#94A3B8;margin-bottom:1rem">support@vantixbio.com</div>
             <div class="footer-disclaimer" style="background:#FEF2F2;padding:16px;border-radius:10px;margin-bottom:16px;border:1px solid #FECACA">
                 <span class="research-only">FOR RESEARCH PURPOSES ONLY.</span> Vantix Bio LLC provides high-purity reagents strictly for in vitro laboratory research. Our products are not for human or veterinary use, nor are they intended to diagnose, treat, cure, or prevent any disease. By purchasing, the buyer acknowledges the hazards associated with the use of these chemicals and confirms they are a qualified researcher. Headquartered in Santa Cruz, CA.
+    
+    <!-- Product Data & Notification System - Load BEFORE main script -->
+    <script src="shop_products_data.js"></script>
+    <script src="notify_system.js"></script>
+    
     <script>
-        // Product Data (loaded from shop_products_data.js via external script)
+        // Product Data (loaded from shop_products_data.js via external script above)
         // VX_PRODUCTS contains phase1 (in stock), phase2 (coming soon), and stacks
         
         // Featured product SKUs for homepage
@@ -2496,9 +2501,5 @@ h1 {
             }
         });
     </script>
-    
-    <!-- Product Data & Notification System -->
-    <script src="shop_products_data.js"></script>
-    <script src="notify_system.js"></script>
 </body>
 </html>
