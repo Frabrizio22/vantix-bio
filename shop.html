@@ -2188,6 +2188,11 @@ h1 {
                             '</svg>' +
                             'Notify Me' +
                             '</button>';
+                } else if (product.inStock === false) {
+                    // Out of Stock
+                    button = '<button class="btn-add-cart" style="background:#E2E8F0;color:#94A3B8;cursor:not-allowed" disabled>' +
+                            'Out of Stock' +
+                            '</button>';
                 } else {
                     // Phase 1: Add to Cart button
                     button = '<button class="btn-add-cart" ' +

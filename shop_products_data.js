@@ -34,7 +34,7 @@ const VX_PRODUCTS = {
             cogs: 13.40,
             image: 'images/tirzepatide.jpg',
             url: 'products/tirzepatide.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -130,7 +130,7 @@ const VX_PRODUCTS = {
             cogs: 8.40,
             image: 'images/ipamorelin.jpg',
             url: 'products/ipamorelin.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
