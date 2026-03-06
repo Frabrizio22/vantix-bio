@@ -1,47 +1,364 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://vantixbio.com/</loc><priority>1.0</priority><changefreq>daily</changefreq></url>
-  <url><loc>https://vantixbio.com/shop.html</loc><priority>0.9</priority><changefreq>daily</changefreq></url>
-  <url><loc>https://vantixbio.com/verify.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://vantixbio.com/blog/</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://vantixbio.com/products/semaglutide.html</loc><priority>0.8</priority></url>
-  <url><loc>https://vantixbio.com/products/tirzepatide-20mg.html</loc><priority>0.8</priority></url>
-  <url><loc>https://vantixbio.com/products/tirzepatide-30mg.html</loc><priority>0.8</priority></url>
-  <url><loc>https://vantixbio.com/products/retatrutide-20mg.html</loc><priority>0.8</priority></url>
-  <url><loc>https://vantixbio.com/products/cagrilintide.html</loc><priority>0.7</priority></url>
-  <url><loc>https://vantixbio.com/products/bpc-157-tb-500.html</loc><priority>0.7</priority></url>
-  <url><loc>https://vantixbio.com/products/kpv.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/ghk-cu.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/ll-37.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/thymalin.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/sermorelin.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/ipamorelin.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/cjc-1295.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/cjc-ipamorelin.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/hgh-fragment-191.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/aod-9604.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/mots-c.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/5-amino-1mq.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/l-carnitine.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/lipo-c-max.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/lipo-c-ultra.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/glutathione-korean.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/glutathione-1500mg.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/ss-31.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/thioctic-acid.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/nad-500mg.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/nad-1000mg.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/cerebrolysin.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/semax.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/selank-5mg.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/selank-10mg.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/dsip.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/dsip-night-blend.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/foxo4-dri.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/epithalon.html</loc><priority>0.6</priority></url>
-  <url><loc>https://vantixbio.com/products/pe-22-28.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/pt-141.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/dermorphin.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/ara-290.html</loc><priority>0.5</priority></url>
-  <url><loc>https://vantixbio.com/products/vitamin-c-iv.html</loc><priority>0.4</priority></url>
+  
+  <!-- Main Pages -->
+  <url>
+    <loc>https://vantixbio.com/</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/shop.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/verify.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/faq.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/contact.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/the-matrix.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/checkout.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://vantixbio.com/terms.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/privacy.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/gate.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Product Pages -->
+  <url>
+    <loc>https://vantixbio.com/products/5-amino-1mq.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/aod-9604.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/ara-290.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/bpc-157-tb-500.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/cagrilintide.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/cerebrolysin.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/cjc-1295.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/cjc-ipamorelin.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/dermorphin.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/dsip-night-blend.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/dsip.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/epithalon.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/foxo4-dri.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/ghk-cu.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/glutathione-1500mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/glutathione-korean.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/hgh-fragment-191.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/ipamorelin.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/kpv.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/l-carnitine.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/lipo-c-max.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/lipo-c-ultra.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/ll-37.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/mots-c.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/nad-1000mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/nad-500mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/pe-22-28.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/pt-141.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/retatrutide-10.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/retatrutide-20.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/selank-10mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/selank-5mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/semaglutide.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/semax.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/sermorelin.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/ss-31.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/thioctic-acid.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/thymalin.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/tirzepatide-20mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/tirzepatide-30mg.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://vantixbio.com/products/vitamin-c-iv.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
