@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Use Only — VANTIX BIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #F8FAFC;
+            color: #1A2B44;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .gate-container {
+            background: #FFFFFF;
+            max-width: 520px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(26, 43, 68, 0.12);
+            padding: 48px 40px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .disclaimer {
+            font-size: 14px;
+            color: #64748B;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            text-align: left;
+            background: #F8FAFC;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #2563EB;
+        }
+
+        .disclaimer strong {
+            color: #1A2B44;
+            font-weight: 600;
+        }
+
+        .checkbox-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #F8FAFC;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: #EFF6FF;
+            border-color: #DBEAFE;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: #2563EB;
+        }
+
+        .checkbox-item label {
+            font-size: 14px;
+            color: #1A2B44;
+            cursor: pointer;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .checkbox-item label a {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checkbox-item label a:hover {
+            text-decoration: underline;
+        }
+
+        .remember-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+
+        .remember-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #2563EB;
+        }
+
+        .remember-group label {
+            font-size: 13px;
+            color: #64748B;
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: #2563EB;
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #1D4ED8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background: #E2E8F0;
+            color: #94A3B8;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #FFFFFF;
+            color: #64748B;
+            border: 2px solid #E2E8F0;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+
+        .footer-note {
+            font-size: 11px;
+            color: #94A3B8;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .gate-container {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                padding: 14px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gate-container">
+        <img src="logo.jpg" alt="Vantix Bio" class="logo">
+        <h1>Research Use Only</h1>
+        
+        <div class="disclaimer">
+            <strong>Important Notice:</strong> All products sold by Vantix Bio are research-grade materials intended exclusively for <strong>in vitro laboratory research</strong>. They are <strong>not</strong> for human consumption, animal consumption, or any medical use. Products are not drugs, supplements, or medical treatments, and are not approved by the FDA or any regulatory agency.
+        </div>
+
+        <div class="checkbox-group">
+            <div class="checkbox-item">
+                <input type="checkbox" id="ageCheck" />
+                <label for="ageCheck">I confirm I am <strong>21 years of age or older</strong></label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="termsCheck" />
+                <label for="termsCheck">I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+            </div>
+        </div>
+
+        <div class="remember-group">
+            <input type="checkbox" id="rememberCheck" checked />
+            <label for="rememberCheck">Remember me on this device</label>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" id="enterBtn" disabled>Enter Site</button>
+            <button class="btn btn-secondary" id="exitBtn">Exit</button>
+        </div>
+
+        <div class="footer-note">
+            By entering this site, you acknowledge that you are a qualified researcher and will use these products for legitimate scientific research purposes only.
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const ageCheck = document.getElementById('ageCheck');
+            const termsCheck = document.getElementById('termsCheck');
+            const rememberCheck = document.getElementById('rememberCheck');
+            const enterBtn = document.getElementById('enterBtn');
+            const exitBtn = document.getElementById('exitBtn');
+
+            // Update button state
+            function updateButtonState() {
+                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked);
+            }
+
+            ageCheck.addEventListener('change', updateButtonState);
+            termsCheck.addEventListener('change', updateButtonState);
+
+            // Enter site
+            enterBtn.addEventListener('click', function() {
+                if (!ageCheck.checked || !termsCheck.checked) return;
+
+                const timestamp = Date.now();
+                const data = JSON.stringify({ accepted: true, timestamp: timestamp });
+
+                if (rememberCheck.checked) {
+                    // Persist across sessions
+                    localStorage.setItem('vantix_gate_accepted', data);
+                } else {
+                    // Session only
+                    sessionStorage.setItem('vantix_gate_accepted', data);
+                }
+
+                // Redirect to shop
+                window.location.href = 'shop.html';
+            });
+
+            // Exit
+            exitBtn.addEventListener('click', function() {
+                window.location.href = 'https://www.google.com';
+            });
+
+            // If already accepted, skip gate
+            const localAccepted = localStorage.getItem('vantix_gate_accepted');
+            const sessionAccepted = sessionStorage.getItem('vantix_gate_accepted');
+            
+            if (localAccepted || sessionAccepted) {
+                try {
+                    const data = JSON.parse(localAccepted || sessionAccepted);
+                    if (data && data.accepted) {
+                        // Already accepted, redirect immediately
+                        window.location.href = 'shop.html';
+                    }
+                } catch (e) {
+                    // Invalid data, show gate
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
