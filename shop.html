@@ -1994,10 +1994,20 @@ h1 {
             // Combine Phase 1 and Phase 2 products
             var allProducts = VX_PRODUCTS.phase1.concat(VX_PRODUCTS.phase2);
             
-            // Filter by category
-            var filtered = category === 'all' ? allProducts : allProducts.filter(function(p) {
-                return p.category === category;
-            });
+            // Normalize category for comparison (trim whitespace, lowercase)
+            var normalizedCategory = (category || 'all').toString().trim().toLowerCase();
+            
+            // Filter by category - "all" shows EVERY product without filtering
+            var filtered;
+            if (normalizedCategory === 'all') {
+                // Show ALL products - no filtering
+                filtered = allProducts;
+            } else {
+                // Filter to specific category
+                filtered = allProducts.filter(function(p) {
+                    return p.category && p.category.toLowerCase() === normalizedCategory;
+                });
+            }
 
             // Update catalog count
             var countEl = document.getElementById('catalogCount');
