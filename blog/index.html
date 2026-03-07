@@ -57,14 +57,15 @@
         .logo-block { white-space: nowrap; }
 
         .logo {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #0A1628;
-            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
             text-decoration: none;
         }
 
-        .logo span { color: #2B7DE9; }
+        .logo img {
+            height: 52px;
+            width: auto;
+        }
 
         nav {
             display: flex;
@@ -81,7 +82,7 @@
         }
 
         nav a:hover, nav a.active {
-            color: #2B7DE9;
+            color: #2563EB;
         }
 
         .nav-icons {
@@ -103,29 +104,30 @@
             text-decoration: none;
         }
 
-        .nav-icon:hover { color: #2B7DE9; }
+        .nav-icon:hover { color: #2563EB; }
 
-        /* Hero */
+        /* Hero - Clinical White Aesthetic */
         .blog-hero {
-            background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
-            padding: 2rem 1rem 1.75rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+            padding: 2.5rem 1rem 2rem;
             text-align: center;
+            border-bottom: 1px solid #E2E8F0;
         }
 
         .blog-hero h1 {
             font-size: 2rem;
             font-weight: 800;
-            color: #FFFFFF;
+            color: #1A2B44;
             margin-bottom: 0.5rem;
             letter-spacing: -0.5px;
         }
 
         .blog-hero p {
             font-size: 0.95rem;
-            color: rgba(255,255,255,0.9);
+            color: #64748B;
             max-width: 600px;
             margin: 0 auto;
-            font-weight: 400;
+            font-weight: 500;
         }
 
         /* Main Content */
@@ -161,14 +163,14 @@
         }
 
         .filter-pill:hover {
-            border-color: #2B7DE9;
-            color: #2B7DE9;
+            border-color: #2563EB;
+            color: #2563EB;
         }
 
         .filter-pill.active {
-            background: #2B7DE9;
+            background: #2563EB;
             color: #FFFFFF;
-            border-color: #2B7DE9;
+            border-color: #2563EB;
         }
 
         /* Blog Grid */
@@ -191,7 +193,7 @@
         }
 
         .blog-card:hover {
-            border-color: #2B7DE9;
+            border-color: #2563EB;
             box-shadow: 0 6px 20px rgba(43, 125, 233, 0.1);
             transform: translateY(-3px);
         }
@@ -216,7 +218,7 @@
             opacity: 0.95;
         }
         .blog-card-image.research {
-            background: linear-gradient(135deg, #2B7DE9 0%, #1E40AF 100%);
+            background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
         }
         .blog-card-image.guides {
             background: linear-gradient(135deg, #059669 0%, #047857 100%);
@@ -269,7 +271,7 @@
 
         .blog-card-link {
             font-size: 0.8rem;
-            color: #2B7DE9;
+            color: #2563EB;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -347,12 +349,13 @@
     <header id="header">
         <div class="header-content">
             <div class="header-left">
-                <a href="../shop.html" class="logo-block">
-                    <a href="../index.html" style="text-decoration:none"><div class="logo"><span>VANTIX</span> BIO</div></a>
+                <a href="../index.html" class="logo">
+                    <img src="../logo.jpg" alt="VANTIX BIO" width="1280" height="1280">
                 </a>
                 <nav>
-                    <a href="../shop.html">Shop</a>
-                    <a href="index.html" class="active">Blog</a>
+                    <a href="../shop.html">Catalog</a>
+                    <a href="../verify.html">Verify</a>
+                    <a href="index.html" class="active">Research</a>
                 </nav>
             </div>
             <div class="nav-icons">
@@ -500,7 +503,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo"><span style="color:#2B7DE9">VANTIX</span> BIO</div>
+            <div class="footer-logo"><span style="color:#2563EB">VANTIX</span> BIO</div>
             <div style="font-size:0.75rem;color:#94A3B8;margin-bottom:1.5rem">Forensic-grade research peptides</div>
             <div class="footer-links">
                 <a href="../shop.html">Shop</a>
