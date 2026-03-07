@@ -172,14 +172,14 @@
         }
         .input-row-hero input:focus { 
             outline: none; 
-            border-color: #00B4D8; 
+            border-color: #5B8DBE; 
             box-shadow: 0 0 0 4px rgba(0,180,216,0.15); 
             background: #FFFFFF;
         }
         .input-row-hero input::placeholder { color: #94A3B8; }
         .btn-primary-hero { 
             padding: 15px 28px; 
-            background: linear-gradient(135deg, #00B4D8 0%, #0096C7 100%); 
+            background: linear-gradient(135deg, #5B8DBE 0%, #0096C7 100%); 
             color: #fff; 
             border: none; 
             border-radius: 10px; 
@@ -263,7 +263,7 @@
             transition: all 0.2s;
         }
         .protocol-step-compact:hover { 
-            border-color: #00B4D8; 
+            border-color: #5B8DBE; 
             box-shadow: 0 2px 8px rgba(0,180,216,0.1);
         }
         .step-num-compact { 
@@ -271,7 +271,7 @@
             width: 32px; 
             height: 32px; 
             border-radius: 6px; 
-            background: linear-gradient(135deg, #00B4D8 0%, #0096C7 100%); 
+            background: linear-gradient(135deg, #5B8DBE 0%, #0096C7 100%); 
             color: #fff; 
             font-size: 14px; 
             font-weight: 800; 
@@ -306,8 +306,8 @@
         }
         .btn-protocol-details:hover { 
             background: #FFFFFF; 
-            border-color: #00B4D8; 
-            color: #00B4D8;
+            border-color: #5B8DBE; 
+            color: #5B8DBE;
         }
 
         /* ── Section Titles (Updated) ── */
@@ -336,6 +336,19 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
             gap: 20px; 
         }
+        
+        @media (max-width: 768px) {
+            .coa-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .coa-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
         .coa-card { 
             background: #FFFFFF; 
             border: 1px solid #E2E8F0; 
@@ -357,12 +370,12 @@
             pointer-events: none;
         }
         .coa-card:hover { 
-            border-color: #00B4D8; 
+            border-color: #5B8DBE; 
             box-shadow: 0 6px 20px rgba(0,180,216,0.12); 
             transform: translateY(-2px); 
         }
         .coa-card.highlighted { 
-            border-color: #00B4D8; 
+            border-color: #5B8DBE; 
             box-shadow: 0 8px 24px rgba(0,180,216,0.25); 
             animation: pulse 1s ease-in-out; 
         }
@@ -417,7 +430,7 @@
         .btn-view-report { 
             width: 100%; 
             padding: 10px; 
-            background: linear-gradient(135deg, #00B4D8 0%, #0096C7 100%); 
+            background: linear-gradient(135deg, #5B8DBE 0%, #0096C7 100%); 
             color: #fff; 
             border: none; 
             border-radius: 8px; 
@@ -438,8 +451,8 @@
         /* ── Terminal Overlay ── */
         .terminal-overlay { position: fixed; inset: 0; background: rgba(26,43,68,0.96); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
         .terminal-overlay.active { opacity: 1; pointer-events: all; }
-        .terminal-text { font-family: 'JetBrains Mono', monospace; color: #00B4D8; font-size: 16px; letter-spacing: 3px; }
-        .terminal-cursor { display: inline-block; width: 9px; height: 18px; background: #00B4D8; margin-left: 4px; animation: cursorBlink 0.7s step-end infinite; vertical-align: middle; }
+        .terminal-text { font-family: 'JetBrains Mono', monospace; color: #5B8DBE; font-size: 16px; letter-spacing: 3px; }
+        .terminal-cursor { display: inline-block; width: 9px; height: 18px; background: #5B8DBE; margin-left: 4px; animation: cursorBlink 0.7s step-end infinite; vertical-align: middle; }
         @keyframes cursorBlink { 0%,100%{opacity:1}50%{opacity:0} }
 
         /* ── Results Layout ── */
@@ -454,7 +467,7 @@
         .panel-header h3 { font-size: 15px; font-weight: 700; color: #1A2B44; }
         .panel-meta { font-size: 10px; color: #64748B; font-family: 'JetBrains Mono', monospace; line-height: 1.6; margin-top: 4px; }
         .panel-meta .val { color: #1A2B44; font-weight: 500; }
-        .badge { display: inline-block; background: #00B4D8; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; margin-left: 4px; vertical-align: middle; }
+        .badge { display: inline-block; background: #5B8DBE; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; margin-left: 4px; vertical-align: middle; }
         .badge-green { background: #10B981; }
 
         /* Canvas container with flashlight + watermark */
@@ -471,8 +484,8 @@
 
         /* ── Janoshik Button ── */
         .janoshik-row { padding: 0 24px 20px; margin-top: 12px; }
-        .btn-janoshik { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #F8FAFC; border: 1.5px solid #00B4D8; border-radius: 6px; color: #00B4D8; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; letter-spacing: 0.3px; }
-        .btn-janoshik:hover { background: #00B4D8; color: #fff; }
+        .btn-janoshik { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #F8FAFC; border: 1.5px solid #5B8DBE; border-radius: 6px; color: #5B8DBE; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; letter-spacing: 0.3px; }
+        .btn-janoshik:hover { background: #5B8DBE; color: #fff; }
         .btn-janoshik svg { width: 12px; height: 12px; }
 
         /* ── Disclaimer ── */
@@ -1213,7 +1226,7 @@
             ctx.fill();
 
             // Stroke
-            ctx.strokeStyle = '#00B4D8';
+            ctx.strokeStyle = '#5B8DBE';
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.moveTo(pad.left, baseY);
@@ -1272,15 +1285,15 @@
                 const x = pseudoRand(seed + i * 7) * 100;
                 const y = pseudoRand(seed + i * 13 + 3) * 100;
                 const r = 2 + pseudoRand(seed + i * 19) * 4;
-                inner += `<circle cx="${x.toFixed(1)}%" cy="${y.toFixed(1)}%" r="${r.toFixed(1)}" fill="#00B4D8"/>`;
+                inner += `<circle cx="${x.toFixed(1)}%" cy="${y.toFixed(1)}%" r="${r.toFixed(1)}" fill="#5B8DBE"/>`;
                 if (i > 0) {
                     const px = pseudoRand(seed + (i-1) * 7) * 100;
                     const py = pseudoRand(seed + (i-1) * 13 + 3) * 100;
-                    inner += `<line x1="${px.toFixed(1)}%" y1="${py.toFixed(1)}%" x2="${x.toFixed(1)}%" y2="${y.toFixed(1)}%" stroke="#00B4D8" stroke-width="0.5"/>`;
+                    inner += `<line x1="${px.toFixed(1)}%" y1="${py.toFixed(1)}%" x2="${x.toFixed(1)}%" y2="${y.toFixed(1)}%" stroke="#5B8DBE" stroke-width="0.5"/>`;
                 }
             }
             // Session text
-            inner += `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#00B4D8" letter-spacing="6" transform="rotate(-30, 400, 160)">VANTIX MATRIX — ${SESSION_ID.slice(0,8).toUpperCase()}</text>`;
+            inner += `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#5B8DBE" letter-spacing="6" transform="rotate(-30, 400, 160)">VANTIX MATRIX — ${SESSION_ID.slice(0,8).toUpperCase()}</text>`;
 
             svg.innerHTML = inner;
         }
