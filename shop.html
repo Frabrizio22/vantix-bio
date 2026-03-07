@@ -1140,13 +1140,29 @@
         /* Mobile-First: iPhone widths 375-414px */
         @media (max-width: 768px) {
             /* 1. HEADER STANDARDIZED */
-            .header-content { padding: 0 16px; overflow-x: hidden; justify-content: space-between; align-items: center; }
+            .header-content { 
+                display: flex !important;
+                flex-direction: row !important;
+                padding: 0 16px; 
+                overflow-x: hidden; 
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
             header { padding: 12px 0; height: 68px; display: flex; align-items: center; }
             .logo img { height: 52px !important; }
-            .header-left { justify-content: flex-start; width: auto; }
-            .nav-icons { position: static; display: flex; align-items: center; gap: 12px; margin-left: auto; }
-            .hamburger { display: flex !important; margin-left: 8px; }
-            nav { display: none; }
+            .header-left { 
+                order: 0 !important;
+                justify-content: flex-start; 
+                width: auto; 
+                margin-right: auto !important;
+            }
+            .nav-icons { display: none !important; }
+            .hamburger { 
+                display: flex !important; 
+                margin-left: auto !important;
+                order: 999 !important;
+            }
+            nav { display: none !important; }
             
             /* 2. MOBILE SPACING */
             .hero { padding: 40px 16px; }

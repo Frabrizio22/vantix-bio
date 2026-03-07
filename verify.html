@@ -556,11 +556,25 @@
         /* Mobile-First: iPhone widths 375-414px */
         @media (max-width: 768px) {
             /* 1. HEADER STANDARDIZED */
-            nav { display: none; }
-            .hamburger { display: flex !important; margin-left: auto; }
-            .header-content { justify-content: space-between; padding: 0 16px; }
-            .logo-link img { height: 40px !important; }
-            .header { height: 64px; display: flex; align-items: center; }
+            nav { display: none !important; }
+            .hamburger { 
+                display: flex !important; 
+                margin-left: auto !important;
+                order: 999 !important;
+            }
+            .header-content { 
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 0 16px; 
+            }
+            .logo-link { 
+                order: 0 !important;
+                margin-right: auto !important;
+            }
+            .logo-link img { height: 52px !important; }
+            .header { height: 68px; display: flex; align-items: center; }
             
             /* 2. MOBILE SPACING */
             .verify-hero { padding: 48px 16px 32px; }
