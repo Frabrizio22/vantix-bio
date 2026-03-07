@@ -7,13 +7,6 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Checkout - VANTIX BIO</title>
-    
-    <!-- Optimized Font Loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    
     <style>
         @keyframes nodeGlow {
             0%, 100% { filter: drop-shadow(0 0 2px rgba(0,180,216,0.4)); }
@@ -33,7 +26,7 @@
             --color-bg-secondary: var(--color-gray-100);
             
             /* Typography */
-            --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
         
@@ -44,16 +37,16 @@
             background: #F8FAFC;
             color: var(--color-text-primary);
             line-height: 1.6;
-            padding-bottom: 100px;
+            padding-bottom: 80px;
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Typography System - Headings Only */
+        /* Typography System - Tighter */
         h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-heading);
             font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
         }
 
         /* Header - Clinical White */
@@ -717,12 +710,12 @@
 
         @media (max-width: 768px) {
             .logo img {
-                height: 55px !important;
+                height: 48px !important;
             }
             
             .trust-signals {
                 gap: 8px;
-                padding: 12px 14px;
+                padding: 10px 12px;
             }
             
             .trust-item {
@@ -730,16 +723,17 @@
             }
             
             .trust-item-icon {
-                font-size: 14px;
-                margin-bottom: 3px;
+                font-size: 13px;
+                margin-bottom: 2px;
             }
             
-            h1, h2, h3 { letter-spacing: -0.01em; }
+            .container { padding: 16px 14px; }
+            .section { padding: 20px; }
         }
         
         @media (max-width: 380px) {
             .logo img {
-                height: 45px !important;
+                height: 42px !important;
             }
             
             .progress-step span { display: none; }
