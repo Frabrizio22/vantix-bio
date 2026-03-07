@@ -1247,6 +1247,17 @@
         function notifyOrder(orderNum, order) {
             try {
                 var xhr = new XMLHttpRequest();
+                xhr.onload = function() {
+                    console.log('[WORKER] Notification + Sheet logging:', xhr.status === 200 ? 'SUCCESS' : 'FAILED (' + xhr.status + ')');
+                    if (xhr.status !== 200) {
+                        console.error('[WORKER] Response:', xhr.responseText);
+                        localStorage.setItem('vx_worker_fail', JSON.stringify({ orderNum: orderNum, status: xhr.status, time: Date.now() }));
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('[WORKER] Network error (likely CORS)');
+                    localStorage.setItem('vx_worker_fail', JSON.stringify({ orderNum: orderNum, error: 'CORS or network', time: Date.now() }));
+                };
                 xhr.open('POST', 'https://prc-checkout.prcpeptides.workers.dev/order', true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
@@ -1266,7 +1277,10 @@
                     total: order.total,
                     payment: order.payment
                 }));
-            } catch(e) { /* silent fail — notification is best-effort */ }
+            } catch(e) { 
+                console.error('[WORKER] Exception:', e);
+                localStorage.setItem('vx_worker_fail', JSON.stringify({ orderNum: orderNum, error: e.message, time: Date.now() }));
+            }
         }
 
         function sendOrderConfirmationEmails(orderNum, order) {
@@ -1299,9 +1313,22 @@
                 formData.append('Support', 'Questions? Email support@vantixbio.com');
                 
                 var xhr1 = new XMLHttpRequest();
+                xhr1.onload = function() {
+                    console.log('[EMAIL] Customer confirmation:', xhr1.status === 200 ? 'SUCCESS' : 'FAILED (' + xhr1.status + ')');
+                    if (xhr1.status !== 200) {
+                        localStorage.setItem('vx_email_fail_customer', JSON.stringify({ orderNum: orderNum, status: xhr1.status, time: Date.now() }));
+                    }
+                };
+                xhr1.onerror = function() {
+                    console.error('[EMAIL] Customer email network error');
+                    localStorage.setItem('vx_email_fail_customer', JSON.stringify({ orderNum: orderNum, error: 'network', time: Date.now() }));
+                };
                 xhr1.open('POST', 'https://formsubmit.co/' + order['Registered Institution'].email, true);
                 xhr1.send(formData);
-            } catch(e) { console.error('Customer email failed:', e); }
+            } catch(e) { 
+                console.error('[EMAIL] Customer email exception:', e);
+                localStorage.setItem('vx_email_fail_customer', JSON.stringify({ orderNum: orderNum, error: e.message, time: Date.now() }));
+            }
             
             // Admin notification email
             try {
@@ -1322,9 +1349,22 @@
                 formData2.append('Shipping_Address', shippingAddr);
                 
                 var xhr2 = new XMLHttpRequest();
+                xhr2.onload = function() {
+                    console.log('[EMAIL] Admin notification:', xhr2.status === 200 ? 'SUCCESS' : 'FAILED (' + xhr2.status + ')');
+                    if (xhr2.status !== 200) {
+                        localStorage.setItem('vx_email_fail_admin', JSON.stringify({ orderNum: orderNum, status: xhr2.status, time: Date.now() }));
+                    }
+                };
+                xhr2.onerror = function() {
+                    console.error('[EMAIL] Admin email network error');
+                    localStorage.setItem('vx_email_fail_admin', JSON.stringify({ orderNum: orderNum, error: 'network', time: Date.now() }));
+                };
                 xhr2.open('POST', 'https://formsubmit.co/support@vantixbio.com', true);
                 xhr2.send(formData2);
-            } catch(e) { console.error('Admin email failed:', e); }
+            } catch(e) { 
+                console.error('[EMAIL] Admin email exception:', e);
+                localStorage.setItem('vx_email_fail_admin', JSON.stringify({ orderNum: orderNum, error: e.message, time: Date.now() }));
+            }
         }
 
         function placeOrder() {
