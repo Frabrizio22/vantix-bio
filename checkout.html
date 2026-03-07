@@ -800,6 +800,9 @@
                 <div class="success-check"><svg viewBox="0 0 24 24" fill="none" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
                 <div class="confirmation-title">Order Placed</div>
                 <div class="confirmation-order" id="orderNumberText"></div>
+                <div style="margin-top:16px;padding:12px 18px;background:#ECFDF5;border:1px solid #10B981;border-radius:8px;font-size:13px;color:#047857;text-align:center">
+                    <strong>✓ Confirmation email sent</strong> — Check your inbox for order details and payment instructions.
+                </div>
             </div>
             <div id="paymentInstructions"></div>
             <div class="section">
@@ -807,8 +810,8 @@
                 <div id="orderDetails"></div>
             </div>
             <div class="confirm-actions">
-                <button class="confirm-btn primary" onclick="emailOrder()">Send Order Confirmation</button>
-                <a href="shop.html" class="confirm-btn secondary">Continue Shopping</a>
+                <a href="shop.html" class="confirm-btn primary" style="text-decoration:none">Continue Shopping</a>
+                <a href="mailto:support@vantixbio.com?subject=Order%20" class="confirm-btn secondary" style="text-decoration:none">Contact Support</a>
             </div>
             <div style="text-align:center;padding:16px 0 8px;font-size:11px;color:#94A3B8">Questions? Email support@vantixbio.com</div>
         </div>
@@ -1150,6 +1153,64 @@
             } catch(e) { /* silent fail — notification is best-effort */ }
         }
 
+        function sendOrderConfirmationEmails(orderNum, order) {
+            var itemsList = '';
+            for (var i = 0; i < order.items.length; i++) {
+                var item = order.items[i];
+                itemsList += item.name + ' x' + item.quantity + ' - $' + (item.price * item.quantity).toFixed(2) + '\n';
+            }
+            
+            var shippingAddr = order['Registered Institution'].name + '\n' + 
+                             order['Registered Institution'].address + '\n' + 
+                             order['Registered Institution'].city + ', ' + order['Registered Institution'].state + ' ' + order['Registered Institution'].zip;
+            
+            var paymentMethod = order.payment === 'crypto' ? 'Cryptocurrency' : (order.payment === 'zelle' ? 'Zelle' : 'Other');
+            
+            // Customer confirmation email
+            try {
+                var formData = new FormData();
+                formData.append('_subject', 'Order Confirmation - ' + orderNum);
+                formData.append('_template', 'box');
+                formData.append('_captcha', 'false');
+                formData.append('Order_Number', orderNum);
+                formData.append('Items', itemsList);
+                formData.append('Subtotal', '$' + order.subtotal.toFixed(2));
+                if (order.discount > 0) formData.append('Discount', '-$' + order.discount.toFixed(2));
+                formData.append('Shipping', order.shipping === 0 ? 'FREE' : '$' + order.shipping.toFixed(2));
+                formData.append('Total', '$' + order.total.toFixed(2));
+                formData.append('Payment_Method', paymentMethod);
+                formData.append('Shipping_Address', shippingAddr);
+                formData.append('Support', 'Questions? Email support@vantixbio.com');
+                
+                var xhr1 = new XMLHttpRequest();
+                xhr1.open('POST', 'https://formsubmit.co/' + order['Registered Institution'].email, true);
+                xhr1.send(formData);
+            } catch(e) { console.error('Customer email failed:', e); }
+            
+            // Admin notification email
+            try {
+                var formData2 = new FormData();
+                formData2.append('_subject', 'NEW ORDER: ' + orderNum);
+                formData2.append('_template', 'box');
+                formData2.append('_captcha', 'false');
+                formData2.append('Order_Number', orderNum);
+                formData2.append('Customer_Name', order['Registered Institution'].name);
+                formData2.append('Customer_Email', order['Registered Institution'].email);
+                formData2.append('Customer_Phone', order['Registered Institution'].phone || 'Not provided');
+                formData2.append('Items', itemsList);
+                formData2.append('Subtotal', '$' + order.subtotal.toFixed(2));
+                if (order.discount > 0) formData2.append('Discount', '-$' + order.discount.toFixed(2));
+                formData2.append('Shipping', order.shipping === 0 ? 'FREE' : '$' + order.shipping.toFixed(2));
+                formData2.append('Total', '$' + order.total.toFixed(2));
+                formData2.append('Payment_Method', paymentMethod);
+                formData2.append('Shipping_Address', shippingAddr);
+                
+                var xhr2 = new XMLHttpRequest();
+                xhr2.open('POST', 'https://formsubmit.co/support@vantixbio.com', true);
+                xhr2.send(formData2);
+            } catch(e) { console.error('Admin email failed:', e); }
+        }
+
         function placeOrder() {
             orderNumber = generateOrderNumber();
             savedOrder = {
@@ -1163,6 +1224,9 @@
 
             // Notify via Telegram for ALL orders
             notifyOrder(orderNumber, savedOrder);
+            
+            // Send automatic confirmation emails (customer + admin)
+            sendOrderConfirmationEmails(orderNumber, savedOrder);
 
             // If crypto, auto-create Coinbase charge and redirect
             if (selectedPayment === 'crypto') {
