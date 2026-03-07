@@ -33,7 +33,7 @@ const VX_PRODUCTS = {
             price: 48,
             cogs: 13.40,
             image: 'images/tirzepatide.jpg',
-            url: 'products/tirzepatide.html',
+            url: 'products/tirzepatide-30mg.html',
             inStock: false,
             dualTested: true
         },
@@ -81,7 +81,7 @@ const VX_PRODUCTS = {
             price: 30,
             cogs: 9.10,
             image: 'images/bpc-157.jpg',
-            url: 'products/bpc-157.html',
+            url: 'products/bpc-157-tb-500.html',
             inStock: true,
             dualTested: true
         },
@@ -97,7 +97,7 @@ const VX_PRODUCTS = {
             price: 34,
             cogs: 11.40,
             image: 'images/tb-500.jpg',
-            url: 'products/tb-500.html',
+            url: 'products/bpc-157-tb-500.html',
             inStock: true,
             dualTested: true
         },
