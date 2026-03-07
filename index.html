@@ -158,7 +158,7 @@
         .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
         .nav-dropdown-menu { 
             position: absolute; 
-            top: calc(100% + 8px); 
+            top: calc(100% + 4px); 
             left: 0; 
             background: #FFFFFF; 
             border: 1px solid #E2E8F0; 
@@ -168,17 +168,18 @@
             min-width: 200px; 
             opacity: 0; 
             visibility: hidden; 
-            transition: opacity 0.2s ease, visibility 0.2s ease; 
+            transition: opacity 0.15s ease, visibility 0.15s ease; 
             z-index: 1000; 
             pointer-events: none;
         }
         .nav-dropdown-menu::before {
             content: '';
             position: absolute;
-            top: -8px;
-            left: 0;
-            right: 0;
-            height: 8px;
+            top: -12px;
+            left: -8px;
+            right: -8px;
+            height: 16px;
+            background: transparent;
         }
         .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { 
             opacity: 1; 
