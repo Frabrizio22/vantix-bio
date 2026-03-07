@@ -360,34 +360,57 @@
         .mobile-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 999; }
         .mobile-overlay.active { display: block; }
 
+        /* Mobile-First: iPhone widths 375-414px */
         @media (max-width: 768px) {
+            /* 1. HEADER STANDARDIZED */
             nav { display: none; }
-            .hamburger { display: flex !important; }
-            .header-content { justify-content: space-between; }
-        }
-
-        @media (max-width: 968px) {
-            h1 { font-size: 40px; }
-            .hero { padding: 80px 24px 50px; }
-            .protocol { padding: 0 24px 80px; }
-            .header-content { padding: 0 24px; flex-direction: column; align-items: center; gap: 16px; }
-            .logo-link img { height: 58px !important; }
-            nav { gap: 20px; font-size: 14px; justify-content: center; flex-wrap: wrap; }
-            .step-card { padding: 24px 28px; }
-            .step-header { align-items: flex-start; gap: 16px; }
-            .step-number { min-width: 48px; height: 48px; font-size: 18px; }
-            .step-title { font-size: 16px; }
-            .step-description { margin-left: 64px; font-size: 14px; }
-            .cta-section h2 { font-size: 28px; }
-            .footer-top { grid-template-columns: 1fr; gap: 32px; }
+            .hamburger { display: flex !important; margin-left: auto; }
+            .header-content { 
+                justify-content: space-between; 
+                padding: 0 16px;
+                flex-direction: row !important;
+                align-items: center !important;
+            }
+            .logo-link img { height: 40px !important; }
+            .header { height: 64px; display: flex; align-items: center; }
+            
+            /* 2. MOBILE SPACING */
+            .hero { padding: 48px 16px 32px; }
+            .protocol { padding: 0 16px 48px; }
+            .step-card { padding: 20px 22px; gap: 12px; }
+            .cta-section { padding: 48px 16px; }
+            .footer-top { grid-template-columns: 1fr; gap: 24px; }
+            
+            /* 3. MOBILE TYPOGRAPHY SCALE */
+            h1 { font-size: 36px; line-height: 1.15; }
+            h2 { font-size: 30px; line-height: 1.2; }
+            h3 { font-size: 24px; line-height: 1.25; }
+            body { font-size: 16px; line-height: 1.5; }
+            
+            /* Step Cards - Compact */
+            .step-header { align-items: flex-start; gap: 14px; }
+            .step-number { min-width: 44px; height: 44px; font-size: 17px; }
+            .step-title { font-size: 20px; }
+            .step-description { font-size: 16px; line-height: 1.5; }
+            .cta-section h2 { font-size: 30px; }
+            .cta-section p { font-size: 16px; }
             .pipeline-line { display: none; }
         }
-        @media (max-width: 640px) {
-            h1 { font-size: 36px; }
-            .logo-link img { height: 56px !important; }
-            nav { gap: 16px; font-size: 13px; }
-            .step-description { margin-left: 0; margin-top: 12px; }
-            .btn-secondary { margin-left: 0; margin-top: 12px; }
+        
+        @media (max-width: 480px) {
+            .header-content { padding: 0 14px; }
+            .hero { padding: 40px 14px 28px; }
+            .protocol { padding: 0 14px 40px; }
+            h1 { font-size: 34px; }
+            .step-card { padding: 18px 20px; }
+            .step-description { margin-left: 0; margin-top: 10px; }
+            .btn-secondary { margin-left: 0; margin-top: 10px; }
+        }
+        
+        @media (max-width: 375px) {
+            h1 { font-size: 32px; }
+            h2 { font-size: 28px; }
+            .step-title { font-size: 18px; }
         }
     </style>
     <script src="gate-check.js"></script>

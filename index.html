@@ -721,32 +721,56 @@
             .btn { width: 100%; justify-content: center; }
             .cta-row { flex-direction: column; }
         }
+        /* Mobile-First: iPhone widths 375-414px */
         @media (max-width: 768px) {
-            .header { padding: 10px 0; }
+            /* 1. HEADER STANDARDIZED */
+            .header { padding: 12px 0; height: 64px; display: flex; align-items: center; }
             .header-nav-wrapper { display: none; }
             nav { display: none; }
             .hamburger { display: flex !important; margin-left: auto; }
             .header-content { 
                 justify-content: space-between; 
                 gap: 12px; 
-                padding: 0 14px;
+                padding: 0 16px;
                 flex-direction: row !important;
                 align-items: center !important;
             }
             .logo-link { order: 0; }
-            .logo-link img { height: 42px !important; }
-            h1 { font-size: 26px; line-height: 1.2; }
-            h2 { font-size: 20px; }
-            h3 { font-size: 16px; }
-            .section { padding: 20px 14px; }
-            .hero { padding: 20px 14px; gap: 20px; }
+            .logo-link img { height: 40px !important; }
+            
+            /* 2. MOBILE SPACING */
+            .section { padding: 56px 16px; }
+            .hero { padding: 48px 16px; gap: 16px; }
+            
+            /* 3. MOBILE TYPOGRAPHY SCALE */
+            h1 { font-size: 36px; line-height: 1.15; }
+            h2 { font-size: 30px; line-height: 1.2; }
+            h3 { font-size: 24px; line-height: 1.25; }
+            body { font-size: 16px; line-height: 1.5; }
+            
+            /* Cards */
+            .pillar-card { padding: 24px; }
+            .trust-item { padding: 20px; }
+            
+            /* Gaps */
+            .pillars { gap: 16px; }
+            .trust-items { grid-template-columns: 1fr; gap: 16px; }
         }
-        @media (max-width: 640px) {
-            h1 { font-size: 24px; line-height: 1.25; }
-            h2 { font-size: 18px; }
-            .logo-link img { height: 38px !important; }
-            .trust-items { grid-template-columns: 1fr; }
-            .verification-section { padding: 20px 14px; }
+        
+        @media (max-width: 480px) {
+            /* Smaller iPhones: 375-414px */
+            .header-content { padding: 0 14px; }
+            .section { padding: 48px 14px; }
+            .hero { padding: 40px 14px; gap: 14px; }
+            h1 { font-size: 34px; }
+            body { font-size: 16px; }
+        }
+        
+        @media (max-width: 375px) {
+            /* iPhone SE, 12 Mini */
+            h1 { font-size: 32px; }
+            h2 { font-size: 28px; }
+            .section { padding: 48px 12px; }
         }
     </style>
     <script src="gate-check.js"></script>

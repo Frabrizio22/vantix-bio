@@ -708,34 +708,62 @@
             .footer-inner { justify-content: flex-end; }
         }
 
+        /* Mobile-First: iPhone widths 375-414px */
         @media (max-width: 768px) {
-            .header { padding: 10px 20px; }
-            .logo img {
-                height: 40px !important;
-            }
+            /* 1. HEADER STANDARDIZED */
+            .header { padding: 12px 16px; height: 64px; display: flex; align-items: center; }
+            .header-content { padding: 0; }
+            .logo img { height: 40px !important; }
             
+            /* 2. MOBILE SPACING */
+            .container { padding: 16px; }
+            .section { padding: 20px; }
+            .disclaimer { padding: 10px 14px; font-size: 11px; }
+            
+            /* 3. MOBILE TYPOGRAPHY */
+            .section-title { font-size: 20px; }
+            body { font-size: 16px; }
+            
+            /* Trust Signals - Compact */
             .trust-signals {
-                gap: 6px;
-                padding: 8px 10px;
+                gap: 8px;
+                padding: 10px 12px;
             }
-            
             .trust-item {
-                font-size: 9px;
+                font-size: 10px;
             }
-            
             .trust-item-icon {
-                font-size: 12px;
+                font-size: 13px;
                 margin-bottom: 2px;
             }
             
-            .container { padding: 14px 12px; }
-            .section { padding: 16px; }
+            /* Cart Items */
+            .cart-item {
+                padding: 14px 0;
+            }
+            .cart-item-name {
+                font-size: 15px;
+            }
+            
+            /* Buttons */
+            .footer-btn {
+                padding: 14px 22px;
+                font-size: 15px;
+            }
         }
         
-        @media (max-width: 380px) {
+        @media (max-width: 480px) {
+            .header { padding: 12px 14px; }
+            .container { padding: 14px; }
+            .section { padding: 18px; }
+        }
+        
+        @media (max-width: 375px) {
             .logo img {
-                height: 36px !important;
+                height: 38px !important;
             }
+            .section-title { font-size: 18px; }
+        }
             
             .progress-step span { display: none; }
             
