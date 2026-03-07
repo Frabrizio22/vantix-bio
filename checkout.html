@@ -157,7 +157,7 @@
             border: 1px solid #E2E8F0;
             border-radius: 14px;
             padding: 24px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.04);
             transition: opacity 0.3s;
         }
@@ -439,7 +439,7 @@
             right: 0;
             background: #FFFFFF;
             border-top: 1px solid #E2E8F0;
-            padding: 14px 16px;
+            padding: 12px 16px;
             box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
             z-index: 50;
         }
@@ -468,8 +468,8 @@
 
         .footer-btn {
             flex: 1;
-            max-width: 220px;
-            padding: 14px 24px;
+            max-width: 240px;
+            padding: 13px 24px;
             border: none;
             border-radius: 10px;
             font-size: 15px;
@@ -478,7 +478,7 @@
             background: #00B4D8;
             color: #FFFFFF;
             font-family: inherit;
-            transition: all 0.2s;
+            transition: all 0.16s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 12px rgba(0,180,216,0.3);
         }
 
@@ -980,6 +980,7 @@
             btn.style.background = '';
             btn.style.fontSize = '';
             btn.style.padding = '';
+            btn.style.maxWidth = '';
             
             if (currentStep === 1) { btn.textContent = 'Continue'; btn.disabled = false; }
             else if (currentStep === 2) { btn.textContent = 'Continue to Shipping'; btn.disabled = false; }
@@ -989,10 +990,12 @@
                     btn.textContent = '✓ Complete Order — $' + getTotal().toFixed(2);
                     btn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
                     btn.style.fontSize = '16px';
-                    btn.style.padding = '16px 28px';
+                    btn.style.padding = '18px 26px';
+                    btn.style.maxWidth = '100%';
                     btn.disabled = false;
                 } else {
                     btn.textContent = 'Select Payment Method';
+                    btn.style.maxWidth = '240px';
                     btn.disabled = true;
                 }
             }
