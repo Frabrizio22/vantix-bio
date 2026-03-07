@@ -479,6 +479,29 @@
         .disclaimer { margin-top: 20px; padding: 14px 18px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 10px; color: #94A3B8; line-height: 1.5; }
         .disclaimer strong { color: #64748B; }
 
+        /* Mobile Search Filter */
+        .coa-search-mobile {
+            display: none;
+            margin-bottom: 20px;
+        }
+        .coa-search-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .coa-search-input:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        @media (max-width: 768px) {
+            .coa-search-mobile { display: block; }
+        }
+
         /* ── Footer ── */
         footer { 
             background: #0F172A; 
@@ -905,7 +928,10 @@
                 html += `<section id="latest" class="latest-coas">
                     <h2>Recent Verification Reports</h2>
                     <p class="section-desc">Click any product below to view its interactive Janoshik verification report with full chromatographic analysis.</p>
-                    <div class="coa-grid">
+                    <div class="coa-search-mobile">
+                        <input type="text" class="coa-search-input" id="coaSearchInput" placeholder="Search by product name...">
+                    </div>
+                    <div class="coa-grid" id="coaGrid">
                         ${PHASE1_PRODUCTS.map(p => `<div class="coa-card ${state.highlightedProduct === p.slug ? 'highlighted' : ''}" data-product="${p.slug}" data-bundle="${p.bundleId}">
                             <svg class="coa-card-visual" viewBox="0 0 48 48" fill="none">
                                 <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
@@ -997,6 +1023,18 @@
                     doVerify();
                 });
             });
+
+            // Mobile search filter
+            const searchInput = document.getElementById('coaSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    document.querySelectorAll('.coa-card').forEach(card => {
+                        const title = card.querySelector('.coa-card-title').textContent.toLowerCase();
+                        card.style.display = title.includes(query) ? 'block' : 'none';
+                    });
+                });
+            }
         }
 
         // ─── Terminal Animation ───

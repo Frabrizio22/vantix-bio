@@ -384,9 +384,20 @@
             .header { height: 68px; display: flex; align-items: center; }
             
             /* 2. MOBILE SPACING */
-            .hero { padding: 48px 16px 32px; }
+            .hero { padding: 40px 16px 32px; }
             .protocol { padding: 0 16px 48px; }
-            .step-card { padding: 20px 22px; gap: 12px; }
+            .step-card { padding: 24px 20px; }
+            .step-header { gap: 20px !important; }
+            .step-number { 
+                min-width: 56px !important; 
+                height: 56px !important; 
+                font-size: 24px !important; 
+            }
+            .step-number::before { 
+                width: 62px !important; 
+                height: 62px !important; 
+            }
+            .step-description { margin-left: 76px !important; }
             .cta-section { padding: 48px 16px; }
             .footer-top { grid-template-columns: 1fr; gap: 24px; }
             
