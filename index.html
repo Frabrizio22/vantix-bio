@@ -62,14 +62,19 @@
         .logo-link { 
             text-decoration: none; 
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
         }
         .logo-link img { 
-            height: 78px; 
+            height: 54px; 
             width: auto; 
-            transition: opacity 0.2s; 
-            filter: drop-shadow(0 1px 2px rgba(26,43,68,0.06));
+            transition: opacity 0.2s, transform 0.2s; 
+            filter: drop-shadow(0 1px 3px rgba(26,43,68,0.08));
         }
-        .logo-link:hover img { opacity: 0.85; }
+        .logo-link:hover img { 
+            opacity: 0.9; 
+            transform: translateY(-1px);
+        }
         .header-nav-wrapper {
             display: flex;
             align-items: center;
@@ -673,7 +678,7 @@
             h1 { font-size: 40px; }
             .section { padding: 80px 24px; }
             .header-content { padding: 0 24px; flex-direction: column; align-items: center; gap: 16px; }
-            .logo-link img { height: 58px !important; }
+            .logo-link img { height: 48px !important; }
             nav { gap: 20px; font-size: 14px; justify-content: center; flex-wrap: wrap; }
             .pillars { grid-template-columns: 1fr; gap: 24px; }
             .verification-grid { grid-template-columns: 1fr; }
@@ -688,11 +693,11 @@
             nav { display: none; }
             .hamburger { display: flex !important; }
             .header-content { justify-content: space-between; gap: 16px; }
-            .logo-link img { height: 64px !important; }
+            .logo-link img { height: 48px !important; }
         }
         @media (max-width: 640px) {
             h1 { font-size: 36px; }
-            .logo-link img { height: 56px !important; }
+            .logo-link img { height: 44px !important; }
             .trust-items { grid-template-columns: 1fr; }
             .verification-section { padding: 40px 24px; }
         }
@@ -704,7 +709,7 @@
     <div class="header">
         <div class="header-content">
             <a href="index.html" class="logo-link">
-                <img src="logo.jpg" alt="VANTIX BIO Logo">
+                <img src="logo-icon.svg" alt="VANTIX BIO" width="120" height="138">
             </a>
             <div class="header-nav-wrapper">
                 <nav>

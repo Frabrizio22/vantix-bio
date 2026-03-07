@@ -1,0 +1,20 @@
+<svg width="120" height="138" viewBox="0 0 120 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagon shape -->
+  <path d="M60 0L115 34.5V103.5L60 138L5 103.5V34.5L60 0Z" fill="#1A2B44"/>
+  <path d="M60 4L112 36.5V101.5L60 134L8 101.5V36.5L60 4Z" fill="#1E3A52"/>
+  
+  <!-- VX letterforms in geometric style -->
+  <g transform="translate(26, 45)">
+    <!-- V shape -->
+    <path d="M0 0 L13 32 L17 32 L30 0 L24 0 L15 24 L6 0 Z" fill="#00B4D8"/>
+    
+    <!-- X shape -->
+    <path d="M38 0 L48 14 L58 0 L63 0 L50 18 L64 36 L59 36 L48 21 L37 36 L32 36 L46 18 L33 0 Z" fill="#00B4D8"/>
+  </g>
+  
+  <!-- Subtle hex grid pattern overlay -->
+  <g opacity="0.08">
+    <path d="M60 30 L75 39 L75 57 L60 66 L45 57 L45 39 Z" stroke="#FFFFFF" stroke-width="1" fill="none"/>
+    <path d="M60 72 L75 81 L75 99 L60 108 L45 99 L45 81 Z" stroke="#FFFFFF" stroke-width="1" fill="none"/>
+  </g>
+</svg>

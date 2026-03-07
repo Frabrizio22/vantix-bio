@@ -1,0 +1,26 @@
+<svg width="280" height="80" viewBox="0 0 280 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- VX Hexagon Icon -->
+  <g transform="translate(0, 4)">
+    <path d="M35 0L60 14.4V43.2L35 57.6L10 43.2V14.4L35 0Z" fill="#1A2B44"/>
+    <path d="M35 2L58 15.4V42.2L35 55.6L12 42.2V15.4L35 2Z" fill="#1E3A52"/>
+    
+    <!-- VX letterforms -->
+    <g transform="translate(18, 18)">
+      <path d="M0 0 L5.5 13.5 L7.5 13.5 L13 0 L10.5 0 L6.5 10 L2.5 0 Z" fill="#00B4D8"/>
+      <path d="M16 0 L21 6 L26 0 L28.5 0 L22 8 L29 16 L26.5 16 L21 9 L15.5 16 L13 16 L20 8 L14 0 Z" fill="#00B4D8"/>
+    </g>
+  </g>
+  
+  <!-- VANTIX text -->
+  <g transform="translate(80, 0)">
+    <text x="0" y="32" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1A2B44" letter-spacing="1">VANTIX</text>
+  </g>
+  
+  <!-- BIO text -->
+  <g transform="translate(80, 0)">
+    <text x="0" y="58" font-family="Arial, sans-serif" font-size="20" font-weight="500" fill="#64748B" letter-spacing="2">BIO</text>
+  </g>
+  
+  <!-- Decorative line -->
+  <line x1="78" y1="43" x2="220" y2="43" stroke="#E2E8F0" stroke-width="1"/>
+</svg>
