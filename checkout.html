@@ -408,27 +408,71 @@
         .promo-msg { font-size: 12px; margin-top: 6px; }
 
         /* Order Summary */
+        #summarySection {
+            background: linear-gradient(135deg, #FAFBFC 0%, #F8FAFC 100%);
+            border: 1.5px solid #E2E8F0;
+        }
+        
         .summary-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            font-size: 14px;
+            padding: 10px 0;
+            font-size: 14.5px;
             color: #475569;
+            line-height: 1.4;
+        }
+
+        .summary-row span:first-child {
+            font-weight: 500;
         }
 
         .summary-row span:last-child {
             font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
+            font-weight: 600;
         }
 
         .summary-row.discount { color: #059669; font-weight: 600; }
 
         .summary-row.total {
-            border-top: 2px solid #E2E8F0;
-            margin-top: 8px;
-            padding-top: 14px;
-            font-size: 18px;
+            border-top: 2px solid #CBD5E1;
+            margin-top: 10px;
+            padding-top: 16px;
+            font-size: 20px;
             font-weight: 800;
             color: #1A2B44;
+        }
+        
+        .summary-row.total span:last-child {
+            color: #10B981;
+            font-size: 22px;
+        }
+
+        /* Trust Signals */
+        .trust-signals {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            margin: 8px 0 10px;
+        }
+        
+        .trust-item {
+            flex: 1;
+            text-align: center;
+            font-size: 11px;
+            color: #64748B;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        
+        .trust-item-icon {
+            font-size: 16px;
+            margin-bottom: 4px;
+            opacity: 0.8;
         }
 
         /* Footer */
@@ -639,8 +683,46 @@
             .footer-inner { justify-content: flex-end; }
         }
 
+        @media (max-width: 768px) {
+            .trust-signals {
+                gap: 8px;
+                padding: 12px 14px;
+            }
+            
+            .trust-item {
+                font-size: 10px;
+            }
+            
+            .trust-item-icon {
+                font-size: 14px;
+                margin-bottom: 3px;
+            }
+        }
+        
         @media (max-width: 380px) {
             .progress-step span { display: none; }
+            
+            .trust-signals {
+                flex-direction: column;
+                gap: 6px;
+                padding: 10px;
+            }
+            
+            .trust-item {
+                text-align: left;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 4px 0;
+            }
+            
+            .trust-item-icon {
+                margin-bottom: 0;
+            }
+            
+            .trust-item div:last-child {
+                line-height: 1.2;
+            }
         }
     </style>
     <script src="gate-check.js"></script>
@@ -819,6 +901,20 @@
 
     <!-- Footer -->
     <div id="footer" class="footer">
+        <div id="trustSignals" class="trust-signals hidden">
+            <div class="trust-item">
+                <div class="trust-item-icon">🔒</div>
+                <div>Secure<br>Checkout</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">📦</div>
+                <div>Discreet<br>Packaging</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">⚡</div>
+                <div>Ships Within<br>24-48 Hours</div>
+            </div>
+        </div>
         <div class="footer-inner">
             <div class="footer-total">
                 <span id="footerLabel">Subtotal</span>
@@ -967,12 +1063,21 @@
         function updateFooter() {
             var label = document.getElementById('footerLabel');
             var amount = document.getElementById('footerAmount');
+            var trustSignals = document.getElementById('trustSignals');
+            
             if (currentStep <= 2) {
                 label.textContent = 'Subtotal';
                 amount.textContent = '$' + getSubtotal().toFixed(2);
             } else {
                 label.textContent = 'Total';
                 amount.textContent = '$' + getTotal().toFixed(2);
+            }
+
+            // Show trust signals on payment step
+            if (currentStep === 4) {
+                trustSignals.classList.remove('hidden');
+            } else {
+                trustSignals.classList.add('hidden');
             }
 
             var btn = document.getElementById('actionBtn');
