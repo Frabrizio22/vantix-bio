@@ -44,17 +44,19 @@
         }
         html { overflow-x: hidden; }
         
-        /* Typography System - Tighter */
+        /* Typography System - Bold & Premium */
         h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.01em;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
         }
         
-        h1 { font-size: 30px; font-weight: 700; }
-        h2 { font-size: 22px; font-weight: 700; }
-        h3 { font-size: 18px; font-weight: 600; }
+        h1 { font-size: 32px; font-weight: 800; }
+        h2 { font-size: 24px; font-weight: 800; }
+        h3 { font-size: 18px; font-weight: 700; }
+        p { font-weight: 500; }
+        strong { font-weight: 700; }
 
         /* Promo Bar */
         .promo-bar {
@@ -486,19 +488,19 @@
 
         .featured-card {
             background: #FFFFFF;
-            border: 1px solid #E2E8F0;
+            border: 1px solid #CBD5E1;
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 16px 18px;
             min-width: 165px;
             flex-shrink: 0;
             cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
         .featured-card:hover {
             border-color: #00B4D8;
-            box-shadow: 0 8px 24px rgba(0,180,216,0.12);
+            box-shadow: 0 8px 24px rgba(0,180,216,0.15);
             transform: translateY(-2px);
         }
 
@@ -542,16 +544,16 @@
 
         .category-card {
             background: #FFFFFF;
-            border: 1px solid #E2E8F0;
+            border: 1px solid #CBD5E1;
             border-radius: 10px;
-            padding: 12px 14px;
+            padding: 14px 16px;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             border-left: 3px solid;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
         .category-card:hover {
@@ -680,18 +682,18 @@
 
         .product-card {
             background: #FFFFFF;
-            border: 1px solid #E2E8F0;
+            border: 1px solid #CBD5E1;
             border-radius: 10px;
-            padding: 12px;
-            transition: all 0.25s;
+            padding: 14px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .product-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.12);
-            border-color: #93C5FD;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.15);
+            border-color: #2563EB;
         }
 
         .product-card:hover .coa-badge {
@@ -1138,44 +1140,46 @@
         @media (max-width: 768px) {
             /* 1. HEADER STANDARDIZED */
             .header-content { padding: 0 16px; overflow-x: hidden; justify-content: space-between; align-items: center; }
-            header { padding: 12px 0; height: 64px; display: flex; align-items: center; }
-            .logo img { height: 40px !important; }
+            header { padding: 12px 0; height: 68px; display: flex; align-items: center; }
+            .logo img { height: 52px !important; }
             .header-left { justify-content: flex-start; width: auto; }
             .nav-icons { position: static; display: flex; align-items: center; gap: 12px; margin-left: auto; }
             .hamburger { display: flex !important; margin-left: 8px; }
             nav { display: none; }
             
             /* 2. MOBILE SPACING */
-            .hero { padding: 48px 16px; }
-            main { padding: 0 0 48px; }
+            .hero { padding: 40px 16px; }
+            main { padding: 0 0 40px; }
             .filter-section { padding: 12px 16px; margin: 0; }
-            .featured-card { min-width: 130px; padding: 20px; }
-            .trust-item { padding: 20px; gap: 12px; }
-            .product-card { padding: 20px; }
+            .featured-card { min-width: 140px; padding: 16px 18px; }
+            .trust-item { padding: 18px; gap: 12px; }
+            .product-card { padding: 16px; }
             
             /* 3. MOBILE TYPOGRAPHY SCALE */
-            h1 { font-size: 36px; line-height: 1.15; }
-            h2 { font-size: 30px; line-height: 1.2; }
-            h3 { font-size: 24px; line-height: 1.25; }
-            .hero h1 { font-size: 36px; }
-            .hero p { font-size: 16px; line-height: 1.5; }
-            .section-heading { font-size: 30px; }
-            .section-sub { font-size: 16px; }
-            body { font-size: 16px; overflow-x: hidden; }
+            h1 { font-size: 28px; line-height: 1.15; font-weight: 800; }
+            h2 { font-size: 22px; line-height: 1.2; font-weight: 800; }
+            h3 { font-size: 18px; line-height: 1.25; font-weight: 700; }
+            .hero h1 { font-size: 28px; font-weight: 800; }
+            .hero p { font-size: 15px; line-height: 1.6; }
+            .section-heading { font-size: 22px; font-weight: 800; }
+            .section-sub { font-size: 14px; }
+            body { font-size: 15px; overflow-x: hidden; }
         }
         
         @media (max-width: 480px) {
             .header-content { padding: 0 14px; }
-            .hero { padding: 40px 14px; }
+            .hero { padding: 36px 14px; }
             .filter-section { padding: 10px 14px; }
-            main { padding: 0 0 40px; }
-            h1 { font-size: 34px; }
+            main { padding: 0 0 36px; }
+            h1 { font-size: 26px; font-weight: 800; }
+            .logo img { height: 48px !important; }
         }
         
         @media (max-width: 375px) {
-            h1 { font-size: 32px; }
-            h2 { font-size: 28px; }
-            .hero { padding: 40px 12px; }
+            h1 { font-size: 24px; font-weight: 800; }
+            h2 { font-size: 20px; font-weight: 800; }
+            .hero { padding: 32px 12px; }
+            .logo img { height: 46px !important; }
         }
 
         @media (min-width: 769px) {
