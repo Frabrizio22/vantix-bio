@@ -16,7 +16,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; 
-            background: #FAFBFC; 
+            background: linear-gradient(180deg, #FAFBFC 0%, #F8FAFC 50%, #FAFBFC 100%); 
             color: #1A2B44; 
             line-height: 1.7; 
             overflow-x: hidden;
@@ -57,11 +57,53 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
+            gap: 56px;
         }
-        .logo-link { text-decoration: none; }
-        .logo-link img { height: 72px; width: auto; transition: opacity 0.2s; }
+        .logo-link { 
+            text-decoration: none; 
+            flex-shrink: 0;
+        }
+        .logo-link img { 
+            height: 78px; 
+            width: auto; 
+            transition: opacity 0.2s; 
+            filter: drop-shadow(0 1px 2px rgba(26,43,68,0.06));
+        }
         .logo-link:hover img { opacity: 0.85; }
-        nav { display: flex; gap: 40px; align-items: center; }
+        .header-nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            flex: 1;
+        }
+        nav { 
+            display: flex; 
+            gap: 36px; 
+            align-items: center; 
+        }
+        .header-cta { 
+            flex-shrink: 0;
+        }
+        .btn-header-cta {
+            padding: 11px 22px;
+            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            transition: all 0.16s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.2);
+        }
+        .btn-header-cta:hover {
+            background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+            transform: translateY(-1px);
+        }
         nav a { 
             color: #1A2B44; 
             text-decoration: none; 
@@ -244,6 +286,22 @@
             padding: 64px 32px; 
             position: relative;
         }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, rgba(37,99,235,0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .section > * {
+            position: relative;
+            z-index: 1;
+        }
         .section-title { 
             text-align: center; 
             font-size: 38px; 
@@ -286,11 +344,11 @@
         /* Why Vantix - Trust Pillars */
         .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
         .pillar { 
-            background: #FFFFFF; 
+            background: linear-gradient(135deg, #FFFFFF 0%, #FCFDFE 100%); 
             padding: 26px 24px; 
             border-radius: 12px; 
             border: 1px solid #E2E8F0; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.8); 
             transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1); 
             text-align: center;
             position: relative;
@@ -303,12 +361,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at top right, rgba(37,99,235,0.02), transparent);
+            background: radial-gradient(circle at top right, rgba(37,99,235,0.03) 0%, transparent 60%);
             pointer-events: none;
         }
         .pillar:hover { 
             transform: translateY(-4px); 
-            box-shadow: 0 12px 32px rgba(37,99,235,0.08);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.1), inset 0 1px 0 rgba(255,255,255,1);
             border-color: #BFDBFE;
         }
         .pillar-icon {
@@ -626,9 +684,11 @@
             .cta-row { flex-direction: column; }
         }
         @media (max-width: 768px) {
+            .header-nav-wrapper { display: none; }
             nav { display: none; }
             .hamburger { display: flex !important; }
-            .header-content { justify-content: space-between; }
+            .header-content { justify-content: space-between; gap: 16px; }
+            .logo-link img { height: 64px !important; }
         }
         @media (max-width: 640px) {
             h1 { font-size: 36px; }
@@ -646,25 +706,36 @@
             <a href="index.html" class="logo-link">
                 <img src="logo.jpg" alt="VANTIX BIO Logo">
             </a>
-            <nav>
-                <a href="shop.html">Catalog</a>
-                <a href="verify.html">Verify</a>
-                <div class="nav-dropdown">
-                    <a>Science <span class="dropdown-arrow">▼</span></a>
-                    <div class="nav-dropdown-menu">
-                        <a href="the-matrix.html">The Matrix</a>
-                        <a href="blog/">Research</a>
-                        <a href="about.html">About Us</a>
+            <div class="header-nav-wrapper">
+                <nav>
+                    <a href="shop.html">Catalog</a>
+                    <a href="verify.html">Verify</a>
+                    <div class="nav-dropdown">
+                        <a>Science <span class="dropdown-arrow">▼</span></a>
+                        <div class="nav-dropdown-menu">
+                            <a href="the-matrix.html">The Matrix</a>
+                            <a href="blog/">Research</a>
+                            <a href="about.html">About Us</a>
+                        </div>
                     </div>
-                </div>
-                <div class="nav-dropdown">
-                    <a>Support <span class="dropdown-arrow">▼</span></a>
-                    <div class="nav-dropdown-menu">
-                        <a href="faq.html">FAQ</a>
-                        <a href="contact.html">Contact</a>
+                    <div class="nav-dropdown">
+                        <a>Support <span class="dropdown-arrow">▼</span></a>
+                        <div class="nav-dropdown-menu">
+                            <a href="faq.html">FAQ</a>
+                            <a href="contact.html">Contact</a>
+                        </div>
                     </div>
+                </nav>
+                <div class="header-cta">
+                    <a href="verify.html" class="btn-header-cta">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                        </svg>
+                        Verify Batch
+                    </a>
                 </div>
-            </nav>
+            </div>
             <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
         </div>
     </div>

@@ -343,6 +343,18 @@
             padding: 18px; 
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer; 
+            position: relative;
+            overflow: hidden;
+        }
+        .coa-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at top right, rgba(37,99,235,0.03) 0%, transparent 70%);
+            pointer-events: none;
         }
         .coa-card:hover { 
             border-color: #00B4D8; 
@@ -355,12 +367,23 @@
             animation: pulse 1s ease-in-out; 
         }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.01); } }
+        .coa-card-visual {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 48px;
+            height: 48px;
+            opacity: 0.06;
+            pointer-events: none;
+        }
         .coa-card-title { 
             font-size: 16px; 
             font-weight: 700; 
             color: #0F172A; 
             margin-bottom: 8px; 
             letter-spacing: -0.2px;
+            position: relative;
+            z-index: 1;
         }
         .coa-badge { 
             display: inline-block; 
@@ -800,6 +823,18 @@
                     <p class="section-desc">Click any product below to view its interactive Janoshik verification report with full chromatographic analysis.</p>
                     <div class="coa-grid">
                         ${PHASE1_PRODUCTS.map(p => `<div class="coa-card ${state.highlightedProduct === p.slug ? 'highlighted' : ''}" data-product="${p.slug}" data-bundle="${p.bundleId}">
+                            <svg class="coa-card-visual" viewBox="0 0 48 48" fill="none">
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="36" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="24" cy="24" r="4" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="12" cy="36" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="36" cy="36" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="15" y1="12" x2="33" y2="12" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="15" y1="15" x2="21" y2="21" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="27" y1="21" x2="33" y2="15" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="21" y1="27" x2="15" y2="33" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="27" y1="27" x2="33" y2="33" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
                             <div class="coa-card-title">${p.name}</div>
                             <div class="coa-badge">Janoshik Verified</div>
                             <div class="coa-meta-compact">HPLC + LC-MS/MS</div>
