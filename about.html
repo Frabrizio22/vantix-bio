@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - VANTIX BIO</title>
+    <link rel="canonical" href="https://vantixbio.com/about.html">
+    <meta name="description" content="Vantix Bio delivers pharmaceutical-grade research peptides verified through ISO/IEC 17025-accredited dual-method testing. Absolute transparency through forensic-grade verification.">
+    
+    <style>
+        :root {
+            --color-navy: #1A2B44;
+            --color-blue: #2563EB;
+            --color-teal: #5B8DBE;
+            --color-gray-900: #1A2B44;
+            --color-gray-600: #64748B;
+            --color-gray-100: #F8FAFC;
+            --color-text-primary: var(--color-navy);
+            --color-text-secondary: var(--color-gray-600);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(180deg, #FAFBFC 0%, #F8FAFC 50%, #FAFBFC 100%);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-navy);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        nav a {
+            color: var(--color-gray-600);
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--color-navy); }
+        
+        /* Hero */
+        .hero {
+            max-width: 800px;
+            margin: 60px auto 80px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--color-navy);
+        }
+        .hero p {
+            font-size: 18px;
+            color: var(--color-gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        /* Content Sections */
+        .content {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--color-navy);
+        }
+        .section p {
+            font-size: 16px;
+            color: var(--color-gray-600);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        
+        /* Standards Grid */
+        .standards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .standard-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .standard-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-navy);
+        }
+        .standard-card p {
+            font-size: 14px;
+            color: var(--color-gray-600);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-navy) 0%, #2A3F5F 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin: 80px 0 0;
+        }
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            color: white;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--color-navy);
+            padding: 14px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--color-navy);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+        footer a:hover {
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            nav a { margin-left: 16px; font-size: 13px; }
+            .hero { margin: 40px auto 60px; }
+            .section { margin-bottom: 40px; }
+            .standards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">VANTIX BIO</a>
+            <nav>
+                <a href="/shop.html">Shop</a>
+                <a href="/verify.html">Verify</a>
+                <a href="/about.html">About</a>
+                <a href="/faq.html">FAQ</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="hero">
+        <h1>Verification Over Marketing</h1>
+        <p>Pharmaceutical-grade research peptides verified through forensic testing protocols. Where transparency meets scientific rigor.</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h2>Our Mission</h2>
+            <p>Vantix Bio exists to solve a fundamental problem in the research peptide industry: the gap between vendor claims and verifiable reality.</p>
+            <p>While most vendors rely on supplier certificates and marketing claims, we verify every batch through ISO/IEC 17025-accredited laboratory testing using dual-method analytical protocols.</p>
+            <p>No assumptions. No blind trust. Just data.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Testing Methodology</h2>
+            <p>Every Vantix Bio peptide undergoes rigorous dual-method verification:</p>
+            <div class="standards-grid">
+                <div class="standard-card">
+                    <h3>HPLC-DAD Analysis</h3>
+                    <p>High-Performance Liquid Chromatography with Diode Array Detection for precise purity quantification and impurity profiling.</p>
+                </div>
+                <div class="standard-card">
+                    <h3>LC-MS Verification</h3>
+                    <p>Liquid Chromatography-Mass Spectrometry for molecular weight confirmation and identity verification at the molecular level.</p>
+                </div>
+                <div class="standard-card">
+                    <h3>ISO 17025 Accreditation</h3>
+                    <p>All testing performed by PJLA-accredited laboratories meeting international quality and technical competence standards.</p>
+                </div>
+                <div class="standard-card">
+                    <h3>Full COA Transparency</h3>
+                    <p>Complete Certificates of Analysis published for every batch, including chromatograms, mass spectra, and detailed analytical results.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Why Verification Matters</h2>
+            <p>Research-grade peptides occupy a regulatory gray zone. Most vendors source from the same Chinese manufacturers, relying on supplier certificates that are rarely verified independently.</p>
+            <p>This creates risk: mislabeled products, contamination, incorrect concentrations, or degraded compounds that compromise research outcomes.</p>
+            <p>Vantix Bio eliminates this uncertainty through independent third-party verification. We test what we sell. We publish the results. We stand behind the data.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Our Standards</h2>
+            <p><strong>Purity threshold:</strong> ≥98% by HPLC or the product is not listed.</p>
+            <p><strong>Identity confirmation:</strong> Molecular weight must match theoretical mass within ±0.5 Da.</p>
+            <p><strong>Sterility & endotoxin testing:</strong> Available for select batches to support advanced research applications.</p>
+            <p><strong>Batch traceability:</strong> Every vial linked to a specific production batch with full analytical documentation.</p>
+        </div>
+        
+        <div class="section">
+            <h2>For Researchers Who Demand More</h2>
+            <p>If you're running serious research protocols, you can't afford uncertainty about compound identity or purity. Your results depend on it.</p>
+            <p>Vantix Bio is built for researchers who understand that verification isn't a luxury—it's a prerequisite.</p>
+        </div>
+    </div>
+    
+    <div class="cta-section">
+        <h2>Browse Verified Peptides</h2>
+        <p>Every product backed by forensic-grade analytical testing.</p>
+        <a href="/shop.html" class="cta-button">View Catalog</a>
+    </div>
+    
+    <footer>
+        <div>
+            <a href="/terms.html">Terms</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/faq.html">FAQ</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p style="margin-top: 16px; opacity: 0.6;">© 2026 Vantix Bio. Research use only.</p>
+    </footer>
+</body>
+</html>
