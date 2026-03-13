@@ -4,11 +4,17 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://vantixbio.com/shop.html">
-<meta property="og:title" content="Shop Research Peptides | Vantix Bio">
-<meta property="og:site_name" content="Vantix Bio">
-<meta name="twitter:card" content="summary">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Stacks | Vantix Bio</title>
+    <meta name="description" content="Pharmaceutical-grade peptide research stacks. Independently verified combinations with separate COAs for complete analytical transparency.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vantixbio.com/stacks.html">
+    <meta property="og:title" content="Research Stacks | Vantix Bio">
+    <meta property="og:site_name" content="Vantix Bio">
+    <meta name="twitter:card" content="summary">
     
     
     <style>
@@ -1873,8 +1879,8 @@ h1 {
                     <a href="index.html" class="logo" style="display:flex;align-items:center;text-decoration:none"><img src="logo.jpg" alt="VANTIX BIO" width="1280" height="1280" style="height:100px;width:auto"></a>
                 </div>
                 <nav>
-                <a href="shop.html" class="active">Shop</a>
-                <a href="stacks.html">Research Stacks</a>
+                <a href="shop.html">Shop</a>
+                <a href="stacks.html" class="active">Research Stacks</a>
                 <a href="verify.html">Verify</a>
                 <div class="nav-dropdown">
                     <a>Science <span style="font-size:10px;color:#64748B">▼</span></a>
@@ -1920,35 +1926,31 @@ h1 {
     <!-- Hero -->
 
     <!-- Main Content -->
-    <main id="shop">
-        <!-- Catalog Section -->
-        <section class="catalog-section" id="categories">
-            <div class="catalog-header" style="display:none">
-                <h2 class="section-heading" style="font-size:0.85rem">Products</h2>
-                <span class="catalog-count" id="catalogCount">44 products</span>
+    <main id="stacks">
+        <!-- Research Stacks Section -->
+        <section style="max-width:1200px;margin:3rem auto 3rem;padding:0 16px">
+            <div style="text-align:center;margin-bottom:2rem">
+                <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;color:#1A2B44">Research Stacks</h2>
+                <p style="font-size:0.95rem;color:#64748B;max-width:600px;margin:0 auto">Independently tested peptide combinations for advanced research protocols</p>
             </div>
             
-            <!-- Category Filter -->
-            <div class="filter-section">
-                <div class="filter-pills">
-                    <button class="filter-pill active" data-category="all">All</button>
-                    <button class="filter-pill" data-category="glp1">GLP-1</button>
-                    <button class="filter-pill" data-category="tissue-repair">Tissue Repair</button>
-                    <button class="filter-pill" data-category="growth-hormone">Growth Hormone</button>
-                    <button class="filter-pill" data-category="longevity">Longevity</button>
-                    <button class="filter-pill" data-category="cosmetic">Cosmetic</button>
-                    <button class="filter-pill" data-category="supplies">Supplies</button>
+            <!-- Why Not Blends Explainer -->
+            <div style="background:linear-gradient(135deg,#F8FAFC 0%,#EFF6FF 100%);border:1px solid #DBEAFE;border-radius:12px;padding:20px 24px;margin-bottom:2.5rem;max-width:900px;margin-left:auto;margin-right:auto">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" style="flex-shrink:0;margin-top:2px">
+                        <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:6px;color:#1E40AF">Research Stack Methodology</h3>
+                        <p style="font-size:0.85rem;color:#475569;line-height:1.6;margin-bottom:8px">Research stacks contain <strong>separate, individually tested vials</strong> — not pre-mixed formulations. Each compound maintains independent identity and purity verification throughout the research protocol.</p>
+                        <p style="font-size:0.85rem;color:#475569;line-height:1.6;margin:0"><strong>Independent analytical verification</strong>: Each peptide receives its own Certificate of Analysis from Janoshik Analytical. Pre-mixed formulations cannot be accurately quantified using standard HPLC/LC-MS methods. Separate vials ensure complete analytical transparency for research applications.</p>
+                    </div>
                 </div>
             </div>
-
-            <!-- Trust Line -->
-            <div style="text-align:center;font-size:0.85rem;color:#64748B;margin:1.25rem auto 1.5rem;max-width:580px;line-height:1.5">
-                Independently verified through Janoshik Analytical. Browse research compounds and view third-party COAs instantly.
-            </div>
-
-            <!-- Product Grid -->
-            <div class="product-grid" id="productGrid">
-                <!-- Products will be dynamically inserted here -->
+            
+            <!-- Stacks Grid -->
+            <div id="stacksGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">
+                <!-- Stacks will be dynamically inserted here -->
             </div>
         </section>
     </main>
@@ -2842,6 +2844,7 @@ h1 {
 
         // Initial render
         // bestsellers removed
+        renderStacks();
         renderProducts('all');
         updateCartBadge();
     </script>
