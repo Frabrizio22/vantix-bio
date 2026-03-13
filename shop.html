@@ -951,6 +951,149 @@
             color: #0096C7;
         }
 
+        /* Stack Cards */
+        .stack-card {
+            background: #FFFFFF;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stack-card:hover {
+            border-color: #2563EB;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.12);
+            transform: translateY(-2px);
+        }
+        
+        .stack-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            background: rgba(37,99,235,0.1);
+            color: #2563EB;
+        }
+        
+        .stack-badge.coming-soon {
+            background: rgba(100,116,139,0.1);
+            color: #64748B;
+        }
+        
+        .stack-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 6px;
+        }
+        
+        .stack-description {
+            font-size: 0.85rem;
+            color: #64748B;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .stack-products {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #F8FAFC;
+            border-radius: 8px;
+        }
+        
+        .stack-products-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+        
+        .stack-product-item {
+            font-size: 0.85rem;
+            color: #475569;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .stack-product-item::before {
+            content: "✓";
+            color: #10B981;
+            font-weight: 700;
+        }
+        
+        .stack-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .stack-price-main {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1A2B44;
+        }
+        
+        .stack-price-regular {
+            font-size: 1rem;
+            color: #94A3B8;
+            text-decoration: line-through;
+        }
+        
+        .stack-savings {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #10B981;
+            background: rgba(16,185,129,0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        
+        .btn-add-stack {
+            width: 100%;
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .btn-add-stack:hover {
+            background: #1D4ED8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-add-stack.coming-soon {
+            background: #64748B;
+            cursor: not-allowed;
+        }
+        
+        .btn-add-stack.coming-soon:hover {
+            background: #64748B;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -1776,6 +1919,33 @@ h1 {
 
     <!-- Main Content -->
     <main id="shop">
+        <!-- Research Stacks Section -->
+        <section style="max-width:1200px;margin:2rem auto 3rem;padding:0 16px">
+            <div style="text-align:center;margin-bottom:2rem">
+                <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;color:#1A2B44">Research Stacks</h2>
+                <p style="font-size:0.95rem;color:#64748B;max-width:600px;margin:0 auto">Independently tested peptide combinations for advanced research protocols</p>
+            </div>
+            
+            <!-- Why Not Blends Explainer -->
+            <div style="background:linear-gradient(135deg,#F8FAFC 0%,#EFF6FF 100%);border:1px solid #DBEAFE;border-radius:12px;padding:20px 24px;margin-bottom:2.5rem;max-width:900px;margin-left:auto;margin-right:auto">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" style="flex-shrink:0;margin-top:2px">
+                        <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:6px;color:#1E40AF">Why Individual Vials?</h3>
+                        <p style="font-size:0.85rem;color:#475569;line-height:1.6;margin-bottom:8px">Research stacks contain <strong>separate, individually tested vials</strong> — not pre-mixed blends. This approach provides superior research flexibility and verification transparency.</p>
+                        <p style="font-size:0.85rem;color:#475569;line-height:1.6;margin:0"><strong>Each peptide is verified independently</strong> with its own Certificate of Analysis. Pre-mixed blends cannot be accurately tested, making purity verification impossible. Separate vials = separate COAs = complete transparency.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stacks Grid -->
+            <div id="stacksGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">
+                <!-- Stacks will be dynamically inserted here -->
+            </div>
+        </section>
+        
         <!-- Catalog Section -->
         <section class="catalog-section" id="categories">
             <div class="catalog-header" style="display:none">
@@ -2149,6 +2319,84 @@ h1 {
                 
                 container.appendChild(card);
             });
+        }
+
+        // Render Research Stacks
+        function renderStacks() {
+            var grid = document.getElementById('stacksGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            VX_PRODUCTS.stacks.forEach(function(stack) {
+                var card = document.createElement('div');
+                card.className = 'stack-card';
+                
+                // Get product names from SKUs
+                var productNames = stack.products.map(function(sku) {
+                    var product = getProductBySKU(sku);
+                    return product ? product.shortName + ' ' + (product.dosage || product.volume || '') : '';
+                });
+                
+                // Badge
+                var badge = stack.comingSoon 
+                    ? '<div class="stack-badge coming-soon">Coming Soon</div>'
+                    : '<div class="stack-badge">Save $' + stack.savings + '</div>';
+                
+                // Products list
+                var productsList = productNames.map(function(name) {
+                    return '<div class="stack-product-item">' + name + '</div>';
+                }).join('');
+                
+                // Button
+                var button = stack.comingSoon
+                    ? '<button class="btn-add-stack coming-soon" disabled>Coming Soon</button>'
+                    : '<button class="btn-add-stack" onclick="addStackToCart(\'' + stack.id + '\'); event.stopPropagation();">' +
+                      '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                      '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>' +
+                      '</svg>' +
+                      'Add Stack to Cart' +
+                      '</button>';
+                
+                card.innerHTML = 
+                    badge +
+                    '<h3>' + stack.name + '</h3>' +
+                    '<div class="stack-description">' + stack.description + '</div>' +
+                    '<div class="stack-products">' +
+                    '<div class="stack-products-title">Includes</div>' +
+                    productsList +
+                    '</div>' +
+                    '<div class="stack-pricing">' +
+                    '<div class="stack-price-main">$' + stack.stackPrice + '</div>' +
+                    '<div class="stack-price-regular">$' + stack.regularPrice + '</div>' +
+                    '<div class="stack-savings">' + Math.round(stack.discount) + '% off</div>' +
+                    '</div>' +
+                    button;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Add stack to cart
+        function addStackToCart(stackId) {
+            var stack = getStackById(stackId);
+            if (!stack) return;
+            
+            // Add each product in the stack to cart
+            stack.products.forEach(function(sku) {
+                var product = getProductBySKU(sku);
+                if (product && product.inStock !== false) {
+                    var button = document.createElement('button');
+                    button.setAttribute('data-name', product.name);
+                    button.setAttribute('data-price', product.price);
+                    button.setAttribute('data-sku', product.sku);
+                    button.setAttribute('data-category', product.category);
+                    addToCart(button);
+                }
+            });
+            
+            // Show toast
+            showToast('Stack added to cart!');
         }
 
         // Get category color for molecular visuals
@@ -2619,6 +2867,7 @@ h1 {
 
         // Initial render
         // bestsellers removed
+        renderStacks();
         renderProducts('all');
         updateCartBadge();
     </script>

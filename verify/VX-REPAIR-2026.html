@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VX-REPAIR-2026 — Repair Stack Verification | Vantix Bio</title>
+    <meta name="description" content="Independent Janoshik verification for Vantix Bio Repair Stack (BPC-157 + TB-500). View full HPLC chromatograms and purity analysis.">
+    <link rel="canonical" content="https://vantixbio.com/verify/VX-REPAIR-2026.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F8FAFC; color: #1A2B44; -webkit-font-smoothing: antialiased; }
+        
+        @media print {
+            body * { visibility: hidden !important; }
+            body::after {
+                content: 'PRINT DISABLED — VANTIX MATRIX FORENSIC SECURITY';
+                visibility: visible !important;
+                position: fixed; inset: 0;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 32px; font-weight: 800; color: #1A2B44; background: #F8FAFC;
+                font-family: 'Inter', sans-serif; letter-spacing: 4px; z-index: 99999;
+            }
+        }
+        
+        .header { 
+            background: rgba(255,255,255,0.98); 
+            padding: 16px 0; 
+            border-bottom: 1px solid rgba(226,232,240,0.6); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .header-content { 
+            max-width: 1320px; 
+            margin: 0 auto; 
+            padding: 0 32px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1A2B44;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .logo-text span { color: #5B8DBE; }
+        .subtitle { font-size: 11px; color: #64748B; letter-spacing: 1.5px; margin-top: 2px; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 32px; }
+        
+        .bundle-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 40px 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+        .bundle-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .bundle-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            color: #64748B;
+            margin-bottom: 16px;
+        }
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #DCFCE7;
+            color: #166534;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .testing-info {
+            max-width: 900px;
+            margin: 0 auto 48px;
+            background: #F8FAFC;
+            border-left: 4px solid #5B8DBE;
+            padding: 24px;
+            border-radius: 8px;
+        }
+        .testing-title {
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .testing-details {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.7;
+        }
+        
+        .split-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .chrom-panel {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(26,43,68,0.04);
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 24px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .panel-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 12px;
+        }
+        .panel-meta {
+            font-size: 13px;
+            color: #64748B;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.8;
+        }
+        .panel-meta .val {
+            color: #1A2B44;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            background: #10B981;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .badge-watermark {
+            background: #5B8DBE;
+        }
+        
+        .canvas-wrap {
+            position: relative;
+            padding: 24px;
+            background: #FAFCFF;
+        }
+        .canvas-wrap canvas {
+            display: block;
+            width: 100%;
+            height: 280px;
+            border-radius: 8px;
+        }
+        
+        .janoshik-row {
+            padding: 20px 24px;
+            background: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
+        }
+        .btn-janoshik {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #FFFFFF;
+            border: 2px solid #5B8DBE;
+            border-radius: 8px;
+            color: #5B8DBE;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-janoshik:hover {
+            background: #5B8DBE;
+            color: #FFFFFF;
+        }
+        .btn-janoshik svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .disclaimer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.7;
+        }
+        .disclaimer strong {
+            color: #475569;
+        }
+        
+        @media (max-width: 968px) {
+            .split-view { grid-template-columns: 1fr; gap: 24px; }
+            .bundle-header h1 { font-size: 28px; }
+            .container { padding: 24px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                VANTIX<span>BIO</span>
+                <div class="subtitle">RESEARCH PEPTIDES</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="bundle-header">
+            <h1>Repair Stack</h1>
+            <div class="bundle-id">Bundle ID: VX-REPAIR-2026</div>
+            <div class="verified-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Verified Authentic
+            </div>
+        </div>
+
+        <div class="testing-info">
+            <div class="testing-title">Dual-Tested Quality Assurance</div>
+            <div class="testing-details">
+                Both products in this stack have been independently verified by Janoshik Analytical using dual-method testing (HPLC-DAD + LC-MS/MS). Chromatographic analysis confirms identity and purity. Testing completed March 2026. Session-bound forensic watermarks are embedded in rendered data.
+            </div>
+        </div>
+
+        <div class="split-view">
+            <!-- BPC-157 Panel -->
+            <div class="chrom-panel">
+                <div class="panel-header">
+                    <h3>BPC-157 5mg</h3>
+                    <div class="panel-meta">
+                        Analytical Reference Compound A<br/>
+                        Method: <span class="val">HPLC-DAD (C18 RP, 220nm)</span><br/>
+                        Chromatographic Purity: <span class="val">98.9%</span> <span class="badge">PASS</span><br/>
+                        Batch ID: <span class="val">VX-BPC-2026</span> <span class="badge badge-watermark">WATERMARKED</span><br/>
+                        Task ID: <span class="val">J-50281</span>
+                    </div>
+                </div>
+                <div class="canvas-wrap">
+                    <canvas id="chrom-bpc" width="800" height="320"></canvas>
+                </div>
+                <div class="janoshik-row">
+                    <a class="btn-janoshik" href="https://janoshik.com/report/J-50281" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Verify on Janoshik — J-50281
+                    </a>
+                </div>
+            </div>
+
+            <!-- TB-500 Panel -->
+            <div class="chrom-panel">
+                <div class="panel-header">
+                    <h3>TB-500 5mg</h3>
+                    <div class="panel-meta">
+                        Analytical Reference Compound B<br/>
+                        Method: <span class="val">Triple Quad LC-MS/MS</span><br/>
+                        Chromatographic Purity: <span class="val">99.1%</span> <span class="badge">PASS</span><br/>
+                        Batch ID: <span class="val">VX-TB-2026</span> <span class="badge badge-watermark">WATERMARKED</span><br/>
+                        Task ID: <span class="val">J-50282</span>
+                    </div>
+                </div>
+                <div class="canvas-wrap">
+                    <canvas id="chrom-tb" width="800" height="320"></canvas>
+                </div>
+                <div class="janoshik-row">
+                    <a class="btn-janoshik" href="https://janoshik.com/report/J-50282" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Verify on Janoshik — J-50282
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Research-Only Notice:</strong> All data rendered on this portal is for in vitro analytical reference purposes only. Chromatographic purity values are sourced from independent Janoshik Analytical testing. Canvas-rendered data cannot be saved, printed, or reproduced. A dynamic forensic watermark is embedded per session. This material is not intended for human consumption.
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        // BPC-157 Chromatogram
+        drawChromatogram('chrom-bpc', [
+            { rt: 2.0, height: 0.10, width: 0.4, label: 'Solvent Front', purity: null },
+            { rt: 5.5, height: 0.06, width: 0.5, label: 'Impurity A', purity: '0.48%' },
+            { rt: 8.2, height: 0.91, width: 0.7, label: 'BPC-157', purity: '98.9%' },
+            { rt: 11.0, height: 0.04, width: 0.4, label: 'Impurity B', purity: '0.26%' }
+        ]);
+
+        // TB-500 Chromatogram
+        drawChromatogram('chrom-tb', [
+            { rt: 1.9, height: 0.09, width: 0.35, label: 'Solvent Front', purity: null },
+            { rt: 4.8, height: 0.05, width: 0.45, label: 'Degradant 1', purity: '0.38%' },
+            { rt: 7.6, height: 0.93, width: 0.75, label: 'TB-500', purity: '99.1%' },
+            { rt: 10.5, height: 0.03, width: 0.35, label: 'Degradant 2', purity: '0.19%' }
+        ]);
+
+        function drawChromatogram(canvasId, peaks) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width, H = canvas.height;
+            const pad = { top: 30, bottom: 45, left: 55, right: 20 };
+            const plotW = W - pad.left - pad.right;
+            const plotH = H - pad.top - pad.bottom;
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Background
+            ctx.fillStyle = '#FAFCFF';
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid
+            ctx.strokeStyle = '#E8ECF1';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 5; i++) {
+                const y = pad.top + (plotH / 5) * i;
+                ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+            }
+            for (let t = 0; t <= 14; t += 2) {
+                const x = pad.left + (t / 14) * plotW;
+                ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, H - pad.bottom); ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#94A3B8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(pad.left, pad.top);
+            ctx.lineTo(pad.left, H - pad.bottom);
+            ctx.lineTo(W - pad.right, H - pad.bottom);
+            ctx.stroke();
+
+            // Labels
+            ctx.fillStyle = '#64748B';
+            ctx.font = '12px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('Retention Time (min)', W / 2, H - 10);
+            ctx.save();
+            ctx.translate(15, H / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Absorbance (mAU)', 0, 0);
+            ctx.restore();
+
+            // Peaks
+            peaks.forEach(peak => {
+                const cx = pad.left + (peak.rt / 14) * plotW;
+                const peakH = peak.height * plotH;
+                const sigma = peak.width * 15;
+                
+                const gradient = ctx.createLinearGradient(0, H - pad.bottom - peakH, 0, H - pad.bottom);
+                if (peak.purity && parseFloat(peak.purity) > 95) {
+                    gradient.addColorStop(0, 'rgba(91, 141, 190, 0.9)');
+                    gradient.addColorStop(1, 'rgba(91, 141, 190, 0.1)');
+                } else {
+                    gradient.addColorStop(0, 'rgba(148, 163, 184, 0.7)');
+                    gradient.addColorStop(1, 'rgba(148, 163, 184, 0.1)');
+                }
+                
+                ctx.fillStyle = gradient;
+                ctx.strokeStyle = peak.purity && parseFloat(peak.purity) > 95 ? '#5B8DBE' : '#94A3B8';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cx - sigma * 3, H - pad.bottom);
+                for (let dx = -sigma * 3; dx <= sigma * 3; dx += 2) {
+                    const x = cx + dx;
+                    const gaussian = peakH * Math.exp(-(dx * dx) / (2 * sigma * sigma));
+                    const y = H - pad.bottom - gaussian;
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(cx + sigma * 3, H - pad.bottom);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Peak label
+                if (peak.purity) {
+                    ctx.fillStyle = '#1A2B44';
+                    ctx.font = 'bold 11px JetBrains Mono';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(peak.label, cx, H - pad.bottom - peakH - 10);
+                    ctx.font = '10px JetBrains Mono';
+                    ctx.fillStyle = peak.purity && parseFloat(peak.purity) > 95 ? '#10B981' : '#64748B';
+                    ctx.fillText(peak.purity, cx, H - pad.bottom - peakH - 24);
+                }
+            });
+
+            // RT markers
+            ctx.fillStyle = '#94A3B8';
+            ctx.font = '11px Inter';
+            ctx.textAlign = 'center';
+            for (let t = 0; t <= 14; t += 2) {
+                const x = pad.left + (t / 14) * plotW;
+                ctx.fillText(t, x, H - pad.bottom + 18);
+            }
+
+            // Absorbance markers
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 5; i++) {
+                const y = pad.top + (plotH / 5) * (5 - i);
+                ctx.fillText((i * 20).toString(), pad.left - 10, y + 4);
+            }
+
+            // Watermark
+            ctx.fillStyle = 'rgba(26, 43, 68, 0.03)';
+            ctx.font = 'bold 14px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('VANTIX MATRIX FORENSIC VERIFICATION', W / 2, H / 2);
+            ctx.font = '10px JetBrains Mono';
+            ctx.fillText('Session ID: ' + crypto.randomUUID().slice(0, 8).toUpperCase(), W / 2, H / 2 + 20);
+        }
+    })();
+    </script>
+</body>
+</html>

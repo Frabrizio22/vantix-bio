@@ -262,67 +262,92 @@ const VX_PRODUCTS = {
         }
     ],
     
-    // STACKS / BUNDLES
+    // RESEARCH STACKS - Individual vials, not blends
     stacks: [
         {
             id: 'repair-stack',
             name: 'Repair Stack',
-            description: 'Accelerated tissue regeneration',
+            shortName: 'Repair',
+            description: 'BPC-157 + TB-500 for accelerated tissue regeneration',
             products: ['VX-BPC-5', 'VX-TB-5'],
             regularPrice: 64,
-            stackPrice: 54,
-            discount: 15,
-            savings: 10
+            stackPrice: 56,
+            discount: 12.5,
+            savings: 8,
+            category: 'tissue-repair'
         },
         {
             id: 'gh-stack',
             name: 'GH Stack',
-            description: 'Growth hormone optimization',
+            shortName: 'GH',
+            description: 'CJC-1295 + Ipamorelin for growth hormone optimization',
             products: ['VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 54,
             stackPrice: 46,
-            discount: 15,
-            savings: 8
+            discount: 14.8,
+            savings: 8,
+            category: 'growth-hormone'
         },
         {
             id: 'glp-power',
             name: 'GLP Power Stack',
-            description: 'Advanced metabolic support',
+            shortName: 'GLP Power',
+            description: 'Retatrutide + Tirzepatide for advanced metabolic research',
             products: ['VX-RETA-10', 'VX-TIRZ-30'],
             regularPrice: 90,
-            stackPrice: 81,
-            discount: 10,
-            savings: 9
+            stackPrice: 78,
+            discount: 13.3,
+            savings: 12,
+            category: 'glp1'
         },
         {
             id: 'beginner-glp',
             name: 'Beginner GLP Stack',
-            description: 'Start your GLP journey',
+            shortName: 'Beginner GLP',
+            description: 'Semaglutide + BAC Water starter protocol',
             products: ['VX-SEMA-10', 'VX-BAC-30'],
             regularPrice: 46,
-            stackPrice: 41,
-            discount: 11,
-            savings: 5
+            stackPrice: 42,
+            discount: 8.7,
+            savings: 4,
+            category: 'glp1'
         },
         {
             id: 'advanced-glp',
             name: 'Advanced GLP Stack',
-            description: 'Maximum metabolic efficiency',
+            shortName: 'Advanced GLP',
+            description: 'Retatrutide 20mg + Semaglutide for maximum efficiency',
             products: ['VX-RETA-20', 'VX-SEMA-10'],
             regularPrice: 96,
-            stackPrice: 86,
-            discount: 10,
-            savings: 10
+            stackPrice: 84,
+            discount: 12.5,
+            savings: 12,
+            category: 'glp1'
         },
         {
             id: 'summer-lean',
             name: 'Summer Lean Stack',
-            description: 'Comprehensive body recomposition',
+            shortName: 'Summer Lean',
+            description: 'Melanotan II + CJC + Ipamorelin for body recomposition',
             products: ['VX-MT2-10', 'VX-CJC-5', 'VX-IPA-5'],
-            regularPrice: 82,
-            stackPrice: 72,
-            discount: 12,
-            savings: 10
+            regularPrice: 80,
+            stackPrice: 68,
+            discount: 15,
+            savings: 12,
+            category: 'metabolic'
+        },
+        {
+            id: 'longevity-stack',
+            name: 'Longevity Stack',
+            shortName: 'Longevity',
+            description: 'Epithalon + NAD+ for cellular optimization (Coming Soon)',
+            products: ['VX-EPI-50', 'VX-NAD-1000'],
+            regularPrice: 72,
+            stackPrice: 62,
+            discount: 13.9,
+            savings: 10,
+            category: 'longevity',
+            comingSoon: true
         }
     ]
 };

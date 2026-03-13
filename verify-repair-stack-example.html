@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair Stack Verification | Vantix Bio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0a1628 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e3a5f;
+            margin-bottom: 8px;
+        }
+
+        .logo span {
+            color: #3b9fc9;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #64748B;
+            letter-spacing: 0.5px;
+        }
+
+        .bundle-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0a1628;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .bundle-id {
+            text-align: center;
+            font-size: 1rem;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #dcfce7;
+            color: #166534;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0 auto 40px;
+            display: table;
+        }
+
+        .verified-badge svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            background: #f8fafc;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e3a5f;
+            margin-bottom: 16px;
+        }
+
+        .batch-info {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #64748B;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 0.85rem;
+            color: #0a1628;
+            font-weight: 600;
+        }
+
+        .purity-high {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .coa-button {
+            display: block;
+            width: 100%;
+            background: #3b9fc9;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .coa-button:hover {
+            background: #2b7fa9;
+        }
+
+        .testing-info {
+            background: #f1f5f9;
+            border-left: 4px solid #3b9fc9;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .testing-title {
+            font-weight: 700;
+            color: #1e3a5f;
+            margin-bottom: 8px;
+        }
+
+        .testing-details {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .disclaimer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px;
+            }
+
+            .bundle-title {
+                font-size: 1.4rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">VANTIX<span>BIO</span></div>
+            <div class="subtitle">RESEARCH PEPTIDES</div>
+        </div>
+
+        <h1 class="bundle-title">Repair Stack</h1>
+        <div class="bundle-id">Bundle ID: <strong>VX-REPAIR-2026</strong></div>
+
+        <div class="verified-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Verified Authentic
+        </div>
+
+        <div class="testing-info">
+            <div class="testing-title">Dual-Tested Quality Assurance</div>
+            <div class="testing-details">
+                Both products in this stack have been independently verified by Janoshik Analytical using dual-method testing (HPLC + LC-MS). Testing completed March 2026.
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <!-- BPC-157 Card -->
+            <div class="product-card">
+                <div class="product-name">BPC-157 5mg</div>
+                <div class="batch-info">
+                    <div class="info-row">
+                        <span class="info-label">Batch ID</span>
+                        <span class="info-value">VX-BPC-2026</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Purity (HPLC)</span>
+                        <span class="info-value purity-high">98.9%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Purity (LC-MS)</span>
+                        <span class="info-value purity-high">98.7%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Testing Date</span>
+                        <span class="info-value">March 5, 2026</span>
+                    </div>
+                </div>
+                <a href="#" class="coa-button">View Full COA →</a>
+            </div>
+
+            <!-- TB-500 Card -->
+            <div class="product-card">
+                <div class="product-name">TB-500 5mg</div>
+                <div class="batch-info">
+                    <div class="info-row">
+                        <span class="info-label">Batch ID</span>
+                        <span class="info-value">VX-TB-2026</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Purity (HPLC)</span>
+                        <span class="info-value purity-high">99.1%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Purity (LC-MS)</span>
+                        <span class="info-value purity-high">98.9%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Testing Date</span>
+                        <span class="info-value">March 6, 2026</span>
+                    </div>
+                </div>
+                <a href="#" class="coa-button">View Full COA →</a>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            FOR RESEARCH PURPOSES ONLY. Not for human or animal consumption.<br>
+            Vantix Bio | vantixbio.com | © 2026 All Rights Reserved
+        </div>
+    </div>
+</body>
+</html>
