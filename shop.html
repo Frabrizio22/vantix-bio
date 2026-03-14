@@ -1935,7 +1935,7 @@ h1 {
                 <div class="filter-pills">
                     <button class="filter-pill active" data-category="all">All</button>
                     <button class="filter-pill" data-category="glp1">GLP-1</button>
-                    <button class="filter-pill" data-category="tissue-repair">Tissue Repair</button>
+                    <button class="filter-pill" data-category="tissue-repair">Tissue Research</button>
                     <button class="filter-pill" data-category="growth-hormone">Growth Hormone</button>
                     <button class="filter-pill" data-category="longevity">Longevity</button>
                     <button class="filter-pill" data-category="cosmetic">Cosmetic</button>
@@ -1943,8 +1943,20 @@ h1 {
                 </div>
             </div>
 
+            <!-- Research Kits Banner -->
+            <div style="background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:10px;padding:14px 20px;margin:1rem auto 1.25rem;max-width:580px;text-align:center">
+                <div style="font-size:0.85rem;font-weight:700;color:#1E40AF;margin-bottom:4px">Save with Research Kits</div>
+                <div style="font-size:0.75rem;color:#475569;margin-bottom:8px">Common research combinations bundled together</div>
+                <a href="kits.html" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:#2563EB;text-decoration:none;transition:color 0.2s">
+                    View Kits
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
             <!-- Trust Line -->
-            <div style="text-align:center;font-size:0.85rem;color:#64748B;margin:1.25rem auto 1.5rem;max-width:580px;line-height:1.5">
+            <div style="text-align:center;font-size:0.85rem;color:#64748B;margin:0 auto 1.5rem;max-width:580px;line-height:1.5">
                 Independently verified through Janoshik Analytical. Browse research compounds and view third-party COAs instantly.
             </div>
 
@@ -2183,7 +2195,7 @@ h1 {
         var categoryData = [
             { id: 'all', name: 'All Products', count: 0 },
             { id: 'glp1', name: 'GLP-1 Agonists', count: 4 },
-            { id: 'tissue-repair', name: 'Tissue Repair', count: 2 },
+            { id: 'tissue-repair', name: 'Tissue Research', count: 2 },
             { id: 'growth-hormone', name: 'Growth Hormone', count: 2 },
             { id: 'longevity', name: 'Longevity', count: 2 },
             { id: 'cosmetic', name: 'Cosmetic', count: 1 },
@@ -2555,6 +2567,7 @@ h1 {
                     '<span class="price-main">' + pricePrefix + product.price + '</span>' +
                     '<span class="price-unit">/ vial</span>' +
                     '</div>' +
+                    (product.purity && !isPhase2 ? '<div style="font-size:0.7rem;color:#059669;font-weight:600;margin:4px 0 8px">≥98% purity verified</div>' : '') +
                     button +
                     detailsLink +
                     '</div>';
@@ -2577,7 +2590,7 @@ h1 {
         function getCategoryName(cat) {
             var names = {
                 'glp1': 'GLP-1 Agonist',
-                'tissue-repair': 'Tissue Repair',
+                'tissue-repair': 'Tissue Research',
                 'growth-hormone': 'Growth Hormone',
                 'longevity': 'Longevity',
                 'cosmetic': 'Cosmetic',
@@ -2779,6 +2792,23 @@ h1 {
             return t;
         }
 
+        // Check if cart items match any kit
+        function getKitSuggestion() {
+            if (!VX_PRODUCTS.kits) return null;
+            var cartSkus = shopCart.map(function(item) { return item.sku; });
+            
+            for (var i = 0; i < VX_PRODUCTS.kits.length; i++) {
+                var kit = VX_PRODUCTS.kits[i];
+                var allItemsInCart = kit.products.every(function(sku) {
+                    return cartSkus.includes(sku);
+                });
+                if (allItemsInCart) {
+                    return kit;
+                }
+            }
+            return null;
+        }
+        
         function renderCartDrawer() {
             var items = document.getElementById('cartDrawerItems');
             var footer = document.getElementById('cartDrawerFooter');
@@ -2792,6 +2822,17 @@ h1 {
             footer.style.display = 'block';
 
             var html = '';
+            
+            // Check for kit suggestion
+            var suggestedKit = getKitSuggestion();
+            if (suggestedKit) {
+                html += '<div style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-bottom:12px">';
+                html += '<div style="font-size:0.8rem;font-weight:700;color:#1E40AF;margin-bottom:4px">💡 Kit Available</div>';
+                html += '<div style="font-size:0.72rem;color:#475569;margin-bottom:8px">These items are available as a kit — Save $' + suggestedKit.savings + '</div>';
+                html += '<a href="kits.html" style="display:inline-block;font-size:0.75rem;font-weight:700;color:#2563EB;text-decoration:none;padding:6px 12px;background:#fff;border-radius:6px;border:1px solid #2563EB">View Kit →</a>';
+                html += '</div>';
+            }
+            
             for (var i = 0; i < shopCart.length; i++) {
                 var item = shopCart[i];
                 html += '<div class="cart-drawer-item">';
