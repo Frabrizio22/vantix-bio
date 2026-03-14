@@ -7,12 +7,12 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Stacks | Vantix Bio</title>
-    <meta name="description" content="Pharmaceutical-grade peptide research stacks. Independently verified combinations with separate COAs for complete analytical transparency.">
+    <title>Research Kits | Vantix Bio</title>
+    <meta name="description" content="Pharmaceutical-grade peptide research kits. Independently verified combinations with separate COAs for complete analytical transparency.">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vantixbio.com/stacks.html">
-    <meta property="og:title" content="Research Stacks | Vantix Bio">
+    <meta property="og:url" content="https://vantixbio.com/kits.html">
+    <meta property="og:title" content="Research Kits | Vantix Bio">
     <meta property="og:site_name" content="Vantix Bio">
     <meta name="twitter:card" content="summary">
     
@@ -959,147 +959,129 @@
             color: #0096C7;
         }
 
-        /* Stack Cards */
-        .stack-card {
+        /* Kit Cards - Compact 2-column mobile layout */
+        .kit-card {
             background: #FFFFFF;
             border: 1.5px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s;
-            cursor: pointer;
+            border-radius: 10px;
+            padding: 16px;
+            transition: all 0.2s;
             position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
-        .stack-card:hover {
+        .kit-card:hover {
             border-color: #2563EB;
-            box-shadow: 0 8px 24px rgba(37,99,235,0.12);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.12);
+            transform: translateY(-1px);
         }
         
-        .stack-badge {
+        .kit-badge {
             display: inline-block;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            background: rgba(37,99,235,0.1);
-            color: #2563EB;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            background: rgba(16,185,129,0.1);
+            color: #10B981;
+            align-self: flex-start;
         }
         
-        .stack-badge.coming-soon {
-            background: rgba(100,116,139,0.1);
-            color: #64748B;
-        }
-        
-        .stack-card h3 {
-            font-size: 1.25rem;
+        .kit-card h3 {
+            font-size: 1rem;
             font-weight: 800;
             color: #1A2B44;
             margin-bottom: 6px;
+            line-height: 1.2;
         }
         
-        .stack-description {
-            font-size: 0.85rem;
+        .kit-description {
+            font-size: 0.75rem;
             color: #64748B;
-            margin-bottom: 16px;
-            line-height: 1.5;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 1;
         }
         
-        .stack-products {
-            margin-bottom: 16px;
-            padding: 12px;
+        .kit-products {
+            margin-bottom: 10px;
+            padding: 8px 10px;
             background: #F8FAFC;
-            border-radius: 8px;
+            border-radius: 6px;
         }
         
-        .stack-products-title {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #64748B;
-            margin-bottom: 8px;
-        }
-        
-        .stack-product-item {
-            font-size: 0.85rem;
+        .kit-product-item {
+            font-size: 0.72rem;
             color: #475569;
-            padding: 4px 0;
+            padding: 2px 0;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         
-        .stack-product-item::before {
-            content: "✓";
-            color: #10B981;
+        .kit-product-item::before {
+            content: "•";
+            color: #2563EB;
             font-weight: 700;
         }
         
-        .stack-pricing {
+        .kit-pricing {
             display: flex;
             align-items: baseline;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
         
-        .stack-price-main {
-            font-size: 1.8rem;
+        .kit-price-main {
+            font-size: 1.5rem;
             font-weight: 800;
             color: #1A2B44;
         }
         
-        .stack-price-regular {
-            font-size: 1rem;
+        .kit-price-regular {
+            font-size: 0.85rem;
             color: #94A3B8;
             text-decoration: line-through;
         }
         
-        .stack-savings {
-            font-size: 0.8rem;
+        .kit-savings {
+            font-size: 0.7rem;
             font-weight: 700;
             color: #10B981;
-            background: rgba(16,185,129,0.1);
-            padding: 4px 10px;
-            border-radius: 6px;
         }
         
-        .btn-add-stack {
+        .btn-add-kit {
             width: 100%;
             background: #2563EB;
             color: white;
             border: none;
-            padding: 12px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.2s;
         }
         
-        .btn-add-stack:hover {
+        .btn-add-kit:hover {
             background: #1D4ED8;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
         
-        .btn-add-stack.coming-soon {
-            background: #64748B;
-            cursor: not-allowed;
-        }
-        
-        .btn-add-stack.coming-soon:hover {
-            background: #64748B;
-            transform: none;
-            box-shadow: none;
+        @media (max-width: 768px) {
+            .kit-card h3 { font-size: 0.9rem; }
+            .kit-description { font-size: 0.7rem; }
+            .kit-product-item { font-size: 0.68rem; }
+            .kit-price-main { font-size: 1.3rem; }
         }
 
         /* Modal */
@@ -1882,7 +1864,7 @@ h1 {
                 </div>
                 <nav>
                 <a href="shop.html">Shop</a>
-                <a href="stacks.html" class="active">Research Stacks</a>
+                <a href="kits.html" class="active">Research Kits</a>
                 <a href="verify.html">Verify</a>
                 <div class="nav-dropdown">
                     <a>Science <span style="font-size:10px;color:#64748B">▼</span></a>
@@ -1914,7 +1896,7 @@ h1 {
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
         <a href="shop.html" onclick="toggleMobileMenu()">Shop</a>
-        <a href="stacks.html" onclick="toggleMobileMenu()">Research Stacks</a>
+        <a href="kits.html" onclick="toggleMobileMenu()">Research Kits</a>
         <a href="verify.html" onclick="toggleMobileMenu()">Verify</a>
         <div style="padding:8px 24px;font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Science</div>
         <a href="the-matrix.html" onclick="toggleMobileMenu()" style="padding-left:32px">The Matrix</a>
@@ -1929,31 +1911,37 @@ h1 {
 
     <!-- Main Content -->
     <main id="stacks">
-        <!-- Research Stacks Section -->
-        <section style="max-width:1200px;margin:3rem auto 3rem;padding:0 16px">
+        <!-- Research Kits Section -->
+        <section style="max-width:1200px;margin:2.5rem auto 3rem;padding:0 16px">
             <div style="text-align:center;margin-bottom:2rem">
-                <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;color:#1A2B44">Research Stacks</h2>
+                <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;color:#1A2B44">Research Kits</h2>
                 <p style="font-size:0.95rem;color:#64748B;max-width:600px;margin:0 auto">Independently tested peptide combinations for advanced research protocols</p>
             </div>
             
             <!-- Why Not Blends Explainer -->
-            <div style="background:linear-gradient(135deg,#F8FAFC 0%,#EFF6FF 100%);border:1px solid #DBEAFE;border-radius:12px;padding:20px 24px;margin-bottom:2.5rem;max-width:900px;margin-left:auto;margin-right:auto">
+            <div style="background:linear-gradient(135deg,#F8FAFC 0%,#EFF6FF 100%);border:1px solid #DBEAFE;border-radius:12px;padding:18px 20px;margin-bottom:2rem;max-width:900px;margin-left:auto;margin-right:auto">
                 <div style="display:flex;align-items:flex-start;gap:12px">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" style="flex-shrink:0;margin-top:2px">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2563EB" stroke-width="2" style="flex-shrink:0;margin-top:2px">
                         <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <div>
-                        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:6px;color:#1E40AF">Research Stack Methodology</h3>
-                        <p style="font-size:0.85rem;color:#475569;line-height:1.6;margin-bottom:8px">Research stacks contain <strong>separate, individually tested vials</strong> — not pre-mixed formulations. Each compound maintains independent identity and purity verification throughout the research protocol.</p>
-                        <p style="font-size:0.85rem;color:#475569;line-height:1.6;margin:0"><strong>Independent analytical verification</strong>: Each peptide receives its own Certificate of Analysis from Janoshik Analytical. Pre-mixed formulations cannot be accurately quantified using standard HPLC/LC-MS methods. Separate vials ensure complete analytical transparency for research applications.</p>
+                        <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:5px;color:#1E40AF">Research Kit Methodology</h3>
+                        <p style="font-size:0.8rem;color:#475569;line-height:1.5;margin-bottom:6px">Research kits contain <strong>separate, individually tested vials</strong> — not pre-mixed formulations. Each compound maintains independent identity and purity verification throughout the research protocol.</p>
+                        <p style="font-size:0.8rem;color:#475569;line-height:1.5;margin:0"><strong>Independent analytical verification</strong>: Each peptide receives its own Certificate of Analysis from Janoshik Analytical. Pre-mixed formulations cannot be accurately quantified using standard HPLC/LC-MS methods.</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Stacks Grid -->
-            <div id="stacksGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">
-                <!-- Stacks will be dynamically inserted here -->
+            <!-- Kits Grid: 2 columns mobile, 3 columns desktop -->
+            <div id="kitsGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
+                <!-- Kits will be dynamically inserted here -->
             </div>
+            
+            <style>
+                @media (min-width: 768px) {
+                    #kitsGrid { grid-template-columns: repeat(3,1fr); gap:18px; }
+                }
+            </style>
         </section>
     </main>
 
@@ -2300,55 +2288,50 @@ h1 {
             });
         }
 
-        // Render Research Stacks
-        function renderStacks() {
-            var grid = document.getElementById('stacksGrid');
+        // Render Research Kits
+        function renderKits() {
+            var grid = document.getElementById('kitsGrid');
             if (!grid) return;
             
             grid.innerHTML = '';
             
-            VX_PRODUCTS.stacks.forEach(function(stack) {
+            VX_PRODUCTS.kits.forEach(function(kit) {
                 var card = document.createElement('div');
-                card.className = 'stack-card';
+                card.className = 'kit-card';
                 
                 // Get product names from SKUs
-                var productNames = stack.products.map(function(sku) {
+                var productNames = kit.products.map(function(sku) {
                     var product = getProductBySKU(sku);
                     return product ? product.shortName + ' ' + (product.dosage || product.volume || '') : '';
                 });
                 
-                // Badge
-                var badge = stack.comingSoon 
-                    ? '<div class="stack-badge coming-soon">Coming Soon</div>'
-                    : '<div class="stack-badge">Save $' + stack.savings + '</div>';
+                // Badge - show savings
+                var badge = '<div class="kit-badge">Save $' + kit.savings + '</div>';
                 
                 // Products list
                 var productsList = productNames.map(function(name) {
-                    return '<div class="stack-product-item">' + name + '</div>';
+                    return '<div class="kit-product-item">' + name + '</div>';
                 }).join('');
                 
                 // Button
-                var button = stack.comingSoon
-                    ? '<button class="btn-add-stack coming-soon" disabled>Coming Soon</button>'
-                    : '<button class="btn-add-stack" onclick="addStackToCart(\'' + stack.id + '\'); event.stopPropagation();">' +
-                      '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                var button = '<button class="btn-add-kit" onclick="addKitToCart(\'' + kit.id + '\'); event.stopPropagation();">' +
+                      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">' +
                       '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>' +
                       '</svg>' +
-                      'Add Stack to Cart' +
+                      'Add to Cart' +
                       '</button>';
                 
                 card.innerHTML = 
                     badge +
-                    '<h3>' + stack.name + '</h3>' +
-                    '<div class="stack-description">' + stack.description + '</div>' +
-                    '<div class="stack-products">' +
-                    '<div class="stack-products-title">Includes</div>' +
+                    '<h3>' + kit.name + '</h3>' +
+                    '<div class="kit-description">' + kit.description + '</div>' +
+                    '<div class="kit-products">' +
                     productsList +
                     '</div>' +
-                    '<div class="stack-pricing">' +
-                    '<div class="stack-price-main">$' + stack.stackPrice + '</div>' +
-                    '<div class="stack-price-regular">$' + stack.regularPrice + '</div>' +
-                    '<div class="stack-savings">' + Math.round(stack.discount) + '% off</div>' +
+                    '<div class="kit-pricing">' +
+                    '<div class="kit-price-main">$' + kit.kitPrice + '</div>' +
+                    '<div class="kit-price-regular">$' + kit.regularPrice + '</div>' +
+                    '<div class="kit-savings">(' + Math.round(kit.discount) + '% off)</div>' +
                     '</div>' +
                     button;
                 
@@ -2356,13 +2339,13 @@ h1 {
             });
         }
         
-        // Add stack to cart
-        function addStackToCart(stackId) {
-            var stack = getStackById(stackId);
-            if (!stack) return;
+        // Add kit to cart
+        function addKitToCart(kitId) {
+            var kit = getKitById(kitId);
+            if (!kit) return;
             
-            // Add each product in the stack to cart
-            stack.products.forEach(function(sku) {
+            // Add each product in the kit to cart
+            kit.products.forEach(function(sku) {
                 var product = getProductBySKU(sku);
                 if (product && product.inStock !== false) {
                     var button = document.createElement('button');
@@ -2375,7 +2358,7 @@ h1 {
             });
             
             // Show toast
-            showToast('Stack added to cart!');
+            showToast('Kit added to cart!');
         }
 
         // Get category color for molecular visuals
@@ -2845,9 +2828,7 @@ h1 {
         }
 
         // Initial render
-        // bestsellers removed
-        renderStacks();
-        renderProducts('all');
+        renderKits();
         updateCartBadge();
     </script>
 

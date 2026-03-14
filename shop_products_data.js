@@ -262,92 +262,79 @@ const VX_PRODUCTS = {
         }
     ],
     
-    // RESEARCH STACKS - Individual vials, not blends
-    stacks: [
+    // RESEARCH KITS - Individual vials, not blends
+    kits: [
         {
-            id: 'repair-stack',
-            name: 'Tissue Repair Research Stack',
-            shortName: 'Tissue Repair',
-            description: 'BPC-157 + TB-500 combination commonly studied in tissue regeneration research protocols',
+            id: 'bpc-tb-kit',
+            name: 'BPC-157 + TB-500 Research Kit',
+            shortName: 'BPC-157 + TB-500',
+            description: 'Tissue repair peptide combination frequently studied in regeneration protocols',
             products: ['VX-BPC-5', 'VX-TB-5'],
             regularPrice: 64,
-            stackPrice: 56,
+            kitPrice: 56,
             discount: 12.5,
             savings: 8,
             category: 'tissue-repair'
         },
         {
-            id: 'gh-stack',
-            name: 'Growth Hormone Research Stack',
-            shortName: 'GH Research',
-            description: 'CJC-1295 + Ipamorelin protocol frequently examined in GH secretion studies',
+            id: 'gh-secretagogue-kit',
+            name: 'GH Secretagogue Research Kit',
+            shortName: 'GH Secretagogue',
+            description: 'CJC-1295 + Ipamorelin for growth hormone secretion research',
             products: ['VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 54,
-            stackPrice: 46,
+            kitPrice: 46,
             discount: 14.8,
             savings: 8,
             category: 'growth-hormone'
         },
         {
-            id: 'glp-power',
-            name: 'GLP-1 Dual-Agonist Research Stack',
-            shortName: 'GLP Dual-Agonist',
-            description: 'Retatrutide + Tirzepatide for multi-receptor agonist research applications',
-            products: ['VX-RETA-10', 'VX-TIRZ-30'],
-            regularPrice: 90,
-            stackPrice: 78,
-            discount: 13.3,
-            savings: 12,
-            category: 'glp1'
-        },
-        {
-            id: 'beginner-glp',
-            name: 'GLP-1 Starter Research Stack',
-            shortName: 'GLP Starter',
-            description: 'Semaglutide + Bacteriostatic Water for initial GLP-1 receptor research',
+            id: 'single-glp-kit',
+            name: 'Single-Agonist GLP Kit',
+            shortName: 'Single-Agonist GLP',
+            description: 'Semaglutide + Bacteriostatic Water for GLP-1 receptor research',
             products: ['VX-SEMA-10', 'VX-BAC-30'],
             regularPrice: 46,
-            stackPrice: 42,
+            kitPrice: 42,
             discount: 8.7,
             savings: 4,
             category: 'glp1'
         },
         {
-            id: 'advanced-glp',
-            name: 'GLP-1 Triple-Agonist Research Stack',
-            shortName: 'GLP Triple-Agonist',
-            description: 'Retatrutide 20mg + Semaglutide for multi-pathway receptor research',
+            id: 'dual-incretin-kit',
+            name: 'Dual Incretin Research Kit',
+            shortName: 'Dual Incretin',
+            description: 'Retatrutide + Tirzepatide for multi-receptor incretin research',
+            products: ['VX-RETA-10', 'VX-TIRZ-30'],
+            regularPrice: 90,
+            kitPrice: 78,
+            discount: 13.3,
+            savings: 12,
+            category: 'glp1'
+        },
+        {
+            id: 'triple-incretin-kit',
+            name: 'Triple Incretin Research Kit',
+            shortName: 'Triple Incretin',
+            description: 'Retatrutide 20mg + Semaglutide for multi-pathway incretin research',
             products: ['VX-RETA-20', 'VX-SEMA-10'],
             regularPrice: 96,
-            stackPrice: 84,
+            kitPrice: 84,
             discount: 12.5,
             savings: 12,
             category: 'glp1'
         },
         {
-            id: 'summer-lean',
-            name: 'Melanocortin + GH Research Stack',
-            shortName: 'Melanocortin + GH',
-            description: 'Melanotan II + CJC-1295 + Ipamorelin for melanocortin receptor and GH studies',
+            id: 'melanocortin-kit',
+            name: 'Melanocortin Research Kit',
+            shortName: 'Melanocortin',
+            description: 'Melanotan II + CJC-1295 + Ipamorelin for melanocortin receptor studies',
             products: ['VX-MT2-10', 'VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 80,
-            stackPrice: 68,
+            kitPrice: 68,
             discount: 15,
             savings: 12,
             category: 'metabolic'
-        },
-        {
-            id: 'longevity-stack',
-            name: 'Cellular Research Stack',
-            shortName: 'Cellular Research',
-            description: 'Epithalon + NAD+ for telomerase and NAD+ pathway studies (Coming Soon)',
-            products: ['VX-EPI-50', 'VX-NAD-1000'],
-            regularPrice: 72,
-            stackPrice: 62,
-            discount: 13.9,
-            savings: 10,
-            category: 'longevity',
-            comingSoon: true
         }
     ]
 };
@@ -358,7 +345,7 @@ function getProductBySKU(sku) {
     return allProducts.find(p => p.sku === sku);
 }
 
-// Helper function to get stack details
-function getStackById(id) {
-    return VX_PRODUCTS.stacks.find(s => s.id === id);
+// Helper function to get kit details
+function getKitById(id) {
+    return VX_PRODUCTS.kits.find(k => k.id === id);
 }
