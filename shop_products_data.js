@@ -262,13 +262,13 @@ const VX_PRODUCTS = {
         }
     ],
     
-    // RESEARCH KITS - Individual vials, not blends
+    // RESEARCH KITS - Commonly paired peptides in research protocols
     kits: [
         {
-            id: 'bpc-tb-kit',
-            name: 'BPC-157 + TB-500 Research Kit',
-            shortName: 'BPC-157 + TB-500',
-            description: 'Peptide pairing commonly studied in connective tissue and cellular signaling research',
+            id: 'regenerative-kit',
+            name: 'Regenerative Research Kit',
+            shortName: 'Regenerative',
+            description: 'BPC-157 + TB-500 combination frequently studied together in connective tissue research',
             products: ['VX-BPC-5', 'VX-TB-5'],
             regularPrice: 64,
             kitPrice: 56,
@@ -278,9 +278,9 @@ const VX_PRODUCTS = {
         },
         {
             id: 'gh-secretagogue-kit',
-            name: 'GH Secretagogue Research Kit',
+            name: 'GH Secretagogue Kit',
             shortName: 'GH Secretagogue',
-            description: 'CJC-1295 + Ipamorelin studied in growth hormone signaling research',
+            description: 'CJC-1295 + Ipamorelin synergistic pairing for growth hormone signaling research',
             products: ['VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 54,
             kitPrice: 46,
@@ -289,10 +289,10 @@ const VX_PRODUCTS = {
             category: 'growth-hormone'
         },
         {
-            id: 'single-glp-kit',
-            name: 'Single-Agonist GLP Kit',
-            shortName: 'Single-Agonist GLP',
-            description: 'Semaglutide + Bacteriostatic Water for GLP-1 receptor research',
+            id: 'glp-starter-kit',
+            name: 'GLP-1 Starter Kit',
+            shortName: 'GLP Starter',
+            description: 'Semaglutide + Bacteriostatic Water for GLP-1 receptor research protocols',
             products: ['VX-SEMA-10', 'VX-BAC-30'],
             regularPrice: 46,
             kitPrice: 42,
@@ -301,40 +301,41 @@ const VX_PRODUCTS = {
             category: 'glp1'
         },
         {
-            id: 'dual-incretin-kit',
-            name: 'Dual Incretin Research Kit',
-            shortName: 'Dual Incretin',
-            description: 'Retatrutide + Tirzepatide for multi-receptor incretin research',
-            products: ['VX-RETA-10', 'VX-TIRZ-30'],
-            regularPrice: 90,
-            kitPrice: 78,
-            discount: 13.3,
+            id: 'recovery-kit',
+            name: 'Recovery Research Kit',
+            shortName: 'Recovery',
+            description: 'BPC-157 + CJC-1295 + Ipamorelin for tissue repair and growth hormone recovery protocols',
+            products: ['VX-BPC-5', 'VX-CJC-5', 'VX-IPA-5'],
+            regularPrice: 82,
+            kitPrice: 70,
+            discount: 14.6,
             savings: 12,
-            category: 'glp1'
+            category: 'tissue-repair'
         },
         {
-            id: 'triple-incretin-kit',
-            name: 'Triple Incretin Research Kit',
-            shortName: 'Triple Incretin',
-            description: 'Retatrutide 20mg + Semaglutide for multi-pathway incretin research',
-            products: ['VX-RETA-20', 'VX-SEMA-10'],
-            regularPrice: 96,
-            kitPrice: 84,
-            discount: 12.5,
-            savings: 12,
-            category: 'glp1'
-        },
-        {
-            id: 'melanocortin-kit',
-            name: 'Melanocortin Research Kit',
-            shortName: 'Melanocortin',
-            description: 'Melanotan II + CJC-1295 + Ipamorelin for melanocortin receptor studies',
+            id: 'melanocortin-gh-kit',
+            name: 'Melanocortin + GH Kit',
+            shortName: 'Melanocortin + GH',
+            description: 'Melanotan II + CJC-1295 + Ipamorelin commonly paired in melanocortin receptor research',
             products: ['VX-MT2-10', 'VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 80,
             kitPrice: 68,
             discount: 15,
             savings: 12,
-            category: 'metabolic'
+            category: 'cosmetic'
+        },
+        {
+            id: 'longevity-kit',
+            name: 'Longevity Research Kit',
+            shortName: 'Longevity',
+            description: 'Epithalon + NAD+ for telomerase and NAD+ pathway research (Coming Soon)',
+            products: ['VX-EPI-50', 'VX-NAD-1000'],
+            regularPrice: 72,
+            kitPrice: 62,
+            discount: 13.9,
+            savings: 10,
+            category: 'longevity',
+            comingSoon: true
         }
     ]
 };
