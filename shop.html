@@ -717,6 +717,27 @@
             transition: background 0.2s;
         }
 
+        .dual-tested-tag {
+            display: inline-block;
+            background: rgba(0,180,216,0.1);
+            color: #0891B2;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 6px;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
+        }
+
+        .category-tags-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
         .category-glp { background: rgba(37,99,235,0.1); color: #2563EB; }
         .category-tissue { background: rgba(5,150,105,0.08); color: #059669; }
         .category-gh { background: rgba(234,88,12,0.08); color: #EA580C; }
@@ -730,7 +751,7 @@
         .category-supplies { background: rgba(71,85,105,0.08); color: #475569; }
 
         .product-name {
-            font-size: 1.05rem;
+            font-size: 1.18rem;
             font-weight: 800;
             color: #1A2B44;
             margin-bottom: 6px;
@@ -1355,7 +1376,7 @@
                 padding: 24px;
             }
             .product-name {
-                font-size: 1.1rem;
+                font-size: 1.25rem;
             }
             .product-description {
                 font-size: 0.875rem;
@@ -1666,7 +1687,7 @@ h1 {
 }
 
 .dosage, .purity, .type {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     color: #64748B;
     font-weight: 500;
 }
@@ -1746,16 +1767,21 @@ h1 {
 }
 
 .coa-link {
-    font-size: 0.75rem;
+    display: inline-block;
+    font-size: 0.8rem;
     color: #059669;
+    background: rgba(5,150,105,0.08);
     text-decoration: none;
     font-weight: 700;
-    transition: color 0.2s;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
 }
 
 .coa-link:hover {
+    background: rgba(5,150,105,0.15);
     color: #047857;
-    text-decoration: underline;
+    transform: translateY(-1px);
 }
 
 /* Notify Modal Styles */
@@ -2482,7 +2508,7 @@ h1 {
                 var coaLink = '';
                 if (!isPhase2 && product.category !== 'supplies') {
                     var slug = product.slug || 'semaglutide';
-                    coaLink = '<a href="verify.html?product=' + slug + '#latest" class="coa-link" onclick="event.stopPropagation();">View Janoshik COA →</a>';
+                    coaLink = '<a href="verify.html?product=' + slug + '#latest" class="coa-link" onclick="event.stopPropagation();">View COA →</a>';
                 }
                 
                 // Price display
@@ -2559,6 +2585,10 @@ h1 {
                         '</g>' +
                     '</svg>' +
                     '<div class="product-info">' +
+                    '<div class="category-tags-row">' +
+                    '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
+                    (!isPhase2 && product.category !== 'supplies' ? '<span class="dual-tested-tag">✓ DUAL</span>' : '') +
+                    '</div>' +
                     '<h3>' + product.shortName + '</h3>' +
                     '<div class="product-specs">' + specs + '</div>' +
                     (coaLink ? '<div class="coa-link-wrapper">' + coaLink + '</div>' : '') +
@@ -2566,7 +2596,7 @@ h1 {
                     '<span class="price-main">' + pricePrefix + product.price + '</span>' +
                     '<span class="price-unit">/ vial</span>' +
                     '</div>' +
-                    (product.purity && !isPhase2 ? '<div style="font-size:0.75rem;color:#059669;font-weight:700;margin:4px 0 8px">≥98% purity verified</div>' : '') +
+                    (product.purity && !isPhase2 ? '<div style="font-size:0.82rem;color:#047857;font-weight:800;margin:4px 0 8px">≥98% purity verified</div>' : '') +
                     button +
                     detailsLink +
                     '</div>';
