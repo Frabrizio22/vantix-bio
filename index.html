@@ -1513,8 +1513,18 @@
 }
 
 @media (max-width: 480px) {
-    .product-grid { gap: 10px; padding: 0 14px; }
+    .product-grid { 
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px; 
+        padding: 0 14px; 
+    }
     .product-card { padding: 14px; }
+}
+
+@media (max-width: 900px) {
+    .product-grid { 
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
 
 @media (max-width: 375px) {
