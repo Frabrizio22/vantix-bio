@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VANTIX BIO - Forensic-Grade Research Peptides</title>
-    <link rel="canonical" href="https://vantixbio.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vantixbio.com/">
-    <meta property="og:title" content="VANTIX BIO - Forensic-Grade Research Peptides">
-    <meta property="og:description" content="Janoshik-verified chromatography reports. Split-screen COA authentication. Absolute transparency for serious researchers.">
-    <meta property="og:site_name" content="Vantix Bio">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="description" content="Clinical-grade research peptides with Janoshik forensic verification. Split-screen COA authentication for absolute transparency.">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vantixbio.com/shop.html">
+<meta property="og:title" content="Shop Research Peptides | Vantix Bio">
+<meta property="og:site_name" content="Vantix Bio">
+<meta name="twitter:card" content="summary">
     
     
     <style>
+        @keyframes nodeGlow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(0,180,216,0.4)); }
+            50% { filter: drop-shadow(0 0 8px rgba(0,180,216,0.8)); }
+        }
         :root {
             /* Color System */
             --color-navy: #1A2B44;
@@ -34,13 +35,12 @@
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        body {
             font-family: var(--font-body);
-            background: linear-gradient(180deg, #FAFBFC 0%, #F8FAFC 50%, #FAFBFC 100%); 
+            background: #F8FAFC;
             color: var(--color-text-primary);
-            line-height: 1.6; 
+            line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
         html { overflow-x: hidden; }
         
@@ -52,124 +52,109 @@
             letter-spacing: -0.02em;
         }
         
-        h1 { font-size: 42px; font-weight: 800; }
-        h2 { font-size: 28px; font-weight: 800; }
-        h3 { font-size: 20px; font-weight: 700; }
+        h1 { font-size: 32px; font-weight: 800; }
+        h2 { font-size: 24px; font-weight: 800; }
+        h3 { font-size: 18px; font-weight: 700; }
         p { font-weight: 500; }
         strong { font-weight: 700; }
 
-        /* Hex Network Motif */
-        .hex-network-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.02;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 35px, #1A2B44 35px, #1A2B44 36px),
-                repeating-linear-gradient(60deg, transparent, transparent 35px, #1A2B44 35px, #1A2B44 36px),
-                repeating-linear-gradient(120deg, transparent, transparent 35px, #1A2B44 35px, #1A2B44 36px);
-            pointer-events: none;
+        /* Promo Bar */
+        .promo-bar {
+            background: #1A2B44;
+            text-align: center;
+            padding: 8px 16px;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         /* Header */
-        .header { 
-            background: rgba(255,255,255,0.98); 
-            padding: 12px 0; 
-            border-bottom: 1px solid rgba(226,232,240,0.6); 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            backdrop-filter: blur(12px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s;
         }
-        .header-content { 
-            max-width: 1320px; 
-            margin: 0 auto; 
-            padding: 0 32px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 56px;
+
+        header.scrolled {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
-        .logo-link { 
-            text-decoration: none; 
-            flex-shrink: 0;
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
-        .logo-link img { 
-            height: 52px; 
-            width: auto; 
-            transition: opacity 0.2s, transform 0.2s; 
-            filter: drop-shadow(0 1px 3px rgba(26,43,68,0.08));
-        }
-        .logo-link:hover img { 
-            opacity: 0.9; 
-            transform: translateY(-1px);
-        }
-        .header-nav-wrapper {
+
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 48px;
-            flex: 1;
+            gap: 28px;
         }
-        nav { 
-            display: flex; 
-            gap: 36px; 
-            align-items: center; 
+
+        .logo-block { white-space: nowrap; }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1A2B44;
+            letter-spacing: 2px;
         }
-        .header-cta { 
-            flex-shrink: 0;
+
+        .logo span { color: #5B8DBE; }
+
+        .tagline {
+            font-size: 0.55rem;
+            color: #94A3B8;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .btn-header-cta {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-            color: #FFFFFF;
+
+        nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #1A2B44;
             text-decoration: none;
-            border-radius: 9px;
-            font-size: 15px;
+            font-size: 0.9rem;
             font-weight: 700;
-            letter-spacing: 0.3px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 3px 12px rgba(37,99,235,0.3);
+            transition: color 0.2s;
         }
-        .btn-header-cta:hover {
-            background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
-            box-shadow: 0 5px 16px rgba(37,99,235,0.4);
-            transform: translateY(-2px);
+
+        nav a:hover, nav a.active {
+            color: #2563EB;
         }
-        nav a { 
-            color: #1A2B44; 
-            text-decoration: none; 
-            font-size: 15px; 
-            font-weight: 600; 
-            transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 0.2px;
+
+        .nav-dropdown {
+            position: relative;
         }
-        nav a:hover { color: #2563EB; }
-        .nav-dropdown { position: relative; }
-        .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-        .nav-dropdown-menu { 
-            position: absolute; 
-            top: calc(100% + 8px); 
-            left: 0; 
-            background: #FFFFFF; 
-            border: 1px solid #E2E8F0; 
-            border-radius: 10px; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1); 
-            padding: 8px 0; 
-            min-width: 200px; 
-            opacity: 0; 
-            visibility: hidden; 
-            transition: opacity 0.15s ease, visibility 0.15s ease; 
-            z-index: 1000; 
-            pointer-events: none;
+
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: -8px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 8px 0;
+            min-width: 220px;
+            z-index: 200;
+            margin-top: 8px;
         }
+
         .nav-dropdown-menu::before {
             content: '';
             position: absolute;
@@ -179,687 +164,1819 @@
             height: 28px;
             background: transparent;
         }
-        .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { 
-            opacity: 1; 
-            visibility: visible; 
-            pointer-events: auto;
-        }
-        .nav-dropdown-menu a { 
-            display: block; 
-            padding: 12px 24px; 
-            font-size: 14px; 
-            color: #1A2B44; 
-            text-decoration: none; 
-            transition: background 0.15s; 
-        }
-        .nav-dropdown-menu a:hover { background: #F8FAFC; color: #2563EB; }
-        .dropdown-arrow { font-size: 10px; color: #64748B; transition: transform 0.2s; }
-        .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-        /* Hero with Hex Network */
-        .hero { 
-            max-width: 1320px; 
-            margin: 0 auto; 
-            padding: 32px 24px 32px; 
-            position: relative;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown.open .nav-dropdown-menu {
+            display: block;
         }
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.015;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 42px, #1A2B44 42px, #1A2B44 43px),
-                repeating-linear-gradient(60deg, transparent, transparent 42px, #2563EB 42px, #2563EB 43px),
-                repeating-linear-gradient(120deg, transparent, transparent 42px, #1A2B44 42px, #1A2B44 43px);
-            pointer-events: none;
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            color: #475569;
         }
-        .hero-content { position: relative; z-index: 1; }
-        .hero-visual { position: relative; z-index: 1; }
-        h1 { 
-            font-size: 60px; 
-            font-weight: 700; 
-            color: #1A2B44; 
-            margin-bottom: 24px; 
-            letter-spacing: -1.5px; 
-            line-height: 1.1;
+
+        .nav-dropdown-menu a:hover {
+            background: #F0FDFF;
+            color: #5B8DBE;
         }
-        .hero-accent { color: #2563EB; }
-        .hero-subtitle { 
-            font-size: 17px; 
-            color: #64748B; 
-            margin-bottom: 32px; 
-            max-width: 820px;
-            font-weight: 400; 
-            line-height: 1.75; 
-        }
-        .hero-verification-badges {
+
+        .nav-icons {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+            gap: 6px;
         }
-        .verification-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(37,99,235,0.08);
-            border: 1px solid rgba(37,99,235,0.2);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #1A2B44;
-        }
-        .verification-badge svg {
-            width: 18px;
-            height: 18px;
-        }
-        .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn { 
-            padding: 16px 32px; 
-            border-radius: 10px; 
-            font-size: 16px; 
-            font-weight: 700; 
-            text-decoration: none; 
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 0.3px;
-            border: none;
+
+        .nav-icon {
+            position: relative;
             cursor: pointer;
-        }
-        .btn-primary { 
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); 
-            color: #FFFFFF; 
-            box-shadow: 0 4px 16px rgba(37,99,235,0.3);
-        }
-        .btn-primary:hover { 
-            background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%); 
-            box-shadow: 0 6px 20px rgba(37,99,235,0.4);
-            transform: translateY(-2px);
-        }
-        .btn-secondary { 
-            background: transparent; 
-            color: #1A2B44; 
-            border: 2px solid #CBD5E1; 
-        }
-        .btn-secondary:hover { 
-            border-color: #2563EB; 
-            color: #2563EB;
-            transform: translateY(-2px);
-        }
-
-        /* Chromatogram SVG Container */
-        .chromatogram-container {
-            background: #FFFFFF;
-            border: 1px solid #CBD5E1;
-            border-radius: 12px;
-            padding: 32px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-        }
-        .chromatogram-svg {
-            width: 100%;
-            height: auto;
-        }
-        .chromatogram-label {
-            margin-top: 16px;
-            font-size: 12px;
+            font-size: 0.85rem;
             color: #64748B;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            padding: 6px;
+            line-height: 1;
         }
 
-        /* Section common */
-        .section { 
-            max-width: 1320px; 
-            margin: 0 auto; 
-            padding: 40px 24px; 
-            position: relative;
-        }
-        .section::before {
-            content: '';
+        .nav-icon:hover { color: #5B8DBE; }
+
+        .cart-badge {
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 400px;
-            background: radial-gradient(ellipse at center, rgba(37,99,235,0.02) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        .section > * {
-            position: relative;
-            z-index: 1;
-        }
-        .section-title { 
-            text-align: center; 
-            font-size: 38px; 
-            color: #1A2B44; 
-            font-weight: 700; 
-            margin-bottom: 16px; 
-            letter-spacing: -0.8px; 
-        }
-        .section-subtitle { 
-            text-align: center; 
-            font-size: 17px; 
-            color: #64748B; 
-            margin-bottom: 64px; 
-            max-width: 780px; 
-            margin-left: auto; 
-            margin-right: auto; 
-            line-height: 1.75; 
+            top: -4px;
+            right: -6px;
+            background: #5B8DBE;
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Hex separator */
-        .section-separator {
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, #E2E8F0 20%, #E2E8F0 80%, transparent 100%);
-            margin: 80px auto;
-            max-width: 600px;
-            position: relative;
-        }
-        .section-separator::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background: #2563EB;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        }
-
-        /* Why Vantix - Trust Pillars */
-        .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-        .pillar { 
-            background: linear-gradient(135deg, #FFFFFF 0%, #FCFDFE 100%); 
-            padding: 32px 28px; 
-            border-radius: 14px; 
-            border: 1.5px solid #B0BEC5; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12); 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .pillar::before {
-            content: '';
-            position: absolute;
+        .search-overlay {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at top right, rgba(37,99,235,0.03) 0%, transparent 60%);
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,22,40,0.5);
+            z-index: 300;
+            padding: 80px 20px 20px;
         }
-        .pillar:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+
+        .search-overlay.active { display: block; }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .search-box input {
+            width: 100%;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+            background: #F8FAFC;
+        }
+
+        .search-box input:focus { border-color: #5B8DBE; background: #FFFFFF; }
+
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+
+        .search-result-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .search-result-item:hover { background: #F0FDFF; }
+
+        .search-result-item .sr-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1A2B44;
+        }
+
+        .search-result-item .sr-cat {
+            font-size: 0.7rem;
+            color: #64748B;
+        }
+
+        /* FAQ Page */
+        .page-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,22,40,0.5);
+            z-index: 250;
+            overflow-y: auto;
+            padding: 40px 16px;
+        }
+
+        .page-overlay.active { display: block; }
+
+        .page-panel {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 32px 24px;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .page-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 1.5rem;
+            color: #94A3B8;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .page-close:hover { background: #F1F5F9; }
+
+        .page-panel h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 24px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #E2E8F0;
+            padding: 16px 0;
+        }
+
+        .faq-item:last-child { border-bottom: none; }
+
+        .faq-q {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1A2B44;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-q::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: #94A3B8;
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-q::after {
+            content: '−';
+            color: #5B8DBE;
+        }
+
+        .faq-a {
+            display: none;
+            padding-top: 10px;
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-a { display: block; }
+
+        .about-section { margin-bottom: 24px; }
+        .about-section h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 8px;
+        }
+        .about-section p {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        /* Hero */
+        .hero {
+            background: #FFFFFF;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 0.35rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .hero-accent { color: #5B8DBE; }
+
+        .hero p {
+            font-size: 0.95rem;
+            color: #64748B;
+            margin: 0;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: #FFFFFF;
+            padding: 10px 16px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .trust-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+
+        .trust-item {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #1A2B44;
+            text-align: center;
+            letter-spacing: 0.2px;
+            padding: 0 20px;
+        }
+
+        .trust-item::before {
+            content: '✓ ';
+            color: #5B8DBE;
+            font-weight: 700;
+        }
+
+        .trust-item + .trust-item {
+            border-left: 1px solid #E2E8F0;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+        }
+
+        /* Featured Products Section */
+        .featured-section {
+            padding: 0.75rem 0 0.5rem;
+        }
+
+        .section-heading {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.3px;
+        }
+
+        .section-sub {
+            font-size: 0.75rem;
+            color: #94A3B8;
+            font-weight: 400;
+            margin-left: 8px;
+        }
+
+        .featured-products {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
+        }
+
+        .featured-products::-webkit-scrollbar { height: 0; }
+
+        .featured-card {
+            background: #FFFFFF;
+            border: 1.5px solid #B0BEC5;
+            border-radius: 12px;
+            padding: 16px 18px;
+            min-width: 165px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+        }
+
+        .featured-card:hover {
+            border-color: #5B8DBE;
+            box-shadow: 0 10px 28px rgba(0,180,216,0.18);
+            transform: translateY(-2px);
+        }
+
+        .featured-card .product-category {
+            display: inline-block;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0;
+            margin-bottom: 2px;
+        }
+
+        .featured-card .product-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-bottom: 0;
+            line-height: 1.3;
+        }
+
+        .featured-card .product-description {
+            display: none;
+        }
+
+        .featured-card .view-details {
+            display: none;
+        }
+
+        /* Shop by Category Section */
+        .categories-section {
+            padding: 1.25rem 0 1.25rem;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .category-card {
+            background: #FFFFFF;
+            border: 1.5px solid #B0BEC5;
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+
+        .category-card-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .category-card-count {
+            font-size: 0.65rem;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+
+        /* Category-specific borders and colors */
+        .cat-glp { border-left-color: #5B8DBE; }
+        .cat-glp .category-card-name { color: #5B8DBE; }
+        
+        .cat-tissue { border-left-color: #059669; }
+        .cat-tissue .category-card-name { color: #059669; }
+        
+        .cat-gh { border-left-color: #EA580C; }
+        .cat-gh .category-card-name { color: #EA580C; }
+        
+        .cat-metabolic { border-left-color: #DC2626; }
+        .cat-metabolic .category-card-name { color: #DC2626; }
+        
+        .cat-antioxidants { border-left-color: #7C3AED; }
+        .cat-antioxidants .category-card-name { color: #7C3AED; }
+        
+        .cat-neuropeptides { border-left-color: #0891B2; }
+        .cat-neuropeptides .category-card-name { color: #0891B2; }
+        
+        .cat-longevity { border-left-color: #B45309; }
+        .cat-longevity .category-card-name { color: #B45309; }
+        
+        .cat-melanocortin { border-left-color: #DB2777; }
+        .cat-melanocortin .category-card-name { color: #DB2777; }
+        
+        .cat-cosmetic { border-left-color: #A21CAF; }
+        .cat-cosmetic .category-card-name { color: #A21CAF; }
+        
+        .cat-advanced { border-left-color: #475569; }
+        .cat-advanced .category-card-name { color: #475569; }
+
+        /* Catalog Section */
+        .catalog-section {
+            padding: 0.5rem 0 1.5rem;
+        }
+
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .catalog-count {
+            font-size: 0.75rem;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+
+        /* Category Filter */
+        .filter-section {
+            margin-bottom: 1rem;
+            position: sticky;
+            top: 53px;
+            background: #F8FAFC;
+            z-index: 90;
+            padding: 12px 0 8px;
+            margin-left: -1.5rem;
+            margin-right: -1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            border-bottom: 1px solid transparent;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+
+        .filter-pills::-webkit-scrollbar { height: 0; }
+
+        .filter-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 2px solid #CBD5E1;
+            background: #FFFFFF;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .filter-pill:hover {
+            border-color: #5B8DBE;
+            color: #5B8DBE;
+            box-shadow: 0 2px 6px rgba(91,141,190,0.2);
+        }
+
+        .filter-pill.active {
+            background: #2563EB;
+            color: #FFFFFF;
+            border-color: #2563EB;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card {
+            background: #FFFFFF;
+            border: 1.5px solid #B0BEC5;
+            border-radius: 10px;
+            padding: 16px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(37,99,235,0.18);
             border-color: #2563EB;
         }
-        .pillar-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 24px;
-        }
-        .pillar-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-        .pillar h3 { 
-            font-size: 18px; 
-            color: #1A2B44; 
-            font-weight: 700; 
-            margin-bottom: 14px; 
-        }
-        .pillar p { 
-            color: #64748B; 
-            font-size: 15px; 
-            line-height: 1.75; 
-            max-width: 720px;
-            margin: 0 auto;
+
+        .product-card:hover .coa-badge {
+            box-shadow: 0 0 8px rgba(0,180,216,0.3);
         }
 
-        /* Verification Section */
-        .verification-section {
-            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-            border-radius: 16px;
-            padding: 64px 48px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            border: 1px solid #CBD5E1;
-            position: relative;
-            overflow: hidden;
-        }
-        .verification-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(37,99,235,0.03), transparent 70%);
-            pointer-events: none;
-        }
-        .verification-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        .verification-content h3 {
-            font-size: 32px;
+        .product-category {
+            display: inline-block;
+            background: rgba(37,99,235,0.1);
+            color: #2563EB;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.65rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
+            transition: background 0.2s;
+        }
+
+        .dual-tested-tag {
+            display: inline-block;
+            background: rgba(0,180,216,0.1);
+            color: #0891B2;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 6px;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
+        }
+
+        .category-tags-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .category-glp { background: rgba(37,99,235,0.1); color: #2563EB; }
+        .category-tissue { background: rgba(5,150,105,0.08); color: #059669; }
+        .category-gh { background: rgba(234,88,12,0.08); color: #EA580C; }
+        .category-metabolic { background: rgba(220,38,38,0.08); color: #DC2626; }
+        .category-antioxidants { background: rgba(124,58,237,0.08); color: #7C3AED; }
+        .category-neuropeptides { background: rgba(8,145,178,0.08); color: #0891B2; }
+        .category-longevity { background: rgba(180,83,9,0.08); color: #B45309; }
+        .category-melanocortin { background: rgba(219,39,119,0.08); color: #DB2777; }
+        .category-cosmetic { background: rgba(162,28,175,0.08); color: #A21CAF; }
+        .category-advanced { background: rgba(71,85,105,0.08); color: #475569; }
+        .category-supplies { background: rgba(71,85,105,0.08); color: #475569; }
+
+        .product-name {
+            font-size: 1.18rem;
+            font-weight: 800;
             color: #1A2B44;
-            margin-bottom: 16px;
+            margin-bottom: 6px;
+            line-height: 1.2;
+            letter-spacing: -0.3px;
+        }
+
+        .product-description {
+            display: none;
+        }
+
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 12px;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
             letter-spacing: -0.5px;
         }
-        .verification-content p {
-            font-size: 17px;
-            color: #64748B;
-            line-height: 1.75;
-            margin-bottom: 32px;
-            max-width: 720px;
-        }
-        .verification-badges {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .verification-badge-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px;
-            background: rgba(37,99,235,0.04);
-            border-radius: 10px;
-            border: 1px solid rgba(37,99,235,0.1);
-        }
-        .verification-badge-item .icon {
-            width: 48px;
-            height: 48px;
-            flex-shrink: 0;
-        }
-        .verification-badge-item .icon svg {
-            width: 100%;
-            height: 100%;
-        }
-        .verification-badge-item .text {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1A2B44;
+
+        .featured-card .product-price {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #5B8DBE;
+            margin: 4px 0 0;
+            font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
         }
 
-        /* Final CTA */
-        .final-cta {
-            text-align: center;
-            padding: 56px 32px 52px;
-            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-            border-radius: 14px;
-            max-width: 1320px;
-            margin: 0 auto 96px;
-        }
-        .final-cta h2 {
-            font-size: 34px;
+        .coa-badge {
+            font-size: 0.6rem;
             font-weight: 700;
-            color: #1A2B44;
-            margin-bottom: 14px;
-            letter-spacing: -0.6px;
-        }
-        .final-cta p {
-            font-size: 16px;
-            color: #64748B;
-            margin-bottom: 28px;
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* FAQ */
-        .faq-list { max-width: 900px; margin: 0 auto; }
-        .faq-item { 
-            background: #FFFFFF; 
-            border: 1px solid #E2E8F0; 
-            border-radius: 12px; 
-            margin-bottom: 16px; 
-            overflow: hidden;
+            color: #2563EB;
+            letter-spacing: 0.5px;
+            background: rgba(37,99,235,0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
             transition: all 0.2s;
         }
-        .faq-item:hover {
-            box-shadow: 0 4px 16px rgba(37,99,235,0.06);
-            border-color: #BFDBFE;
-        }
-        .faq-question { 
-            width: 100%; 
-            padding: 24px 28px; 
-            text-align: left; 
-            background: none; 
-            border: none; 
-            font-size: 16px; 
-            font-weight: 600; 
-            color: #1A2B44; 
-            cursor: pointer; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            transition: color 0.2s;
-            font-family: inherit;
-        }
-        .faq-question:hover { color: #2563EB; }
-        .faq-chevron { 
-            color: #64748B; 
-            font-size: 14px; 
-            transition: transform 0.3s; 
-        }
-        .faq-item.active .faq-chevron { transform: rotate(180deg); }
-        .faq-answer { 
-            max-height: 0; 
-            overflow: hidden; 
-            transition: max-height 0.3s ease-out; 
-        }
-        .faq-item.active .faq-answer { max-height: 500px; }
-        .faq-answer p { 
-            padding: 0 28px 24px; 
-            color: #64748B; 
-            font-size: 15px; 
-            line-height: 1.75; 
-            max-width: 720px;
+
+        .order-btn {
+            display: inline-block;
+            background: #2563EB;
+            color: #FFFFFF;
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.2);
         }
 
-        /* Footer Trust Bar */
-        .footer-trust-bar {
-            background: linear-gradient(135deg, #1A2B44 0%, #2563EB 100%);
-            padding: 56px 32px;
+        .order-btn:hover {
+            background: #1D4ED8;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+            transform: translateY(-1px);
+        }
+
+        .order-btn.oos {
+            background: #F1F5F9;
+            color: #94A3B8;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .product-card.oos {
+            opacity: 0.6;
+        }
+
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .info-icon {
+            cursor: pointer;
+            opacity: 0.45;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .info-icon:hover { opacity: 0.8; }
+
+        /* Cart Drawer */
+        .cart-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10,22,40,0.5);
+            z-index: 200;
+        }
+        .cart-overlay.active { display: block; }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0; right: -340px; width: 320px; height: 100%;
+            background: #FFFFFF;
+            z-index: 201;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-drawer.active { right: 0; }
+
+        .cart-drawer-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-drawer-header h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1A2B44;
+        }
+        .cart-close {
+            background: none; border: none;
+            font-size: 1.3rem; color: #94A3B8;
+            cursor: pointer; padding: 4px;
+        }
+        .cart-close:hover { color: #1A2B44; }
+
+        .cart-drawer-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 20px;
+        }
+
+        .cart-drawer-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .cart-drawer-item:last-child { border-bottom: none; }
+
+        .cdi-info { flex: 1; }
+        .cdi-name { font-size: 0.85rem; font-weight: 600; color: #1A2B44; }
+        .cdi-price { font-size: 0.75rem; color: #64748B; font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace; }
+
+        .cdi-qty {
+            display: flex; align-items: center; gap: 6px;
+        }
+        .cdi-qty-btn {
+            width: 28px; height: 28px; border: 1px solid #E2E8F0;
+            background: #F8FAFC; border-radius: 6px; font-size: 0.85rem;
+            font-weight: 700; cursor: pointer; color: #1A2B44;
+            transition: all 0.15s;
+        }
+        .cdi-qty-btn:hover { border-color: #5B8DBE; color: #5B8DBE; }
+        .cdi-qty-num { font-size: 0.85rem; font-weight: 700; min-width: 18px; text-align: center; }
+
+        .cdi-remove {
+            color: #ef4444; font-size: 0.7rem; font-weight: 600;
+            cursor: pointer; margin-left: 8px; background: none; border: none;
+        }
+
+        .cart-drawer-footer {
+            padding: 18px 20px;
+            border-top: 1px solid #E2E8F0;
+        }
+        .cart-drawer-total {
+            display: flex; justify-content: space-between;
+            font-size: 0.95rem; font-weight: 800; color: #1A2B44;
+            margin-bottom: 14px;
+        }
+        .cart-checkout-btn {
+            display: block; width: 100%; padding: 14px;
+            background: #5B8DBE; color: #fff; border: none;
+            border-radius: 10px; font-size: 0.88rem; font-weight: 700;
+            cursor: pointer; text-align: center; text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
+        }
+        .cart-checkout-btn:hover { background: #0096C7; box-shadow: 0 4px 20px rgba(0,180,216,0.4); }
+
+        .cart-empty {
+            text-align: center; padding: 40px 16px;
+            color: #94A3B8; font-size: 0.85rem;
+        }
+
+        .cart-added-toast {
+            position: fixed;
+            bottom: 80px; left: 50%; transform: translateX(-50%);
+            background: #1A2B44; color: #fff;
+            padding: 12px 24px; border-radius: 10px;
+            font-size: 0.82rem; font-weight: 600;
+            z-index: 300; opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .cart-added-toast.show { opacity: 1; }
+
+        /* Sticky Cart Button (mobile) */
+        .sticky-cart-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563EB;
+            color: #FFFFFF;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+            z-index: 150;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .sticky-cart-btn.visible {
+            display: flex;
+        }
+
+        .sticky-cart-btn:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.5);
+        }
+
+        .sticky-cart-btn .cart-count {
+            background: #FFFFFF;
+            color: #2563EB;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .view-details, .product-link {
+            display: inline-block;
+            color: #5B8DBE;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .view-details:hover {
+            color: #0096C7;
+        }
+
+        /* Stack Cards */
+        .stack-card {
+            background: #FFFFFF;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
-        .footer-trust-bar::before {
-            content: '';
-            position: absolute;
+        
+        .stack-card:hover {
+            border-color: #2563EB;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.12);
+            transform: translateY(-2px);
+        }
+        
+        .stack-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            background: rgba(37,99,235,0.1);
+            color: #2563EB;
+        }
+        
+        .stack-badge.coming-soon {
+            background: rgba(100,116,139,0.1);
+            color: #64748B;
+        }
+        
+        .stack-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 6px;
+        }
+        
+        .stack-description {
+            font-size: 0.85rem;
+            color: #64748B;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .stack-products {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #F8FAFC;
+            border-radius: 8px;
+        }
+        
+        .stack-products-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+        
+        .stack-product-item {
+            font-size: 0.85rem;
+            color: #475569;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .stack-product-item::before {
+            content: "✓";
+            color: #10B981;
+            font-weight: 700;
+        }
+        
+        .stack-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .stack-price-main {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1A2B44;
+        }
+        
+        .stack-price-regular {
+            font-size: 1rem;
+            color: #94A3B8;
+            text-decoration: line-through;
+        }
+        
+        .stack-savings {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #10B981;
+            background: rgba(16,185,129,0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        
+        .btn-add-stack {
+            width: 100%;
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .btn-add-stack:hover {
+            background: #1D4ED8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-add-stack.coming-soon {
+            background: #64748B;
+            cursor: not-allowed;
+        }
+        
+        .btn-add-stack.coming-soon:hover {
+            background: #64748B;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 35px, #FFFFFF 35px, #FFFFFF 36px),
-                repeating-linear-gradient(60deg, transparent, transparent 35px, #FFFFFF 35px, #FFFFFF 36px),
-                repeating-linear-gradient(120deg, transparent, transparent 35px, #FFFFFF 35px, #FFFFFF 36px);
-            pointer-events: none;
-        }
-        .trust-items {
-            max-width: 1320px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            position: relative;
-            z-index: 1;
-        }
-        .trust-item {
-            text-align: center;
-            color: white;
-        }
-        .trust-item-icon {
-            width: 56px;
-            height: 56px;
-            margin: 0 auto 16px;
-        }
-        .trust-item-icon svg {
             width: 100%;
             height: 100%;
-        }
-        .trust-item h4 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: 0.3px;
-        }
-        .trust-item p {
-            font-size: 13px;
-            opacity: 0.88;
-            line-height: 1.65;
+            background: rgba(10, 22, 40, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
         }
 
-        /* Footer */
-        .footer { 
-            background: #1A2B44; 
-            color: rgba(255,255,255,0.7); 
-            padding: 52px 32px 28px; 
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
         }
+
+        .modal-content {
+            background: #FFFFFF;
+            max-width: 700px;
+            width: 100%;
+            border-radius: 14px;
+            padding: 2rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: #94A3B8;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #F1F5F9;
+            color: #1A2B44;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-body {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .modal-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1A2B44;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 1rem;
+        }
+
+        .modal-body ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: #5B8DBE;
+            color: #FFFFFF;
+            padding: 0.875rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0,180,216,0.3);
+        }
+
+        .contact-button:hover {
+            background: #0096C7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,180,216,0.4);
+        }
+
+        /* Age Gate Overlay */
+        /* Footer */
+        footer {
+            background: #FFFFFF;
+            padding: 2.5rem 2rem 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid #E2E8F0;
+        }
+
         .footer-content {
-            max-width: 1320px;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 44px;
-            margin-bottom: 42px;
-            padding-bottom: 42px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .footer-col h5 {
-            color: #FFFFFF;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-        }
-        .footer-col p {
-            font-size: 13.5px;
-            line-height: 1.65;
-            margin-bottom: 10px;
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        .footer-col a {
-            color: rgba(255,255,255,0.65);
-            text-decoration: none;
-            font-size: 13.5px;
-            transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .footer-col a:hover {
-            color: #FFFFFF;
-        }
-        .footer-bottom {
-            text-align: center;
-        }
-        .footer-bottom p {
-            font-size: 13px;
-            margin-bottom: 8px;
+
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 0.25rem;
+            letter-spacing: 2px;
         }
 
-        /* Hamburger Menu - Premium Styled */
-        .hamburger { 
-            display: none; 
-            background: none; 
-            border: none; 
-            flex-direction: column; 
-            gap: 5px; 
-            cursor: pointer; 
-            padding: 10px; 
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
-        .hamburger span { 
-            display: block; 
-            width: 26px; 
-            height: 3px; 
-            background: linear-gradient(90deg, #1A2B44 0%, #2563EB 100%); 
+
+        .footer-links a {
+            color: #64748B;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #5B8DBE;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.68rem;
+            color: #94A3B8;
+            line-height: 1.6;
+            padding-top: 1rem;
+            border-top: 1px solid #E2E8F0;
+            max-width: 800px;
+        }
+
+        .research-only {
+            font-weight: 700;
+            color: #EF4444;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+            margin-left: 4px;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: linear-gradient(90deg, #1A2B44 0%, #2563EB 100%);
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .mobile-menu { display: none; position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #FFFFFF; box-shadow: -4px 0 12px rgba(0,0,0,0.1); z-index: 1000; transition: right 0.3s; overflow-y: auto; }
-        .mobile-menu.active { display: block; right: 0; }
-        .mobile-menu a { display: block; padding: 16px 24px; color: #1A2B44; text-decoration: none; font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid #F1F5F9; transition: all 0.2s; }
-        .mobile-menu a:hover { color: #5B8DBE; background: #F8FAFC; }
-        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 2rem; color: #94A3B8; cursor: pointer; line-height: 1; }
-        .mobile-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 999; }
-        .mobile-overlay.active { display: block; }
 
-        /* Tablet Responsive */
-        @media (max-width: 968px) {
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 32px;
-                padding: 40px 20px 32px;
-            }
-            .hero-visual {
-                order: -1;
-            }
-            h1 { font-size: 30px; }
-            .section { padding: 32px 20px; }
-            /* Keep header row layout on tablet */
-            .header-content { padding: 0 24px; gap: 16px; }
-            .logo-link img { height: 48px !important; }
-            .pillars { grid-template-columns: 1fr; gap: 24px; }
-            .verification-grid { grid-template-columns: 1fr; }
-            .trust-items { grid-template-columns: 1fr 1fr; gap: 32px; }
-            .footer-top { grid-template-columns: 1fr; gap: 32px; }
-            .section-title { font-size: 28px; font-weight: 800; }
-            .cta-row { flex-direction: column; align-items: center; }
-        }
         /* Mobile-First: iPhone widths 375-414px */
         @media (max-width: 768px) {
             /* 1. HEADER STANDARDIZED */
-            .header { padding: 12px 0; height: 68px; display: flex; align-items: center; }
-            .header-nav-wrapper { display: none !important; }
-            nav { display: none !important; }
+            .header-content { 
+                display: flex !important;
+                flex-direction: row !important;
+                padding: 0 16px !important;
+                overflow-x: hidden; 
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+            }
+            header { padding: 12px 0; height: 68px; display: flex; align-items: center; }
+            .logo img { height: 52px !important; }
+            .header-left { 
+                order: 0 !important;
+                justify-content: flex-start; 
+                width: auto;
+            }
+            .nav-icons { display: none !important; }
             .hamburger { 
                 display: flex !important; 
                 order: 999 !important;
             }
-            .header-content { 
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                padding: 0 16px !important;
-                width: 100% !important;
-            }
-            .logo-link { 
-                order: 0 !important;
-            }
-            .logo-link img { height: 52px !important; }
+            nav { display: none !important; }
             
             /* 2. MOBILE SPACING */
-            .section { padding: 48px 16px; }
-            .hero { padding: 40px 16px; gap: 20px; }
+            .hero { padding: 40px 16px; }
+            main { padding: 0 0 40px; }
+            .filter-section { padding: 12px 16px; margin: 0; }
+            .featured-card { min-width: 140px; padding: 16px 18px; }
+            .trust-item { padding: 18px; gap: 12px; }
+            .product-card { padding: 16px; }
             
             /* 3. MOBILE TYPOGRAPHY SCALE */
-            h1 { font-size: 32px; line-height: 1.15; font-weight: 800; }
-            h2 { font-size: 24px; line-height: 1.2; font-weight: 800; }
-            h3 { font-size: 18px; line-height: 1.3; font-weight: 700; }
-            body { font-size: 16px; line-height: 1.6; }
-            
-            /* Buttons - NOT full width */
-            .btn { 
-                padding: 14px 28px;
-                font-size: 15px;
-                width: auto;
-                align-self: center;
-            }
-            .cta-row { 
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            /* Cards */
-            .pillar { padding: 24px 20px; }
-            .trust-item { padding: 20px; }
-            
-            /* Gaps */
-            .pillars { gap: 20px; }
-            .trust-items { grid-template-columns: 1fr; gap: 20px; }
+            h1 { font-size: 28px; line-height: 1.15; font-weight: 800; }
+            h2 { font-size: 22px; line-height: 1.2; font-weight: 800; }
+            h3 { font-size: 18px; line-height: 1.25; font-weight: 700; }
+            .hero h1 { font-size: 28px; font-weight: 800; }
+            .hero p { font-size: 15px; line-height: 1.6; }
+            .section-heading { font-size: 22px; font-weight: 800; }
+            .section-sub { font-size: 14px; }
+            body { font-size: 15px; overflow-x: hidden; }
         }
         
         @media (max-width: 480px) {
-            /* Smaller iPhones: 375-414px */
             .header-content { padding: 0 14px; }
-            .section { padding: 40px 14px; }
-            .hero { padding: 36px 14px; gap: 16px; }
-            h1 { font-size: 28px; font-weight: 800; }
-            h2 { font-size: 22px; font-weight: 800; }
-            body { font-size: 15px; }
-            .logo-link img { height: 48px !important; }
+            .hero { padding: 36px 14px; }
+            .filter-section { padding: 10px 14px; }
+            main { padding: 0 0 36px; }
+            h1 { font-size: 26px; font-weight: 800; }
+            .logo img { height: 48px !important; }
         }
         
         @media (max-width: 375px) {
-            /* iPhone SE, 12 Mini */
-            h1 { font-size: 26px; font-weight: 800; }
+            h1 { font-size: 24px; font-weight: 800; }
             h2 { font-size: 20px; font-weight: 800; }
-            .section { padding: 36px 12px; }
-            .logo-link img { height: 46px !important; }
+            .hero { padding: 32px 12px; }
+            .logo img { height: 46px !important; }
         }
+
+        @media (min-width: 769px) {
+            .category-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .product-card {
+                padding: 24px;
+            }
+            .product-name {
+                font-size: 1.25rem;
+            }
+            .product-description {
+                font-size: 0.875rem;
+            }
+            .view-details {
+                font-size: 0.875rem;
+            }
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 260px;
+            height: 100%;
+            background: #FFFFFF;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+            z-index: 150;
+            padding: 60px 24px 24px;
+        }
+
+        .mobile-menu.active { display: block; }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: #1A2B44;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .mobile-menu a:hover { color: #5B8DBE; }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 1.5rem;
+            color: #94A3B8;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 140;
+        }
+
+        .mobile-overlay.active { display: block; }
+
+/* Mobile responsive fixes */
+/* Additional mobile product grid refinements */
+@media (max-width: 768px) {
+    body { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+    
+    /* Filter Pills */
+    .filter-pills { gap: 8px; }
+    .filter-pill { font-size: 14px; padding: 8px 14px; }
+    
+    /* Product Grid - Compact */
+    .product-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 12px; 
+        padding: 0 16px; 
+    }
+    .product-card { padding: 16px; }
+    .product-info h3 { font-size: 1.1rem; margin: 8px 0 4px; line-height: 1.3; }
+    .product-price { margin: 6px 0 8px; }
+    .price-main { font-size: 1.65rem; }
+    .btn-add-cart, .btn-notify { 
+        padding: 10px 14px; 
+        font-size: 14px;
+        height: 40px;
+    }
+    .dual-tested-badge, .coming-soon-badge { 
+        top: 10px; 
+        right: 10px; 
+        font-size: 11px; 
+        padding: 4px 8px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid { gap: 10px; padding: 0 14px; }
+    .product-card { padding: 14px; }
+}
+
+@media (max-width: 375px) {
+    .product-grid { gap: 10px; padding: 0 12px; }
+    .product-card { padding: 10px; }
+    .product-info h3 { font-size: 0.95rem; }
+    .price-main { font-size: 1.4rem; }
+}
+
+/* Premium Boutique Enhancements */
+.logo {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.8; }
+
+.product-card {
+    box-shadow: 0 2px 12px rgba(26,43,68,0.06);
+    border: 1px solid rgba(226,232,240,0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(26,43,68,0.12);
+    border-color: rgba(0,180,216,0.3);
+}
+
+.coa-badge, .janoshik-badge {
+    background: linear-gradient(135deg, #5B8DBE 0%, #0096C7 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,180,216,0.2);
+}
+
+.product-price {
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+button, .btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+button:hover:not(:disabled), .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,180,216,0.25);
+}
+button:active, .btn:active {
+    transform: translateY(0);
+}
+
+.trust-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(0,180,216,0.08);
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1A2B44;
+    border: 1px solid rgba(0,180,216,0.15);
+}
+
+.premium-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #1A2B44 0%, #334155 100%);
+    color: #5B8DBE;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(26,43,68,0.3);
+}
+
+/* Premium Catalog Refinements */
+.product-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1A2B44;
+    letter-spacing: -0.3px;
+}
+
+.product-price {
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 24px;
+    color: #5B8DBE;
+    font-weight: 700;
+}
+
+.category-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+button, .btn {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(0,180,216,0.15);
+}
+
+button:hover:not(:disabled), .btn:hover {
+    box-shadow: 0 4px 16px rgba(0,180,216,0.3);
+}
+
+.coa-badge {
+    background: linear-gradient(135deg, #5B8DBE 0%, #0096C7 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,180,216,0.25);
+    transition: all 0.2s;
+}
+
+.coa-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,180,216,0.4);
+}
+
+h1 {
+    font-weight: 800;
+    color: #1A2B44;
+    letter-spacing: -1px;
+}
+
+/* Dual Tested Badge */
+.dual-tested-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(37, 99, 235, 0.95);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 10;
+}
+
+/* Coming Soon Badge */
+.coming-soon-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(148, 163, 184, 0.95);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 10;
+}
+
+/* Product Card Content */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.product-info h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1A2B44;
+    margin: 8px 0 4px;
+    line-height: 1.2;
+}
+
+.product-info img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+    min-height: 180px;
+    object-fit: cover;
+}
+
+.product-info img[src*="placeholder"],
+.product-info img:not([src]) {
+    background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-specs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 2px 0 4px;
+}
+
+.dosage, .purity, .type {
+    font-size: 0.85rem;
+    color: #64748B;
+    font-weight: 500;
+}
+
+/* Product Price */
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 6px 0 8px;
+}
+
+.price-main {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #1A2B44;
+}
+
+.price-unit {
+    font-size: 0.75rem;
+    color: #64748B;
+}
+
+.coming-soon-price .price-main {
+    color: #94A3B8;
+}
+
+/* Add to Cart Button */
+.btn-add-cart {
+    width: 100%;
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-add-cart:hover {
+    background: #1D4ED8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Notify Me Button */
+.btn-notify {
+    width: 100%;
+    background: #64748B;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-notify:hover {
+    background: #475569;
+}
+
+/* COA Link in Product Cards */
+.coa-link-wrapper {
+    margin: 3px 0 5px;
+}
+
+.coa-link {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #059669;
+    background: rgba(5,150,105,0.08);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.coa-link:hover {
+    background: rgba(5,150,105,0.15);
+    color: #047857;
+    transform: translateY(-1px);
+}
+
+/* Notify Modal Styles */
+#notifyModal.modal .modal-content {
+    max-width: 440px;
+    padding: 32px;
+}
+
+#notifyModal .modal-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+#notifyModal .modal-header svg {
+    margin-bottom: 12px;
+}
+
+#notifyModal .modal-header h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: #1A2B44;
+}
+
+#notifyModal .modal-header p {
+    font-size: 0.9rem;
+    color: #64748B;
+}
+
+#notifyForm input[type="email"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-submit:hover {
+    background: #1D4ED8;
+}
+
+.notify-success {
+    text-align: center;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.notify-success p {
+    color: #059669;
+    font-weight: 500;
+}
+
+.notify-error {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    color: #DC2626;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* Mobile Modal Adjustments */
+@media (max-width: 480px) {
+    #notifyModal .modal-content {
+        padding: 24px;
+        max-width: 90%;
+    }
+    
+    .dual-tested-badge, .coming-soon-badge {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+    }
+}
     </style>
     <script src="gate-check.js"></script>
 </head>
 <body>
+
     <!-- Header -->
-    <div class="header">
+    <!-- Promo Bar -->
+
+    <header>
         <div class="header-content">
-            <a href="index.html" class="logo-link">
-                <img src="logo.jpg" alt="VANTIX BIO" width="1280" height="1280" style="height:100px;width:auto">
-            </a>
-            <div class="header-nav-wrapper">
-                <nav>
-                    <a href="shop.html">Catalog</a>
-                    <a href="verify.html">Verify</a>
-                    <div class="nav-dropdown">
-                        <a>Science <span class="dropdown-arrow">▼</span></a>
-                        <div class="nav-dropdown-menu">
-                            <a href="the-matrix.html">The Matrix</a>
-                            <a href="blog/">Research</a>
-                            <a href="about.html">About Us</a>
-                        </div>
-                    </div>
-                    <div class="nav-dropdown">
-                        <a>Support <span class="dropdown-arrow">▼</span></a>
-                        <div class="nav-dropdown-menu">
-                            <a href="faq.html">FAQ</a>
-                            <a href="contact.html">Contact</a>
-                        </div>
-                    </div>
-                </nav>
-                <div class="header-cta">
-                    <a href="verify.html" class="btn-header-cta">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <path d="M9 11l3 3L22 4"></path>
-                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
-                        </svg>
-                        Verify Batch
-                    </a>
+            <div class="header-left">
+                <div class="logo-block">
+                    <a href="index.html" class="logo" style="display:flex;align-items:center;text-decoration:none"><img src="logo.jpg" alt="VANTIX BIO" width="1280" height="1280" style="height:100px;width:auto"></a>
                 </div>
+                <nav>
+                <a href="shop.html" class="active">Shop</a>
+                <a href="kits.html">Research Kits</a>
+                <a href="verify.html">Verify</a>
+                <div class="nav-dropdown">
+                    <a>Science <span style="font-size:10px;color:#64748B">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="the-matrix.html">The Matrix</a>
+                        <a href="blog/">Research</a>
+                        <a href="about.html">About Us</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a>Support <span style="font-size:10px;color:#64748B">▼</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="faq.html">FAQ</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                </nav>
             </div>
-            <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+            <div class="nav-icons">
+                <button class="nav-icon" onclick="toggleSearch()" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+                <button class="nav-icon" title="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg><span class="cart-badge" style="display:none">0</span></button>
+                <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+            </div>
         </div>
-    </div>
+    </header>
 
     <!-- Mobile Menu -->
     <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
-        <a href="shop.html" onclick="toggleMobileMenu()">Catalog</a>
+        <a href="shop.html" onclick="toggleMobileMenu()">Shop</a>
+        <a href="kits.html" onclick="toggleMobileMenu()">Research Kits</a>
         <a href="verify.html" onclick="toggleMobileMenu()">Verify</a>
         <div style="padding:8px 24px;font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Science</div>
         <a href="the-matrix.html" onclick="toggleMobileMenu()" style="padding-left:32px">The Matrix</a>
@@ -870,356 +1987,1092 @@
         <a href="contact.html" onclick="toggleMobileMenu()" style="padding-left:32px">Contact</a>
     </div>
 
-    <!-- Hero with Scientific Proof -->
-    <div class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1>Forensic-Grade <span class="hero-accent">Research Peptides</span></h1>
-            <p class="hero-subtitle">Every compound independently verified through Janoshik chromatography. HPLC-DAD and LC-MS/MS dual analysis with immutable split-screen audit trails.</p>
+    <!-- Hero -->
+
+    <!-- Main Content -->
+    <main id="shop">
+        <!-- Catalog Section -->
+        <section class="catalog-section" id="categories">
+            <div class="catalog-header" style="display:none">
+                <h2 class="section-heading" style="font-size:0.85rem">Products</h2>
+                <span class="catalog-count" id="catalogCount">44 products</span>
+            </div>
             
-            <div class="hero-verification-badges">
-                <div class="verification-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Janoshik Verified
-                </div>
-                <div class="verification-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
-                        <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    HPLC-DAD · LC-MS/MS
+            <!-- Category Filter -->
+            <div class="filter-section">
+                <div class="filter-pills">
+                    <button class="filter-pill active" data-category="all">All</button>
+                    <button class="filter-pill" data-category="glp1">GLP-1</button>
+                    <button class="filter-pill" data-category="tissue-repair">Regenerative Research</button>
+                    <button class="filter-pill" data-category="growth-hormone">Growth Hormone</button>
+                    <button class="filter-pill" data-category="longevity">Longevity</button>
+                    <button class="filter-pill" data-category="cosmetic">Cosmetic</button>
+                    <button class="filter-pill" data-category="supplies">Supplies</button>
                 </div>
             </div>
 
-            <div class="cta-row">
-                <a href="shop.html" class="btn btn-primary">Browse Catalog →</a>
-                <a href="verify.html" class="btn btn-secondary">Verify a Batch</a>
+            <!-- Research Kits Banner -->
+            <div style="background:linear-gradient(135deg,#DBEAFE 0%,#BFDBFE 100%);border:2px solid #93C5FD;border-radius:12px;padding:16px 20px;margin:1rem auto 1.25rem;max-width:580px;text-align:center;box-shadow:0 4px 12px rgba(37,99,235,0.15)">
+                <div style="font-size:0.95rem;font-weight:800;color:#1E40AF;margin-bottom:6px">Save with Research Kits</div>
+                <div style="font-size:0.8rem;color:#1E40AF;margin-bottom:12px;opacity:0.9">Popular research combinations bundled together</div>
+                <a href="kits.html" style="display:inline-block;background:#2563EB;color:#FFFFFF;padding:10px 20px;border-radius:8px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 2px 8px rgba(37,99,235,0.3)">
+                    View Kits →
+                </a>
             </div>
+            
+            <!-- Trust Line -->
+            <div style="text-align:center;font-size:0.9rem;color:#475569;margin:0 auto 1.5rem;max-width:580px;line-height:1.5">
+                Independently verified through Janoshik Analytical. Browse research compounds and view third-party COAs instantly.
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-header" id="modalHeader"></div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
-        
-        <div class="hero-visual">
-            <div class="chromatogram-container">
-                <svg class="chromatogram-svg" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Grid -->
-                    <g stroke="#E2E8F0" stroke-width="0.5">
-                        <line x1="40" y1="20" x2="40" y2="200"/>
-                        <line x1="40" y1="200" x2="380" y2="200"/>
-                        <line x1="40" y1="180" x2="380" y2="180" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="160" x2="380" y2="160" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="140" x2="380" y2="140" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="120" x2="380" y2="120" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="100" x2="380" y2="100" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="80" x2="380" y2="80" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="60" x2="380" y2="60" stroke-dasharray="2,2" opacity="0.5"/>
-                        <line x1="40" y1="40" x2="380" y2="40" stroke-dasharray="2,2" opacity="0.5"/>
-                    </g>
-                    
-                    <!-- Chromatogram peaks -->
-                    <polyline points="40,200 60,198 80,195 100,190 120,175 140,120 160,45 180,30 200,40 220,95 240,160 260,185 280,192 300,195 320,197 340,198 360,199 380,200" 
-                              fill="none" stroke="#2563EB" stroke-width="2"/>
-                    
-                    <!-- Main peak label -->
-                    <circle cx="180" cy="30" r="3" fill="#2563EB"/>
-                    <text x="180" y="15" text-anchor="middle" font-size="10" fill="#1A2B44" font-weight="600">99.2%</text>
-                    <line x1="180" y1="30" x2="180" y2="200" stroke="#2563EB" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-                    
-                    <!-- Axis labels -->
-                    <text x="210" y="220" font-size="10" fill="#64748B" font-family="Courier New">Retention Time (min)</text>
-                    <text x="15" y="110" font-size="10" fill="#64748B" font-family="Courier New" transform="rotate(-90 15 110)">Absorbance (mAU)</text>
-                    
-                    <!-- Time markers -->
-                    <text x="140" y="215" font-size="9" fill="#64748B" text-anchor="middle">2.5</text>
-                    <text x="180" y="215" font-size="9" fill="#64748B" text-anchor="middle">3.2</text>
-                    <text x="220" y="215" font-size="9" fill="#64748B" text-anchor="middle">4.1</text>
+    </div>
+
+    <!-- Email Notification Modal -->
+    <div id="notifyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="NotifySystem.closeModal()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
-                <div class="chromatogram-label">HPLC-DAD Chromatogram — Janoshik Analytical</div>
+            </button>
+            
+            <div class="modal-header">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#2563EB" stroke-width="2">
+                    <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+                <h3 id="modalProductName">Get Notified</h3>
+                <p>We'll email you when this product launches</p>
+            </div>
+            
+            <form id="notifyForm" onsubmit="NotifySystem.submitForm(event)">
+                <input type="email" 
+                       id="notifyEmail" 
+                       placeholder="your@email.com" 
+                       required
+                       autocomplete="email">
+                
+                <input type="hidden" id="notifyProduct" name="product">
+                <input type="hidden" id="notifySKU" name="sku">
+                <input type="hidden" id="notifyCategory" name="category">
+                
+                <div id="notifyError" class="notify-error" style="display:none;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#DC2626" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    <span id="notifyErrorText"></span>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Notify Me
+                </button>
+            </form>
+            
+            <div id="notifySuccess" class="notify-success" style="display:none;">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#10B981" stroke-width="2">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                <p id="notifySuccessText">You're on the list! We'll notify you at launch.</p>
             </div>
         </div>
     </div>
 
-    <div class="section-separator"></div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)toggleSearch()">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search peptides..." oninput="doSearch(this.value)">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
 
-    <!-- Why Vantix -->
-    <div class="section">
-        <h2 class="section-title">Why Researchers Choose Vantix</h2>
-        <p class="section-subtitle">Data-driven integrity at every step of the supply chain.</p>
-        <div class="pillars">
-            <div class="pillar">
-                <div class="pillar-icon">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="28" stroke="#2563EB" stroke-width="2"/>
-                        <path d="M20 32 L28 40 L44 24" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h3>Janoshik Verification</h3>
-                <p>Exclusive partnership with Janoshik Analytical. Every batch undergoes independent third-party HPLC-DAD and LC-MS/MS chromatographic analysis before release.</p>
+    <!-- FAQ Page -->
+    <div class="page-overlay" id="faqPage" onclick="if(event.target===this)closePage('faq')">
+        <div class="page-panel">
+            <span class="page-close" onclick="closePage('faq')">&times;</span>
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">What are your products used for?</div>
+                <div class="faq-a">All VANTIX BIO products are sold exclusively for in vitro laboratory research purposes. They are not intended for human consumption, diagnostic use, or therapeutic applications.</div>
             </div>
-            <div class="pillar">
-                <div class="pillar-icon">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="12" y="20" width="18" height="32" stroke="#2563EB" stroke-width="2" rx="2"/>
-                        <rect x="34" y="12" width="18" height="40" stroke="#2563EB" stroke-width="2" rx="2"/>
-                        <line x1="16" y1="44" x2="16" y2="28" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
-                        <line x1="38" y1="44" x2="38" y2="20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <h3>Forensic Transparency</h3>
-                <p>Split-screen COA reports with immutable watermarking. Dual chromatography data presented side-by-side — tamper-evident by design.</p>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">What purity are your peptides?</div>
+                <div class="faq-a">All of our peptides are manufactured to ≥98% purity by GMP-compliant facilities. Each product undergoes rigorous quality control testing before being made available.</div>
             </div>
-            <div class="pillar">
-                <div class="pillar-icon">
-                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M32 12 L44 20 L44 40 L32 48 L20 40 L20 20 Z" stroke="#2563EB" stroke-width="2"/>
-                        <path d="M24 30 L30 36 L40 26" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h3>Instant Verification</h3>
-                <p>Enter any VX Bundle ID to retrieve full verification reports in seconds. No email requests. No wait times. Audit on demand.</p>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">What's included with my order?</div>
+                <div class="faq-a">Every order ships with a complimentary laboratory solvent kit containing analytical-grade solvents and handling tools for the stabilization and preparation of research reagents.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">How do I place an order?</div>
+                <div class="faq-a">Browse our catalog, add items to your cart, and proceed to checkout. We accept multiple payment methods including cryptocurrency. For questions about ordering, email us at support@prcpeptides.com.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">What payment methods do you accept?</div>
+                <div class="faq-a">We accept cryptocurrency (Bitcoin, Ethereum, USDC, and more via Coinbase Commerce) and Zelle bank transfer. Zelle orders receive a 5% discount. Additional payment options coming soon.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">How fast is shipping?</div>
+                <div class="faq-a">Orders are processed within 24 hours on business days. Standard shipping within the US typically arrives in 3-5 business days. Expedited options are available at checkout.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">Do you ship internationally?</div>
+                <div class="faq-a">Currently we ship within the United States only. International shipping options are being evaluated.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">What is your return policy?</div>
+                <div class="faq-a">Due to the nature of research compounds, we cannot accept returns on opened products. Unopened items in original packaging may be returned within 14 days for a full refund. Contact support@prcpeptides.com for return authorization.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q">How should I store peptides?</div>
+                <div class="faq-a">Unreconstituted peptides should be stored at -20°C for long-term storage or 2-8°C (refrigerated) for short-term. Once reconstituted, peptides should be refrigerated and used within the timeframe specified on the product documentation. Avoid repeated freeze-thaw cycles.</div>
             </div>
         </div>
     </div>
 
-    <div class="section-separator"></div>
-
-    <!-- Verification Visuals Section -->
-    <div class="section">
-        <div class="verification-section">
-            <div class="verification-grid">
-                <div class="verification-content">
-                    <h3>Laboratory-Grade Analytical Verification</h3>
-                    <p>Every Vantix compound ships with comprehensive chromatographic analysis from Janoshik Analytical, the industry standard for peptide verification.</p>
-                    <div class="verification-badges">
-                        <div class="verification-badge-item">
-                            <div class="icon">
-                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="4" y="8" width="8" height="32" fill="#2563EB" opacity="0.3" rx="1"/>
-                                    <rect x="14" y="12" width="8" height="28" fill="#2563EB" opacity="0.5" rx="1"/>
-                                    <rect x="24" y="4" width="8" height="36" fill="#2563EB" rx="1"/>
-                                    <rect x="34" y="16" width="8" height="24" fill="#2563EB" opacity="0.5" rx="1"/>
-                                </svg>
-                            </div>
-                            <div class="text">HPLC-DAD Purity Confirmation</div>
-                        </div>
-                        <div class="verification-badge-item">
-                            <div class="icon">
-                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="14" cy="24" r="8" stroke="#2563EB" stroke-width="2"/>
-                                    <circle cx="34" cy="24" r="8" stroke="#2563EB" stroke-width="2"/>
-                                    <path d="M22 24 L26 24" stroke="#2563EB" stroke-width="2"/>
-                                    <circle cx="24" cy="24" r="3" fill="#2563EB"/>
-                                </svg>
-                            </div>
-                            <div class="text">LC-MS/MS Identity Verification</div>
-                        </div>
-                        <div class="verification-badge-item">
-                            <div class="icon">
-                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M24 8 L36 16 L36 32 L24 40 L12 32 L12 16 Z" stroke="#2563EB" stroke-width="2"/>
-                                    <path d="M18 24 L22 28 L30 20" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
-                                </svg>
-                            </div>
-                            <div class="text">Forensic Watermarking</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="verification-visual">
-                    <div class="chromatogram-container">
-                        <svg class="chromatogram-svg" viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="peakGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#2563EB;stop-opacity:0.3"/>
-                                    <stop offset="100%" style="stop-color:#2563EB;stop-opacity:0"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Grid -->
-                            <g stroke="#E2E8F0" stroke-width="0.5">
-                                <line x1="30" y1="10" x2="30" y2="170"/>
-                                <line x1="30" y1="170" x2="360" y2="170"/>
-                                <line x1="30" y1="150" x2="360" y2="150" stroke-dasharray="2,2" opacity="0.4"/>
-                                <line x1="30" y1="130" x2="360" y2="130" stroke-dasharray="2,2" opacity="0.4"/>
-                                <line x1="30" y1="110" x2="360" y2="110" stroke-dasharray="2,2" opacity="0.4"/>
-                                <line x1="30" y1="90" x2="360" y2="90" stroke-dasharray="2,2" opacity="0.4"/>
-                                <line x1="30" y1="70" x2="360" y2="70" stroke-dasharray="2,2" opacity="0.4"/>
-                                <line x1="30" y1="50" x2="360" y2="50" stroke-dasharray="2,2" opacity="0.4"/>
-                                <line x1="30" y1="30" x2="360" y2="30" stroke-dasharray="2,2" opacity="0.4"/>
-                            </g>
-                            <!-- Peak with gradient fill -->
-                            <polygon points="30,170 50,168 70,165 90,158 110,140 130,95 150,35 170,25 190,30 210,70 230,120 250,155 270,165 290,168 310,169 330,170 350,170 360,170" 
-                                     fill="url(#peakGradient)"/>
-                            <polyline points="30,170 50,168 70,165 90,158 110,140 130,95 150,35 170,25 190,30 210,70 230,120 250,155 270,165 290,168 310,169 330,170 350,170 360,170" 
-                                      fill="none" stroke="#2563EB" stroke-width="2"/>
-                            <!-- Peak marker -->
-                            <circle cx="170" cy="25" r="3" fill="#2563EB"/>
-                            <line x1="170" y1="25" x2="170" y2="170" stroke="#2563EB" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
-                            <text x="170" y="190" text-anchor="middle" font-size="9" fill="#64748B" font-family="Courier New">3.24 min</text>
-                        </svg>
-                        <div class="chromatogram-label">Representative LC-MS/MS Trace — VX-2026-0124-RETA</div>
-                    </div>
-                </div>
+    <!-- About Page -->
+    <div class="page-overlay" id="aboutPage" onclick="if(event.target===this)closePage('about')">
+        <div class="page-panel">
+            <span class="page-close" onclick="closePage('about')">&times;</span>
+            <h2>About VANTIX BIO</h2>
+            <div class="about-section">
+                <h3>Built by Researchers, for Researchers</h3>
+                <p>We started VANTIX BIO because we were tired of the same thing every researcher deals with — overpriced compounds from vendors who all source from the same manufacturers but charge 3x more. So we cut out the middlemen and built something better.</p>
+                <p>We're a small, dedicated team. That's by design. It means every order gets personal attention, every question gets a real answer, and every product meets our standards — not just a manufacturer's claim on paper.</p>
+            </div>
+            <div class="about-section">
+                <h3>Quality You Can Verify</h3>
+                <p>Every compound we sell goes through a two-step verification process:</p>
+                <p><strong>1. Manufacturer testing</strong> — sourced exclusively from GMP-compliant international manufacturers with ≥98% purity standards.</p>
+                <p><strong>2. Independent third-party testing</strong> — we don't just trust the manufacturer's COA. Every batch is independently verified before it reaches our catalog. Most vendors skip this step. We don't.</p>
+                <p>Certificates of Analysis are available for every product. No exceptions.</p>
+            </div>
+            <div class="about-section">
+                <h3>Fair Pricing, No Games</h3>
+                <p>We believe quality research compounds shouldn't require a grant budget. Our direct sourcing model means we offer some of the most competitive prices in the space — without cutting corners on purity or testing. Compare us to anyone.</p>
+            </div>
+            <div class="about-section">
+                <h3>What to Expect</h3>
+                <p>✓ 44+ research compounds across 10 categories</p>
+                <p>✓ Ships next business day</p>
+                <p>✓ Discreet, unmarked packaging</p>
+                <p>✓ Free shipping on orders over $150</p>
+                <p>✓ Free laboratory solvent kit with every order</p>
+                <p>✓ Real humans answering your emails</p>
+            </div>
+            <div class="about-section">
+                <h3>Part of the Community</h3>
+                <p>We're not just selling peptides — we're part of the research community. That's why we built <a href="https://peptideresourcecenter.com" target="_blank" style="color:#5B8DBE">Peptide Resource Center</a> as a free, independent resource for researchers to compare vendors, learn about compounds, and make informed decisions. No gatekeeping. No bias.</p>
+            </div>
+            <div class="about-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:support@prcpeptides.com" style="color:#5B8DBE">support@prcpeptides.com</a></p>
+                <p>Resources: <a href="https://peptideresourcecenter.com" target="_blank" style="color:#5B8DBE">Peptide Resource Center ↗</a></p>
             </div>
         </div>
     </div>
 
-    <!-- CTA Section -->
-    <div class="final-cta">
-        <h2>Ready to Experience Forensic-Grade Standards?</h2>
-        <p>Browse our catalog of Janoshik-verified research compounds.</p>
-        <a href="shop.html" class="btn btn-primary">Browse Catalog →</a>
-    </div>
-
-    <!-- FAQ -->
-    <div class="section" id="faq">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">Transparency extends to how we communicate.</p>
-        <div class="faq-list">
-            <div class="faq-item">
-                <button class="faq-question">What does "Janoshik-verified" mean? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Every Vantix batch is sent to Janoshik Analytical for independent third-party testing using HPLC-DAD (purity) and LC-MS/MS (identity). Janoshik is a globally recognized analytical laboratory specializing in peptide and pharmaceutical chromatography.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">How does the split-screen verification work? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Each compound receives dual chromatographic analysis. The Verification Portal displays both HPLC-DAD and LC-MS/MS reports side by side with forensic watermarking, providing a tamper-evident audit trail that cannot be fabricated or reused from another source.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What is a VX Bundle ID? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>A unique alphanumeric identifier assigned to every batch. Enter it in the Verification Portal to instantly retrieve the full analytical report, including purity percentage, identity confirmation, and the original Janoshik reference number.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Why dual-method testing instead of just HPLC? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>HPLC-DAD measures purity but cannot definitively confirm molecular identity. LC-MS/MS provides mass spectrometric confirmation of the exact compound. Together, they eliminate both contamination and substitution risks — the forensic standard for analytical verification.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">How is Vantix priced competitively with this level of testing? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Direct-source synthesis partnerships and batch-level testing economies allow us to absorb analytical costs without inflating retail pricing. We believe forensic verification should be standard, not a premium upsell.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Are these products for human consumption? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>No. All Vantix compounds are sold strictly for in vitro research purposes only. They are not intended for human or animal consumption, and are not approved by the FDA for therapeutic use.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What shipping methods are available? <span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>We offer standard USPS shipping (3-5 business days) and expedited options. All orders are shipped with discreet packaging and include the VX Bundle ID for immediate verification upon receipt.</p></div>
-            </div>
+    <!-- Why Vantix Bio Section -->
+    <section style="max-width:700px;margin:1rem auto 0;padding:0 1.5rem 1.5rem">
+        <h2 style="font-size:0.95rem;font-weight:800;color:#1A2B44;text-align:center;margin-bottom:1rem;letter-spacing:-0.3px">Why Researchers Choose Vantix Bio</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;font-size:0.75rem;background:#FFFFFF;box-shadow:0 4px 16px rgba(0,0,0,0.03)">
+            <div style="background:#F8FAFC;padding:10px 14px;font-weight:700;color:#64748B;border-bottom:1px solid #E2E8F0"></div>
+            <div style="background:#F8FAFC;padding:10px 14px;font-weight:800;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0">VANTIX BIO</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Purity Testing</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Double-verified: Manufacturer + Independent Lab</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">COA Transparency</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Available for every product</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Pricing</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Direct sourcing — no middleman markup</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Shipping</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Next business day, discreet packaging</div>
+            <div style="padding:10px 14px;color:#64748B;border-bottom:1px solid #E2E8F0">Every Order Includes</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-bottom:1px solid #E2E8F0;border-left:1px solid #E2E8F0;font-weight:600">Free laboratory solvent kit + analytical solvents</div>
+            <div style="padding:10px 14px;color:#64748B">Support</div>
+            <div style="padding:10px 14px;color:#1A2B44;border-left:1px solid #E2E8F0;font-weight:600">Real humans, same-day responses</div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer Trust Bar -->
-    <div class="footer-trust-bar">
-        <div class="trust-items">
-            <div class="trust-item">
-                <div class="trust-item-icon">
-                    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="28" cy="28" r="24" stroke="white" stroke-width="2" opacity="0.6"/>
-                        <path d="M20 28 L26 34 L36 24" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <h4>Independent Testing</h4>
-                <p>Third-party Janoshik analysis on every batch</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-item-icon">
-                    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="18" cy="28" r="6" stroke="white" stroke-width="2" opacity="0.6"/>
-                        <circle cx="38" cy="28" r="6" stroke="white" stroke-width="2" opacity="0.6"/>
-                        <line x1="24" y1="28" x2="32" y2="28" stroke="white" stroke-width="2"/>
-                    </svg>
-                </div>
-                <h4>Batch Traceability</h4>
-                <p>Unique Bundle IDs link to full COA data</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-item-icon">
-                    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M28 12 L40 20 L40 36 L28 44 L16 36 L16 20 Z" stroke="white" stroke-width="2" opacity="0.6"/>
-                        <path d="M22 28 L26 32 L34 24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <h4>Tamper-Evident Data</h4>
-                <p>Forensic watermarking prevents fraud</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-item-icon">
-                    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="28" cy="28" r="20" stroke="white" stroke-width="2" opacity="0.6"/>
-                        <line x1="28" y1="18" x2="28" y2="28" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="28" cy="34" r="1.5" fill="white"/>
-                    </svg>
-                </div>
-                <h4>Research Use Only</h4>
-                <p>Not for human or animal consumption</p>
+    <!-- Email Signup -->
+    <div style="background:#FFFFFF;padding:2.5rem 1.5rem;text-align:center;border-top:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0">
+        <div style="max-width:500px;margin:0 auto">
+            <div style="font-size:1.1rem;font-weight:800;color:#1A2B44;margin-bottom:0.35rem;letter-spacing:-0.3px">Get Restock Alerts + Exclusive Pricing</div>
+            <div style="font-size:0.78rem;color:#64748B;margin-bottom:1.25rem">Be first to know about new compounds and subscriber-only discounts. No spam — ever.</div>
+            <div style="display:flex;gap:10px;max-width:420px;margin:0 auto">
+                <input type="email" placeholder="Your email" style="flex:1;padding:12px 16px;border:1px solid #E2E8F0;border-radius:10px;font-size:0.88rem;font-family:inherit;outline:none;background:#F8FAFC">
+                <button style="background:#5B8DBE;color:#fff;border:none;padding:12px 24px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;box-shadow:0 2px 12px rgba(0,180,216,0.3);transition:all 0.2s">Sign Up</button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <div class="footer">
+    <footer>
         <div class="footer-content">
-            <div class="footer-top">
-                <div class="footer-col">
-                    <h5>About Vantix</h5>
-                    <p>Every peptide in our catalog is backed by independent Janoshik chromatography. Forensic-grade verification for serious research.</p>
-                </div>
-                <div class="footer-col">
-                    <h5>Verification</h5>
-                    <ul>
-                        <li><a href="verify.html">Verification Portal</a></li>
-                        <li><a href="the-matrix.html">Analytical Methods</a></li>
-                        <li><a href="#">Research Standards</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h5>Resources</h5>
-                    <ul>
-                        <li><a href="shop.html">Catalog</a></li>
-                        <li><a href="blog/">Research Blog</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#">Shipping Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h5>Support</h5>
-                    <ul>
-                        <li><a href="mailto:support@prcpeptides.com">Contact</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
+            <div class="footer-logo">VANTIX BIO</div>
+            <div style="font-size:0.75rem;color:#94A3B8;margin-bottom:1.5rem;font-weight:400">Research-grade compounds for in vitro use</div>
+            <div class="footer-links">
+                <a href="#shop">Shop</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+                <a href="blog/">Blog</a>
+                <a href="contact.html">Contact</a>
             </div>
-            <div class="footer-bottom">
-                <p><strong>FOR RESEARCH PURPOSES ONLY.</strong> Not for human or animal consumption.</p>
-                <p>© 2026 Vantix Bio LLC. All rights reserved.</p>
-            </div>
-        </div>
-    </div>
-
+            <div style="font-size:0.72rem;color:#94A3B8;margin-bottom:1rem">support@prcpeptides.com</div>
+            <div class="footer-disclaimer" style="background:#FEF2F2;padding:12px 14px;border-radius:10px;margin-bottom:16px;border:1px solid #FECACA">
+                <span class="research-only">FOR RESEARCH PURPOSES ONLY.</span> Vantix Bio LLC provides high-purity reagents strictly for in vitro laboratory research. Our products are not for human or veterinary use, nor are they intended to diagnose, treat, cure, or prevent any disease. By purchasing, the buyer acknowledges the hazards associated with the use of these chemicals and confirms they are a qualified researcher. Headquartered in Santa Cruz, CA.
+    
+    <!-- Product Data & Notification System - Load BEFORE main script -->
+    <script src="shop_products_data.js"></script>
+    <script src="notify_system.js"></script>
+    
     <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.parentElement;
-                const wasActive = item.classList.contains('active');
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                if (!wasActive) item.classList.add('active');
-            });
-        });
+        // Product Data (loaded from shop_products_data.js via external script above)
+        // VX_PRODUCTS contains phase1 (in stock), phase2 (coming soon), and stacks
+        
+        // Featured product SKUs for homepage
+        var featuredSKUs = [
+            'VX-SEMA-10',
+            'VX-TIRZ-30',
+            'VX-RETA-20',
+            'VX-BPC-5',
+            'VX-EPI-50'
+        ];
 
-        // Mobile dropdown handling
-        document.querySelectorAll('.nav-dropdown > a').forEach(dropdown => {
-            dropdown.addEventListener('click', (e) => {
-                if (window.innerWidth <= 968) {
+        // Category data with updated slugs
+        var categoryData = [
+            { id: 'all', name: 'All Products', count: 0 },
+            { id: 'glp1', name: 'GLP-1 Agonists', count: 4 },
+            { id: 'tissue-repair', name: 'Regenerative Research', count: 2 },
+            { id: 'growth-hormone', name: 'Growth Hormone', count: 2 },
+            { id: 'longevity', name: 'Longevity', count: 2 },
+            { id: 'cosmetic', name: 'Cosmetic', count: 1 },
+            { id: 'supplies', name: 'Supplies', count: 1 },
+            { id: 'cognitive', name: 'Cognitive', count: 0 },
+            { id: 'immune', name: 'Immune Support', count: 0 },
+            { id: 'metabolic', name: 'Metabolic', count: 0 }
+        ];
+
+        // Initialize
+        // Initialize
+        var currentCategory = 'all';
+        var modal = document.getElementById('productModal');
+        var modalClose = document.getElementById('modalClose');
+
+        // Render featured products
+        // Product name to URL slug mapping
+        var slugOverrides = {
+            'BPC-157/TB-500 10mg/10mg': 'bpc-157-tb-500',
+            'Semaglutide 10mg': 'semaglutide',
+            'rHGH 191aa 1500iu (Somatropin)': 'hgh-fragment-191',
+            'Laennec 2ml x 50 Ampules': 'laennec',
+            'Glutathione 1200mg (Korea) x10 Vials': 'glutathione-korean',
+            'Vitamin C 10mg/20ml': 'vitamin-c-iv',
+            'Thioctic Acid (ALA) 25mg/5ml': 'thioctic-acid',
+            'CJC-1295 No DAC (Mod GRF 1-29)': 'cjc-1295',
+            'CJC-1295/Ipamorelin Blend': 'cjc-ipamorelin',
+            'SS-31 (Elamipretide)': 'ss-31',
+            'PT-141 (Bremelanotide)': 'pt-141',
+            'Cagrilintide 5mg': 'cagrilintide',
+            'KPV 10mg': 'kpv',
+            'GHK-Cu (Copper Peptide) 100mg': 'ghk-cu',
+            'LL-37 5mg': 'll-37',
+            'Thymalin 10mg': 'thymalin',
+            'Sermorelin 5mg': 'sermorelin',
+            'Ipamorelin 5mg': 'ipamorelin',
+            'AOD-9604 2mg': 'aod-9604',
+            'MOTS-c 10mg': 'mots-c',
+            '5-Amino-1MQ 5mg': '5-amino-1mq',
+            'Lipo-C MAX Blend': 'lipo-c-max',
+            'L-Carnitine 600mg': 'l-carnitine',
+            'Cerebrolysin 60mg': 'cerebrolysin',
+            'Semax 5mg': 'semax',
+            'DSIP 5mg': 'dsip',
+            'FOXO4-DRI (Proxofim) 10mg': 'foxo4-dri',
+            'Epithalon (Epitalon) 50mg': 'epithalon',
+            'PE 22-28 10mg': 'pe-22-28',
+            'Dermorphin 5mg': 'dermorphin',
+            'ARA-290 (Cibinetide) 10mg': 'ara-290'
+        };
+        function getProductSlug(name) {
+            if (slugOverrides[name]) return slugOverrides[name];
+            return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+
+        function renderFeaturedProducts() {
+            var container = document.getElementById('featuredProducts');
+            container.innerHTML = '';
+            
+            featuredProductNames.forEach(function(name) {
+                var product = products.find(function(p) { return p.name === name; });
+                if (!product) return;
+                
+                var card = document.createElement('div');
+                card.className = 'featured-card';
+                
+                var categoryClass = 'category-' + product.category;
+                var categoryName = getCategoryName(product.category);
+                
+                var slug = getProductSlug(product.name);
+                
+                var productImage = product.name.toLowerCase().includes('tirzepatide') ? 
+                    '<img src="vial-tirzepatide.jpg" alt="' + product.name + '" style="width:100%;height:180px;object-fit:contain;margin-bottom:12px;border-radius:8px;">' : 
+                    '';
+                
+                card.innerHTML = 
+                    '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
+                    productImage +
+                    '<div class="product-name">' + product.name + '</div>' +
+                    '<div class="product-price">$' + product.price + '</div>';
+                
+                card.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const parent = dropdown.parentElement;
-                    parent.classList.toggle('open');
+                    window.location.href = 'products/' + slug + '.html';
+                });
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Render category cards
+        function renderCategories() {
+            var container = document.getElementById('categoryGrid');
+            container.innerHTML = '';
+            
+            categoryData.forEach(function(cat) {
+                var card = document.createElement('div');
+                card.className = 'category-card cat-' + cat.id;
+                card.innerHTML = 
+                    '<div class="category-card-name">' + cat.name + '</div>' +
+                    '<div class="category-card-count">' + cat.count + ' products</div>';
+                
+                card.addEventListener('click', function() {
+                    var filterButtons = document.querySelectorAll('.filter-pill');
+                    filterButtons.forEach(function(btn) {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-category') === cat.id) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    currentCategory = cat.id;
+                    renderProducts(cat.id);
+                    document.querySelector('.catalog-section').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Render Research Stacks
+        function renderStacks() {
+            var grid = document.getElementById('stacksGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            VX_PRODUCTS.stacks.forEach(function(stack) {
+                var card = document.createElement('div');
+                card.className = 'stack-card';
+                
+                // Get product names from SKUs
+                var productNames = stack.products.map(function(sku) {
+                    var product = getProductBySKU(sku);
+                    return product ? product.shortName + ' ' + (product.dosage || product.volume || '') : '';
+                });
+                
+                // Badge
+                var badge = stack.comingSoon 
+                    ? '<div class="stack-badge coming-soon">Coming Soon</div>'
+                    : '<div class="stack-badge">Save $' + stack.savings + '</div>';
+                
+                // Products list
+                var productsList = productNames.map(function(name) {
+                    return '<div class="stack-product-item">' + name + '</div>';
+                }).join('');
+                
+                // Button
+                var button = stack.comingSoon
+                    ? '<button class="btn-add-stack coming-soon" disabled>Coming Soon</button>'
+                    : '<button class="btn-add-stack" onclick="addStackToCart(\'' + stack.id + '\'); event.stopPropagation();">' +
+                      '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                      '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>' +
+                      '</svg>' +
+                      'Add Stack to Cart' +
+                      '</button>';
+                
+                card.innerHTML = 
+                    badge +
+                    '<h3>' + stack.name + '</h3>' +
+                    '<div class="stack-description">' + stack.description + '</div>' +
+                    '<div class="stack-products">' +
+                    '<div class="stack-products-title">Includes</div>' +
+                    productsList +
+                    '</div>' +
+                    '<div class="stack-pricing">' +
+                    '<div class="stack-price-main">$' + stack.stackPrice + '</div>' +
+                    '<div class="stack-price-regular">$' + stack.regularPrice + '</div>' +
+                    '<div class="stack-savings">' + Math.round(stack.discount) + '% off</div>' +
+                    '</div>' +
+                    button;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Add stack to cart
+        function addStackToCart(stackId) {
+            var stack = getStackById(stackId);
+            if (!stack) return;
+            
+            // Add each product in the stack to cart
+            stack.products.forEach(function(sku) {
+                var product = getProductBySKU(sku);
+                if (product && product.inStock !== false) {
+                    var button = document.createElement('button');
+                    button.setAttribute('data-name', product.name);
+                    button.setAttribute('data-price', product.price);
+                    button.setAttribute('data-sku', product.sku);
+                    button.setAttribute('data-category', product.category);
+                    addToCart(button);
                 }
             });
+            
+            // Show toast
+            showToast('Stack added to cart!');
+        }
+
+        // Get category color for molecular visuals
+        function getCategoryColor(category) {
+            var colors = {
+                'glp1': '#3B82F6',
+                'tissue': '#10B981',
+                'gh': '#F59E0B',
+                'metabolic': '#EF4444',
+                'antioxidant': '#8B5CF6',
+                'neuro': '#06B6D4',
+                'longevity': '#F59E0B',
+                'melanocortin': '#EC4899',
+                'cosmetic': '#A855F7'
+            };
+            return colors[category] || '#64748B';
+        }
+
+        // Render products
+        function renderProducts(category) {
+            var grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            // Combine Phase 1 and Phase 2 products
+            var allProducts = VX_PRODUCTS.phase1.concat(VX_PRODUCTS.phase2);
+            
+            // Normalize category for comparison (trim whitespace, lowercase)
+            var normalizedCategory = (category || 'all').toString().trim().toLowerCase();
+            
+            // Filter by category - "all" shows EVERY product without filtering
+            var filtered;
+            if (normalizedCategory === 'all') {
+                // Show ALL products - no filtering
+                filtered = allProducts;
+            } else {
+                // Filter to specific category
+                filtered = allProducts.filter(function(p) {
+                    return p.category && p.category.toLowerCase() === normalizedCategory;
+                });
+            }
+
+            // Update catalog count
+            var countEl = document.getElementById('catalogCount');
+            if (countEl) {
+                countEl.textContent = filtered.length + (filtered.length === 1 ? ' product' : ' products');
+            }
+
+            filtered.forEach(function(product) {
+                var card = document.createElement('div');
+                var isPhase2 = product.comingSoon === true;
+                card.className = 'product-card' + (isPhase2 ? ' coming-soon' : '');
+                card.setAttribute('data-sku', product.sku);
+                card.setAttribute('data-category', product.category);
+                
+                var categoryClass = 'category-' + product.category;
+                var categoryName = getCategoryName(product.category);
+                
+                // Badge logic
+                var badge = '';
+                var popularBadge = '';
+                
+                // Popular badge for best sellers
+                var popularProducts = ['VX-SEMA-10', 'VX-TIRZ-30'];
+                if (popularProducts.indexOf(product.sku) !== -1) {
+                    popularBadge = '<div style="position:absolute;top:10px;left:10px;background:#EF4444;color:#FFFFFF;padding:4px 10px;border-radius:6px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;box-shadow:0 2px 8px rgba(239,68,68,0.3)">POPULAR</div>';
+                }
+                
+                if (isPhase2) {
+                    // Phase 2: Coming Soon badge
+                    badge = '<div class="coming-soon-badge">' +
+                           '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">' +
+                           '<circle cx="12" cy="12" r="10"/>' +
+                           '<polyline points="12 6 12 12 16 14"/>' +
+                           '</svg>' +
+                           '<span>Coming Soon</span>' +
+                           '</div>';
+                } else if (product.dualTested) {
+                    // Phase 1: Dual Tested badge (only if dualTested === true)
+                    badge = '<div class="dual-tested-badge">' +
+                           '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">' +
+                           '<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>' +
+                           '</svg>' +
+                           '<span>Dual Tested</span>' +
+                           '</div>';
+                }
+                
+                // Product specs (dosage or volume + purity/type)
+                var specs = '';
+                if (product.dosage) {
+                    specs += '<span class="dosage">' + product.dosage.replace(/(\d+)(mg|g)/i, '$1 $2') + '</span>';
+                }
+                if (product.volume) {
+                    specs += '<span class="dosage">' + product.volume.replace(/(\d+)(ml)/i, '$1 $2') + '</span>';
+                }
+                if (product.purity) {
+                    specs += '<span class="purity"> • ' + product.purity + ' purity</span>';
+                }
+                if (product.type) {
+                    specs += '<span class="type"> • ' + product.type + '</span>';
+                }
+                
+                // Add Janoshik COA link for Phase 1 products (not supplies)
+                var coaLink = '';
+                if (!isPhase2 && product.category !== 'supplies') {
+                    var slug = product.slug || 'semaglutide';
+                    coaLink = '<a href="verify.html?product=' + slug + '#latest" class="coa-link" onclick="event.stopPropagation();">View COA →</a>';
+                }
+                
+                // Price display
+                var priceClass = isPhase2 ? 'product-price coming-soon-price' : 'product-price';
+                var pricePrefix = isPhase2 ? '~$' : '$';
+                
+                // Button
+                var button = '';
+                if (isPhase2) {
+                    // Phase 2: Notify Me button
+                    button = '<button class="btn-notify" ' +
+                            'data-product="' + product.name.replace(/"/g, '&quot;') + '" ' +
+                            'data-sku="' + product.sku + '" ' +
+                            'data-category="' + product.category + '" ' +
+                            'onclick="NotifySystem.openModal(this.dataset.product, this.dataset.sku, this.dataset.category); event.stopPropagation();">' +
+                            '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>' +
+                            '</svg>' +
+                            'Notify Me' +
+                            '</button>';
+                } else if (product.inStock === false) {
+                    // Out of Stock
+                    button = '<button class="btn-add-cart" style="background:#E2E8F0;color:#94A3B8;cursor:not-allowed" disabled>' +
+                            'Out of Stock' +
+                            '</button>';
+                } else {
+                    // Phase 1: Add to Cart button
+                    button = '<button class="btn-add-cart" ' +
+                            'data-name="' + product.name.replace(/"/g, '&quot;') + '" ' +
+                            'data-price="' + product.price + '" ' +
+                            'data-sku="' + product.sku + '" ' +
+                            'data-category="' + product.category + '" ' +
+                            'onclick="addToCart(this); event.stopPropagation();">' +
+                            '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>' +
+                            '</svg>' +
+                            'Add to Cart' +
+                            '</button>';
+                }
+                
+                // View Details link (only for Phase 1)
+                var detailsLink = '';
+                if (!isPhase2 && product.url) {
+                    detailsLink = '<a href="' + product.url + '" class="product-link">View Details →</a>';
+                }
+                
+                // Image styling (grayed for Phase 2)
+                var imageStyle = isPhase2 ? 'opacity: 0.6;' : '';
+                
+                // Default placeholder for missing images
+                var placeholderSVG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23F1F5F9" width="200" height="280"/%3E%3Cg transform="translate(100,140)"%3E%3Crect x="-30" y="-60" width="60" height="100" rx="8" fill="%23E2E8F0" stroke="%2394A3B8" stroke-width="2"/%3E%3Crect x="-25" y="-55" width="50" height="20" rx="4" fill="%23CBD5E1"/%3E%3Ctext x="0" y="80" text-anchor="middle" font-family="system-ui" font-size="14" fill="%2364748B" font-weight="600"%3EVANTIX BIO%3C/text%3E%3C/g%3E%3C/svg%3E';
+                
+                card.innerHTML = 
+                    badge +
+                    popularBadge +
+                    '<svg class="product-visual" viewBox="0 0 120 120" style="' + imageStyle + '">' +
+                        '<defs>' +
+                            '<linearGradient id="grad-' + product.sku + '" x1="0%" y1="0%" x2="100%" y2="100%">' +
+                                '<stop offset="0%" style="stop-color:' + getCategoryColor(product.category) + ';stop-opacity:0.08"/>' +
+                                '<stop offset="100%" style="stop-color:' + getCategoryColor(product.category) + ';stop-opacity:0.02"/>' +
+                            '</linearGradient>' +
+                        '</defs>' +
+                        '<rect width="120" height="120" fill="url(#grad-' + product.sku + ')"/>' +
+                        '<g transform="translate(30,30)" stroke="' + getCategoryColor(product.category) + '" stroke-width="1.5" fill="none" opacity="0.4">' +
+                            '<circle cx="15" cy="15" r="8"/>' +
+                            '<circle cx="45" cy="15" r="8"/>' +
+                            '<circle cx="30" cy="30" r="10"/>' +
+                            '<circle cx="15" cy="45" r="8"/>' +
+                            '<circle cx="45" cy="45" r="8"/>' +
+                            '<line x1="23" y1="15" x2="37" y2="15"/>' +
+                            '<line x1="20" y1="22" x2="25" y2="25"/>' +
+                            '<line x1="35" y1="25" x2="40" y2="22"/>' +
+                            '<line x1="25" y1="35" x2="20" y2="38"/>' +
+                            '<line x1="35" y1="35" x2="40" y2="38"/>' +
+                        '</g>' +
+                    '</svg>' +
+                    '<div class="product-info">' +
+                    '<div class="category-tags-row">' +
+                    '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
+                    (!isPhase2 && product.category !== 'supplies' ? '<span class="dual-tested-tag">✓ DUAL</span>' : '') +
+                    '</div>' +
+                    '<h3>' + product.shortName + '</h3>' +
+                    '<div class="product-specs">' + specs + '</div>' +
+                    (coaLink ? '<div class="coa-link-wrapper">' + coaLink + '</div>' : '') +
+                    '<div class="' + priceClass + '">' +
+                    '<span class="price-main">' + pricePrefix + product.price + '</span>' +
+                    '<span class="price-unit">/ vial</span>' +
+                    '</div>' +
+                    button +
+                    detailsLink +
+                    '</div>';
+                
+                // Click handler for Phase 1 (go to product page)
+                if (!isPhase2 && product.url) {
+                    card.style.cursor = 'pointer';
+                    card.addEventListener('click', function(e) {
+                        // Don't navigate if clicking button
+                        if (e.target.closest('button')) return;
+                        window.location.href = product.url;
+                    });
+                }
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Get category display name
+        function getCategoryName(cat) {
+            var names = {
+                'glp1': 'GLP-1 Agonist',
+                'tissue-repair': 'Tissue',
+                'growth-hormone': 'Growth Hormone',
+                'longevity': 'Longevity',
+                'cosmetic': 'Cosmetic',
+                'supplies': 'Supplies',
+                'cognitive': 'Cognitive',
+                'immune': 'Immune Support',
+                'metabolic': 'Metabolic'
+            };
+            return names[cat] || cat;
+        }
+
+        // Show modal
+        function showModal(product) {
+            var categoryClass = 'category-' + product.category;
+            var categoryName = getCategoryName(product.category);
+            
+            var coaLine = product.coa ? '<div style="margin-top:0.5rem;font-size:0.8rem;color:#059669;font-weight:600">✓ Certificate of Analysis — <a href="mailto:support@prcpeptides.com?subject=COA Request: ' + encodeURIComponent(product.name) + '" style="color:#059669;text-decoration:underline">View Matrix Verification</a></div>' : '';
+            
+            var header = '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
+                        '<h2 class="modal-title">' + product.name + '</h2>' +
+                        '<div style="font-size:1.5rem;font-weight:800;color:#1A2B44;margin-top:0.25rem">$' + product.price + '</div>' +
+                        coaLine;
+            
+            var body = '<p>' + product.fullDesc + '</p>';
+            
+            if (product.applications) {
+                body += '<h3>Research Applications</h3>' +
+                       '<p>' + product.applications + '</p>';
+            }
+            
+            var storageText = 'Store lyophilized (freeze-dried) peptide at -20°C for long-term storage. Once reconstituted, store at 2-8°C (refrigerated) and use within 30 days. Avoid repeated freeze-thaw cycles. Keep away from direct light.';
+            if (product.name === '5-Amino-1MQ 5mg') {
+                storageText = 'Store in a cool, dry place at room temperature (15-25°C). Keep away from direct light and moisture. Keep container tightly sealed.';
+            } else if (product.category === 'antioxidants' || product.name.indexOf('Lipo-C') !== -1 || product.name.indexOf('Amino Acid Blend') !== -1 || product.name.indexOf('L-Carnitine') !== -1 || product.name.indexOf('Vitamin C') !== -1 || product.name.indexOf('Thioctic') !== -1) {
+                storageText = 'Store at 2-8°C (refrigerated). Keep away from direct light. Do not freeze unless specified. Use within recommended timeframe once opened.';
+            }
+            body += '<h3>Storage</h3><p>' + storageText + '</p>';
+            
+            body += '<p><strong>For research purposes only.</strong> Not for human consumption.</p>';
+            if (product.inStock === false) {
+                body += '<button class="contact-button" style="background:#E2E8F0;color:#94A3B8;cursor:not-allowed" disabled>Out of Stock</button>';
+            } else {
+                body += '<button class="contact-button" onclick="addToCart(\'' + product.name.replace(/'/g, "\\'") + '\',' + product.price + ');closeModal();">Add to Cart</button>';
+            }
+            
+            document.getElementById('modalHeader').innerHTML = header;
+            document.getElementById('modalBody').innerHTML = body;
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
         });
 
-        // Mobile menu toggle
+        // Filter functionality
+        var filterButtons = document.querySelectorAll('.filter-pill');
+        filterButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                filterButtons.forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+                currentCategory = this.getAttribute('data-category');
+                renderProducts(currentCategory);
+            });
+        });
+
+        // Mobile menu
         function toggleMobileMenu() {
             document.getElementById('mobileMenu').classList.toggle('active');
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
+
+        // Search
+        function toggleSearch() {
+            var overlay = document.getElementById('searchOverlay');
+            overlay.classList.toggle('active');
+            if (overlay.classList.contains('active')) {
+                document.getElementById('searchInput').focus();
+            } else {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('searchResults').innerHTML = '';
+            }
+        }
+
+        function doSearch(query) {
+            var results = document.getElementById('searchResults');
+            if (!query || query.length < 2) { results.innerHTML = ''; return; }
+            query = query.toLowerCase();
+            var matches = products.filter(function(p) {
+                return p.name.toLowerCase().indexOf(query) !== -1 || p.shortDesc.toLowerCase().indexOf(query) !== -1 || p.category.toLowerCase().indexOf(query) !== -1;
+            });
+            if (matches.length === 0) {
+                results.innerHTML = '<div style="padding:12px;color:#94A3B8;font-size:0.85rem">No products found</div>';
+                return;
+            }
+            results.innerHTML = matches.map(function(p) {
+                return '<div class="search-result-item" onclick="toggleSearch();showModal(products[' + products.indexOf(p) + '])"><div class="sr-name">' + p.name + '</div><div class="sr-cat">' + getCategoryName(p.category) + '</div></div>';
+            }).join('');
+        }
+
+        // Page overlays
+        function openPage(page) {
+            document.getElementById(page + 'Page').classList.add('active');
+        }
+
+        function closePage(page) {
+            document.getElementById(page + 'Page').classList.remove('active');
+        }
+
+        // Dropdown nav filter
+        function filterCat(name) {
+            var cat = catMap[name] || 'all';
+            filterButtons.forEach(function(b) { b.classList.remove('active'); if(b.getAttribute('data-category')===cat) b.classList.add('active'); });
+            currentCategory = cat;
+            renderProducts(cat);
+            var el = document.querySelector('.catalog-section');
+            if(el) el.scrollIntoView({behavior:'smooth'});
+            // close dropdown
+            var dd = document.querySelector('.nav-dropdown');
+            if(dd) dd.classList.remove('open');
+        }
+
+        // Close dropdown when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            var dd = document.querySelector('.nav-dropdown');
+            if(dd && !dd.contains(e.target)) dd.classList.remove('open');
+        });
+
+        // Header scroll shadow & sticky cart button
+        var headerEl = document.querySelector('header');
+        var stickyCartBtn = document.getElementById('stickyCartBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 10) {
+                headerEl.classList.add('scrolled');
+            } else {
+                headerEl.classList.remove('scrolled');
+            }
+            
+            // Show sticky cart button after scrolling down 300px
+            if (stickyCartBtn) {
+                if (window.scrollY > 300 && shopCart.length > 0) {
+                    stickyCartBtn.classList.add('visible');
+                } else {
+                    stickyCartBtn.classList.remove('visible');
+                }
+            }
+        });
+
+        // ======= CART SYSTEM =======
+        var shopCart = JSON.parse(localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || '[]');
+
+        function addToCart(button) {
+            var name = button.getAttribute('data-name');
+            var price = parseFloat(button.getAttribute('data-price'));
+            var sku = button.getAttribute('data-sku');
+            
+            var found = false;
+            for (var i = 0; i < shopCart.length; i++) {
+                if (shopCart[i].name === name) {
+                    shopCart[i].quantity += 1;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                shopCart.push({ name: name, price: price, sku: sku, quantity: 1 });
+            }
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
+            updateCartBadge();
+            renderCartDrawer();
+            showToast(name + ' added to cart');
+        }
+
+        function updateCartQty(index, change) {
+            shopCart[index].quantity += change;
+            if (shopCart[index].quantity < 1) shopCart.splice(index, 1);
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
+            updateCartBadge();
+            renderCartDrawer();
+        }
+
+        function removeCartItem(index) {
+            shopCart.splice(index, 1);
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
+            updateCartBadge();
+            renderCartDrawer();
+        }
+
+        function updateCartBadge() {
+            var total = 0;
+            for (var i = 0; i < shopCart.length; i++) total += shopCart[i].quantity;
+            var badge = document.querySelector('.cart-badge');
+            if (badge) {
+                badge.textContent = total;
+                badge.style.display = total > 0 ? 'flex' : 'none';
+            }
+            
+            // Update sticky cart button count
+            var stickyCount = document.getElementById('stickyCartCount');
+            if (stickyCount) {
+                stickyCount.textContent = total;
+            }
+        }
+
+        function getCartSubtotal() {
+            var t = 0;
+            for (var i = 0; i < shopCart.length; i++) t += shopCart[i].price * shopCart[i].quantity;
+            return t;
+        }
+
+        // Check if cart items match any kit
+        function getKitSuggestion() {
+            if (!VX_PRODUCTS.kits) return null;
+            var cartSkus = shopCart.map(function(item) { return item.sku; });
+            
+            for (var i = 0; i < VX_PRODUCTS.kits.length; i++) {
+                var kit = VX_PRODUCTS.kits[i];
+                var allItemsInCart = kit.products.every(function(sku) {
+                    return cartSkus.includes(sku);
+                });
+                if (allItemsInCart) {
+                    return kit;
+                }
+            }
+            return null;
+        }
+        
+        function renderCartDrawer() {
+            var items = document.getElementById('cartDrawerItems');
+            var footer = document.getElementById('cartDrawerFooter');
+            if (!items) return;
+
+            if (shopCart.length === 0) {
+                items.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+                footer.style.display = 'none';
+                return;
+            }
+            footer.style.display = 'block';
+
+            var html = '';
+            
+            // Check for kit suggestion
+            var suggestedKit = getKitSuggestion();
+            if (suggestedKit) {
+                html += '<div style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:8px;padding:12px;margin-bottom:12px">';
+                html += '<div style="font-size:0.8rem;font-weight:700;color:#1E40AF;margin-bottom:4px">💡 Kit Available</div>';
+                html += '<div style="font-size:0.72rem;color:#475569;margin-bottom:8px">These items are available as a kit — Save $' + suggestedKit.savings + '</div>';
+                html += '<a href="kits.html" style="display:inline-block;font-size:0.75rem;font-weight:700;color:#2563EB;text-decoration:none;padding:6px 12px;background:#fff;border-radius:6px;border:1px solid #2563EB">View Kit →</a>';
+                html += '</div>';
+            }
+            
+            for (var i = 0; i < shopCart.length; i++) {
+                var item = shopCart[i];
+                html += '<div class="cart-drawer-item">';
+                html += '<div class="cdi-info"><div class="cdi-name">' + item.name + '</div>';
+                html += '<div class="cdi-price">$' + item.price.toFixed(2) + '</div></div>';
+                html += '<div class="cdi-qty">';
+                html += '<button class="cdi-qty-btn" onclick="updateCartQty(' + i + ',-1)">-</button>';
+                html += '<span class="cdi-qty-num">' + item.quantity + '</span>';
+                html += '<button class="cdi-qty-btn" onclick="updateCartQty(' + i + ',1)">+</button>';
+                html += '<button class="cdi-remove" onclick="removeCartItem(' + i + ')">✕</button>';
+                html += '</div></div>';
+            }
+            items.innerHTML = html;
+            document.getElementById('cartDrawerTotal').textContent = '$' + getCartSubtotal().toFixed(2);
+        }
+
+        function openCartDrawer() {
+            renderCartDrawer();
+            document.getElementById('cartOverlay').classList.add('active');
+            document.getElementById('cartDrawer').classList.add('active');
+        }
+
+        function closeCartDrawer() {
+            document.getElementById('cartOverlay').classList.remove('active');
+            document.getElementById('cartDrawer').classList.remove('active');
+        }
+
+        function goToCheckout() {
+            if (shopCart.length === 0) return;
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
+            window.location.href = 'checkout.html';
+        }
+
+        function showToast(msg) {
+            var toast = document.getElementById('cartToast');
+            if (!toast) return;
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 1800);
+        }
+
+        // Wire cart icon
+        var cartBtn = document.querySelector('.nav-icon[title="Cart"]');
+        if (cartBtn) {
+            cartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openCartDrawer();
+            });
+        }
+
+        // Initial render
+        // bestsellers removed
+        renderProducts('all');
+        updateCartBadge();
+    </script>
+
+    <!-- Cart Drawer -->
+    <div id="cartOverlay" class="cart-overlay" onclick="closeCartDrawer()"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" onclick="closeCartDrawer()">✕</button>
+        </div>
+        <div id="cartDrawerItems" class="cart-drawer-items"></div>
+        <div id="cartDrawerFooter" class="cart-drawer-footer" style="display:none">
+            <div class="cart-drawer-total">
+                <span>Subtotal</span>
+                <span id="cartDrawerTotal">$0.00</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="goToCheckout()">Checkout</button>
+        </div>
+    </div>
+    <div id="cartToast" class="cart-added-toast"></div>
+    
+    <!-- Sticky Cart Button (Mobile) -->
+    <div id="stickyCartBtn" class="sticky-cart-btn" onclick="openCartDrawer()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        Cart
+        <span class="cart-count" id="stickyCartCount">0</span>
+    </div>
+    
+    <div id="tosModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:10000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+        <div style="background:#FFFFFF;border-radius:14px;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;padding:28px;box-shadow:0 12px 40px rgba(0,0,0,0.12)">
+            <h2 style="font-size:18px;margin-bottom:16px">Terms of Service</h2>
+            <div style="font-size:12.5px;line-height:1.7;color:#475569">
+                <p><strong>Vantix Bio LLC — Terms of Service</strong><br>Last updated: March 4, 2026</p>
+
+                <p><strong>1. Research Use Only.</strong> ALL PRODUCTS SOLD BY PRC LABS LLC ARE INTENDED EXCLUSIVELY FOR IN VITRO LABORATORY AND RESEARCH PURPOSES. THEY ARE NOT FOR HUMAN OR ANIMAL CONSUMPTION, UNDER ANY CIRCUMSTANCE, IN ANY FORM, UNDER ANY CONDITION. Products are not drugs, supplements, medical treatments, or therapeutic compounds and are not approved by the FDA or any regulatory agency.</p>
+
+                <p><strong>2. Not a Compounding Pharmacy.</strong> Vantix Bio LLC is not a compounding pharmacy under Section 503A nor an outsourcing facility under Section 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+
+                <p><strong>3. No Medical Claims.</strong> All information on this site is for educational and informational purposes only. Nothing constitutes medical advice, claims of safety or efficacy, instructions for therapeutic use, or guidance for clinical practice. These products have not been evaluated by the US Food and Drug Administration and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+
+                <p><strong>4. Age &amp; Qualification.</strong> You must be 18 years or older to place an order. By purchasing, you represent that you are a licensed or qualified professional, or conducting research in an appropriate setting, and have conducted your own due diligence regarding intended use, safety hazards, and all applicable legal and regulatory considerations in your jurisdiction.</p>
+
+                <p><strong>5. Customer Warranty.</strong> By placing an order, you warrant that products will be used solely for research purposes, will not be adulterated, misbranded, or introduced into interstate commerce in violation of Sections 404, 505, or 512 of the Federal Food, Drug, and Cosmetic Act, and will not be resold or redistributed outside of research channels.</p>
+
+                <p><strong>6. Refund Policy.</strong> Due to the sensitive nature of research materials, all sales are final. No returns, refunds, or exchanges. Damaged or incorrect orders will be replaced at no charge — contact support@prcpeptides.com within 48 hours of delivery.</p>
+
+                <p><strong>7. Shipping.</strong> Orders ship within 1 business day. Risk of loss transfers to the customer once the order is tendered to the carrier. Vantix Bio LLC is not responsible for delays, loss, or damage caused by carriers, customs, weather, or incorrect shipping addresses provided by the customer.</p>
+
+                <p><strong>8. Limitation of Liability.</strong> Products are provided "as is" and "as available." Vantix Bio LLC disclaims all warranties, express or implied, including merchantability, fitness for a particular purpose, and non-infringement. In no event shall Vantix Bio LLC be liable for any direct, indirect, incidental, special, punitive, or consequential damages arising from the use or misuse of products.</p>
+
+                <p><strong>9. Indemnification.</strong> You agree to indemnify, defend, and hold harmless Vantix Bio LLC, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including attorney fees) arising from your use or misuse of products, violation of these terms, or breach of any applicable law.</p>
+
+                <p><strong>10. Right to Refuse Service.</strong> Vantix Bio LLC reserves the right to refuse, cancel, or limit any order for any reason, including verification of identity or proof of research intent.</p>
+
+                <p><strong>11. Intellectual Property.</strong> All content, logos, trademarks, and images on this site are the property of Vantix Bio LLC. No copying, distribution, modification, or commercial use is permitted without written permission.</p>
+
+                <p><strong>12. Governing Law.</strong> These terms are governed by the laws of the State of California, without regard to conflict of law principles. Any disputes shall be resolved through binding arbitration in California.</p>
+
+                <p><strong>13. Force Majeure.</strong> Vantix Bio LLC shall not be liable for failure to perform due to causes beyond reasonable control, including natural disasters, government actions, supply chain disruptions, carrier delays, or internet outages.</p>
+
+                <p><strong>14. Severability.</strong> If any provision is found unenforceable, the remaining provisions remain in full effect.</p>
+
+                <p><strong>15. Modifications.</strong> Vantix Bio LLC may update these terms at any time. Continued use of the site constitutes acceptance of the updated terms.</p>
+
+                <p><strong>16. Entire Agreement.</strong> These Terms of Service and our Privacy Policy constitute the entire agreement between you and Vantix Bio LLC.</p>
+            </div>
+            <button onclick="document.getElementById('tosModal').style.display='none'" style="margin-top:16px;width:100%;padding:12px;background:#5B8DBE;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile dropdown handling
+        document.querySelectorAll('.nav-dropdown > a').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dropdown = trigger.parentElement;
+                const wasOpen = dropdown.classList.contains('open');
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                if (!wasOpen) dropdown.classList.add('open');
+            });
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+            }
+        });
     </script>
 </body>
 </html>
