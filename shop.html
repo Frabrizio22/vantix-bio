@@ -2332,8 +2332,13 @@ h1 {
                 
                 var slug = getProductSlug(product.name);
                 
+                var productImage = product.name.toLowerCase().includes('tirzepatide') ? 
+                    '<img src="vial-tirzepatide.jpg" alt="' + product.name + '" style="width:100%;height:180px;object-fit:contain;margin-bottom:12px;border-radius:8px;">' : 
+                    '';
+                
                 card.innerHTML = 
                     '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
+                    productImage +
                     '<div class="product-name">' + product.name + '</div>' +
                     '<div class="product-price">$' + product.price + '</div>';
                 
