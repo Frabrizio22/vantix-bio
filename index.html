@@ -1514,11 +1514,17 @@
 
 @media (max-width: 480px) {
     .product-grid { 
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px; 
-        padding: 0 14px; 
+        grid-template-columns: 1fr !important;
+        gap: 12px; 
+        padding: 0 16px; 
     }
-    .product-card { padding: 14px; }
+    .product-card { padding: 16px; }
+    .product-info h3 { font-size: 1.1rem; }
+    .price-main { font-size: 1.75rem; }
+    .btn-add-cart, .btn-notify {
+        font-size: 15px;
+        height: 44px;
+    }
 }
 
 @media (max-width: 900px) {
@@ -1528,10 +1534,18 @@
 }
 
 @media (max-width: 375px) {
-    .product-grid { gap: 10px; padding: 0 12px; }
-    .product-card { padding: 10px; }
-    .product-info h3 { font-size: 0.95rem; }
-    .price-main { font-size: 1.4rem; }
+    .product-grid { 
+        grid-template-columns: 1fr !important;
+        gap: 10px; 
+        padding: 0 12px; 
+    }
+    .product-card { padding: 12px; }
+    .product-info h3 { font-size: 1rem; }
+    .price-main { font-size: 1.6rem; }
+    .btn-add-cart, .btn-notify {
+        font-size: 14px;
+        height: 42px;
+    }
 }
 
 /* Premium Boutique Enhancements */
