@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJYBCQRL9"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WRJYBCQRL9');</script>
@@ -700,14 +702,6 @@
 
         .product-card:hover .coa-badge {
             box-shadow: 0 0 8px rgba(0,180,216,0.3);
-        }
-
-        .product-visual {
-            width: 100%;
-            height: auto;
-            max-width: 120px;
-            margin: 0 auto 12px;
-            display: block;
         }
 
         .product-category {
@@ -1415,12 +1409,12 @@
             .logo img { height: 46px !important; }
         }
 
-        @media (min-width: 900px) {
+        @media (min-width: 1200px) {
             .category-grid {
                 grid-template-columns: repeat(5, 1fr);
             }
             .product-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
+                grid-template-columns: repeat(3, 1fr);
                 gap: 20px;
             }
             .product-card {
@@ -1508,18 +1502,33 @@
     }
     
     /* Filter Pills - BIGGER */
-    .filter-pills { gap: 10px; }
-    .filter-pill { font-size: 15px; padding: 10px 16px; min-height: 40px; }
+    .filter-pills { gap: 10px; padding-bottom: 10px; }
+    .filter-pill { 
+        font-size: 15px !important; 
+        padding: 10px 16px !important;
+        font-weight: 700;
+        min-height: 40px;
+    }
+    
+    /* Mobile-optimized compact banner */
+    #shopContent > div:nth-of-type(2) {
+        padding: 8px 14px !important;
+        margin: 0.5rem 0 0.5rem !important;
+    }
     
     /* Product Grid - FORCE 2 COLUMNS, BIGGER EVERYTHING */
     .product-grid { 
         grid-template-columns: repeat(2, 1fr) !important; 
-        gap: 14px; 
-        padding: 0 14px; 
+        gap: 14px !important; 
+        padding: 0 14px !important; 
     }
     .product-card { 
-        padding: 18px; 
-        min-height: 420px;
+        padding: 18px !important; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
+        min-height: 420px !important;
+    }
+    .product-card:active {
+        transform: scale(0.98);
     }
     .product-visual {
         max-width: 100px !important;
@@ -1534,22 +1543,29 @@
         font-size: 0.7rem !important;
         padding: 5px 10px !important;
     }
-    .product-name {
-        font-size: 1.35rem !important;
-        margin-bottom: 8px !important;
+    .product-name, .product-info h3 { 
+        font-size: 1.35rem !important; 
+        margin: 8px 0 8px !important; 
         line-height: 1.25 !important;
+        font-weight: 800 !important;
     }
-    .product-specs {
+    .product-specs, .product-info .product-meta {
         font-size: 0.95rem !important;
+        color: #64748B;
+        font-weight: 600;
         margin-bottom: 12px !important;
     }
     .coa-badge {
         font-size: 0.85rem !important;
         padding: 6px 10px !important;
     }
-    .product-price {
+    .product-price { 
         font-size: 1.75rem !important;
-        margin: 10px 0 14px !important;
+        margin: 10px 0 14px !important; 
+    }
+    .price-main { 
+        font-size: 1.75rem !important;
+        font-weight: 900 !important;
     }
     .per-unit {
         font-size: 0.85rem !important;
@@ -1557,39 +1573,73 @@
     .btn-add-cart, .btn-notify { 
         padding: 12px 16px !important; 
         font-size: 15px !important;
-        height: 46px !important;
         font-weight: 700 !important;
+        height: 46px !important;
+        border-radius: 8px;
     }
-    .view-details {
+    .btn-view-details, .view-details {
         font-size: 0.9rem !important;
+        color: #64748B !important;
+        font-weight: 600 !important;
         padding: 8px !important;
+        opacity: 0.8;
+        margin-top: 6px;
     }
-    .dual-tested-badge, .coming-soon-badge { 
+    .dual-tested-badge { 
         top: 12px; 
         right: 12px; 
-        font-size: 12px; 
-        padding: 5px 10px; 
+        font-size: 12px !important; 
+        padding: 5px 10px !important;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        background: #2563EB !important;
+        color: #FFFFFF !important;
+    }
+    .coming-soon-badge { 
+        top: 12px; 
+        left: 12px;
+        font-size: 12px !important; 
+        padding: 5px 10px !important;
+        font-weight: 700;
+        background: #DC2626 !important;
+        color: #FFFFFF !important;
     }
     .popular-badge {
-        font-size: 12px;
-        padding: 5px 10px;
+        font-size: 12px !important;
+        padding: 5px 10px !important;
+    }
+    .coa-link {
+        font-size: 0.8rem !important;
+        font-weight: 600;
+        padding: 5px 0;
+        opacity: 0.8;
+    }
+    .product-info img, .product-visual {
+        max-height: 100px !important;
+        opacity: 0.4;
+        margin-bottom: 10px !important;
+    }
+    .product-link {
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        opacity: 0.8;
     }
 }
 
 @media (max-width: 480px) {
     .product-grid { 
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px; 
-        padding: 0 12px; 
+        gap: 12px !important; 
+        padding: 0 12px !important; 
     }
     .product-card { 
-        padding: 16px; 
-        min-height: 400px;
+        padding: 16px !important; 
+        min-height: 400px !important;
     }
-    .product-name { 
+    .product-name, .product-info h3 { 
         font-size: 1.3rem !important; 
     }
-    .product-price { 
+    .product-price, .price-main { 
         font-size: 1.7rem !important; 
     }
     .btn-add-cart, .btn-notify {
@@ -1598,35 +1648,34 @@
     }
 }
 
-@media (max-width: 900px) {
-    .product-grid { 
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
 @media (max-width: 375px) {
     .product-grid { 
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px; 
-        padding: 0 10px; 
+        gap: 10px !important; 
+        padding: 0 10px !important; 
     }
     .product-card { 
-        padding: 14px; 
-        min-height: 380px;
+        padding: 14px !important; 
+        min-height: 380px !important;
     }
-    .product-name { 
+    .product-name, .product-info h3 { 
         font-size: 1.25rem !important; 
     }
-    .product-price { 
+    .product-price, .price-main { 
         font-size: 1.65rem !important; 
     }
     .product-category {
         font-size: 0.7rem !important;
         padding: 4px 10px !important;
     }
-    .btn-add-cart, .btn-notify {
+    .btn-add-cart, .btn-notify { 
         font-size: 14px !important;
         height: 44px !important;
+        padding: 10px 14px !important;
+    }
+    .filter-pill {
+        font-size: 14px !important;
+        padding: 8px 14px !important;
     }
 }
 
@@ -2109,26 +2158,23 @@ h1 {
                 <div class="filter-pills">
                     <button class="filter-pill active" data-category="all">All</button>
                     <button class="filter-pill" data-category="glp1">GLP-1</button>
-                    <button class="filter-pill" data-category="tissue-repair">Regenerative Research</button>
-                    <button class="filter-pill" data-category="growth-hormone">Growth Hormone</button>
+                    <button class="filter-pill" data-category="tissue-repair">Regenerative</button>
+                    <button class="filter-pill" data-category="growth-hormone">Growth</button>
                     <button class="filter-pill" data-category="longevity">Longevity</button>
                     <button class="filter-pill" data-category="cosmetic">Cosmetic</button>
                     <button class="filter-pill" data-category="supplies">Supplies</button>
                 </div>
             </div>
 
-            <!-- Research Kits Banner -->
-            <div style="background:linear-gradient(135deg,#DBEAFE 0%,#BFDBFE 100%);border:2px solid #93C5FD;border-radius:12px;padding:16px 20px;margin:1rem auto 1.25rem;max-width:580px;text-align:center;box-shadow:0 4px 12px rgba(37,99,235,0.15)">
-                <div style="font-size:0.95rem;font-weight:800;color:#1E40AF;margin-bottom:6px">Save with Research Kits</div>
-                <div style="font-size:0.8rem;color:#1E40AF;margin-bottom:12px;opacity:0.9">Popular research combinations bundled together</div>
-                <a href="kits.html" style="display:inline-block;background:#2563EB;color:#FFFFFF;padding:10px 20px;border-radius:8px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 2px 8px rgba(37,99,235,0.3)">
-                    View Kits →
-                </a>
+            <!-- Research Kits Banner - Compact Strip -->
+            <div style="background:#EFF6FF;border-left:3px solid #2563EB;padding:8px 16px;margin:0.75rem auto 0.5rem;max-width:100%;display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:0.8rem;font-weight:700;color:#1E40AF">Save with Research Kits</div>
+                <a href="kits.html" style="color:#2563EB;font-size:0.75rem;font-weight:700;text-decoration:none">View →</a>
             </div>
             
-            <!-- Trust Line -->
-            <div style="text-align:center;font-size:0.9rem;color:#475569;margin:0 auto 1.5rem;max-width:580px;line-height:1.5">
-                Independently verified through Janoshik Analytical. Browse research compounds and view third-party COAs instantly.
+            <!-- Trust Strip - Compact -->
+            <div style="text-align:center;font-size:0.7rem;color:#64748B;margin:0.5rem auto 0.75rem;padding:0 20px;font-weight:600;letter-spacing:0.3px">
+                ✓ Independently verified • Third-party COAs • Janoshik Analytical
             </div>
 
             <!-- Product Grid -->
