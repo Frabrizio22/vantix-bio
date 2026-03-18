@@ -1491,39 +1491,96 @@
     .filter-pills { gap: 8px; }
     .filter-pill { font-size: 14px; padding: 8px 14px; }
     
+    /* Shrink Research Kits banner on mobile */
+    #shopContent > div:nth-child(2) {
+        padding: 12px 16px !important;
+        margin: 0.75rem auto 1rem !important;
+    }
+    #shopContent > div:nth-child(2) > div:first-child {
+        font-size: 0.85rem !important;
+        margin-bottom: 4px !important;
+    }
+    #shopContent > div:nth-child(2) > div:nth-child(2) {
+        font-size: 0.72rem !important;
+        margin-bottom: 10px !important;
+    }
+    #shopContent > div:nth-child(2) a {
+        padding: 8px 16px !important;
+        font-size: 0.8rem !important;
+    }
+    
     /* Product Grid - Compact */
     .product-grid { 
         grid-template-columns: repeat(2, 1fr); 
-        gap: 12px; 
+        gap: 14px; 
         padding: 0 16px; 
     }
-    .product-card { padding: 16px; }
-    .product-info h3 { font-size: 1.1rem; margin: 8px 0 4px; line-height: 1.3; }
-    .product-price { margin: 6px 0 8px; }
-    .price-main { font-size: 1.65rem; }
+    .product-card { 
+        padding: 14px; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .product-card:active {
+        transform: scale(0.98);
+    }
+    .product-info h3 { 
+        font-size: 1.25rem; 
+        margin: 6px 0 3px; 
+        line-height: 1.25;
+        font-weight: 800;
+    }
+    .product-info .product-meta {
+        font-size: 0.8rem;
+        color: #64748B;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+    .product-price { margin: 4px 0 10px; }
+    .price-main { 
+        font-size: 1.85rem;
+        font-weight: 900;
+    }
     .btn-add-cart, .btn-notify { 
-        padding: 10px 14px; 
-        font-size: 14px;
-        height: 40px;
+        padding: 11px 14px; 
+        font-size: 15px;
+        font-weight: 700;
+        height: 44px;
+        border-radius: 8px;
     }
     .dual-tested-badge, .coming-soon-badge { 
-        top: 10px; 
-        right: 10px; 
-        font-size: 11px; 
-        padding: 4px 8px; 
+        top: 8px; 
+        right: 8px; 
+        font-size: 0.65rem; 
+        padding: 5px 9px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+    }
+    .coa-link {
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 6px 0;
+    }
+    .product-info img {
+        max-height: 80px !important;
+        opacity: 0.35;
     }
 }
 
 @media (max-width: 480px) {
-    .product-grid { gap: 10px; padding: 0 14px; }
-    .product-card { padding: 14px; }
+    .product-grid { gap: 12px; padding: 0 14px; }
+    .product-card { padding: 12px; }
+    .product-info h3 { font-size: 1.15rem; }
+    .price-main { font-size: 1.7rem; }
 }
 
 @media (max-width: 375px) {
     .product-grid { gap: 10px; padding: 0 12px; }
     .product-card { padding: 10px; }
-    .product-info h3 { font-size: 0.95rem; }
-    .price-main { font-size: 1.4rem; }
+    .product-info h3 { font-size: 1.05rem; }
+    .price-main { font-size: 1.55rem; }
+    .btn-add-cart, .btn-notify { 
+        font-size: 14px;
+        height: 42px;
+    }
 }
 
 /* Premium Boutique Enhancements */
