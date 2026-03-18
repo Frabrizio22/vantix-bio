@@ -702,6 +702,14 @@
             box-shadow: 0 0 8px rgba(0,180,216,0.3);
         }
 
+        .product-visual {
+            width: 100%;
+            height: auto;
+            max-width: 120px;
+            margin: 0 auto 12px;
+            display: block;
+        }
+
         .product-category {
             display: inline-block;
             background: rgba(37,99,235,0.1);
@@ -1485,45 +1493,108 @@
 @media (max-width: 768px) {
     body { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
     
-    /* Filter Pills */
-    .filter-pills { gap: 8px; }
-    .filter-pill { font-size: 14px; padding: 8px 14px; }
+    /* Trust Bar - BIGGER */
+    .trust-item {
+        font-size: 0.8rem !important;
+        padding: 0 16px !important;
+    }
     
-    /* Product Grid - Compact - FORCE 2 COLUMNS ON MOBILE */
+    /* Featured Section - BIGGER */
+    .section-heading {
+        font-size: 1.1rem !important;
+    }
+    .section-sub {
+        font-size: 0.85rem !important;
+    }
+    
+    /* Filter Pills - BIGGER */
+    .filter-pills { gap: 10px; }
+    .filter-pill { font-size: 15px; padding: 10px 16px; min-height: 40px; }
+    
+    /* Product Grid - FORCE 2 COLUMNS, BIGGER EVERYTHING */
     .product-grid { 
         grid-template-columns: repeat(2, 1fr) !important; 
-        gap: 12px; 
-        padding: 0 16px; 
+        gap: 14px; 
+        padding: 0 14px; 
     }
-    .product-card { padding: 16px; }
-    .product-info h3 { font-size: 1.1rem; margin: 8px 0 4px; line-height: 1.3; }
-    .product-price { margin: 6px 0 8px; }
-    .price-main { font-size: 1.65rem; }
+    .product-card { 
+        padding: 18px; 
+        min-height: 420px;
+    }
+    .product-visual {
+        max-width: 100px !important;
+        margin-bottom: 14px !important;
+    }
+    .product-category {
+        font-size: 0.75rem !important;
+        padding: 5px 12px !important;
+        margin-bottom: 10px !important;
+    }
+    .dual-tested-tag {
+        font-size: 0.7rem !important;
+        padding: 5px 10px !important;
+    }
+    .product-name {
+        font-size: 1.35rem !important;
+        margin-bottom: 8px !important;
+        line-height: 1.25 !important;
+    }
+    .product-specs {
+        font-size: 0.95rem !important;
+        margin-bottom: 12px !important;
+    }
+    .coa-badge {
+        font-size: 0.85rem !important;
+        padding: 6px 10px !important;
+    }
+    .product-price {
+        font-size: 1.75rem !important;
+        margin: 10px 0 14px !important;
+    }
+    .per-unit {
+        font-size: 0.85rem !important;
+    }
     .btn-add-cart, .btn-notify { 
-        padding: 10px 14px; 
-        font-size: 14px;
-        height: 40px;
+        padding: 12px 16px !important; 
+        font-size: 15px !important;
+        height: 46px !important;
+        font-weight: 700 !important;
+    }
+    .view-details {
+        font-size: 0.9rem !important;
+        padding: 8px !important;
     }
     .dual-tested-badge, .coming-soon-badge { 
-        top: 10px; 
-        right: 10px; 
-        font-size: 11px; 
-        padding: 4px 8px; 
+        top: 12px; 
+        right: 12px; 
+        font-size: 12px; 
+        padding: 5px 10px; 
+    }
+    .popular-badge {
+        font-size: 12px;
+        padding: 5px 10px;
     }
 }
 
 @media (max-width: 480px) {
     .product-grid { 
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 12px; 
-        padding: 0 16px; 
+        padding: 0 12px; 
     }
-    .product-card { padding: 16px; }
-    .product-info h3 { font-size: 1.1rem; }
-    .price-main { font-size: 1.75rem; }
+    .product-card { 
+        padding: 16px; 
+        min-height: 400px;
+    }
+    .product-name { 
+        font-size: 1.3rem !important; 
+    }
+    .product-price { 
+        font-size: 1.7rem !important; 
+    }
     .btn-add-cart, .btn-notify {
-        font-size: 15px;
-        height: 44px;
+        font-size: 15px !important;
+        height: 46px !important;
     }
 }
 
@@ -1535,16 +1606,27 @@
 
 @media (max-width: 375px) {
     .product-grid { 
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px; 
-        padding: 0 12px; 
+        padding: 0 10px; 
     }
-    .product-card { padding: 12px; }
-    .product-info h3 { font-size: 1rem; }
-    .price-main { font-size: 1.6rem; }
+    .product-card { 
+        padding: 14px; 
+        min-height: 380px;
+    }
+    .product-name { 
+        font-size: 1.25rem !important; 
+    }
+    .product-price { 
+        font-size: 1.65rem !important; 
+    }
+    .product-category {
+        font-size: 0.7rem !important;
+        padding: 4px 10px !important;
+    }
     .btn-add-cart, .btn-notify {
-        font-size: 14px;
-        height: 42px;
+        font-size: 14px !important;
+        height: 44px !important;
     }
 }
 
