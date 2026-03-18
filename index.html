@@ -729,18 +729,31 @@
             .header-nav-wrapper { display: none; }
             nav { display: none; }
             .hamburger { display: flex !important; }
-            .header-content { justify-content: space-between; gap: 16px; }
-            .logo-link img { height: 65px !important; }
-            h1 { font-size: 32px; line-height: 1.15; }
-            h2 { font-size: 24px; }
-            h3 { font-size: 18px; }
+            .header-content { justify-content: space-between; gap: 16px; padding: 0 16px; }
+            .logo-link img { height: 60px !important; }
+            h1 { font-size: 34px; line-height: 1.2; font-weight: 800; }
+            h2 { font-size: 26px; font-weight: 800; }
+            h3 { font-size: 20px; font-weight: 700; }
+            p, body { font-size: 16px; line-height: 1.6; }
+            .btn { 
+                font-size: 16px; 
+                padding: 14px 28px; 
+                min-height: 48px;
+                font-weight: 700;
+            }
+            .hero { padding: 60px 20px 50px; }
+            .section { padding: 60px 20px; }
         }
         @media (max-width: 640px) {
-            h1 { font-size: 28px; line-height: 1.2; }
-            h2 { font-size: 22px; }
-            .logo-link img { height: 50px !important; }
+            h1 { font-size: 30px; line-height: 1.2; font-weight: 800; }
+            h2 { font-size: 24px; font-weight: 800; }
+            h3 { font-size: 19px; font-weight: 700; }
+            .logo-link img { height: 55px !important; }
             .trust-items { grid-template-columns: 1fr; }
-            .verification-section { padding: 40px 24px; }
+            .verification-section { padding: 50px 18px; }
+            .hero { padding: 50px 18px 40px; }
+            .section { padding: 50px 18px; }
+            p { font-size: 15px; }
         }
     </style>
     <script src="gate-check.js"></script>
