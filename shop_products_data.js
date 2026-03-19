@@ -1,5 +1,5 @@
 // shop_products_data.js - Vantix Bio Product Catalog
-// Version 1.0 - March 5, 2026
+// Version 2.0 - March 19, 2026 - Revised Phase 1/2 based on market demand
 
 const VX_PRODUCTS = {
     // PHASE 1 - In Stock, Dual Tested
@@ -134,34 +134,34 @@ const VX_PRODUCTS = {
             dualTested: true
         },
         {
-            sku: 'VX-EPI-50',
-            name: 'Epithalon 50mg',
-            shortName: 'Epithalon',
-            slug: 'epithalon',
+            sku: 'VX-NAD-1000',
+            name: 'NAD+ 1000mg',
+            shortName: 'NAD+',
+            slug: 'nad',
             category: 'longevity',
             categoryLabel: 'Longevity',
-            dosage: '50mg',
+            dosage: '1000mg',
             purity: '≥98%',
-            price: 38,
-            cogs: 11.50,
-            image: 'images/epithalon.jpg',
-            url: 'products/epithalon.html',
+            price: 34,
+            cogs: 10.50,
+            image: 'images/nad.jpg',
+            url: 'products/nad-1000mg.html',
             inStock: true,
             dualTested: true
         },
         {
-            sku: 'VX-MT2-10',
-            name: 'Melanotan II 10mg',
-            shortName: 'Melanotan II',
-            slug: 'melanotan',
+            sku: 'VX-GHK-100',
+            name: 'GHK-Cu 100mg',
+            shortName: 'GHK-Cu',
+            slug: 'ghk-cu',
             category: 'cosmetic',
             categoryLabel: 'Cosmetic',
-            dosage: '10mg',
+            dosage: '100mg',
             purity: '≥98%',
-            price: 28,
-            cogs: 9.50,
-            image: 'images/melanotan-2.jpg',
-            url: 'products/melanotan-2.html',
+            price: 48,
+            cogs: 14.00,
+            image: 'images/ghk-cu.jpg',
+            url: 'products/ghk-cu.html',
             inStock: true,
             dualTested: true
         },
@@ -186,17 +186,34 @@ const VX_PRODUCTS = {
     // PHASE 2 - Coming Soon (Email Capture)
     phase2: [
         {
-            sku: 'VX-NAD-1000',
-            name: 'NAD+ 1000mg',
-            shortName: 'NAD+',
-            slug: 'nad',
+            sku: 'VX-EPI-50',
+            name: 'Epithalon 50mg',
+            shortName: 'Epithalon',
+            slug: 'epithalon',
             category: 'longevity',
             categoryLabel: 'Longevity',
-            dosage: '1000mg',
+            dosage: '50mg',
             purity: '≥98%',
-            price: 34,
-            image: 'images/nad.jpg',
-            url: 'products/nad-1000mg.html',
+            price: 38,
+            cogs: 11.50,
+            image: 'images/epithalon.jpg',
+            url: 'products/epithalon.html',
+            inStock: false,
+            comingSoon: true
+        },
+        {
+            sku: 'VX-MT2-10',
+            name: 'Melanotan II 10mg',
+            shortName: 'Melanotan II',
+            slug: 'melanotan',
+            category: 'cosmetic',
+            categoryLabel: 'Cosmetic',
+            dosage: '10mg',
+            purity: '≥98%',
+            price: 28,
+            cogs: 9.50,
+            image: 'images/melanotan-2.jpg',
+            url: 'products/melanotan-2.html',
             inStock: false,
             comingSoon: true
         },
@@ -257,21 +274,6 @@ const VX_PRODUCTS = {
             price: 30,
             image: 'images/aod-9604.jpg',
             url: 'products/aod-9604.html',
-            inStock: false,
-            comingSoon: true
-        },
-        {
-            sku: 'VX-GHK-100',
-            name: 'GHK-Cu 100mg',
-            shortName: 'GHK-Cu',
-            slug: 'ghk-cu',
-            category: 'cosmetic',
-            categoryLabel: 'Cosmetic',
-            dosage: '100mg',
-            purity: '≥98%',
-            price: 48,
-            image: 'images/ghk-cu.jpg',
-            url: 'products/ghk-cu.html',
             inStock: false,
             comingSoon: true
         }
