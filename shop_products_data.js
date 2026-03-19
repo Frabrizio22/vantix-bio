@@ -330,29 +330,28 @@ const VX_PRODUCTS = {
             category: 'tissue-repair'
         },
         {
-            id: 'melanocortin-gh-kit',
-            name: 'Melanocortin + GH Kit',
-            shortName: 'Melanocortin + GH',
-            description: 'Melanotan II + CJC-1295 + Ipamorelin commonly paired in melanocortin receptor research',
-            products: ['VX-MT2-10', 'VX-CJC-5', 'VX-IPA-5'],
-            regularPrice: 80,
-            kitPrice: 68,
-            discount: 15,
-            savings: 12,
-            category: 'cosmetic'
+            id: 'nad-cellular-kit',
+            name: 'NAD+ Cellular Protocol',
+            shortName: 'NAD+ Cellular',
+            description: 'NAD+ + BPC-157 for cellular energy and tissue research protocols',
+            products: ['VX-NAD-1000', 'VX-BPC-5'],
+            regularPrice: 64,
+            kitPrice: 56,
+            discount: 12.5,
+            savings: 8,
+            category: 'longevity'
         },
         {
-            id: 'longevity-kit',
-            name: 'Longevity Research Kit',
-            shortName: 'Longevity',
-            description: 'Epithalon + NAD+ for telomerase and NAD+ pathway research (Coming Soon)',
-            products: ['VX-EPI-50', 'VX-NAD-1000'],
-            regularPrice: 72,
-            kitPrice: 62,
-            discount: 13.9,
+            id: 'advanced-cellular-kit',
+            name: 'Advanced Cellular Research Kit',
+            shortName: 'Advanced Cellular',
+            description: 'GHK-Cu + NAD+ for peptide-copper complex and NAD+ pathway investigation',
+            products: ['VX-GHK-100', 'VX-NAD-1000'],
+            regularPrice: 82,
+            kitPrice: 72,
+            discount: 12.2,
             savings: 10,
-            category: 'longevity',
-            comingSoon: true
+            category: 'cosmetic'
         }
     ]
 };
