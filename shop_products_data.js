@@ -318,15 +318,15 @@ const VX_PRODUCTS = {
             category: 'glp1'
         },
         {
-            id: 'recovery-kit',
-            name: 'Recovery Research Kit',
-            shortName: 'Recovery',
-            description: 'BPC-157 + CJC-1295 + Ipamorelin for tissue repair and growth hormone recovery protocols',
-            products: ['VX-BPC-5', 'VX-CJC-5', 'VX-IPA-5'],
-            regularPrice: 82,
-            kitPrice: 70,
-            discount: 14.6,
-            savings: 12,
+            id: 'ultimate-recovery-kit',
+            name: 'Ultimate Recovery Kit',
+            shortName: 'Ultimate Recovery',
+            description: 'BPC-157 + TB-500 + CJC-1295 + Ipamorelin — comprehensive tissue repair and growth hormone protocol',
+            products: ['VX-BPC-5', 'VX-TB-5', 'VX-CJC-5', 'VX-IPA-5'],
+            regularPrice: 118,
+            kitPrice: 98,
+            discount: 16.9,
+            savings: 20,
             category: 'tissue-repair'
         },
         {
