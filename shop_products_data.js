@@ -22,19 +22,19 @@ const VX_PRODUCTS = {
             dualTested: true
         },
         {
-            sku: 'VX-TIRZ-30',
-            name: 'Tirzepatide 30mg',
+            sku: 'VX-TIRZ-20',
+            name: 'Tirzepatide 20mg',
             shortName: 'Tirzepatide',
-            slug: 'tirzepatide-30mg',
+            slug: 'tirzepatide-20mg',
             category: 'glp1',
             categoryLabel: 'GLP-1 Agonist',
-            dosage: '30mg',
+            dosage: '20mg',
             purity: '≥98%',
             price: 48,
             cogs: 13.40,
             image: 'images/tirzepatide.jpg',
-            url: 'products/tirzepatide-30mg.html',
-            inStock: false,
+            url: 'products/tirzepatide-20mg.html',
+            inStock: true,
             dualTested: true
         },
         {
@@ -54,18 +54,18 @@ const VX_PRODUCTS = {
             dualTested: true
         },
         {
-            sku: 'VX-RETA-20',
-            name: 'Retatrutide 20mg',
+            sku: 'VX-RETA-30',
+            name: 'Retatrutide 30mg',
             shortName: 'Retatrutide',
             slug: 'retatrutide',
             category: 'glp1',
             categoryLabel: 'GLP-1 Agonist',
-            dosage: '20mg',
+            dosage: '30mg',
             purity: '≥98%',
             price: 58,
             cogs: 14.50,
             image: 'images/retatrutide.jpg',
-            url: 'products/retatrutide-20.html',
+            url: 'products/retatrutide-30.html',
             inStock: true,
             dualTested: true
         },
