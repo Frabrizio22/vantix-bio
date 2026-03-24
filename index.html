@@ -2419,24 +2419,24 @@ h1 {
         // Featured product SKUs for homepage
         var featuredSKUs = [
             'VX-SEMA-10',
-            'VX-TIRZ-20',
-            'VX-RETA-30',
-            'VX-BPC-5',
-            'VX-EPI-50'
+            'VX-TIRZ-30',
+            'VX-RETA-20',
+            'VX-BPC-10',
+            'VX-NAD-1000'
         ];
 
         // Category data with updated slugs
         var categoryData = [
             { id: 'all', name: 'All Products', count: 0 },
-            { id: 'glp1', name: 'GLP-1 Agonists', count: 4 },
+            { id: 'glp1', name: 'GLP-1 Agonists', count: 3 },
             { id: 'tissue-repair', name: 'Regenerative Research', count: 2 },
             { id: 'growth-hormone', name: 'Growth Hormone', count: 2 },
-            { id: 'longevity', name: 'Longevity', count: 2 },
+            { id: 'metabolic', name: 'Metabolic', count: 1 },
+            { id: 'longevity', name: 'Longevity', count: 1 },
             { id: 'cosmetic', name: 'Cosmetic', count: 1 },
             { id: 'supplies', name: 'Supplies', count: 1 },
             { id: 'cognitive', name: 'Cognitive', count: 0 },
-            { id: 'immune', name: 'Immune Support', count: 0 },
-            { id: 'metabolic', name: 'Metabolic', count: 0 }
+            { id: 'immune', name: 'Immune Support', count: 0 }
         ];
 
         // Initialize
@@ -3076,11 +3076,11 @@ h1 {
 
         // Check if cart items match any kit
         function getKitSuggestion() {
-            if (!VX_PRODUCTS.kits) return null;
+            if (!VX_PRODUCTS.stacks) return null;
             var cartSkus = shopCart.map(function(item) { return item.sku; });
             
-            for (var i = 0; i < VX_PRODUCTS.kits.length; i++) {
-                var kit = VX_PRODUCTS.kits[i];
+            for (var i = 0; i < VX_PRODUCTS.stacks.length; i++) {
+                var kit = VX_PRODUCTS.stacks[i];
                 var allItemsInCart = kit.products.every(function(sku) {
                     return cartSkus.includes(sku);
                 });
