@@ -1013,12 +1013,42 @@
         var orderNumber = '';
         var customerInfo = {};
         var promoApplied = false;
+        var discountCode = null;
+        var discountAmount = 0;
+        var referralSource = null;
 
         function checkAgeGate() {
             initCheckout();
         }
 
         function initCheckout() {
+            // Capture referral tracking parameters
+            var refParam = getUrlParam('ref');
+            var codeParam = getUrlParam('code');
+            
+            if (refParam) {
+                referralSource = refParam.toLowerCase();
+                sessionStorage.setItem('vxReferral', referralSource);
+                console.log('[REFERRAL] Source:', referralSource);
+            } else {
+                // Check if we stored it earlier
+                var stored = sessionStorage.getItem('vxReferral');
+                if (stored) referralSource = stored;
+            }
+            
+            if (codeParam) {
+                // Store code in sessionStorage to survive navigation
+                sessionStorage.setItem('vxAutoPromo', codeParam.toUpperCase());
+                console.log('[REFERRAL] Stored auto-promo code:', codeParam);
+            }
+            
+            // Check if we have a stored promo code to apply
+            var storedPromo = sessionStorage.getItem('vxAutoPromo');
+            if (storedPromo && !discountCode) {
+                window.autoApplyCode = storedPromo;
+                console.log('[REFERRAL] Will auto-apply stored code:', storedPromo);
+            }
+            
             loadCart();
             renderCart();
             updateFooter();
@@ -1239,6 +1269,27 @@
             el.classList.add('selected');
             updateSummary();
             updateFooter();
+            
+            // GA4 Ecommerce: add_payment_info event
+            if (typeof gtag !== 'undefined') {
+                var items = [];
+                var totalValue = 0;
+                for (var i = 0; i < cart.length; i++) {
+                    items.push({
+                        item_id: cart[i].sku || cart[i].name.toLowerCase().replace(/\s+/g, '-'),
+                        item_name: cart[i].name,
+                        price: cart[i].price,
+                        quantity: cart[i].quantity
+                    });
+                    totalValue += cart[i].price * cart[i].quantity;
+                }
+                gtag('event', 'add_payment_info', {
+                    currency: 'USD',
+                    value: totalValue,
+                    payment_type: method,
+                    items: items
+                });
+            }
         }
 
         function applyPromo() {
@@ -1514,6 +1565,28 @@
             document.getElementById('orderNumberText').textContent = orderNumber;
             renderPaymentInstructions();
             renderOrderDetails();
+
+            // GA4 Ecommerce: purchase event
+            if (typeof gtag !== 'undefined' && savedOrder) {
+                var items = [];
+                for (var i = 0; i < savedOrder.items.length; i++) {
+                    items.push({
+                        item_id: savedOrder.items[i].sku || savedOrder.items[i].name.toLowerCase().replace(/\s+/g, '-'),
+                        item_name: savedOrder.items[i].name,
+                        price: savedOrder.items[i].price,
+                        quantity: savedOrder.items[i].quantity
+                    });
+                }
+                gtag('event', 'purchase', {
+                    transaction_id: orderNumber,
+                    value: savedOrder.total,
+                    currency: 'USD',
+                    tax: 0,
+                    shipping: savedOrder.shipping,
+                    payment_type: savedOrder.payment,
+                    items: items
+                });
+            }
 
             cart = [];
             saveCart();

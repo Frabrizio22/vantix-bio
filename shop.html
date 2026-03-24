@@ -2396,6 +2396,23 @@ h1 {
     <script src="notify_system.js"></script>
     
     <script>
+        // Capture referral tracking parameters on page load
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var ref = params.get('ref');
+            var code = params.get('code');
+            
+            if (ref) {
+                sessionStorage.setItem('vxReferral', ref.toLowerCase());
+                console.log('[SHOP] Captured referral:', ref);
+            }
+            
+            if (code) {
+                sessionStorage.setItem('vxAutoPromo', code.toUpperCase());
+                console.log('[SHOP] Captured promo code:', code);
+            }
+        })();
+        
         // Product Data (loaded from shop_products_data.js via external script above)
         // VX_PRODUCTS contains phase1 (in stock), phase2 (coming soon), and stacks
         
@@ -2989,6 +3006,7 @@ h1 {
             var sku = button.getAttribute('data-sku');
             
             var found = false;
+            var quantityAdded = 1;
             for (var i = 0; i < shopCart.length; i++) {
                 if (shopCart[i].name === name) {
                     shopCart[i].quantity += 1;
@@ -3003,6 +3021,20 @@ h1 {
             updateCartBadge();
             renderCartDrawer();
             showToast(name + ' added to cart');
+            
+            // GA4 Ecommerce: add_to_cart event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'add_to_cart', {
+                    currency: 'USD',
+                    value: price * quantityAdded,
+                    items: [{
+                        item_id: sku || name.toLowerCase().replace(/\s+/g, '-'),
+                        item_name: name,
+                        price: price,
+                        quantity: quantityAdded
+                    }]
+                });
+            }
         }
 
         function updateCartQty(index, change) {
@@ -3113,6 +3145,27 @@ h1 {
         function goToCheckout() {
             if (shopCart.length === 0) return;
             localStorage.setItem('vxCart', JSON.stringify(shopCart));
+            
+            // GA4 Ecommerce: begin_checkout event
+            if (typeof gtag !== 'undefined') {
+                var items = [];
+                var totalValue = 0;
+                for (var i = 0; i < shopCart.length; i++) {
+                    items.push({
+                        item_id: shopCart[i].sku || shopCart[i].name.toLowerCase().replace(/\s+/g, '-'),
+                        item_name: shopCart[i].name,
+                        price: shopCart[i].price,
+                        quantity: shopCart[i].quantity
+                    });
+                    totalValue += shopCart[i].price * shopCart[i].quantity;
+                }
+                gtag('event', 'begin_checkout', {
+                    currency: 'USD',
+                    value: totalValue,
+                    items: items
+                });
+            }
+            
             window.location.href = 'checkout.html';
         }
 
