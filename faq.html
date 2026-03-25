@@ -379,18 +379,35 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <div class="header-content">
-            <a href="index.html" class="logo-link">
-                <img src="logo.jpg" alt="Vantix Bio" class="logo">
-            </a>
-            <nav class="nav">
-                <a href="shop.html">Catalog</a>
-                <a href="verify.html">Verify</a>
-                <a href="faq.html" class="active">FAQ</a>
-                <a href="contact.html">Support</a>
-            </nav>
+            <div style="display:flex;align-items:center;gap:28px;">
+                <a href="index.html" style="display:flex;align-items:center;text-decoration:none">
+                    <img src="logo.jpg" alt="VANTIX BIO" width="1280" height="1280" style="height:80px;width:auto">
+                </a>
+                <nav>
+                    <a href="shop.html">Shop</a>
+                    <a href="kits.html">Research Kits</a>
+                    <a href="verify.html">Verify</a>
+                    <a href="about.html">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
         </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
+        <a href="shop.html" onclick="toggleMobileMenu()">Shop</a>
+        <a href="kits.html" onclick="toggleMobileMenu()">Research Kits</a>
+        <a href="verify.html" onclick="toggleMobileMenu()">Verify</a>
+        <a href="about.html" onclick="toggleMobileMenu()">About Us</a>
+        <a href="faq.html" onclick="toggleMobileMenu()">FAQ</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
     </div>
 
     <div class="container">
@@ -584,7 +601,7 @@
                     <p>If your order arrives with visible damage:</p>
                     <ul>
                         <li>Take photos of the damaged packaging and product</li>
-                        <li>Email us at <strong>support@prcpeptides.com</strong> within 48 hours</li>
+                        <li>Email us at <strong>support@vantixbio.com</strong> within 48 hours</li>
                         <li>Include your order number and photos</li>
                     </ul>
                     <p>We will arrange a replacement shipment or refund at no additional cost.</p>
@@ -597,7 +614,7 @@
                     <span class="faq-toggle">▼</span>
                 </div>
                 <div class="faq-answer">
-                    <p>If you received an incorrect product, please <a href="contact.html">contact us</a> immediately at <strong>support@prcpeptides.com</strong> with:</p>
+                    <p>If you received an incorrect product, please <a href="contact.html">contact us</a> immediately at <strong>support@vantixbio.com</strong> with:</p>
                     <ul>
                         <li>Your order number</li>
                         <li>Photo of the product label</li>
