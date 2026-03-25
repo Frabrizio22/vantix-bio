@@ -14,7 +14,7 @@
         :root {
             --color-navy: #1A2B44;
             --color-blue: #2563EB;
-            --color-teal: #00B4D8;
+            --color-teal: #5B8DBE;
             --color-gray-900: #1A2B44;
             --color-gray-600: #64748B;
             --color-gray-100: #F8FAFC;
@@ -69,8 +69,8 @@
         
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
-            padding: 80px 20px 100px;
+            background: #FFFFFF;
+            padding: 64px 20px 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -83,11 +83,13 @@
             right: 0;
             bottom: 0;
             background: 
-                linear-gradient(45deg, transparent 48%, rgba(37,99,235,0.03) 49%, rgba(37,99,235,0.03) 51%, transparent 52%),
-                linear-gradient(-45deg, transparent 48%, rgba(0,180,216,0.03) 49%, rgba(0,180,216,0.03) 51%, transparent 52%);
-            background-size: 60px 60px;
-            opacity: 0.5;
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(26,43,68,0.015) 50px, rgba(26,43,68,0.015) 51px),
+                repeating-linear-gradient(60deg, transparent, transparent 50px, rgba(91,141,190,0.02) 50px, rgba(91,141,190,0.02) 51px);
+            background-size: 50px 50px;
+            opacity: 0.6;
+            pointer-events: none;
         }
+        
         .hero-content {
             max-width: 900px;
             margin: 0 auto;
@@ -135,7 +137,7 @@
         
         /* Section Containers */
         .section {
-            padding: 80px 20px;
+            padding: 64px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -184,7 +186,7 @@
         .metric-number {
             font-size: 48px;
             font-weight: 800;
-            color: var(--color-blue);
+            color: #2563EB;
             line-height: 1;
             margin-bottom: 12px;
         }
@@ -304,7 +306,7 @@
         /* Quote Block */
         .quote-block {
             background: white;
-            border-left: 4px solid var(--color-teal);
+            border-left: 4px solid #5B8DBE;
             padding: 32px;
             margin: 48px 0;
             border-radius: 0 8px 8px 0;
@@ -374,7 +376,27 @@
         
         @media (max-width: 768px) {
             nav a { margin-left: 16px; font-size: 13px; }
-            .hero { padding: 60px 20px 80px; }
+            .hero {
+            background: #FFFFFF;
+            padding: 64px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(26,43,68,0.015) 50px, rgba(26,43,68,0.015) 51px),
+                repeating-linear-gradient(60deg, transparent, transparent 50px, rgba(91,141,190,0.02) 50px, rgba(91,141,190,0.02) 51px);
+            background-size: 50px 50px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
             .section { padding: 60px 20px; }
             .coa-graphics { grid-template-columns: 1fr; }
             .trust-badges { grid-template-columns: 1fr 1fr; }
