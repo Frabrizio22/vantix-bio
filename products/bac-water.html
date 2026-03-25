@@ -27,7 +27,7 @@
   "sku": "VX-bac-water",
   "offers": {
     "@type": "Offer",
-    "price": "30",
+    "price": "8",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
     "url": "https://vantixbio.com/products/bac-water.html"
@@ -101,7 +101,7 @@
 <div class="category-label">GLP Receptor Agonists</div>
 <h1>Bacteriostatic Water</h1>
 <div class="product-meta">
-<div class="product-price">$30</div>
+<div class="product-price">$8</div>
 <a href="../verify.html?product=bac-water#latest" class="coa-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> COA Available — View</a>
 </div>
 <div class="short-desc">The benchmark long-acting Supplies receptor agonist—a fatty acid-modified peptide that redefined incretin-based metabolic research.</div>
@@ -151,7 +151,7 @@
 </div>
 
 <div class="action-btns">
-<button class="btn-primary" onclick="addToCart()">Add to Cart — $<span id="totalPrice">30</span></button>
+<button class="btn-primary" onclick="addToCart()">Add to Cart — $<span id="totalPrice">8</span></button>
 <a href="../verify.html?product=bac-water#latest" class="btn-secondary">View COA</a>
 </div>
 <h2>What is Bacteriostatic Water?</h2>
@@ -216,7 +216,7 @@
 <div class="mobile-sticky-content">
 <div>
 <div style="font-size:0.75rem;color:#64748B;margin-bottom:2px">Bacteriostatic Water</div>
-<div class="mobile-sticky-price">$<span id="mobileTotalPrice">30</span></div>
+<div class="mobile-sticky-price">$<span id="mobileTotalPrice">8</span></div>
 </div>
 <button class="btn-primary" onclick="addToCart()">Add to Cart</button>
 </div>
@@ -224,7 +224,7 @@
 <footer id="pageFooter"><div class="footer-content"><div class="footer-logo">VANTIX BIO</div><div class="footer-links"><a href="../shop.html">Shop</a><a href="mailto:support@vantixbio.com">Contact</a></div><div class="footer-disclaimer">FOR RESEARCH PURPOSES ONLY. Not for human consumption. All products intended exclusively for in vitro research. © 2026 Vantix Bio LLC</div></div></footer>
 <div class="toast" id="toast"></div>
 <script>
-var quantity=1;var basePrice=30;var productName='Bacteriostatic Water';
+var quantity=1;var basePrice=8;var productName='Bacteriostatic Water';
 function changeQty(delta){quantity=Math.max(1,quantity+delta);document.getElementById('qtyValue').textContent=quantity;updatePrice()}
 function updatePrice(){var total=basePrice*quantity;document.getElementById('totalPrice').textContent=total;document.getElementById('mobileTotalPrice').textContent=total}
 function addToCart(){var cart=JSON.parse(sessionStorage.getItem('prcCart')||'[]');var existing=cart.find(function(item){return item.name===productName});if(existing){existing.quantity+=quantity}else{cart.push({name:productName,price:basePrice,quantity:quantity})}sessionStorage.setItem('prcCart',JSON.stringify(cart));updateCartBadge();showToast()}
