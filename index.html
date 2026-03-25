@@ -373,9 +373,23 @@
         .section-separator {
             height: 1px;
             background: linear-gradient(90deg, transparent 0%, #E2E8F0 20%, #E2E8F0 80%, transparent 100%);
-            margin: 80px auto;
+            margin: 64px auto;
             max-width: 600px;
             position: relative;
+        }
+        
+        /* Section Variations */
+        .section-highlight {
+            background: linear-gradient(180deg, #FAFBFC 0%, #FFFFFF 100%);
+            padding: 64px 32px;
+        }
+        .section-title-large {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        .section-subtitle-large {
+            font-size: 19px;
+            margin: 0 auto 40px;
         }
         .section-separator::before {
             content: '';
@@ -947,10 +961,10 @@
     <div class="section-separator"></div>
 
     <!-- Protocol-Optimized Sizing -->
-    <div class="section" style="background: linear-gradient(180deg, #FAFBFC 0%, #FFFFFF 100%); padding: 56px 32px;">
+    <div class="section section-highlight">
         <div style="max-width: 1100px; margin: 0 auto;">
-            <h2 class="section-title" style="font-size: 36px; margin-bottom: 16px;">Protocol-Optimized Sizing</h2>
-            <p class="section-subtitle" style="font-size: 19px; margin: 0 auto 40px;">We analyzed the most common 28-day research cycles and sized our vials to ensure zero waste and peak stability. Every size choice reflects clinical literature review, not supplier convenience.</p>
+            <h2 class="section-title section-title-large">Protocol-Optimized Sizing</h2>
+            <p class="section-subtitle section-subtitle-large">We analyzed the most common 28-day research cycles and sized our vials to ensure zero waste and peak stability. Every size choice reflects clinical literature review, not supplier convenience.</p>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
                 <div style="background: white; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; padding: 24px; transition: all 0.3s;">
