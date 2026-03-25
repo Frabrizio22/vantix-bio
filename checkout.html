@@ -803,6 +803,80 @@
                 line-height: 1.2;
             }
         }
+    
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            width: 20px;
+            height: 2px;
+            background: #1A2B44;
+            transition: all 0.3s;
+        }
+        
+        /* Mobile Menu */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 140;
+        }
+        .mobile-overlay.active { display: block; }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 260px;
+            height: 100%;
+            background: #FFFFFF;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+            z-index: 150;
+            padding: 60px 24px 24px;
+            overflow-y: auto;
+        }
+        .mobile-menu.active { display: block; }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #64748B;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 12px 24px;
+            color: #1A2B44;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .mobile-menu a:hover {
+            background: #F8FAFC;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger { display: flex !important; }
+            nav { display: none !important; }
+        }
+
     </style>
     <script src="gate-check.js"></script>
 </head>
@@ -1706,5 +1780,12 @@
             <button onclick="document.getElementById('tosModal').style.display='none'" style="margin-top:16px;width:100%;padding:12px;background:#5B8DBE;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Close</button>
         </div>
     </div>
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.getElementById('mobileOverlay').classList.toggle('active');
+        }
+    </script>
+
 </body>
 </html>
