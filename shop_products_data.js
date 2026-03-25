@@ -195,7 +195,7 @@ const VX_PRODUCTS = {
             clinicalNote: 'BPC-157 + TB-500 combination for systemic repair research',
             products: ['VX-BPC-10', 'VX-TB-10'],
             regularPrice: 67,
-            kitPrice: 55,
+            stackPrice: 55,
             discount: 17.9,
             savings: 12,
             category: 'tissue-repair'
@@ -208,7 +208,7 @@ const VX_PRODUCTS = {
             clinicalNote: 'CJC-1295 (No DAC) + Ipamorelin synergistic pairing for pulsatile GH release research',
             products: ['VX-CJC-10', 'VX-IPA-10'],
             regularPrice: 65,
-            kitPrice: 58,
+            stackPrice: 58,
             discount: 10.8,
             savings: 7,
             category: 'growth-hormone'
@@ -221,7 +221,7 @@ const VX_PRODUCTS = {
             clinicalNote: 'Tirzepatide (GLP-1/GIP) + Retatrutide (GLP-1/GIP/Glucagon) for metabolic pathway investigation',
             products: ['VX-TIRZ-30', 'VX-RETA-20'],
             regularPrice: 150,
-            kitPrice: 135,
+            stackPrice: 135,
             discount: 10.0,
             savings: 15,
             category: 'glp1'
@@ -234,7 +234,7 @@ const VX_PRODUCTS = {
             clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
             regularPrice: 104,
-            kitPrice: 92,
+            stackPrice: 92,
             discount: 11.5,
             savings: 12,
             category: 'longevity'
@@ -247,7 +247,7 @@ const VX_PRODUCTS = {
             clinicalNote: 'GHK-Cu + BPC-157 + NAD+ for full-spectrum rejuvenation research',
             products: ['VX-GHK-100', 'VX-BPC-10', 'VX-NAD-1000'],
             regularPrice: 136,
-            kitPrice: 118,
+            stackPrice: 118,
             discount: 13.2,
             savings: 18,
             category: 'cosmetic'
@@ -260,7 +260,7 @@ const VX_PRODUCTS = {
             clinicalNote: 'Semaglutide + Bacteriostatic Water for standardized research protocols',
             products: ['VX-SEMA-10', 'VX-BAC-30'],
             regularPrice: 55,
-            kitPrice: 50,
+            stackPrice: 50,
             discount: 9.1,
             savings: 5,
             category: 'glp1'
