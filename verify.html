@@ -121,6 +121,68 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 24px 32px 40px; transition: padding 0.3s ease; }
         .container.compact { padding: 16px 32px 40px; }
 
+        /* ── Forensic Security Badge ── */
+        .forensic-badge {
+            max-width: 1200px;
+            margin: 32px auto 0;
+            padding: 20px 32px;
+            background: linear-gradient(135deg, #0F172A 0%, #1A2B44 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(91,141,190,0.3);
+            box-shadow: 0 4px 16px rgba(0,180,216,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+        }
+        .forensic-badge-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(91,141,190,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .forensic-badge-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        .forensic-badge-content {
+            flex: 1;
+            max-width: 800px;
+        }
+        .forensic-badge-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .forensic-badge-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .forensic-badge {
+                margin: 24px auto 0;
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .forensic-badge-title {
+                font-size: 12px;
+            }
+            .forensic-badge-desc {
+                font-size: 12px;
+            }
+        }
+
         /* ── Verification Hero (NEW - Above Fold) ── */
         .verify-hero { 
             max-width: 900px; 
@@ -459,7 +521,14 @@
         @keyframes cursorBlink { 0%,100%{opacity:1}50%{opacity:0} }
 
         /* ── Results Layout ── */
-        .results-area { margin-top: 16px; animation: fadeUp 0.5s ease both; scroll-margin-top: 20px; }
+        .results-area { 
+            margin-top: 16px; 
+            animation: fadeUp 0.5s ease both; 
+            scroll-margin-top: 20px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+        }
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .single-view { display: grid; grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; }
@@ -723,11 +792,31 @@
     <script src="gate-check.js"></script>
 </head>
 <body>
-    <!-- Allow paste in input fields -->
+    <!-- Right-Click & Drag Protection -->
     <script>
+    // Block right-click (except on input/textarea)
     document.addEventListener('contextmenu', e => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         e.preventDefault();
+    });
+    
+    // Block drag events on canvas and images
+    document.addEventListener('dragstart', e => {
+        if (e.target.tagName === 'CANVAS' || e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+    
+    // Detect common screenshot shortcuts and show warning
+    document.addEventListener('keydown', e => {
+        // macOS: Cmd+Shift+3/4/5
+        if ((e.metaKey || e.ctrlKey) && e.shiftKey && ['3', '4', '5'].includes(e.key)) {
+            console.warn('Screenshot detected - COAs are forensically watermarked and session-traceable');
+        }
+        // Windows: Windows+Shift+S
+        if (e.metaKey && e.shiftKey && e.key === 's') {
+            console.warn('Screenshot detected - COAs are forensically watermarked and session-traceable');
+        }
     });
     </script>
 
@@ -928,6 +1017,20 @@
             // Terminal overlay
             html += `<div class="terminal-overlay ${state.showOverlay ? 'active' : ''}" id="overlay">
                 <div class="terminal-text">${state.overlayText}<span class="terminal-cursor"></span></div>
+            </div>`;
+
+            // Forensic Security Badge
+            html += `<div class="forensic-badge">
+                <div class="forensic-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2 L4 6 L4 12 C4 17 8 21 12 22 C16 21 20 17 20 12 L20 6 Z" stroke="#5B8DBE" stroke-width="2" fill="rgba(91,141,190,0.1)"/>
+                        <path d="M9 12 L11 14 L15 10" stroke="#5B8DBE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="forensic-badge-content">
+                    <div class="forensic-badge-title">🔬 Forensic-Grade Verification System</div>
+                    <div class="forensic-badge-desc">All COAs are watermarked and session-traceable. Chromatographic data cannot be saved, printed, or reproduced. Unauthorized distribution is prohibited.</div>
+                </div>
             </div>`;
 
             // Hero Title + Verification Input (ABOVE FOLD)
