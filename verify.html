@@ -125,7 +125,7 @@
         .forensic-badge {
             max-width: 1200px;
             margin: 32px auto 0;
-            padding: 20px 32px;
+            padding: 24px 32px;
             background: linear-gradient(135deg, #0F172A 0%, #1A2B44 100%);
             border-radius: 12px;
             border: 1px solid rgba(91,141,190,0.3);
@@ -133,53 +133,61 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 20px;
             text-align: center;
         }
         .forensic-badge-icon {
             flex-shrink: 0;
-            width: 40px;
-            height: 40px;
+            width: 52px;
+            height: 52px;
             background: rgba(91,141,190,0.15);
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .forensic-badge-icon svg {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
         }
         .forensic-badge-content {
             flex: 1;
             max-width: 800px;
         }
         .forensic-badge-title {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 800;
             color: #FFFFFF;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         .forensic-badge-desc {
-            font-size: 13px;
-            color: rgba(255,255,255,0.75);
-            line-height: 1.5;
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
             font-weight: 500;
         }
         @media (max-width: 768px) {
             .forensic-badge {
                 margin: 24px auto 0;
-                padding: 16px 20px;
+                padding: 20px 20px;
                 flex-direction: column;
                 gap: 12px;
             }
+            .forensic-badge-icon {
+                width: 48px;
+                height: 48px;
+            }
+            .forensic-badge-icon svg {
+                width: 28px;
+                height: 28px;
+            }
             .forensic-badge-title {
-                font-size: 12px;
+                font-size: 16px;
             }
             .forensic-badge-desc {
-                font-size: 12px;
+                font-size: 13px;
             }
         }
 
@@ -1023,13 +1031,12 @@
             html += `<div class="forensic-badge">
                 <div class="forensic-badge-icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2 L4 6 L4 12 C4 17 8 21 12 22 C16 21 20 17 20 12 L20 6 Z" stroke="#5B8DBE" stroke-width="2" fill="rgba(91,141,190,0.1)"/>
-                        <path d="M9 12 L11 14 L15 10" stroke="#5B8DBE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="#5B8DBE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="rgba(91,141,190,0.15)"/>
                     </svg>
                 </div>
                 <div class="forensic-badge-content">
-                    <div class="forensic-badge-title">🔬 Forensic-Grade Verification System</div>
-                    <div class="forensic-badge-desc">All COAs are watermarked and session-traceable. Chromatographic data cannot be saved, printed, or reproduced. Unauthorized distribution is prohibited.</div>
+                    <div class="forensic-badge-title">⚡ FORENSIC-GRADE SECURITY</div>
+                    <div class="forensic-badge-desc">Watermarked chromatograms • Session-traceable • Print-disabled</div>
                 </div>
             </div>`;
 
