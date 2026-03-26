@@ -980,7 +980,7 @@
         const PROTOCOL_STEPS = [
             { num: 1, label: 'Blind Entry', desc: 'Randomized sample intake with no pre-labeling bias' },
             { num: 2, label: 'Quarantine', desc: 'Isolated storage under controlled conditions' },
-            { num: 3, label: 'Janoshik Gate', desc: 'Independent third-party chromatographic analysis' },
+            { num: 3, label: 'ISO-17025 Gate', desc: 'Independent accredited laboratory analysis' },
             { num: 4, label: 'Digital Mirroring', desc: 'Cryptographic hash of raw analytical data' },
             { num: 5, label: 'Forensic Watermarking', desc: 'Session-bound dynamic trace embedded in render' },
             { num: 6, label: '1-to-1 Protocol', desc: 'Single vial, single test, no pooled samples' },
@@ -1036,7 +1036,7 @@
             // Hero Title + Verification Input (ABOVE FOLD)
             html += `<div class="verify-hero ${state.result ? 'compact' : ''}">
                 <h1>Batch Verification Portal</h1>
-                <p class="hero-desc">Every Vantix Bio compound is independently tested through Janoshik Analytical using HPLC-DAD and LC-MS/MS dual chromatography. Enter a Batch ID or Bundle ID to view the verified analytical record.</p>
+                <p class="hero-desc">Every Vantix Bio compound is independently verified through ISO/IEC 17025:2017 accredited laboratories using HPLC-DAD purity, LC-MS/MS identity, and LAL endotoxin analysis. Enter a Batch ID or Bundle ID to view the verified analytical record.</p>
                 
                 <section id="verify" class="search-box-hero">
                     <div class="input-row-hero">
@@ -1074,7 +1074,7 @@
             if (!state.result) {
                 html += `<section id="latest" class="latest-coas">
                     <h2>Recent Verification Reports</h2>
-                    <p class="section-desc">Click any product below to view its interactive Janoshik verification report with full chromatographic analysis.</p>
+                    <p class="section-desc">Click any product below to view its interactive ISO-17025 verification report with full chromatographic analysis.</p>
                     <div class="coa-search-mobile">
                         <input type="text" class="coa-search-input" id="coaSearchInput" placeholder="Search by product name...">
                     </div>
@@ -1093,7 +1093,7 @@
                                 <line x1="27" y1="27" x2="33" y2="33" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                             <div class="coa-card-title">${p.name}</div>
-                            <div class="coa-badge">Janoshik Verified</div>
+                            <div class="coa-badge">ISO-17025 Verified</div>
                             <div class="coa-meta-compact">HPLC + LC-MS/MS</div>
                             <div class="coa-meta">
                                 Bundle: <strong>${p.bundleId}</strong><br/>
@@ -1118,7 +1118,7 @@
                 // Disclaimer
                 html += `<div class="disclaimer">
                     <strong>Research-Only Notice:</strong> All data rendered on this portal is for in vitro analytical reference purposes only. 
-                    Chromatographic purity values are sourced from independent Janoshik Analytical testing. Canvas-rendered data cannot be saved, printed, or reproduced. 
+                    Chromatographic purity values are sourced from independent ISO/IEC 17025:2017 accredited laboratory testing. Canvas-rendered data cannot be saved, printed, or reproduced. 
                     A dynamic forensic watermark is embedded per session. This material is not intended for human consumption.
                 </div>`;
             }
@@ -1146,7 +1146,7 @@
                 <div class="janoshik-row">
                     <a class="btn-janoshik" href="https://janoshik.com/report/${mol.taskId}" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        Verify on Janoshik — ${mol.taskId}
+                        View Full COA Report — ${mol.taskId}
                     </a>
                 </div>
             </div>`;
@@ -1162,13 +1162,24 @@
             }
             if (btn) btn.addEventListener('click', doVerify);
 
-            // Bind COA card clicks
+            // Bind COA card clicks (card and button inside)
             document.querySelectorAll('.coa-card').forEach(card => {
-                card.addEventListener('click', () => {
+                const clickHandler = () => {
                     const bundleId = card.dataset.bundle;
-                    state.query = bundleId;
-                    doVerify();
-                });
+                    if (bundleId) {
+                        state.query = bundleId;
+                        doVerify();
+                    }
+                };
+                card.addEventListener('click', clickHandler);
+                // Also bind to button inside for explicit clicks
+                const btn = card.querySelector('.btn-view-report');
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent double-firing
+                        clickHandler();
+                    });
+                }
             });
 
             // Mobile search filter
@@ -1191,7 +1202,7 @@
                     'MATRIX PROTOCOL INITIATED…',
                     'BLIND ENTRY VALIDATED',
                     'QUARANTINE CHECK — PASS',
-                    'JANOSHIK GATE — AUTHENTICATING…',
+                    'ISO-17025 VERIFICATION — AUTHENTICATING…',
                     'DIGITAL MIRROR HASH VERIFIED',
                     'FORENSIC WATERMARK GENERATED',
                     'RENDERING CHROMATOGRAMS…',
@@ -1528,7 +1539,7 @@
                     <div class="janoshik-row" style="padding-top: 16px; text-align: center;">
                         <a class="btn-janoshik" href="https://janoshik.com/report/${mol.taskId}" target="_blank" rel="noopener">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                            Verify on Janoshik — ${mol.taskId}
+                            View Full COA Report — ${mol.taskId}
                         </a>
                     </div>
                 </div>
@@ -1864,7 +1875,7 @@
             <div class="footer-top">
                 <div class="footer-col">
                     <h5>About</h5>
-                    <p>Forensic-grade peptides with independent Janoshik verification.</p>
+                    <p>Forensic-grade peptides with independent ISO-17025 verification.</p>
                 </div>
                 <div class="footer-col">
                     <h5>Verify</h5>
