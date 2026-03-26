@@ -474,8 +474,9 @@
         .badge-green { background: #10B981; }
 
         /* Canvas container with flashlight + watermark */
-        .canvas-wrap { position: relative; margin: 12px; border-radius: 8px; overflow: hidden; cursor: crosshair; user-select: none; -webkit-user-select: none; }
+        .canvas-wrap { position: relative; margin: 12px; border-radius: 8px; overflow: hidden; cursor: zoom-in; user-select: none; -webkit-user-select: none; }
         .canvas-wrap canvas { display: block; width: 100%; height: 240px; }
+        .canvas-wrap:hover { box-shadow: 0 0 0 3px rgba(91,141,190,0.3); transition: box-shadow 0.2s; }
         /* Flashlight mask overlay */
         .flashlight-mask { position: absolute; inset: 0; pointer-events: none; z-index: 3; background: rgba(26,43,68,0.88); transition: none; }
         /* Forensic watermark layer */
@@ -484,6 +485,18 @@
         .chrom-tooltip { position: absolute; background: #1A2B44; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 8px 12px; border-radius: 6px; pointer-events: none; z-index: 5; white-space: nowrap; transform: translate(-50%, -110%); box-shadow: 0 4px 12px rgba(0,0,0,0.25); opacity: 0; transition: opacity 0.15s; line-height: 1.6; }
         .chrom-tooltip.visible { opacity: 1; }
         .chrom-tooltip::after { content:''; position:absolute; bottom:-5px; left:50%; transform:translateX(-50%); border-left:5px solid transparent; border-right:5px solid transparent; border-top:5px solid #1A2B44; }
+
+        /* ── Chromatogram Modal (Full-Screen View) ── */
+        .chrom-modal { display: none; position: fixed; inset: 0; background: rgba(26,43,68,0.95); z-index: 10000; align-items: center; justify-content: center; padding: 32px; backdrop-filter: blur(8px); }
+        .chrom-modal.active { display: flex; }
+        .chrom-modal-content { position: relative; max-width: 95vw; max-height: 90vh; background: #FFFFFF; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,0.4); padding: 24px; overflow: auto; }
+        .chrom-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #E2E8F0; padding-bottom: 16px; }
+        .chrom-modal-title { font-size: 20px; font-weight: 700; color: #1A2B44; }
+        .chrom-modal-meta { font-size: 13px; color: #64748B; font-family: 'JetBrains Mono', monospace; margin-top: 4px; line-height: 1.6; }
+        .chrom-modal-close { background: #EF4444; color: #fff; border: none; width: 36px; height: 36px; border-radius: 6px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .chrom-modal-close:hover { background: #DC2626; transform: scale(1.05); }
+        .chrom-modal-canvas-wrap { position: relative; background: #FAFCFF; border-radius: 8px; padding: 16px; }
+        .chrom-modal canvas { display: block; width: 100%; height: auto; max-height: 70vh; }
 
         /* ── Janoshik Button ── */
         .janoshik-row { padding: 0 24px 20px; margin-top: 12px; }
@@ -1123,9 +1136,9 @@
             state.loading = false;
             render();
 
-            // Scroll to results
+            // Scroll to top of page
             setTimeout(() => {
-                document.getElementById('verify')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 100);
         }
 
@@ -1137,6 +1150,7 @@
                 setupFlashlight(idx);
                 drawWatermark(idx);
                 setupTooltip(mol, idx);
+                setupModalClick(mol, idx);
             });
         }
 
@@ -1342,6 +1356,202 @@
 
             wrap.addEventListener('mouseleave', () => {
                 tip.classList.remove('visible');
+            });
+        }
+
+        // ─── Modal Click Handler ───
+        function setupModalClick(mol, idx) {
+            const wrap = document.getElementById('cwrap-' + idx);
+            if (!wrap) return;
+            
+            wrap.addEventListener('click', (e) => {
+                // Don't trigger if clicking on tooltip
+                if (e.target.closest('.chrom-tooltip')) return;
+                openChromModal(mol, idx);
+            });
+        }
+
+        function openChromModal(mol, idx) {
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('chrom-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'chrom-modal';
+                modal.className = 'chrom-modal';
+                document.body.appendChild(modal);
+            }
+
+            // Build modal content
+            modal.innerHTML = `
+                <div class="chrom-modal-content">
+                    <div class="chrom-modal-header">
+                        <div>
+                            <div class="chrom-modal-title">${mol.name}</div>
+                            <div class="chrom-modal-meta">
+                                ${mol.designation}<br/>
+                                Method: ${mol.method} | Purity: ${mol.purity} | Task: ${mol.taskId}
+                            </div>
+                        </div>
+                        <button class="chrom-modal-close" onclick="closeChromModal()">×</button>
+                    </div>
+                    <div class="chrom-modal-canvas-wrap">
+                        <canvas id="chrom-modal-canvas" width="1200" height="480"></canvas>
+                    </div>
+                    <div class="janoshik-row" style="padding-top: 16px; text-align: center;">
+                        <a class="btn-janoshik" href="https://janoshik.com/report/${mol.taskId}" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            Verify on Janoshik — ${mol.taskId}
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Draw chromatogram in modal (larger size)
+            setTimeout(() => {
+                drawChromatogramModal(mol);
+            }, 50);
+
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeChromModal();
+            });
+
+            // Close on ESC key
+            const escHandler = (e) => {
+                if (e.key === 'Escape') {
+                    closeChromModal();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+            document.addEventListener('keydown', escHandler);
+        }
+
+        function closeChromModal() {
+            const modal = document.getElementById('chrom-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function drawChromatogramModal(mol) {
+            const canvas = document.getElementById('chrom-modal-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width, H = canvas.height;
+            const pad = { top: 50, bottom: 70, left: 80, right: 40 };
+            const plotW = W - pad.left - pad.right;
+            const plotH = H - pad.top - pad.bottom;
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Background
+            ctx.fillStyle = '#FAFCFF';
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid
+            ctx.strokeStyle = '#E8ECF1';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = pad.top + (plotH / 5) * i;
+                ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+            }
+            for (let t = 0; t <= 14; t += 2) {
+                const x = pad.left + (t / 14) * plotW;
+                ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, H - pad.bottom); ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#1A2B44';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(pad.left, pad.top);
+            ctx.lineTo(pad.left, H - pad.bottom);
+            ctx.lineTo(W - pad.right, H - pad.bottom);
+            ctx.stroke();
+
+            // Axis labels
+            ctx.fillStyle = '#1A2B44';
+            ctx.font = '600 14px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            for (let t = 0; t <= 14; t += 2) {
+                const x = pad.left + (t / 14) * plotW;
+                ctx.fillText(t + '', x, H - pad.bottom + 28);
+            }
+            ctx.font = '700 16px "Inter", sans-serif';
+            ctx.fillText('Retention Time (min)', pad.left + plotW / 2, H - 15);
+
+            ctx.save();
+            ctx.translate(22, pad.top + plotH / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.textAlign = 'center';
+            ctx.fillText('Response (mAU)', 0, 0);
+            ctx.restore();
+
+            // Y axis values
+            ctx.font = '600 13px "JetBrains Mono", monospace';
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 5; i++) {
+                const v = (1 - i / 5);
+                const y = pad.top + (plotH / 5) * i;
+                ctx.fillText((v * 100).toFixed(0), pad.left - 12, y + 5);
+            }
+
+            // Baseline
+            const baseY = H - pad.bottom;
+
+            // Draw peaks
+            ctx.beginPath();
+            ctx.moveTo(pad.left, baseY);
+
+            const resolution = 2;
+            for (let px = 0; px <= plotW; px += resolution) {
+                const t = (px / plotW) * 14;
+                let y = 0;
+                mol.peaks.forEach(peak => {
+                    const sigma = peak.width / 2.355;
+                    y += peak.height * Math.exp(-0.5 * Math.pow((t - peak.rt) / sigma, 2));
+                });
+                ctx.lineTo(pad.left + px, baseY - y * plotH);
+            }
+            ctx.lineTo(W - pad.right, baseY);
+
+            // Gradient fill
+            const grad = ctx.createLinearGradient(0, pad.top, 0, baseY);
+            grad.addColorStop(0, 'rgba(0,180,216,0.25)');
+            grad.addColorStop(1, 'rgba(0,180,216,0.05)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Stroke
+            ctx.strokeStyle = '#5B8DBE';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(pad.left, baseY);
+            for (let px = 0; px <= plotW; px += resolution) {
+                const t = (px / plotW) * 14;
+                let y = 0;
+                mol.peaks.forEach(peak => {
+                    const sigma = peak.width / 2.355;
+                    y += peak.height * Math.exp(-0.5 * Math.pow((t - peak.rt) / sigma, 2));
+                });
+                ctx.lineTo(pad.left + px, baseY - y * plotH);
+            }
+            ctx.stroke();
+
+            // Peak labels
+            ctx.fillStyle = '#1A2B44';
+            ctx.font = '700 14px "Inter", sans-serif';
+            ctx.textAlign = 'center';
+            mol.peaks.forEach(peak => {
+                if (peak.height < 0.15) return;
+                const px = pad.left + (peak.rt / 14) * plotW;
+                const py = baseY - peak.height * plotH - 16;
+                ctx.fillText(peak.label, px, py);
             });
         }
 
