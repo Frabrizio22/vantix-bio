@@ -1144,12 +1144,15 @@
             state.loading = false;
             render();
 
-            // Scroll to top AFTER render completes and DOM updates
+            // Scroll to results area AFTER render completes and DOM updates
             requestAnimationFrame(() => {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-                setTimeout(() => {
+                const resultsArea = document.querySelector('.results-area');
+                if (resultsArea) {
+                    resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    // Fallback to top if results area not found
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 50);
+                }
             });
         }
 
