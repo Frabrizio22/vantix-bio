@@ -487,16 +487,24 @@
         .chrom-tooltip::after { content:''; position:absolute; bottom:-5px; left:50%; transform:translateX(-50%); border-left:5px solid transparent; border-right:5px solid transparent; border-top:5px solid #1A2B44; }
 
         /* ── Chromatogram Modal (Full-Screen View) ── */
-        .chrom-modal { display: none; position: fixed; inset: 0; background: rgba(26,43,68,0.95); z-index: 10000; align-items: center; justify-content: center; padding: 32px; backdrop-filter: blur(8px); }
+        .chrom-modal { display: none; position: fixed; inset: 0; background: rgba(26,43,68,0.95); z-index: 10000; align-items: center; justify-content: center; padding: 12px; backdrop-filter: blur(8px); overflow: auto; }
         .chrom-modal.active { display: flex; }
-        .chrom-modal-content { position: relative; max-width: 95vw; max-height: 90vh; background: #FFFFFF; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,0.4); padding: 24px; overflow: auto; }
-        .chrom-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #E2E8F0; padding-bottom: 16px; }
-        .chrom-modal-title { font-size: 20px; font-weight: 700; color: #1A2B44; }
-        .chrom-modal-meta { font-size: 13px; color: #64748B; font-family: 'JetBrains Mono', monospace; margin-top: 4px; line-height: 1.6; }
-        .chrom-modal-close { background: #EF4444; color: #fff; border: none; width: 36px; height: 36px; border-radius: 6px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .chrom-modal-content { position: relative; width: 100%; max-width: 95vw; max-height: 95vh; background: #FFFFFF; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,0.4); padding: 16px; overflow-y: auto; overflow-x: hidden; margin: auto; }
+        .chrom-modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; border-bottom: 2px solid #E2E8F0; padding-bottom: 12px; gap: 12px; }
+        .chrom-modal-title { font-size: 18px; font-weight: 700; color: #1A2B44; flex: 1; }
+        .chrom-modal-meta { font-size: 12px; color: #64748B; font-family: 'JetBrains Mono', monospace; margin-top: 4px; line-height: 1.6; word-break: break-word; }
+        .chrom-modal-close { background: #EF4444; color: #fff; border: none; width: 36px; height: 36px; min-width: 36px; border-radius: 6px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .chrom-modal-close:hover { background: #DC2626; transform: scale(1.05); }
-        .chrom-modal-canvas-wrap { position: relative; background: #FAFCFF; border-radius: 8px; padding: 16px; cursor: crosshair; }
-        .chrom-modal canvas { display: block; width: 100%; height: auto; max-height: 70vh; }
+        .chrom-modal-canvas-wrap { position: relative; background: #FAFCFF; border-radius: 8px; padding: 12px; cursor: crosshair; overflow: hidden; }
+        .chrom-modal canvas { display: block; width: 100%; height: auto; max-height: 60vh; }
+        @media (min-width: 768px) {
+            .chrom-modal { padding: 32px; }
+            .chrom-modal-content { padding: 24px; max-height: 90vh; }
+            .chrom-modal-canvas-wrap { padding: 16px; }
+            .chrom-modal canvas { max-height: 70vh; }
+            .chrom-modal-title { font-size: 20px; }
+            .chrom-modal-meta { font-size: 13px; }
+        }
 
         /* ── Janoshik Button ── */
         .janoshik-row { padding: 0 24px 20px; margin-top: 12px; }
@@ -1136,10 +1144,13 @@
             state.loading = false;
             render();
 
-            // Scroll to top of page
+            // Scroll to top of page - force immediate scroll
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+            // Also try smooth scroll after brief delay
             setTimeout(() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 150);
+            }, 100);
         }
 
         // ─── Chromatogram Rendering ───
