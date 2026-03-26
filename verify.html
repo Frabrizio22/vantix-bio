@@ -1144,13 +1144,13 @@
             state.loading = false;
             render();
 
-            // Scroll to top of page - force immediate scroll
-            window.scrollTo({ top: 0, behavior: 'instant' });
-            
-            // Also try smooth scroll after brief delay
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 100);
+            // Scroll to top AFTER render completes and DOM updates
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 50);
+            });
         }
 
         // ─── Chromatogram Rendering ───
