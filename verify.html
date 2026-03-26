@@ -1136,10 +1136,15 @@
             state.loading = false;
             render();
 
-            // Scroll to top of page
+            // Scroll to results area
             setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 100);
+                const resultsArea = document.querySelector('.results-area');
+                if (resultsArea) {
+                    resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, 150);
         }
 
         // ─── Chromatogram Rendering ───
@@ -1639,6 +1644,14 @@
         }
 
         // ─── Init ───
+        // Prevent browser scroll restoration
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        // Always start at top of page on load
+        window.scrollTo(0, 0);
+        
         render();
         handleURLParams();
 
