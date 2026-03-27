@@ -1360,9 +1360,9 @@
                 if (resultsArea) {
                     const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
                     const y = resultsArea.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                    window.scrollTo({ top: y, behavior: 'instant' });
+                    window.scrollTo({ top: y, behavior: 'auto' });
                 }
-            }, 100); // Minimal delay for DOM paint
+            }, 150); // Minimal delay for DOM paint
         }
 
         // ─── Chromatogram Rendering ───
