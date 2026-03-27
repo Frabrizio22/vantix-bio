@@ -536,7 +536,7 @@
         .results-area { 
             margin-top: 16px; 
             animation: fadeUp 0.5s ease both; 
-            scroll-margin-top: 100px;
+            scroll-margin-top: 80px;
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -1329,20 +1329,14 @@
             render();
 
             // Scroll to results area AFTER render completes and DOM updates
-            // Double RAF to ensure chromatograms are rendered
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    setTimeout(() => {
-                        const resultsArea = document.querySelector('.results-area');
-                        if (resultsArea) {
-                            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        } else {
-                            // Fallback to top if results area not found
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }
-                    }, 100);
-                });
-            });
+            // Wait for animation and chromatogram rendering
+            setTimeout(() => {
+                const resultsArea = document.querySelector('.results-area');
+                if (resultsArea) {
+                    const y = resultsArea.getBoundingClientRect().top + window.pageYOffset - 80;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            }, 600); // Wait for fadeUp animation (500ms) + buffer
         }
 
         // ─── Chromatogram Rendering ───
