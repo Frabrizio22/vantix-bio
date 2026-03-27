@@ -1,32 +1,17 @@
 // shop_products_data.js - Vantix Bio Product Catalog
-// Version 3.0 - March 24, 2026 - Finalized 10-product lineup + 6 research kits
+// Version 4.0 - March 27, 2026 - Updated category system
 
 const VX_PRODUCTS = {
-    // PHASE 1 - In Stock, ISO-Accredited Testing
+    // PHASE 1 - In Stock, ISO-17025 Verified
     phase1: [
-        {
-            sku: 'VX-SEMA-10',
-            name: 'Semaglutide 10mg',
-            shortName: 'Semaglutide',
-            slug: 'semaglutide',
-            category: 'glp1',
-            categoryLabel: 'GLP-1 Agonist',
-            dosage: '10mg',
-            purity: '≥98%',
-            price: 47,
-            cogs: 9.10,
-            image: 'images/semaglutide.jpg',
-            url: 'products/semaglutide.html',
-            inStock: true,
-            dualTested: true
-        },
+        // METABOLIC SIGNALING - GLP-1, GIP & glucagon pathway peptides
         {
             sku: 'VX-TIRZ-30',
             name: 'Tirzepatide 30mg',
             shortName: 'Tirzepatide',
             slug: 'tirzepatide',
-            category: 'glp1',
-            categoryLabel: 'GLP-1/GIP Dual Agonist',
+            category: 'metabolic',
+            categoryLabel: 'Metabolic Signaling',
             dosage: '30mg',
             purity: '≥98%',
             price: 72,
@@ -41,8 +26,8 @@ const VX_PRODUCTS = {
             name: 'Retatrutide 20mg',
             shortName: 'Retatrutide',
             slug: 'retatrutide',
-            category: 'glp1',
-            categoryLabel: 'GLP-1/GIP/Glucagon Triple Agonist',
+            category: 'metabolic',
+            categoryLabel: 'Metabolic Signaling',
             dosage: '20mg',
             purity: '≥98%',
             price: 78,
@@ -53,12 +38,30 @@ const VX_PRODUCTS = {
             dualTested: true
         },
         {
+            sku: 'VX-SEMA-10',
+            name: 'Semaglutide 10mg',
+            shortName: 'Semaglutide',
+            slug: 'semaglutide',
+            category: 'metabolic',
+            categoryLabel: 'Metabolic Signaling',
+            dosage: '10mg',
+            purity: '≥98%',
+            price: 47,
+            cogs: 9.10,
+            image: 'images/semaglutide.jpg',
+            url: 'products/semaglutide.html',
+            inStock: true,
+            dualTested: true
+        },
+        
+        // BIOREGENERATIVE SIGNALING - Cellular signaling, matrix interaction, tissue-level pathways
+        {
             sku: 'VX-BPC-10',
             name: 'BPC-157 10mg',
             shortName: 'BPC-157',
             slug: 'bpc-157',
-            category: 'tissue-repair',
-            categoryLabel: 'Tissue Repair',
+            category: 'regen',
+            categoryLabel: 'Bioregenerative Signaling',
             dosage: '10mg',
             purity: '≥98%',
             price: 32,
@@ -73,8 +76,8 @@ const VX_PRODUCTS = {
             name: 'TB-500 10mg',
             shortName: 'TB-500',
             slug: 'tb-500',
-            category: 'tissue-repair',
-            categoryLabel: 'Tissue Repair',
+            category: 'regen',
+            categoryLabel: 'Bioregenerative Signaling',
             dosage: '10mg',
             purity: '≥98%',
             price: 35,
@@ -85,12 +88,30 @@ const VX_PRODUCTS = {
             dualTested: true
         },
         {
+            sku: 'VX-GHK-100',
+            name: 'GHK-Cu 100mg',
+            shortName: 'GHK-Cu',
+            slug: 'ghk-cu',
+            category: 'regen',
+            categoryLabel: 'Bioregenerative Signaling',
+            dosage: '100mg',
+            purity: '≥98%',
+            price: 32,
+            cogs: 10.00,
+            image: 'images/ghk-cu.jpg',
+            url: 'products/ghk-cu.html',
+            inStock: true,
+            dualTested: true
+        },
+        
+        // SOMATOTROPIC SIGNALING (GH AXIS) - Growth hormone axis & secretagogue research
+        {
             sku: 'VX-CJC-5',
             name: 'CJC-1295 (No DAC) 5mg',
             shortName: 'CJC-1295',
             slug: 'cjc-1295',
-            category: 'growth-hormone',
-            categoryLabel: 'Growth Hormone',
+            category: 'gh-axis',
+            categoryLabel: 'Somatotropic Signaling',
             dosage: '5mg',
             purity: '≥98%',
             price: 28,
@@ -105,8 +126,8 @@ const VX_PRODUCTS = {
             name: 'Ipamorelin 5mg',
             shortName: 'Ipamorelin',
             slug: 'ipamorelin',
-            category: 'growth-hormone',
-            categoryLabel: 'Growth Hormone',
+            category: 'gh-axis',
+            categoryLabel: 'Somatotropic Signaling',
             dosage: '5mg',
             purity: '≥98%',
             price: 24,
@@ -116,13 +137,15 @@ const VX_PRODUCTS = {
             inStock: true,
             dualTested: true
         },
+        
+        // MITOCHONDRIAL & CELLULAR RESEARCH - Cellular energy, mitochondrial signaling, metabolic regulation
         {
             sku: 'VX-MOTS-10',
             name: 'MOTS-C 10mg',
             shortName: 'MOTS-C',
             slug: 'mots-c',
-            category: 'metabolic',
-            categoryLabel: 'Metabolic',
+            category: 'mito',
+            categoryLabel: 'Mitochondrial & Cellular',
             dosage: '10mg',
             purity: '≥98%',
             price: 32,
@@ -137,8 +160,8 @@ const VX_PRODUCTS = {
             name: 'NAD+ 1000mg',
             shortName: 'NAD+',
             slug: 'nad-plus',
-            category: 'longevity',
-            categoryLabel: 'Longevity',
+            category: 'mito',
+            categoryLabel: 'Mitochondrial & Cellular',
             dosage: '1000mg',
             purity: '≥98%',
             price: 72,
@@ -148,29 +171,15 @@ const VX_PRODUCTS = {
             inStock: true,
             dualTested: true
         },
-        {
-            sku: 'VX-GHK-100',
-            name: 'GHK-Cu 100mg',
-            shortName: 'GHK-Cu',
-            slug: 'ghk-cu',
-            category: 'cosmetic',
-            categoryLabel: 'Cosmetic',
-            dosage: '100mg',
-            purity: '≥98%',
-            price: 32,
-            cogs: 10.00,
-            image: 'images/ghk-cu.jpg',
-            url: 'products/ghk-cu.html',
-            inStock: true,
-            dualTested: true
-        },
+        
+        // RESEARCH ESSENTIALS - Laboratory-use reagents and supporting materials
         {
             sku: 'VX-BAC-30',
             name: 'Bacteriostatic Water 30ml',
             shortName: 'BAC Water',
             slug: 'bac-water',
-            category: 'supplies',
-            categoryLabel: 'Supplies',
+            category: 'lab-supply',
+            categoryLabel: 'Research Essentials',
             volume: '30ml',
             type: 'Bacteriostatic Water',
             price: 8,
