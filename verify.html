@@ -1511,15 +1511,17 @@
             state.loading = false;
             render();
 
-            // Scroll to first chromatograph panel (instant to avoid flash)
-            setTimeout(() => {
-                const firstPanel = document.getElementById('panel-0');
-                if (firstPanel) {
-                    const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                    const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 80;
-                    window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
-                }
-            }, 100);
+            // Double RAF for stable layout calculation, then instant scroll
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const firstPanel = document.getElementById('panel-0');
+                    if (firstPanel) {
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+                        const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 80;
+                        window.scrollTo(0, Math.max(0, y));
+                    }
+                });
+            });
         }
 
         // ─── Chromatogram Rendering ───
@@ -2154,8 +2156,11 @@
             history.scrollRestoration = 'manual';
         }
         
-        // Always start at top of page on load
-        window.scrollTo(0, 0);
+        // Only scroll to top if no batch param (prevents flash when loading verification)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.get('batch')) {
+            window.scrollTo(0, 0);
+        }
         
         render();
         handleURLParams();
