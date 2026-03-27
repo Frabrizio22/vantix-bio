@@ -1333,10 +1333,11 @@
             setTimeout(() => {
                 const resultsArea = document.querySelector('.results-area');
                 if (resultsArea) {
-                    const y = resultsArea.getBoundingClientRect().top + window.pageYOffset - 80;
+                    const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+                    const y = resultsArea.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
                     window.scrollTo({ top: y, behavior: 'smooth' });
                 }
-            }, 600); // Wait for fadeUp animation (500ms) + buffer
+            }, 700); // Wait for fadeUp animation + chromatogram render
         }
 
         // ─── Chromatogram Rendering ───
