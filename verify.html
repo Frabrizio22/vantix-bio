@@ -971,7 +971,7 @@
 
         // ─── Demo Data ───
         const DEMO_DB = {
-            // Bundle IDs (two molecules)
+            // Legacy bundle IDs (kept for backward compatibility)
             'VX-TZ-2026': {
                 type: 'bundle',
                 molecules: [
@@ -1270,7 +1270,7 @@
             // Hero Title + Verification Input (ABOVE FOLD)
             html += `<div class="verify-hero ${state.result ? 'compact' : ''}">
                 <h1>Batch Verification Portal</h1>
-                <p class="hero-desc">Every Vantix Bio compound is independently verified through ISO/IEC 17025:2017 accredited laboratories using HPLC-DAD purity, LC-MS/MS identity, and LAL endotoxin analysis. Enter a Batch ID or Bundle ID to view the verified analytical record.</p>
+                <p class="hero-desc">Every Vantix Bio compound is independently verified through ISO/IEC 17025:2017 accredited laboratories using HPLC-DAD purity, LC-MS/MS identity, and LAL endotoxin analysis. Enter a Batch&nbsp;ID to view the verified analytical&nbsp;record.</p>
                 
                 <section id="verify" class="search-box-hero">
                     <div class="input-row-hero">
@@ -1479,7 +1479,7 @@
             const inp = document.getElementById('q');
             const raw = (inp?.value || state.query).trim().toUpperCase();
             state.query = raw;
-            if (!raw) { state.error = 'Enter a Standard ID or Bundle ID'; render(); return; }
+            if (!raw) { state.error = 'Enter a Batch ID'; render(); return; }
 
             const idType = detectIdType(raw);
             if (!idType) { state.error = 'Invalid format. Bundle: VX-XX-0000 | Standard: VX-0000'; render(); return; }
@@ -1508,12 +1508,12 @@
             state.loading = false;
             render();
 
-            // Scroll to first chromatograph AFTER render completes
+            // Scroll to show forensic badge + results (keep context visible)
             setTimeout(() => {
-                const firstPanel = document.getElementById('panel-0');
-                if (firstPanel) {
+                const forensicBadge = document.querySelector('.forensic-badge');
+                if (forensicBadge) {
                     const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                    const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                    const y = forensicBadge.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
                     window.scrollTo({ top: y, behavior: 'smooth' });
                 }
             }, 200);
@@ -2067,7 +2067,7 @@
             const params = new URLSearchParams(window.location.search);
             const hash = window.location.hash;
             
-            // Product slug to Bundle ID mapping
+            // Product slug to Batch ID mapping
             const productToBundleId = {};
             PHASE1_PRODUCTS.forEach(p => {
                 productToBundleId[p.slug] = p.bundleId;
