@@ -1195,7 +1195,7 @@
                     <div class="panel-meta">
                         ${mol.designation}<br/>
                         Method: <span class="val">${mol.method}</span><br/>
-                        Chromatographic Purity: <span class="val">${mol.purity}</span> <span class="badge badge-green">PASS</span><br/>
+                        Purity: <span class="val">${mol.purity}</span> <span class="badge badge-green">PASS</span><br/>
                         Task ID: <span class="val">${mol.taskId}</span> <span class="badge">WATERMARKED</span>
                     </div>
                 </div>
@@ -1329,15 +1329,15 @@
             render();
 
             // Scroll to results area AFTER render completes and DOM updates
-            // Wait for animation and chromatogram rendering
+            // Instant scroll to chromatographs - no animation delay
             setTimeout(() => {
                 const resultsArea = document.querySelector('.results-area');
                 if (resultsArea) {
                     const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
                     const y = resultsArea.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
+                    window.scrollTo({ top: y, behavior: 'instant' });
                 }
-            }, 700); // Wait for fadeUp animation + chromatogram render
+            }, 100); // Minimal delay for DOM paint
         }
 
         // ─── Chromatogram Rendering ───
