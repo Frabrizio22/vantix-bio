@@ -1353,16 +1353,17 @@
             state.loading = false;
             render();
 
-            // Scroll to results area AFTER render completes and DOM updates
-            // Instant scroll to chromatographs - no animation delay
-            setTimeout(() => {
-                const resultsArea = document.querySelector('.results-area');
-                if (resultsArea) {
-                    const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                    const y = resultsArea.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                    window.scrollTo({ top: y, behavior: 'auto' });
-                }
-            }, 150); // Minimal delay for DOM paint
+            // Scroll to first chromatograph AFTER render completes
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const firstPanel = document.getElementById('panel-0');
+                    if (firstPanel) {
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+                        const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                        window.scrollTo({ top: y, behavior: 'auto' });
+                    }
+                });
+            });
         }
 
         // ─── Chromatogram Rendering ───
