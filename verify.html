@@ -553,8 +553,8 @@
         .panel-header h3 { font-size: 15px; font-weight: 700; color: #1A2B44; }
         .panel-meta { font-size: 10px; color: #64748B; font-family: 'JetBrains Mono', monospace; line-height: 1.8; margin-top: 4px; }
         .panel-meta .val { color: #1A2B44; font-weight: 500; }
-        .badge { display: inline-block; background: rgba(91,141,190,0.12); color: #5B8DBE; padding: 1px 5px; border-radius: 2px; font-size: 8px; font-weight: 600; margin-left: 5px; vertical-align: middle; letter-spacing: 0.3px; }
-        .badge-green { background: rgba(16,185,129,0.12); color: #059669; }
+        .badge { display: inline-block; background: #5B8DBE; color: #fff; padding: 2px 5px; border-radius: 3px; font-size: 8px; font-weight: 600; margin-left: 5px; vertical-align: middle; letter-spacing: 0.3px; }
+        .badge-green { background: #10B981; color: #fff; }
         .expand-btn { 
             background: #F1F5F9; 
             border: 1px solid #E2E8F0; 
@@ -1509,16 +1509,14 @@
             render();
 
             // Scroll to first chromatograph AFTER render completes
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    const firstPanel = document.getElementById('panel-0');
-                    if (firstPanel) {
-                        const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                        const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-                        window.scrollTo({ top: y, behavior: 'auto' });
-                    }
-                });
-            });
+            setTimeout(() => {
+                const firstPanel = document.getElementById('panel-0');
+                if (firstPanel) {
+                    const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+                    const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            }, 200);
         }
 
         // ─── Chromatogram Rendering ───
