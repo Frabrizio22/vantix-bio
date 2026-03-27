@@ -579,7 +579,7 @@
         /* Flashlight mask overlay */
         .flashlight-mask { position: absolute; inset: 0; pointer-events: none; z-index: 3; background: rgba(26,43,68,0.88); transition: none; }
         @media (hover: none) { 
-            .flashlight-mask { background: rgba(26,43,68,0.25); }
+            .flashlight-mask { display: none; }
         }
         /* Forensic watermark layer */
         .watermark-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.06; }
@@ -1013,12 +1013,12 @@
                         name: 'Retatrutide',
                         designation: 'Analytical Reference Compound A',
                         method: 'HPLC-DAD (C18 RP, 214nm)',
-                        purity: '98.95%',
+                        purity: '99.18%',
                         taskId: 'J-50280',
                         peaks: [
                             { rt: 2.0, height: 0.11, width: 0.38, label: 'Solvent Front', purity: null },
-                            { rt: 6.3, height: 0.07, width: 0.5, label: 'Related Substance', purity: '0.55%' },
-                            { rt: 9.1, height: 0.90, width: 0.72, label: 'Retatrutide', purity: '98.95%' }
+                            { rt: 6.3, height: 0.05, width: 0.5, label: 'Related Substance', purity: '0.48%' },
+                            { rt: 9.1, height: 0.94, width: 0.72, label: 'Retatrutide', purity: '99.18%' }
                         ]
                     },
                     {
@@ -1058,12 +1058,12 @@
                     name: 'Retatrutide',
                     designation: 'Research-Grade Analytical Standard',
                     method: 'HPLC-DAD (C18 RP, 214nm)',
-                    purity: '98.95%',
+                    purity: '99.18%',
                     taskId: 'J-50289',
                     peaks: [
                         { rt: 2.0, height: 0.11, width: 0.38, label: 'Solvent Front', purity: null },
-                        { rt: 6.3, height: 0.07, width: 0.5, label: 'Related Substance', purity: '0.55%' },
-                        { rt: 9.1, height: 0.90, width: 0.72, label: 'Retatrutide', purity: '98.95%' }
+                        { rt: 6.3, height: 0.05, width: 0.5, label: 'Related Substance', purity: '0.48%' },
+                        { rt: 9.1, height: 0.94, width: 0.72, label: 'Retatrutide', purity: '99.18%' }
                     ]
                 }]
             },
@@ -1511,16 +1511,15 @@
             state.loading = false;
             render();
 
-            // Scroll to show results with context
+            // Scroll to first chromatograph panel
             setTimeout(() => {
-                const verifyHero = document.querySelector('.verify-hero');
-                if (verifyHero) {
-                    // Scroll to top of verify hero (keeps badge + title visible)
+                const firstPanel = document.getElementById('panel-0');
+                if (firstPanel) {
                     const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                    const y = verifyHero.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+                    const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 80;
                     window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
                 }
-            }, 400);
+            }, 500);
         }
 
         // ─── Chromatogram Rendering ───
