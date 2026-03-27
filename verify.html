@@ -578,6 +578,9 @@
         .canvas-wrap:hover { box-shadow: 0 0 0 3px rgba(91,141,190,0.3); transition: box-shadow 0.2s; }
         /* Flashlight mask overlay */
         .flashlight-mask { position: absolute; inset: 0; pointer-events: none; z-index: 3; background: rgba(26,43,68,0.88); transition: none; }
+        @media (hover: none) { 
+            .flashlight-mask { background: rgba(26,43,68,0.25); }
+        }
         /* Forensic watermark layer */
         .watermark-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.06; }
         /* Tooltip */
@@ -1508,15 +1511,16 @@
             state.loading = false;
             render();
 
-            // Scroll to show forensic badge + results (keep context visible)
+            // Scroll to show results with context
             setTimeout(() => {
-                const forensicBadge = document.querySelector('.forensic-badge');
-                if (forensicBadge) {
+                const verifyHero = document.querySelector('.verify-hero');
+                if (verifyHero) {
+                    // Scroll to top of verify hero (keeps badge + title visible)
                     const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                    const y = forensicBadge.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
+                    const y = verifyHero.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+                    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
                 }
-            }, 200);
+            }, 400);
         }
 
         // ─── Chromatogram Rendering ───
