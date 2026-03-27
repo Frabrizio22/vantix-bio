@@ -1547,11 +1547,38 @@
                     const px = (e.clientX - rect.left);
                     const plotH = canvas.height - pad.top - pad.bottom;
                     const py = (canvas.height - pad.bottom - nearest.height * plotH) / scaleX;
-                    tip.style.left = px + 'px';
-                    tip.style.top = py + 'px';
+                    
+                    // Set content first to measure width
                     tip.innerHTML = `<strong>${nearest.label}</strong><br/>RT: ${nearest.rt.toFixed(2)} min` +
                         (nearest.purity ? `<br/>Purity: ${nearest.purity}` : '');
                     tip.classList.add('visible');
+                    
+                    // Boundary detection
+                    const tipWidth = tip.offsetWidth;
+                    const tipHeight = tip.offsetHeight;
+                    const wrapWidth = rect.width;
+                    
+                    let finalX = px;
+                    let finalY = py;
+                    
+                    // Keep within horizontal bounds
+                    if (finalX - tipWidth/2 < 10) {
+                        finalX = tipWidth/2 + 10; // Left edge
+                        tip.style.transform = 'translate(-50%, -110%)';
+                    } else if (finalX + tipWidth/2 > wrapWidth - 10) {
+                        finalX = wrapWidth - tipWidth/2 - 10; // Right edge
+                        tip.style.transform = 'translate(-50%, -110%)';
+                    } else {
+                        tip.style.transform = 'translate(-50%, -110%)';
+                    }
+                    
+                    // Keep above canvas if near bottom
+                    if (finalY + tipHeight > rect.height - 10) {
+                        finalY = rect.height - tipHeight - 10;
+                    }
+                    
+                    tip.style.left = finalX + 'px';
+                    tip.style.top = finalY + 'px';
                 } else {
                     tip.classList.remove('visible');
                 }
@@ -1683,12 +1710,33 @@
                 });
 
                 if (nearest) {
-                    tip.style.left = x + 'px';
-                    tip.style.top = (y - 20) + 'px';
+                    // Set content first to measure
                     tip.innerHTML = `RT: ${nearest.rt.toFixed(2)} min<br/>` +
                         `${nearest.label}` +
                         (nearest.purity ? `<br/>Purity: ${nearest.purity}` : '');
                     tip.classList.add('visible');
+                    
+                    // Boundary detection
+                    const tipWidth = tip.offsetWidth;
+                    const tipHeight = tip.offsetHeight;
+                    
+                    let finalX = x;
+                    let finalY = y - 20;
+                    
+                    // Keep within horizontal bounds
+                    if (finalX - tipWidth/2 < 10) {
+                        finalX = tipWidth/2 + 10;
+                    } else if (finalX + tipWidth/2 > rect.width - 10) {
+                        finalX = rect.width - tipWidth/2 - 10;
+                    }
+                    
+                    // Keep within vertical bounds (above hover point)
+                    if (finalY - tipHeight < 10) {
+                        finalY = tipHeight + 20; // Below cursor instead
+                    }
+                    
+                    tip.style.left = finalX + 'px';
+                    tip.style.top = finalY + 'px';
                 } else {
                     tip.classList.remove('visible');
                 }
