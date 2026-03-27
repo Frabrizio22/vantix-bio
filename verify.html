@@ -957,16 +957,16 @@
 
         // ─── Phase 1 Products (for Latest COAs) ───
         const PHASE1_PRODUCTS = [
-            { name: 'Semaglutide 10mg', slug: 'semaglutide-10mg', sku: 'VX-SEMA-10', bundleId: 'VX-7841', taskId: 'J-50234' },
-            { name: 'Tirzepatide 30mg', slug: 'tirzepatide-30mg', sku: 'VX-TIRZ-30', bundleId: 'VX-TZ-2026', taskId: 'J-50234' },
-            { name: 'Retatrutide 10mg', slug: 'retatrutide-10mg', sku: 'VX-RETA-10', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
-            { name: 'Retatrutide 20mg', slug: 'retatrutide-20mg', sku: 'VX-RETA-20', bundleId: 'VX-RETA20-001', taskId: 'J-50280' },
-            { name: 'BPC-157 5mg', slug: 'bpc157-5mg', sku: 'VX-BPC-5', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
-            { name: 'TB-500 5mg', slug: 'tb500-5mg', sku: 'VX-TB-5', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
-            { name: 'CJC-1295 5mg', slug: 'cjc1295-5mg', sku: 'VX-CJC-5', bundleId: 'VX-TZ-2026', taskId: 'J-50234' },
-            { name: 'Ipamorelin 5mg', slug: 'ipamorelin-5mg', sku: 'VX-IPA-5', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
-            { name: 'Epithalon 50mg', slug: 'epithalon-50mg', sku: 'VX-EPI-50', bundleId: 'VX-TZ-2026', taskId: 'J-50234' },
-            { name: 'Melanotan II 10mg', slug: 'melanotan-ii-10mg', sku: 'VX-MT2-10', bundleId: 'VX-SM-2026', taskId: 'J-50280' }
+            { name: 'BPC-157 10mg', slug: 'bpc-157-10mg', sku: 'VX-BPC-10', bundleId: 'VX-BPC10-001', taskId: 'J-50280' },
+            { name: 'TB-500 10mg', slug: 'tb-500-10mg', sku: 'VX-TB-10', bundleId: 'VX-TB10-001', taskId: 'J-50281' },
+            { name: 'CJC-1295 5mg', slug: 'cjc-1295-5mg', sku: 'VX-CJC-5', bundleId: 'VX-CJC5-001', taskId: 'J-50282' },
+            { name: 'Ipamorelin 5mg', slug: 'ipamorelin-5mg', sku: 'VX-IPA-5', bundleId: 'VX-IPA5-001', taskId: 'J-50283' },
+            { name: 'MOTS-C 10mg', slug: 'mots-c-10mg', sku: 'VX-MOTS-10', bundleId: 'VX-MOTS10-001', taskId: 'J-50284' },
+            { name: 'NAD+ 1000mg', slug: 'nad-plus-1000mg', sku: 'VX-NAD-1K', bundleId: 'VX-NAD1K-001', taskId: 'J-50285' },
+            { name: 'GHK-Cu 100mg', slug: 'ghk-cu-100mg', sku: 'VX-GHK-100', bundleId: 'VX-GHK100-001', taskId: 'J-50286' },
+            { name: 'Semaglutide 10mg', slug: 'semaglutide-10mg', sku: 'VX-SEMA-10', bundleId: 'VX-SEMA10-001', taskId: 'J-50287' },
+            { name: 'Tirzepatide 30mg', slug: 'tirzepatide-30mg', sku: 'VX-TIRZ-30', bundleId: 'VX-TIRZ30-001', taskId: 'J-50288' },
+            { name: 'Retatrutide 20mg', slug: 'retatrutide-20mg', sku: 'VX-RETA-20', bundleId: 'VX-RETA20-001', taskId: 'J-50289' }
         ];
 
         // ─── Demo Data ───
@@ -1056,11 +1056,147 @@
                     designation: 'Research-Grade Analytical Standard',
                     method: 'HPLC-DAD (C18 RP, 214nm)',
                     purity: '98.95%',
-                    taskId: 'J-50280',
+                    taskId: 'J-50289',
                     peaks: [
                         { rt: 2.0, height: 0.11, width: 0.38, label: 'Solvent Front', purity: null },
                         { rt: 6.3, height: 0.07, width: 0.5, label: 'Related Substance', purity: '0.55%' },
                         { rt: 9.1, height: 0.90, width: 0.72, label: 'Retatrutide', purity: '98.95%' }
+                    ]
+                }]
+            },
+            'VX-BPC10-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'BPC-157',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 220nm)',
+                    purity: '99.32%',
+                    taskId: 'J-50280',
+                    peaks: [
+                        { rt: 1.9, height: 0.10, width: 0.35, label: 'Solvent Front', purity: null },
+                        { rt: 5.2, height: 0.05, width: 0.45, label: 'Impurity A', purity: '0.38%' },
+                        { rt: 7.8, height: 0.94, width: 0.68, label: 'BPC-157', purity: '99.32%' }
+                    ]
+                }]
+            },
+            'VX-TB10-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'TB-500',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 214nm)',
+                    purity: '98.87%',
+                    taskId: 'J-50281',
+                    peaks: [
+                        { rt: 2.1, height: 0.11, width: 0.38, label: 'Solvent Front', purity: null },
+                        { rt: 8.4, height: 0.92, width: 0.70, label: 'TB-500', purity: '98.87%' },
+                        { rt: 10.8, height: 0.04, width: 0.35, label: 'Related Substance', purity: '0.45%' }
+                    ]
+                }]
+            },
+            'VX-CJC5-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'CJC-1295',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 220nm)',
+                    purity: '99.15%',
+                    taskId: 'J-50282',
+                    peaks: [
+                        { rt: 2.0, height: 0.09, width: 0.32, label: 'Solvent Front', purity: null },
+                        { rt: 6.8, height: 0.93, width: 0.65, label: 'CJC-1295', purity: '99.15%' },
+                        { rt: 9.2, height: 0.03, width: 0.30, label: 'Impurity B', purity: '0.28%' }
+                    ]
+                }]
+            },
+            'VX-IPA5-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'Ipamorelin',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 214nm)',
+                    purity: '98.96%',
+                    taskId: 'J-50283',
+                    peaks: [
+                        { rt: 1.8, height: 0.10, width: 0.35, label: 'Solvent Front', purity: null },
+                        { rt: 7.2, height: 0.91, width: 0.68, label: 'Ipamorelin', purity: '98.96%' },
+                        { rt: 9.6, height: 0.05, width: 0.38, label: 'Fragment', purity: '0.52%' }
+                    ]
+                }]
+            },
+            'VX-MOTS10-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'MOTS-C',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 220nm)',
+                    purity: '99.24%',
+                    taskId: 'J-50284',
+                    peaks: [
+                        { rt: 2.2, height: 0.11, width: 0.40, label: 'Solvent Front', purity: null },
+                        { rt: 6.5, height: 0.93, width: 0.70, label: 'MOTS-C', purity: '99.24%' },
+                        { rt: 8.9, height: 0.03, width: 0.32, label: 'Impurity A', purity: '0.31%' }
+                    ]
+                }]
+            },
+            'VX-NAD1K-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'NAD+',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 260nm)',
+                    purity: '99.41%',
+                    taskId: 'J-50285',
+                    peaks: [
+                        { rt: 1.7, height: 0.09, width: 0.30, label: 'Solvent Front', purity: null },
+                        { rt: 5.8, height: 0.95, width: 0.72, label: 'NAD+', purity: '99.41%' },
+                        { rt: 8.2, height: 0.02, width: 0.28, label: 'Nicotinamide', purity: '0.18%' }
+                    ]
+                }]
+            },
+            'VX-GHK100-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'GHK-Cu',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 220nm)',
+                    purity: '98.78%',
+                    taskId: 'J-50286',
+                    peaks: [
+                        { rt: 2.0, height: 0.10, width: 0.36, label: 'Solvent Front', purity: null },
+                        { rt: 6.9, height: 0.92, width: 0.68, label: 'GHK-Cu', purity: '98.78%' },
+                        { rt: 9.3, height: 0.04, width: 0.35, label: 'Copper Salt', purity: '0.48%' }
+                    ]
+                }]
+            },
+            'VX-SEMA10-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'Semaglutide',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 214nm)',
+                    purity: '99.18%',
+                    taskId: 'J-50287',
+                    peaks: [
+                        { rt: 2.1, height: 0.12, width: 0.40, label: 'Solvent Front', purity: null },
+                        { rt: 7.6, height: 0.93, width: 0.72, label: 'Semaglutide', purity: '99.18%' },
+                        { rt: 10.2, height: 0.03, width: 0.32, label: 'Impurity A', purity: '0.35%' }
+                    ]
+                }]
+            },
+            'VX-TIRZ30-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'Tirzepatide',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 220nm)',
+                    purity: '99.12%',
+                    taskId: 'J-50288',
+                    peaks: [
+                        { rt: 2.1, height: 0.12, width: 0.4, label: 'Solvent Front', purity: null },
+                        { rt: 5.8, height: 0.08, width: 0.5, label: 'Impurity A', purity: '0.41%' },
+                        { rt: 8.4, height: 0.92, width: 0.7, label: 'Tirzepatide', purity: '99.12%' },
+                        { rt: 11.2, height: 0.05, width: 0.4, label: 'Impurity B', purity: '0.31%' }
                     ]
                 }]
             }
@@ -1138,12 +1274,12 @@
                 
                 <section id="verify" class="search-box-hero">
                     <div class="input-row-hero">
-                        <input id="q" type="text" placeholder="Enter VX-TZ-2026 or VX-SEMA-10-240305" autocomplete="off" spellcheck="false" onpaste="return true;" ${state.loading ? 'disabled' : ''} />
+                        <input id="q" type="text" placeholder="Enter VX-RETA20-001 or VX-BPC10-001" autocomplete="off" spellcheck="false" onpaste="return true;" ${state.loading ? 'disabled' : ''} />
                         <button class="btn-primary-hero" id="btn-verify" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Verifying…' : 'Verify Report'}</button>
                     </div>
                     ${state.error ? `<div class="error-msg">${state.error}</div>` : ''}
                     <div class="id-hint-hero">
-                        <span>Bundle ID: VX-TZ-2026</span>
+                        <span>Batch ID: VX-RETA20-001</span>
                         <span class="sep">•</span>
                         <span>Batch ID: VX-SEMA-10-240305</span>
                     </div>
