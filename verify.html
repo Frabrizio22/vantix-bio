@@ -534,7 +534,7 @@
         .results-area { 
             margin-top: 16px; 
             animation: fadeUp 0.5s ease both; 
-            scroll-margin-top: 20px;
+            scroll-margin-top: 100px;
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -568,14 +568,49 @@
         /* ── Chromatogram Modal (Full-Screen View) ── */
         .chrom-modal { display: none; position: fixed; inset: 0; background: rgba(26,43,68,0.95); z-index: 10000; align-items: center; justify-content: center; padding: 12px; backdrop-filter: blur(8px); overflow: auto; }
         .chrom-modal.active { display: flex; }
-        .chrom-modal-content { position: relative; width: 100%; max-width: 95vw; max-height: 95vh; background: #FFFFFF; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,0.4); padding: 16px; overflow-y: auto; overflow-x: hidden; margin: auto; }
+        .chrom-modal-content { 
+            position: relative; 
+            width: 100%; 
+            max-width: 95vw; 
+            max-height: 92vh; 
+            background: #FFFFFF; 
+            border-radius: 12px; 
+            box-shadow: 0 24px 48px rgba(0,0,0,0.4); 
+            padding: 16px; 
+            overflow-y: auto; 
+            overflow-x: hidden; 
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
         .chrom-modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; border-bottom: 2px solid #E2E8F0; padding-bottom: 12px; gap: 12px; }
         .chrom-modal-title { font-size: 18px; font-weight: 700; color: #1A2B44; flex: 1; }
         .chrom-modal-meta { font-size: 12px; color: #64748B; font-family: 'JetBrains Mono', monospace; margin-top: 4px; line-height: 1.6; word-break: break-word; }
-        .chrom-modal-close { background: #EF4444; color: #fff; border: none; width: 36px; height: 36px; min-width: 36px; border-radius: 6px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .chrom-modal-close:hover { background: #DC2626; transform: scale(1.05); }
-        .chrom-modal-canvas-wrap { position: relative; background: #FAFCFF; border-radius: 8px; padding: 12px; cursor: crosshair; overflow: hidden; }
-        .chrom-modal canvas { display: block; width: 100%; height: auto; max-height: 60vh; }
+        .chrom-modal-close { 
+            background: rgba(15,23,42,0.06); 
+            color: #1A2B44; 
+            border: 1px solid rgba(15,23,42,0.1);
+            width: 40px; 
+            height: 40px; 
+            min-width: 40px; 
+            border-radius: 8px; 
+            font-size: 24px; 
+            font-weight: 400; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .chrom-modal-close:hover { 
+            background: rgba(15,23,42,0.12); 
+            border-color: rgba(15,23,42,0.2);
+            transform: scale(1.05); 
+        }
+        .chrom-modal-canvas-wrap { position: relative; background: #FAFCFF; border-radius: 8px; padding: 12px; cursor: crosshair; overflow: hidden; flex-shrink: 0; }
+        .chrom-modal canvas { display: block; width: 100%; height: auto; max-height: 50vh; object-fit: contain; }
         @media (min-width: 768px) {
             .chrom-modal { padding: 32px; }
             .chrom-modal-content { padding: 24px; max-height: 90vh; }
@@ -1277,14 +1312,19 @@
             render();
 
             // Scroll to results area AFTER render completes and DOM updates
+            // Double RAF to ensure chromatograms are rendered
             requestAnimationFrame(() => {
-                const resultsArea = document.querySelector('.results-area');
-                if (resultsArea) {
-                    resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    // Fallback to top if results area not found
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        const resultsArea = document.querySelector('.results-area');
+                        if (resultsArea) {
+                            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                            // Fallback to top if results area not found
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }, 100);
+                });
             });
         }
 
@@ -1538,7 +1578,7 @@
                                 Method: ${mol.method} | Purity: ${mol.purity} | Task: ${mol.taskId}
                             </div>
                         </div>
-                        <button class="chrom-modal-close" onclick="closeChromModal()">×</button>
+                        <button class="chrom-modal-close" id="chrom-modal-close-btn">×</button>
                     </div>
                     <div id="chrom-modal-wrap" class="chrom-modal-canvas-wrap">
                         <canvas id="chrom-modal-canvas" width="1200" height="480"></canvas>
@@ -1564,6 +1604,12 @@
                 drawChromatogramModal(mol);
                 setupModalInteractivity(mol);
             }, 50);
+
+            // Close button handler
+            const closeBtn = document.getElementById('chrom-modal-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeChromModal);
+            }
 
             // Close on background click
             modal.addEventListener('click', (e) => {
