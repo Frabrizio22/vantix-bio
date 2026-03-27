@@ -1511,15 +1511,15 @@
             state.loading = false;
             render();
 
-            // Scroll to first chromatograph panel
+            // Scroll to first chromatograph panel (instant to avoid flash)
             setTimeout(() => {
                 const firstPanel = document.getElementById('panel-0');
                 if (firstPanel) {
                     const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
                     const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 80;
-                    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+                    window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
                 }
-            }, 500);
+            }, 100);
         }
 
         // ─── Chromatogram Rendering ───
