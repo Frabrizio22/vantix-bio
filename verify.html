@@ -1551,6 +1551,9 @@
             const canvas = document.getElementById('chrom-' + idx);
             if (!wrap || !tip || !canvas) return;
 
+            // Disable tooltips on touch devices (use Expand button instead)
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
             const pad = { top: 40, bottom: 45, left: 55, right: 20 };
             const plotW = canvas.width - pad.left - pad.right;
 
