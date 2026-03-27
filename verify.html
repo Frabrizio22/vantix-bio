@@ -188,8 +188,10 @@
                 letter-spacing: 1.2px;
             }
             .forensic-badge-desc {
-                font-size: 12px;
-                line-height: 1.5;
+                font-size: 13px;
+                line-height: 1.6;
+                max-width: 100%;
+                word-spacing: 0.05em;
             }
         }
 
@@ -728,9 +730,19 @@
         @media (max-width: 968px) {
             .verify-hero { padding: 32px 24px 24px; }
             .verify-hero h1 { font-size: 26px; }
-            .hero-desc { font-size: 14px; }
+            .hero-desc { font-size: 14px; line-height: 1.65; }
             .search-box-hero { padding: 24px; }
             .protocol-summary { padding: 32px 24px; }
+            .protocol-intro { 
+                font-size: 13px; 
+                line-height: 1.65;
+                max-width: 100%;
+            }
+            .section-desc {
+                font-size: 13px;
+                line-height: 1.65;
+                max-width: 100%;
+            }
             .protocol-grid-compact { grid-template-columns: 1fr; }
             .latest-coas { padding: 0 24px; }
             .coa-grid { grid-template-columns: 1fr; }
@@ -763,8 +775,13 @@
             
             /* 3. MOBILE TYPOGRAPHY SCALE */
             .verify-hero h1 { font-size: 36px; line-height: 1.15; }
-            .hero-desc { font-size: 16px; line-height: 1.5; }
-            h2 { font-size: 30px; }
+            .hero-desc { 
+                font-size: 15px; 
+                line-height: 1.65; 
+                max-width: 100%;
+                text-align: center;
+            }
+            h2 { font-size: 30px; line-height: 1.2; }
             h3 { font-size: 24px; }
             
             /* 4. VERIFICATION PORTAL - COMPACT */
