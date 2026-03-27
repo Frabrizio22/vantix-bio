@@ -960,7 +960,7 @@
             { name: 'Semaglutide 10mg', slug: 'semaglutide-10mg', sku: 'VX-SEMA-10', bundleId: 'VX-7841', taskId: 'J-50234' },
             { name: 'Tirzepatide 30mg', slug: 'tirzepatide-30mg', sku: 'VX-TIRZ-30', bundleId: 'VX-TZ-2026', taskId: 'J-50234' },
             { name: 'Retatrutide 10mg', slug: 'retatrutide-10mg', sku: 'VX-RETA-10', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
-            { name: 'Retatrutide 20mg', slug: 'retatrutide-20mg', sku: 'VX-RETA-20', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
+            { name: 'Retatrutide 20mg', slug: 'retatrutide-20mg', sku: 'VX-RETA-20', bundleId: 'VX-RETA20-001', taskId: 'J-50280' },
             { name: 'BPC-157 5mg', slug: 'bpc157-5mg', sku: 'VX-BPC-5', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
             { name: 'TB-500 5mg', slug: 'tb500-5mg', sku: 'VX-TB-5', bundleId: 'VX-SM-2026', taskId: 'J-50280' },
             { name: 'CJC-1295 5mg', slug: 'cjc1295-5mg', sku: 'VX-CJC-5', bundleId: 'VX-TZ-2026', taskId: 'J-50234' },
@@ -1048,6 +1048,21 @@
                         { rt: 11.2, height: 0.05, width: 0.4, label: 'Impurity B', purity: '0.31%' }
                     ]
                 }]
+            },
+            'VX-RETA20-001': {
+                type: 'standard',
+                molecules: [{
+                    name: 'Retatrutide',
+                    designation: 'Research-Grade Analytical Standard',
+                    method: 'HPLC-DAD (C18 RP, 214nm)',
+                    purity: '98.95%',
+                    taskId: 'J-50280',
+                    peaks: [
+                        { rt: 2.0, height: 0.11, width: 0.38, label: 'Solvent Front', purity: null },
+                        { rt: 6.3, height: 0.07, width: 0.5, label: 'Related Substance', purity: '0.55%' },
+                        { rt: 9.1, height: 0.90, width: 0.72, label: 'Retatrutide', purity: '98.95%' }
+                    ]
+                }]
             }
         };
 
@@ -1055,6 +1070,7 @@
         function detectIdType(id) {
             if (/^VX-[A-Z]{2,4}-\d{4}$/.test(id)) return 'bundle';
             if (/^VX-\d{4,6}$/.test(id)) return 'standard';
+            if (/^VX-[A-Z0-9]+-\d{3}$/.test(id)) return 'standard'; // New batch format: VX-RETA20-001
             return null;
         }
 
