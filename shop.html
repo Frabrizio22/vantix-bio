@@ -2860,7 +2860,7 @@ h1 {
                             'data-price="' + product.price + '" ' +
                             'data-sku="' + product.sku + '" ' +
                             'data-category="' + product.category + '" ' +
-                            'onclick="openLaunchNotify(\'' + product.name.replace(/'/g, "\\'") + '\'); event.stopPropagation();">' +
+                            'onclick="openLaunchNotify(\'' + product.sku + '\', \'' + product.name.replace(/'/g, "\\'") + '\'); event.stopPropagation();">' +
                             '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
                             '<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>' +
                             '</svg>' +
@@ -2992,7 +2992,7 @@ h1 {
             if (product.inStock === false) {
                 body += '<button class="contact-button" style="background:#E2E8F0;color:#94A3B8;cursor:not-allowed" disabled>Out of Stock</button>';
             } else {
-                body += '<button class="contact-button" onclick="openLaunchNotify(\'' + product.name.replace(/'/g, "\\'") + '\');closeModal();">Notify at Launch</button>';
+                body += '<button class="contact-button" onclick="openLaunchNotify(\'' + product.sku + '\', \'' + product.name.replace(/'/g, "\\'") + '\');closeModal();">Notify at Launch</button>';
             }
             
             document.getElementById('modalHeader').innerHTML = header;
@@ -3405,7 +3405,30 @@ h1 {
         });
 
         // Launch Notification
-        function openLaunchNotify(productName) {
+        function openLaunchNotify(productSKU, productName) {
+            // Check if this product is part of any kits
+            var matchingKits = VX_PRODUCTS.stacks.filter(function(kit) {
+                return kit.products.includes(productSKU);
+            });
+            
+            // If product is in 1+ kits, show kit suggestion first
+            if (matchingKits.length > 0) {
+                var kit = matchingKits[0]; // Use first matching kit
+                var kitSuggestion = "💡 " + productName + " is part of the " + kit.name + "!\n\n" +
+                                    "Save $" + kit.savings + " by getting notified for the complete kit.\n\n" +
+                                    "What would you like to do?";
+                
+                var choice = confirm(kitSuggestion + "\n\nOK = Notify for Kit | Cancel = Just This Product");
+                
+                if (choice) {
+                    // User chose kit — redirect to kits page
+                    window.location.href = 'kits.html#' + kit.id;
+                    return;
+                }
+                // User chose single product — continue below
+            }
+            
+            // Standard single product notification
             var email = prompt("Get notified when " + productName + " launches on April 13, 2026.\n\nEnter your email:");
             if (email && email.includes('@')) {
                 // Send to Google Sheets + Telegram
