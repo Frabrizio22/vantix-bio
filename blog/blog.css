@@ -1,0 +1,566 @@
+/* ============================================
+   VANTIX BIO BLOG - PREMIUM STYLESHEET
+   Forensic-grade aesthetics for research content
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #FFFFFF;
+    color: #1E293B;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   PRE-LAUNCH ANNOUNCEMENT BAR
+   ============================================ */
+.announcement-bar {
+    background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.announcement-bar a {
+    color: #FFF;
+    text-decoration: underline;
+    margin-left: 8px;
+}
+
+/* ============================================
+   HEADER - MATCHES MAIN SITE
+   ============================================ */
+header {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 10px 16px;
+    position: sticky;
+    top: 42px; /* Below announcement bar */
+    z-index: 999;
+    box-shadow: 0 1px 3px rgba(0,0,0,0);
+    transition: box-shadow 0.2s;
+}
+
+header.scrolled {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-bottom-color: transparent;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 52px;
+    width: auto;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+nav a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+nav a:hover,
+nav a.active {
+    color: #2563EB;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #94A3B8;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    padding: 6px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.nav-icon:hover {
+    color: #2563EB;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: opacity 0.2s;
+}
+
+.mobile-menu-toggle:hover {
+    opacity: 0.9;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 26px;
+    height: 3px;
+    background: #FFF;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* ============================================
+   ARTICLE LAYOUT
+   ============================================ */
+.article-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+}
+
+/* Article Header */
+.article-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.category-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+}
+
+/* Category Colors - Matches blog index */
+.category-research {
+    background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+    color: #1E40AF;
+}
+
+.category-guides {
+    background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+    color: #065F46;
+}
+
+.category-education {
+    background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%);
+    color: #5B21B6;
+}
+
+.article-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    margin-bottom: 1rem;
+    text-wrap: pretty;
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #64748B;
+    font-weight: 500;
+}
+
+.article-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Article Content */
+.article-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-top: 3rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.5px;
+    text-wrap: pretty;
+}
+
+.article-content h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.3px;
+    text-wrap: pretty;
+}
+
+.article-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #334155;
+    margin-bottom: 1.5rem;
+    text-wrap: pretty;
+}
+
+.article-content ul,
+.article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.8rem;
+}
+
+.article-content li {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #334155;
+    margin-bottom: 0.8rem;
+}
+
+.article-content strong {
+    font-weight: 600;
+    color: #1E293B;
+}
+
+/* Highlight Boxes */
+.highlight {
+    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+    border-left: 4px solid #F59E0B;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.highlight strong {
+    color: #92400E;
+    font-weight: 700;
+}
+
+/* Alert Box (Red) */
+.alert {
+    background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+    border-left: 4px solid #DC2626;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.alert strong {
+    color: #991B1B;
+    font-weight: 700;
+}
+
+/* Spec Box (Dark) */
+.spec-box {
+    background: #0F172A;
+    color: #E2E8F0;
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2.5rem 0;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+    font-size: 0.95rem;
+}
+
+.spec-box h3 {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.8rem 0;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.1);
+}
+
+.spec-row:last-child {
+    border-bottom: none;
+}
+
+.spec-label {
+    color: #94A3B8;
+    font-weight: 600;
+}
+
+.spec-value {
+    color: #E2E8F0;
+    text-align: right;
+}
+
+/* CTA Box */
+.cta {
+    background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+}
+
+.cta h3 {
+    color: white;
+    font-size: 1.6rem;
+    margin: 0 0 1rem 0;
+    font-weight: 700;
+}
+
+.cta p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+.cta a {
+    display: inline-block;
+    background: white;
+    color: #1E40AF;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 0.5rem;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cta a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Article Footer */
+.article-footer {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 2px solid #E2E8F0;
+}
+
+.article-footer-content {
+    background: #F8FAFC;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+}
+
+.article-footer-content p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.article-footer-content p:last-child {
+    margin-bottom: 0;
+}
+
+.article-footer-content strong {
+    color: #1E293B;
+    font-weight: 600;
+}
+
+.article-footer-content a {
+    color: #2563EB;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.article-footer-content a:hover {
+    color: #1E40AF;
+    text-decoration: underline;
+}
+
+/* ============================================
+   FOOTER - MATCHES MAIN SITE
+   ============================================ */
+footer {
+    background: #0A1628;
+    padding: 2.5rem 2rem 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+    letter-spacing: 2px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #FFFFFF;
+}
+
+.footer-disclaimer {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.6;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 800px;
+}
+
+.research-only {
+    font-weight: 700;
+    color: #EF4444;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .announcement-bar {
+        font-size: 0.7rem;
+        padding: 8px 12px;
+    }
+
+    header {
+        top: 34px; /* Adjusted for smaller announcement bar */
+    }
+
+    nav {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .article-container {
+        padding: 2rem 1rem;
+    }
+
+    .article-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+    }
+
+    .article-content h3 {
+        font-size: 1.2rem;
+        margin-top: 2rem;
+    }
+
+    .article-content p,
+    .article-content li {
+        font-size: 1rem;
+    }
+
+    .spec-box {
+        padding: 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    .spec-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .spec-value {
+        text-align: left;
+    }
+
+    .cta {
+        padding: 2rem 1.5rem;
+    }
+
+    .cta h3 {
+        font-size: 1.3rem;
+    }
+
+    .cta a {
+        display: block;
+        margin: 0.5rem 0;
+    }
+}
+
+/* ============================================
+   SCROLL ENHANCEMENTS
+   ============================================ */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Header scroll shadow effect */
+.scrolled {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+}
