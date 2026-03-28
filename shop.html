@@ -2973,15 +2973,24 @@ h1 {
             var results = document.getElementById('searchResults');
             if (!query || query.length < 2) { results.innerHTML = ''; return; }
             query = query.toLowerCase();
-            var matches = products.filter(function(p) {
-                return p.name.toLowerCase().indexOf(query) !== -1 || p.shortDesc.toLowerCase().indexOf(query) !== -1 || p.category.toLowerCase().indexOf(query) !== -1;
+            
+            // Get all products from VX_PRODUCTS
+            var allProducts = VX_PRODUCTS.phase1.concat(VX_PRODUCTS.phase2);
+            
+            var matches = allProducts.filter(function(p) {
+                return p.name.toLowerCase().indexOf(query) !== -1 || 
+                       (p.shortDesc && p.shortDesc.toLowerCase().indexOf(query) !== -1) || 
+                       (p.category && p.category.toLowerCase().indexOf(query) !== -1);
             });
+            
             if (matches.length === 0) {
                 results.innerHTML = '<div style="padding:12px;color:#94A3B8;font-size:0.85rem">No products found</div>';
                 return;
             }
+            
             results.innerHTML = matches.map(function(p) {
-                return '<div class="search-result-item" onclick="toggleSearch();showModal(products[' + products.indexOf(p) + '])"><div class="sr-name">' + p.name + '</div><div class="sr-cat">' + getCategoryName(p.category) + '</div></div>';
+                var productIndex = allProducts.indexOf(p);
+                return '<div class="search-result-item" onclick="toggleSearch();showModal(allProducts[' + productIndex + '])"><div class="sr-name">' + p.name + '</div><div class="sr-cat">' + getCategoryName(p.category) + '</div></div>';
             }).join('');
         }
 
