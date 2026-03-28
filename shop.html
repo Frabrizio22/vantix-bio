@@ -2087,8 +2087,73 @@ h1 {
 }
     </style>
     <script src="gate-check.js"></script>
+    <style>
+        /* Pre-Launch Announcement Bar */
+        .prelaunch-bar {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: #FFFFFF;
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(245,158,11,0.25);
+        }
+        .prelaunch-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .prelaunch-icon {
+            font-size: 18px;
+            animation: pulse-icon 2s ease-in-out infinite;
+        }
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .prelaunch-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .prelaunch-date {
+            background: rgba(255,255,255,0.25);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 768px) {
+            .prelaunch-bar {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+            .prelaunch-text {
+                font-size: 13px;
+            }
+            .prelaunch-date {
+                padding: 3px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Pre-Launch Announcement Bar -->
+    <div class="prelaunch-bar">
+        <div class="prelaunch-bar-content">
+            <span class="prelaunch-icon">⚠️</span>
+            <span class="prelaunch-text">PRE-LAUNCH PREVIEW — Site live for browsing only. Orders open</span>
+            <span class="prelaunch-date">APRIL 13, 2026</span>
+        </div>
+    </div>
 
     <!-- Header -->
     <!-- Promo Bar -->
@@ -2782,17 +2847,17 @@ h1 {
                             'Out of Stock' +
                             '</button>';
                 } else {
-                    // Phase 1: Add to Cart button
+                    // Phase 1: Notify at Launch button (pre-launch)
                     button = '<button class="btn-add-cart" ' +
                             'data-name="' + product.name.replace(/"/g, '&quot;') + '" ' +
                             'data-price="' + product.price + '" ' +
                             'data-sku="' + product.sku + '" ' +
                             'data-category="' + product.category + '" ' +
-                            'onclick="addToCart(this); event.stopPropagation();">' +
+                            'onclick="openLaunchNotify(\'' + product.name.replace(/'/g, "\\'") + '\'); event.stopPropagation();">' +
                             '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">' +
-                            '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>' +
+                            '<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>' +
                             '</svg>' +
-                            'Add to Cart' +
+                            'Notify at Launch' +
                             '</button>';
                 }
                 
@@ -2920,7 +2985,7 @@ h1 {
             if (product.inStock === false) {
                 body += '<button class="contact-button" style="background:#E2E8F0;color:#94A3B8;cursor:not-allowed" disabled>Out of Stock</button>';
             } else {
-                body += '<button class="contact-button" onclick="addToCart(\'' + product.name.replace(/'/g, "\\'") + '\',' + product.price + ');closeModal();">Add to Cart</button>';
+                body += '<button class="contact-button" onclick="openLaunchNotify(\'' + product.name.replace(/'/g, "\\'") + '\');closeModal();">Notify at Launch</button>';
             }
             
             document.getElementById('modalHeader').innerHTML = header;
@@ -3331,6 +3396,16 @@ h1 {
                 document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
             }
         });
+
+        // Launch Notification
+        function openLaunchNotify(productName) {
+            var email = prompt("Get notified when " + productName + " launches on April 13, 2026.\n\nEnter your email:");
+            if (email && email.includes('@')) {
+                // Store email (you can integrate with your email system later)
+                console.log('[LAUNCH NOTIFY] Product:', productName, 'Email:', email);
+                alert("✅ Thanks! We'll notify you at " + email + " when we launch on April 13.");
+            }
+        }
     </script>
 </body>
 </html>
