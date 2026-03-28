@@ -230,6 +230,151 @@
             justify-content: center;
         }
 
+        /* Kit Suggestion Modal */
+        .kit-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,22,40,0.75);
+            backdrop-filter: blur(4px);
+            z-index: 10001;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .kit-modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .kit-modal {
+            background: #FFFFFF;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            padding: 40px 32px;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+            text-align: center;
+            animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .kit-modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kit-modal-icon svg {
+            color: #2563EB;
+        }
+
+        .kit-modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1A2B44;
+            margin-bottom: 12px;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+        }
+
+        .kit-modal-message {
+            font-size: 15px;
+            color: #64748B;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .kit-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .kit-modal-btn {
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .kit-modal-btn-primary {
+            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        }
+
+        .kit-modal-btn-primary:hover {
+            background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37,99,235,0.4);
+        }
+
+        .kit-modal-btn-secondary {
+            background: #F8FAFC;
+            color: #64748B;
+            border: 1.5px solid #E2E8F0;
+        }
+
+        .kit-modal-btn-secondary:hover {
+            background: #FFFFFF;
+            color: #1A2B44;
+            border-color: #CBD5E1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kit-modal {
+                padding: 32px 24px;
+            }
+
+            .kit-modal-icon {
+                width: 64px;
+                height: 64px;
+            }
+
+            .kit-modal-icon svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .kit-modal-title {
+                font-size: 19px;
+            }
+
+            .kit-modal-message {
+                font-size: 14px;
+            }
+        }
+
         .search-overlay {
             display: none;
             position: fixed;
@@ -2359,6 +2504,23 @@ h1 {
         </div>
     </div>
 
+    <!-- Kit Suggestion Modal -->
+    <div class="kit-modal-overlay" id="kitModalOverlay">
+        <div class="kit-modal">
+            <div class="kit-modal-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 7h-9M14 17H5M17 12h-9M12 21l-8-4.5V5l8 4.5M12 21l8-4.5V5L12 9.5M12 21V9.5"/>
+                </svg>
+            </div>
+            <h3 class="kit-modal-title" id="kitModalTitle"></h3>
+            <p class="kit-modal-message" id="kitModalMessage"></p>
+            <div class="kit-modal-buttons">
+                <button class="kit-modal-btn kit-modal-btn-primary" id="kitModalPrimary">View Research Kit</button>
+                <button class="kit-modal-btn kit-modal-btn-secondary" id="kitModalSecondary">Just This Product</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Search Overlay -->
     <div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)toggleSearch()">
         <div class="search-box">
@@ -3411,24 +3573,49 @@ h1 {
                 return kit.products.includes(productSKU);
             });
             
-            // If product is in 1+ kits, show kit suggestion first
+            // If product is in 1+ kits, show premium kit modal first
             if (matchingKits.length > 0) {
                 var kit = matchingKits[0]; // Use first matching kit
-                var kitSuggestion = "💡 " + productName + " is part of the " + kit.name + "!\n\n" +
-                                    "Save $" + kit.savings + " by getting notified for the complete kit.\n\n" +
-                                    "What would you like to do?";
-                
-                var choice = confirm(kitSuggestion + "\n\nOK = Notify for Kit | Cancel = Just This Product");
-                
-                if (choice) {
-                    // User chose kit — redirect to kits page
-                    window.location.href = 'kits.html#' + kit.id;
-                    return;
-                }
-                // User chose single product — continue below
+                showKitModal(kit, productName, productSKU);
+            } else {
+                // No kit match — go straight to email capture
+                captureEmailForProduct(productName);
             }
-            
-            // Standard single product notification
+        }
+
+        function showKitModal(kit, productName, productSKU) {
+            var overlay = document.getElementById('kitModalOverlay');
+            var title = document.getElementById('kitModalTitle');
+            var message = document.getElementById('kitModalMessage');
+            var primaryBtn = document.getElementById('kitModalPrimary');
+            var secondaryBtn = document.getElementById('kitModalSecondary');
+
+            title.textContent = productName + ' is in the ' + kit.shortName + ' Kit!';
+            message.innerHTML = 'Save <strong>$' + kit.savings + '</strong> by getting notified for the complete ' + kit.name + ' instead of just this product.';
+
+            overlay.classList.add('active');
+
+            // Primary button: View kit
+            primaryBtn.onclick = function() {
+                overlay.classList.remove('active');
+                window.location.href = 'kits.html#' + kit.id;
+            };
+
+            // Secondary button: Just this product
+            secondaryBtn.onclick = function() {
+                overlay.classList.remove('active');
+                captureEmailForProduct(productName);
+            };
+
+            // Close on overlay click
+            overlay.onclick = function(e) {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            };
+        }
+
+        function captureEmailForProduct(productName) {
             var email = prompt("Get notified when " + productName + " launches on April 13, 2026.\n\nEnter your email:");
             if (email && email.includes('@')) {
                 // Send to Google Sheets + Telegram
