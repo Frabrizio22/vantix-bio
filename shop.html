@@ -2971,7 +2971,7 @@ h1 {
 
         function doSearch(query) {
             var results = document.getElementById('searchResults');
-            if (!query || query.length < 2) { results.innerHTML = ''; return; }
+            if (!query || query.length < 1) { results.innerHTML = ''; return; }
             query = query.toLowerCase();
             
             // Get all products from VX_PRODUCTS
@@ -2989,9 +2989,17 @@ h1 {
             }
             
             results.innerHTML = matches.map(function(p) {
-                var productIndex = allProducts.indexOf(p);
-                return '<div class="search-result-item" onclick="toggleSearch();showModal(allProducts[' + productIndex + '])"><div class="sr-name">' + p.name + '</div><div class="sr-cat">' + getCategoryName(p.category) + '</div></div>';
+                var sku = p.sku || p.name;
+                return '<div class="search-result-item" onclick="toggleSearch();openProductBySKU(\'' + sku + '\')"><div class="sr-name">' + p.name + '</div><div class="sr-cat">' + getCategoryName(p.category) + '</div></div>';
             }).join('');
+        }
+        
+        function openProductBySKU(sku) {
+            var allProducts = VX_PRODUCTS.phase1.concat(VX_PRODUCTS.phase2);
+            var product = allProducts.find(function(p) { return p.sku === sku || p.name === sku; });
+            if (product) {
+                showModal(product);
+            }
         }
 
         // Page overlays
