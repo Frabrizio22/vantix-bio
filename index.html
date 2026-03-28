@@ -52,10 +52,10 @@
             letter-spacing: -0.02em;
         }
         
-        h1 { font-size: 42px; font-weight: 800; }
-        h2 { font-size: 28px; font-weight: 800; }
-        h3 { font-size: 20px; font-weight: 700; }
-        p { font-weight: 500; }
+        h1 { font-size: 42px; font-weight: 800; text-wrap: balance; }
+        h2 { font-size: 28px; font-weight: 800; text-wrap: balance; }
+        h3 { font-size: 20px; font-weight: 700; text-wrap: balance; }
+        p { font-weight: 500; text-wrap: pretty; }
         strong { font-weight: 700; }
 
         /* Hex Network Motif */
@@ -360,14 +360,14 @@
             max-width: 720px; 
             margin-left: auto; 
             margin-right: auto; 
-            line-height: 1.7; 
+            line-height: 1.7;
+            text-wrap: balance;
         }
         
         /* Prevent orphan/widow lines */
         p, li { 
-            orphans: 2; 
-            widows: 2;
-            text-wrap: pretty;
+            orphans: 3; 
+            widows: 3;
         }
 
         /* Hex separator */
@@ -391,6 +391,8 @@
         .section-subtitle-large {
             font-size: 19px;
             margin: 0 auto 40px;
+            text-wrap: balance;
+            max-width: 800px;
         }
         .section-separator::before {
             content: '';
@@ -449,7 +451,9 @@
         }
         .pillar p { 
             color: #64748B; 
-            font-size: 15px; 
+            font-size: 15px;
+            text-wrap: balance;
+            max-width: 32ch; 
             line-height: 1.75; 
             max-width: 720px;
             margin: 0 auto;
@@ -496,6 +500,7 @@
             line-height: 1.75;
             margin-bottom: 32px;
             max-width: 720px;
+            text-wrap: balance;
         }
         .verification-badges {
             display: flex;
@@ -577,9 +582,12 @@
             cursor: pointer; 
             display: flex; 
             justify-content: space-between; 
-            align-items: center; 
+            align-items: flex-start; 
+            gap: 16px;
             transition: color 0.2s;
             font-family: inherit;
+            text-wrap: pretty;
+            line-height: 1.5;
         }
         .faq-question:hover { color: #2563EB; }
         .faq-chevron { 
@@ -600,6 +608,7 @@
             font-size: 15px; 
             line-height: 1.75; 
             max-width: 720px;
+            text-wrap: pretty;
         }
 
         /* Footer Trust Bar */
