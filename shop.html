@@ -64,10 +64,16 @@
             letter-spacing: -0.02em;
         }
         
-        h1 { font-size: 32px; font-weight: 800; }
-        h2 { font-size: 24px; font-weight: 800; }
-        h3 { font-size: 18px; font-weight: 700; }
-        p { font-weight: 500; }
+        h1 { font-size: 32px; font-weight: 800; text-wrap: balance; }
+        h2 { font-size: 24px; font-weight: 800; text-wrap: balance; }
+        h3 { font-size: 18px; font-weight: 700; text-wrap: balance; }
+        p { font-weight: 500; text-wrap: pretty; }
+        
+        /* Prevent orphan/widow lines */
+        p, li { 
+            orphans: 3; 
+            widows: 3;
+        }
         strong { font-weight: 700; }
 
         /* Promo Bar */
@@ -1387,6 +1393,7 @@
 
         .modal-body p {
             margin-bottom: 1rem;
+            text-wrap: pretty;
         }
 
         .modal-body ul {
