@@ -1,0 +1,11 @@
+Batch ID,Product Name,Dosage,Manufacturing Date,Supplier,Cost Per Box,Testing Lab,Testing Cost,COA Status,COA Upload Date,Notes
+VX-BPC10-001,BPC-157,10mg,2026-03-27,Dora,$64.00,TBD,$225.00,Pending,,First production batch
+VX-TB10-001,TB-500,10mg,2026-03-27,Dora,$124.00,TBD,$225.00,Pending,,First production batch
+VX-CJC5-001,CJC-1295,5mg,2026-03-27,Bane,$65.00,TBD,$225.00,Pending,,First production batch
+VX-IPA5-001,Ipamorelin,5mg,2026-03-27,Dora,$24.00,TBD,$225.00,Pending,,First production batch
+VX-MOTS10-001,MOTS-C,10mg,2026-03-27,Dora,$50.00,TBD,$225.00,Pending,,First production batch
+VX-NAD1K-001,NAD+,1000mg,2026-03-27,Bane,$130.00,TBD,$225.00,Pending,,First production batch
+VX-GHK100-001,GHK-Cu,100mg,2026-03-27,Bane,$40.00,TBD,$225.00,Pending,,First production batch
+VX-SEMA10-001,Semaglutide,10mg,2026-03-27,Dora,$54.00,TBD,$225.00,Pending,,First production batch
+VX-TIRZ30-001,Tirzepatide,30mg,2026-03-27,Bane,$125.00,TBD,$225.00,Pending,,First production batch
+VX-RETA20-001,Retatrutide,20mg,2026-03-27,Bane,$175.00,TBD,$225.00,Pending,,First production batch
