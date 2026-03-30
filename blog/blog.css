@@ -655,10 +655,11 @@ footer {
     }
 
     .article-header h1 {
-        font-size: 1.25rem;
-        letter-spacing: -0.4px;
-        line-height: 1.2;
-        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+        margin-bottom: 0.65rem;
+        font-weight: 700;
     }
 
     .article-meta {
@@ -688,27 +689,43 @@ footer {
     }
 
     .spec-box {
-        padding: 1rem;
-        font-size: 0.8rem;
-        margin: 1.25rem 0;
+        padding: 0.875rem;
+        font-size: 0.75rem;
+        margin: 1rem 0;
     }
 
     .spec-row {
         flex-direction: column;
-        gap: 0.3rem;
+        gap: 0.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .spec-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .spec-label {
+        font-size: 0.7rem !important;
+        letter-spacing: 0.5px;
     }
 
     .spec-value {
         text-align: left;
         color: #CBD5E1;
+        font-size: 0.8rem !important;
     }
 
     .highlight,
     .alert {
-        padding: 1rem;
-        font-size: 0.875rem;
-        margin: 1.25rem 0;
-        line-height: 1.55;
+        padding: 0.875rem;
+        font-size: 0.8125rem;
+        margin: 1rem 0;
+        line-height: 1.5;
+    }
+
+    .highlight strong,
+    .alert strong {
+        font-size: 0.8125rem !important;
     }
 
     .cta {
@@ -743,14 +760,27 @@ footer {
     .article-content > .highlight:first-of-type,
     .article-content > div[style*="background: #EFF6FF"],
     .article-content > div[style*="background: #2563EB"] {
-        padding: 1rem !important;
-        margin: 1.25rem 0 !important;
+        padding: 0.875rem !important;
+        margin: 1rem 0 !important;
+        border-radius: 6px !important;
     }
 
     .article-content > div[style*="background: #2563EB"] h3,
     .article-content > div[style*="background: #2563EB"] p {
-        font-size: 0.95rem !important;
+        font-size: 0.875rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .article-content > div[style*="background: #2563EB"] ul {
+        margin: 0.5rem 0 0 0 !important;
+        padding-left: 1.25rem !important;
+    }
+
+    .article-content > div[style*="background: #2563EB"] li {
+        font-size: 0.8125rem !important;
         line-height: 1.4 !important;
+        margin-bottom: 0.4rem !important;
     }
 
     /* Tighter list spacing on mobile */
