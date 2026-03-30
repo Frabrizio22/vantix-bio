@@ -515,12 +515,13 @@ footer {
    ============================================ */
 @media (max-width: 768px) {
     .announcement-bar {
-        font-size: 0.7rem;
-        padding: 8px 12px;
+        font-size: 0.68rem;
+        padding: 6px 12px;
     }
 
     header {
-        top: 34px; /* Adjusted for smaller announcement bar */
+        top: 30px;
+        padding: 5px 12px;
     }
 
     nav {
@@ -532,7 +533,7 @@ footer {
     }
 
     .logo img {
-        height: 32px;
+        height: 26px;
     }
 
     .article-container {
