@@ -489,6 +489,28 @@ footer {
 }
 
 /* ============================================
+   RESPONSIVE TABLE
+   ============================================ */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 2rem 0;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+}
+
+.table-responsive table {
+    margin: 0;
+    min-width: 480px;
+    width: 100%;
+}
+
+/* Spec value word break for long strings */
+.spec-value {
+    word-break: break-word;
+}
+
+/* ============================================
    MOBILE RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
@@ -509,54 +531,81 @@ footer {
         display: block;
     }
 
+    .logo img {
+        height: 38px;
+    }
+
     .article-container {
-        padding: 2rem 1rem;
+        padding: 1.5rem 1rem;
+    }
+
+    .article-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
     }
 
     .article-header h1 {
-        font-size: 1.8rem;
+        font-size: 1.75rem;
+        letter-spacing: -0.5px;
+    }
+
+    .article-meta {
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
 
     .article-content h2 {
-        font-size: 1.5rem;
-        margin-top: 2.5rem;
+        font-size: 1.4rem;
+        margin-top: 2rem;
     }
 
     .article-content h3 {
-        font-size: 1.2rem;
-        margin-top: 2rem;
+        font-size: 1.15rem;
+        margin-top: 1.75rem;
     }
 
     .article-content p,
     .article-content li {
-        font-size: 1rem;
+        font-size: 0.975rem;
     }
 
     .spec-box {
-        padding: 1.5rem;
-        font-size: 0.85rem;
+        padding: 1.25rem;
+        font-size: 0.82rem;
     }
 
     .spec-row {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.4rem;
     }
 
     .spec-value {
         text-align: left;
+        color: #CBD5E1;
+    }
+
+    .highlight,
+    .alert {
+        padding: 1.25rem;
+        font-size: 0.95rem;
     }
 
     .cta {
-        padding: 2rem 1.5rem;
+        padding: 1.75rem 1.25rem;
     }
 
     .cta h3 {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
 
     .cta a {
         display: block;
         margin: 0.5rem 0;
+    }
+
+    .article-footer-content {
+        padding: 1.5rem;
     }
 }
 
