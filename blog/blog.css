@@ -746,10 +746,10 @@ footer {
     }
 
     .cta a {
-        display: block;
-        margin: 0.4rem 0;
-        padding: 10px 18px;
-        font-size: 0.875rem;
+        display: inline-block;
+        margin: 0.3rem;
+        padding: 10px 16px;
+        font-size: 0.85rem;
     }
 
     .article-footer-content {
