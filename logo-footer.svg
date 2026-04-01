@@ -3,14 +3,15 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="68 135 225 78" xml:space="preserve">
 <style type="text/css">
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&amp;display=swap');
 	.st0{fill:url(#SVGID_1_);}
 	.st1{fill:#143054;}
 	.st2{fill:#3973B0;}
 	.st3{fill:#FFFFFF;}
-	.st4{font-family:'Poppins-Medium';}
+	.st4{font-family:'Poppins',sans-serif;font-weight:500;}
 	.st5{font-size:8.1581px;}
 	.st6{letter-spacing:1;}
-	.st7{font-family:'Poppins-SemiBold';}
+	.st7{font-family:'Poppins',sans-serif;font-weight:600;}
 	.st8{font-size:24.1605px;}
 	.st9{fill:url(#SVGID_00000005964398453719025430000008118753395358837898_);}
 	.st10{fill:url(#SVGID_00000021087631868761492260000016417734003486198658_);}
