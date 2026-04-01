@@ -59,9 +59,9 @@
 	<!-- tagline removed for clean header -->
 	<g>
 		<g>
-			<text transform="matrix(1 0 0 1 149.5 181.2057)" class="st1 st8 st9">VANTIX</text>
+			<text transform="matrix(1 0 0 1 149.5 186)" class="st1 st8 st9">VANTIX</text>
 		</g>
-		<g>
+		<g transform="translate(0,4.8)">
 			<g>
 				
 					<linearGradient id="SVGID_00000005263599434793641130000013073392679736403854_" gradientUnits="userSpaceOnUse" x1="240.0269" y1="172.5696" x2="279.3599" y2="172.5696">
