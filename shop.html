@@ -859,7 +859,7 @@
             margin-bottom: 12px;
             object-fit: contain;
             background: #FAFCFF;
-            padding: 8px;
+            padding: 0;
         }
 
         .product-category {
@@ -1683,8 +1683,14 @@
         transform: scale(0.98);
     }
     .product-visual {
-        max-width: 75px !important;
+        max-width: 100% !important;
+        height: auto !important;
         margin-bottom: 8px !important;
+    }
+    .product-image {
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
     }
     .product-category {
         font-size: 0.68rem !important;
