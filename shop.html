@@ -3644,9 +3644,46 @@ h1 {
         }
 
         function captureEmailForProduct(productName) {
-            var email = prompt("Get notified when " + productName + " launches on April 13, 2026.\n\nEnter your email:");
-            if (email && email.includes('@')) {
-                // Send to Google Sheets + Telegram
+            NotifySystem.openModal(productName, '', '');
+        }
+
+        // Notify System — modal-based email capture
+        var NotifySystem = {
+            openModal: function(product, sku, category) {
+                document.getElementById('notifyProduct').value = product || '';
+                document.getElementById('notifySKU').value = sku || '';
+                document.getElementById('notifyCategory').value = category || '';
+                document.getElementById('notifyEmail').value = '';
+                document.getElementById('notifyError').style.display = 'none';
+                document.getElementById('notifySuccess').style.display = 'none';
+                document.getElementById('notifyForm').style.display = 'block';
+                document.getElementById('notifyModal').classList.add('active');
+                var header = document.querySelector('#notifyModal .modal-header p');
+                if (header) header.textContent = product ? 'Get notified when ' + product + ' launches.' : 'Get notified when we launch.';
+                setTimeout(function() { document.getElementById('notifyEmail').focus(); }, 200);
+            },
+            closeModal: function() {
+                document.getElementById('notifyModal').classList.remove('active');
+            },
+            submitForm: function(e) {
+                e.preventDefault();
+                var email = document.getElementById('notifyEmail').value.trim();
+                var product = document.getElementById('notifyProduct').value;
+                var sku = document.getElementById('notifySKU').value;
+                var errorDiv = document.getElementById('notifyError');
+                var errorText = document.getElementById('notifyErrorText');
+                
+                if (!email || !email.includes('@') || !email.includes('.')) {
+                    errorDiv.style.display = 'flex';
+                    errorText.textContent = 'Please enter a valid email address.';
+                    return;
+                }
+                
+                errorDiv.style.display = 'none';
+                var btn = document.querySelector('#notifyForm .btn-submit');
+                btn.disabled = true;
+                btn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="50" stroke-dashoffset="20"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/></circle></svg> Sending...';
+                
                 fetch('https://script.google.com/macros/s/AKfycbzw7r3qHQR3rPiYlCEWl-eFmzlIUKdYLNOPzbKM--pD6k6WZNVAEct95d8ks2NyXZLp_g/exec', {
                     method: 'POST',
                     mode: 'no-cors',
@@ -3654,18 +3691,34 @@ h1 {
                     body: JSON.stringify({
                         action: 'launch_notify',
                         email: email,
-                        product: productName,
-                        timestamp: new Date().toISOString()
+                        product: product,
+                        sku: sku,
+                        timestamp: new Date().toISOString(),
+                        source: 'vantix_shop'
                     })
                 }).then(function() {
-                    console.log('[LAUNCH NOTIFY] Sent:', productName, email);
+                    console.log('[LAUNCH NOTIFY] Sent:', product, email);
+                    document.getElementById('notifyForm').style.display = 'none';
+                    document.getElementById('notifySuccessText').textContent = "You're on the list! We'll notify " + email + " when we launch.";
+                    document.getElementById('notifySuccess').style.display = 'flex';
+                    btn.disabled = false;
+                    btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Notify Me';
                 }).catch(function(err) {
                     console.error('[LAUNCH NOTIFY] Error:', err);
+                    // no-cors always resolves, so this is unlikely — but handle anyway
+                    document.getElementById('notifyForm').style.display = 'none';
+                    document.getElementById('notifySuccessText').textContent = "You're on the list! We'll notify " + email + " when we launch.";
+                    document.getElementById('notifySuccess').style.display = 'flex';
+                    btn.disabled = false;
+                    btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Notify Me';
                 });
-                
-                alert("✅ Thanks! We'll notify you at " + email + " when we launch on April 13.");
             }
-        }
+        };
+
+        // Close modal on overlay click
+        document.getElementById('notifyModal').addEventListener('click', function(e) {
+            if (e.target === this) NotifySystem.closeModal();
+        });
     </script>
 </body>
 </html>
