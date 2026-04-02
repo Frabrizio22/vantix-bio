@@ -2287,6 +2287,42 @@ h1 {
             font-weight: 800;
             letter-spacing: 0.5px;
         }
+        .prelaunch-email-form {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .prelaunch-email-form input {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            width: 180px;
+            outline: none;
+            color: #1E293B;
+        }
+        .prelaunch-email-form input::placeholder {
+            color: #94A3B8;
+        }
+        .prelaunch-email-form button {
+            padding: 6px 14px;
+            border: 2px solid #FFF;
+            border-radius: 5px;
+            background: transparent;
+            color: #FFF;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .prelaunch-email-form button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .prelaunch-email-form .notify-ok {
+            font-size: 12px;
+            font-weight: 600;
+        }
         @media (max-width: 768px) {
             .prelaunch-bar {
                 padding: 10px 16px;
@@ -2307,6 +2343,20 @@ h1 {
                 font-size: 11px;
                 letter-spacing: 0.3px;
             }
+            .prelaunch-email-form input {
+                width: 140px;
+                font-size: 11px;
+                padding: 5px 10px;
+            }
+            .prelaunch-email-form button {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+        }
+        @media (max-width: 375px) {
+            .prelaunch-email-form input {
+                width: 120px;
+            }
         }
     </style>
 </head>
@@ -2317,6 +2367,10 @@ h1 {
             <span class="prelaunch-icon">⚠️</span>
             <span class="prelaunch-text">PRE-LAUNCH — Orders open</span>
             <span class="prelaunch-date">APRIL 13</span>
+            <form class="prelaunch-email-form" onsubmit="submitBarNotify(event)">
+                <input type="email" id="barNotifyEmail" placeholder="your@email.com" required>
+                <button type="submit">Notify Me</button>
+            </form>
         </div>
     </div>
 
@@ -3719,6 +3773,33 @@ h1 {
         document.getElementById('notifyModal').addEventListener('click', function(e) {
             if (e.target === this) NotifySystem.closeModal();
         });
+
+        // Pre-launch bar email capture
+        function submitBarNotify(e) {
+            e.preventDefault();
+            var email = document.getElementById('barNotifyEmail').value.trim();
+            if (!email || !email.includes('@') || !email.includes('.')) return;
+            
+            var btn = e.target.querySelector('button');
+            btn.disabled = true;
+            btn.textContent = '...';
+            
+            fetch('https://script.google.com/macros/s/AKfycbzw7r3qHQR3rPiYlCEWl-eFmzlIUKdYLNOPzbKM--pD6k6WZNVAEct95d8ks2NyXZLp_g/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'launch_notify',
+                    email: email,
+                    product: 'General — Launch Bar',
+                    sku: '',
+                    timestamp: new Date().toISOString(),
+                    source: 'vantix_launch_bar'
+                })
+            }).then(function() {
+                e.target.innerHTML = '<span class="notify-ok">✓ We\'ll notify you at launch!</span>';
+            });
+        }
     </script>
 </body>
 </html>
