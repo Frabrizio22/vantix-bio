@@ -1,6 +1,18 @@
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    // Handle both JSON and form POST data
+    var data;
+    if (e.postData && e.postData.type === 'application/json') {
+      data = JSON.parse(e.postData.contents);
+    } else if (e.postData && e.postData.contents) {
+      try { data = JSON.parse(e.postData.contents); } catch(x) { data = {}; }
+    } else {
+      data = {};
+    }
+    // Merge form parameters (from hidden form POST)
+    if (e.parameter) {
+      Object.keys(e.parameter).forEach(function(k) { if (!data[k]) data[k] = e.parameter[k]; });
+    }
     
     // ============================================
     // LAUNCH EMAIL NOTIFICATIONS (Vantix)
