@@ -1495,11 +1495,13 @@
 <script>
 function submitBarNotify(e) {
     e.preventDefault();
-    var email = document.getElementById('barNotifyEmail').value.trim();
+    var input = document.getElementById('barNotifyEmail');
+    var email = input.value.trim();
     if (!email || !email.includes('@') || !email.includes('.')) return;
     var btn = e.target.querySelector('button');
-    btn.disabled = true;
-    btn.textContent = '...';
+    btn.textContent = '✓ Sent!';
+    setTimeout(function() { btn.textContent = 'Notify Me'; }, 2000);
+    input.value = '';
     fetch('https://script.google.com/macros/s/AKfycbzw7r3qHQR3rPiYlCEWl-eFmzlIUKdYLNOPzbKM--pD6k6WZNVAEct95d8ks2NyXZLp_g/exec', {
         method: 'POST',
         mode: 'no-cors',
@@ -1512,8 +1514,6 @@ function submitBarNotify(e) {
             timestamp: new Date().toISOString(),
             source: 'vantix_homepage'
         })
-    }).then(function() {
-        e.target.innerHTML = '<span class="notify-ok">✓ We\'ll notify you at launch!</span>';
     });
 }
 </script>
