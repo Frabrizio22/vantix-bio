@@ -5,8 +5,8 @@ const NotifySystem = {
     // Local queue (localStorage backup)
     queue: JSON.parse(localStorage.getItem('vxNotifyQueue') || '[]'),
     
-    // Optional backend endpoint (set via VX_NOTIFY_ENDPOINT env var)
-    endpoint: null, // Set to Cloudflare Worker URL when ready
+    // Backend endpoint (Google Apps Script)
+    endpoint: 'https://script.google.com/macros/s/AKfycbzyizJvjL3mWE-U-fKdO4bru9hk1yCY1MKTjMzrwayiGIlIs9os7f8mL4HbdDD-vEj2/exec',
     
     // Add email to notification queue (with dedupe and error handling)
     addToQueue(email, product, sku, category) {
@@ -60,7 +60,7 @@ const NotifySystem = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    action: 'notify_signup',
+                    action: 'launch_notify',
                     ...entry
                 })
             });
