@@ -1228,7 +1228,7 @@
         const PROTOCOL_STEPS = [
             { num: 1, label: 'Blind Entry', desc: 'Randomized sample intake with no pre-labeling bias' },
             { num: 2, label: 'Quarantine', desc: 'Isolated storage under controlled conditions' },
-            { num: 3, label: 'ISO-17025 Gate', desc: 'Independent accredited laboratory analysis' },
+            { num: 3, label: 'Janoshik Gate', desc: 'Independent accredited laboratory analysis' },
             { num: 4, label: 'Digital Mirroring', desc: 'Cryptographic hash of raw analytical data' },
             { num: 5, label: 'Forensic Watermarking', desc: 'Session-bound dynamic trace embedded in render' },
             { num: 6, label: '1-to-1 Protocol', desc: 'Single vial, single test, no pooled samples' },
@@ -1284,7 +1284,7 @@
             // Hero Title + Verification Input (ABOVE FOLD)
             html += `<div class="verify-hero ${state.result ? 'compact' : ''}">
                 <h1>Batch Verification Portal</h1>
-                <p class="hero-desc">Every Vantix Bio compound is independently verified through ISO/IEC 17025:2017 accredited laboratories using HPLC-DAD purity, LC-MS/MS identity, and LAL endotoxin analysis. Enter a Batch&nbsp;ID to view the verified analytical&nbsp;record.</p>
+                <p class="hero-desc">Every Vantix Bio compound is independently verified through Janoshik Analytical using HPLC-DAD purity, LC-MS/MS identity, and LAL endotoxin analysis. Enter a Batch&nbsp;ID to view the verified analytical&nbsp;record.</p>
                 
                 <section id="verify" class="search-box-hero">
                     <div class="input-row-hero">
@@ -1322,7 +1322,7 @@
             if (!state.result) {
                 html += `<section id="latest" class="latest-coas">
                     <h2>Recent Verification Reports</h2>
-                    <p class="section-desc">Click any product below to view its interactive ISO-17025 verification report with full chromatographic analysis.</p>
+                    <p class="section-desc">Click any product below to view its interactive Janoshik verification report with full chromatographic analysis.</p>
                     <div class="coa-search-mobile">
                         <input type="text" class="coa-search-input" id="coaSearchInput" placeholder="Search by product name...">
                     </div>
@@ -1341,7 +1341,7 @@
                                 <line x1="27" y1="27" x2="33" y2="33" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                             <div class="coa-card-title">${p.name}</div>
-                            <div class="coa-badge">ISO-17025 Verified</div>
+                            <div class="coa-badge">Janoshik-Verified</div>
                             <div class="coa-meta-compact">HPLC + LC-MS/MS</div>
                             <div class="coa-meta">
                                 Bundle: <strong>${p.bundleId}</strong><br/>
@@ -1366,7 +1366,7 @@
                 // Disclaimer
                 html += `<div class="disclaimer">
                     <strong>Research-Only Notice:</strong> All data rendered on this portal is for in vitro analytical reference purposes only. 
-                    Chromatographic purity values are sourced from independent ISO/IEC 17025:2017 accredited laboratory testing. Canvas-rendered data cannot be saved, printed, or reproduced. 
+                    Chromatographic purity values are sourced from independent Janoshik Analytical testing. Canvas-rendered data cannot be saved, printed, or reproduced. 
                     A dynamic forensic watermark is embedded per session. This material is not intended for human consumption.
                 </div>`;
             }
@@ -1458,7 +1458,7 @@
                     'MATRIX PROTOCOL INITIATED…',
                     'BLIND ENTRY VALIDATED',
                     'QUARANTINE CHECK — PASS',
-                    'ISO-17025 VERIFICATION — AUTHENTICATING…',
+                    'Janoshik VERIFICATION — AUTHENTICATING…',
                     'DIGITAL MIRROR HASH VERIFIED',
                     'FORENSIC WATERMARK GENERATED',
                     'RENDERING CHROMATOGRAMS…',
@@ -2191,7 +2191,7 @@
             <div class="footer-top">
                 <div class="footer-col">
                     <h5>About</h5>
-                    <p>Forensic-grade peptides with independent ISO-17025 verification.</p>
+                    <p>Forensic-grade peptides with independent Janoshik verification.</p>
                 </div>
                 <div class="footer-col">
                     <h5>Verify</h5>
