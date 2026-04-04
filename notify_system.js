@@ -5,8 +5,8 @@ const NotifySystem = {
     // Local queue (localStorage backup)
     queue: JSON.parse(localStorage.getItem('vxNotifyQueue') || '[]'),
     
-    // Backend endpoint (Google Apps Script)
-    endpoint: 'https://script.google.com/macros/s/AKfycbzyizJvjL3mWE-U-fKdO4bru9hk1yCY1MKTjMzrwayiGIlIs9os7f8mL4HbdDD-vEj2/exec',
+    // Backend endpoint (Cloudflare Worker)
+    endpoint: 'https://prc-checkout.prcpeptides.workers.dev/notify',
     
     // Add email to notification queue (with dedupe and error handling)
     addToQueue(email, product, sku, category) {
@@ -58,15 +58,12 @@ const NotifySystem = {
         try {
             const response = await fetch(this.endpoint, {
                 method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'text/plain' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    action: 'launch_notify',
                     email: entry.email,
                     product: entry.product,
                     sku: entry.sku,
-                    timestamp: new Date().toISOString(),
-                    source: 'vantix_shop'
+                    source: 'vantix'
                 })
             });
             
