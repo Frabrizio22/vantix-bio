@@ -1522,17 +1522,18 @@
             state.loading = false;
             render();
 
-            // Double RAF for stable layout calculation, then instant scroll
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    const firstPanel = document.getElementById('panel-0');
-                    if (firstPanel) {
-                        const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
-                        const y = firstPanel.getBoundingClientRect().top + window.pageYOffset - headerHeight - 80;
-                        window.scrollTo(0, Math.max(0, y));
-                    }
-                });
-            });
+            // Wait for layout to stabilize, then scroll to results
+            setTimeout(() => {
+                const firstPanel = document.getElementById('panel-0');
+                if (firstPanel) {
+                    const headerHeight = document.querySelector('.header')?.offsetHeight || 80;
+                    firstPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Offset for fixed header
+                    setTimeout(() => {
+                        window.scrollBy(0, -(headerHeight + 20));
+                    }, 300);
+                }
+            }, 150);
         }
 
         // ─── Chromatogram Rendering ───
