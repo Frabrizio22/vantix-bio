@@ -320,9 +320,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'CJC-1295 (No DAC) + Ipamorelin synergistic pairing for pulsatile GH release research',
             products: ['VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 70,
-            stackPrice: 62,
-            discount: 11.4,
-            savings: 8,
+            stackPrice: 60,
+            discount: 14.3,
+            savings: 10,
             category: 'growth-hormone'
         },
         {
@@ -363,19 +363,6 @@ const VX_PRODUCTS = {
             discount: 13.5,
             savings: 21,
             category: 'cosmetic'
-        },
-        {
-            id: 'glp1-agonist-kit',
-            name: 'GLP-1 Agonist Research Kit',
-            shortName: 'GLP-1 Agonist',
-            description: 'Designed for foundational GLP-1 receptor pathway investigation',
-            clinicalNote: 'Semaglutide + Bacteriostatic Water for standardized research protocols',
-            products: ['VX-SEMA-10', 'VX-BAC-30'],
-            regularPrice: 55,
-            stackPrice: 50,
-            discount: 9.1,
-            savings: 5,
-            category: 'glp1'
         }
     ]
 };
