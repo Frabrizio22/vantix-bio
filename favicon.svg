@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="90 80 180 210" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#143054"/>
+      <stop offset="100%" style="stop-color:#1a3d6b"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle for clean favicon display -->
+  <circle cx="180" cy="185" r="105" fill="url(#bg)"/>
+  <!-- V shape -->
+  <polygon fill="#FFFFFF" points="136.28,147.16 116.54,147.16 145.62,218.17 160.23,218.17 182.6,161.32 171.15,146.06 153.12,194.75" transform="translate(10,5)"/>
+  <!-- X shape -->
+  <polygon fill="#3973B0" points="179.05,147.16 198.78,147.16 210.36,167.77 222.07,147.16 241.55,147.16 221.41,181.06 242.6,218.17 223.65,218.17 210.1,195.41 196.15,218.17 177.33,218.17 199.83,180.92" transform="translate(10,5)"/>
+</svg>
