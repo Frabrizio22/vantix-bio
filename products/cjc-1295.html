@@ -71,7 +71,7 @@
 </div>
 <div class="short-desc">Modified GRF (1-29)—a proteolytically stabilized GHRH analogue engineered for pulsatile growth hormone release research with enhanced bioavailability.</div>
 <div class="product-image-container" style="text-align:center;margin:2rem 0;padding:2rem;background:#FAFCFF;border-radius:12px;border:1px solid #E2E8F0">
-<img src="../images/products/cjc-1295-10mg.jpg" alt="CJC-1295 No DAC 10mg - Vantix Bio" style="max-width:240px;width:100%;height:auto;display:inline-block">
+<img src="../images/products/cjc-1295-10mg.jpg" alt="CJC-1295 No DAC 10mg - Vantix Bio" style="max-width:360px;width:100%;height:auto;display:inline-block;cursor:zoom-in">
 </div>
 
 <div class="specs-table"><table>
@@ -213,5 +213,5 @@ function goToCart(){var cart=JSON.parse(sessionStorage.getItem('vantixCart')||'[
 updateCartBadge();
 if('IntersectionObserver' in window){var footer=document.getElementById('pageFooter');var sticky=document.getElementById('mobileSticky');var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){sticky.classList.add('hidden')}else{sticky.classList.remove('hidden')}})},{threshold:0});observer.observe(footer)}
 </script>
-</body>
+<style>.img-zoom-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);z-index:9999;justify-content:center;align-items:center;cursor:zoom-out;-webkit-overflow-scrolling:touch;overflow:auto}.img-zoom-overlay.active{display:flex}.img-zoom-overlay img{max-width:95vw;max-height:90vh;object-fit:contain;border-radius:8px}</style><div class="img-zoom-overlay" onclick="this.classList.remove('active')"><img id="zoom-img" src=""></div><script>document.querySelectorAll(".product-image-container img").forEach(function(img){img.addEventListener("click",function(){var o=document.querySelector(".img-zoom-overlay");document.getElementById("zoom-img").src=this.src;o.classList.add("active")})});</script></body>
 </html>
