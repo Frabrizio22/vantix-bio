@@ -308,9 +308,9 @@ nav a.active {
     font-weight: 700;
 }
 
-/* Spec Box (Dark) */
+/* Spec Box (Blue Gradient) */
 .spec-box {
-    background: #0F172A;
+    background: linear-gradient(135deg, #1E3A5F 0%, #334155 100%);
     color: #E2E8F0;
     padding: 2rem;
     border-radius: 10px;
