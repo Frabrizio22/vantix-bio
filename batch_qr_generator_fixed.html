@@ -48,13 +48,22 @@
             font-size: 16px;
             margin-bottom: 16px;
         }
-        .qr-container {
-            display: inline-block;
+        .qr-wrapper {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 16px;
             padding: 16px;
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-wrapper img {
+            width: 200px;
+            height: 200px;
+            image-rendering: crisp-edges;
         }
         .download-btn {
             background: #0066cc;
@@ -69,20 +78,6 @@
         }
         .download-btn:hover {
             background: #0052a3;
-        }
-        .instructions {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            margin-top: 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .instructions h2 {
-            margin-top: 0;
-            color: #1a1a2e;
-        }
-        .instructions ol {
-            line-height: 1.8;
         }
         .download-all {
             text-align: center;
@@ -129,19 +124,6 @@
 
     <div class="qr-grid" id="qrGrid"></div>
 
-    <div class="instructions">
-        <h2>📋 Instructions</h2>
-        <ol>
-            <li><strong>Download QR Codes:</strong> Click individual download buttons or use "Download All" above</li>
-            <li><strong>Print Size:</strong> Scale QR codes to <strong>4-5cm × 4-5cm</strong> on your labels for optimal scanning</li>
-            <li><strong>Import to Canva:</strong> Upload PNG files to your label template, replace placeholder QR codes</li>
-            <li><strong>Update Batch IDs:</strong> Change batch ID text on labels to match (e.g., VX-TIRZ30-001)</li>
-            <li><strong>Print Labels:</strong> Export from Canva and print on adhesive label paper</li>
-            <li><strong>Customer Scan:</strong> QR codes link directly to vantixbio.com/verify.html with batch ID pre-filled</li>
-            <li><strong>Update Portal:</strong> After testing, upload COAs to match these batch IDs in verify.html</li>
-        </ol>
-    </div>
-
     <script>
         const products = [
             { name: 'BPC-157 10mg', batchId: 'VX-BPC10-001' },
@@ -168,7 +150,7 @@
             card.innerHTML = `
                 <h3>${product.name}</h3>
                 <div class="batch-id">${product.batchId}</div>
-                <div class="qr-container" id="qr-${index}"></div>
+                <div class="qr-wrapper" id="qr-wrapper-${index}"></div>
                 <button class="download-btn" onclick="downloadQR(${index}, '${product.batchId}')">
                     Download PNG
                 </button>
@@ -176,8 +158,15 @@
 
             qrGrid.appendChild(card);
 
-            // Generate QR code at high res but display smaller
-            const qr = new QRCode(document.getElementById(`qr-${index}`), {
+            // Generate QR code with explicit size
+            const qrDiv = document.createElement('div');
+            qrDiv.id = `qr-${index}`;
+            qrDiv.style.width = '600px';
+            qrDiv.style.height = '600px';
+            qrDiv.style.display = 'none';
+            document.body.appendChild(qrDiv);
+            
+            new QRCode(qrDiv, {
                 text: verifyUrl,
                 width: 600,
                 height: 600,
@@ -185,20 +174,23 @@
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
-            
-            // Force square display after render
+
+            // Wait for render then copy to visible wrapper
             setTimeout(() => {
-                const canvas = document.querySelector(`#qr-${index} canvas`);
+                const canvas = qrDiv.querySelector('canvas');
                 if (canvas) {
-                    canvas.style.width = '200px';
-                    canvas.style.height = '200px';
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.width = '200px';
+                    img.style.height = '200px';
+                    document.getElementById(`qr-wrapper-${index}`).appendChild(img);
                 }
             }, 100);
         });
 
         function downloadQR(index, batchId) {
-            const qrContainer = document.getElementById(`qr-${index}`);
-            const canvas = qrContainer.querySelector('canvas');
+            const qrDiv = document.getElementById(`qr-${index}`);
+            const canvas = qrDiv.querySelector('canvas');
             
             if (canvas) {
                 const link = document.createElement('a');
@@ -209,21 +201,11 @@
         }
 
         function downloadAllQRCodes() {
-            // Simple sequential download (browser will prompt for each)
             products.forEach((product, index) => {
                 setTimeout(() => {
                     downloadQR(index, product.batchId);
-                }, index * 500); // 500ms delay between downloads
+                }, index * 500);
             });
-        }
-
-        // Generate CSV tracking file
-        function generateCSV() {
-            let csv = 'Batch ID,Product Name,Manufacturing Date,Testing Status,COA Uploaded,Notes\n';
-            products.forEach(product => {
-                csv += `${product.batchId},${product.name},2026-03-27,Pending,No,First production batch\n`;
-            });
-            return csv;
         }
     </script>
 </body>

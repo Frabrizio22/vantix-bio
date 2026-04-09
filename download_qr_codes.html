@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download QR Codes - Vantix Bio</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1E3A5F; margin-top: 0; }
+        button {
+            background: #1E3A5F;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover { background: #2C4F7F; }
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f9ff;
+            border-left: 4px solid #1E3A5F;
+            border-radius: 4px;
+            display: none;
+        }
+        .qr-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .qr-item {
+            text-align: center;
+            padding: 10px;
+            background: #f9fafb;
+            border-radius: 6px;
+        }
+        .qr-item canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        .qr-item p {
+            margin: 8px 0 0 0;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vantix Bio QR Code Generator</h1>
+        <p>Click the button below to generate and download all 10 product QR codes as PNG files (600×600 pixels).</p>
+        
+        <button onclick="generateAndDownloadAll()">Generate & Download All QR Codes</button>
+        
+        <div id="status"></div>
+        <div id="preview" class="qr-preview"></div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 'VX-BPC10-001', name: 'BPC-157-10mg' },
+            { id: 'VX-TB10-001', name: 'TB-500-10mg' },
+            { id: 'VX-CJC5-001', name: 'CJC-1295-5mg' },
+            { id: 'VX-IPA5-001', name: 'Ipamorelin-5mg' },
+            { id: 'VX-MOTS10-001', name: 'MOTS-c-10mg' },
+            { id: 'VX-NAD1K-001', name: 'NAD-1000mg' },
+            { id: 'VX-GHK100-001', name: 'GHK-Cu-100mg' },
+            { id: 'VX-SEMA10-001', name: 'Semaglutide-10mg' },
+            { id: 'VX-TIRZ30-001', name: 'Tirzepatide-30mg' },
+            { id: 'VX-RETA20-001', name: 'Retatrutide-20mg' }
+        ];
+
+        async function generateAndDownloadAll() {
+            const status = document.getElementById('status');
+            const preview = document.getElementById('preview');
+            status.style.display = 'block';
+            status.innerHTML = 'Generating QR codes...';
+            preview.innerHTML = '';
+
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                const url = `https://vantixbio.com/verify.html?batch=${product.id}`;
+                
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                
+                // Generate QR code
+                await QRCode.toCanvas(canvas, url, {
+                    width: 600,
+                    margin: 1,
+                    color: {
+                        dark: '#000000',
+                        light: '#FFFFFF'
+                    }
+                });
+
+                // Add to preview
+                const item = document.createElement('div');
+                item.className = 'qr-item';
+                const previewCanvas = canvas.cloneNode(true);
+                previewCanvas.style.width = '150px';
+                previewCanvas.style.height = '150px';
+                item.appendChild(previewCanvas);
+                const label = document.createElement('p');
+                label.textContent = product.name;
+                item.appendChild(label);
+                preview.appendChild(item);
+
+                // Download
+                const link = document.createElement('a');
+                link.download = `${product.name}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                status.innerHTML = `Generated ${i + 1}/${products.length}: ${product.name}`;
+                
+                // Small delay between downloads to avoid browser blocking
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+
+            status.innerHTML = `✅ All ${products.length} QR codes generated and downloaded!`;
+        }
+    </script>
+</body>
+</html>
