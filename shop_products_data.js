@@ -137,6 +137,38 @@ const VX_PRODUCTS = {
             inStock: true,
             dualTested: true
         },
+        {
+            sku: 'VX-TESA-10',
+            name: 'Tesamorelin 10mg',
+            shortName: 'Tesamorelin',
+            slug: 'tesamorelin',
+            category: 'gh-axis',
+            categoryLabel: 'GH AXIS',
+            dosage: '10mg',
+            purity: '≥98%',
+            price: 48,
+            cogs: 27.50,
+            image: 'images/tesamorelin.jpg',
+            url: 'products/tesamorelin.html',
+            inStock: false,
+            dualTested: true
+        },
+        {
+            sku: 'VX-AOD-10',
+            name: 'AOD-9604 10mg',
+            shortName: 'AOD-9604',
+            slug: 'aod-9604',
+            category: 'gh-axis',
+            categoryLabel: 'GH AXIS',
+            dosage: '10mg',
+            purity: '≥98%',
+            price: 68,
+            cogs: 30.07,
+            image: 'images/aod-9604.jpg',
+            url: 'products/aod-9604.html',
+            inStock: false,
+            dualTested: true
+        },
         
         // MITOCHONDRIAL & CELLULAR RESEARCH - Cellular energy, mitochondrial signaling, metabolic regulation
         {
