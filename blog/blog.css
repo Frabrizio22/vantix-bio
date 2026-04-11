@@ -311,12 +311,18 @@ nav a.active {
 /* Spec Box (Blue Gradient) */
 .spec-box {
     background: linear-gradient(135deg, #1E3A5F 0%, #334155 100%);
-    color: #E2E8F0;
+    color: #FFFFFF;
     padding: 2rem;
     border-radius: 10px;
     margin: 2.5rem 0;
     font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
     font-size: 0.95rem;
+}
+
+.spec-box p,
+.spec-box li,
+.spec-box strong {
+    color: #FFFFFF;
 }
 
 .spec-box h3 {
