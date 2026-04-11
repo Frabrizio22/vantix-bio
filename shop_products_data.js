@@ -169,6 +169,22 @@ const VX_PRODUCTS = {
             inStock: false,
             dualTested: true
         },
+        {
+            sku: 'VX-MT2-10',
+            name: 'Melanotan II 10mg',
+            shortName: 'MT-II',
+            slug: 'melanotan-ii',
+            category: 'gh-axis',
+            categoryLabel: 'GH AXIS',
+            dosage: '10mg',
+            purity: '≥98%',
+            price: 32,
+            cogs: 15.00,
+            image: 'images/melanotan-ii.jpg',
+            url: 'products/melanotan-ii.html',
+            inStock: false,
+            dualTested: true
+        },
         
         // MITOCHONDRIAL & CELLULAR RESEARCH - Cellular energy, mitochondrial signaling, metabolic regulation
         {
