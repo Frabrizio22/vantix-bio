@@ -2478,7 +2478,7 @@ h1 {
         </section>
 
         <!-- Protocol Bundles Section -->
-        <section style="max-width: 1200px; margin: 60px auto 40px; padding: 0 20px;">
+        <section id="research-kits" style="max-width: 1200px; margin: 60px auto 40px; padding: 0 20px;">
             <div style="text-align: center; margin-bottom: 32px;">
                 <h2 style="font-size: 24px; font-weight: 800; color: #1A2B44; margin-bottom: 8px;">Protocol-Optimized Bundles</h2>
                 <p style="font-size: 15px; color: #64748B; font-weight: 500; max-width: 700px; margin: 0 auto;">Protocol bundles with evidence-based compound combinations—not arbitrary percentage-off&nbsp;promotions.</p>
@@ -2507,7 +2507,12 @@ h1 {
             </div>
             
             <div style="text-align: center; margin-top: 24px;">
-                <p style="font-size: 14px; color: #94A3B8; font-style: italic;">Research kits available at checkout</p>
+                <button onclick="document.querySelector('#research-kits').scrollIntoView({behavior:'smooth'})" 
+                        style="background:#2563EB;color:#fff;border:none;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,0.25);transition:all 0.2s"
+                        onmouseover="this.style.background='#1E40AF'" 
+                        onmouseout="this.style.background='#2563EB'">
+                    View All Research Kits ↓
+                </button>
             </div>
         </section>
     </main>
