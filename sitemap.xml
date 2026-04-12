@@ -87,8 +87,20 @@
   <!-- Blog -->
   <url>
     <loc>https://vantixbio.com/blog/index.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vantixbio.com/blog/how-to-verify-peptide-purity.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vantixbio.com/blog/peptide-degradation-signs.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
