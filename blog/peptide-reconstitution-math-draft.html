@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peptide Reconstitution Calculator: Complete Mathematical Guide for Research Protocols</title>
+    <meta name="description" content="Master peptide reconstitution math with concentration formulas, BAC water ratios, and syringe unit conversions. Complete reference tables for 5mg-30mg vials.">
+    <link rel="canonical" href="https://vantixbio.com/blog/peptide-reconstitution-math.html">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Calculate Peptide Reconstitution Concentrations",
+      "description": "Mathematical guide for calculating peptide concentrations after reconstitution with bacteriostatic water.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Determine peptide mass",
+          "text": "Identify the total peptide mass in milligrams (mg) from your vial label."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Choose reconstitution volume",
+          "text": "Select bacteriostatic water volume based on desired final concentration."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Calculate concentration",
+          "text": "Divide peptide mass by water volume to get mg/ml concentration."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Convert to research units",
+          "text": "Use concentration to calculate specific doses for research protocols."
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: #1E293B;
+            background: #FFFFFF;
+        }
+
+        .header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0A1628;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo span { color: #2B7DE9; }
+
+        .back-link {
+            color: #64748B;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: #2B7DE9; }
+
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        .tldr {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-left: 4px solid #2B7DE9;
+            padding: 20px 24px;
+            margin: 0 0 32px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tldr-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1E40AF;
+            margin-bottom: 8px;
+        }
+
+        .tldr p {
+            color: #1E40AF;
+            font-weight: 500;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0A1628;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .meta {
+            color: #64748B;
+            font-size: 0.875rem;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1E293B;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #334155;
+            font-size: 1rem;
+        }
+
+        ul {
+            margin: 16px 0 24px 24px;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: #0A1628;
+            font-weight: 600;
+        }
+
+        .formula-box {
+            background: #F8FAFC;
+            border: 2px solid #2B7DE9;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .formula-box .formula {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0A1628;
+            font-family: 'Courier New', monospace;
+            margin: 12px 0;
+        }
+
+        .formula-box .label {
+            font-size: 0.85rem;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .recon-table {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 32px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .recon-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .recon-table thead {
+            background: linear-gradient(135deg, #1E3A5F 0%, #334155 100%);
+            color: #FFFFFF;
+        }
+
+        .recon-table th {
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recon-table td {
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .recon-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .recon-table td:first-child {
+            font-weight: 700;
+            color: #0A1628;
+            background: #F8FAFC;
+        }
+
+        .recon-table td:not(:first-child) {
+            font-family: 'Courier New', monospace;
+            color: #475569;
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .warning-box p {
+            color: #92400E;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-left: 4px solid #2B7DE9;
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-point p {
+            margin-bottom: 0;
+            color: #1E40AF;
+            font-weight: 500;
+        }
+
+        .disclaimer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #F8FAFC;
+            border-left: 4px solid #EF4444;
+            font-size: 0.875rem;
+            color: #475569;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .disclaimer strong {
+            color: #EF4444;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.25rem; }
+            article { padding: 24px 16px 40px; }
+            
+            .recon-table {
+                overflow-x: auto;
+            }
+            
+            .recon-table table {
+                min-width: 500px;
+            }
+
+            .formula-box .formula {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <a href="../shop.html" class="logo">VANTIX <span>BIO</span></a>
+        <a href="index.html" class="back-link">← Blog</a>
+    </div>
+</div>
+
+<article>
+
+<div class="tldr">
+    <div class="tldr-label">TL;DR</div>
+    <p>Peptide concentration = mass (mg) ÷ volume (ml). Use the reference tables below for common vial sizes (5mg-30mg) and bacteriostatic water volumes. Always verify calculations before laboratory use.</p>
+</div>
+
+<h1>Peptide Reconstitution Calculator: Complete Mathematical Guide</h1>
+
+<div class="meta"><strong>Published:</strong> April 14, 2026 · 6 min read</div>
+
+<p>Accurate peptide reconstitution is fundamental to reproducible research. A single calculation error can invalidate an entire study—wrong concentrations lead to incorrect dosing, inconsistent results, and wasted materials.</p>
+
+<p>This guide provides the mathematical framework for peptide reconstitution with bacteriostatic water, including reference tables for common vial sizes.</p>
+
+<h2>The Core Formula</h2>
+
+<p>All peptide reconstitution calculations use the same basic equation:</p>
+
+<div class="formula-box">
+<div class="label">Concentration Formula</div>
+<div class="formula">Concentration (mg/ml) = Peptide Mass (mg) ÷ Water Volume (ml)</div>
+</div>
+
+<p><strong>Example:</strong> A 10mg BPC-157 vial reconstituted with 2ml bacteriostatic water yields 5 mg/ml concentration.</p>
+
+<p>This concentration tells you how much peptide is in each milliliter of solution—critical for calculating specific research doses.</p>
+
+<h2>Reference Tables by Vial Size</h2>
+
+<h3>5mg Vials (Ipamorelin, CJC-1295)</h3>
+
+<div class="recon-table">
+<table>
+<thead>
+<tr>
+<th>BAC Water Volume</th>
+<th>Final Concentration</th>
+<th>0.1ml Contains</th>
+<th>0.5ml Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1ml</td>
+<td>5.0 mg/ml</td>
+<td>0.5 mg</td>
+<td>2.5 mg</td>
+</tr>
+<tr>
+<td>2ml</td>
+<td>2.5 mg/ml</td>
+<td>0.25 mg</td>
+<td>1.25 mg</td>
+</tr>
+<tr>
+<td>3ml</td>
+<td>1.67 mg/ml</td>
+<td>0.167 mg</td>
+<td>0.835 mg</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>10mg Vials (BPC-157, TB-500, MOTS-c, Semaglutide)</h3>
+
+<div class="recon-table">
+<table>
+<thead>
+<tr>
+<th>BAC Water Volume</th>
+<th>Final Concentration</th>
+<th>0.1ml Contains</th>
+<th>0.5ml Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1ml</td>
+<td>10.0 mg/ml</td>
+<td>1.0 mg</td>
+<td>5.0 mg</td>
+</tr>
+<tr>
+<td>2ml</td>
+<td>5.0 mg/ml</td>
+<td>0.5 mg</td>
+<td>2.5 mg</td>
+</tr>
+<tr>
+<td>3ml</td>
+<td>3.33 mg/ml</td>
+<td>0.333 mg</td>
+<td>1.665 mg</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>20mg Vials (Retatrutide)</h3>
+
+<div class="recon-table">
+<table>
+<thead>
+<tr>
+<th>BAC Water Volume</th>
+<th>Final Concentration</th>
+<th>0.1ml Contains</th>
+<th>0.5ml Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2ml</td>
+<td>10.0 mg/ml</td>
+<td>1.0 mg</td>
+<td>5.0 mg</td>
+</tr>
+<tr>
+<td>3ml</td>
+<td>6.67 mg/ml</td>
+<td>0.667 mg</td>
+<td>3.335 mg</td>
+</tr>
+<tr>
+<td>4ml</td>
+<td>5.0 mg/ml</td>
+<td>0.5 mg</td>
+<td>2.5 mg</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>30mg Vials (Tirzepatide)</h3>
+
+<div class="recon-table">
+<table>
+<thead>
+<tr>
+<th>BAC Water Volume</th>
+<th>Final Concentration</th>
+<th>0.1ml Contains</th>
+<th>0.5ml Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2ml</td>
+<td>15.0 mg/ml</td>
+<td>1.5 mg</td>
+<td>7.5 mg</td>
+</tr>
+<tr>
+<td>3ml</td>
+<td>10.0 mg/ml</td>
+<td>1.0 mg</td>
+<td>5.0 mg</td>
+</tr>
+<tr>
+<td>5ml</td>
+<td>6.0 mg/ml</td>
+<td>0.6 mg</td>
+<td>3.0 mg</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2>Choosing Reconstitution Volume</h2>
+
+<p>The "right" volume depends on your research protocol:</p>
+
+<p><strong>Lower volume (1-2ml):</strong></p>
+<ul>
+<li>Higher concentration = smaller injection volumes</li>
+<li>Useful when research model has volume limitations</li>
+<li>Requires more precise measurement (errors magnified)</li>
+</ul>
+
+<p><strong>Higher volume (3-5ml):</strong></p>
+<ul>
+<li>Lower concentration = easier to measure accurately</li>
+<li>Reduces dosing errors from syringe tolerance</li>
+<li>May exceed vial capacity or create storage challenges</li>
+</ul>
+
+<div class="key-point">
+<p><strong>Standard Practice:</strong> Most research protocols use 2ml reconstitution for 10mg vials (5 mg/ml) as a balance between concentration and measurement accuracy.</p>
+</div>
+
+<h2>Syringe Unit Conversions</h2>
+
+<p>Research syringes are marked in different units. Converting between them prevents errors:</p>
+
+<p><strong>Common syringe markings:</strong></p>
+<ul>
+<li><strong>Milliliters (ml):</strong> Standard volume unit (0.1ml, 0.5ml, 1ml)</li>
+<li><strong>Cubic centimeters (cc):</strong> 1 cc = 1 ml (identical)</li>
+<li><strong>Units:</strong> Typically 100 units = 1ml on insulin syringes</li>
+</ul>
+
+<p><strong>Quick conversion:</strong></p>
+<ul>
+<li>0.1ml = 10 units (on 100-unit syringe)</li>
+<li>0.5ml = 50 units</li>
+<li>1.0ml = 100 units</li>
+</ul>
+
+<p>For a 5 mg/ml solution, drawing 0.2ml (20 units on insulin syringe) delivers 1mg of peptide.</p>
+
+<h2>Common Mistakes to Avoid</h2>
+
+<p><strong>1. Confusing peptide mass with concentration</strong></p>
+<p>A 10mg vial does NOT automatically give you 10mg/ml. Concentration depends on how much water you add.</p>
+
+<p><strong>2. Ignoring overfill</strong></p>
+<p>Many vials contain slight overfill (10-15%). Calculate based on labeled mass, not actual content, for consistency with literature protocols.</p>
+
+<p><strong>3. Using wrong syringe type</strong></p>
+<p>1ml insulin syringes (100 units) are NOT the same as 1ml luer-lock syringes (no unit markings). Know your syringe scale.</p>
+
+<p><strong>4. Skipping verification math</strong></p>
+<p>Always double-check: (desired dose in mg) ÷ (concentration in mg/ml) = volume to draw in ml.</p>
+
+<div class="warning-box">
+<p><strong>Calculation Check:</strong> If a protocol calls for 0.5mg and your concentration is 2.5 mg/ml, you need 0.2ml (20 units). Drawing 0.5ml would deliver 1.25mg—a 2.5× overdose.</p>
+</div>
+
+<h2>Storage After Reconstitution</h2>
+
+<p>Once reconstituted, peptides have limited stability:</p>
+
+<ul>
+<li><strong>Refrigerated (2-8°C):</strong> Most peptides stable 14-28 days</li>
+<li><strong>Room temperature:</strong> Degradation accelerates, use within hours</li>
+<li><strong>Frozen (-20°C):</strong> Extends shelf life but avoid repeated freeze-thaw cycles</li>
+</ul>
+
+<p>For protocols exceeding 28 days, consider aliquoting reconstituted material into single-use portions and freezing.</p>
+
+<p><em>See: <a href="peptide-storage-guide.html">Peptide Storage Guide</a> for detailed preservation protocols.</em></p>
+
+<h2>Verification Before Use</h2>
+
+<p>Before beginning research protocols, verify reconstitution success:</p>
+
+<ul>
+<li><strong>Visual inspection:</strong> Solution should be clear, no visible particles or cloudiness</li>
+<li><strong>Dissolution time:</strong> Most peptides dissolve within 1-2 minutes of gentle swirling</li>
+<li><strong>Volume check:</strong> Confirm total volume matches expected (peptide powder adds negligible volume)</li>
+</ul>
+
+<p>Cloudy solutions, slow dissolution, or visible aggregates suggest degradation or contamination. Do not use questionable material.</p>
+
+<p><em>See: <a href="peptide-degradation-signs.html">Peptide Degradation Signs</a> for quality assessment.</em></p>
+
+<div class="disclaimer">
+<p><strong style="color: #EF4444;">FOR RESEARCH USE ONLY.</strong> This guide describes laboratory preparation of research materials for in vitro and in vivo preclinical studies. All peptide products are intended exclusively for laboratory research and are not intended for human consumption, diagnostic purposes, or therapeutic applications.</p>
+</div>
+
+</article>
+
+</body>
+</html>
