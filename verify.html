@@ -1300,6 +1300,57 @@
                 </section>
             </div>`;
 
+            // How Verification Works (instructional section)
+            if (!state.result) {
+                html += `<div style="background: #FFFFFF; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; padding: 48px 24px;">
+                    <div style="max-width: 900px; margin: 0 auto;">
+                        <h2 style="font-size: 28px; font-weight: 700; color: #1A2B44; margin-bottom: 16px; text-align: center;">How Verification Works</h2>
+                        <p style="font-size: 17px; color: #64748B; text-align: center; margin-bottom: 40px; max-width: 720px; margin-left: auto; margin-right: auto;">
+                            Every Vantix Bio product ships with a unique Batch ID printed on the vial label. Enter that ID above to instantly retrieve the full Janoshik analytical report—no login required.
+                        </p>
+                        
+                        <div style="display: grid; gap: 24px;">
+                            <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; background: #F8FAFC; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: 700; flex-shrink: 0;">1</div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: 700; color: #1A2B44; margin-bottom: 8px;">Find Your Batch ID</div>
+                                    <div style="font-size: 15px; color: #64748B; line-height: 1.7;">
+                                        Located on your vial label in the format <strong style="color: #1A2B44; font-family: 'JetBrains Mono', monospace;">VX-RETA20-001</strong> or <strong style="color: #1A2B44; font-family: 'JetBrains Mono', monospace;">VX-BPC10-001</strong>. Each batch has a unique identifier linking to its specific analytical test results.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; background: #F8FAFC; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: 700; flex-shrink: 0;">2</div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: 700; color: #1A2B44; margin-bottom: 8px;">Enter Batch ID Above</div>
+                                    <div style="font-size: 15px; color: #64748B; line-height: 1.7;">
+                                        Type or paste the Batch ID into the verification search box at the top of this page. The system cross-references our secure database of Janoshik test reports in real-time.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; background: #F8FAFC; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: 700; flex-shrink: 0;">3</div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: 700; color: #1A2B44; margin-bottom: 8px;">View Instant Results</div>
+                                    <div style="font-size: 15px; color: #64748B; line-height: 1.7;">
+                                        See the complete analytical data including <strong style="color: #1A2B44;">HPLC-DAD purity percentage</strong>, <strong style="color: #1A2B44;">LC-MS/MS identity confirmation</strong>, <strong style="color: #1A2B44;">LAL endotoxin results</strong>, and the Janoshik Task ID for independent cross-verification at janoshik.com.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1px solid #BFDBFE; border-radius: 12px; padding: 24px; margin-top: 32px; text-align: center;">
+                            <div style="font-size: 15px; color: #1E40AF; font-weight: 600; margin-bottom: 8px;">🔒 Forensic Watermarking Active</div>
+                            <div style="font-size: 14px; color: #64748B; line-height: 1.7;">
+                                All displayed chromatograms include session-specific forensic watermarks to prevent unauthorized reproduction. Printing and screenshots are disabled. Each verification session is logged for audit trail integrity.
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
             // 8-Step Protocol Summary (Compact, below hero)
             if (!state.result) {
                 html += `<div class="protocol-summary">
