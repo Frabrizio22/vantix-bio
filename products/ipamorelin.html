@@ -20,10 +20,32 @@
   "image": "https://vantixbio.com/images/products/ipamorelin-10mg.jpg",
   "offers": {
     "@type": "Offer",
-    "price": "30",
+    "price": "32",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
-    "url": "https://vantixbio.com/products/ipamorelin.html"
+    "url": "https://vantixbio.com/products/ipamorelin.html",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 1,
+          "unitCode": "DAY"
+        }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "US",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+      "merchantReturnDays": 0
+    }
   }
 }
 </script>
