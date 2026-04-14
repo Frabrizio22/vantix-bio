@@ -212,6 +212,38 @@
             color: #475569;
         }
 
+        /* Mobile comparison cards */
+        .comparison-mobile {
+            display: none;
+        }
+
+        .comparison-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .comparison-card h4 {
+            color: #0A1628;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2B7DE9;
+        }
+
+        .comparison-card p {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .comparison-card p:last-child {
+            margin-bottom: 0;
+        }
+
         .key-point {
             background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
             border-left: 4px solid #2B7DE9;
@@ -384,16 +416,33 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 1.75rem; }
-            h2 { font-size: 1.25rem; }
-            article { padding: 24px 16px 40px; }
+            h1 { 
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            h2 { font-size: 1.125rem; }
+            article { padding: 20px 16px 40px; }
             
-            .comparison-table {
-                overflow-x: auto;
+            .tldr,
+            .key-point {
+                padding: 16px 20px;
+                margin: 24px 0;
             }
             
-            .comparison-table table {
-                min-width: 500px;
+            .tldr p,
+            .key-point p {
+                font-size: 0.9rem;
+            }
+            
+            /* Hide desktop table on mobile */
+            .comparison-table-desktop {
+                display: none;
+            }
+            
+            /* Show mobile cards */
+            .comparison-mobile {
+                display: block;
+                margin: 24px 0;
             }
         }
     </style>
@@ -536,7 +585,7 @@
 
 <h2>MOTS-c vs Other Metabolic Interventions</h2>
 
-<div class="comparison-table">
+<div class="comparison-table comparison-table-desktop">
 <table>
 <thead>
 <tr>
@@ -567,6 +616,30 @@
 </tr>
 </tbody>
 </table>
+</div>
+
+<!-- Mobile-friendly comparison cards -->
+<div class="comparison-mobile">
+<div class="comparison-card">
+<h4>MOTS-c</h4>
+<p><strong>Mechanism:</strong> Mitochondrial signaling peptide</p>
+<p><strong>Action:</strong> Direct AMPK activation, fatty acid oxidation</p>
+<p><strong>Use:</strong> Metabolic flexibility, exercise mimetic studies</p>
+</div>
+
+<div class="comparison-card">
+<h4>NAD+</h4>
+<p><strong>Mechanism:</strong> Coenzyme supplementation</p>
+<p><strong>Action:</strong> Sirtuin activation, electron transport support</p>
+<p><strong>Use:</strong> Cellular energy metabolism, aging research</p>
+</div>
+
+<div class="comparison-card">
+<h4>Metformin</h4>
+<p><strong>Mechanism:</strong> Biguanide drug</p>
+<p><strong>Action:</strong> Complex I inhibition, AMPK activation</p>
+<p><strong>Use:</strong> Glucose metabolism, longevity studies</p>
+</div>
 </div>
 
 <h3>When to Choose MOTS-c Over NAD+</h3>
