@@ -234,7 +234,7 @@ const VX_PRODUCTS = {
             cogs: 5.00,
             image: 'images/bac-water.jpg',
             url: 'products/bac-water.html',
-            inStock: true,
+            inStock: false,
             dualTested: false
         }
     ],
