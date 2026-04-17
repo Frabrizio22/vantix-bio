@@ -150,7 +150,7 @@ const VX_PRODUCTS = {
             cogs: 27.50,
             image: 'images/tesamorelin.jpg',
             url: 'products/tesamorelin.html',
-            inStock: false,
+            inStock: true,
             dualTested: true
         },
         {
