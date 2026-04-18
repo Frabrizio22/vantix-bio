@@ -1034,17 +1034,24 @@
         }
 
         function getTotalDiscount() {
-            var discount = getDiscount();
+            var subtotal = getSubtotal();
+            var discount = 0;
+            
+            // Zelle discount: 5% automatic when Zelle selected
+            if (selectedPayment === 'zelle') {
+                discount += subtotal * 0.05;
+            }
+            
+            // FOUNDER code: 10% flat, stackable with Zelle
             if (discountCode === 'FOUNDER') {
-                // 10% CC, 15% Zelle
-                var rate = (selectedPayment === 'zelle') ? 0.15 : 0.10;
-                discount += (getSubtotal() * rate);
+                discount += subtotal * 0.10;
             }
+            
+            // FOUNDER20 code: 15% flat, stackable with Zelle (VIP only)
             if (discountCode === 'FOUNDER20') {
-                // 15% CC, 20% Zelle
-                var rate = (selectedPayment === 'zelle') ? 0.20 : 0.15;
-                discount += (getSubtotal() * rate);
+                discount += subtotal * 0.15;
             }
+            
             return discount;
         }
 
@@ -1060,21 +1067,9 @@
 
         function getTotal() {
             var subtotal = getSubtotal();
-            var zelleDiscount = getDiscount(); // 5% if Zelle selected (if no code applied)
-            var codeDiscount = 0;
-            if (discountCode === 'FOUNDER') {
-                // 10% CC, 15% Zelle (replaces regular Zelle discount)
-                var rate = (selectedPayment === 'zelle') ? 0.15 : 0.10;
-                codeDiscount = subtotal * rate;
-                zelleDiscount = 0; // FOUNDER replaces Zelle discount
-            } else if (discountCode === 'FOUNDER20') {
-                // 15% CC, 20% Zelle (replaces regular Zelle discount)
-                var rate = (selectedPayment === 'zelle') ? 0.20 : 0.15;
-                codeDiscount = subtotal * rate;
-                zelleDiscount = 0; // FOUNDER20 replaces Zelle discount
-            }
+            var totalDiscount = getTotalDiscount(); // Handles Zelle + code stacking
             var shipping = getShipping();
-            var total = subtotal - zelleDiscount - codeDiscount + shipping;
+            var total = subtotal - totalDiscount + shipping;
             
             return Math.max(0, total);
         }
@@ -1134,17 +1129,19 @@
                 html += '<div class="summary-row discount"><span>' + lbl + '</span><span>-$' + getDiscount().toFixed(2) + '</span></div>';
             }
             
-            // Show founder code discounts
+            // Show Zelle discount (5% automatic)
+            if (selectedPayment === 'zelle') {
+                var zelleDiscount = getSubtotal() * 0.05;
+                html += '<div class="summary-row discount"><span>Zelle Discount (5%)</span><span>-$' + zelleDiscount.toFixed(2) + '</span></div>';
+            }
+            
+            // Show founder code discounts (stackable with Zelle)
             if (discountCode === 'FOUNDER') {
-                var rate = (selectedPayment === 'zelle') ? 0.15 : 0.10;
-                var codeDiscount = getSubtotal() * rate;
-                var discountLabel = (selectedPayment === 'zelle') ? 'Founder Discount (15%)' : 'Founder Discount (10%)';
-                html += '<div class="summary-row discount"><span>' + discountLabel + '</span><span>-$' + codeDiscount.toFixed(2) + '</span></div>';
+                var codeDiscount = getSubtotal() * 0.10;
+                html += '<div class="summary-row discount"><span>Founder Discount (10%)</span><span>-$' + codeDiscount.toFixed(2) + '</span></div>';
             } else if (discountCode === 'FOUNDER20') {
-                var rate = (selectedPayment === 'zelle') ? 0.20 : 0.15;
-                var codeDiscount = getSubtotal() * rate;
-                var discountLabel = (selectedPayment === 'zelle') ? 'VIP Founder Discount (20%)' : 'VIP Founder Discount (15%)';
-                html += '<div class="summary-row discount"><span>' + discountLabel + '</span><span>-$' + codeDiscount.toFixed(2) + '</span></div>';
+                var codeDiscount = getSubtotal() * 0.15;
+                html += '<div class="summary-row discount"><span>VIP Founder Discount (15%)</span><span>-$' + codeDiscount.toFixed(2) + '</span></div>';
             }
             
             var shipLabel = getShipping() === 0 ? 'FREE' : '$' + getShipping().toFixed(2);
@@ -1239,7 +1236,7 @@
             if (enteredCode === 'FOUNDER') {
                 discountCode = 'FOUNDER';
                 promoApplied = false;
-                msg.textContent = '✓ Founder code applied — 10% off (15% with Zelle)!';
+                msg.textContent = '✓ Founder code applied — 10% off (stacks with Zelle 5% = 15% total)!';
                 msg.style.color = '#059669';
                 code.disabled = true;
                 updateSummary();
@@ -1247,7 +1244,7 @@
             } else if (enteredCode === 'FOUNDER20') {
                 discountCode = 'FOUNDER20';
                 promoApplied = false;
-                msg.textContent = '✓ VIP Founder code applied — 15% off (20% with Zelle)!';
+                msg.textContent = '✓ VIP Founder code applied — 15% off (stacks with Zelle 5% = 20% total)!';
                 msg.style.color = '#059669';
                 code.disabled = true;
                 updateSummary();
