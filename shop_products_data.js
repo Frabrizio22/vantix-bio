@@ -169,22 +169,6 @@ const VX_PRODUCTS = {
             inStock: false,
             dualTested: true
         },
-        {
-            sku: 'VX-MT2-10',
-            name: 'Melanotan II 10mg',
-            shortName: 'MT-II',
-            slug: 'melanotan-ii',
-            category: 'gh-axis',
-            categoryLabel: 'GH AXIS',
-            dosage: '10mg',
-            purity: '≥98%',
-            price: 32,
-            cogs: 15.00,
-            image: 'images/melanotan-ii.jpg',
-            url: 'products/melanotan-ii.html',
-            inStock: false,
-            dualTested: true
-        },
         
         // MITOCHONDRIAL & CELLULAR RESEARCH - Cellular energy, mitochondrial signaling, metabolic regulation
         {
@@ -322,23 +306,6 @@ const VX_PRODUCTS = {
             cogs: 12.00,
             image: 'images/thymosin-alpha-1.jpg',
             url: 'products/thymosin-alpha-1.html',
-            inStock: false,
-            comingSoon: true,
-            dualTested: false
-        },
-        {
-            sku: 'VX-AOD-2',
-            name: 'AOD-9604 2mg',
-            shortName: 'AOD-9604',
-            slug: 'aod-9604',
-            category: 'metabolic',
-            categoryLabel: 'Metabolic',
-            dosage: '2mg',
-            purity: '≥98%',
-            price: 30,
-            cogs: 8.50,
-            image: 'images/aod-9604.jpg',
-            url: 'products/aod-9604.html',
             inStock: false,
             comingSoon: true,
             dualTested: false
