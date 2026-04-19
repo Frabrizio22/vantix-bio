@@ -1344,7 +1344,7 @@
         function notifyOrder(orderNum, order, callback) {
             // Send order to Worker for logging (Telegram + Sheet + Email)
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://vantix-checkout.vantixbio.workers.dev/order', true);
+            xhr.open('POST', 'https://vantix-checkout.prcpeptides.workers.dev/order', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {
@@ -1432,7 +1432,7 @@
                     btn.innerHTML = '<span class="btn-spinner"></span>Redirecting to Secure Checkout...';
                     
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://vantix-checkout.vantixbio.workers.dev/bankful', true);
+                    xhr.open('POST', 'https://vantix-checkout.prcpeptides.workers.dev/bankful', true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.onload = function() {
                     if (xhr.status === 200) {
@@ -1517,7 +1517,7 @@
                     
                     // Step 2: Create Coinbase charge via root endpoint
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://vantix-checkout.vantixbio.workers.dev/', true);
+                    xhr.open('POST', 'https://vantix-checkout.prcpeptides.workers.dev/', true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.onload = function() {
                         if (xhr.status === 200) {
