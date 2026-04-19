@@ -202,24 +202,6 @@ const VX_PRODUCTS = {
             url: 'products/nad-plus.html',
             inStock: true,
             dualTested: true
-        },
-        
-        // RESEARCH ESSENTIALS - Laboratory-use reagents and supporting materials
-        {
-            sku: 'VX-BAC-30',
-            name: 'Bacteriostatic Water 30ml',
-            shortName: 'BAC Water',
-            slug: 'bac-water',
-            category: 'lab-supply',
-            categoryLabel: 'LAB SUPPLY',
-            volume: '30ml',
-            type: 'Bacteriostatic Water',
-            price: 8,
-            cogs: 5.00,
-            image: 'images/bac-water.jpg',
-            url: 'products/bac-water.html',
-            inStock: false,
-            dualTested: false
         }
     ],
     

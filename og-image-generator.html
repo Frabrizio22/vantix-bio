@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .top {
+            flex: 1;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-container {
+            text-align: center;
+        }
+        .logo-icon {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+        }
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .logo-text {
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        .logo-text .vantix {
+            color: #1e3a5f;
+        }
+        .logo-text .bio {
+            color: #4a90e2;
+        }
+        .bottom {
+            background: #2c4f7c;
+            padding: 35px 80px;
+            display: flex;
+            align-items: center;
+        }
+        .tagline {
+            color: white;
+            font-size: 48px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+        .url {
+            color: rgba(255,255,255,0.8);
+            font-size: 28px;
+            font-weight: 400;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Hexagon molecular structure -->
+                        <path d="M100,30 L160,65 L160,135 L100,170 L40,135 L40,65 Z" 
+                              fill="none" stroke="#1e3a5f" stroke-width="3"/>
+                        <!-- Connection nodes -->
+                        <circle cx="100" cy="30" r="6" fill="#2c4f7c"/>
+                        <circle cx="160" cy="65" r="6" fill="#3d5f8c"/>
+                        <circle cx="160" cy="135" r="6" fill="#4a90e2"/>
+                        <circle cx="100" cy="170" r="6" fill="#5ba3f5"/>
+                        <circle cx="40" cy="135" r="6" fill="#4a90e2"/>
+                        <circle cx="40" cy="65" r="6" fill="#3d5f8c"/>
+                        <!-- Inner connections -->
+                        <line x1="100" y1="30" x2="100" y2="100" stroke="#4a90e2" stroke-width="2" opacity="0.6"/>
+                        <line x1="160" y1="65" x2="100" y2="100" stroke="#4a90e2" stroke-width="2" opacity="0.6"/>
+                        <line x1="160" y1="135" x2="100" y2="100" stroke="#4a90e2" stroke-width="2" opacity="0.6"/>
+                        <line x1="100" y1="170" x2="100" y2="100" stroke="#4a90e2" stroke-width="2" opacity="0.6"/>
+                        <line x1="40" y1="135" x2="100" y2="100" stroke="#4a90e2" stroke-width="2" opacity="0.6"/>
+                        <line x1="40" y1="65" x2="100" y2="100" stroke="#4a90e2" stroke-width="2" opacity="0.6"/>
+                        <!-- VX text -->
+                        <text x="65" y="115" font-family="Arial, sans-serif" font-size="60" font-weight="900" fill="#1e3a5f">V</text>
+                        <text x="100" y="115" font-family="Arial, sans-serif" font-size="60" font-weight="900" fill="#4a90e2">X</text>
+                    </svg>
+                </div>
+                <h1 class="logo-text">
+                    <span class="vantix">VANTIX</span>
+                    <span class="bio">BIO</span>
+                </h1>
+            </div>
+        </div>
+        <div class="bottom">
+            <div>
+                <div class="tagline">Forensic-Grade Peptides — Janoshik Verified</div>
+                <div class="url">vantixbio.com</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
