@@ -32,7 +32,9 @@ This document summarizes published clinical trial data on three GLP-1 receptor a
 ### Research Observations (NOT Therapeutic Claims)
 - **Hunger suppression mechanism**: Central GLP-1R activation in hypothalamic centers (research models)
 - **Satiety signaling**: Delayed gastric emptying contributes to prolonged fullness sensation (preclinical data)
-- **FDA approval timeline**: 2017 (diabetes, 1mg), 2021 (weight management, 2.4mg)
+- **FDA approval timeline**: 
+  - 2017: Ozempic (diabetes, up to 1mg)
+  - June 4, 2021: Wegovy (weight management, 2.4mg)
 - **Extensive safety database**: >7 years clinical research data
 
 ---
@@ -69,8 +71,10 @@ Published research suggests tirzepatide's **dual-receptor activation** may provi
   - Secondary body weight endpoints: 5-11kg reductions observed
   
 ### Research Observations (NOT Therapeutic Claims)
-- **FDA approval**: 2022 (diabetes, brand name Mounjaro); 2023 (weight management, brand name Zepbound)
-- **Comparative research**: Head-to-head trials vs semaglutide show numerically greater weight reduction with tirzepatide
+- **FDA approval timeline**:
+  - May 13, 2022: Mounjaro (type 2 diabetes)
+  - November 8, 2023: Zepbound (chronic weight management)
+- **Comparative research**: In SURMOUNT-5 (NEJM 2025), tirzepatide demonstrated superior weight reduction vs semaglutide in head-to-head comparison
 - **Mechanism differentiation**: GIP receptor activation appears to enhance metabolic effects beyond GLP-1 alone
 
 ---
@@ -86,20 +90,21 @@ Published research suggests tirzepatide's **dual-receptor activation** may provi
   - Potential thermogenic effects (ongoing investigation)
 
 ### Major Clinical Trial Programs
-**Phase 2 Trial** (N Engl J Med 2023)
+**Phase 2 Obesity Trial** (N Engl J Med 2023, Jastreboff et al.)
 - 338 participants, 48 weeks, dose-ranging study
 - Doses tested: 1mg, 4mg, 8mg, 12mg weekly subcutaneous
 - **Results**:
-  - 12mg dose: 24.2% mean body weight reduction
+  - 12mg dose: 24.2% mean body weight reduction at 48 weeks
   - 8mg dose: 17.5% mean weight reduction
   - Placebo: 2.1% mean weight reduction
-- **Current status**: Phase 3 trials (TRIUMPH program) enrolling 2023-2024
+- **Current status**: Phase 3 trials (TRIUMPH program) ongoing
 
-**Ongoing Research Programs**
+**Ongoing Phase 3 Programs (TRIUMPH)**
 - **TRIUMPH-1**: Obesity without diabetes
 - **TRIUMPH-2**: Obesity with type 2 diabetes  
 - **TRIUMPH-3**: Metabolic dysfunction-associated steatohepatitis (MASH)
 - Expected Phase 3 data: 2025-2026
+- **Note**: The 24.2% data is from Phase 2 NEJM trial, not TRIUMPH (which is Phase 3)
 
 ### Research Observations (NOT Therapeutic Claims)
 - **Investigational status**: NOT FDA approved (Phase 2/3 research only)
@@ -115,9 +120,9 @@ Published research suggests tirzepatide's **dual-receptor activation** may provi
 
 | Compound | Mechanism | Approval Status | Mean Weight Reduction (Research) | Clinical Trial Phase |
 |----------|-----------|-----------------|----------------------------------|---------------------|
-| **Semaglutide** | GLP-1 only | FDA approved 2021 | 10-15% (2.4mg) | Post-market (established) |
-| **Tirzepatide** | GIP + GLP-1 | FDA approved 2023 | 15-21% (doses 10-15mg) | Post-market (newer) |
-| **Retatrutide** | GIP + GLP-1 + Glucagon | Investigational | 17-24% (Phase 2, doses 8-12mg) | Phase 3 (ongoing) |
+| **Semaglutide** | GLP-1 only | FDA approved 2021 (Wegovy) | 14.9% at 68 weeks (STEP 1, 2.4mg) | Post-market (established) |
+| **Tirzepatide** | GIP + GLP-1 | FDA approved 2022 (diabetes), 2023 (obesity) | 20.9% at 72 weeks (SURMOUNT-1, 15mg) | Post-market |
+| **Retatrutide** | GIP + GLP-1 + Glucagon | Investigational (Phase 3) | 24.2% at 48 weeks (Phase 2, 12mg) | Phase 3 ongoing (TRIUMPH) |
 
 ### "Hunger Noise" and Appetite Control (Research Mechanisms)
 
