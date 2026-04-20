@@ -901,8 +901,8 @@
         function loadCart() {
             var product = getUrlParam('product');
             var price = getUrlParam('price');
-            var saved = localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
-            if (saved) { cart = JSON.parse(saved); localStorage.setItem('prcCart', saved); }
+            var saved = localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
+            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vxCart', saved); }
 
             if (product && price) {
                 var decoded = decodeURIComponent(product);
@@ -943,7 +943,7 @@
         }
 
         function saveCart() {
-            localStorage.setItem('prcCart', JSON.stringify(cart));
+            localStorage.setItem('vxCart', JSON.stringify(cart));
         }
 
         function renderCart() {
@@ -1703,7 +1703,8 @@
             
             // Clear cart and redirect after brief delay
             setTimeout(function() {
-                localStorage.removeItem('prcCart');
+                localStorage.removeItem('vxCart');
+                localStorage.removeItem('prcCart'); // Clear legacy key too
                 alert('Order details opened in your email app. Please send the email to complete your order.\n\nYou will receive payment instructions within 1 hour.');
                 window.location.href = 'shop.html';
             }, 1000);

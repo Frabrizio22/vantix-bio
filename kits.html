@@ -2451,9 +2451,10 @@ h1 {
             
             localStorage.setItem('vxCart', JSON.stringify(shopCart));
             updateCartBadge();
+            renderCartDrawer();
             
-            // Navigate to checkout
-            window.location.href = 'checkout.html';
+            // Show confirmation toast
+            showToast(kit.name + ' added to cart!');
         }
 
         // Get category color for molecular visuals
