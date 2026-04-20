@@ -449,10 +449,10 @@
         <!-- Category Filter -->
         <div class="filter-section">
             <div class="filter-pills">
-                <button class="filter-pill active" onclick="filterPosts('all')">All</button>
-                <button class="filter-pill" onclick="filterPosts('research')">Research</button>
-                <button class="filter-pill" onclick="filterPosts('guides')">Guides</button>
-                <button class="filter-pill" onclick="filterPosts('education')">Education</button>
+                <button class="filter-pill active" onclick="filterPosts('all', this)">All</button>
+                <button class="filter-pill" onclick="filterPosts('research', this)">Research</button>
+                <button class="filter-pill" onclick="filterPosts('guides', this)">Guides</button>
+                <button class="filter-pill" onclick="filterPosts('education', this)">Education</button>
             </div>
         </div>
 
@@ -603,6 +603,14 @@
     </footer>
 
     <script>
+        // Initialize - show all cards on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            var cards = document.querySelectorAll('.blog-card');
+            cards.forEach(function(card) {
+                card.style.display = 'block';
+            });
+        });
+
         // Scroll header shadow
         window.addEventListener('scroll', function() {
             var header = document.getElementById('header');
@@ -614,7 +622,7 @@
         });
 
         // Filter posts
-        function filterPosts(category) {
+        function filterPosts(category, clickedElement) {
             var cards = document.querySelectorAll('.blog-card');
             var pills = document.querySelectorAll('.filter-pill');
             
@@ -622,7 +630,17 @@
             pills.forEach(function(pill) {
                 pill.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (clickedElement) {
+                clickedElement.classList.add('active');
+            } else {
+                // Fallback: find the pill that matches this category
+                pills.forEach(function(pill) {
+                    if (pill.textContent.toLowerCase() === category.toLowerCase() || 
+                        (category === 'all' && pill.textContent === 'All')) {
+                        pill.classList.add('active');
+                    }
+                });
+            }
             
             // Filter cards
             cards.forEach(function(card) {
