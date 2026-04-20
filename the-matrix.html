@@ -512,15 +512,15 @@
             .step-card { padding: 24px 20px; }
             .step-header { gap: 20px !important; }
             .step-number { 
-                min-width: 56px !important; 
-                height: 56px !important; 
-                font-size: 24px !important; 
+                min-width: 48px !important; 
+                height: 48px !important; 
+                font-size: 20px !important; 
             }
             .step-number::before { 
-                width: 62px !important; 
-                height: 62px !important; 
+                width: 54px !important; 
+                height: 54px !important; 
             }
-            .step-description { margin-left: 76px !important; }
+            .step-description { margin-left: 64px !important; }
             .cta-section { padding: 48px 16px; }
             .footer-top { grid-template-columns: 1fr; gap: 24px; }
             
@@ -531,10 +531,11 @@
             body { font-size: 16px; line-height: 1.5; }
             
             /* Step Cards - Compact */
-            .step-header { align-items: flex-start; gap: 14px; }
-            .step-number { min-width: 44px; height: 44px; font-size: 17px; }
-            .step-title { font-size: 20px; }
-            .step-description { font-size: 16px; line-height: 1.5; }
+            .step-header { align-items: flex-start; gap: 12px; }
+            .step-number { min-width: 36px !important; height: 36px !important; font-size: 15px !important; }
+            .step-number::before { width: 42px !important; height: 42px !important; }
+            .step-title { font-size: 18px; }
+            .step-description { font-size: 15px; line-height: 1.6; margin-left: 48px !important; }
             .cta-section h2 { font-size: 30px; }
             .cta-section p { font-size: 16px; }
             .pipeline-line { display: none; }
@@ -736,6 +737,22 @@
         <a href="faq.html" onclick="toggleMobileMenu()" style="padding-left:32px">FAQ</a>
         <a href="contact.html" onclick="toggleMobileMenu()" style="padding-left:32px">Contact</a>
     </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Blind Entry</h3>
+            </div>
+            <p class="step-description">Every batch enters our system with zero manufacturer claims. No COAs, no purity data, no trust. We verify first, label second.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Sample Isolation</h3>
+            </div>
+            <p class="step-description">Samples are randomly selected from sealed production batches and quarantined in chain-of-custody storage before testing. No cherry-picking, no exceptions.</p>
+        </div>
 
         <div class="step-card">
             <div class="step-header">
