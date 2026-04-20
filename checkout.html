@@ -1027,6 +1027,19 @@
             return t;
         }
 
+        // Get subtotal of individual products only (excludes kits)
+        function getSubtotalExcludingKits() {
+            var t = 0;
+            for (var i = 0; i < cart.length; i++) {
+                // Kits have "Research Kit" or "Kit" in their name
+                var isKit = cart[i].name.indexOf('Kit') !== -1 || cart[i].name.indexOf('Research Kit') !== -1;
+                if (!isKit) {
+                    t += cart[i].price * cart[i].quantity;
+                }
+            }
+            return t;
+        }
+
         function getDiscount() {
             if (selectedPayment === 'zelle') return getSubtotal() * 0.05;
             if (promoApplied) return getSubtotal() * 0.05;
@@ -1035,21 +1048,22 @@
 
         function getTotalDiscount() {
             var subtotal = getSubtotal();
+            var subtotalNoKits = getSubtotalExcludingKits();
             var discount = 0;
             
-            // Zelle discount: 5% automatic when Zelle selected
+            // Zelle discount: 5% automatic when Zelle selected (applies to everything including kits)
             if (selectedPayment === 'zelle') {
                 discount += subtotal * 0.05;
             }
             
-            // FOUNDER code: 10% flat, stackable with Zelle
+            // FOUNDER code: 10% flat on INDIVIDUAL PRODUCTS ONLY (excludes kits - kits are already discounted)
             if (discountCode === 'FOUNDER') {
-                discount += subtotal * 0.10;
+                discount += subtotalNoKits * 0.10;
             }
             
-            // FOUNDER20 code: 15% flat, stackable with Zelle (VIP only)
+            // FOUNDER20 code: 15% flat on INDIVIDUAL PRODUCTS ONLY (excludes kits)
             if (discountCode === 'FOUNDER20') {
-                discount += subtotal * 0.15;
+                discount += subtotalNoKits * 0.15;
             }
             
             return discount;
