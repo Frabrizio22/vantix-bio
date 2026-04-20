@@ -108,7 +108,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-CJC-10',
             name: 'CJC-1295 (No DAC) 10mg',
-            shortName: 'CJC-1295',
+            shortName: 'CJC-1295 (No DAC)',
             slug: 'cjc-1295',
             category: 'gh-axis',
             categoryLabel: 'GH AXIS',
