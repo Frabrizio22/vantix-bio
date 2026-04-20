@@ -3770,18 +3770,18 @@ h1 {
                 document.body.appendChild(form);
                 form.submit();
                 
-                // Cleanup
-                setTimeout(function() {
-                    document.body.removeChild(form);
-                    document.body.removeChild(iframe);
-                }, 5000);
-                
                 console.log('[LAUNCH NOTIFY] Sent:', product, email);
                 document.getElementById('notifyForm').style.display = 'none';
                 document.getElementById('notifySuccessText').textContent = "You're on the list! We'll notify " + email + " when we launch.";
                 document.getElementById('notifySuccess').style.display = 'flex';
                 btn.disabled = false;
                 btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Notify Me';
+                
+                // Cleanup
+                setTimeout(function() {
+                    document.body.removeChild(form);
+                    document.body.removeChild(iframe);
+                }, 5000);
             }
         };
 
