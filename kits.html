@@ -2431,21 +2431,29 @@ h1 {
             var kit = getKitById(kitId);
             if (!kit) return;
             
-            // Add each product in the kit to cart
-            kit.products.forEach(function(sku) {
-                var product = getProductBySKU(sku);
-                if (product && product.inStock !== false) {
-                    var button = document.createElement('button');
-                    button.setAttribute('data-name', product.name);
-                    button.setAttribute('data-price', product.price);
-                    button.setAttribute('data-sku', product.sku);
-                    button.setAttribute('data-category', product.category);
-                    addToCart(button);
+            // Add kit as a single item at kit price
+            var found = false;
+            for (var i = 0; i < shopCart.length; i++) {
+                if (shopCart[i].name === kit.name) {
+                    shopCart[i].quantity += 1;
+                    found = true;
+                    break;
                 }
-            });
+            }
+            if (!found) {
+                shopCart.push({ 
+                    name: kit.name, 
+                    price: kit.stackPrice, 
+                    sku: kit.id, 
+                    quantity: 1 
+                });
+            }
             
-            // Show toast
-            showToast('Kit added to cart!');
+            localStorage.setItem('vxCart', JSON.stringify(shopCart));
+            updateCartBadge();
+            
+            // Navigate to checkout
+            window.location.href = 'checkout.html';
         }
 
         // Get category color for molecular visuals
