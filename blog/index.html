@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- DEPLOYED: 2026-04-19 17:20 PDT - GLP-1 article + mobile menu FIX -->
+    <!-- DEPLOYED: 2026-04-19 17:30 PDT - FINAL COMPREHENSIVE FIX v4 -->
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
@@ -295,7 +295,7 @@
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: block !important;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04);
             position: relative;
         }
@@ -502,7 +502,7 @@
         <div class="header-content">
             <div class="header-left">
                 <a href="../index.html" class="logo">
-                    <img src="../logo-header.svg?v=3" alt="VANTIX BIO" style="height:56px;width:auto">
+                    <img src="../logo-header.svg?v=4" alt="VANTIX BIO" style="height:56px;width:auto">
                 </a>
                 <nav>
                     <a href="../shop.html">Catalog</a>
@@ -710,12 +710,24 @@
     </footer>
 
     <script>
-        // Initialize - show all cards on page load
+        // Initialize - FORCE show all cards (override any filtering)
         window.addEventListener('DOMContentLoaded', function() {
             var cards = document.querySelectorAll('.blog-card');
             cards.forEach(function(card) {
-                card.style.display = 'block';
+                card.style.display = 'block !important';
+                card.style.opacity = '1';
+                card.style.visibility = 'visible';
             });
+        });
+
+        // Also force show on page load (belt and suspenders)
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                var cards = document.querySelectorAll('.blog-card');
+                cards.forEach(function(card) {
+                    card.style.display = 'block';
+                });
+            }
         });
 
         // Mobile menu toggle
