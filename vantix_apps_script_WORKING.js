@@ -1,5 +1,5 @@
-/ ============================================
-// VA / NTIX BIO - COMPLETE APPS SCRIPT
+// ============================================
+// VANTIX BIO - COMPLETE APPS SCRIPT
 // Order Processing + Analytics API + Automation
 // ============================================
 
@@ -230,6 +230,8 @@ function handleNewsletter(data) {
 // PRODUCT NOTIFICATION (WAITLIST)
 // ============================================
 function handleNotification(data) {
+  Logger.log('handleNotification called for: ' + data.email);
+  
   const notificationsSheet = getSheet('Notifications');
   
   if (!data.email || !data.product) {
@@ -246,29 +248,25 @@ function handleNotification(data) {
     'No'
   ]);
   
-  // Send Telegram notification
+  // Send Telegram notification - SIMPLE STRING CONCATENATION
+  const message = '📬 *New Waitlist Signup*\n\nEmail: ' + data.email + '\nProduct: ' + data.product + '\nSource: ' + (data.source || 'Unknown') + '\nTime: ' + new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+  
+  const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+  
+  const payload = {
+    chat_id: TELEGRAM_CHAT_ID,
+    text: message
+  };
+  
   try {
-    const message = `📬 *New Waitlist Signup*\n\n` +
-      `Email: ${data.email}\n` +
-      `Product: ${data.product}\n` +
-      `Source: ${data.source || 'Unknown'}\n` +
-      `Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}`;
-    
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    const payload = {
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: 'Markdown'
-    };
-    
-    UrlFetchApp.fetch(url, {
+    const response = UrlFetchApp.fetch(url, {
       method: 'post',
       contentType: 'application/json',
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
+      payload: JSON.stringify(payload)
     });
+    Logger.log('Telegram sent: ' + response.getResponseCode());
   } catch (err) {
-    Logger.log('Telegram notification failed: ' + err);
+    Logger.log('Telegram failed: ' + err);
   }
   
   return ContentService.createTextOutput(JSON.stringify({
@@ -281,15 +279,10 @@ function handleNotification(data) {
 // TELEGRAM NOTIFICATIONS
 // ============================================
 function sendTelegramNotification(data) {
-  const message = `🔔 *New Vantix Order*\n\n` +
-    `Order: ${data.order_number}\n` +
-    `Customer: ${data.customer_name}\n` +
-    `Email: ${data.customer_email}\n` +
-    `Total: $${parseFloat(data.total).toFixed(2)}\n` +
-    `Payment: ${data.payment_method}\n\n` +
-    `Items:\n${data.items_detail || 'N/A'}`;
+  const message = '🔔 *New Vantix Order*\n\nOrder: ' + data.order_number + '\nCustomer: ' + data.customer_name + '\nEmail: ' + data.customer_email + '\nTotal: $' + parseFloat(data.total).toFixed(2) + '\nPayment: ' + data.payment_method + '\n\nItems:\n' + (data.items_detail || 'N/A');
   
-  const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+  const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+  
   const payload = {
     chat_id: TELEGRAM_CHAT_ID,
     text: message,
@@ -300,8 +293,7 @@ function sendTelegramNotification(data) {
     UrlFetchApp.fetch(url, {
       method: 'post',
       contentType: 'application/json',
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
+      payload: JSON.stringify(payload)
     });
   } catch (e) {
     Logger.log('Telegram error: ' + e);
@@ -312,15 +304,8 @@ function sendTelegramNotification(data) {
 // CUSTOMER CONFIRMATION EMAIL
 // ============================================
 function sendCustomerConfirmation(data) {
-  const subject = `Order Confirmation - ${data.order_number}`;
-  const body = `Hi ${data.customer_name},\n\n` +
-    `Thanks for your order!\n\n` +
-    `Order Number: ${data.order_number}\n` +
-    `Total: $${parseFloat(data.total).toFixed(2)}\n` +
-    `Payment Method: ${data.payment_method}\n\n` +
-    `Items:\n${data.items_detail || 'See your order details'}\n\n` +
-    `We'll send tracking information once your order ships.\n\n` +
-    `Thanks,\n${COMPANY_NAME}`;
+  const subject = 'Order Confirmation - ' + data.order_number;
+  const body = 'Hi ' + data.customer_name + ',\n\nThanks for your order!\n\nOrder Number: ' + data.order_number + '\nTotal: $' + parseFloat(data.total).toFixed(2) + '\nPayment Method: ' + data.payment_method + '\n\nItems:\n' + (data.items_detail || 'See your order details') + '\n\nWe\'ll send tracking information once your order ships.\n\nThanks,\n' + COMPANY_NAME;
   
   try {
     MailApp.sendEmail({

@@ -1,5 +1,5 @@
-/ ============================================
-// VA / NTIX BIO - COMPLETE APPS SCRIPT
+// ============================================
+// VANTIX BIO - COMPLETE APPS SCRIPT
 // Order Processing + Analytics API + Automation
 // ============================================
 
@@ -261,12 +261,13 @@ function handleNotification(data) {
       parse_mode: 'Markdown'
     };
     
-    UrlFetchApp.fetch(url, {
+    const response = UrlFetchApp.fetch(url, {
       method: 'post',
       contentType: 'application/json',
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
+      payload: JSON.stringify(payload)
     });
+    
+    Logger.log('Telegram response: ' + response.getContentText());
   } catch (err) {
     Logger.log('Telegram notification failed: ' + err);
   }
@@ -300,8 +301,7 @@ function sendTelegramNotification(data) {
     UrlFetchApp.fetch(url, {
       method: 'post',
       contentType: 'application/json',
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
+      payload: JSON.stringify(payload)
     });
   } catch (e) {
     Logger.log('Telegram error: ' + e);
