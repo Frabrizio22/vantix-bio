@@ -2019,14 +2019,14 @@ function submitBarNotify(e) {
     btn.textContent = '✓ Sent!';
     setTimeout(function() { btn.textContent = 'Notify Me'; }, 2000);
     input.value = '';
-    fetch('https://script.google.com/macros/s/AKfycbzyizJvjL3mWE-U-fKdO4bru9hk1yCY1MKTjMzrwayiGIlIs9os7f8mL4HbdDD-vEj2/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            action: 'launch_notify',
+            action: 'notify',
             email: email,
-            product: 'General — Homepage',
+            product: 'PRE-LAUNCH — Homepage Banner',
             sku: '',
             timestamp: new Date().toISOString(),
             source: 'vantix_homepage'

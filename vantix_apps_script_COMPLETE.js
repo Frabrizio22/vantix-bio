@@ -246,6 +246,31 @@ function handleNotification(data) {
     'No'
   ]);
   
+  // Send Telegram notification
+  try {
+    const message = `📬 *New Waitlist Signup*\n\n` +
+      `Email: ${data.email}\n` +
+      `Product: ${data.product}\n` +
+      `Source: ${data.source || 'Unknown'}\n` +
+      `Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}`;
+    
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const payload = {
+      chat_id: TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: 'Markdown'
+    };
+    
+    UrlFetchApp.fetch(url, {
+      method: 'post',
+      contentType: 'application/json',
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+  } catch (err) {
+    Logger.log('Telegram notification failed: ' + err);
+  }
+  
   return ContentService.createTextOutput(JSON.stringify({
     status: 'success',
     message: 'Added to waitlist'
