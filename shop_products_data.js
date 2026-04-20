@@ -106,13 +106,13 @@ const VX_PRODUCTS = {
         
         // SOMATOTROPIC SIGNALING (GH AXIS) - Growth hormone axis & secretagogue research
         {
-            sku: 'VX-CJC-5',
-            name: 'CJC-1295 (No DAC) 5mg',
+            sku: 'VX-CJC-10',
+            name: 'CJC-1295 (No DAC) 10mg',
             shortName: 'CJC-1295',
             slug: 'cjc-1295',
             category: 'gh-axis',
             categoryLabel: 'GH AXIS',
-            dosage: '5mg',
+            dosage: '10mg',
             purity: '≥98%',
             price: 42,
             cogs: 19.53,
@@ -315,7 +315,7 @@ const VX_PRODUCTS = {
             shortName: 'GH Axis',
             description: 'Formulated for coordinated investigation of GHRH and ghrelin receptor pathways',
             clinicalNote: 'CJC-1295 (No DAC) + Ipamorelin synergistic pairing for pulsatile GH release research',
-            products: ['VX-CJC-5', 'VX-IPA-5'],
+            products: ['VX-CJC-10', 'VX-IPA-5'],
             regularPrice: 72,
             stackPrice: 62,
             discount: 13.9,
