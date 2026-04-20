@@ -315,6 +315,112 @@
         }
 
     </style>
+    /* Pre-Launch Announcement Bar */
+    .prelaunch-bar {
+        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        color: #FFFFFF;
+        padding: 14px 20px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        box-shadow: 0 2px 8px rgba(245,158,11,0.25);
+    }
+    .prelaunch-bar-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .prelaunch-icon {
+        font-size: 18px;
+        animation: pulse-icon 2s ease-in-out infinite;
+    }
+    @keyframes pulse-icon {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+    }
+    .prelaunch-text {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .prelaunch-date {
+        background: rgba(255,255,255,0.25);
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+    }
+    .prelaunch-email-form {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+    .prelaunch-email-form input {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+        width: 180px;
+        outline: none;
+        color: #1E293B;
+    }
+    .prelaunch-email-form button {
+        background: rgba(255,255,255,0.95);
+        color: #D97706;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s;
+    }
+    .prelaunch-email-form button:hover {
+        background: #FFFFFF;
+        transform: translateY(-1px);
+    }
+    @media (max-width: 768px) {
+        .prelaunch-bar {
+            padding: 10px 16px;
+            font-size: 12px;
+        }
+        .prelaunch-bar-content {
+            gap: 8px;
+        }
+        .prelaunch-icon {
+            font-size: 14px;
+        }
+        .prelaunch-text {
+            font-size: 11.5px;
+            letter-spacing: 0.2px;
+        }
+        .prelaunch-date {
+            padding: 2px 8px;
+            font-size: 11px;
+            letter-spacing: 0.3px;
+        }
+        .prelaunch-email-form {
+            width: 100%;
+            justify-content: center;
+        }
+        .prelaunch-email-form input {
+            width: 140px;
+            font-size: 11px;
+            padding: 5px 10px;
+        }
+        .prelaunch-email-form button {
+            font-size: 11px;
+            padding: 5px 12px;
+        }
+    }
 </head>
 <body>
     <!-- Pre-Launch Announcement Bar -->
