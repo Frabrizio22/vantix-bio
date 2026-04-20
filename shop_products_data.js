@@ -304,9 +304,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'BPC-157 + TB-500 combination for systemic repair research',
             products: ['VX-BPC-10', 'VX-TB-10'],
             regularPrice: 68,
-            stackPrice: 62,
-            discount: 8.8,
-            savings: 6,
+            stackPrice: 58,
+            discount: 14.7,
+            savings: 10,
             category: 'tissue-repair'
         },
         {
@@ -317,9 +317,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'CJC-1295 (No DAC) + Ipamorelin synergistic pairing for pulsatile GH release research',
             products: ['VX-CJC-5', 'VX-IPA-5'],
             regularPrice: 72,
-            stackPrice: 66,
-            discount: 8.3,
-            savings: 6,
+            stackPrice: 62,
+            discount: 13.9,
+            savings: 10,
             category: 'growth-hormone'
         },
         {
@@ -330,9 +330,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'Tirzepatide (GLP-1/GIP) + Retatrutide (GLP-1/GIP/Glucagon) for metabolic pathway investigation',
             products: ['VX-TIRZ-30', 'VX-RETA-20'],
             regularPrice: 136,
-            stackPrice: 125,
-            discount: 8.1,
-            savings: 11,
+            stackPrice: 121,
+            discount: 11.0,
+            savings: 15,
             category: 'glp1'
         },
         {
@@ -343,23 +343,10 @@ const VX_PRODUCTS = {
             clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
             regularPrice: 100,
-            stackPrice: 92,
-            discount: 8.0,
-            savings: 8,
-            category: 'longevity'
-        },
-        {
-            id: 'multi-system-kit',
-            name: 'Multi-System Research Kit',
-            shortName: 'Multi-System',
-            description: 'Formulated for comprehensive investigation of tissue remodeling and cellular repair mechanisms',
-            clinicalNote: 'GHK-Cu + BPC-157 + NAD+ for full-spectrum rejuvenation research',
-            products: ['VX-GHK-100', 'VX-BPC-10', 'VX-NAD-1000'],
-            regularPrice: 132,
-            stackPrice: 122,
-            discount: 7.6,
+            stackPrice: 90,
+            discount: 10.0,
             savings: 10,
-            category: 'cosmetic'
+            category: 'longevity'
         }
     ]
 };
