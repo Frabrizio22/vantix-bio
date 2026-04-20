@@ -933,6 +933,14 @@
             letter-spacing: -0.5px;
         }
 
+        .price-per-mg {
+            font-size: 0.75rem;
+            color: #64748B;
+            font-weight: 600;
+            margin-bottom: 6px;
+            min-height: 1.1rem;
+        }
+
         .featured-card .product-price {
             font-size: 0.9rem;
             font-weight: 800;
@@ -2834,6 +2842,19 @@ h1 {
             return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         }
 
+        // Calculate price per mg from product name and price
+        function getPricePerMg(productName, price) {
+            // Extract mg from product name (e.g., "Tirzepatide 30mg" → 30)
+            var mgMatch = productName.match(/(\d+(?:\.\d+)?)\s*mg/i);
+            if (!mgMatch) return '';
+            
+            var mg = parseFloat(mgMatch[1]);
+            if (mg <= 0) return '';
+            
+            var pricePerMg = (price / mg).toFixed(2);
+            return '<div class="price-per-mg">$' + pricePerMg + '/mg</div>';
+        }
+
         function renderFeaturedProducts() {
             var container = document.getElementById('featuredProducts');
             container.innerHTML = '';
@@ -2858,6 +2879,7 @@ h1 {
                     '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
                     productImage +
                     '<div class="product-name">' + product.name + '</div>' +
+                    getPricePerMg(product.name, product.price) +
                     '<div class="product-price">$' + product.price + '</div>';
                 
                 card.addEventListener('click', function(e) {
@@ -3170,6 +3192,7 @@ h1 {
                     '<h3>' + product.shortName + '</h3>' +
                     '<div class="product-specs">' + specs + '</div>' +
                     (coaLink ? '<div class="coa-link-wrapper">' + coaLink + '</div>' : '') +
+                    getPricePerMg(product.name, product.price) +
                     '<div class="' + priceClass + '">' +
                     '<span class="price-main">' + pricePrefix + product.price + '</span>' +
                     '<span class="price-unit">/ vial</span>' +
@@ -3217,6 +3240,7 @@ h1 {
             
             var header = '<span class="product-category ' + categoryClass + '">' + categoryName + '</span>' +
                         '<h2 class="modal-title">' + product.name + '</h2>' +
+                        getPricePerMg(product.name, product.price) +
                         '<div style="font-size:1.5rem;font-weight:800;color:#1A2B44;margin-top:0.25rem">$' + product.price + '</div>' +
                         coaLine;
             
