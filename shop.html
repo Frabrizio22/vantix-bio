@@ -642,7 +642,7 @@
 
         .featured-products {
             display: flex;
-            gap: 12px;
+            gap: 20px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 4px;
@@ -652,19 +652,19 @@
 
         .featured-card {
             background: #FFFFFF;
-            border: 1.5px solid #B0BEC5;
+            border: 1px solid #E5E7EB;
             border-radius: 12px;
-            padding: 16px 18px;
+            padding: 20px;
             min-width: 165px;
             flex-shrink: 0;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .featured-card:hover {
-            border-color: #5B8DBE;
-            box-shadow: 0 10px 28px rgba(0,180,216,0.18);
+            border-color: #CBD5E1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
             transform: translateY(-2px);
         }
 
@@ -866,12 +866,12 @@
             display: inline-block;
             background: rgba(37,99,235,0.1);
             color: #2563EB;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
             margin-bottom: 8px;
             font-family: 'IBM Plex Mono', Monaco, 'Courier New', monospace;
             transition: background 0.2s;
@@ -898,11 +898,11 @@
             margin-bottom: 8px;
         }
 
-        .category-metabolic { background: rgba(220,38,38,0.08); color: #DC2626; }
-        .category-regen { background: rgba(5,150,105,0.08); color: #059669; }
-        .category-gh-axis { background: rgba(234,88,12,0.08); color: #EA580C; }
-        .category-mito { background: rgba(124,58,237,0.08); color: #7C3AED; }
-        .category-lab-supply { background: rgba(71,85,105,0.08); color: #475569; }
+        .category-metabolic { background: #DBEAFE; color: #1E40AF; }
+        .category-regen { background: #D1FAE5; color: #065F46; }
+        .category-gh-axis { background: #E0E7FF; color: #4338CA; }
+        .category-mito { background: #DDD6FE; color: #6B21A8; }
+        .category-lab-supply { background: #F3F4F6; color: #374151; }
 
         .product-name {
             font-size: 1.18rem;
@@ -2466,10 +2466,15 @@ h1 {
             </div>
             
             <!-- Universal Verification Bar -->
-            <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-left: 4px solid #2B7DE9; padding: 10px 16px; margin: 12px 16px; border-radius: 6px; text-align: center;">
-                <div style="font-size: 11px; line-height: 1.5; color: #1E3A5F; font-weight: 600;">
-                    <div style="margin-bottom: 2px;"><span style="color: #059669;">✓</span> Every product Janoshik verified</div>
-                    <div style="font-size: 10px; color: #475569;">HPLC • LC-MS • Endotoxin • QR codes</div>
+            <div style="background: linear-gradient(135deg, #DBEAFE 0%, #E0E7FF 100%); border-left: 4px solid #2563EB; padding: 16px 20px; margin: 16px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 15px; line-height: 1.5; color: #1E40AF; font-weight: 600;">
+                    <div style="margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+                            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="#059669"/>
+                        </svg>
+                        <span>Every product Janoshik verified</span>
+                    </div>
+                    <div style="font-size: 13px; color: #4B5563; margin-top: 2px;">HPLC · LC-MS · Endotoxin · QR codes</div>
                 </div>
             </div>
 
