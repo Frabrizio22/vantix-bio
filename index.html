@@ -133,9 +133,19 @@
             --color-gray-600: #64748B;
             --color-gray-100: #F8FAFC;
             --color-text-primary: var(--color-navy);
-            --color-text-secondary: var(--color-gray-600);
+            --color-text-secondary: #6B7280;
             --color-bg-primary: #FFFFFF;
             --color-bg-secondary: var(--color-gray-100);
+            
+            /* Spacing System (8pt grid) */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --space-12: 96px;
             
             /* Typography */
             --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
@@ -397,14 +407,16 @@
             transform: translateY(-2px);
         }
         .btn-secondary { 
-            background: transparent; 
-            color: #1A2B44; 
-            border: 2px solid #CBD5E1; 
+            background: #FFFFFF; 
+            color: #374151; 
+            border: 1.5px solid #D1D5DB; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .btn-secondary:hover { 
-            border-color: #2563EB; 
-            color: #2563EB;
-            transform: translateY(-2px);
+            border-color: #9CA3AF; 
+            color: #1A2B44;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
         /* Chromatogram SVG Container */
@@ -1155,17 +1167,18 @@
     <style>
         /* Pre-Launch Announcement Bar */
         .prelaunch-bar {
-            background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
-            color: #FFFFFF;
-            padding: 10px 20px;
+            background: #F0F4F8;
+            color: #1E40AF;
+            padding: 16px 20px;
             text-align: center;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.3px;
             position: sticky;
             top: 0;
             z-index: 9999;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #E5E7EB;
         }
         .prelaunch-bar-content {
             max-width: 1200px;
@@ -1456,9 +1469,8 @@
     <!-- Pre-Launch Announcement Bar -->
     <div class="prelaunch-bar">
         <div class="prelaunch-bar-content">
-            <span class="prelaunch-icon">⚠️</span>
-            <span class="prelaunch-text">PRE-LAUNCH — Orders open</span>
-            <span class="prelaunch-date">MAY 1</span>
+            <span class="prelaunch-text">Launching May 1, 2026 —</span>
+            <span class="prelaunch-date">Join Waitlist</span>
             <form class="prelaunch-email-form" onsubmit="submitBarNotify(event)">
                 <input type="email" id="barNotifyEmail" placeholder="your@email.com" required>
                 <button type="submit">Notify Me</button>
