@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantix Bio | Forensic-Grade Research Peptides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:#050812;color:#fff;overflow-x:hidden;min-height:100vh}
+@keyframes gridPulse{0%,100%{opacity:.15}50%{opacity:.25}}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+@keyframes floatIn{0%{opacity:0;transform:translateY(40px);filter:blur(10px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes pulseRing{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.5);opacity:0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.font-display{font-family:'Instrument Serif',serif}
+.font-mono{font-family:'JetBrains Mono',monospace}
+.float-1{animation:floatIn 1.2s cubic-bezier(.16,1,.3,1) .1s both}
+.float-2{animation:floatIn 1.2s cubic-bezier(.16,1,.3,1) .3s both}
+.float-3{animation:floatIn 1.2s cubic-bezier(.16,1,.3,1) .5s both}
+.float-4{animation:floatIn 1.2s cubic-bezier(.16,1,.3,1) .7s both}
+.float-5{animation:floatIn 1.2s cubic-bezier(.16,1,.3,1) .9s both}
+#grid{position:fixed;inset:0;opacity:.12;background-image:linear-gradient(rgba(100,165,255,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(100,165,255,.4) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 6s ease-in-out infinite;pointer-events:none;z-index:0}
+#spotlight{position:fixed;inset:0;pointer-events:none;transition:opacity .7s;z-index:0}
+#scan{position:absolute;inset-x:0;height:2px;background:linear-gradient(90deg,transparent,#60a5fa,transparent);animation:scanline 8s linear infinite;box-shadow:0 0 20px #60a5fa;pointer-events:none;opacity:.3}
+.glow-orb{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(120px);pointer-events:none}
+#orb1{top:0;left:25%;background:radial-gradient(circle,#1e40af,transparent);opacity:.3}
+#orb2{bottom:0;right:25%;background:radial-gradient(circle,#0891b2,transparent);opacity:.2}
+.status-bar{position:relative;z-index:20;border-bottom:1px solid rgba(255,255,255,.05);backdrop-filter:blur(8px)}
+.status-bar-inner{max-width:1400px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.15em}
+.status-left,.status-right{display:flex;align-items:center;gap:24px}
+.status-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.6)}
+.pulse-dot{position:relative;width:8px;height:8px;border-radius:50%;background:#34d399}
+.pulse-dot::before{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:pulseRing 2s ease-out infinite}
+nav{position:relative;z-index:20;max-width:1400px;margin:0 auto;padding:24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-text{font-weight:600;font-size:18px;line-height:1;letter-spacing:-.02em}
+.logo-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.4);margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:32px;font-size:14px;color:rgba(255,255,255,.7)}
+.nav-links a{color:inherit;text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:#fff}
+.btn{padding:10px 20px;border-radius:9999px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:14px;cursor:pointer;transition:all .5s}
+.btn:hover{background:#fff;color:#000}
+.hero{position:relative;z-index:10;max-width:1400px;margin:0 auto;padding:48px 24px 128px}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.hero-left{max-width:700px}
+.chapter{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(96,165,250,.8);margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.chapter::before{content:'';width:32px;height:1px;background:rgba(96,165,250,.6)}
+h1{font-family:'Instrument Serif',serif;font-size:clamp(3.5rem,9vw,8rem);line-height:.9;letter-spacing:-.02em;font-weight:400}
+h1 em{font-style:italic;font-weight:300;color:#60a5fa}
+.hero-desc{margin-top:40px;max-width:600px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.6)}
+.verify-box{margin-top:48px}
+.verify-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.4);margin-bottom:12px;text-transform:uppercase}
+.verify-input-wrap{position:relative;display:flex;align-items:center;background:#0a0f1e;border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden}
+.verify-input-wrap::before{content:'';position:absolute;inset:-1px;background:linear-gradient(90deg,#3b82f6,#06b6d4,#3b82f6);border-radius:12px;opacity:.6;z-index:-1;filter:blur(4px)}
+.verify-prefix{padding:16px 12px 16px 20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,.4);border-right:1px solid rgba(255,255,255,.05)}
+.verify-input{flex:1;padding:16px;background:transparent;border:none;outline:none;color:#fff;font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.05em}
+.verify-input::placeholder{color:rgba(255,255,255,.2)}
+.verify-btn{padding:16px 24px;background:#fff;color:#000;border:none;font-size:14px;font-weight:500;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:8px}
+.verify-btn:hover{background:#60a5fa;color:#fff}
+.verify-btn:disabled{opacity:.5;cursor:not-allowed}
+.spinner{display:inline-block;width:12px;height:12px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin 1s linear infinite}
+.verify-result{margin-top:16px;padding:16px;background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.2);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.verify-result-row{display:flex;justify-content:space-between;margin:4px 0}
+.verify-result-row.total{padding-top:8px;margin-top:8px;border-top:1px solid rgba(52,211,153,.2)}
+.verify-result-label{color:rgba(255,255,255,.5)}
+.verify-result-value{color:#34d399}
+.chroma-panel{background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.chroma-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.05)}
+.chroma-title-wrap{display:flex;flex-direction:column;gap:4px}
+.chroma-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.4);text-transform:uppercase}
+.chroma-title{font-size:14px}
+.rec-indicator{display:flex;align-items:center;gap:8px}
+.rec-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:blink 1.5s infinite}
+.rec-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:#34d399;letter-spacing:.1em}
+.chroma-svg{width:100%;height:auto}
+.chroma-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.05)}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.4)}
+.stat-value{font-family:'Instrument Serif',serif;font-size:24px;line-height:1}
+.stat-value span{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,.4);margin-left:4px}
+.corner-bracket{position:absolute;width:12px;height:12px;border-color:rgba(96,165,250,.4)}
+.corner-tl{top:12px;left:12px;border-top:1px solid;border-left:1px solid}
+.corner-tr{top:12px;right:12px;border-top:1px solid;border-right:1px solid}
+.corner-bl{bottom:12px;left:12px;border-bottom:1px solid;border-left:1px solid}
+.corner-br{bottom:12px;right:12px;border-bottom:1px solid;border-right:1px solid}
+.trust-ticker{margin-top:96px;padding-top:32px;border-top:1px solid rgba(255,255,255,.05)}
+.ticker-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.3);margin-bottom:24px;text-transform:uppercase}
+.ticker-items{display:flex;flex-wrap:wrap;align-items:center;gap:48px;font-family:'Instrument Serif',serif;font-size:24px;color:rgba(255,255,255,.4)}
+.ticker-items span:nth-child(even){color:rgba(255,255,255,.2)}
+.ticker-items em{font-style:italic}
+@media(max-width:1024px){.hero-grid{grid-template-columns:1fr;gap:64px}.nav-links{display:none}.status-bar-inner{flex-direction:column;gap:12px;font-size:10px}.status-left,.status-right{width:100%;justify-content:space-between}h1{font-size:clamp(2.5rem,10vw,4rem)}}
+</style>
+</head>
+<body>
+<div id="grid"></div>
+<div id="spotlight"></div>
+<div class="glow-orb" id="orb1"></div>
+<div class="glow-orb" id="orb2"></div>
+
+<div class="status-bar">
+<div class="status-bar-inner">
+<div class="status-left">
+<div class="status-item"><div class="pulse-dot"></div><span>System Online</span></div>
+<div class="status-item"><span>Launch T—</span><span id="countdown" style="color:#fff">07D 14H 22M</span></div>
+</div>
+<div class="status-right">
+<div class="status-item"><span>LAT 40.7128° N LONG 74.0060° W</span></div>
+<div class="status-item"><span style="color:rgba(255,255,255,.6)">Janoshik Analytical — Prague, CZ</span></div>
+</div>
+</div>
+</div>
+
+<nav>
+<div class="logo float-1">
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#60a5fa" stroke-width="1.5">
+<polygon points="18,3 31,10.5 31,25.5 18,33 5,25.5 5,10.5"/>
+<polygon points="18,9 26,13.5 26,22.5 18,27 10,22.5 10,13.5" fill="#60a5fa" opacity="0.2"/>
+<circle cx="18" cy="18" r="2" fill="#60a5fa"/>
+</svg>
+<div><div class="logo-text">VANTIX</div><div class="logo-sub">BIO / FORENSIC-GRADE</div></div>
+</div>
+<div class="nav-links">
+<a href="shop.html">Catalog</a>
+<a href="verify.html">Verify</a>
+<a href="about.html">Methods</a>
+<a href="blog/">Research</a>
+</div>
+<button class="btn float-1">Join Waitlist →</button>
+</nav>
+
+<div class="hero">
+<div class="hero-grid">
+<div class="hero-left">
+<div class="chapter float-1">Chapter 001 — Introducing Vantix Bio</div>
+<h1 class="float-2">Forensic-grade<br><em>research</em><br>peptides.</h1>
+<p class="hero-desc float-3">Every batch verified through Janoshik Analytical. Triple-method testing. Immutable audit trails. The standard for researchers who cannot afford to be wrong.</p>
+
+<div class="verify-box float-4">
+<div class="verify-label">→ Try the verification portal</div>
+<div class="verify-input-wrap">
+<div class="verify-prefix">VX-</div>
+<input type="text" id="batchInput" class="verify-input" placeholder="RETA20-001" maxlength="20">
+<button class="verify-btn" id="verifyBtn">Verify →</button>
+</div>
+<div id="verifyResult" style="display:none"></div>
+</div>
+</div>
+
+<div class="hero-right float-5">
+<div class="chroma-panel">
+<div class="corner-bracket corner-tl"></div>
+<div class="corner-bracket corner-tr"></div>
+<div class="corner-bracket corner-bl"></div>
+<div class="corner-bracket corner-br"></div>
+
+<div class="chroma-header">
+<div class="chroma-title-wrap"><div class="chroma-label">Live Sample</div><div class="chroma-title">HPLC-DAD Chromatogram</div></div>
+<div class="rec-indicator"><div class="rec-dot"></div><div class="rec-text">REC</div></div>
+</div>
+
+<svg viewBox="0 0 400 200" class="chroma-svg" id="chromaSvg">
+<defs>
+<linearGradient id="peakGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
+<stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+</linearGradient>
+<filter id="glow">
+<feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<g id="chromaGrid"></g>
+<line x1="0" y1="160" x2="400" y2="160" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+<polyline id="chromaFill" fill="url(#peakGrad)" opacity="0.8"/>
+<polyline id="chromaLine" fill="none" stroke="#60a5fa" stroke-width="2" filter="url(#glow)" stroke-linecap="round"/>
+<line id="chromaScan" stroke="#60a5fa" stroke-width="1" opacity="0.4" stroke-dasharray="3 3"/>
+<circle id="chromaDot" r="4" fill="#60a5fa" filter="url(#glow)"/>
+<g id="chromaLabel" opacity="0"></g>
+<text x="100" y="195" font-size="8" fill="rgba(255,255,255,0.4)" font-family="JetBrains Mono">2.5</text>
+<text x="200" y="195" font-size="8" fill="rgba(255,255,255,0.4)" font-family="JetBrains Mono" text-anchor="middle">3.2</text>
+<text x="300" y="195" font-size="8" fill="rgba(255,255,255,0.4)" font-family="JetBrains Mono">4.1</text>
+</svg>
+
+<div class="chroma-stats">
+<div class="stat"><div class="stat-label">Purity</div><div class="stat-value">99.2<span>%</span></div></div>
+<div class="stat"><div class="stat-label">RT</div><div class="stat-value">3.24<span>min</span></div></div>
+<div class="stat"><div class="stat-label">Endotoxin</div><div class="stat-value">&lt;0.05<span>EU/mg</span></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="trust-ticker float-5">
+<div class="ticker-label">Verified by · Tested at · Trusted through</div>
+<div class="ticker-items">
+<span>Janoshik Analytical</span><span>×</span><span>HPLC-DAD</span><span>×</span><span>LC-MS/MS</span><span>×</span><em>Endotoxin Screening</em><span>×</span><span>Immutable Audit</span>
+</div>
+</div>
+</div>
+
+<div id="scan"></div>
+
+<script>
+const launchDate=new Date('2026-05-01T00:00:00-07:00');
+function updateCountdown(){const now=new Date(),diff=launchDate-now;if(diff<=0){document.getElementById('countdown').textContent='LAUNCHED';return}const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);document.getElementById('countdown').textContent=`${String(d).padStart(2,'0')}D ${String(h).padStart(2,'0')}H ${String(m).padStart(2,'0')}M`}
+updateCountdown();setInterval(updateCountdown,6e4);
+
+const spotlight=document.getElementById('spotlight'),grid=document.getElementById('grid');
+document.addEventListener('mousemove',e=>{const x=e.clientX/window.innerWidth*100,y=e.clientY/window.innerHeight*100;spotlight.style.background=`radial-gradient(600px circle at ${x}% ${y}%, rgba(59,130,246,0.15), transparent 40%)`});
+window.addEventListener('scroll',()=>{grid.style.transform=`translateY(${window.scrollY*.3}px)`});
+
+const gridEl=document.getElementById('chromaGrid');
+for(let i=0;i<5;i++)gridEl.innerHTML+=`<line x1="0" y1="${i*40+20}" x2="400" y2="${i*40+20}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 4"/>`;
+for(let i=0;i<9;i++)gridEl.innerHTML+=`<line x1="${i*50}" y1="20" x2="${i*50}" y2="180" stroke="rgba(255,255,255,0.03)"/>`;
+
+let progress=0;
+function genChroma(p){const pts=[],n=Math.floor(p/100*80);for(let i=0;i<=n;i++){const x=i/80*400,g=Math.exp(-Math.pow(x-200,2)/2450),y=160-20-g*120+(Math.random()-.5)*2;pts.push(`${x},${y}`)}return pts.join(' ')}
+function animate(){progress=(progress>=100)?0:progress+.5;const pts=genChroma(progress),x=progress/100*400,g=Math.exp(-Math.pow(x-200,2)/2450),y=160-20-g*120;document.getElementById('chromaFill').setAttribute('points',`0,160 ${pts} ${x},160`);document.getElementById('chromaLine').setAttribute('points',pts);document.getElementById('chromaScan').setAttribute('x1',x);document.getElementById('chromaScan').setAttribute('x2',x);document.getElementById('chromaDot').setAttribute('cx',x);document.getElementById('chromaDot').setAttribute('cy',y);const lbl=document.getElementById('chromaLabel');if(progress>52){lbl.setAttribute('opacity',Math.min(1,(progress-52)/10));lbl.innerHTML=`<line x1="200" y1="28" x2="200" y2="160" stroke="#60a5fa" stroke-dasharray="2 3" stroke-width="0.5" opacity="0.5"/><text x="200" y="20" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="JetBrains Mono">99.2%</text>`}else lbl.setAttribute('opacity',0);requestAnimationFrame(animate)}
+animate();
+
+const btn=document.getElementById('verifyBtn'),input=document.getElementById('batchInput'),result=document.getElementById('verifyResult');
+btn.onclick=()=>{const val=input.value||'RETA20-001';input.value=val.toUpperCase();btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Verifying';result.style.display='none';setTimeout(()=>{btn.disabled=false;btn.innerHTML='✓ Verified';result.style.display='block';result.innerHTML=`<div class="verify-result"><div class="verify-result-row"><span class="verify-result-label">BATCH</span><span class="verify-result-value">VX-${val}</span></div><div class="verify-result-row"><span class="verify-result-label">PURITY (HPLC-DAD)</span><span class="verify-result-value">99.2%</span></div><div class="verify-result-row"><span class="verify-result-label">IDENTITY (LC-MS/MS)</span><span class="verify-result-value">CONFIRMED</span></div><div class="verify-result-row"><span class="verify-result-label">ENDOTOXIN</span><span class="verify-result-value">&lt; 0.05 EU/mg</span></div><div class="verify-result-row total"><span class="verify-result-label">STATUS</span><span class="verify-result-value">● RELEASED FOR RESEARCH</span></div></div>`;setTimeout(()=>btn.innerHTML='Verify →',3e3)},1800)}
+</script>
+</body>
+</html>
+<!-- v2.0.0 -->
