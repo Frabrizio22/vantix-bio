@@ -1,0 +1,400 @@
+/* ============================================
+   VANTIX BIO - TERMINAL DESIGN SYSTEM v2.0
+   Linear + Bloomberg Terminal + Lab Instrument
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Colors - Dark Terminal */
+    --bg-primary: #050812;
+    --bg-secondary: #0A0F1C;
+    --bg-tertiary: #0F1525;
+    
+    /* Accents */
+    --accent-blue: #60a5fa;
+    --accent-emerald: #34d399;
+    --accent-amber: #fbbf24;
+    
+    /* Text */
+    --text-primary: #f8fafc;
+    --text-secondary: rgba(248, 250, 252, 0.7);
+    --text-tertiary: rgba(248, 250, 252, 0.4);
+    
+    /* Grid */
+    --grid-size: 60px;
+    --grid-opacity: 0.12;
+    
+    /* Typography */
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+    
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --space-8: 64px;
+    --space-12: 96px;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* Animated Grid Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(96, 165, 250, var(--grid-opacity)) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(96, 165, 250, var(--grid-opacity)) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    animation: gridPulse 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(48px, 6vw, 72px); }
+h2 { font-size: clamp(36px, 5vw, 56px); }
+h3 { font-size: clamp(24px, 3vw, 32px); }
+
+/* Monospace Labels */
+.label-mono {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-tertiary);
+}
+
+/* Data Readouts */
+.data-readout {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent-blue);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.float-in {
+    animation: floatIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 200ms; }
+.stagger-3 { animation-delay: 400ms; }
+.stagger-4 { animation-delay: 600ms; }
+.stagger-5 { animation-delay: 800ms; }
+
+/* Status Pulse */
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    animation: statusPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+}
+
+.status-dot::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    animation: statusRing 2s ease-out infinite;
+}
+
+@keyframes statusRing {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+/* Scanning Line */
+@keyframes scanLine {
+    0% {
+        top: -2px;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+.scan-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    box-shadow: 0 0 20px var(--accent-blue);
+    animation: scanLine 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* ============================================
+   COMPONENTS
+   ============================================ */
+
+/* Corner Brackets */
+.corner-brackets {
+    position: relative;
+}
+
+.corner-brackets::before,
+.corner-brackets::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.corner-brackets::before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-brackets::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+/* Hairline Dividers */
+.divider-hairline {
+    width: 100%;
+    height: 1px;
+    background: rgba(248, 250, 252, 0.1);
+}
+
+/* Status Bar */
+.status-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 15, 28, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.status-bar-left,
+.status-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Mouse Spotlight */
+.spotlight-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.spotlight {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+}
+
+/* Feature Cards - No Boxes */
+.feature-card {
+    position: relative;
+    padding: var(--space-6);
+    background: transparent;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(248, 250, 252, 0.1);
+}
+
+.feature-card:hover {
+    background: rgba(96, 165, 250, 0.03);
+}
+
+/* Live Chart Container */
+.chart-live {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.chart-line {
+    stroke: var(--accent-blue);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease-out forwards;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    position: relative;
+    z-index: 1;
+}
+
+.section {
+    padding: var(--space-12) 0;
+    position: relative;
+}
+
+.text-accent {
+    color: var(--accent-blue);
+}
+
+.text-emerald {
+    color: var(--accent-emerald);
+}
+
+.bg-blur {
+    backdrop-filter: blur(10px);
+    background: rgba(10, 15, 28, 0.8);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    :root {
+        --grid-size: 40px;
+    }
+    
+    .status-bar {
+        padding: 8px 16px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .status-bar-left,
+    .status-bar-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .container {
+        padding: 0 var(--space-4);
+    }
+    
+    .section {
+        padding: var(--space-8) 0;
+    }
+}

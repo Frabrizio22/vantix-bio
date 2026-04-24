@@ -1,0 +1,52 @@
+<!-- Status Bar Component -->
+<div class="status-bar">
+    <div class="status-bar-left">
+        <div class="status-item">
+            <div class="status-dot"></div>
+            <span class="label-mono">System</span>
+            <span class="data-readout">Operational</span>
+        </div>
+        
+        <div class="status-item">
+            <span class="label-mono">Launch</span>
+            <span class="data-readout" id="countdown">00:06:23:15</span>
+        </div>
+    </div>
+    
+    <div class="status-bar-right">
+        <div class="status-item">
+            <span class="label-mono">Location</span>
+            <span class="data-readout">36.9741°N, 122.0308°W</span>
+        </div>
+        
+        <div class="status-item">
+            <span class="label-mono">Build</span>
+            <span class="data-readout">v2.0.4</span>
+        </div>
+    </div>
+</div>
+
+<script>
+// Live Countdown to May 1, 2026
+function updateCountdown() {
+    const launch = new Date('2026-05-01T00:00:00-07:00');
+    const now = new Date();
+    const diff = launch - now;
+    
+    if (diff <= 0) {
+        document.getElementById('countdown').textContent = 'LAUNCHED';
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    const formatted = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    document.getElementById('countdown').textContent = formatted;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
