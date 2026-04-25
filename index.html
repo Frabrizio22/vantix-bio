@@ -279,14 +279,13 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <h1 class="float-2">Forensic-grade<br><em>research</em> peptides.</h1>
 <p class="float-3" style="font-size:18px;margin-top:32px;line-height:1.7;color:rgba(10,22,40,.7);max-width:580px">Every batch verified through Janoshik Analytical. Triple-method testing. Immutable audit trails. The standard for researchers who cannot afford to be wrong.</p>
 
-<div class="verify-widget float-4">
-<div class="verify-label">→ Verify your batch</div>
-<div class="verify-input-wrap">
-<div class="verify-prefix">VX-</div>
-<input type="text" id="batchInput" class="verify-input" placeholder="RETA20-001" maxlength="20">
-<button class="verify-btn" id="verifyBtn">Verify</button>
+<div class="float-4" style="margin-top:40px;padding:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px;max-width:520px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+<div class="label-mono" style="color:var(--accent)">QR-Verified Batches</div>
 </div>
-<div id="verifyResult" style="display:none"></div>
+<p style="font-size:15px;line-height:1.6;color:rgba(10,22,40,.7);margin-bottom:16px">Every vial ships with a QR code linking to its verified Janoshik COA. Scan to see HPLC purity, LC-MS identity, and endotoxin results.</p>
+<a href="verify.html" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px">How verification works →</a>
 </div>
 </div>
 
@@ -586,7 +585,7 @@ function genP(pr){const pts=[],n=Math.floor(pr/100*70);for(let i=0;i<=n;i++){con
 function anim(){p=(p>=100)?0:p+.4;const pts=genP(p),x=p/100*400,g=Math.exp(-Math.pow(x-200,2)/2500),y=140-g*100;document.getElementById('chromaFill').setAttribute('points',`0,140 ${pts} ${x},140`);document.getElementById('chromaLine').setAttribute('points',pts);document.getElementById('chromaDot').setAttribute('cx',x);document.getElementById('chromaDot').setAttribute('cy',y);const lbl=document.getElementById('peakLabel');lbl.setAttribute('opacity',p>55?Math.min(1,(p-55)/10):0);requestAnimationFrame(anim)}
 anim();
 
-document.getElementById('verifyBtn').onclick=()=>{const v=document.getElementById('batchInput').value||'RETA20-001',btn=document.getElementById('verifyBtn'),res=document.getElementById('verifyResult');btn.disabled=true;btn.textContent='Verifying...';res.style.display='none';setTimeout(()=>{btn.disabled=false;btn.textContent='✓ Verified';res.style.display='block';res.innerHTML=`<div class="verify-result"><div class="verify-row"><span class="verify-label-text">BATCH</span><span class="verify-value">VX-${v}</span></div><div class="verify-row"><span class="verify-label-text">PURITY (HPLC-DAD)</span><span class="verify-value">99.2%</span></div><div class="verify-row"><span class="verify-label-text">IDENTITY (LC-MS/MS)</span><span class="verify-value">CONFIRMED</span></div><div class="verify-row"><span class="verify-label-text">ENDOTOXIN</span><span class="verify-value">&lt; 0.05 EU/mg</span></div><div class="verify-row total"><span class="verify-label-text">STATUS</span><span class="verify-value">● RELEASED</span></div></div>`;setTimeout(()=>btn.textContent='Verify',2e3)},1600)}
+
 </script>
 </body>
 </html>
