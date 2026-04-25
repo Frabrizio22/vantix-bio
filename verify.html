@@ -38,6 +38,10 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .result-item{display:flex;flex-direction:column;gap:8px}
 .result-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
 .result-value{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--accent)}
+.chromatogram{margin:32px 0;padding:32px;background:#fff;border:1px solid var(--hairline);border-radius:12px}
+.chromatogram h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5);margin-bottom:24px}
+.chart-container{position:relative;height:280px;background:linear-gradient(to bottom,rgba(57,115,176,.02),transparent);border:1px solid var(--hairline);border-radius:8px;padding:20px}
+svg.chart{width:100%;height:100%}
 .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}@media(max-width:640px){.cta-grid{grid-template-columns:1fr}}
 .btn-outline{background:transparent;border:1.5px solid var(--hairline);color:var(--text)}
 .btn-outline:hover{border-color:var(--accent);background:rgba(57,115,176,.05)}
@@ -102,6 +106,22 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 </div>
 
+<div class="chromatogram">
+<h3>HPLC Chromatogram</h3>
+<div class="chart-container">
+<svg class="chart" id="chromatogram" viewBox="0 0 800 240">
+<line x1="40" y1="200" x2="760" y2="200" stroke="#E5E5E0" stroke-width="2"/>
+<line x1="40" y1="20" x2="40" y2="200" stroke="#E5E5E0" stroke-width="2"/>
+<text x="400" y="230" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(10,22,40,.5)">RETENTION TIME (min)</text>
+<text x="20" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(10,22,40,.5)" transform="rotate(-90 20 110)">ABSORBANCE</text>
+<path id="peakPath" fill="none" stroke="#3973B0" stroke-width="2.5"/>
+<circle id="peakDot" r="5" fill="#3973B0"/>
+<text id="purityLabel" font-family="JetBrains Mono" font-size="13" font-weight="600" fill="#3973B0" opacity="0"></text>
+</svg>
+</div>
+<p style="margin-top:16px;font-size:13px;color:rgba(10,22,40,.6);font-family:'JetBrains Mono',monospace">Peak purity confirmed via photodiode array detection (DAD)</p>
+</div>
+
 <div class="cta-grid">
 <a id="janoshikLink" href="#" target="_blank" class="btn" style="text-align:center;text-decoration:none">Verify on Janoshik.com →</a>
 <a href="shop.html" class="btn btn-outline" style="text-align:center;text-decoration:none">Shop Again</a>
@@ -152,8 +172,42 @@ document.getElementById('purity').textContent=batch.purity;
 document.getElementById('taskId').textContent=batch.taskId;
 document.getElementById('janoshikLink').href='https://janoshik.com/tests/'+batch.taskId;
 document.getElementById('resultCard').classList.add('active');
+animateChromatogram(batch.purity);
 }else{
 document.getElementById('noResults').style.display='block';
+}
+}
+
+function animateChromatogram(purity){
+const peakX=420,peakY=60,sigma=40;
+let points=[];
+for(let x=40;x<=760;x+=2){
+const y=200-Math.exp(-Math.pow(x-peakX,2)/(2*sigma*sigma))*140;
+points.push(`${x},${y}`);
+}
+const path=document.getElementById('peakPath');
+const dot=document.getElementById('peakDot');
+const label=document.getElementById('purityLabel');
+path.setAttribute('d',`M${points.join(' L')}`);
+let progress=0;
+const animate=()=>{
+progress+=0.015;
+if(progress>1)progress=1;
+const currentX=40+(760-40)*progress;
+const currentY=200-Math.exp(-Math.pow(currentX-peakX,2)/(2*sigma*sigma))*140;
+path.setAttribute('stroke-dasharray',`${(760-40)*progress} ${760-40}`);
+dot.setAttribute('cx',currentX);
+dot.setAttribute('cy',currentY);
+if(progress>0.52&&label.getAttribute('opacity')==='0'){
+label.textContent=purity+' PURE';
+label.setAttribute('x',peakX);
+label.setAttribute('y',peakY-10);
+label.setAttribute('text-anchor','middle');
+label.setAttribute('opacity','1');
+}
+if(progress<1)requestAnimationFrame(animate);
+};
+animate();
 }
 }
 
