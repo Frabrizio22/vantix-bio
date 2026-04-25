@@ -30,11 +30,14 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:12px}
 .chapter::before{content:'';width:32px;height:1px;background:var(--accent)}
 .chapter::after{content:'';width:32px;height:1px;background:var(--accent)}
-.steps{padding:80px 0}
-.step{margin-bottom:80px;display:grid;grid-template-columns:80px 1fr;gap:32px}@media(max-width:640px){.step{grid-template-columns:60px 1fr;gap:20px;margin-bottom:60px}}
-.step-number{width:60px;height:60px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;flex-shrink:0}
-.step-content h3{font-family:'Fraunces',serif;font-size:28px;font-weight:400;margin-bottom:16px;color:var(--navy)}
-.step-content p{font-size:17px;line-height:1.7;color:rgba(10,22,40,.7)}
+.steps{padding:60px 0}
+.mid-cta{text-align:center;margin:60px 0;padding:40px 20px;background:rgba(57,115,176,.03);border:1px solid var(--hairline);border-radius:12px}
+.mid-cta .btn{background:var(--navy);color:#fff}
+.mid-cta .btn:hover{background:var(--accent)}
+.step{margin-bottom:40px;display:grid;grid-template-columns:40px 1fr;gap:20px;padding:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px}@media(max-width:640px){.step{grid-template-columns:32px 1fr;gap:16px;padding:20px;margin-bottom:24px}}
+.step-number{width:32px;height:32px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;flex-shrink:0}@media(min-width:768px){.step-number{width:36px;height:36px;font-size:16px}}
+.step-content h3{font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin-bottom:8px;color:var(--navy)}@media(min-width:768px){.step-content h3{font-size:22px}}
+.step-content p{font-size:15px;line-height:1.6;color:rgba(10,22,40,.7)}
 .cta{background:var(--navy);padding:80px 20px;text-align:center;color:#fff}
 .cta h2{color:#fff;margin-bottom:20px}
 .cta p{color:rgba(255,255,255,.8);font-size:17px;max-width:600px;margin:0 auto 32px}
@@ -47,7 +50,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <body>
 
 <div class="status-bar">
-<div class="status-inner">8-Step Verification Protocol — Independently Tested — Prague, CZ</div>
+<div class="status-inner">Janoshik Verified — 5-Step Protocol</div>
 </div>
 
 <div class="header">
@@ -64,9 +67,8 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 
 <div class="container">
 <div class="hero">
-<div class="chapter">Chapter 002</div>
-<h1>The Matrix</h1>
-<p style="margin-top:24px;max-width:700px;margin-left:auto;margin-right:auto;font-size:19px;line-height:1.7;color:rgba(10,22,40,.7)">Our 8-step verification protocol ensuring forensic-grade authenticity for every batch. From blind entry to permanent audit trail.</p>
+<h1>Verification Protocol</h1>
+<p style="margin-top:24px;max-width:700px;margin-left:auto;margin-right:auto;font-size:17px;line-height:1.7;color:rgba(10,22,40,.7)">Our 5-step verification protocol ensuring forensic-grade authenticity for every batch. From blind entry to permanent audit trail.</p>
 </div>
 
 <div class="steps">
@@ -74,63 +76,43 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <div class="step-number">1</div>
 <div class="step-content">
 <h3>Blind Entry</h3>
-<p>Every batch enters our system with zero manufacturer claims. No COAs, no purity data, no trust. We verify first, label second.</p>
+<p>No manufacturer claims accepted. We verify first, label second.</p>
 </div>
 </div>
 
 <div class="step">
 <div class="step-number">2</div>
 <div class="step-content">
-<h3>Sample Isolation</h3>
-<p>Samples are randomly selected from sealed production batches and quarantined in chain-of-custody storage before testing. No cherry-picking, no exceptions.</p>
+<h3>Janoshik Triple-Method Testing</h3>
+<p>HPLC-DAD purity, LC-MS/MS identity confirmation, LAL endotoxin screening. All testing conducted at Janoshik Analytical, Prague, CZ.</p>
 </div>
 </div>
 
 <div class="step">
 <div class="step-number">3</div>
 <div class="step-content">
-<h3>The Janoshik Gate</h3>
-<p>Samples are dispatched to Janoshik Analytical for triple-method verification: HPLC-DAD purity, LC-MS/MS identity confirmation, and LAL endotoxin screening.</p>
+<h3>Pass/Fail Threshold</h3>
+<p>≥98% purity, confirmed molecular identity, &lt;0.05 EU/mg endotoxin. No exceptions.</p>
 </div>
+</div>
+
+<div class="mid-cta">
+<a href="verify.html" class="btn">Verify a Batch →</a>
 </div>
 
 <div class="step">
 <div class="step-number">4</div>
 <div class="step-content">
-<h3>Pass/Fail Threshold</h3>
-<p>Batches must meet ≥98% purity, confirmed molecular identity, and &lt;0.05 EU/mg endotoxin. Anything less is rejected — no exceptions, no second chances.</p>
+<h3>Public COA + QR Linking</h3>
+<p>Every vial scans to its full Janoshik report. Chromatograms, mass spectra, endotoxin data — all public, no login.</p>
 </div>
 </div>
 
 <div class="step">
 <div class="step-number">5</div>
 <div class="step-content">
-<h3>COA Publishing</h3>
-<p>Complete Janoshik reports are published to our verification portal before any batch is released. Chromatograms, mass spectra, and endotoxin data — all public.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">6</div>
-<div class="step-content">
-<h3>QR Vial Linking</h3>
-<p>Every vial is labeled with a unique QR code linking directly to its verified batch COA. Scan → verify → trust. No login required.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">7</div>
-<div class="step-content">
-<h3>Tamper-Evident Security</h3>
-<p>Our verification portal implements print-blocking, device fingerprinting, and forensic watermarking to prevent COA manipulation or forgery.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">8</div>
-<div class="step-content">
-<h3>Permanent Audit Trail</h3>
-<p>Every verification event is logged with timestamp, IP, and user agent. Full audit trail available to regulatory bodies or independent researchers upon request.</p>
+<h3>Tamper-Evident Audit Trail</h3>
+<p>Forensic watermarking, device fingerprinting, logged events. Full audit trail available upon request.</p>
 </div>
 </div>
 </div>
