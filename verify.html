@@ -15,7 +15,7 @@ html,body{max-width:100%;overflow-x:hidden}
 body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 @media print{body *{visibility:hidden !important}body::after{content:'PRINT DISABLED — VANTIX BIO FORENSIC SECURITY';visibility:visible !important;position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#0A1628;background:#FAFAF7;font-family:'JetBrains Mono',monospace;letter-spacing:4px;z-index:99999}}
 h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
-h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
+h1{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.02em}
 .label-mono{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.25em;color:rgba(10,22,40,.5)}
 .container{max-width:1200px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
 .header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);padding:16px 0;position:sticky;top:0;z-index:100}
@@ -23,7 +23,7 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .back-btn{background:none;border:none;padding:8px;cursor:pointer;color:var(--navy);display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;transition:opacity .2s}
 .back-btn:hover{opacity:.6}
 .back-btn svg{width:20px;height:20px;stroke-width:2}
-.hero{padding:60px 0 40px;text-align:center}
+.hero{padding:40px 0 24px;text-align:center}
 .search-card{max-width:640px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:32px}
 .search-input-wrap{display:flex;gap:12px;margin-bottom:16px}
 .search-input{flex:1;padding:14px 16px;border:1px solid var(--hairline);border-radius:10px;font-size:15px;font-family:'Geist',sans-serif}
@@ -35,20 +35,24 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .terminal-text{font-family:'JetBrains Mono',monospace;color:var(--accent-light);font-size:14px;letter-spacing:2px;line-height:2}
 .terminal-cursor{display:inline-block;width:8px;height:16px;background:var(--accent-light);margin-left:4px;animation:blink .7s step-end infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.result-card{max-width:900px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:40px;display:none;animation:fadeUp .5s ease}
-.result-card.active{display:block}
+.result-card{max-width:720px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:32px;display:none;animation:fadeUp .5s ease}
+.result-card.active{display:block}@media(max-width:640px){.result-card{padding:24px}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.verified-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:#10b981;margin-bottom:32px}
-.verified-badge svg{width:20px;height:20px}
-.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;padding:32px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(max-width:640px){.result-grid{grid-template-columns:1fr}}
+.verified-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:10px 16px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:#10b981;margin-bottom:20px}
+.verified-badge svg{width:18px;height:18px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;padding:24px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(max-width:640px){.result-grid{gap:12px}}
 .result-item{display:flex;flex-direction:column;gap:8px}
-.result-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
-.result-value{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--accent)}
-.chromatogram{margin:32px 0;padding:32px;background:linear-gradient(to bottom,rgba(57,115,176,.03),transparent);border:1px solid var(--hairline);border-radius:12px}
-.chromatogram h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5);margin-bottom:24px}
-.chart-container{position:relative;height:280px;border:1px solid var(--hairline);border-radius:8px;padding:20px;background:#fff}
+.result-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
+.result-value{font-size:15px;font-weight:600;color:var(--navy)}
+.chromatogram{margin:24px 0}
+.chromatogram-toggle{background:transparent;border:1.5px solid var(--hairline);color:var(--text);width:100%;padding:14px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px}
+.chromatogram-toggle:hover{border-color:var(--accent);background:rgba(57,115,176,.05)}
+.chromatogram-toggle svg{width:16px;height:16px;transition:transform .3s}
+.chromatogram-toggle.active svg{transform:rotate(180deg)}
+.chart-container{position:relative;height:200px;border:1px solid var(--hairline);border-radius:8px;padding:16px;background:#fff;margin-top:16px;display:none}
+.chart-container.active{display:block}
 svg.chart{width:100%;height:100%}
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}@media(max-width:640px){.cta-grid{grid-template-columns:1fr}}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}@media(max-width:640px){.cta-grid{grid-template-columns:1fr}}
 .btn-outline{background:transparent;border:1.5px solid var(--hairline);color:var(--text)}
 .btn-outline:hover{border-color:var(--accent);background:rgba(57,115,176,.05)}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
@@ -80,13 +84,13 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 
 <div class="container">
-<div class="hero">
+<div class="hero" id="heroSection">
 <div class="label-mono" style="color:var(--accent);margin-bottom:24px">Verification Portal</div>
 <h1>The Matrix</h1>
 <p style="margin-top:20px;max-width:600px;margin-left:auto;margin-right:auto;color:rgba(10,22,40,.7);font-size:17px">Enter your batch ID to view the complete forensic analysis.</p>
 </div>
 
-<div class="search-card">
+<div class="search-card" id="searchCard">
 <div class="search-input-wrap" style="position:relative">
 <input type="text" id="batchInput" class="search-input" placeholder="RETA20-001" maxlength="30" value="VX-">
 <button class="btn" onclick="searchBatch()">Verify</button>
@@ -101,8 +105,8 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <span>Verified Batch</span>
 </div>
 
-<h2 id="productName" style="margin-bottom:8px"></h2>
-<p id="batchId" style="font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(10,22,40,.6);margin-bottom:32px"></p>
+<h2 id="productName" style="margin-bottom:8px;font-size:28px"></h2>
+<p id="batchId" style="font-size:13px;font-weight:500;color:rgba(10,22,40,.6);margin-bottom:24px"></p>
 
 <div class="result-grid">
 <div class="result-item">
@@ -124,19 +128,21 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 
 <div class="chromatogram">
-<h3>HPLC Chromatogram</h3>
-<div class="chart-container">
-<svg class="chart" id="chromatogram" viewBox="0 0 800 240">
-<line x1="40" y1="200" x2="760" y2="200" stroke="#E5E5E0" stroke-width="2"/>
-<line x1="40" y1="20" x2="40" y2="200" stroke="#E5E5E0" stroke-width="2"/>
-<text x="400" y="230" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(10,22,40,.5)">RETENTION TIME (min)</text>
-<text x="20" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(10,22,40,.5)" transform="rotate(-90 20 110)">ABSORBANCE</text>
-<path id="peakPath" fill="none" stroke="#3973B0" stroke-width="2.5"/>
-<circle id="peakDot" r="5" fill="#3973B0"/>
-<text id="purityLabel" font-family="JetBrains Mono" font-size="13" font-weight="600" fill="#3973B0" opacity="0"></text>
+<button class="chromatogram-toggle" id="chromToggle" onclick="toggleChromatogram()">
+<span>View HPLC Chromatogram</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+</button>
+<div class="chart-container" id="chartContainer">
+<svg class="chart" id="chromatogram" viewBox="0 0 800 160">
+<line x1="40" y1="130" x2="760" y2="130" stroke="#E5E5E0" stroke-width="1.5"/>
+<line x1="40" y1="20" x2="40" y2="130" stroke="#E5E5E0" stroke-width="1.5"/>
+<text x="400" y="150" text-anchor="middle" font-size="9" fill="rgba(10,22,40,.5)">RETENTION TIME</text>
+<text x="20" y="75" text-anchor="middle" font-size="9" fill="rgba(10,22,40,.5)" transform="rotate(-90 20 75)">ABS</text>
+<path id="peakPath" fill="none" stroke="#3973B0" stroke-width="2"/>
+<circle id="peakDot" r="4" fill="#3973B0"/>
+<text id="purityLabel" font-size="11" font-weight="600" fill="#3973B0" opacity="0"></text>
 </svg>
 </div>
-<p style="margin-top:16px;font-size:13px;color:rgba(10,22,40,.6);font-family:'JetBrains Mono',monospace">Peak purity confirmed via photodiode array detection (DAD)</p>
 </div>
 
 <div class="cta-grid">
@@ -225,11 +231,24 @@ document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'s
 animateChromatogram(batch.purity);
 }
 
+let chromAnimated=false;
+function toggleChromatogram(){
+const container=document.getElementById('chartContainer');
+const toggle=document.getElementById('chromToggle');
+container.classList.toggle('active');
+toggle.classList.toggle('active');
+if(container.classList.contains('active')&&!chromAnimated){
+const purity=document.getElementById('purity').textContent;
+animateChromatogram(purity);
+chromAnimated=true;
+}
+}
+
 function animateChromatogram(purity){
-const peakX=420,peakY=60,sigma=40;
+const peakX=420,peakY=40,sigma=40;
 let points=[];
 for(let x=40;x<=760;x+=2){
-const y=200-Math.exp(-Math.pow(x-peakX,2)/(2*sigma*sigma))*140;
+const y=130-Math.exp(-Math.pow(x-peakX,2)/(2*sigma*sigma))*90;
 points.push(`${x},${y}`);
 }
 const path=document.getElementById('peakPath');
@@ -241,14 +260,14 @@ const animate=()=>{
 progress+=0.015;
 if(progress>1)progress=1;
 const currentX=40+(760-40)*progress;
-const currentY=200-Math.exp(-Math.pow(currentX-peakX,2)/(2*sigma*sigma))*140;
+const currentY=130-Math.exp(-Math.pow(currentX-peakX,2)/(2*sigma*sigma))*90;
 path.setAttribute('stroke-dasharray',`${(760-40)*progress} ${760-40}`);
 dot.setAttribute('cx',currentX);
 dot.setAttribute('cy',currentY);
 if(progress>0.52&&label.getAttribute('opacity')==='0'){
-label.textContent=purity+' PURE';
+label.textContent=purity;
 label.setAttribute('x',peakX);
-label.setAttribute('y',peakY-10);
+label.setAttribute('y',peakY-8);
 label.setAttribute('text-anchor','middle');
 label.setAttribute('opacity','1');
 }
@@ -315,6 +334,8 @@ if(batchParam){
 let input=batchParam.toUpperCase();
 if(!input.startsWith('VX-'))input='VX-'+input;
 batchInput.value=input;
+document.getElementById('heroSection').style.display='none';
+document.getElementById('searchCard').style.display='none';
 searchBatch();
 }
 </script>
