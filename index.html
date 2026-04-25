@@ -53,11 +53,12 @@ h1 em,h2 em{font-style:italic;font-weight:300}
 .btn{padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}@media(min-width:480px){.btn{padding:11px 24px;font-size:14px}}@media(max-width:380px){.btn-waitlist{display:none}}
 .btn-dark{background:var(--navy);color:#fff}
 .btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
-.menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto}
-.menu-overlay.active{opacity:1;pointer-events:auto}
+.menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;display:none}
+.menu-overlay.active{opacity:1;pointer-events:auto;display:block}
 .menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
-.menu-close{position:absolute;top:20px;right:20px;background:none;border:none;padding:8px;cursor:pointer;color:var(--text)}
-.menu-close svg{width:24px;height:24px}
+.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.9);border:1px solid var(--hairline);border-radius:50%;padding:10px;cursor:pointer;color:var(--text);z-index:201;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.menu-close:hover{background:#fff}
+.menu-close svg{width:20px;height:20px;stroke-width:2.5}
 .menu-search{margin-bottom:24px}
 .menu-search-wrap{position:relative}
 .menu-search input{width:100%;padding:16px 20px;border:1px solid var(--hairline);border-radius:12px;font-size:16px;font-family:'Geist',sans-serif;background:#fff}
