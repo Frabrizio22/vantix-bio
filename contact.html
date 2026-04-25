@@ -1,769 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Support — VANTIX BIO</title>
-    <link rel="canonical" href="https://vantixbio.com/contact.html">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <script src="gate-check.js"></script>
-    <style>
-        :root {
-            --color-navy: #1A2B44;
-            --color-blue: #2563EB;
-            --color-teal: #00B4D8;
-            --color-text-primary: var(--color-navy);
-            --color-text-secondary: #64748B;
-            --font-heading: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: var(--font-body);
-            background: #F8FAFC;
-            color: var(--color-text-primary);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-
-        /* Header */
-        .header {
-            background: #FFFFFF;
-            padding: 16px 24px;
-            border-bottom: 2px solid #2563EB;
-            box-shadow: 0 1px 4px rgba(26,43,68,0.06);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .logo {
-            height: 70px;
-        }
-
-        .nav {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav a {
-            color: #475569;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover, .nav a.active {
-            color: #2563EB;
-        }
-
-        /* Container */
-        .container {
-            max-width: 700px;
-            margin: 48px auto;
-            padding: 0 24px 80px;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        h1 {
-            font-size: 40px;
-            font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .page-subtitle {
-            font-size: 17px;
-            color: #64748B;
-        }
-
-        /* Contact Box */
-        .contact-box {
-            background: #FFFFFF;
-            border-radius: 12px;
-            padding: 48px 40px;
-            box-shadow: 0 4px 16px rgba(26,43,68,0.06);
-            margin-bottom: 32px;
-        }
-
-        .contact-method {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            padding: 24px;
-            background: #F8FAFC;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-
-        .contact-method:hover {
-            background: #EFF6FF;
-            transform: translateY(-2px);
-        }
-
-        .contact-icon {
-            font-size: 32px;
-            flex-shrink: 0;
-        }
-
-        .contact-info h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1A2B44;
-            margin-bottom: 6px;
-        }
-
-        .contact-info p {
-            font-size: 15px;
-            color: #64748B;
-            margin-bottom: 8px;
-        }
-
-        .contact-info a {
-            color: #2563EB;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            display: inline-block;
-            padding: 8px 14px;
-            background: #EFF6FF;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            transition: all 0.2s;
-        }
-
-        .contact-info a:hover {
-            background: #DBEAFE;
-            transform: translateY(-1px);
-        }
-
-        /* Response Time */
-        .response-note {
-            background: #EFF6FF;
-            border-left: 4px solid #2563EB;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 32px;
-        }
-
-        .response-note strong {
-            color: #1A2B44;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .response-note p {
-            font-size: 14px;
-            color: #475569;
-        }
-
-        /* Quick Links */
-                                                /* Footer */
-        .footer {
-            background: linear-gradient(90deg, #1A2B44 0%, #2563EB 100%); border-radius: 2px;
-            color: #94A3B8;
-            padding: 40px 24px;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #94A3B8;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .footer-links a:hover {
-            color: #FFFFFF;
-        }
-
-        .footer-text {
-            font-size: 13px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .nav {
-                display: none;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .contact-box {
-                padding: 32px 24px;
-            }
-
-                    }
-    
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-            background: none;
-            border: none;
-        }
-        .hamburger span { display: block;
-            width: 26px;
-            height: 3px;
-            background: linear-gradient(90deg, #1A2B44 0%, #2563EB 100%); border-radius: 2px;
-            transition: all 0.3s;
-        }
-        
-        /* Mobile Menu */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 140;
-        }
-        .mobile-overlay.active { display: block; }
-        
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 260px;
-            height: 100%;
-            background: #FFFFFF;
-            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-            z-index: 150;
-            padding: 60px 24px 24px;
-            overflow-y: auto;
-        }
-        .mobile-menu.active { display: block; }
-        
-        .mobile-menu-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 32px;
-            color: #64748B;
-            cursor: pointer;
-            padding: 8px;
-        }
-        .mobile-menu a {
-            display: block;
-            padding: 12px 24px;
-            color: #1A2B44;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .mobile-menu a:hover {
-            background: #F8FAFC;
-        }
-        
-        @media (max-width: 768px) {
-            .hamburger { display: flex !important; }
-            nav { display: none !important; }
-        }
-
-
-    /* Pre-Launch Announcement Bar */
-    .prelaunch-bar {
-        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-        color: #FFFFFF;
-        padding: 14px 20px;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0.3px;
-        position: sticky;
-        top: 0;
-        z-index: 9999;
-        box-shadow: 0 2px 8px rgba(245,158,11,0.25);
-    }
-    .prelaunch-bar-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-    .prelaunch-icon {
-        font-size: 18px;
-        animation: pulse-icon 2s ease-in-out infinite;
-    }
-    @keyframes pulse-icon {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-    }
-    .prelaunch-text {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-    .prelaunch-date {
-        background: rgba(255,255,255,0.25);
-        padding: 4px 12px;
-        border-radius: 6px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-    }
-    .prelaunch-email-form {
-        display: flex;
-        gap: 6px;
-        align-items: center;
-    }
-    .prelaunch-email-form input {
-        padding: 6px 12px;
-        border: none;
-        border-radius: 5px;
-        font-size: 12px;
-        width: 180px;
-        outline: none;
-        color: #1E293B;
-    }
-    .prelaunch-email-form button {
-        background: rgba(255,255,255,0.95);
-        color: #D97706;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 5px;
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: all 0.2s;
-    }
-    .prelaunch-email-form button:hover {
-        background: #FFFFFF;
-        transform: translateY(-1px);
-    }
-    @media (max-width: 768px) {
-        .prelaunch-bar {
-            padding: 10px 16px;
-            font-size: 12px;
-        }
-        .prelaunch-bar-content {
-            gap: 8px;
-        }
-        .prelaunch-icon {
-            font-size: 14px;
-        }
-        .prelaunch-text {
-            font-size: 11.5px;
-            letter-spacing: 0.2px;
-        }
-        .prelaunch-date {
-            padding: 2px 8px;
-            font-size: 11px;
-            letter-spacing: 0.3px;
-        }
-        .prelaunch-email-form {
-            width: 100%;
-            justify-content: center;
-        }
-        .prelaunch-email-form input {
-            width: 140px;
-            font-size: 11px;
-            padding: 5px 10px;
-        }
-        .prelaunch-email-form button {
-            font-size: 11px;
-            padding: 5px 12px;
-        }
-    }
-
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: #64748B;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            padding: 6px;
-            line-height: 1;
-        }
-
-        .nav-icon:hover { color: #5B8DBE; }
-
-        .cart-badge {
-            position: absolute;
-            top: -4px;
-            right: -6px;
-            background: #5B8DBE;
-            color: #fff;
-            font-size: 0.55rem;
-            font-weight: 700;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10,22,40,0.5);
-            z-index: 300;
-            padding: 80px 20px 20px;
-        }
-
-        .search-overlay.active { display: block; }
-
-        .search-box {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 14px;
-            padding: 16px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-
-        .search-box input {
-            width: 100%;
-            border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 1rem;
-            outline: none;
-            font-family: inherit;
-            background: #F8FAFC;
-        }
-
-        .search-box input:focus { border-color: #5B8DBE; background: #FFFFFF; }
-
-        .search-results {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-top: 8px;
-        }
-
-        .search-result-item {
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .search-result-item:hover { background: #F0FDFF; }
-
-        .search-result-item .sr-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #1A2B44;
-        }
-
-        .search-result-item .sr-cat {
-            font-size: 0.7rem;
-            color: #64748B;
-        }
-
-        /* FAQ Page */
-        .page-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10,22,40,0.5);
-            z-index: 250;
-            overflow-y: auto;
-            padding: 40px 16px;
-        }
-
-        .page-overlay.active { display: block; }
-
-        .page-panel {
-            max-width: 700px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 14px;
-            padding: 32px 24px;
-            position: relative;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        }
-
-        .page-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-size: 1.5rem;
-            color: #94A3B8;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-
-        .page-close:hover { background: #F1F5F9; }
-
-        .page-panel h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 24px;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #E2E8F0;
-            padding: 16px 0;
-        }
-
-        .faq-item:last-child { border-bottom: none; }
-
-        .faq-q {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #1A2B44;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-q::after {
-            content: '+';
-            font-size: 1.2rem;
-            color: #94A3B8;
-            transition: transform 0.2s;
-        }
-
-        .faq-item.open .faq-q::after {
-            content: '−';
-            color: #5B8DBE;
-        }
-
-        .faq-a {
-            display: none;
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Vantix Bio</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#E5E5E0;--navy:#143054}
+html,body{max-width:100%;overflow-x:hidden}
+body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
+h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
+.container{max-width:700px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
+.status-bar{background:var(--navy);color:rgba(255,255,255,.9);padding:12px 0;position:sticky;top:0;z-index:100}
+.status-inner{max-width:1400px;margin:0 auto;padding:0 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;text-align:center}
+.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);padding:12px 0;position:sticky;top:37px;z-index:99}
+.header-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px}
+.back-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;transition:opacity .2s}
+.back-btn:hover{opacity:.6}
+.back-btn svg{width:20px;height:20px;stroke-width:2}
+.logo{display:flex;align-items:center}
+.logo img{height:32px}
+.hero{padding:80px 0 60px;text-align:center;border-bottom:1px solid var(--hairline)}
+.content{padding:60px 0}
+.contact-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:40px;margin-bottom:40px}
+.contact-item{margin-bottom:32px}
+.contact-item:last-child{margin-bottom:0}
+.contact-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5);margin-bottom:8px}
+.contact-value{font-size:18px;color:var(--navy)}
+.contact-value a{color:var(--accent);text-decoration:none;font-weight:600}
+.contact-value a:hover{text-decoration:underline}
+footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
+.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+</style>
 </head>
 <body>
-    <!-- Pre-Launch Announcement Bar -->
-    <div class="prelaunch-bar">
-        <div class="prelaunch-bar-content">
-            <span class="prelaunch-icon">⚠️</span>
-            <span class="prelaunch-text">PRE-LAUNCH — Orders open</span>
-            <span class="prelaunch-date">MAY 1</span>
-            <form class="prelaunch-email-form" onsubmit="submitBarNotify(event)">
-                <input type="email" id="barNotifyEmail" placeholder="your@email.com" required>
-                <button type="submit">Notify Me</button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="header-left">
-                <div class="logo-block">
-                    <a href="index.html" class="logo" style="display:flex;align-items:center;text-decoration:none"><img src="logo-header.svg" alt="VANTIX BIO" style="height:56px;width:auto"></a>
-                </div>
-                <nav>
-                <a href="shop.html">Shop</a>
-                <a href="kits.html">Research Kits</a>
-                <a href="verify.html">Verify</a>
-                <div class="nav-dropdown">
-                    <a>Science <span style="font-size:10px;color:#64748B">▼</span></a>
-                    <div class="nav-dropdown-menu">
-                        <a href="the-matrix.html">The Matrix</a>
-                        <a href="blog/">Research</a>
-                        <a href="about.html">About Us</a>
-                    </div>
-                </div>
-                <div class="nav-dropdown">
-                    <a>Support <span style="font-size:10px;color:#64748B">▼</span></a>
-                    <div class="nav-dropdown-menu">
-                        <a href="faq.html">FAQ</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                </div>
-                </nav>
-            </div>
-            <div class="nav-icons">
-                <button class="nav-icon" onclick="toggleSearch()" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
-                <button class="nav-icon" title="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg><span class="cart-badge" style="display:none">0</span></button>
-                <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
-            </div>
-        </div>
-    </header>
+<div class="status-bar">
+<div class="status-inner">Janoshik Verified</div>
+</div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
-        <a href="shop.html" onclick="toggleMobileMenu()">
-            Shop
-            <span style="display:block;font-size:0.7rem;color:#94A3B8;font-weight:500;margin-top:2px;letter-spacing:0">Individual vials</span>
-        </a>
-        <a href="kits.html" onclick="toggleMobileMenu()">
-            Research Kits
-            <span style="display:block;font-size:0.7rem;color:#94A3B8;font-weight:500;margin-top:2px;letter-spacing:0">Coordinated research combinations</span>
-        </a>
-        <a href="verify.html" onclick="toggleMobileMenu()">Verify</a>
-        <div style="padding:8px 24px;font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Science</div>
-        <a href="the-matrix.html" onclick="toggleMobileMenu()" style="padding-left:32px">The Matrix</a>
-        <a href="blog/" onclick="toggleMobileMenu()" style="padding-left:32px">Research</a>
-        <a href="about.html" onclick="toggleMobileMenu()" style="padding-left:32px">About Us</a>
-        <div style="padding:8px 24px;font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Support</div>
-        <a href="faq.html" onclick="toggleMobileMenu()" style="padding-left:32px">FAQ</a>
-        <a href="contact.html" onclick="toggleMobileMenu()" style="padding-left:32px">Contact</a>
-    </div>
-    <div class="container">
-        <div class="page-header">
-            <h1>Contact Support</h1>
-            <p class="page-subtitle">We're here to help with orders, products, and technical questions</p>
-        </div>
+<div class="header">
+<div class="header-inner">
+<button class="back-btn" onclick="window.location.href='index.html'">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+<span>Back</span>
+</button>
+<a href="index.html" class="logo">
+<img src="logo-header.svg" alt="Vantix Bio">
+</a>
+</div>
+</div>
 
-        <div class="contact-box">
-            <div class="contact-method">
-                <div class="contact-icon">📧</div>
-                <div class="contact-info">
-                    <h3>Email Support</h3>
-                    <p>For order inquiries, product questions, or technical support</p>
-                    <a href="mailto:support@vantixbio.com">support@vantixbio.com</a>
-                </div>
-            </div>
+<div class="container">
+<div class="hero">
+<h1>Contact</h1>
+<p style="margin-top:20px;color:rgba(10,22,40,.7);font-size:17px">Questions about verification, orders, or testing protocols?</p>
+</div>
 
-            <div class="contact-method">
-                <div class="contact-icon">📄</div>
-                <div class="contact-info">
-                    <h3>Order Issues</h3>
-                    <p>Shipping damage, wrong product, or order changes</p>
-                    <a href="mailto:support@vantixbio.com?subject=Order Issue">Report Issue</a>
-                </div>
-            </div>
+<div class="content">
+<div class="contact-card">
 
-            <div class="contact-method">
-                <div class="contact-icon">🔬</div>
-                <div class="contact-info">
-                    <h3>COA Verification</h3>
-                    <p>Access batch-specific Certificates of Analysis</p>
-                    <a href="verify.html">Visit Verification Portal</a>
-                </div>
-            </div>
+<div class="contact-item">
+<div class="contact-label">Email</div>
+<div class="contact-value"><a href="mailto:vantixbio@gmail.com">vantixbio@gmail.com</a></div>
+</div>
 
-            <div class="response-note">
-                <strong>⏱️ Response Time</strong>
-                <p>We typically respond within 24 hours during business days (Monday-Friday). For urgent order issues, please include your order number in the subject line for faster processing.</p>
-            </div>
-        </div>
+<div class="contact-item">
+<div class="contact-label">Support Hours</div>
+<div class="contact-value">Monday – Friday, 9 AM – 5 PM PST</div>
+</div>
 
-        
-    </div>
+<div class="contact-item">
+<div class="contact-label">Response Time</div>
+<div class="contact-value">Within 24 hours (usually same day)</div>
+</div>
 
-    <div class="footer">
-        <div class="footer-links">
-            <a href="shop.html">Catalog</a>
-            <a href="verify.html">Verify COAs</a>
-            <a href="faq.html">FAQ</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="contact.html">Support</a>
-        </div>
-        <div class="footer-text">
-            © 2026 Vantix Bio. Research-grade peptides for in vitro laboratory use only.
-        </div>
-    </div>
-    <script>
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
-    </script>
+</div>
 
-        // Pre-launch bar email capture
-        function submitBarNotify(e) {
-            e.preventDefault();
-            var input = document.getElementById('barNotifyEmail');
-            var email = input.value.trim();
-            if (!email || !email.includes('@') || !email.includes('.')) return;
-            
-            var btn = e.target.querySelector('button');
-            btn.textContent = '✓ Sent!';
-            setTimeout(function() { btn.textContent = 'Notify Me'; }, 2000);
-            input.value = '';
-            
-            var iframe2 = document.createElement('iframe');
-            iframe2.name = 'notifyFrame2';
-            iframe2.style.display = 'none';
-            document.body.appendChild(iframe2);
-            var form2 = document.createElement('form');
-            form2.method = 'POST';
-            form2.action = 'https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
-            form2.target = 'notifyFrame2';
-            var p2 = { action: 'notify', email: email, product: 'General — Launch Bar', sku: '', timestamp: new Date().toISOString(), source: 'vantix_launch_bar' };
-            Object.keys(p2).forEach(function(k) { var i = document.createElement('input'); i.type='hidden'; i.name=k; i.value=p2[k]; form2.appendChild(i); });
-            document.body.appendChild(form2);
-            form2.submit();
-            setTimeout(function() { document.body.removeChild(form2); document.body.removeChild(iframe2); }, 5000);
-        }
+<p style="font-size:15px;color:rgba(10,22,40,.6);text-align:center">For batch verification questions, visit our <a href="verify.html" style="color:var(--accent);text-decoration:none;font-weight:600">verification portal</a> or check the <a href="faq.html" style="color:var(--accent);text-decoration:none;font-weight:600">FAQ</a>.</p>
+</div>
+</div>
+
+<footer>
+<div class="container">
+<div class="footer-legal">
+<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
+<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 Vantix Bio LLC</p>
+</div>
+</div>
+</footer>
 
 </body>
 </html>
