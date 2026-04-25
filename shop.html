@@ -39,7 +39,7 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .filter-item:hover,.filter-item.active{color:var(--accent)}
 .filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}
 .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
-.product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:12px;transition:all .3s;position:relative}@media(min-width:768px){.product-card{padding:24px}}
+.product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:12px;transition:all .3s;position:relative;cursor:pointer}@media(min-width:768px){.product-card{padding:24px}}
 .product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--bg)}
 .oos-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);text-align:center;padding:4px 0;border-top:1px solid var(--hairline);margin-bottom:8px}
 .product-card:hover{border-color:var(--accent);transform:translateY(-2px)}
@@ -144,7 +144,7 @@ const products=[
 function renderProducts(filter='all'){
 const filtered=filter==='all'?products:products.filter(p=>p.category===filter);
 document.getElementById('productsGrid').innerHTML=filtered.map(p=>`
-<div class="product-card" id="${p.id}">
+<div class="product-card" id="${p.id}" onclick="window.location.href='product.html?id=${p.id}'" style="cursor:pointer">
 ${p.image?`<img src="${p.image}" alt="${p.name}" class="product-image">`:'<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
 ${!p.inStock?'<div class="oos-label">COA Pending</div>':''}
 <div class="product-category">${p.category.toUpperCase().replace('-',' ')}</div>
