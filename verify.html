@@ -54,6 +54,12 @@ svg.chart{width:100%;height:100%}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 .footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
 .no-results{text-align:center;padding:40px 20px;color:rgba(10,22,40,.6);display:none}
+.suggestions{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--hairline);border-top:none;border-radius:0 0 10px 10px;max-height:240px;overflow-y:auto;z-index:10;display:none;margin-top:-1px}
+.suggestion-item{padding:12px 16px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;border-bottom:1px solid var(--hairline);transition:background .2s}
+.suggestion-item:last-child{border-bottom:none}
+.suggestion-item:hover{background:rgba(57,115,176,.05)}
+.suggestion-batch{color:var(--accent);font-weight:600}
+.suggestion-name{color:rgba(10,22,40,.6);font-size:12px;margin-top:4px}
 </style>
 </head>
 <body>
@@ -81,9 +87,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 
 <div class="search-card">
-<div class="search-input-wrap">
-<input type="text" id="batchInput" class="search-input" placeholder="VX-BPC10-001 or BPC10-001" maxlength="30">
+<div class="search-input-wrap" style="position:relative">
+<input type="text" id="batchInput" class="search-input" placeholder="RETA20-001" maxlength="30" value="VX-">
 <button class="btn" onclick="searchBatch()">Verify</button>
+<div class="suggestions" id="suggestions"></div>
 </div>
 <p style="font-size:13px;color:rgba(10,22,40,.5);text-align:center">Batch ID printed on vial label or scan QR code</p>
 </div>
@@ -250,10 +257,64 @@ if(progress<1)requestAnimationFrame(animate);
 animate();
 }
 
+const batchInput=document.getElementById('batchInput');
+const suggestionsDiv=document.getElementById('suggestions');
+
+batchInput.addEventListener('input',()=>{
+const val=batchInput.value.toUpperCase();
+if(!val.startsWith('VX-')){
+batchInput.value='VX-'+val.replace('VX-','');
+return;
+}
+if(val.length<=3){
+suggestionsDiv.style.display='none';
+return;
+}
+const query=val.substring(3);
+const matches=Object.keys(batches).filter(k=>k.substring(3).startsWith(query));
+if(matches.length>0){
+suggestionsDiv.innerHTML=matches.map(k=>`
+<div class="suggestion-item" onclick="selectBatch('${k}')">
+<div class="suggestion-batch">${k}</div>
+<div class="suggestion-name">${batches[k].name}</div>
+</div>
+`).join('');
+suggestionsDiv.style.display='block';
+}else{
+suggestionsDiv.style.display='none';
+}
+});
+
+batchInput.addEventListener('focus',()=>{
+if(batchInput.value==='VX-'){
+const cursor=batchInput.value.length;
+batchInput.setSelectionRange(cursor,cursor);
+}
+});
+
+batchInput.addEventListener('click',()=>{
+const cursor=batchInput.value.length;
+batchInput.setSelectionRange(cursor,cursor);
+});
+
+document.addEventListener('click',(e)=>{
+if(!e.target.closest('.search-input-wrap')){
+suggestionsDiv.style.display='none';
+}
+});
+
+function selectBatch(batchId){
+batchInput.value=batchId;
+suggestionsDiv.style.display='none';
+searchBatch();
+}
+
 const params=new URLSearchParams(window.location.search);
 const batchParam=params.get('batch')||params.get('id');
 if(batchParam){
-document.getElementById('batchInput').value=batchParam;
+let input=batchParam.toUpperCase();
+if(!input.startsWith('VX-'))input='VX-'+input;
+batchInput.value=input;
 searchBatch();
 }
 </script>
