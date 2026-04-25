@@ -56,8 +56,9 @@ h1 em,h2 em{font-style:italic;font-weight:300}
 .menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;display:none}
 .menu-overlay.active{opacity:1;pointer-events:auto;display:block}
 .menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
-.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.9);border:1px solid var(--hairline);border-radius:50%;padding:10px;cursor:pointer;color:var(--text);z-index:201;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.menu-close:hover{background:#fff}
+.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.95);border:2px solid var(--navy);border-radius:50%;padding:12px;cursor:pointer;color:var(--navy);z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:all .2s}
+.menu-close:hover{background:var(--navy);color:#fff;transform:scale(1.05)}
+.menu-close:active{transform:scale(.95)}
 .menu-close svg{width:20px;height:20px;stroke-width:2.5}
 .menu-search{margin-bottom:24px}
 .menu-search-wrap{position:relative}
@@ -559,7 +560,7 @@ searchInput.addEventListener('focus',()=>{if(searchInput.value.length>=2)searchP
 document.addEventListener('click',e=>{if(!e.target.closest('.menu-search-wrap'))searchResults.classList.remove('active')});
 
 menuBtn.onclick=()=>menuOverlay.classList.add('active');
-menuClose.onclick=()=>menuOverlay.classList.remove('active');
+menuClose.onclick=(e)=>{e.stopPropagation();menuOverlay.classList.remove('active')};
 menuOverlay.onclick=(e)=>{if(e.target===menuOverlay)menuOverlay.classList.remove('active')};
 searchBtn.onclick=()=>{menuOverlay.classList.add('active');setTimeout(()=>searchInput.focus(),100)};
 cartBtn.onclick=()=>alert('Shopping cart available May 1, 2026');
