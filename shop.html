@@ -40,6 +40,7 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}
 .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
 .product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px;transition:all .3s;position:relative}@media(min-width:768px){.product-card{padding:24px}}
+.product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:16px;background:var(--bg)}
 .product-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .product-category{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:12px}
 .product-name{font-family:'Fraunces',serif;font-size:18px;font-weight:300;margin-bottom:8px;line-height:1.2}@media(min-width:768px){.product-name{font-size:24px}}
@@ -125,16 +126,16 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 
 <script>
 const products=[
-{id:'tirz',name:'Tirzepatide',dose:'30mg',category:'metabolic',desc:'GIP/GLP-1 dual agonist',price:68,purity:'99.2%',inStock:false},
-{id:'reta',name:'Retatrutide',dose:'20mg',category:'metabolic',desc:'GIP/GLP-1/glucagon triple agonist',price:68,purity:'99.1%',inStock:false},
-{id:'sema',name:'Semaglutide',dose:'10mg',category:'metabolic',desc:'GLP-1 receptor agonist',price:42,purity:'99.3%',inStock:false},
-{id:'bpc',name:'BPC-157',dose:'10mg',category:'regen',desc:'Cytoprotective peptide',price:30,purity:'99.4%',inStock:false},
-{id:'tb500',name:'TB-500',dose:'10mg',category:'regen',desc:'Thymosin beta-4 fragment',price:38,purity:'99.2%',inStock:false},
-{id:'ghk',name:'GHK-Cu',dose:'100mg',category:'cosmetic',desc:'Copper peptide',price:34,purity:'99.5%',inStock:false},
-{id:'cjc',name:'CJC-1295',dose:'10mg',category:'gh-axis',desc:'GHRH analog',price:42,purity:'99.1%',inStock:false},
-{id:'ipa',name:'Ipamorelin',dose:'5mg',category:'gh-axis',desc:'Growth hormone secretagogue',price:30,purity:'99.3%',inStock:false},
-{id:'mots',name:'MOTS-c',dose:'10mg',category:'mito',desc:'Mitochondrial peptide',price:32,purity:'99.2%',inStock:false},
-{id:'nad',name:'NAD+',dose:'1000mg',category:'mito',desc:'Nicotinamide adenine dinucleotide',price:68,purity:'99.4%',inStock:false},
+{id:'tirz',name:'Tirzepatide',dose:'30mg',category:'metabolic',desc:'GIP/GLP-1 dual agonist',price:68,purity:'99.2%',inStock:false,image:'images/products/tirzepatide-30mg.jpg'},
+{id:'reta',name:'Retatrutide',dose:'20mg',category:'metabolic',desc:'GIP/GLP-1/glucagon triple agonist',price:68,purity:'99.1%',inStock:false,image:'images/products/retatrutide-20mg.jpg'},
+{id:'sema',name:'Semaglutide',dose:'10mg',category:'metabolic',desc:'GLP-1 receptor agonist',price:42,purity:'99.3%',inStock:false,image:'images/products/semaglutide-10mg.jpg'},
+{id:'bpc',name:'BPC-157',dose:'10mg',category:'regen',desc:'Cytoprotective peptide',price:30,purity:'99.4%',inStock:false,image:'images/products/bpc-157-10mg.jpg'},
+{id:'tb500',name:'TB-500',dose:'10mg',category:'regen',desc:'Thymosin beta-4 fragment',price:38,purity:'99.2%',inStock:false,image:'images/products/tb-500-10mg.jpg'},
+{id:'ghk',name:'GHK-Cu',dose:'100mg',category:'cosmetic',desc:'Copper peptide',price:34,purity:'99.5%',inStock:false,image:'images/products/ghk-cu-100mg.jpg'},
+{id:'cjc',name:'CJC-1295',dose:'10mg',category:'gh-axis',desc:'GHRH analog',price:42,purity:'99.1%',inStock:false,image:'images/products/cjc-1295-10mg.jpg'},
+{id:'ipa',name:'Ipamorelin',dose:'5mg',category:'gh-axis',desc:'Growth hormone secretagogue',price:30,purity:'99.3%',inStock:false,image:'images/products/ipamorelin-10mg.jpg'},
+{id:'mots',name:'MOTS-c',dose:'10mg',category:'mito',desc:'Mitochondrial peptide',price:32,purity:'99.2%',inStock:false,image:'images/products/mots-c-10mg.jpg'},
+{id:'nad',name:'NAD+',dose:'1000mg',category:'mito',desc:'Nicotinamide adenine dinucleotide',price:68,purity:'99.4%',inStock:false,image:'images/products/nad-1000mg.jpg'},
 {id:'tesa',name:'Tesamorelin',dose:'10mg',category:'gh-axis',desc:'GHRH analog',price:52,purity:'99.1%',inStock:false},
 {id:'aod',name:'AOD-9604',dose:'10mg',category:'metabolic',desc:'Growth hormone fragment',price:52,purity:'99.2%',inStock:false}
 ];
@@ -144,6 +145,7 @@ const filtered=filter==='all'?products:products.filter(p=>p.category===filter);
 document.getElementById('productsGrid').innerHTML=filtered.map(p=>`
 <div class="product-card" id="${p.id}">
 ${!p.inStock?'<div class="oos-badge">COA Pending</div>':''}
+${p.image?`<img src="${p.image}" alt="${p.name}" class="product-image">`:'<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">COA Pending</div>'}
 <div class="product-category">${p.category.toUpperCase().replace('-',' ')}</div>
 <h3 class="product-name">${p.name}</h3>
 <p class="product-desc">${p.desc}</p>
