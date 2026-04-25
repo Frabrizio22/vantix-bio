@@ -84,13 +84,13 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 
 <div class="container">
-<div class="hero" id="heroSection">
+<div class="hero">
 <div class="label-mono" style="color:var(--accent);margin-bottom:24px">Verification Portal</div>
 <h1>The Matrix</h1>
 <p style="margin-top:20px;max-width:600px;margin-left:auto;margin-right:auto;color:rgba(10,22,40,.7);font-size:17px">Enter your batch ID to view the complete forensic analysis.</p>
 </div>
 
-<div class="search-card" id="searchCard">
+<div class="search-card">
 <div class="search-input-wrap" style="position:relative">
 <input type="text" id="batchInput" class="search-input" placeholder="RETA20-001" maxlength="30" value="VX-">
 <button class="btn" onclick="searchBatch()">Verify</button>
@@ -334,9 +334,6 @@ if(batchParam){
 let input=batchParam.toUpperCase();
 if(!input.startsWith('VX-'))input='VX-'+input;
 batchInput.value=input;
-document.getElementById('heroSection').style.display='none';
-document.getElementById('searchCard').style.display='none';
-searchBatch();
 }
 </script>
 </body>
