@@ -30,24 +30,30 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .search-input:focus{outline:none;border-color:var(--accent)}
 .btn{padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;border:none;background:var(--navy);color:#fff;white-space:nowrap}
 .btn:hover{background:var(--accent)}
-.result-card{max-width:900px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:40px;display:none}
+.terminal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.97);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column}
+.terminal-overlay.active{display:flex}
+.terminal-text{font-family:'JetBrains Mono',monospace;color:var(--accent-light);font-size:14px;letter-spacing:2px;line-height:2}
+.terminal-cursor{display:inline-block;width:8px;height:16px;background:var(--accent-light);margin-left:4px;animation:blink .7s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.result-card{max-width:900px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:40px;display:none;animation:fadeUp .5s ease}
 .result-card.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .verified-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:#10b981;margin-bottom:32px}
 .verified-badge svg{width:20px;height:20px}
 .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;padding:32px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(max-width:640px){.result-grid{grid-template-columns:1fr}}
 .result-item{display:flex;flex-direction:column;gap:8px}
 .result-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
 .result-value{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--accent)}
-.chromatogram{margin:32px 0;padding:32px;background:#fff;border:1px solid var(--hairline);border-radius:12px}
+.chromatogram{margin:32px 0;padding:32px;background:linear-gradient(to bottom,rgba(57,115,176,.03),transparent);border:1px solid var(--hairline);border-radius:12px}
 .chromatogram h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5);margin-bottom:24px}
-.chart-container{position:relative;height:280px;background:linear-gradient(to bottom,rgba(57,115,176,.02),transparent);border:1px solid var(--hairline);border-radius:8px;padding:20px}
+.chart-container{position:relative;height:280px;border:1px solid var(--hairline);border-radius:8px;padding:20px;background:#fff}
 svg.chart{width:100%;height:100%}
 .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}@media(max-width:640px){.cta-grid{grid-template-columns:1fr}}
 .btn-outline{background:transparent;border:1.5px solid var(--hairline);color:var(--text)}
 .btn-outline:hover{border-color:var(--accent);background:rgba(57,115,176,.05)}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 .footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
-.no-results{text-align:center;padding:40px 20px;color:rgba(10,22,40,.6)}
+.no-results{text-align:center;padding:40px 20px;color:rgba(10,22,40,.6);display:none}
 </style>
 </head>
 <body>
@@ -63,11 +69,15 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 </div>
 
+<div class="terminal-overlay" id="terminalOverlay">
+<div class="terminal-text" id="terminalText">INITIALIZING VERIFICATION<span class="terminal-cursor"></span></div>
+</div>
+
 <div class="container">
 <div class="hero">
 <div class="label-mono" style="color:var(--accent);margin-bottom:24px">Verification Portal</div>
-<h1>Verify your batch</h1>
-<p style="margin-top:20px;max-width:600px;margin-left:auto;margin-right:auto;color:rgba(10,22,40,.7);font-size:17px">Enter your batch ID to view the complete Janoshik analytical report.</p>
+<h1>The Matrix</h1>
+<p style="margin-top:20px;max-width:600px;margin-left:auto;margin-right:auto;color:rgba(10,22,40,.7);font-size:17px">Enter your batch ID to view the complete forensic analysis.</p>
 </div>
 
 <div class="search-card">
@@ -128,7 +138,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </div>
 </div>
 
-<div class="no-results" id="noResults" style="display:none">
+<div class="no-results" id="noResults">
 <p style="font-size:18px;font-weight:600;margin-bottom:12px">Batch not found</p>
 <p style="color:rgba(10,22,40,.6)">Check the batch ID and try again, or contact support.</p>
 </div>
@@ -149,7 +159,7 @@ const batches={
 'VX-TB10-001':{name:'TB-500 10mg',purity:'99.2%',taskId:'J-50281'},
 'VX-CJC10-001':{name:'CJC-1295 10mg',purity:'99.1%',taskId:'J-50282'},
 'VX-IPA5-001':{name:'Ipamorelin 5mg',purity:'99.3%',taskId:'J-50283'},
-'VX-MOTS10-001':{name:'MOTS-C 10mg',purity:'99.2%',taskId:'J-50284'},
+'VX-MOTS10-001':{name:'MOTS-c 10mg',purity:'99.2%',taskId:'J-50284'},
 'VX-NAD1K-001':{name:'NAD+ 1000mg',purity:'99.4%',taskId:'J-50285'},
 'VX-GHK100-001':{name:'GHK-Cu 100mg',purity:'99.5%',taskId:'J-50286'},
 'VX-SEMA10-001':{name:'Semaglutide 10mg',purity:'99.3%',taskId:'J-50287'},
@@ -159,23 +169,53 @@ const batches={
 'VX-AOD10-001':{name:'AOD-9604 10mg',purity:'99.2%',taskId:'J-50291'}
 };
 
+const terminalSteps=[
+'INITIALIZING VERIFICATION',
+'CONNECTING TO JANOSHIK DATABASE',
+'AUTHENTICATING BATCH SIGNATURE',
+'LOADING HPLC DATA',
+'PARSING LC-MS/MS RESULTS',
+'VALIDATING ENDOTOXIN SCREENING',
+'DECRYPTING COA CHECKSUM',
+'✓ VERIFICATION COMPLETE'
+];
+
 function searchBatch(){
 let input=document.getElementById('batchInput').value.trim().toUpperCase();
 if(!input.startsWith('VX-'))input='VX-'+input;
 const batch=batches[input];
-document.getElementById('resultCard').classList.remove('active');
+if(!batch){
+document.getElementById('noResults').style.display='block';
+return;
+}
 document.getElementById('noResults').style.display='none';
-if(batch){
+const terminal=document.getElementById('terminalOverlay');
+const terminalText=document.getElementById('terminalText');
+terminal.classList.add('active');
+let step=0;
+const interval=setInterval(()=>{
+if(step<terminalSteps.length){
+terminalText.innerHTML=terminalSteps[step]+'<span class="terminal-cursor"></span>';
+step++;
+}else{
+clearInterval(interval);
+setTimeout(()=>{
+terminal.classList.remove('active');
+showResults(input,batch);
+},800);
+}
+},400);
+}
+
+function showResults(input,batch){
 document.getElementById('productName').textContent=batch.name;
 document.getElementById('batchId').textContent='Batch ID: '+input;
 document.getElementById('purity').textContent=batch.purity;
 document.getElementById('taskId').textContent=batch.taskId;
 document.getElementById('janoshikLink').href='https://janoshik.com/tests/'+batch.taskId;
 document.getElementById('resultCard').classList.add('active');
+document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
 animateChromatogram(batch.purity);
-}else{
-document.getElementById('noResults').style.display='block';
-}
 }
 
 function animateChromatogram(purity){
@@ -208,7 +248,6 @@ label.setAttribute('opacity','1');
 if(progress<1)requestAnimationFrame(animate);
 };
 animate();
-}
 }
 
 const params=new URLSearchParams(window.location.search);
