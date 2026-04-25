@@ -141,9 +141,9 @@ h1 em,h2 em{font-style:italic;font-weight:300}
 .bundle-desc{font-size:14px;color:rgba(10,22,40,.6);margin-top:4px}
 .bundle-old-price{text-decoration:line-through;color:rgba(10,22,40,.4);font-size:15px}
 .bundle-price{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--accent)}
-.bundle-arrow{font-size:20px;color:var(--accent);transition:transform .3s}
+.bundle-arrow{font-size:14px;color:var(--accent);transition:transform .3s;font-weight:600;white-space:nowrap}
 .bundle-row:hover .bundle-arrow{transform:translateX(4px)}
-.bundle-quote{font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:rgba(10,22,40,.6);text-align:center;margin-top:32px;margin-bottom:100px;padding:0 20px;max-width:100%}@media(min-width:768px){.bundle-quote{font-size:17px;margin-top:48px;margin-bottom:120px;max-width:700px;margin-left:auto;margin-right:auto}}
+.bundle-quote{font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:rgba(10,22,40,.7);margin-top:32px;margin-bottom:100px;padding:20px 20px 20px 24px;max-width:100%;background:rgba(57,115,176,.04);border-left:3px solid var(--accent);border-radius:8px}@media(min-width:768px){.bundle-quote{font-size:17px;margin-top:48px;margin-bottom:120px;max-width:700px;margin-left:auto;margin-right:auto;padding:24px 28px 24px 32px}}
 .sidebar-layout{display:grid;grid-template-columns:380px 1fr;gap:64px;align-items:start}
 .sidebar-card{position:sticky;top:100px;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:32px}
 .sidebar-card h3{font-family:'Fraunces',serif;font-size:20px;font-weight:300;margin-bottom:16px}
@@ -154,7 +154,6 @@ h1 em,h2 em{font-style:italic;font-weight:300}
 .editorial-panel h3{font-family:'Fraunces',serif;font-size:26px;font-weight:300;margin-bottom:16px}
 .editorial-panel p{line-height:1.8;color:rgba(10,22,40,.75)}
 .cta-section{background:#fff;border:1px solid var(--hairline);border-radius:24px;padding:80px 60px;text-align:center;position:relative;overflow:hidden}
-.cta-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--hairline) 1px,transparent 1px),linear-gradient(90deg,var(--hairline) 1px,transparent 1px);background-size:40px 40px;opacity:.3;pointer-events:none}
 .cta-section h2{margin-bottom:20px}
 .cta-section p{font-size:18px;color:rgba(10,22,40,.7);margin-bottom:40px}
 .cta-buttons{display:flex;gap:16px;justify-content:center}
@@ -265,14 +264,14 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <div>
 <div class="chapter float-1">Chapter 001</div>
 <h1 class="float-2">Forensic-grade<br><em>research</em> peptides.</h1>
-<p class="float-3" style="font-size:18px;margin-top:32px;line-height:1.7;color:rgba(10,22,40,.7);max-width:580px">Every batch verified through <strong><span style="white-space:nowrap">Janoshik Analytical</span></strong>. Triple-method testing. Immutable audit trails. The standard for researchers who cannot afford to be wrong.</p>
+<p class="float-3" style="font-size:18px;margin-top:32px;line-height:1.7;color:rgba(10,22,40,.7);max-width:580px">Every batch verified through <strong><span style="white-space:nowrap">Janoshik Analytical</span></strong>. HPLC purity. LC-MS identity. Endotoxin screening. The standard for researchers who cannot afford to be wrong.</p>
 
 <div class="float-4" style="margin-top:40px;padding:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px;max-width:520px">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
 <div class="label-mono" style="color:var(--accent)">QR-Verified Batches</div>
 </div>
-<p style="font-size:15px;line-height:1.6;color:rgba(10,22,40,.7);margin-bottom:16px">Every vial ships with a QR code. Scan to open the verification portal with batch ID pre-filled, view the full COA with HPLC chromatogram, then click through to the original <strong><span style="white-space:nowrap">Janoshik Analytical</span></strong> report.</p>
+<p style="font-size:15px;line-height:1.6;color:rgba(10,22,40,.7);margin-bottom:16px">Every vial ships with a QR code. Scan to open the verification portal with batch ID pre-filled. Full COA, chromatogram, and original <strong><span style="white-space:nowrap">Janoshik Analytical</span></strong> report — all in one place.</p>
 <a href="verify.html" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px">How verification works →</a>
 </div>
 </div>
@@ -280,7 +279,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <div class="float-5">
 <div class="chroma-card">
 <div class="chroma-header">
-<div><div class="label-mono">Live Sample</div><div class="label-mono" style="margin-top:4px">Janoshik Analytical</div><div style="font-size:15px;margin-top:6px">HPLC-DAD Chromatogram</div></div>
+<div><div class="label-mono">Live Sample</div><div class="label-mono" style="margin-top:4px">Janoshik Analytical</div><div style="font-size:15px;margin-top:6px">HPLC-DAD Chromatogram</div><div style="font-size:11px;margin-top:8px;color:rgba(10,22,40,.5);line-height:1.4">Live chromatogram preview. Scan your vial's QR code to see full batch COA.</div></div>
 </div>
 
 <svg viewBox="0 0 400 180" style="width:100%;height:auto">
@@ -350,8 +349,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <div class="col-item">
 <div class="col-number">03</div>
 <div class="col-title">Batch Traceability</div>
-<p>Immutable audit trails linking manufacturer → <strong>Janoshik</strong> test → your vial. Forensic-grade chain of custody.</p>
-<div class="col-metric">∞</div>
+<p>Nothing ships until <strong><span style="white-space:nowrap">Janoshik Analytical</span></strong> signs off. Every batch tested, every result recorded. Permanent verification records linking manufacturer to vial.</p>
 </div>
 </div>
 </div>
@@ -368,25 +366,25 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <div><div class="bundle-name">BPC-157 + TB-500 Research Pair</div><div class="bundle-desc">Cytoprotective & actin-regulatory pathway investigation</div></div>
 <div class="bundle-old-price">$68</div>
 <div class="bundle-price">$58</div>
-<div class="bundle-arrow">→</div>
+<div class="bundle-arrow">View pair →</div>
 </div>
 <div class="bundle-row">
 <div><div class="bundle-name">CJC-1295 + Ipamorelin Research Pair</div><div class="bundle-desc">GHRH & ghrelin receptor pharmacology studies</div></div>
 <div class="bundle-old-price">$72</div>
 <div class="bundle-price">$62</div>
-<div class="bundle-arrow">→</div>
+<div class="bundle-arrow">View pair →</div>
 </div>
 <div class="bundle-row">
 <div><div class="bundle-name">NAD+ + MOTS-C Research Pair</div><div class="bundle-desc">Mitochondrial bioenergetics & NAD+ metabolism research</div></div>
 <div class="bundle-old-price">$100</div>
 <div class="bundle-price">$90</div>
-<div class="bundle-arrow">→</div>
+<div class="bundle-arrow">View pair →</div>
 </div>
 <div class="bundle-row">
 <div><div class="bundle-name">Tirzepatide + Retatrutide Research Pair</div><div class="bundle-desc">Multi-receptor incretin agonist comparative studies</div></div>
 <div class="bundle-old-price">$136</div>
 <div class="bundle-price">$121</div>
-<div class="bundle-arrow">→</div>
+<div class="bundle-arrow">View pair →</div>
 </div>
 </div>
 
@@ -403,14 +401,14 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <div class="sidebar-card">
 <h3>The <strong>Janoshik</strong> Standard</h3>
 <p>Full analytical testing costs $320-520 per batch. An expense most vendors absorb by skipping. We don't.</p>
-<span class="highlight">~$400</span>
+<span class="highlight">$320–$520</span>
 <p style="font-size:13px;color:rgba(10,22,40,.6)">Per batch, per compound. HPLC purity + LC-MS identity + LAL endotoxin.</p>
 </div>
 
 <div class="editorial-panels">
 <div class="editorial-panel">
 <h3>Manufacturing variance is normal</h3>
-<p>Even reputable synthesis labs produce batch-to-batch variance. Purity can shift 2-5% between production runs. Peptide degradation begins the moment synthesis completes. Without independent testing, you're trusting manufacturer self-reporting — an industry-wide reliability gap documented in third-party testing audits.</p>
+<p>Even reputable synthesis labs produce batch-to-batch variance. Purity can shift 2-5% between production runs. Peptide degradation begins the moment synthesis completes.</p><p style="margin-top:16px">Without independent testing, you're trusting manufacturer self-reporting — an industry-wide reliability gap documented in third-party testing audits.</p>
 </div>
 <div class="editorial-panel">
 <h3>Untested batches carry unknown risks</h3>
