@@ -1,1069 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ: Batch COAs, Payment, Shipping | Vantix Bio Research Peptides</title>
-    <meta name="description" content="How batch-level testing works, what's included in Janoshik COAs, payment methods (CC + Zelle 5% off), shipping (free >$150), FOUNDER discount (10% permanent). Research use only.">
-    <link rel="canonical" href="https://vantixbio.com/faq.html">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="gate-check.js"></script>
-    <style>
-        :root {
-            --color-navy: #1A2B44;
-            --color-blue: #2563EB;
-            --color-text-primary: var(--color-navy);
-            --font-heading: 'Space Grotesk', 'Inter', sans-serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: var(--font-body);
-            background: #F8FAFC;
-            color: var(--color-text-primary);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-
-        /* Header */
-        .header {
-            background: #FFFFFF;
-            padding: 16px 24px;
-            border-bottom: 2px solid #2563EB;
-            box-shadow: 0 1px 4px rgba(26,43,68,0.06);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .logo {
-            height: 70px;
-        }
-
-        .nav {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .nav a {
-            color: #475569;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover, .nav a.active {
-            color: #2563EB;
-        }
-
-        /* Container */
-        .container {
-            max-width: 900px;
-            margin: 48px auto;
-            padding: 0 24px 80px;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        h1 {
-            font-size: 40px;
-            font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .page-subtitle {
-            font-size: 17px;
-            color: #64748B;
-        }
-
-        /* FAQ Sections */
-        .faq-section {
-            margin-bottom: 48px;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1A2B44;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-icon {
-            font-size: 24px;
-        }
-
-        /* Accordion */
-        .faq-item {
-            background: #FFFFFF;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px rgba(26,43,68,0.04);
-            overflow: hidden;
-            transition: box-shadow 0.2s;
-        }
-
-        .faq-item:hover {
-            box-shadow: 0 4px 16px rgba(26,43,68,0.08);
-        }
-
-        .faq-question {
-            padding: 20px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1A2B44;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            user-select: none;
-        }
-
-        .faq-question:hover {
-            color: #2563EB;
-        }
-
-        .faq-toggle {
-            font-size: 20px;
-            color: #94A3B8;
-            transition: transform 0.3s;
-        }
-
-        .faq-item.open .faq-toggle {
-            transform: rotate(180deg);
-            color: #2563EB;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 24px;
-        }
-
-        .faq-item.open .faq-answer {
-            max-height: 1000px;
-            padding: 0 24px 24px;
-        }
-
-        .faq-answer p {
-            font-size: 15px;
-            color: #475569;
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .faq-answer p:last-child {
-            margin-bottom: 0;
-        }
-
-        .faq-answer strong {
-            color: #1A2B44;
-            font-weight: 600;
-        }
-
-        .faq-answer a {
-            color: #2563EB;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .faq-answer a:hover {
-            text-decoration: underline;
-        }
-
-        .faq-answer ul {
-            margin: 12px 0 12px 20px;
-        }
-
-        .faq-answer li {
-            margin-bottom: 6px;
-        }
-
-        /* CTA Box */
-        .cta-box {
-            background: linear-gradient(135deg, #1E40AF 0%, #2563EB 100%);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            margin-top: 48px;
-            color: #FFFFFF;
-        }
-
-        .cta-box h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .cta-box p {
-            font-size: 16px;
-            margin-bottom: 24px;
-            opacity: 0.95;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 14px 32px;
-            background: #FFFFFF;
-            color: #2563EB;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-
-        /* Footer */
-        .footer {
-            background: linear-gradient(90deg, #1A2B44 0%, #2563EB 100%); border-radius: 2px;
-            color: #94A3B8;
-            padding: 40px 24px;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #94A3B8;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .footer-links a:hover {
-            color: #FFFFFF;
-        }
-
-        .footer-text {
-            font-size: 13px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .nav {
-                display: none;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-
-            .cta-box {
-                padding: 32px 24px;
-            }
-        }
-    
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-            background: none;
-            border: none;
-        }
-        .hamburger span { display: block;
-            width: 26px;
-            height: 3px;
-            background: linear-gradient(90deg, #1A2B44 0%, #2563EB 100%); border-radius: 2px;
-            transition: all 0.3s;
-        }
-        
-        /* Mobile Menu */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 140;
-        }
-        .mobile-overlay.active { display: block; }
-        
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 260px;
-            height: 100%;
-            background: #FFFFFF;
-            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-            z-index: 150;
-            padding: 60px 24px 24px;
-            overflow-y: auto;
-        }
-        .mobile-menu.active { display: block; }
-        
-        .mobile-menu-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 32px;
-            color: #64748B;
-            cursor: pointer;
-            padding: 8px;
-        }
-        .mobile-menu a {
-            display: block;
-            padding: 12px 24px;
-            color: #1A2B44;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .mobile-menu a:hover {
-            background: #F8FAFC;
-        }
-        
-        @media (max-width: 768px) {
-            .hamburger { display: flex !important; }
-            nav { display: none !important; }
-        }
-
-
-    /* Pre-Launch Announcement Bar */
-    .prelaunch-bar {
-        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-        color: #FFFFFF;
-        padding: 14px 20px;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0.3px;
-        position: sticky;
-        top: 0;
-        z-index: 9999;
-        box-shadow: 0 2px 8px rgba(245,158,11,0.25);
-    }
-    .prelaunch-bar-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-    .prelaunch-icon {
-        font-size: 18px;
-        animation: pulse-icon 2s ease-in-out infinite;
-    }
-    @keyframes pulse-icon {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-    }
-    .prelaunch-text {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-    .prelaunch-date {
-        background: rgba(255,255,255,0.25);
-        padding: 4px 12px;
-        border-radius: 6px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-    }
-    .prelaunch-email-form {
-        display: flex;
-        gap: 6px;
-        align-items: center;
-    }
-    .prelaunch-email-form input {
-        padding: 6px 12px;
-        border: none;
-        border-radius: 5px;
-        font-size: 12px;
-        width: 180px;
-        outline: none;
-        color: #1E293B;
-    }
-    .prelaunch-email-form button {
-        background: rgba(255,255,255,0.95);
-        color: #D97706;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 5px;
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: all 0.2s;
-    }
-    .prelaunch-email-form button:hover {
-        background: #FFFFFF;
-        transform: translateY(-1px);
-    }
-    @media (max-width: 768px) {
-        .prelaunch-bar {
-            padding: 10px 16px;
-            font-size: 12px;
-        }
-        .prelaunch-bar-content {
-            gap: 8px;
-        }
-        .prelaunch-icon {
-            font-size: 14px;
-        }
-        .prelaunch-text {
-            font-size: 11.5px;
-            letter-spacing: 0.2px;
-        }
-        .prelaunch-date {
-            padding: 2px 8px;
-            font-size: 11px;
-            letter-spacing: 0.3px;
-        }
-        .prelaunch-email-form {
-            width: 100%;
-            justify-content: center;
-        }
-        .prelaunch-email-form input {
-            width: 140px;
-            font-size: 11px;
-            padding: 5px 10px;
-        }
-        .prelaunch-email-form button {
-            font-size: 11px;
-            padding: 5px 12px;
-        }
-    }
-
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: #64748B;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            padding: 6px;
-            line-height: 1;
-        }
-
-        .nav-icon:hover { color: #5B8DBE; }
-
-        .cart-badge {
-            position: absolute;
-            top: -4px;
-            right: -6px;
-            background: #5B8DBE;
-            color: #fff;
-            font-size: 0.55rem;
-            font-weight: 700;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10,22,40,0.5);
-            z-index: 300;
-            padding: 80px 20px 20px;
-        }
-
-        .search-overlay.active { display: block; }
-
-        .search-box {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 14px;
-            padding: 16px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-
-        .search-box input {
-            width: 100%;
-            border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 1rem;
-            outline: none;
-            font-family: inherit;
-            background: #F8FAFC;
-        }
-
-        .search-box input:focus { border-color: #5B8DBE; background: #FFFFFF; }
-
-        .search-results {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-top: 8px;
-        }
-
-        .search-result-item {
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .search-result-item:hover { background: #F0FDFF; }
-
-        .search-result-item .sr-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #1A2B44;
-        }
-
-        .search-result-item .sr-cat {
-            font-size: 0.7rem;
-            color: #64748B;
-        }
-
-        /* FAQ Page */
-        .page-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10,22,40,0.5);
-            z-index: 250;
-            overflow-y: auto;
-            padding: 40px 16px;
-        }
-
-        .page-overlay.active { display: block; }
-
-        .page-panel {
-            max-width: 700px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 14px;
-            padding: 32px 24px;
-            position: relative;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        }
-
-        .page-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-size: 1.5rem;
-            color: #94A3B8;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-
-        .page-close:hover { background: #F1F5F9; }
-
-        .page-panel h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 24px;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #E2E8F0;
-            padding: 16px 0;
-        }
-
-        .faq-item:last-child { border-bottom: none; }
-
-        .faq-q {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #1A2B44;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-q::after {
-            content: '+';
-            font-size: 1.2rem;
-            color: #94A3B8;
-            transition: transform 0.2s;
-        }
-
-        .faq-item.open .faq-q::after {
-            content: '−';
-            color: #5B8DBE;
-        }
-
-        .faq-a {
-            display: none;
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Vantix Bio</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#E5E5E0;--navy:#143054}
+html,body{max-width:100%;overflow-x:hidden}
+body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
+h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
+.container{max-width:900px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
+.status-bar{background:var(--navy);color:rgba(255,255,255,.9);padding:12px 0;position:sticky;top:0;z-index:100}
+.status-inner{max-width:1400px;margin:0 auto;padding:0 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;text-align:center}
+.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);padding:12px 0;position:sticky;top:37px;z-index:99}
+.header-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px}
+.back-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;transition:opacity .2s}
+.back-btn:hover{opacity:.6}
+.back-btn svg{width:20px;height:20px;stroke-width:2}
+.logo{display:flex;align-items:center}
+.logo img{height:32px}
+.hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--hairline)}
+.faq-list{padding:60px 0}
+.faq-item{margin-bottom:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+.faq-question{padding:20px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;color:var(--navy);transition:background .2s}
+.faq-question:hover{background:rgba(57,115,176,.03)}
+.faq-icon{font-size:24px;color:var(--accent);transition:transform .3s}
+.faq-item.active .faq-icon{transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.active .faq-answer{max-height:800px}
+.faq-answer-inner{padding:0 24px 24px;color:rgba(10,22,40,.7);font-size:16px;line-height:1.7}
+footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
+.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+</style>
 </head>
 <body>
-    <!-- Pre-Launch Announcement Bar -->
-    <div class="prelaunch-bar">
-        <div class="prelaunch-bar-content">
-            <span class="prelaunch-icon">⚠️</span>
-            <span class="prelaunch-text">PRE-LAUNCH — Orders open</span>
-            <span class="prelaunch-date">MAY 1</span>
-            <form class="prelaunch-email-form" onsubmit="submitBarNotify(event)">
-                <input type="email" id="barNotifyEmail" placeholder="your@email.com" required>
-                <button type="submit">Notify Me</button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="header-left">
-                <div class="logo-block">
-                    <a href="index.html" class="logo" style="display:flex;align-items:center;text-decoration:none"><img src="logo-header.svg" alt="VANTIX BIO" style="height:56px;width:auto"></a>
-                </div>
-                <nav>
-                <a href="shop.html">Shop</a>
-                <a href="kits.html">Research Kits</a>
-                <a href="verify.html">Verify</a>
-                <div class="nav-dropdown">
-                    <a>Science <span style="font-size:10px;color:#64748B">▼</span></a>
-                    <div class="nav-dropdown-menu">
-                        <a href="the-matrix.html">The Matrix</a>
-                        <a href="blog/">Research</a>
-                        <a href="about.html">About Us</a>
-                    </div>
-                </div>
-                <div class="nav-dropdown">
-                    <a>Support <span style="font-size:10px;color:#64748B">▼</span></a>
-                    <div class="nav-dropdown-menu">
-                        <a href="faq.html">FAQ</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                </div>
-                </nav>
-            </div>
-            <div class="nav-icons">
-                <button class="nav-icon" onclick="toggleSearch()" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
-                <button class="nav-icon" title="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg><span class="cart-badge" style="display:none">0</span></button>
-                <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
-            </div>
-        </div>
-    </header>
+<div class="status-bar">
+<div class="status-inner">Janoshik Verified</div>
+</div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
-        <a href="shop.html" onclick="toggleMobileMenu()">
-            Shop
-            <span style="display:block;font-size:0.7rem;color:#94A3B8;font-weight:500;margin-top:2px;letter-spacing:0">Individual vials</span>
-        </a>
-        <a href="kits.html" onclick="toggleMobileMenu()">
-            Research Kits
-            <span style="display:block;font-size:0.7rem;color:#94A3B8;font-weight:500;margin-top:2px;letter-spacing:0">Coordinated research combinations</span>
-        </a>
-        <a href="verify.html" onclick="toggleMobileMenu()">Verify</a>
-        <div style="padding:8px 24px;font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Science</div>
-        <a href="the-matrix.html" onclick="toggleMobileMenu()" style="padding-left:32px">The Matrix</a>
-        <a href="blog/" onclick="toggleMobileMenu()" style="padding-left:32px">Research</a>
-        <a href="about.html" onclick="toggleMobileMenu()" style="padding-left:32px">About Us</a>
-        <div style="padding:8px 24px;font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Support</div>
-        <a href="faq.html" onclick="toggleMobileMenu()" style="padding-left:32px">FAQ</a>
-        <a href="contact.html" onclick="toggleMobileMenu()" style="padding-left:32px">Contact</a>
-    </div>
-    <div class="container">
-        <div class="page-header">
-            <h1>Frequently Asked Questions</h1>
-            <p class="page-subtitle">Everything you need to know about ordering and using research peptides</p>
-        </div>
+<div class="header">
+<div class="header-inner">
+<button class="back-btn" onclick="window.location.href='index.html'">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+<span>Back</span>
+</button>
+<a href="index.html" class="logo">
+<img src="logo-header.svg" alt="Vantix Bio">
+</a>
+</div>
+</div>
 
-        <!-- Ordering -->
-        <div class="faq-section">
-            <h2 class="section-title">
-                <span class="section-icon">🛒</span>
-                Ordering
-            </h2>
+<div class="container">
+<div class="hero">
+<h1>FAQ</h1>
+<p style="margin-top:20px;color:rgba(10,22,40,.7);font-size:17px">Common questions about verification, ordering, and research peptides.</p>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    How do I place an order?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Browse our <a href="shop.html">catalog</a>, add products to your cart, and proceed to checkout. Select your preferred payment method and enter your shipping information. You'll receive an order confirmation email with tracking information once your order ships.</p>
-                </div>
-            </div>
+<div class="faq-list">
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    What payment methods do you accept?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>We accept:</p>
-                    <ul>
-                        <li><strong>Credit cards</strong> (Visa, Mastercard, American Express, Discover)</li>
-                        <li><strong>Zelle</strong> (5% discount on all orders)</li>
-                    </ul>
-                    <p>Payment is processed securely through our checkout system. Zelle orders qualify for an automatic 5% discount (applied at checkout).</p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>When does Vantix Bio officially launch?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">We are launching on May 1, 2026. Analytical testing is currently in progress at Janoshik Analytical for our initial 12-product catalog. Join the waitlist to be notified when COAs are published and orders open.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    Do you ship internationally?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Currently, we only ship within the <strong>United States</strong>. International shipping is not available at this time due to regulatory restrictions on research materials.</p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>What makes Vantix different from other peptide vendors?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Every batch is independently tested by Janoshik Analytical before release. We publish complete COAs (HPLC-DAD purity, LC-MS/MS identity, LAL endotoxin) for every product. QR codes on vials link directly to batch-specific results. No vendor claims, no trust-me testing — just third-party verification.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    How long does shipping take?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Orders are processed within <strong>24 hours</strong> on business days. Standard shipping within the US typically arrives in <strong>3-5 business days</strong>. Expedited shipping options are available at checkout.</p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>What is included in a Janoshik COA?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner"><strong>Three independent tests per batch:</strong><br><br>1. <strong>HPLC-DAD Purity</strong> — Quantitative analysis showing peptide concentration and impurity profile.<br>2. <strong>LC-MS/MS Identity</strong> — Molecular confirmation via mass spectrometry.<br>3. <strong>LAL Endotoxin</strong> — Bacterial contamination screening.<br><br>All results are publicly accessible via QR scan or batch lookup. No login required.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    Is there free shipping?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes! Orders over <strong>$150</strong> qualify for free standard shipping within the US.</p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>What is your purity threshold?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">All batches must meet ≥99% purity (HPLC-DAD), confirmed molecular identity (LC-MS/MS), and &lt;0.05 EU/mg endotoxin (LAL). Batches that fail any test are rejected — no exceptions.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    What's included with my order?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Each order includes your selected Janoshik-verified research peptides in factory-sealed vials with tamper-evident caps and batch verification labels.</p>
-                </div>
-            </div>
-        </div>
+<div class="faq-item">
+<div class="faq-question"><span>Do you offer discounts?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner"><strong>FOUNDER10:</strong> 10% permanent discount for early adopters.<br><strong>Zelle bonus:</strong> Additional 5% off when paying via Zelle (stacks with FOUNDER10 for 15% total).<br><br>Research kits already include 8-15% savings and do not stack with discounts.</div></div>
+</div>
 
-        <!-- Products & Quality -->
-        <div class="faq-section">
-            <h2 class="section-title">
-                <span class="section-icon">🧪</span>
-                Products & Quality
-            </h2>
+<div class="faq-item">
+<div class="faq-question"><span>What payment methods do you accept?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Credit/debit cards (Visa, Mastercard, Amex) and Zelle. Zelle payments receive an additional 5% discount.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    What purity are your peptides?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>All Vantix Bio peptides are <strong>>99% purity</strong>, verified through comprehensive Janoshik testing:</p>
-                    <ul>
-                        <li><strong>HPLC</strong> for chromatographic purity analysis</li>
-                        <li><strong>LC-MS</strong> for molecular identity confirmation</li>
-                        <li><strong>LAL Assay</strong> for endotoxin testing (&lt;5 EU/mg standard)</li>
-                    </ul>
-                    <p>All testing is conducted by Janoshik Analytical, the industry-leading independent laboratory for peptide verification.</p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>What is your shipping policy?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Free shipping on orders $150+. Flat $8 shipping on orders under $150. All orders ship USPS Priority (2-3 business days). Tracking provided automatically.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    Do you provide Certificates of Analysis (COAs)?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes. <strong>Every batch</strong> is tested by Janoshik Analytical before being made available for purchase.</p>
-                    <p><strong>What's included in our COAs:</strong></p>
-                    <ul>
-                        <li><strong>Batch-specific testing:</strong> Each production batch is tested independently (not just one sample per product)</li>
-                        <li><strong>HPLC purity:</strong> Chromatographic purity percentage</li>
-                        <li><strong>Peptide content:</strong> Actual peptide mass as % of total powder weight</li>
-                        <li><strong>LC-MS identity:</strong> Molecular weight confirmation</li>
-                        <li><strong>Endotoxin levels:</strong> LAL assay results (&lt;5 EU/mg)</li>
-                    </ul>
-                    <p>COAs are accessible for every product through our verification system. This is batch-level verification, not manufacturer claims—every vial you receive has been independently tested.</p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>Are these peptides safe for human use?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner"><strong>No.</strong> All products are sold for research use only (RUO). They are not FDA-approved, not for human consumption, and not intended to diagnose, treat, cure, or prevent any disease. Vantix Bio does not provide medical advice or dosing guidance.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    How should I store research peptides?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p><strong>Lyophilized (powder) peptides:</strong> Store in a freezer at <strong>-20°C to -80°C</strong> for long-term stability. Keep away from light and moisture.</p>
-                    <p><strong>Reconstituted peptides:</strong> Store refrigerated at <strong>2-8°C</strong> and use within the recommended timeframe (typically 30 days). Do not freeze reconstituted solutions.</p>
-                    <p><em>Note: These are general research storage guidelines. Consult scientific literature for specific peptide stability data.</em></p>
-                </div>
-            </div>
+<div class="faq-item">
+<div class="faq-question"><span>How do I verify my batch?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Scan the QR code on your vial label or visit <a href="verify.html" style="color:var(--accent);text-decoration:none;font-weight:600">verify.html</a> and enter your batch ID (e.g., VX-BPC10-001). You'll see the complete Janoshik COA including chromatograms, mass spectra, and endotoxin results.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    How do I verify my COA / batch?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Verifying your Certificate of Analysis is easy:</p>
-                    <ol style="margin: 12px 0 12px 20px;">
-                        <li><strong>Browse recent COAs:</strong> Visit the <a href="verify.html#latest">Verification Portal</a> and click on any product to view its interactive verification report</li>
-                        <li><strong>Verify your specific batch:</strong> Find the Batch ID on your vial label (format: VX-XXXX-XX-XXXXXX)</li>
-                        <li><strong>Enter at verification portal:</strong> Go to <a href="verify.html#verify">verify.html</a>, enter your Batch ID, and view your batch-specific test results</li>
-                    </ol>
-                    <p>All COAs include HPLC purity analysis + LC-MS identity confirmation, rendered with forensic watermarking for authenticity.</p>
-                </div>
-            </div>
-        </div>
+<div class="faq-item">
+<div class="faq-question"><span>Do you ship internationally?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Currently US-only. International shipping coming Q3 2026.</div></div>
+</div>
 
-        <!-- Returns & Issues -->
-        <div class="faq-section">
-            <h2 class="section-title">
-                <span class="section-icon">📦</span>
-                Returns & Issues
-            </h2>
+<div class="faq-item">
+<div class="faq-question"><span>What is your refund policy?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Unopened vials can be returned within 30 days for a full refund (minus shipping). Opened products cannot be returned due to contamination risk. If a product fails third-party testing, we will replace or refund it immediately.</div></div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    What's your return policy?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Due to the nature of research materials and temperature-sensitive peptides, <strong>all sales are final</strong>. Products cannot be returned once shipped, except in cases of:</p>
-                    <ul>
-                        <li>Verified shipping damage</li>
-                        <li>Manufacturer defect</li>
-                        <li>Wrong product sent</li>
-                    </ul>
-                    <p>If you experience any of these issues, please <a href="contact.html">contact us</a> within 48 hours of delivery.</p>
-                </div>
-            </div>
+</div>
+</div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    My order arrived damaged — what do I do?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>If your order arrives with visible damage:</p>
-                    <ul>
-                        <li>Take photos of the damaged packaging and product</li>
-                        <li>Email us at <strong>support@vantixbio.com</strong> within 48 hours</li>
-                        <li>Include your order number and photos</li>
-                    </ul>
-                    <p>We will arrange a replacement shipment or refund at no additional cost.</p>
-                </div>
-            </div>
+<footer>
+<div class="container">
+<div class="footer-legal">
+<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
+<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 Vantix Bio LLC</p>
+</div>
+</div>
+</footer>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    I received the wrong product — what do I do?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>If you received an incorrect product, please <a href="contact.html">contact us</a> immediately at <strong>support@vantixbio.com</strong> with:</p>
-                    <ul>
-                        <li>Your order number</li>
-                        <li>Photo of the product label</li>
-                        <li>Description of the issue</li>
-                    </ul>
-                    <p>We will send the correct product via expedited shipping at no charge and arrange for return of the incorrect item.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Research Policy -->
-        <div class="faq-section">
-            <h2 class="section-title">
-                <span class="section-icon">⚗️</span>
-                Research Policy
-            </h2>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    Do you offer discount codes?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>We offer <strong>one permanent discount</strong> instead of rotating promotional codes:</p>
-                    <p><strong>FOUNDER</strong> — 10% off all orders (stackable with 5% Zelle discount)</p>
-                    <ul>
-                        <li><strong>Permanent:</strong> Works forever, no expiration</li>
-                        <li><strong>Stackable:</strong> Combine with Zelle payment for 15% total savings</li>
-                        <li><strong>No minimum:</strong> Applies to orders of any size</li>
-                    </ul>
-                    <p><strong>Why only one code?</strong> We'd rather invest in batch-level Janoshik testing than run promotional games. Fair pricing, every day, for every researcher.</p>
-                    <p><strong>Research Kits:</strong> We also offer pre-configured kits (Tissue Repair, GH Axis, Next-Gen, Mito, Multi-System) with built-in savings for complementary compound combinations.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    Are these products for human use?
-                    <span class="faq-toggle">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p><strong>No.</strong> All products sold by Vantix Bio are <strong>research-grade materials intended exclusively for in vitro laboratory research</strong>. They are:</p>
-                    <ul>
-                        <li><strong>NOT</strong> for human consumption or administration</li>
-                        <li><strong>NOT</strong> for animal consumption or veterinary use</li>
-                        <li><strong>NOT</strong> intended for medical diagnosis, treatment, or therapy</li>
-                        <li><strong>NOT</strong> drugs, dietary supplements, or FDA-approved medical products</li>
-                    </ul>
-                    <p>By purchasing from Vantix Bio, you agree to use products exclusively for lawful scientific research purposes in a qualified laboratory setting.</p>
-                    <p><strong>Age requirement:</strong> All customers must be 21 years of age or older.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTA Box -->
-        <div class="cta-box">
-            <h2>Still Have Questions?</h2>
-            <p>Our research support team is here to help with product inquiries, order assistance, and technical questions.</p>
-            <a href="contact.html" class="cta-button">Contact Support</a>
-        </div>
-    </div>
-
-    <div class="footer">
-        <div class="footer-links">
-            <a href="shop.html">Catalog</a>
-            <a href="verify.html">Verify COAs</a>
-            <a href="faq.html">FAQ</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="contact.html">Support</a>
-        </div>
-        <div class="footer-text">
-            © 2026 Vantix Bio. Research-grade peptides for in vitro laboratory use only.
-        </div>
-    </div>
-
-    <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-item').forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                
-                // Close all items
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-                
-                // Open clicked item if it was closed
-                if (!isOpen) {
-                    item.classList.add('open');
-                }
-            });
-        });
-
-        // Open first item by default
-        document.querySelector('.faq-item')?.classList.add('open');
-    </script>
-    <script>
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
-    </script>
-
-        // Pre-launch bar email capture
-        function submitBarNotify(e) {
-            e.preventDefault();
-            var input = document.getElementById('barNotifyEmail');
-            var email = input.value.trim();
-            if (!email || !email.includes('@') || !email.includes('.')) return;
-            
-            var btn = e.target.querySelector('button');
-            btn.textContent = '✓ Sent!';
-            setTimeout(function() { btn.textContent = 'Notify Me'; }, 2000);
-            input.value = '';
-            
-            var iframe2 = document.createElement('iframe');
-            iframe2.name = 'notifyFrame2';
-            iframe2.style.display = 'none';
-            document.body.appendChild(iframe2);
-            var form2 = document.createElement('form');
-            form2.method = 'POST';
-            form2.action = 'https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
-            form2.target = 'notifyFrame2';
-            var p2 = { action: 'notify', email: email, product: 'General — Launch Bar', sku: '', timestamp: new Date().toISOString(), source: 'vantix_launch_bar' };
-            Object.keys(p2).forEach(function(k) { var i = document.createElement('input'); i.type='hidden'; i.name=k; i.value=p2[k]; form2.appendChild(i); });
-            document.body.appendChild(form2);
-            form2.submit();
-            setTimeout(function() { document.body.removeChild(form2); document.body.removeChild(iframe2); }, 5000);
-        }
+<script>
+document.querySelectorAll('.faq-question').forEach(q=>{
+q.onclick=()=>q.parentElement.classList.toggle('active');
+});
+</script>
 
 </body>
 </html>
