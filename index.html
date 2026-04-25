@@ -201,7 +201,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <div><span>Janoshik Verified</span></div>
 </div>
 <div class="status-right">
-<div><span>Launch T—</span><span id="countdown" style="color:var(--text)">07D 14H</span></div>
+<div><span>Pre-Launch — Orders Open May 1, 2026</span></div>
 </div>
 </div>
 </div>
@@ -573,9 +573,7 @@ waitlistModal.onclick=(e)=>{if(e.target===waitlistModal)waitlistModalClose.click
 
 waitlistForm.onsubmit=async(e)=>{e.preventDefault();const email=document.getElementById('waitlistEmail').value,btn=waitlistForm.querySelector('button');btn.disabled=true;btn.textContent='Submitting...';try{const res=await fetch('https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec',{method:'POST',body:JSON.stringify({email:email,source:'homepage_waitlist',timestamp:new Date().toISOString()})});if(res.ok){waitlistFormContainer.style.display='none';waitlistSuccess.classList.add('active')}else{alert('Error submitting. Please try again.');btn.disabled=false;btn.textContent='Notify me at launch'}}catch(err){alert('Error submitting. Please try again.');btn.disabled=false;btn.textContent='Notify me at launch'}}
 
-const launch=new Date('2026-05-01T00:00:00-07:00');
-function updateCD(){const d=launch-new Date();if(d<=0){document.getElementById('countdown').textContent='LAUNCHED';return}const days=Math.floor(d/864e5),hrs=Math.floor(d%864e5/36e5);document.getElementById('countdown').textContent=`${String(days).padStart(2,'0')}D ${String(hrs).padStart(2,'0')}H`}
-updateCD();setInterval(updateCD,6e4);
+
 
 const g=document.getElementById('grid');
 for(let i=0;i<4;i++)g.innerHTML+=`<line x1="0" y1="${i*40+20}" x2="400" y2="${i*40+20}" stroke="#E5E5E0" stroke-dasharray="2 4"/>`;
