@@ -34,7 +34,8 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .hero{padding:60px 0 40px;border-bottom:1px solid var(--hairline)}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
-.filters{display:flex;gap:24px;margin:40px 0;padding-bottom:20px;border-bottom:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;overflow-x:auto}
+.filters{display:flex;gap:24px;padding:20px 0;border-bottom:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:37px;background:var(--bg);z-index:50;scrollbar-width:none;-ms-overflow-style:none}
+.filters::-webkit-scrollbar{display:none}
 .filter-item{color:rgba(10,22,40,.5);cursor:pointer;white-space:nowrap;transition:color .3s;position:relative}
 .filter-item:hover,.filter-item.active{color:var(--accent)}
 .filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}
