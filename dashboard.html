@@ -1296,7 +1296,7 @@ tr:hover {
         
         <div class="form-group">
           <label class="form-label">Category</label>
-          <select class="form-select" id="expenseCategory" required>
+          <select class="form-select" id="expenseCategory" required onchange="toggleCustomCategory()">
             <option value="">Select category...</option>
             <option>Product Cost</option>
             <option>Shipping</option>
@@ -1312,7 +1312,16 @@ tr:hover {
             <option>Office Supplies</option>
             <option>Professional Services</option>
             <option>Other</option>
+            <option value="custom">+ Custom Category...</option>
           </select>
+        </div>
+        
+        <div class="form-group" id="customCategoryGroup" style="display: none;">
+          <label class="form-label">Custom Category Name</label>
+          <input type="text" class="form-input" id="customCategoryInput" placeholder="e.g., Website Hosting, Phone Bill, Travel">
+        </div>
+        
+        <div class="form-group" style="display: none;">
         </div>
         
         <div class="form-group">
@@ -2882,7 +2891,21 @@ function openExpenseModal() {
   
   document.getElementById('expenseForm').reset();
   document.getElementById('expenseDate').valueAsDate = new Date();
+  document.getElementById('customCategoryGroup').style.display = 'none';
   document.getElementById('expenseModal').classList.add('active');
+}
+
+function toggleCustomCategory() {
+  const category = document.getElementById('expenseCategory').value;
+  const customGroup = document.getElementById('customCategoryGroup');
+  
+  if (category === 'custom') {
+    customGroup.style.display = 'block';
+    document.getElementById('customCategoryInput').required = true;
+  } else {
+    customGroup.style.display = 'none';
+    document.getElementById('customCategoryInput').required = false;
+  }
 }
 
 function closeExpenseModal() {
@@ -2897,7 +2920,17 @@ async function saveExpense() {
   }
   
   const date = document.getElementById('expenseDate').value;
-  const category = document.getElementById('expenseCategory').value;
+  let category = document.getElementById('expenseCategory').value;
+  
+  // Use custom category if selected
+  if (category === 'custom') {
+    category = document.getElementById('customCategoryInput').value.trim();
+    if (!category) {
+      alert('Please enter a custom category name');
+      return;
+    }
+  }
+  
   const vendor = document.getElementById('expenseVendor').value;
   const description = document.getElementById('expenseDescription').value;
   const amount = document.getElementById('expenseAmount').value;
