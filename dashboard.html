@@ -772,6 +772,7 @@ tr:hover {
     <div class="header-actions">
       <button class="btn btn-outline" onclick="toggleTheme()" id="themeToggle">☀️ Light</button>
       <button class="btn btn-success" onclick="openAddBatchModal()">+ Add Batch</button>
+      <button class="btn btn-success" onclick="openExpenseModal()">+ Add Expense</button>
       <button class="btn btn-outline" onclick="refreshData()">↻ Refresh</button>
       <a href="https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/edit" class="btn btn-primary" target="_blank">Open Sheet</a>
     </div>
@@ -781,6 +782,7 @@ tr:hover {
   <div class="tabs">
     <button class="tab active" onclick="switchTab('inventory')">📦 Inventory</button>
     <button class="tab" onclick="switchTab('financials')">💰 Financials</button>
+    <button class="tab" onclick="switchTab('fulfillment')">🚚 Fulfillment</button>
   </div>
 
   <!-- Alerts -->
@@ -986,6 +988,211 @@ tr:hover {
   </div>
   <!-- End Financials Tab -->
 
+  <!-- Fulfillment Tab -->
+  <div class="tab-content" id="fulfillmentTab">
+
+    <!-- Pending Orders Alert -->
+    <div id="pendingOrdersAlert"></div>
+
+    <!-- Pending Orders Table -->
+    <div class="card table-card fade-in delay-1">
+      <div class="table-header">
+        <div class="table-title">📋 Pending Orders</div>
+        <span class="mono" style="color: var(--text-dim);">Ready to pack & ship</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="pendingOrdersTable">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pendingOrdersBody">
+            <tr><td colspan="7" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Shipped Orders Table -->
+    <div class="card table-card fade-in delay-2">
+      <div class="table-header">
+        <div class="table-title">✅ Recently Shipped</div>
+        <span class="mono" style="color: var(--text-dim);">Last 30 days</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="shippedOrdersTable">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Shipped</th>
+              <th>Tracking</th>
+              <th>Batch ID</th>
+            </tr>
+          </thead>
+          <tbody id="shippedOrdersBody">
+            <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Fulfillment Tab -->
+
+</div>
+
+<!-- Packing Modal -->
+<div class="modal-overlay" id="packingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="packingModalTitle">Pack Order</div>
+      <button class="modal-close" onclick="closePackingModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="packingForm">
+        <input type="hidden" id="packOrderIndex">
+        <input type="hidden" id="packOrderNumber">
+        
+        <!-- Order Info (Read-only) -->
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <input type="text" class="form-input" id="packCustomer" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Product</label>
+          <input type="text" class="form-input" id="packProduct" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input type="text" class="form-input" id="packQuantity" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Shipping Address</label>
+          <input type="text" class="form-input" id="packAddress" readonly>
+        </div>
+        
+        <!-- Packing Checklist -->
+        <div class="form-group" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <label class="form-label" style="margin-bottom: 12px;">✓ Packing Checklist</label>
+          
+          <div class="form-group">
+            <label class="form-label">Batch ID *</label>
+            <select class="form-select" id="packBatchId" required>
+              <option value="">Select batch...</option>
+            </select>
+          </div>
+          
+          <div style="margin: 16px 0; font-size: 14px; color: var(--text-dim);">
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check1"> Pack vial in bubble wrap</div>
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check2"> Include COA card with batch QR code</div>
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check3"> Include storage instructions</div>
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check4"> Seal box securely</div>
+          </div>
+        </div>
+        
+        <!-- Shipping Info -->
+        <div class="form-group" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <label class="form-label">Tracking Number *</label>
+          <input type="text" class="form-input" id="packTracking" required placeholder="9400...">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Shipping Cost *</label>
+          <input type="number" class="form-input" id="packShippingCost" required min="0" step="0.01" placeholder="8.50">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Notes (Optional)</label>
+          <input type="text" class="form-input" id="packNotes" placeholder="Any special notes...">
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closePackingModal()">Cancel</button>
+      <button class="btn btn-success" onclick="completeShipping()" id="shipButton">✓ Mark as Shipped</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div class="modal-overlay" id="expenseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Expense</div>
+      <button class="modal-close" onclick="closeExpenseModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="expenseForm">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="expenseDate" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="expenseCategory" required>
+            <option value="">Select category...</option>
+            <option>Product Cost</option>
+            <option>Shipping</option>
+            <option>Testing</option>
+            <option>Software</option>
+            <option>Labels/Packaging</option>
+            <option>Merchant Fees</option>
+            <option>Marketing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Vendor</label>
+          <input type="text" class="form-input" id="expenseVendor" placeholder="e.g., USPS, Dora, Janoshik">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-input" id="expenseDescription" required placeholder="What was this for?">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Amount</label>
+          <input type="number" class="form-input" id="expenseAmount" required min="0" step="0.01" placeholder="50.00">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Order # (Optional)</label>
+          <input type="text" class="form-input" id="expenseOrderNumber" placeholder="If related to specific order">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Payment Method</label>
+          <select class="form-select" id="expensePaymentMethod" required>
+            <option value="">Select method...</option>
+            <option>Credit Card</option>
+            <option>Debit Card</option>
+            <option>Zelle</option>
+            <option>PayPal</option>
+            <option>Cash</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeExpenseModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
+    </div>
+  </div>
 </div>
 
 <!-- Add/Edit Batch Modal -->
@@ -1188,6 +1395,10 @@ function renderDashboard() {
   renderFinancialMetrics();
   renderPLStatement();
   renderRevenueByProduct();
+  
+  // Fulfillment tab
+  renderPendingOrders();
+  renderShippedOrders();
 }
 
 function renderMetrics() {
@@ -1484,23 +1695,23 @@ setInterval(refreshData, 60000);
 
 // Tab Switching
 function switchTab(tabName) {
-  // Hide all tabs
   document.querySelectorAll('.tab-content').forEach(tab => {
     tab.classList.remove('active');
   });
   
-  // Remove active from all tab buttons
   document.querySelectorAll('.tab').forEach(btn => {
     btn.classList.remove('active');
   });
   
-  // Show selected tab
   if (tabName === 'inventory') {
     document.getElementById('inventoryTab').classList.add('active');
     document.querySelector('.tab:nth-child(1)').classList.add('active');
   } else if (tabName === 'financials') {
     document.getElementById('financialsTab').classList.add('active');
     document.querySelector('.tab:nth-child(2)').classList.add('active');
+  } else if (tabName === 'fulfillment') {
+    document.getElementById('fulfillmentTab').classList.add('active');
+    document.querySelector('.tab:nth-child(3)').classList.add('active');
   }
 }
 
@@ -1737,6 +1948,283 @@ function renderRevenueByProduct() {
       </tr>
     `;
   }).join('');
+}
+
+// Fulfillment Functions
+function renderPendingOrders() {
+  const pendingOrders = ordersData.filter(row => {
+    const status = (row[19] || '').toLowerCase();
+    return status !== 'shipped' && status !== 'cancelled';
+  });
+  
+  const tbody = document.getElementById('pendingOrdersBody');
+  const alert = document.getElementById('pendingOrdersAlert');
+  
+  if (pendingOrders.length > 0) {
+    alert.innerHTML = `
+      <div class="alert alert-warning fade-in">
+        <div class="alert-icon">📦</div>
+        <div class="alert-text">
+          <strong>${pendingOrders.length} order(s) pending shipment</strong>
+        </div>
+      </div>
+    `;
+  } else {
+    alert.innerHTML = `
+      <div class="alert alert-success fade-in">
+        <div class="alert-icon">✅</div>
+        <div class="alert-text">
+          <strong>All orders shipped! No pending orders.</strong>
+        </div>
+      </div>
+    `;
+  }
+  
+  if (pendingOrders.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ No pending orders</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = pendingOrders.map((row, index) => {
+    const orderNum = row[0];
+    const date = row[1] ? new Date(row[1]).toLocaleDateString() : '--';
+    const name = row[3];
+    const product = row[9];
+    const qty = row[10];
+    const status = row[19] || 'Pending';
+    
+    const rowIndex = ordersData.findIndex(r => r[0] === orderNum);
+    
+    return `
+      <tr>
+        <td><span class="batch-id">${orderNum}</span></td>
+        <td>${date}</td>
+        <td>${name}</td>
+        <td>${product}</td>
+        <td><strong>${qty}</strong></td>
+        <td><span class="status-badge status-low">${status}</span></td>
+        <td>
+          <button class="btn btn-sm btn-primary" onclick="openPackingModal(${rowIndex})">Pack & Ship</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderShippedOrders() {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  
+  const shippedOrders = ordersData.filter(row => {
+    const status = (row[19] || '').toLowerCase();
+    if (status !== 'shipped') return false;
+    
+    if (row[1]) {
+      const orderDate = new Date(row[1]);
+      return orderDate >= thirtyDaysAgo;
+    }
+    return true;
+  });
+  
+  const tbody = document.getElementById('shippedOrdersBody');
+  
+  if (shippedOrders.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">No shipped orders in last 30 days</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = shippedOrders.slice(0, 20).map(row => {
+    const orderNum = row[0];
+    const name = row[3];
+    const product = row[9];
+    const shipped = row[20] || '--';
+    const tracking = row[21] || '--';
+    const batchId = row[22] || '⚠️ Missing';
+    
+    return `
+      <tr>
+        <td><span class="batch-id">${orderNum}</span></td>
+        <td>${name}</td>
+        <td>${product}</td>
+        <td>${shipped}</td>
+        <td style="font-family: 'JetBrains Mono', monospace; font-size: 11px;">${tracking}</td>
+        <td><span class="batch-id">${batchId}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openPackingModal(rowIndex) {
+  if (!isSignedIn && !gapi.client.getToken()) {
+    handleAuthClick();
+    return;
+  }
+  
+  const row = ordersData[rowIndex];
+  
+  document.getElementById('packOrderIndex').value = rowIndex;
+  document.getElementById('packOrderNumber').value = row[0];
+  document.getElementById('packCustomer').value = `${row[3]} (${row[2]})`;
+  document.getElementById('packProduct').value = row[9];
+  document.getElementById('packQuantity').value = row[10];
+  
+  const address = `${row[5]}, ${row[6]}, ${row[7]} ${row[8]}`;
+  document.getElementById('packAddress').value = address;
+  
+  // Populate batch dropdown with in-stock batches for this product
+  const product = row[9];
+  const batchSelect = document.getElementById('packBatchId');
+  batchSelect.innerHTML = '<option value="">Select batch...</option>';
+  
+  const productBatches = batchesData.filter(b => b[2] === product && b[12] === 'In Stock' && parseInt(b[9]) > 0);
+  
+  productBatches.forEach(batch => {
+    const batchId = batch[0];
+    const remaining = batch[9];
+    batchSelect.innerHTML += `<option value="${batchId}">${batchId} (${remaining} vials remaining)</option>`;
+  });
+  
+  if (productBatches.length === 0) {
+    batchSelect.innerHTML = '<option value="">⚠️ No batches in stock for this product!</option>';
+  }
+  
+  // Reset form
+  document.getElementById('packTracking').value = '';
+  document.getElementById('packShippingCost').value = '';
+  document.getElementById('packNotes').value = '';
+  document.querySelectorAll('[type="checkbox"]').forEach(cb => cb.checked = false);
+  
+  document.getElementById('packingModal').classList.add('active');
+}
+
+function closePackingModal() {
+  document.getElementById('packingModal').classList.remove('active');
+}
+
+async function completeShipping() {
+  const form = document.getElementById('packingForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  // Check all checkboxes are checked
+  const allChecked = Array.from(document.querySelectorAll('[id^="check"]')).every(cb => cb.checked);
+  if (!allChecked) {
+    alert('Please complete all checklist items before shipping.');
+    return;
+  }
+  
+  const rowIndex = document.getElementById('packOrderIndex').value;
+  const orderNum = document.getElementById('packOrderNumber').value;
+  const batchId = document.getElementById('packBatchId').value;
+  const tracking = document.getElementById('packTracking').value;
+  const shippingCost = document.getElementById('packShippingCost').value;
+  const notes = document.getElementById('packNotes').value;
+  
+  if (!batchId) {
+    alert('Please select a batch ID.');
+    return;
+  }
+  
+  const sheetRow = parseInt(rowIndex) + 2;
+  
+  try {
+    // Update Orders sheet: Status, Shipped date, Tracking, Batch ID
+    const today = new Date().toLocaleDateString();
+    
+    await gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: SHEET_ID,
+      range: `Orders!T${sheetRow}:W${sheetRow}`,
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [['Shipped', today, tracking, batchId]]
+      }
+    });
+    
+    // Add shipping cost to Expenses sheet
+    await gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Expenses!A:G',
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [[
+          today,
+          'Shipping',
+          'USPS',
+          `Order ${orderNum} shipping`,
+          shippingCost,
+          orderNum,
+          'Credit Card'
+        ]]
+      }
+    });
+    
+    closePackingModal();
+    await fetchSheetData();
+    showToast(`Order ${orderNum} marked as shipped!`, 'success');
+  } catch (err) {
+    console.error('Error shipping order:', err);
+    showToast('Failed to update order. Check console.', 'error');
+  }
+}
+
+// Expense Modal
+function openExpenseModal() {
+  if (!isSignedIn && !gapi.client.getToken()) {
+    handleAuthClick();
+    return;
+  }
+  
+  document.getElementById('expenseForm').reset();
+  document.getElementById('expenseDate').valueAsDate = new Date();
+  document.getElementById('expenseModal').classList.add('active');
+}
+
+function closeExpenseModal() {
+  document.getElementById('expenseModal').classList.remove('active');
+}
+
+async function saveExpense() {
+  const form = document.getElementById('expenseForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  const date = document.getElementById('expenseDate').value;
+  const category = document.getElementById('expenseCategory').value;
+  const vendor = document.getElementById('expenseVendor').value;
+  const description = document.getElementById('expenseDescription').value;
+  const amount = document.getElementById('expenseAmount').value;
+  const orderNum = document.getElementById('expenseOrderNumber').value;
+  const paymentMethod = document.getElementById('expensePaymentMethod').value;
+  
+  try {
+    await gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Expenses!A:G',
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [[
+          date,
+          category,
+          vendor,
+          description,
+          amount,
+          orderNum,
+          paymentMethod
+        ]]
+      }
+    });
+    
+    closeExpenseModal();
+    await fetchSheetData();
+    showToast('Expense added successfully!', 'success');
+  } catch (err) {
+    console.error('Error adding expense:', err);
+    showToast('Failed to add expense. Check console.', 'error');
+  }
 }
 
 // Theme Toggle
