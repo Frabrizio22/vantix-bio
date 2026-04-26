@@ -1071,7 +1071,7 @@ tr:hover {
       <!-- Taxes Owed -->
       <div class="card fade-in delay-4">
         <div class="card-header">
-          <div class="card-title">Taxes Owed (30%)</div>
+          <div class="card-title" id="taxesOwedTitle">Taxes Owed (30%)</div>
           <div class="card-icon">🏛️</div>
         </div>
         <div class="card-value" id="taxesOwed">--</div>
@@ -1118,6 +1118,27 @@ tr:hover {
       <div class="card-header">
         <div class="card-title" style="color: var(--accent);">📅 Quarterly Tax Payments 2026</div>
         <div class="card-icon">🏛️</div>
+      </div>
+      
+      <!-- Tax Rate Adjuster -->
+      <div style="margin-top: 16px; padding: 12px; background: var(--surface); border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">Tax Rate</div>
+          <div style="font-size: 11px; color: var(--text-dim);">Adjust based on your income + deductions</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <input 
+            type="range" 
+            id="taxRateSlider" 
+            min="20" 
+            max="45" 
+            value="30" 
+            step="1"
+            onchange="updateTaxRate(this.value)"
+            style="width: 150px;"
+          />
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 600; color: var(--accent); min-width: 60px;" id="taxRateDisplay">30%</div>
+        </div>
       </div>
       
       <div style="margin-top: 20px;">
@@ -1914,6 +1935,9 @@ let suppliers = ['Lydia', 'Smile', 'Other'];
 // Clean Books mode (toggle)
 let cleanBooksMode = false;
 
+// Tax rate (adjustable)
+let taxRate = 0.30; // Default 30%
+
 // CC Fee Structure
 const CC_FEES = {
   square: { percent: 0.038, fixed: 0.30 },
@@ -2453,7 +2477,7 @@ function renderFinancialMetrics() {
   const totalExpenses = monthlyCOGS + totalMerchantFees + operatingExpenses + gatewayShortfall;
   const netProfit = displayRevenue - totalExpenses;
   const taxableIncome = cleanBooksMode ? netProfit : (ccRevenue - (ccRevenue / totalRevenue * totalExpenses));
-  const taxesOwed = Math.max(0, taxableIncome * 0.30);
+  const taxesOwed = Math.max(0, taxableIncome * taxRate);
   const profitMargin = displayRevenue > 0 ? ((netProfit / displayRevenue) * 100).toFixed(1) : 0;
   
   // Update UI
@@ -2551,8 +2575,8 @@ function calculateQuarterlyTaxes() {
     // Calculate profit (CC revenue only - conservative for taxes)
     const profit = ccRevenue - totalCOGS - expenses;
     
-    // Tax rate: 35% (accounts for W-2 income pushing to higher brackets)
-    const taxOwed = Math.max(0, profit * 0.35);
+    // Tax rate: adjustable (default 30%)
+    const taxOwed = Math.max(0, profit * taxRate);
     
     // Update UI
     const element = document.getElementById(q.element);
@@ -3209,6 +3233,33 @@ function loadCleanBooksPreference() {
   }
 }
 
+function updateTaxRate(value) {
+  taxRate = parseInt(value) / 100;
+  
+  // Update displays
+  document.getElementById('taxRateDisplay').textContent = value + '%';
+  document.getElementById('taxesOwedTitle').textContent = `Taxes Owed (${value}%)`;
+  
+  // Save to localStorage
+  localStorage.setItem('taxRate', value);
+  
+  // Re-render financials and quarterly estimates
+  renderFinancialMetrics();
+}
+
+function loadTaxRate() {
+  const saved = localStorage.getItem('taxRate');
+  if (saved) {
+    const rate = parseInt(saved);
+    taxRate = rate / 100;
+    if (document.getElementById('taxRateSlider')) {
+      document.getElementById('taxRateSlider').value = rate;
+      document.getElementById('taxRateDisplay').textContent = rate + '%';
+      document.getElementById('taxesOwedTitle').textContent = `Taxes Owed (${rate}%)`;
+    }
+  }
+}
+
 // Manual Sale Functions
 function openManualSaleModal() {
   document.getElementById('manualSaleForm').reset();
@@ -3405,6 +3456,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   loadSuppliers();
   loadCleanBooksPreference();
+  loadTaxRate();
 });
 
 // Refund Functions
