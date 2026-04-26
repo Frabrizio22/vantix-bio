@@ -1295,6 +1295,13 @@ let isSignedIn = false;
 let gapiInited = false;
 let tokenClient;
 
+// Authorized users (add emails here to grant access)
+const AUTHORIZED_USERS = [
+  'vantixbio@gmail.com',
+  'frabrizio@gmail.com',
+  'prcpeptides@gmail.com'
+];
+
 // Initialize Google API
 function gapiLoaded() {
   gapi.load('client', initializeGapiClient);
@@ -1320,9 +1327,117 @@ function gisLoaded() {
 
 function maybeEnableButtons() {
   if (gapiInited && tokenClient) {
-    // Auto-load data
-    fetchSheetData();
+    // Check if user is authorized
+    checkAuthorization();
   }
+}
+
+// Check if user is authorized
+function checkAuthorization() {
+  const token = gapi.client.getToken();
+  
+  if (token === null) {
+    // Not signed in, show sign-in prompt
+    showSignInPrompt();
+  } else {
+    // Signed in, verify email
+    verifyUserEmail();
+  }
+}
+
+async function verifyUserEmail() {
+  try {
+    const response = await gapi.client.request({
+      path: 'https://www.googleapis.com/oauth2/v1/userinfo',
+    });
+    
+    const userEmail = response.result.email;
+    
+    if (AUTHORIZED_USERS.includes(userEmail)) {
+      // Authorized! Load dashboard
+      isSignedIn = true;
+      hideSignInPrompt();
+      await fetchSheetData();
+    } else {
+      // Not authorized
+      showAccessDenied(userEmail);
+    }
+  } catch (err) {
+    console.error('Error verifying user:', err);
+    showSignInPrompt();
+  }
+}
+
+function showSignInPrompt() {
+  const overlay = document.createElement('div');
+  overlay.id = 'authOverlay';
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 24px;
+  `;
+  
+  overlay.innerHTML = `
+    <div style="text-align: center; max-width: 500px; padding: 40px;">
+      <div style="font-size: 60px; margin-bottom: 24px;">🔒</div>
+      <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px;">
+        Vantix Bio Dashboard
+      </h1>
+      <p style="color: var(--text-dim); margin-bottom: 32px; line-height: 1.6;">
+        Sign in with your authorized Google account to access the operations dashboard.
+      </p>
+      <button onclick="handleAuthClick()" class="btn btn-primary" style="font-size: 14px; padding: 14px 32px;">
+        🔐 Sign in with Google
+      </button>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+}
+
+function hideSignInPrompt() {
+  const overlay = document.getElementById('authOverlay');
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function showAccessDenied(email) {
+  const overlay = document.getElementById('authOverlay');
+  if (overlay) {
+    overlay.innerHTML = `
+      <div style="text-align: center; max-width: 500px; padding: 40px;">
+        <div style="font-size: 60px; margin-bottom: 24px;">⛔</div>
+        <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px; color: var(--critical);">
+          Access Denied
+        </h1>
+        <p style="color: var(--text-dim); margin-bottom: 16px; line-height: 1.6;">
+          The account <strong>${email}</strong> is not authorized to access this dashboard.
+        </p>
+        <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
+          Contact the administrator if you believe this is an error.
+        </p>
+        <button onclick="signOutAndRetry()" class="btn btn-outline">
+          ← Sign in with different account
+        </button>
+      </div>
+    `;
+  }
+}
+
+function signOutAndRetry() {
+  const token = gapi.client.getToken();
+  if (token !== null) {
+    google.accounts.oauth2.revoke(token.access_token);
+    gapi.client.setToken('');
+  }
+  location.reload();
 }
 
 // Auth
@@ -1331,9 +1446,8 @@ function handleAuthClick() {
     if (resp.error !== undefined) {
       throw (resp);
     }
-    isSignedIn = true;
-    await fetchSheetData();
-    showToast('Successfully authenticated!', 'success');
+    // After getting token, verify user
+    await verifyUserEmail();
   };
 
   if (gapi.client.getToken() === null) {
@@ -1374,9 +1488,7 @@ async function fetchSheetData() {
     console.error('Error loading data:', err);
     
     if (err.status === 401 || err.status === 403) {
-      if (confirm('You need to sign in to view and edit data. Sign in now?')) {
-        handleAuthClick();
-      }
+      showSignInPrompt();
     } else {
       showToast('Failed to load data. Check console.', 'error');
     }
