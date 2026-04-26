@@ -699,41 +699,168 @@ tr:hover {
 .delay-3 { animation-delay: 0.3s; opacity: 0; }
 .delay-4 { animation-delay: 0.4s; opacity: 0; }
 
-/* Responsive */
+/* Mobile Optimization */
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .card-value {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   
   .header {
     flex-direction: column;
+    gap: 16px;
+  }
+  
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .header-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
   
   .status-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .tabs {
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tab {
+    padding: 10px 16px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  
+  /* Table scroll on mobile */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   table {
     font-size: 12px;
+    min-width: 600px;
   }
   
   th, td {
-    padding: 10px 8px;
+    padding: 8px 6px;
+    font-size: 11px;
   }
   
+  /* Bigger touch targets */
   .btn {
-    font-size: 10px;
+    min-height: 44px;
+    padding: 12px 20px;
+    font-size: 11px;
+  }
+  
+  .btn-sm {
+    min-height: 36px;
     padding: 8px 14px;
+  }
+  
+  /* Full-screen modals on mobile */
+  .modal {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  .modal-body {
+    max-height: calc(100vh - 180px);
+  }
+  
+  /* Container padding */
+  .container {
+    padding: 20px 16px;
+  }
+  
+  /* Card spacing */
+  .card {
+    padding: 20px;
+  }
+  
+  /* Alert text */
+  .alert-text {
+    font-size: 11px;
   }
 }
 </style>
 </head>
 <body>
+
+<!-- Password Protection Overlay -->
+<div id="passwordOverlay" style="
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+">
+  <div style="text-align: center; max-width: 400px; padding: 40px;">
+    <div style="font-size: 60px; margin-bottom: 24px;">🔒</div>
+    <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px;">
+      Vantix Bio Dashboard
+    </h1>
+    <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
+      Enter password to access operations dashboard
+    </p>
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Enter password"
+      style="
+        width: 100%;
+        padding: 14px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 16px;
+        margin-bottom: 16px;
+        font-family: 'Geist', sans-serif;
+      "
+    />
+    <button
+      onclick="checkPassword()"
+      style="
+        width: 100%;
+        padding: 14px 24px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+      "
+    >
+      🔓 Unlock Dashboard
+    </button>
+    <p id="passwordError" style="color: var(--critical); margin-top: 16px; font-size: 13px; display: none;">
+      ❌ Incorrect password
+    </p>
+  </div>
+</div>
 
 <div class="grid-bg"></div>
 
@@ -774,6 +901,7 @@ tr:hover {
       <button class="btn btn-success" onclick="openAddBatchModal()">+ Add Batch</button>
       <button class="btn btn-success" onclick="openExpenseModal()">+ Add Expense</button>
       <button class="btn btn-outline" onclick="refreshData()">↻ Refresh</button>
+      <button class="btn btn-outline" onclick="logout()" style="border-color: var(--critical); color: var(--critical);">🚪 Logout</button>
       <a href="https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/edit" class="btn btn-primary" target="_blank">Open Sheet</a>
     </div>
   </div>
@@ -791,7 +919,32 @@ tr:hover {
   <!-- Inventory Tab -->
   <div class="tab-content active" id="inventoryTab">
 
-  <!-- Metrics Grid -->
+  <!-- PRIORITY 1: Low Stock Alerts (What needs attention NOW) -->
+  <div class="card table-card fade-in delay-1">
+    <div class="table-header">
+      <div class="table-title">🚨 Low Stock Alerts</div>
+      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
+    </div>
+    <div class="table-wrapper">
+      <table id="lowStockTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Vials Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="lowStockBody">
+          <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PRIORITY 2: Overview Metrics -->
   <div class="grid">
     
     <div class="card fade-in delay-1">
@@ -832,32 +985,7 @@ tr:hover {
 
   </div>
 
-  <!-- Low Stock Alerts Table -->
-  <div class="card table-card fade-in delay-4">
-    <div class="table-header">
-      <div class="table-title">🚨 Low Stock Alerts</div>
-      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
-    </div>
-    <div class="table-wrapper">
-      <table id="lowStockTable">
-        <thead>
-          <tr>
-            <th>Batch ID</th>
-            <th>Product</th>
-            <th>Supplier</th>
-            <th>Vials Remaining</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="lowStockBody">
-          <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- All Batches Table -->
+  <!-- PRIORITY 3: All Batches Table -->
   <div class="card table-card fade-in delay-4">
     <div class="table-header">
       <div class="table-title">All Active Batches</div>
@@ -890,7 +1018,7 @@ tr:hover {
   <!-- Financials Tab -->
   <div class="tab-content" id="financialsTab">
 
-    <!-- Financial Metrics Grid -->
+    <!-- PRIORITY 1: Current Month Performance -->
     <div class="grid">
       
       <!-- Monthly Revenue -->
@@ -2376,6 +2504,65 @@ function loadTheme() {
     if (themeToggle) themeToggle.textContent = '🌙 Dark';
   }
 }
+
+// Password Protection
+const DASHBOARD_PASSWORD = 'vantix2026'; // Change this to your password
+
+function checkPassword() {
+  const input = document.getElementById('passwordInput');
+  const error = document.getElementById('passwordError');
+  
+  if (input.value === DASHBOARD_PASSWORD) {
+    // Correct password
+    localStorage.setItem('dashboardAuth', 'true');
+    localStorage.setItem('authExpiry', Date.now() + (30 * 24 * 60 * 60 * 1000)); // 30 days
+    document.getElementById('passwordOverlay').style.display = 'none';
+    error.style.display = 'none';
+  } else {
+    // Wrong password
+    error.style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+
+function checkAuth() {
+  const isAuthed = localStorage.getItem('dashboardAuth');
+  const expiry = localStorage.getItem('authExpiry');
+  
+  if (isAuthed === 'true' && expiry && Date.now() < parseInt(expiry)) {
+    // Still authenticated
+    document.getElementById('passwordOverlay').style.display = 'none';
+  } else {
+    // Not authenticated or expired
+    localStorage.removeItem('dashboardAuth');
+    localStorage.removeItem('authExpiry');
+    document.getElementById('passwordOverlay').style.display = 'flex';
+  }
+}
+
+function logout() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.removeItem('dashboardAuth');
+    localStorage.removeItem('authExpiry');
+    location.reload();
+  }
+}
+
+// Allow Enter key to submit password
+document.addEventListener('DOMContentLoaded', () => {
+  const passwordInput = document.getElementById('passwordInput');
+  if (passwordInput) {
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+  }
+});
+
+// Check auth on page load
+window.addEventListener('load', checkAuth);
 
 // Load theme on page load
 window.addEventListener('DOMContentLoaded', loadTheme);
