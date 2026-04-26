@@ -904,6 +904,7 @@ tr:hover {
     </div>
     <div class="header-actions">
       <button class="btn btn-outline" onclick="toggleTheme()" id="themeToggle">☀️ Light</button>
+      <button class="btn btn-outline" onclick="toggleCleanBooks()" id="cleanBooksToggle">💰 Full View</button>
       <button class="btn btn-success" onclick="openAddBatchModal()">+ Add Batch</button>
       <button class="btn btn-success" onclick="openExpenseModal()">+ Add Expense</button>
       <button class="btn btn-success" onclick="openManualSaleModal()">+ Log Manual Sale</button>
@@ -918,6 +919,11 @@ tr:hover {
     <button class="tab active" onclick="switchTab('inventory')">📦 Inventory</button>
     <button class="tab" onclick="switchTab('financials')">💰 Financials</button>
     <button class="tab" onclick="switchTab('fulfillment')">🚚 Fulfillment</button>
+  </div>
+
+  <!-- Clean Books Mode Indicator -->
+  <div id="cleanBooksIndicator" style="display: none; background: var(--accent); color: white; padding: 12px 20px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 20px; border-radius: 8px;">
+    💼 CLEAN BOOKS MODE • Showing reported income only (CC/Bankful)
   </div>
 
   <!-- Alerts -->
@@ -1031,12 +1037,13 @@ tr:hover {
       <!-- Monthly Revenue -->
       <div class="card fade-in delay-1">
         <div class="card-header">
-          <div class="card-title">Monthly Revenue</div>
+          <div class="card-title" id="revenueCardTitle">Monthly Revenue</div>
           <div class="card-icon">💵</div>
         </div>
         <div class="card-value" id="monthlyRevenue">--</div>
-        <div class="card-label">Total sales this month</div>
+        <div class="card-label" id="revenueCardLabel">Total sales this month</div>
         <div class="card-change" id="revenueChange"></div>
+        <div class="card-change" id="revenueBreakdown" style="margin-top: 8px; font-size: 11px; color: var(--text-dim);"></div>
       </div>
 
       <!-- Monthly Expenses -->
@@ -1421,6 +1428,65 @@ tr:hover {
   </div>
 </div>
 
+<!-- Refund Modal -->
+<div class="modal-overlay" id="refundModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Issue Refund</div>
+      <button class="modal-close" onclick="closeRefundModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="refundForm">
+        <input type="hidden" id="refundOrderIndex">
+        <input type="hidden" id="refundOrderId">
+        
+        <div class="form-group">
+          <label class="form-label">Order Details</label>
+          <input type="text" class="form-input" id="refundOrderInfo" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Refund Type</label>
+          <select class="form-select" id="refundType" required onchange="updateRefundAmount()">
+            <option value="">Select type...</option>
+            <option value="full">Full Refund</option>
+            <option value="partial">Partial Refund</option>
+          </select>
+        </div>
+        
+        <div class="form-group" id="partialAmountGroup" style="display: none;">
+          <label class="form-label">Refund Amount</label>
+          <input type="number" class="form-input" id="refundAmount" min="0" step="0.01" placeholder="0.00">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Already Shipped?</label>
+          <select class="form-select" id="refundShipped" required>
+            <option value="yes">Yes (inventory already decremented)</option>
+            <option value="no">No (restore inventory)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Reason</label>
+          <textarea class="form-input" id="refundReason" rows="2" placeholder="Why are you issuing this refund?"></textarea>
+        </div>
+        
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 16px;">
+          <div class="mono" style="color: var(--text-dim); margin-bottom: 12px;">💸 Refund Impact</div>
+          <div id="refundImpactText" style="font-size: 13px; line-height: 1.6; color: var(--text-dim);">
+            Select refund type to see impact...
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeRefundModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="processRefund()" style="background: var(--critical);">Issue Refund</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add/Edit Batch Modal -->
 <div class="modal-overlay" id="batchModal">
   <div class="modal">
@@ -1741,6 +1807,22 @@ let expensesData = [];
 
 // Suppliers list (editable)
 let suppliers = ['Lydia', 'Smile', 'Other'];
+
+// Clean Books mode (toggle)
+let cleanBooksMode = false;
+
+// CC Fee Structure
+const CC_FEES = {
+  square: { percent: 0.038, fixed: 0.30 },
+  gateway: { percent: 0.006, fixed: 0.10 },
+  gatewayMonthlyMin: 50
+};
+
+function calculateMerchantFees(amount) {
+  const squareFee = (amount * CC_FEES.square.percent) + CC_FEES.square.fixed;
+  const gatewayFee = (amount * CC_FEES.gateway.percent) + CC_FEES.gateway.fixed;
+  return squareFee + gatewayFee; // Total: 4.4% + $0.40
+}
 
 // Fetch data
 async function fetchSheetData() {
@@ -2189,28 +2271,66 @@ function renderFinancialMetrics() {
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
   
-  // Filter orders for this month
-  const thisMonthOrders = ordersData.filter(row => {
+  // Get all orders for this month
+  let allOrders = ordersData.filter(row => {
     if (!row[1]) return false;
     const orderDate = new Date(row[1]);
     return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
   });
   
-  // Calculate revenue (column O = Total)
-  let monthlyRevenue = 0;
-  thisMonthOrders.forEach(row => {
-    const total = parseFloat(row[14]) || 0;
-    monthlyRevenue += total;
-  });
+  // Payment method categorization
+  const reportedMethods = ['Bankful', 'Credit Card', 'Debit Card'];
+  const unreportedMethods = ['Zelle', 'Cash', 'Bitcoin', 'Venmo', 'Crypto'];
   
-  // Calculate expenses (COGS from orders)
+  // Split revenue by payment type and calculate fees
+  let ccRevenue = 0;
+  let zelleRevenue = 0;
+  let totalRefunds = 0;
+  let totalMerchantFees = 0;
   let monthlyCOGS = 0;
-  thisMonthOrders.forEach(row => {
-    const cogs = parseFloat(row[15]) || 0;
+  
+  allOrders.forEach(row => {
+    const total = parseFloat(row[14]) || 0; // Column O
+    const cogs = parseFloat(row[15]) || 0;  // Column P
+    const refund = parseFloat(row[17]) || 0; // Column R (if exists)
+    const paymentMethod = (row[8] || '').toString(); // Column I
+    
+    const netRevenue = total - refund;
+    totalRefunds += refund;
     monthlyCOGS += cogs;
+    
+    // Categorize revenue
+    if (reportedMethods.some(m => paymentMethod.includes(m))) {
+      ccRevenue += netRevenue;
+      if (total > 0) {
+        totalMerchantFees += calculateMerchantFees(total);
+      }
+    } else if (unreportedMethods.some(m => paymentMethod.includes(m))) {
+      zelleRevenue += netRevenue;
+    } else {
+      // Default to CC for unknown methods
+      ccRevenue += netRevenue;
+      if (total > 0) {
+        totalMerchantFees += calculateMerchantFees(total);
+      }
+    }
   });
   
-  // Add other expenses from Expenses sheet
+  const totalRevenue = ccRevenue + zelleRevenue;
+  const displayRevenue = cleanBooksMode ? ccRevenue : totalRevenue;
+  
+  // Filter displayed COGS if in clean books mode
+  if (cleanBooksMode) {
+    monthlyCOGS = 0;
+    allOrders.forEach(row => {
+      const paymentMethod = (row[8] || '').toString();
+      if (reportedMethods.some(m => paymentMethod.includes(m))) {
+        monthlyCOGS += parseFloat(row[15]) || 0;
+      }
+    });
+  }
+  
+  // Operating expenses
   const thisMonthExpenses = expensesData.filter(row => {
     if (!row[0]) return false;
     const expenseDate = new Date(row[0]);
@@ -2219,30 +2339,56 @@ function renderFinancialMetrics() {
   
   let operatingExpenses = 0;
   thisMonthExpenses.forEach(row => {
-    const amount = parseFloat(row[4]) || 0;
-    operatingExpenses += amount;
+    operatingExpenses += parseFloat(row[4]) || 0;
   });
   
-  const totalExpenses = monthlyCOGS + operatingExpenses;
-  const netProfit = monthlyRevenue - totalExpenses;
-  const taxesOwed = netProfit * 0.30;
-  const profitMargin = monthlyRevenue > 0 ? ((netProfit / monthlyRevenue) * 100).toFixed(1) : 0;
+  // Gateway monthly minimum shortfall
+  const gatewayFeesCollected = totalMerchantFees * 0.136; // 0.6% / (3.8% + 0.6%)
+  const gatewayShortfall = Math.max(0, CC_FEES.gatewayMonthlyMin - gatewayFeesCollected);
+  
+  // Totals
+  const totalExpenses = monthlyCOGS + totalMerchantFees + operatingExpenses + gatewayShortfall;
+  const netProfit = displayRevenue - totalExpenses;
+  const taxableIncome = cleanBooksMode ? netProfit : (ccRevenue - (ccRevenue / totalRevenue * totalExpenses));
+  const taxesOwed = Math.max(0, taxableIncome * 0.30);
+  const profitMargin = displayRevenue > 0 ? ((netProfit / displayRevenue) * 100).toFixed(1) : 0;
   
   // Update UI
-  document.getElementById('monthlyRevenue').textContent = '$' + monthlyRevenue.toFixed(2);
+  document.getElementById('monthlyRevenue').textContent = '$' + displayRevenue.toFixed(2);
   document.getElementById('monthlyExpenses').textContent = '$' + totalExpenses.toFixed(2);
   document.getElementById('netProfit').textContent = '$' + netProfit.toFixed(2);
   document.getElementById('taxesOwed').textContent = '$' + taxesOwed.toFixed(2);
   
+  // Revenue card
+  if (document.getElementById('revenueCardTitle')) {
+    document.getElementById('revenueCardTitle').textContent = cleanBooksMode ? 'Reported Revenue' : 'Total Revenue';
+    document.getElementById('revenueCardLabel').textContent = cleanBooksMode ? 'CC/Bankful only' : 'All payment methods';
+  }
+  
+  // Revenue breakdown
+  if (document.getElementById('revenueBreakdown')) {
+    if (!cleanBooksMode && zelleRevenue > 0) {
+      document.getElementById('revenueBreakdown').innerHTML = 
+        `CC: $${ccRevenue.toFixed(0)} | Zelle/Cash: <span style="color: var(--warning);">$${zelleRevenue.toFixed(0)}</span> 🔒`;
+    } else {
+      document.getElementById('revenueBreakdown').textContent = '';
+    }
+  }
+  
   // Change indicators
   const revenueChangeEl = document.getElementById('revenueChange');
-  revenueChangeEl.textContent = `${thisMonthOrders.length} orders this month`;
+  let changeText = `${allOrders.length} orders`;
+  if (cleanBooksMode) changeText += ` (${allOrders.filter(r => reportedMethods.some(m => (r[8]||'').includes(m))).length} reported)`;
+  if (totalRefunds > 0) changeText += ` | Refunds: -$${totalRefunds.toFixed(0)}`;
+  revenueChangeEl.textContent = changeText;
   
   const expensesBreakdownEl = document.getElementById('expensesBreakdown');
-  expensesBreakdownEl.innerHTML = `COGS: $${monthlyCOGS.toFixed(0)} | Operating: $${operatingExpenses.toFixed(0)}`;
+  let expenseText = `COGS: $${monthlyCOGS.toFixed(0)} | Fees: $${totalMerchantFees.toFixed(0)} | Operating: $${operatingExpenses.toFixed(0)}`;
+  if (gatewayShortfall > 0) expenseText += ` | Gateway: $${gatewayShortfall.toFixed(0)}`;
+  expensesBreakdownEl.innerHTML = expenseText;
   
   const profitMarginEl = document.getElementById('profitMargin');
-  profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% profit margin</span>`;
+  profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% margin</span>`;
 }
 
 // P&L Statement
@@ -2838,6 +2984,35 @@ function logout() {
   }
 }
 
+function toggleCleanBooks() {
+  cleanBooksMode = !cleanBooksMode;
+  
+  // Update button
+  const btn = document.getElementById('cleanBooksToggle');
+  btn.textContent = cleanBooksMode ? '💼 Clean Books' : '💰 Full View';
+  btn.style.borderColor = cleanBooksMode ? 'var(--accent)' : 'var(--border)';
+  btn.style.color = cleanBooksMode ? 'var(--accent)' : 'var(--text)';
+  
+  // Show/hide indicator
+  document.getElementById('cleanBooksIndicator').style.display = cleanBooksMode ? 'block' : 'none';
+  
+  // Save preference
+  localStorage.setItem('cleanBooksMode', cleanBooksMode.toString());
+  
+  // Re-render financials
+  renderFinancialMetrics();
+  renderPLStatement();
+}
+
+function loadCleanBooksPreference() {
+  const saved = localStorage.getItem('cleanBooksMode');
+  if (saved === 'true') {
+    cleanBooksMode = true;
+    document.getElementById('cleanBooksToggle').textContent = '💼 Clean Books';
+    document.getElementById('cleanBooksIndicator').style.display = 'block';
+  }
+}
+
 // Manual Sale Functions
 function openManualSaleModal() {
   document.getElementById('manualSaleForm').reset();
@@ -3033,7 +3208,123 @@ window.addEventListener('load', checkAuth);
 window.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   loadSuppliers();
+  loadCleanBooksPreference();
 });
+
+// Refund Functions
+function openRefundModal(rowIndex) {
+  const row = ordersData[rowIndex];
+  
+  document.getElementById('refundOrderIndex').value = rowIndex;
+  document.getElementById('refundOrderId').value = row[0];
+  document.getElementById('refundOrderInfo').value = `Order ${row[0]} - ${row[9]} (${row[10]} vials) - $${row[14]}`;
+  
+  document.getElementById('refundType').value = '';
+  document.getElementById('refundAmount').value = '';
+  document.getElementById('refundShipped').value = 'yes';
+  document.getElementById('refundReason').value = '';
+  document.getElementById('partialAmountGroup').style.display = 'none';
+  document.getElementById('refundImpactText').textContent = 'Select refund type to see impact...';
+  
+  document.getElementById('refundModal').classList.add('active');
+}
+
+function closeRefundModal() {
+  document.getElementById('refundModal').classList.remove('active');
+}
+
+function updateRefundAmount() {
+  const type = document.getElementById('refundType').value;
+  const rowIndex = document.getElementById('refundOrderIndex').value;
+  const row = ordersData[rowIndex];
+  const total = parseFloat(row[14]) || 0;
+  const paymentMethod = row[8] || '';
+  
+  if (type === 'full') {
+    document.getElementById('partialAmountGroup').style.display = 'none';
+    document.getElementById('refundAmount').value = total;
+    
+    const ccFees = calculateMerchantFees(total);
+    document.getElementById('refundImpactText').innerHTML = `
+      <strong>Full Refund: $${total.toFixed(2)}</strong><br>
+      • Revenue lost: -$${total.toFixed(2)}<br>
+      • CC fees you ate: -$${ccFees.toFixed(2)}<br>
+      • Total loss: $${(total + ccFees).toFixed(2)}
+    `;
+  } else if (type === 'partial') {
+    document.getElementById('partialAmountGroup').style.display = 'block';
+    document.getElementById('refundImpactText').textContent = 'Enter refund amount to see impact';
+  }
+}
+
+async function processRefund() {
+  const form = document.getElementById('refundForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  const rowIndex = document.getElementById('refundOrderIndex').value;
+  const orderId = document.getElementById('refundOrderId').value;
+  const type = document.getElementById('refundType').value;
+  const refundAmount = parseFloat(document.getElementById('refundAmount').value) || 0;
+  const shipped = document.getElementById('refundShipped').value;
+  const reason = document.getElementById('refundReason').value;
+  
+  const row = ordersData[rowIndex];
+  const total = parseFloat(row[14]) || 0;
+  const ccFees = calculateMerchantFees(total);
+  
+  if (!confirm(`Issue ${type} refund of $${refundAmount.toFixed(2)}?`)) return;
+  
+  try {
+    const sheetRow = parseInt(rowIndex) + 2;
+    const today = new Date().toLocaleDateString();
+    
+    // Update Orders sheet: Refund amount, Status
+    await gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: SHEET_ID,
+      range: `Orders!R${sheetRow}:T${sheetRow}`,
+      valueInputOption: 'RAW',
+      resource: {
+        values: [[
+          refundAmount,
+          today,
+          type === 'full' ? 'Refunded' : 'Partial Refund'
+        ]]
+      }
+    });
+    
+    // Add CC fees to expenses if CC payment
+    const paymentMethod = row[8] || '';
+    if (paymentMethod.includes('Credit') || paymentMethod.includes('Bankful')) {
+      await gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: SHEET_ID,
+        range: 'Expenses!A:G',
+        valueInputOption: 'RAW',
+        resource: {
+          values: [[
+            today,
+            'Merchant Fees',
+            'Payment Processor',
+            `Refund CC fees - Order ${orderId}`,
+            ccFees.toFixed(2),
+            orderId,
+            'N/A'
+          ]]
+        }
+      });
+    }
+    
+    showToast(`Refund processed: $${refundAmount.toFixed(2)}`, 'success');
+    closeRefundModal();
+    await fetchSheetData();
+    
+  } catch (err) {
+    console.error('Error processing refund:', err);
+    alert('Error processing refund. Check console.');
+  }
+}
 
 // Load Google API
 window.gapiLoaded = gapiLoaded;
