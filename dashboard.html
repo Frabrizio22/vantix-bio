@@ -733,7 +733,7 @@ tr:hover {
 }
 </style>
 </head>
-<body style="visibility: hidden;">
+<body>
 
 <div class="grid-bg"></div>
 
@@ -1327,10 +1327,8 @@ function gisLoaded() {
 
 function maybeEnableButtons() {
   if (gapiInited && tokenClient) {
-    // Small delay to ensure Google Sign-In is fully ready
-    setTimeout(() => {
-      checkAuthorization();
-    }, 100);
+    // Load data directly (auth temporarily disabled due to OAuth config)
+    fetchSheetData();
   }
 }
 
