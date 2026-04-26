@@ -1368,10 +1368,10 @@ tr:hover {
           <label class="form-label">Supplier</label>
           <select class="form-select" id="supplier" required>
             <option value="">Select supplier...</option>
-            <option>Lydia</option>
-            <option>Smile</option>
-            <option>Other</option>
           </select>
+          <button type="button" class="btn btn-sm btn-outline" onclick="addNewSupplier()" style="margin-top: 8px; width: 100%;">
+            + Add New Supplier
+          </button>
         </div>
         
         <div class="form-group">
@@ -1605,6 +1605,9 @@ function handleAuthClick() {
 let ordersData = [];
 let expensesData = [];
 
+// Suppliers list (editable)
+let suppliers = ['Lydia', 'Smile', 'Other'];
+
 // Fetch data
 async function fetchSheetData() {
   try {
@@ -1818,7 +1821,65 @@ function openAddBatchModal() {
   document.getElementById('batchForm').reset();
   document.getElementById('editRowIndex').value = '';
   document.getElementById('dateReceived').valueAsDate = new Date();
+  
+  // Populate supplier dropdown
+  populateSuppliers();
+  
   document.getElementById('batchModal').classList.add('active');
+}
+
+function populateSuppliers() {
+  const supplierSelect = document.getElementById('supplier');
+  supplierSelect.innerHTML = '<option value="">Select supplier...</option>';
+  
+  suppliers.forEach(sup => {
+    supplierSelect.innerHTML += `<option value="${sup}">${sup}</option>`;
+  });
+}
+
+function addNewSupplier() {
+  const newSupplier = prompt('Enter new supplier name:');
+  
+  if (newSupplier && newSupplier.trim()) {
+    const supplierName = newSupplier.trim();
+    
+    // Check if already exists
+    if (suppliers.includes(supplierName)) {
+      alert('Supplier already exists!');
+      return;
+    }
+    
+    // Add to list (before "Other")
+    const otherIndex = suppliers.indexOf('Other');
+    if (otherIndex > -1) {
+      suppliers.splice(otherIndex, 0, supplierName);
+    } else {
+      suppliers.push(supplierName);
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('suppliers', JSON.stringify(suppliers));
+    
+    // Repopulate dropdown
+    populateSuppliers();
+    
+    // Select the new supplier
+    document.getElementById('supplier').value = supplierName;
+    
+    showToast(`Supplier "${supplierName}" added!`, 'success');
+  }
+}
+
+// Load suppliers from localStorage on page load
+function loadSuppliers() {
+  const saved = localStorage.getItem('suppliers');
+  if (saved) {
+    try {
+      suppliers = JSON.parse(saved);
+    } catch (e) {
+      console.error('Error loading suppliers:', e);
+    }
+  }
 }
 
 function editBatch(rowIndex) {
@@ -2556,8 +2617,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Check auth on page load
 window.addEventListener('load', checkAuth);
 
-// Load theme on page load
-window.addEventListener('DOMContentLoaded', loadTheme);
+// Load theme and suppliers on page load
+window.addEventListener('DOMContentLoaded', () => {
+  loadTheme();
+  loadSuppliers();
+});
 
 // Load Google API
 window.gapiLoaded = gapiLoaded;
