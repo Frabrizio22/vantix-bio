@@ -20,13 +20,29 @@ h1{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.02em}
 .container{max-width:1200px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
 .status-bar{background:var(--navy);color:rgba(255,255,255,.9);padding:12px 0;position:sticky;top:0;z-index:100}
 .status-inner{max-width:1400px;margin:0 auto;padding:0 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;text-align:center}
-.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);padding:12px 0;position:sticky;top:37px;z-index:99}
-.header-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px}
-.back-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;transition:opacity .2s}
-.back-btn:hover{opacity:.6}
-.back-btn svg{width:20px;height:20px;stroke-width:2}
-.logo{display:flex;align-items:center}
+.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline);background:rgba(250,250,247,.98);position:sticky;top:37px;z-index:99}@media(min-width:768px){.header-nav{padding:20px 0}}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
 .logo img{height:32px}
+.header-icons{display:flex;align-items:center;gap:8px}
+.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
+.icon-btn:hover{opacity:.6}
+.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
+.btn{padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}@media(min-width:480px){.btn{padding:11px 24px;font-size:14px}}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
+.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px;align-items:center}}
+.nav-links a{position:relative;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-item{position:relative}
+.catalog-link{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text);font-size:15px;font-weight:500}
+.catalog-link svg{width:14px;height:14px;transition:transform .2s;stroke:currentColor;stroke-width:2}
+.nav-item:hover .catalog-link svg{transform:rotate(180deg)}
+.nav-dropdown{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
+.nav-item:hover .nav-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
+.nav-dropdown a:hover{background:var(--bg)}
+.nav-dropdown a::after{display:none}
 .hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--hairline)}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
@@ -79,16 +95,41 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <div class="status-inner">Forensic Verification Portal — Independently Tested — Prague, CZ</div>
 </div>
 
-<div class="header">
-<div class="header-inner">
-<button class="back-btn" onclick="window.location.href='index.html'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
-<span>Back</span>
+<div class="container">
+<nav class="header-nav">
+<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+<button class="icon-btn" id="menuBtn" aria-label="Menu">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
 </button>
 <a href="index.html" class="logo">
-<img src="logo-header.svg" alt="Vantix Bio">
+<img src="logo-header.svg" alt="Vantix Bio" style="height:32px">
 </a>
 </div>
+<div class="nav-links">
+<div class="nav-item">
+<div class="catalog-link">
+<span>Catalog</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
+</div>
+<div class="nav-dropdown">
+<a href="shop.html">Single Vials</a>
+<a href="kits.html">Research Kits</a>
+</div>
+</div>
+<a href="verify.html">Verify</a>
+<a href="blog/">Research</a>
+<a href="about.html">About</a>
+</div>
+<div class="header-icons">
+<button class="icon-btn" id="searchBtn" aria-label="Search">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+</button>
+<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026" style="position:relative">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+</button>
+<button class="btn btn-dark" onclick="window.location.href='index.html#waitlist'">Join Waitlist</button>
+</div>
+</nav>
 </div>
 
 <div class="terminal-overlay" id="terminalOverlay">
@@ -347,6 +388,15 @@ let input=batchParam.toUpperCase();
 if(!input.startsWith('VX-'))input='VX-'+input;
 batchInput.value=input;
 }
+
+// Header button handlers
+const menuBtn=document.getElementById('menuBtn');
+const searchBtn=document.getElementById('searchBtn');
+const cartBtn=document.getElementById('cartBtn');
+
+if(menuBtn) menuBtn.onclick=()=>window.location.href='index.html';
+if(searchBtn) searchBtn.onclick=()=>window.location.href='verify.html';
+if(cartBtn) cartBtn.onclick=()=>alert('Cart available mid-May 2026');
 </script>
 </body>
 </html>
