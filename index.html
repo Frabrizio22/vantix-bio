@@ -64,10 +64,19 @@ h1 em,h2 em{font-style:italic;font-weight:300}
 .icon-btn:hover{opacity:.6}
 .icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--accent);color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace}
-.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px}}
+.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px;align-items:center}}
 .nav-links a{position:relative;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
 .nav-links a:hover::after{width:100%}
+.nav-item{position:relative}
+.catalog-link{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text);font-size:15px;font-weight:500}
+.catalog-link svg{width:14px;height:14px;transition:transform .2s;stroke:currentColor;stroke-width:2}
+.nav-item:hover .catalog-link svg{transform:rotate(180deg)}
+.nav-dropdown{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
+.nav-item:hover .nav-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
+.nav-dropdown a:hover{background:var(--bg)}
+.nav-dropdown a::after{display:none}
 .btn{padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}@media(min-width:480px){.btn{padding:11px 24px;font-size:14px}}@media(max-width:380px){.btn-waitlist{display:none}}
 .btn-dark{background:var(--navy);color:#fff}
 .btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
@@ -223,7 +232,16 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 </a>
 </div>
 <div class="nav-links">
-<a href="shop.html">Catalog</a>
+<div class="nav-item">
+<div class="catalog-link">
+<span>Catalog</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
+</div>
+<div class="nav-dropdown">
+<a href="shop.html">Single Vials</a>
+<a href="kits.html">Research Kits</a>
+</div>
+</div>
 <a href="verify.html">Verify</a>
 <a href="blog/">Research</a>
 <a href="about.html">About</a>
