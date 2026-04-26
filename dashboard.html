@@ -1076,8 +1076,19 @@ tr:hover {
         </div>
         <div class="card-value" id="taxesOwed">--</div>
         <div class="card-label">Set aside for quarterly taxes</div>
+        <div class="card-change" style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">
+          30% estimate (federal + state + self-employment)
+        </div>
       </div>
 
+    </div>
+
+    <!-- Tax Info Alert -->
+    <div class="alert alert-info fade-in" style="margin-bottom: 20px; background: var(--surface); border-left: 3px solid var(--accent);">
+      <div class="alert-icon">📄</div>
+      <div class="alert-text">
+        <strong>Tax Calculation:</strong> 30% is a conservative estimate covering federal income tax (~15-22%), California state tax (~9.3%), and self-employment tax (~15.3% on net earnings). Actual rate depends on total income. Consult a tax professional.
+      </div>
     </div>
 
     <!-- P&L Statement -->
@@ -1289,11 +1300,17 @@ tr:hover {
             <option value="">Select category...</option>
             <option>Product Cost</option>
             <option>Shipping</option>
-            <option>Testing</option>
-            <option>Software</option>
-            <option>Labels/Packaging</option>
+            <option>Testing (Janoshik)</option>
             <option>Merchant Fees</option>
-            <option>Marketing</option>
+            <option>Software/SaaS</option>
+            <option>Labels/Packaging</option>
+            <option>Marketing/Ads</option>
+            <option>Equipment</option>
+            <option>Vehicle Payment</option>
+            <option>Vehicle Insurance</option>
+            <option>Business Insurance</option>
+            <option>Office Supplies</option>
+            <option>Professional Services</option>
             <option>Other</option>
           </select>
         </div>
@@ -2619,6 +2636,7 @@ function renderPendingOrders() {
         <td><span class="status-badge status-low">${status}</span></td>
         <td>
           <button class="btn btn-sm btn-primary" onclick="openPackingModal(${rowIndex})">Pack & Ship</button>
+          <button class="btn btn-sm btn-outline" onclick="openRefundModal(${rowIndex})" style="margin-left: 4px; border-color: var(--critical); color: var(--critical);">Refund</button>
         </td>
       </tr>
     `;
