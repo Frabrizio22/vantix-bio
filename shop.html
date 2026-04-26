@@ -65,23 +65,22 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 .oos-badge{display:none}
 
 /* Waitlist Modal */
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(11,37,69,.95);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.modal.active{display:flex}
-.modal-content{background:var(--bg);border-radius:16px;max-width:480px;width:calc(100% - 40px);padding:32px;position:relative}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:28px;cursor:pointer;color:rgba(10,22,40,.5);line-height:1;padding:4px 8px;transition:color .2s}
-.modal-close:hover{color:var(--text)}
-.modal-title{font-family:'Fraunces',serif;font-size:28px;font-weight:300;margin-bottom:12px}
-.modal-desc{color:rgba(10,22,40,.7);margin-bottom:24px;line-height:1.6}
-.form-group{margin-bottom:20px}
-.form-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.6);margin-bottom:8px;display:block}
-.form-input{width:100%;padding:12px 16px;border:1px solid var(--hairline);border-radius:8px;font-size:15px;font-family:'Geist',sans-serif;transition:border-color .2s}
-.form-input:focus{outline:none;border-color:var(--accent)}
-.form-submit{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:24px;font-size:15px;font-weight:600;cursor:pointer;transition:background .3s}
-.form-submit:hover{background:var(--accent)}
-.form-submit:disabled{opacity:.5;cursor:not-allowed}
-.form-message{margin-top:16px;padding:12px;border-radius:8px;font-size:14px;text-align:center}
-.form-message.success{background:rgba(57,115,176,.1);color:var(--accent)}
-.form-message.error{background:rgba(220,53,69,.1);color:#dc3545}
+.waitlist-modal{position:fixed;inset:0;background:rgba(10,22,40,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.waitlist-modal.active{display:flex}
+.waitlist-modal-content{background:var(--bg);border-radius:16px;padding:40px 32px;max-width:480px;width:100%;position:relative}
+.waitlist-modal-close{position:absolute;top:16px;right:16px;background:none;border:none;padding:8px;cursor:pointer;color:var(--text);opacity:.6}
+.waitlist-modal-close:hover{opacity:1}
+.waitlist-modal-close svg{width:20px;height:20px}
+.waitlist-modal h3{font-family:'Fraunces',serif;font-size:28px;font-weight:300;margin-bottom:12px}
+.waitlist-modal p{color:rgba(10,22,40,.7);margin-bottom:24px;line-height:1.6}
+.waitlist-form{display:flex;flex-direction:column;gap:12px}
+.waitlist-input{padding:14px 16px;border:1px solid var(--hairline);border-radius:10px;font-size:15px;font-family:'Geist',sans-serif}
+.waitlist-input:focus{outline:none;border-color:var(--accent)}
+.waitlist-submit{padding:14px 24px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s}
+.waitlist-submit:hover{background:var(--accent)}
+.waitlist-success{display:none;text-align:center;padding:20px}
+.waitlist-success.active{display:block}
+.waitlist-success svg{width:48px;height:48px;color:var(--accent);margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -192,30 +191,44 @@ renderProducts();
 
 // Waitlist Modal Functions
 let currentProductSlug = '';
+let currentProductName = '';
 
 function openWaitlistModal(slug) {
+  // Find product name from VX_PRODUCTS
+  const product = [...VX_PRODUCTS.phase1].find(p => p.slug === slug);
   currentProductSlug = slug;
+  currentProductName = product ? product.name : 'this product';
+  
+  // Update modal text
+  document.getElementById('waitlistProductName').textContent = 
+    `Be notified when ${currentProductName} launches with batch-specific Janoshik COAs.`;
+  
   document.getElementById('waitlistModal').classList.add('active');
+  document.getElementById('waitlistFormContainer').style.display = 'block';
+  document.getElementById('waitlistSuccess').classList.remove('active');
   document.getElementById('waitlistEmail').value = '';
-  document.getElementById('waitlistMessage').style.display = 'none';
 }
 
 function closeWaitlistModal() {
   document.getElementById('waitlistModal').classList.remove('active');
+  setTimeout(() => {
+    document.getElementById('waitlistFormContainer').style.display = 'block';
+    document.getElementById('waitlistSuccess').classList.remove('active');
+  }, 300);
   currentProductSlug = '';
+  currentProductName = '';
 }
 
 async function submitWaitlist(e) {
   e.preventDefault();
   const email = document.getElementById('waitlistEmail').value;
   const submitBtn = document.getElementById('waitlistSubmit');
-  const message = document.getElementById('waitlistMessage');
   
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';
   
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec', {
+    await fetch('https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -226,45 +239,50 @@ async function submitWaitlist(e) {
       })
     });
     
-    message.className = 'form-message success';
-    message.textContent = '✓ Added to waitlist! We\'ll notify you at launch.';
-    message.style.display = 'block';
+    // Show success state
+    document.getElementById('waitlistFormContainer').style.display = 'none';
+    document.getElementById('waitlistSuccess').classList.add('active');
     
+    // Close after 2 seconds
     setTimeout(() => {
       closeWaitlistModal();
     }, 2000);
+    
   } catch (error) {
-    message.className = 'form-message error';
-    message.textContent = 'Error submitting. Please try again.';
-    message.style.display = 'block';
+    alert('Error submitting. Please try again.');
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Join Waitlist';
+    submitBtn.textContent = 'Notify me at launch';
   }
 }
 
 // Close modal on background click
 document.addEventListener('click', (e) => {
-  if (e.target.id === 'waitlistModal') {
+  if (e.target.classList.contains('waitlist-modal')) {
     closeWaitlistModal();
   }
 });
 </script>
 
 <!-- Waitlist Modal -->
-<div id="waitlistModal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeWaitlistModal()">&times;</button>
-    <h3 class="modal-title">Join Waitlist</h3>
-    <p class="modal-desc">Be notified when this product launches with batch-specific Janoshik COAs.</p>
-    <form onsubmit="submitWaitlist(event)">
-      <div class="form-group">
-        <label class="form-label" for="waitlistEmail">Email Address</label>
-        <input type="email" id="waitlistEmail" class="form-input" placeholder="your@email.com" required>
-      </div>
-      <button type="submit" id="waitlistSubmit" class="form-submit">Join Waitlist</button>
-      <div id="waitlistMessage" class="form-message" style="display:none"></div>
-    </form>
+<div class="waitlist-modal" id="waitlistModal">
+  <div class="waitlist-modal-content">
+    <button class="waitlist-modal-close" onclick="closeWaitlistModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+    <div id="waitlistFormContainer">
+      <h3>Join the waitlist</h3>
+      <p id="waitlistProductName">Be notified when this product launches with batch-specific Janoshik COAs.</p>
+      <form class="waitlist-form" onsubmit="submitWaitlist(event)">
+        <input type="email" id="waitlistEmail" class="waitlist-input" placeholder="your@email.com" required>
+        <button type="submit" id="waitlistSubmit" class="waitlist-submit">Notify me at launch</button>
+      </form>
+    </div>
+    <div class="waitlist-success" id="waitlistSuccess">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+      <h3 style="font-size:22px;margin-bottom:8px">You're on the list</h3>
+      <p style="margin-bottom:0">We'll notify you when this product launches in mid-May 2026.</p>
+    </div>
   </div>
 </div>
 
