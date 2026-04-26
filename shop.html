@@ -144,47 +144,43 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 </div>
 </footer>
 
+<script src="shop_products_data.js"></script>
 <script>
-const products=[
-{id:'tirz',name:'Tirzepatide',dose:'30mg',category:'metabolic',desc:'GIP/GLP-1 dual agonist',price:68,purity:'99.2%',inStock:false,image:'images/products/tirzepatide-30mg.jpg'},
-{id:'reta',name:'Retatrutide',dose:'20mg',category:'metabolic',desc:'GIP/GLP-1/glucagon triple agonist',price:68,purity:'99.1%',inStock:false,image:'images/products/retatrutide-20mg.jpg'},
-{id:'sema',name:'Semaglutide',dose:'10mg',category:'metabolic',desc:'GLP-1 receptor agonist',price:42,purity:'99.3%',inStock:false,image:'images/products/semaglutide-10mg.jpg'},
-{id:'bpc',name:'BPC-157',dose:'10mg',category:'regen',desc:'Cytoprotective peptide',price:30,purity:'99.4%',inStock:false,image:'images/products/bpc-157-10mg.jpg'},
-{id:'tb500',name:'TB-500',dose:'10mg',category:'regen',desc:'Thymosin beta-4 fragment',price:38,purity:'99.2%',inStock:false,image:'images/products/tb-500-10mg.jpg'},
-{id:'ghk',name:'GHK-Cu',dose:'100mg',category:'dermal',desc:'Copper peptide',price:34,purity:'99.5%',inStock:false,image:'images/products/ghk-cu-100mg.jpg'},
-{id:'cjc',name:'CJC-1295',dose:'10mg',category:'gh-axis',desc:'GHRH analog',price:42,purity:'99.1%',inStock:false,image:'images/products/cjc-1295-10mg.jpg'},
-{id:'ipa',name:'Ipamorelin',dose:'5mg',category:'gh-axis',desc:'Growth hormone secretagogue',price:30,purity:'99.3%',inStock:false,image:'images/products/ipamorelin-10mg.jpg'},
-{id:'mots',name:'MOTS-c',dose:'10mg',category:'mito',desc:'Mitochondrial peptide',price:32,purity:'99.2%',inStock:false,image:'images/products/mots-c-10mg.jpg'},
-{id:'nad',name:'NAD+',dose:'1000mg',category:'mito',desc:'Nicotinamide adenine dinucleotide',price:68,purity:'99.4%',inStock:false,image:'images/products/nad-1000mg.jpg'},
-{id:'tesa',name:'Tesamorelin',dose:'10mg',category:'gh-axis',desc:'GHRH analog',price:52,purity:'99.1%',inStock:false},
-{id:'aod',name:'AOD-9604',dose:'10mg',category:'metabolic',desc:'Growth hormone fragment',price:52,purity:'99.2%',inStock:false}
-];
+// Map category labels to match filter buttons
+const categoryMap = {
+  'metabolic': 'metabolic',
+  'cytoprotective': 'regen',
+  'growth-hormone': 'gh-axis',
+  'longevity': 'mito',
+  'dermal': 'dermal'
+};
 
 function renderProducts(filter='all'){
-const filtered=filter==='all'?products:products.filter(p=>p.category===filter);
-document.getElementById('productsGrid').innerHTML=filtered.map(p=>`
-<div class="product-card" id="${p.id}" onclick="window.location.href='product.html?id=${p.id}'" style="cursor:pointer">
-${p.image?`<img src="${p.image}" alt="${p.name}" class="product-image">`:'<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
-${!p.inStock?'<div class="oos-label">COA Pending</div>':''}
-<div class="product-category">${p.category.toUpperCase().replace('-',' ')}</div>
-<h3 class="product-name">${p.name}</h3>
-<p class="product-desc">${p.desc}</p>
-<div class="product-meta">${p.dose} · ${p.purity} PURE</div>
-<div class="product-price">$${p.price}</div>
-<div class="product-cta">
-<button class="btn btn-dark btn-waitlist" onclick="openWaitlistModal('${p.slug}')">Join Waitlist</button>
-${p.inStock?'<a href="verify.html" class="coa-link">COA →</a>':''}
-</div>
-</div>
-`).join('');
+  const allProducts = VX_PRODUCTS.phase1;
+  const filtered = filter === 'all' ? allProducts : allProducts.filter(p => categoryMap[p.category] === filter);
+  
+  document.getElementById('productsGrid').innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">
+      ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
+      ${!p.inStock ? '<div class="oos-label">COA Pending</div>' : ''}
+      <div class="product-category">${p.categoryLabel}</div>
+      <h3 class="product-name">${p.name}</h3>
+      <div class="product-meta">${p.dosage} · ${p.purity} PURE</div>
+      <div class="product-price">$${p.price}</div>
+      <div class="product-cta">
+        <button class="btn btn-dark btn-waitlist" onclick="event.stopPropagation();openWaitlistModal('${p.slug}')">Join Waitlist</button>
+        ${p.inStock ? '<a href="verify.html" class="coa-link" onclick="event.stopPropagation()">COA →</a>' : ''}
+      </div>
+    </div>
+  `).join('');
 }
 
-document.querySelectorAll('.filter-item').forEach(f=>{
-f.onclick=()=>{
-document.querySelectorAll('.filter-item').forEach(i=>i.classList.remove('active'));
-f.classList.add('active');
-renderProducts(f.dataset.category);
-};
+document.querySelectorAll('.filter-item').forEach(f => {
+  f.onclick = () => {
+    document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+    f.classList.add('active');
+    renderProducts(f.dataset.category);
+  };
 });
 
 renderProducts();
