@@ -266,6 +266,47 @@ body.light-mode .status-bar {
   font-size: 10px;
 }
 
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.tab {
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
 /* Grid */
 .grid {
   display: grid;
@@ -736,8 +777,17 @@ tr:hover {
     </div>
   </div>
 
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('inventory')">📦 Inventory</button>
+    <button class="tab" onclick="switchTab('financials')">💰 Financials</button>
+  </div>
+
   <!-- Alerts -->
   <div id="alerts"></div>
+
+  <!-- Inventory Tab -->
+  <div class="tab-content active" id="inventoryTab">
 
   <!-- Metrics Grid -->
   <div class="grid">
@@ -831,6 +881,110 @@ tr:hover {
       </table>
     </div>
   </div>
+
+  </div>
+  <!-- End Inventory Tab -->
+
+  <!-- Financials Tab -->
+  <div class="tab-content" id="financialsTab">
+
+    <!-- Financial Metrics Grid -->
+    <div class="grid">
+      
+      <!-- Monthly Revenue -->
+      <div class="card fade-in delay-1">
+        <div class="card-header">
+          <div class="card-title">Monthly Revenue</div>
+          <div class="card-icon">💵</div>
+        </div>
+        <div class="card-value" id="monthlyRevenue">--</div>
+        <div class="card-label">Total sales this month</div>
+        <div class="card-change" id="revenueChange"></div>
+      </div>
+
+      <!-- Monthly Expenses -->
+      <div class="card fade-in delay-2">
+        <div class="card-header">
+          <div class="card-title">Monthly Expenses</div>
+          <div class="card-icon">📉</div>
+        </div>
+        <div class="card-value" id="monthlyExpenses">--</div>
+        <div class="card-label">COGS + Operating costs</div>
+        <div class="card-change" id="expensesBreakdown"></div>
+      </div>
+
+      <!-- Net Profit -->
+      <div class="card fade-in delay-3">
+        <div class="card-header">
+          <div class="card-title">Net Profit</div>
+          <div class="card-icon">📈</div>
+        </div>
+        <div class="card-value" id="netProfit">--</div>
+        <div class="card-label">After all expenses</div>
+        <div class="card-change" id="profitMargin"></div>
+      </div>
+
+      <!-- Taxes Owed -->
+      <div class="card fade-in delay-4">
+        <div class="card-header">
+          <div class="card-title">Taxes Owed (30%)</div>
+          <div class="card-icon">🏛️</div>
+        </div>
+        <div class="card-value" id="taxesOwed">--</div>
+        <div class="card-label">Set aside for quarterly taxes</div>
+      </div>
+
+    </div>
+
+    <!-- P&L Statement -->
+    <div class="card table-card fade-in delay-4">
+      <div class="table-header">
+        <div class="table-title">💼 Profit & Loss Statement</div>
+        <span class="mono" style="color: var(--text-dim);">Current month breakdown</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="plTable">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>% of Revenue</th>
+            </tr>
+          </thead>
+          <tbody id="plBody">
+            <tr><td colspan="3" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Revenue by Product -->
+    <div class="card table-card fade-in delay-4">
+      <div class="table-header">
+        <div class="table-title">📊 Revenue by Product</div>
+        <span class="mono" style="color: var(--text-dim);">This month</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="revenueByProductTable">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Units Sold</th>
+              <th>Revenue</th>
+              <th>COGS</th>
+              <th>Gross Profit</th>
+              <th>Margin %</th>
+            </tr>
+          </thead>
+          <tbody id="revenueByProductBody">
+            <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Financials Tab -->
 
 </div>
 
@@ -982,23 +1136,36 @@ function handleAuthClick() {
   }
 }
 
+let ordersData = [];
+let expensesData = [];
+
 // Fetch data
 async function fetchSheetData() {
   try {
-    const response = await gapi.client.sheets.spreadsheets.values.get({
+    const batchesResponse = await gapi.client.sheets.spreadsheets.values.get({
       spreadsheetId: SHEET_ID,
       range: 'Batches!A2:S100',
     });
     
-    const range = response.result;
-    batchesData = range.values || [];
+    const ordersResponse = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: 'Orders!A2:Z100',
+    });
+    
+    const expensesResponse = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: 'Expenses!A2:G100',
+    });
+    
+    batchesData = batchesResponse.result.values || [];
+    ordersData = ordersResponse.result.values || [];
+    expensesData = expensesResponse.result.values || [];
     
     renderDashboard();
     updateLastRefresh();
   } catch (err) {
     console.error('Error loading data:', err);
     
-    // If not authorized, prompt for auth
     if (err.status === 401 || err.status === 403) {
       if (confirm('You need to sign in to view and edit data. Sign in now?')) {
         handleAuthClick();
@@ -1011,10 +1178,16 @@ async function fetchSheetData() {
 
 // Render dashboard
 function renderDashboard() {
+  // Inventory tab
   renderMetrics();
   renderAlerts();
   renderLowStockTable();
   renderAllBatchesTable();
+  
+  // Financials tab
+  renderFinancialMetrics();
+  renderPLStatement();
+  renderRevenueByProduct();
 }
 
 function renderMetrics() {
@@ -1308,6 +1481,263 @@ function showToast(message, type = 'success') {
 
 // Auto-refresh every 60 seconds
 setInterval(refreshData, 60000);
+
+// Tab Switching
+function switchTab(tabName) {
+  // Hide all tabs
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Remove active from all tab buttons
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Show selected tab
+  if (tabName === 'inventory') {
+    document.getElementById('inventoryTab').classList.add('active');
+    document.querySelector('.tab:nth-child(1)').classList.add('active');
+  } else if (tabName === 'financials') {
+    document.getElementById('financialsTab').classList.add('active');
+    document.querySelector('.tab:nth-child(2)').classList.add('active');
+  }
+}
+
+// Financial Metrics
+function renderFinancialMetrics() {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  // Filter orders for this month
+  const thisMonthOrders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+  });
+  
+  // Calculate revenue (column O = Total)
+  let monthlyRevenue = 0;
+  thisMonthOrders.forEach(row => {
+    const total = parseFloat(row[14]) || 0;
+    monthlyRevenue += total;
+  });
+  
+  // Calculate expenses (COGS from orders)
+  let monthlyCOGS = 0;
+  thisMonthOrders.forEach(row => {
+    const cogs = parseFloat(row[15]) || 0;
+    monthlyCOGS += cogs;
+  });
+  
+  // Add other expenses from Expenses sheet
+  const thisMonthExpenses = expensesData.filter(row => {
+    if (!row[0]) return false;
+    const expenseDate = new Date(row[0]);
+    return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+  });
+  
+  let operatingExpenses = 0;
+  thisMonthExpenses.forEach(row => {
+    const amount = parseFloat(row[4]) || 0;
+    operatingExpenses += amount;
+  });
+  
+  const totalExpenses = monthlyCOGS + operatingExpenses;
+  const netProfit = monthlyRevenue - totalExpenses;
+  const taxesOwed = netProfit * 0.30;
+  const profitMargin = monthlyRevenue > 0 ? ((netProfit / monthlyRevenue) * 100).toFixed(1) : 0;
+  
+  // Update UI
+  document.getElementById('monthlyRevenue').textContent = '$' + monthlyRevenue.toFixed(2);
+  document.getElementById('monthlyExpenses').textContent = '$' + totalExpenses.toFixed(2);
+  document.getElementById('netProfit').textContent = '$' + netProfit.toFixed(2);
+  document.getElementById('taxesOwed').textContent = '$' + taxesOwed.toFixed(2);
+  
+  // Change indicators
+  const revenueChangeEl = document.getElementById('revenueChange');
+  revenueChangeEl.textContent = `${thisMonthOrders.length} orders this month`;
+  
+  const expensesBreakdownEl = document.getElementById('expensesBreakdown');
+  expensesBreakdownEl.innerHTML = `COGS: $${monthlyCOGS.toFixed(0)} | Operating: $${operatingExpenses.toFixed(0)}`;
+  
+  const profitMarginEl = document.getElementById('profitMargin');
+  profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% profit margin</span>`;
+}
+
+// P&L Statement
+function renderPLStatement() {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  const thisMonthOrders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+  });
+  
+  let revenue = 0;
+  let cogs = 0;
+  let shipping = 0;
+  let fees = 0;
+  
+  thisMonthOrders.forEach(row => {
+    revenue += parseFloat(row[14]) || 0;
+    cogs += parseFloat(row[15]) || 0;
+    shipping += parseFloat(row[16]) || 0;
+    fees += parseFloat(row[17]) || 0;
+  });
+  
+  const thisMonthExpenses = expensesData.filter(row => {
+    if (!row[0]) return false;
+    const expenseDate = new Date(row[0]);
+    return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+  });
+  
+  let operatingExpenses = 0;
+  thisMonthExpenses.forEach(row => {
+    operatingExpenses += parseFloat(row[4]) || 0;
+  });
+  
+  const grossProfit = revenue - cogs;
+  const totalExpenses = shipping + fees + operatingExpenses;
+  const netProfit = grossProfit - totalExpenses;
+  const jessieShare = netProfit * 0.30;
+  const yourProfitBeforeTax = netProfit * 0.70;
+  const taxes = yourProfitBeforeTax * 0.30;
+  const yourNetProfit = yourProfitBeforeTax - taxes;
+  
+  const tbody = document.getElementById('plBody');
+  
+  const formatPercent = (val) => {
+    return revenue > 0 ? ((val / revenue) * 100).toFixed(1) + '%' : '0%';
+  };
+  
+  tbody.innerHTML = `
+    <tr style="background: rgba(96, 165, 250, 0.05);">
+      <td><strong>Revenue</strong></td>
+      <td><strong>$${revenue.toFixed(2)}</strong></td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Cost of Goods Sold (COGS)</td>
+      <td style="color: var(--critical);">-$${cogs.toFixed(2)}</td>
+      <td>${formatPercent(cogs)}</td>
+    </tr>
+    <tr style="border-top: 1px solid var(--border);">
+      <td><strong>Gross Profit</strong></td>
+      <td><strong>$${grossProfit.toFixed(2)}</strong></td>
+      <td>${formatPercent(grossProfit)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Shipping Costs</td>
+      <td style="color: var(--critical);">-$${shipping.toFixed(2)}</td>
+      <td>${formatPercent(shipping)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Payment Fees (5%)</td>
+      <td style="color: var(--critical);">-$${fees.toFixed(2)}</td>
+      <td>${formatPercent(fees)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Operating Expenses</td>
+      <td style="color: var(--critical);">-$${operatingExpenses.toFixed(2)}</td>
+      <td>${formatPercent(operatingExpenses)}</td>
+    </tr>
+    <tr style="border-top: 1px solid var(--border);">
+      <td><strong>Net Profit (Before Split)</strong></td>
+      <td><strong style="color: ${netProfit >= 0 ? 'var(--success)' : 'var(--critical)'};">$${netProfit.toFixed(2)}</strong></td>
+      <td>${formatPercent(netProfit)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Jessie's Share (30%)</td>
+      <td style="color: var(--critical);">-$${jessieShare.toFixed(2)}</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Your Profit Before Tax (70%)</td>
+      <td>$${yourProfitBeforeTax.toFixed(2)}</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Taxes (30%)</td>
+      <td style="color: var(--critical);">-$${taxes.toFixed(2)}</td>
+      <td>--</td>
+    </tr>
+    <tr style="border-top: 2px solid var(--accent); background: rgba(96, 165, 250, 0.08);">
+      <td><strong>Your Net Profit (After All)</strong></td>
+      <td><strong style="color: ${yourNetProfit >= 0 ? 'var(--success)' : 'var(--critical)'};font-size: 1.1em;">$${yourNetProfit.toFixed(2)}</strong></td>
+      <td>--</td>
+    </tr>
+  `;
+}
+
+// Revenue by Product
+function renderRevenueByProduct() {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  const thisMonthOrders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+  });
+  
+  const productStats = {};
+  
+  thisMonthOrders.forEach(row => {
+    const product = row[9];
+    const qty = parseInt(row[10]) || 0;
+    const revenue = parseFloat(row[14]) || 0;
+    const cogs = parseFloat(row[15]) || 0;
+    
+    if (!productStats[product]) {
+      productStats[product] = {
+        units: 0,
+        revenue: 0,
+        cogs: 0
+      };
+    }
+    
+    productStats[product].units += qty;
+    productStats[product].revenue += revenue;
+    productStats[product].cogs += cogs;
+  });
+  
+  const tbody = document.getElementById('revenueByProductBody');
+  
+  if (Object.keys(productStats).length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">No sales this month</td></tr>';
+    return;
+  }
+  
+  const sorted = Object.entries(productStats).sort((a, b) => b[1].revenue - a[1].revenue);
+  
+  tbody.innerHTML = sorted.map(([product, stats]) => {
+    const grossProfit = stats.revenue - stats.cogs;
+    const margin = stats.revenue > 0 ? ((grossProfit / stats.revenue) * 100).toFixed(1) : 0;
+    
+    return `
+      <tr>
+        <td>${product}</td>
+        <td><strong>${stats.units}</strong></td>
+        <td>$${stats.revenue.toFixed(2)}</td>
+        <td>$${stats.cogs.toFixed(2)}</td>
+        <td style="color: ${grossProfit >= 0 ? 'var(--success)' : 'var(--critical)'};">
+          <strong>$${grossProfit.toFixed(2)}</strong>
+        </td>
+        <td>
+          <span class="status-badge ${margin >= 50 ? 'status-in-stock' : margin >= 30 ? 'status-low' : 'status-critical'}">
+            ${margin}%
+          </span>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
 
 // Theme Toggle
 function toggleTheme() {
