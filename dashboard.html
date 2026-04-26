@@ -733,7 +733,7 @@ tr:hover {
 }
 </style>
 </head>
-<body>
+<body style="visibility: hidden;">
 
 <div class="grid-bg"></div>
 
@@ -1359,6 +1359,7 @@ async function verifyUserEmail() {
       // Authorized! Load dashboard
       isSignedIn = true;
       hideSignInPrompt();
+      document.body.style.visibility = 'visible';
       await fetchSheetData();
     } else {
       // Not authorized
@@ -1374,6 +1375,9 @@ function showSignInPrompt() {
   // Remove existing overlay if present
   const existing = document.getElementById('authOverlay');
   if (existing) existing.remove();
+  
+  // Make body visible with auth prompt
+  document.body.style.visibility = 'visible';
   
   const overlay = document.createElement('div');
   overlay.id = 'authOverlay';
