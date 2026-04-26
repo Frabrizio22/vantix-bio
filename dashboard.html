@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | Vantix Bio Operations</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #050812;
+  --surface: #0A1020;
+  --border: #1E293B;
+  --text: #E2E8F0;
+  --text-dim: #94A3B8;
+  --accent: #60a5fa;
+  --accent-glow: rgba(96, 165, 250, 0.2);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --critical: #ef4444;
+  --grid: #1a2332;
+}
+
+body {
+  font-family: 'Geist', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.display {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Animated Grid Background */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  opacity: 0.4;
+  animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+/* Status Bar */
+.status-bar {
+  position: sticky;
+  top: 0;
+  background: rgba(10, 16, 32, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  z-index: 100;
+}
+
+.status-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  position: relative;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.status-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+}
+
+.status-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Main Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.header-left h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.header-left .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  background: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  background: rgba(96, 165, 250, 0.05);
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(96, 165, 250, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.card-value {
+  font-family: 'Fraunces', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.card-label {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.card-change {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.change-positive {
+  color: var(--success);
+}
+
+.change-negative {
+  color: var(--critical);
+}
+
+/* Table */
+.table-card {
+  grid-column: 1 / -1;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+  font-size: 14px;
+}
+
+tr:hover {
+  background: rgba(96, 165, 250, 0.03);
+}
+
+.batch-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.status-in-stock {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-low {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-critical {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--critical);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-depleted {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-dim);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Alert Box */
+.alert {
+  padding: 16px 20px;
+  border-radius: 8px;
+  border-left: 3px solid;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.alert-critical {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--critical);
+  color: var(--critical);
+}
+
+.alert-icon {
+  font-size: 20px;
+}
+
+.alert-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-value {
+    font-size: 2.5rem;
+  }
+  
+  .header {
+    flex-direction: column;
+  }
+  
+  .status-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- Status Bar -->
+<div class="status-bar">
+  <div class="status-inner">
+    <div class="status-item">
+      <div class="pulse-dot"></div>
+      <span class="status-label">System</span>
+      <span class="status-value">OPERATIONAL</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Last Update</span>
+      <span class="status-value" id="lastUpdate">--:--:--</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Active Batches</span>
+      <span class="status-value" id="activeBatches">--</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Total Vials</span>
+      <span class="status-value" id="totalVials">--</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+  
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Operations Dashboard</h1>
+      <div class="subtitle">Vantix Bio Inventory System</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="refreshData()">↻ Refresh</button>
+      <a href="https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/edit" class="btn btn-primary" target="_blank">Open Sheet</a>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div id="alerts"></div>
+
+  <!-- Metrics Grid -->
+  <div class="grid">
+    
+    <!-- Total Batches -->
+    <div class="card fade-in delay-1">
+      <div class="card-header">
+        <div class="card-title">Total Batches</div>
+        <div class="card-icon">📦</div>
+      </div>
+      <div class="card-value" id="metricTotalBatches">--</div>
+      <div class="card-label">All time batches received</div>
+    </div>
+
+    <!-- Active Batches -->
+    <div class="card fade-in delay-2">
+      <div class="card-header">
+        <div class="card-title">In Stock</div>
+        <div class="card-icon">✓</div>
+      </div>
+      <div class="card-value" id="metricActiveBatches">--</div>
+      <div class="card-label">Batches ready to ship</div>
+    </div>
+
+    <!-- Total Vials -->
+    <div class="card fade-in delay-3">
+      <div class="card-header">
+        <div class="card-title">Vials Available</div>
+        <div class="card-icon">💊</div>
+      </div>
+      <div class="card-value" id="metricTotalVials">--</div>
+      <div class="card-label">Total inventory count</div>
+    </div>
+
+    <!-- Inventory Value -->
+    <div class="card fade-in delay-4">
+      <div class="card-header">
+        <div class="card-title">Inventory Value</div>
+        <div class="card-icon">$</div>
+      </div>
+      <div class="card-value" id="metricInventoryValue">--</div>
+      <div class="card-label">Current stock value (COGS)</div>
+    </div>
+
+  </div>
+
+  <!-- Low Stock Alerts Table -->
+  <div class="card table-card fade-in delay-4">
+    <div class="table-header">
+      <div class="table-title">🚨 Low Stock Alerts</div>
+      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
+    </div>
+    <div class="table-wrapper">
+      <table id="lowStockTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Vials Remaining</th>
+            <th>Status</th>
+            <th>Days Active</th>
+          </tr>
+        </thead>
+        <tbody id="lowStockBody">
+          <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- All Batches Table -->
+  <div class="card table-card fade-in delay-4">
+    <div class="table-header">
+      <div class="table-title">All Active Batches</div>
+      <span class="mono" style="color: var(--text-dim);">In stock inventory</span>
+    </div>
+    <div class="table-wrapper">
+      <table id="allBatchesTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Received</th>
+            <th>Vials Total</th>
+            <th>Vials Sold</th>
+            <th>Remaining</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="allBatchesBody">
+          <tr><td colspan="8" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Google Sheets API Configuration
+const SHEET_ID = '1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs';
+const API_KEY = 'AIzaSyBfRnto6b_gHiEJ9S8rDxdtJzpSd5kZGfw'; // Public read-only key
+
+// Data ranges
+const BATCHES_RANGE = 'Batches!A2:R100';
+const DASHBOARD_RANGE = 'Dashboard!F2:G9';
+
+let batchesData = [];
+let dashboardData = [];
+
+// Fetch data from Google Sheets
+async function fetchSheetData() {
+  try {
+    const batchesUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${BATCHES_RANGE}?key=${API_KEY}`;
+    const dashboardUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${DASHBOARD_RANGE}?key=${API_KEY}`;
+    
+    const [batchesRes, dashboardRes] = await Promise.all([
+      fetch(batchesUrl),
+      fetch(dashboardUrl)
+    ]);
+    
+    const batchesJson = await batchesRes.json();
+    const dashboardJson = await dashboardRes.json();
+    
+    batchesData = batchesJson.values || [];
+    dashboardData = dashboardJson.values || [];
+    
+    renderDashboard();
+    updateLastRefresh();
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    showError('Failed to load data. Check console for details.');
+  }
+}
+
+// Render dashboard
+function renderDashboard() {
+  renderMetrics();
+  renderAlerts();
+  renderLowStockTable();
+  renderAllBatchesTable();
+}
+
+// Render top metrics
+function renderMetrics() {
+  const totalBatches = batchesData.length;
+  const activeBatches = batchesData.filter(row => row[12] === 'In Stock').length;
+  
+  let totalVials = 0;
+  let inventoryValue = 0;
+  
+  batchesData.forEach(row => {
+    if (row[12] === 'In Stock') {
+      const remaining = parseInt(row[9]) || 0;
+      const costPerVial = parseFloat(row[8]) || 0;
+      totalVials += remaining;
+      inventoryValue += remaining * costPerVial;
+    }
+  });
+  
+  document.getElementById('metricTotalBatches').textContent = totalBatches;
+  document.getElementById('metricActiveBatches').textContent = activeBatches;
+  document.getElementById('metricTotalVials').textContent = totalVials.toLocaleString();
+  document.getElementById('metricInventoryValue').textContent = '$' + inventoryValue.toFixed(0);
+  
+  // Update status bar
+  document.getElementById('activeBatches').textContent = activeBatches;
+  document.getElementById('totalVials').textContent = totalVials.toLocaleString();
+}
+
+// Render alerts
+function renderAlerts() {
+  const alertsDiv = document.getElementById('alerts');
+  alertsDiv.innerHTML = '';
+  
+  const criticalBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) < 10);
+  const lowBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) >= 10 && parseInt(row[9]) < 20);
+  
+  if (criticalBatches.length > 0) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-critical fade-in';
+    alert.innerHTML = `
+      <div class="alert-icon">🚨</div>
+      <div class="alert-text">
+        <strong>CRITICAL:</strong> ${criticalBatches.length} batch(es) below 10 vials. Immediate reorder required.
+      </div>
+    `;
+    alertsDiv.appendChild(alert);
+  }
+  
+  if (lowBatches.length > 0) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-warning fade-in';
+    alert.innerHTML = `
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text">
+        <strong>WARNING:</strong> ${lowBatches.length} batch(es) below 20 vials. Reorder recommended.
+      </div>
+    `;
+    alertsDiv.appendChild(alert);
+  }
+}
+
+// Render low stock table
+function renderLowStockTable() {
+  const tbody = document.getElementById('lowStockBody');
+  const lowStockBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) < 30);
+  
+  if (lowStockBatches.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ All stock levels healthy</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = lowStockBatches
+    .sort((a, b) => parseInt(a[9]) - parseInt(b[9]))
+    .map(row => {
+      const batchId = row[0];
+      const product = row[2];
+      const supplier = row[3];
+      const remaining = parseInt(row[9]) || 0;
+      const daysActive = row[17] || '--';
+      
+      let statusClass = 'status-in-stock';
+      let statusText = 'Low Stock';
+      
+      if (remaining < 10) {
+        statusClass = 'status-critical';
+        statusText = 'Critical';
+      } else if (remaining < 20) {
+        statusClass = 'status-low';
+        statusText = 'Low';
+      }
+      
+      return `
+        <tr>
+          <td><span class="batch-id">${batchId}</span></td>
+          <td>${product}</td>
+          <td>${supplier}</td>
+          <td><strong>${remaining}</strong></td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+          <td>${daysActive}</td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+// Render all batches table
+function renderAllBatchesTable() {
+  const tbody = document.getElementById('allBatchesBody');
+  const activeBatches = batchesData.filter(row => row[12] === 'In Stock');
+  
+  if (activeBatches.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-dim); padding: 40px;">No active batches</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = activeBatches
+    .map(row => {
+      const batchId = row[0];
+      const dateReceived = row[1];
+      const product = row[2];
+      const supplier = row[3];
+      const vialsTotal = row[4];
+      const vialsSold = row[15] || 0;
+      const remaining = parseInt(row[9]) || 0;
+      
+      let statusClass = 'status-in-stock';
+      let statusText = 'In Stock';
+      
+      if (remaining < 10) {
+        statusClass = 'status-critical';
+        statusText = 'Critical';
+      } else if (remaining < 20) {
+        statusClass = 'status-low';
+        statusText = 'Low Stock';
+      }
+      
+      return `
+        <tr>
+          <td><span class="batch-id">${batchId}</span></td>
+          <td>${product}</td>
+          <td>${supplier}</td>
+          <td>${dateReceived}</td>
+          <td>${vialsTotal}</td>
+          <td>${vialsSold}</td>
+          <td><strong>${remaining}</strong></td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+// Update last refresh time
+function updateLastRefresh() {
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-US', { hour12: false });
+  document.getElementById('lastUpdate').textContent = time;
+}
+
+// Refresh data
+function refreshData() {
+  fetchSheetData();
+}
+
+// Show error
+function showError(message) {
+  const alertsDiv = document.getElementById('alerts');
+  const alert = document.createElement('div');
+  alert.className = 'alert alert-critical';
+  alert.innerHTML = `
+    <div class="alert-icon">❌</div>
+    <div class="alert-text">${message}</div>
+  `;
+  alertsDiv.appendChild(alert);
+}
+
+// Auto-refresh every 60 seconds
+setInterval(refreshData, 60000);
+
+// Initial load
+fetchSheetData();
+</script>
+
+</body>
+</html>
