@@ -1327,8 +1327,10 @@ function gisLoaded() {
 
 function maybeEnableButtons() {
   if (gapiInited && tokenClient) {
-    // Check if user is authorized
-    checkAuthorization();
+    // Small delay to ensure Google Sign-In is fully ready
+    setTimeout(() => {
+      checkAuthorization();
+    }, 100);
   }
 }
 
@@ -1369,6 +1371,10 @@ async function verifyUserEmail() {
 }
 
 function showSignInPrompt() {
+  // Remove existing overlay if present
+  const existing = document.getElementById('authOverlay');
+  if (existing) existing.remove();
+  
   const overlay = document.createElement('div');
   overlay.id = 'authOverlay';
   overlay.style.cssText = `
@@ -1392,13 +1398,16 @@ function showSignInPrompt() {
       <p style="color: var(--text-dim); margin-bottom: 32px; line-height: 1.6;">
         Sign in with your authorized Google account to access the operations dashboard.
       </p>
-      <button onclick="handleAuthClick()" class="btn btn-primary" style="font-size: 14px; padding: 14px 32px;">
+      <button id="signInBtn" class="btn btn-primary" style="font-size: 14px; padding: 14px 32px;">
         🔐 Sign in with Google
       </button>
     </div>
   `;
   
   document.body.appendChild(overlay);
+  
+  // Add click handler
+  document.getElementById('signInBtn').addEventListener('click', handleAuthClick);
 }
 
 function hideSignInPrompt() {
