@@ -2962,6 +2962,14 @@ async function saveManualSale() {
     const today = new Date().toISOString().split('T')[0];
     const orderId = `MANUAL-${Date.now()}`;
     
+    // Calculate COGS from batch allocations
+    let totalCOGS = 0;
+    for (const allocation of window.currentManualSaleAllocations) {
+      const batch = batchesData[allocation.rowIndex];
+      const costPerVial = parseFloat(batch[8]) || 0;
+      totalCOGS += costPerVial * allocation.vials;
+    }
+    
     await gapi.client.sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
       range: 'Orders!A:Z',
@@ -2970,19 +2978,28 @@ async function saveManualSale() {
         values: [[
           orderId,              // A: Order ID
           today,                // B: Date
-          customer,             // C: Customer
-          product,              // D: Product
-          qty,                  // E: Quantity
-          amount,               // F: Amount
-          payment,              // G: Payment Method
-          source,               // H: Source
-          'Manual Sale',        // I: Order Type
-          '',                   // J: Shipping Address
-          '',                   // K: Tracking Number
-          '',                   // L: Shipping Cost
-          'Shipped',            // M: Status
-          batchIds,             // N: Batch IDs
-          notes                 // O: Notes
+          customer,             // C: Customer/Email
+          customer,             // D: Name (same as email for manual sales)
+          '',                   // E: Address 1
+          '',                   // F: City
+          '',                   // G: State
+          '',                   // H: Zip
+          payment,              // I: Payment Method
+          product,              // J: Product
+          qty,                  // K: Qty
+          '',                   // L: Discount Code
+          0,                    // M: Discount Amount
+          0,                    // N: Merchant Fees
+          amount,               // O: Total (REVENUE)
+          totalCOGS.toFixed(2), // P: COGS
+          '',                   // Q: Shipping Name
+          '',                   // R: Shipping Address
+          '',                   // S: Shipping City/State/Zip
+          'Shipped',            // T: Status
+          today,                // U: Shipped Date
+          'N/A',                // V: Tracking
+          batchIds,             // W: Batch IDs
+          `Manual Sale - ${source} - ${notes}` // X: Notes
         ]]
       }
     });
