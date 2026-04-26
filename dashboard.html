@@ -906,6 +906,7 @@ tr:hover {
       <button class="btn btn-outline" onclick="toggleTheme()" id="themeToggle">☀️ Light</button>
       <button class="btn btn-success" onclick="openAddBatchModal()">+ Add Batch</button>
       <button class="btn btn-success" onclick="openExpenseModal()">+ Add Expense</button>
+      <button class="btn btn-success" onclick="openManualSaleModal()">+ Log Manual Sale</button>
       <button class="btn btn-outline" onclick="refreshData()">↻ Refresh</button>
       <button class="btn btn-outline" onclick="logout()" style="border-color: var(--critical); color: var(--critical);">🚪 Logout</button>
       <a href="https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/edit" class="btn btn-primary" target="_blank">Open Sheet</a>
@@ -1217,16 +1218,17 @@ tr:hover {
           <input type="text" class="form-input" id="packAddress" readonly>
         </div>
         
-        <!-- Packing Checklist -->
-        <div class="form-group" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
-          <label class="form-label" style="margin-bottom: 12px;">✓ Packing Checklist</label>
-          
-          <div class="form-group">
-            <label class="form-label">Batch ID *</label>
-            <select class="form-select" id="packBatchId" required>
-              <option value="">Select batch...</option>
-            </select>
+        <!-- Auto-Selected Batches (FIFO) -->
+        <div id="packBatchesSection" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <label class="form-label" style="margin-bottom: 12px;">📊 Auto-Selected Batches (FIFO)</label>
+          <div id="packBatchesList" style="background: var(--surface); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+            <!-- Populated by JavaScript -->
           </div>
+          <input type="hidden" id="packBatchId">
+        </div>
+        
+        <!-- Packing Checklist -->
+        <div class="form-group">
           
           <div style="margin: 16px 0; font-size: 14px; color: var(--text-dim);">
             <div style="margin-bottom: 8px;"><input type="checkbox" id="check1"> Pack vial in bubble wrap</div>
@@ -1329,6 +1331,96 @@ tr:hover {
   </div>
 </div>
 
+<!-- Manual Sale Modal -->
+<div class="modal-overlay" id="manualSaleModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Log Manual Sale</div>
+      <button class="modal-close" onclick="closeManualSaleModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="manualSaleForm">
+        <div class="form-group">
+          <label class="form-label">Product</label>
+          <select class="form-select" id="manualSaleProduct" required>
+            <option value="">Select product...</option>
+            <option>Retatrutide 20mg</option>
+            <option>Tirzepatide 30mg</option>
+            <option>MOTS-c 10mg</option>
+            <option>NAD+ 1000mg</option>
+            <option>GHK-Cu 100mg</option>
+            <option>Semaglutide 10mg</option>
+            <option>BPC-157 10mg</option>
+            <option>TB-500 10mg</option>
+            <option>CJC-1295 10mg</option>
+            <option>Ipamorelin 5mg</option>
+            <option>Tesamorelin 10mg</option>
+            <option>AOD-9604 10mg</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input type="number" class="form-input" id="manualSaleQty" required min="1" value="1">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Sale Source</label>
+          <select class="form-select" id="manualSaleSource" required>
+            <option value="">Select source...</option>
+            <option>Reddit DM</option>
+            <option>Discord DM</option>
+            <option>In-Person</option>
+            <option>WhatsApp</option>
+            <option>Telegram</option>
+            <option>Referral</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Payment Method</label>
+          <select class="form-select" id="manualSalePayment" required>
+            <option value="">Select method...</option>
+            <option>Zelle</option>
+            <option>Venmo</option>
+            <option>Cash</option>
+            <option>Bitcoin</option>
+            <option>Other Crypto</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Amount Received</label>
+          <input type="number" class="form-input" id="manualSaleAmount" required min="0" step="0.01" placeholder="68.00">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Customer Name/Email (Optional)</label>
+          <input type="text" class="form-input" id="manualSaleCustomer" placeholder="u/peptideresearchguy or email">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Notes (Optional)</label>
+          <textarea class="form-input" id="manualSaleNotes" rows="2" placeholder="Any additional context..."></textarea>
+        </div>
+        
+        <!-- Auto-selected batches preview -->
+        <div id="manualSaleBatchPreview" style="display: none; background: var(--surface); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; margin-top: 16px;">
+          <div class="mono" style="color: var(--accent); margin-bottom: 12px;">📊 Auto-Selected Batches (FIFO)</div>
+          <div id="manualSaleBatchList"></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeManualSaleModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="previewManualSaleBatches()">Preview Batches</button>
+      <button class="btn btn-success" onclick="saveManualSale()" style="display: none;" id="confirmManualSaleBtn">Confirm Sale</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add/Edit Batch Modal -->
 <div class="modal-overlay" id="batchModal">
   <div class="modal">
@@ -1380,14 +1472,56 @@ tr:hover {
         </div>
         
         <div class="form-group">
-          <label class="form-label">Vials Received</label>
-          <input type="number" class="form-input" id="vialsReceived" required min="1">
+          <label class="form-label">Vials Ordered</label>
+          <input type="number" class="form-input" id="vialsOrdered" required min="1" onchange="calculateCostPerVial()">
         </div>
         
         <div class="form-group">
-          <label class="form-label">Cost Per Vial</label>
-          <input type="number" class="form-input" id="costPerVial" required min="0" step="0.01" placeholder="19.80">
+          <label class="form-label">Supplier Cost Per Vial</label>
+          <input type="number" class="form-input" id="supplierCostPerVial" required min="0" step="0.01" placeholder="11.00" onchange="calculateCostPerVial()">
         </div>
+        
+        <div class="form-group">
+          <label class="form-label">Testing Cost (Total)</label>
+          <input type="number" class="form-input" id="testingCost" required min="0" step="0.01" placeholder="440.00" onchange="calculateCostPerVial()">
+          <small style="color: var(--text-dim); font-size: 11px; display: block; margin-top: 4px;">Total Janoshik testing cost for this batch</small>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Vials Sacrificed for Testing</label>
+          <input type="number" class="form-input" id="vialsSacrificed" value="1" required min="0" onchange="calculateCostPerVial()">
+        </div>
+        
+        <!-- Auto-calculated fields (read-only) -->
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+          <div class="mono" style="color: var(--text-dim); margin-bottom: 12px;">📊 Calculated Costs</div>
+          
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 13px;">Total Supplier Cost:</span>
+            <span id="calcTotalSupplierCost" style="font-family: 'JetBrains Mono', monospace; font-weight: 600;">$0.00</span>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 13px;">Sellable Vials:</span>
+            <span id="calcSellableVials" style="font-family: 'JetBrains Mono', monospace; font-weight: 600;">0</span>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 13px;">Total Cost:</span>
+            <span id="calcTotalCost" style="font-family: 'JetBrains Mono', monospace; font-weight: 600;">$0.00</span>
+          </div>
+          
+          <div style="border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--accent); font-weight: 600; font-size: 14px;">Cost Per Vial:</span>
+              <span id="calcCostPerVial" style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); font-size: 16px;">$0.00</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hidden fields for sheet submission -->
+        <input type="hidden" id="vialsReceived">
+        <input type="hidden" id="costPerVial">
         
         <div class="form-group">
           <label class="form-label">Status</label>
@@ -1880,6 +2014,30 @@ function loadSuppliers() {
       console.error('Error loading suppliers:', e);
     }
   }
+}
+
+function calculateCostPerVial() {
+  const vialsOrdered = parseFloat(document.getElementById('vialsOrdered').value) || 0;
+  const supplierCost = parseFloat(document.getElementById('supplierCostPerVial').value) || 0;
+  const testingCost = parseFloat(document.getElementById('testingCost').value) || 0;
+  const vialsSacrificed = parseFloat(document.getElementById('vialsSacrificed').value) || 0;
+  
+  if (vialsOrdered <= 0) return;
+  
+  const totalSupplierCost = vialsOrdered * supplierCost;
+  const sellableVials = vialsOrdered - vialsSacrificed;
+  const totalCost = totalSupplierCost + testingCost;
+  const costPerVial = sellableVials > 0 ? totalCost / sellableVials : 0;
+  
+  // Update display
+  document.getElementById('calcTotalSupplierCost').textContent = '$' + totalSupplierCost.toFixed(2);
+  document.getElementById('calcSellableVials').textContent = sellableVials;
+  document.getElementById('calcTotalCost').textContent = '$' + totalCost.toFixed(2);
+  document.getElementById('calcCostPerVial').textContent = '$' + costPerVial.toFixed(2);
+  
+  // Update hidden fields for sheet submission
+  document.getElementById('vialsReceived').value = sellableVials;
+  document.getElementById('costPerVial').value = costPerVial.toFixed(2);
 }
 
 function editBatch(rowIndex) {
@@ -2378,21 +2536,67 @@ function openPackingModal(rowIndex) {
   const address = `${row[5]}, ${row[6]}, ${row[7]} ${row[8]}`;
   document.getElementById('packAddress').value = address;
   
-  // Populate batch dropdown with in-stock batches for this product
+  // Auto-select batches using FIFO
   const product = row[9];
-  const batchSelect = document.getElementById('packBatchId');
-  batchSelect.innerHTML = '<option value="">Select batch...</option>';
+  const qty = parseInt(row[10]);
   
-  const productBatches = batchesData.filter(b => b[2] === product && b[12] === 'In Stock' && parseInt(b[9]) > 0);
+  // Get available batches for this product (FIFO - oldest first)
+  const availableBatches = batchesData
+    .map((batch, index) => ({ batch, index }))
+    .filter(b => b.batch[2] === product && b.batch[12] === 'In Stock' && parseInt(b.batch[9]) > 0)
+    .sort((a, b) => new Date(a.batch[1]) - new Date(b.batch[1])); // Sort by date received
   
-  productBatches.forEach(batch => {
-    const batchId = batch[0];
-    const remaining = batch[9];
-    batchSelect.innerHTML += `<option value="${batchId}">${batchId} (${remaining} vials remaining)</option>`;
-  });
-  
-  if (productBatches.length === 0) {
-    batchSelect.innerHTML = '<option value="">⚠️ No batches in stock for this product!</option>';
+  if (availableBatches.length === 0) {
+    document.getElementById('packBatchesList').innerHTML = '<div style="color: var(--critical); font-weight: 600;">⚠️ No stock available for this product!</div>';
+    document.getElementById('packBatchId').value = '';
+    window.currentPackingAllocations = [];
+  } else {
+    // Calculate FIFO allocation
+    let remaining = qty;
+    const allocations = [];
+    
+    for (const b of availableBatches) {
+      if (remaining <= 0) break;
+      
+      const available = parseInt(b.batch[9]);
+      const toUse = Math.min(remaining, available);
+      
+      allocations.push({
+        batchId: b.batch[0],
+        dateReceived: b.batch[1],
+        vials: toUse,
+        rowIndex: b.index
+      });
+      
+      remaining -= toUse;
+    }
+    
+    if (remaining > 0) {
+      document.getElementById('packBatchesList').innerHTML = `<div style="color: var(--critical); font-weight: 600;">⚠️ Insufficient stock! Only ${qty - remaining} vials available.</div>`;
+      window.currentPackingAllocations = [];
+    } else {
+      // Show allocated batches
+      const batchesHtml = allocations.map(a => `
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+          <div>
+            <strong>${a.batchId}</strong>
+            <div style="font-size: 11px; color: var(--text-dim);">Received: ${a.dateReceived}</div>
+          </div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent);">
+            ${a.vials} vial${a.vials > 1 ? 's' : ''}
+          </div>
+        </div>
+      `).join('');
+      
+      document.getElementById('packBatchesList').innerHTML = batchesHtml;
+      
+      // Store batch IDs for shipping
+      const batchIdsStr = allocations.map(a => `${a.batchId} (${a.vials})`).join(', ');
+      document.getElementById('packBatchId').value = batchIdsStr;
+      
+      // Store allocations for inventory update
+      window.currentPackingAllocations = allocations;
+    }
   }
   
   // Reset form
@@ -2430,13 +2634,43 @@ async function completeShipping() {
   const notes = document.getElementById('packNotes').value;
   
   if (!batchId) {
-    alert('Please select a batch ID.');
+    alert('No batches available to ship.');
+    return;
+  }
+  
+  if (!window.currentPackingAllocations || window.currentPackingAllocations.length === 0) {
+    alert('Batch allocation error. Please reopen packing modal.');
     return;
   }
   
   const sheetRow = parseInt(rowIndex) + 2;
   
   try {
+    // Update batch inventory (FIFO allocations)
+    for (const allocation of window.currentPackingAllocations) {
+      const batchRow = batchesData[allocation.rowIndex];
+      const currentRemaining = parseInt(batchRow[9]);
+      const newRemaining = currentRemaining - allocation.vials;
+      
+      // Update vials remaining
+      await gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: SHEET_ID,
+        range: `Batches!J${allocation.rowIndex + 2}`,
+        valueInputOption: 'RAW',
+        resource: { values: [[newRemaining]] }
+      });
+      
+      // Auto-deplete if 0
+      if (newRemaining === 0) {
+        await gapi.client.sheets.spreadsheets.values.update({
+          spreadsheetId: SHEET_ID,
+          range: `Batches!M${allocation.rowIndex + 2}`,
+          valueInputOption: 'RAW',
+          resource: { values: [['Depleted']] }
+        });
+      }
+    }
+    
     // Update Orders sheet: Status, Shipped date, Tracking, Batch ID
     const today = new Date().toLocaleDateString();
     
@@ -2450,26 +2684,28 @@ async function completeShipping() {
     });
     
     // Add shipping cost to Expenses sheet
-    await gapi.client.sheets.spreadsheets.values.append({
-      spreadsheetId: SHEET_ID,
-      range: 'Expenses!A:G',
-      valueInputOption: 'USER_ENTERED',
-      resource: {
-        values: [[
-          today,
-          'Shipping',
-          'USPS',
-          `Order ${orderNum} shipping`,
-          shippingCost,
-          orderNum,
-          'Credit Card'
-        ]]
-      }
-    });
+    if (shippingCost && parseFloat(shippingCost) > 0) {
+      await gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: SHEET_ID,
+        range: 'Expenses!A:G',
+        valueInputOption: 'USER_ENTERED',
+        resource: {
+          values: [[
+            today,
+            'Shipping',
+            'USPS',
+            `Order ${orderNum} shipping`,
+            shippingCost,
+            orderNum,
+            'Credit Card'
+          ]]
+        }
+      });
+    }
     
     closePackingModal();
     await fetchSheetData();
-    showToast(`Order ${orderNum} marked as shipped!`, 'success');
+    showToast(`Order ${orderNum} shipped! Batches updated.`, 'success');
   } catch (err) {
     console.error('Error shipping order:', err);
     showToast('Failed to update order. Check console.', 'error');
@@ -2599,6 +2835,165 @@ function logout() {
     localStorage.removeItem('dashboardAuth');
     localStorage.removeItem('authExpiry');
     location.reload();
+  }
+}
+
+// Manual Sale Functions
+function openManualSaleModal() {
+  document.getElementById('manualSaleForm').reset();
+  document.getElementById('manualSaleBatchPreview').style.display = 'none';
+  document.getElementById('confirmManualSaleBtn').style.display = 'none';
+  document.getElementById('manualSaleModal').classList.add('active');
+}
+
+function closeManualSaleModal() {
+  document.getElementById('manualSaleModal').classList.remove('active');
+}
+
+function previewManualSaleBatches() {
+  const form = document.getElementById('manualSaleForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  const product = document.getElementById('manualSaleProduct').value;
+  const qty = parseInt(document.getElementById('manualSaleQty').value);
+  
+  // Get available batches for this product (FIFO - oldest first)
+  const availableBatches = batchesData
+    .map((row, index) => ({ row, index }))
+    .filter(b => b.row[2] === product && b.row[12] === 'In Stock' && parseInt(b.row[9]) > 0)
+    .sort((a, b) => new Date(a.row[1]) - new Date(b.row[1])); // Sort by date received (oldest first)
+  
+  if (availableBatches.length === 0) {
+    alert(`No stock available for ${product}!`);
+    return;
+  }
+  
+  // Calculate FIFO allocation
+  let remaining = qty;
+  const allocations = [];
+  
+  for (const batch of availableBatches) {
+    if (remaining <= 0) break;
+    
+    const available = parseInt(batch.row[9]);
+    const toUse = Math.min(remaining, available);
+    
+    allocations.push({
+      batchId: batch.row[0],
+      dateReceived: batch.row[1],
+      vials: toUse,
+      rowIndex: batch.index
+    });
+    
+    remaining -= toUse;
+  }
+  
+  if (remaining > 0) {
+    alert(`Insufficient stock! Only ${qty - remaining} vials available.`);
+    return;
+  }
+  
+  // Show preview
+  const previewHtml = allocations.map(a => `
+    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+      <div>
+        <strong>${a.batchId}</strong>
+        <div style="font-size: 11px; color: var(--text-dim);">Received: ${a.dateReceived}</div>
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent);">
+        ${a.vials} vial${a.vials > 1 ? 's' : ''}
+      </div>
+    </div>
+  `).join('');
+  
+  document.getElementById('manualSaleBatchList').innerHTML = previewHtml;
+  document.getElementById('manualSaleBatchPreview').style.display = 'block';
+  document.getElementById('confirmManualSaleBtn').style.display = 'inline-block';
+  
+  // Store allocations for save
+  window.currentManualSaleAllocations = allocations;
+}
+
+async function saveManualSale() {
+  if (!window.currentManualSaleAllocations || window.currentManualSaleAllocations.length === 0) {
+    alert('Please preview batches first!');
+    return;
+  }
+  
+  const product = document.getElementById('manualSaleProduct').value;
+  const qty = parseInt(document.getElementById('manualSaleQty').value);
+  const source = document.getElementById('manualSaleSource').value;
+  const payment = document.getElementById('manualSalePayment').value;
+  const amount = parseFloat(document.getElementById('manualSaleAmount').value);
+  const customer = document.getElementById('manualSaleCustomer').value || 'N/A';
+  const notes = document.getElementById('manualSaleNotes').value || '';
+  
+  const batchIds = window.currentManualSaleAllocations.map(a => `${a.batchId} (${a.vials})`).join(', ');
+  
+  try {
+    // Update batch inventory
+    for (const allocation of window.currentManualSaleAllocations) {
+      const row = batchesData[allocation.rowIndex];
+      const currentRemaining = parseInt(row[9]);
+      const newRemaining = currentRemaining - allocation.vials;
+      
+      await gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: SHEET_ID,
+        range: `Batches!J${allocation.rowIndex + 2}`,
+        valueInputOption: 'RAW',
+        resource: { values: [[newRemaining]] }
+      });
+      
+      // Auto-deplete if 0
+      if (newRemaining === 0) {
+        await gapi.client.sheets.spreadsheets.values.update({
+          spreadsheetId: SHEET_ID,
+          range: `Batches!M${allocation.rowIndex + 2}`,
+          valueInputOption: 'RAW',
+          resource: { values: [['Depleted']] }
+        });
+      }
+    }
+    
+    // Log as manual sale in Orders sheet
+    const today = new Date().toISOString().split('T')[0];
+    const orderId = `MANUAL-${Date.now()}`;
+    
+    await gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Orders!A:Z',
+      valueInputOption: 'RAW',
+      resource: {
+        values: [[
+          orderId,              // A: Order ID
+          today,                // B: Date
+          customer,             // C: Customer
+          product,              // D: Product
+          qty,                  // E: Quantity
+          amount,               // F: Amount
+          payment,              // G: Payment Method
+          source,               // H: Source
+          'Manual Sale',        // I: Order Type
+          '',                   // J: Shipping Address
+          '',                   // K: Tracking Number
+          '',                   // L: Shipping Cost
+          'Shipped',            // M: Status
+          batchIds,             // N: Batch IDs
+          notes                 // O: Notes
+        ]]
+      }
+    });
+    
+    showToast(`Manual sale logged! ${qty}x ${product} for $${amount}`, 'success');
+    closeManualSaleModal();
+    await fetchSheetData();
+    
+  } catch (err) {
+    console.error('Error saving manual sale:', err);
+    alert('Error logging sale. Check console.');
   }
 }
 
