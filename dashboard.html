@@ -1113,6 +1113,83 @@ tr:hover {
       </div>
     </div>
 
+    <!-- Quarterly Tax Tracker -->
+    <div class="card fade-in delay-5" style="background: linear-gradient(135deg, var(--surface) 0%, rgba(96, 165, 250, 0.05) 100%); border: 1px solid var(--accent);">
+      <div class="card-header">
+        <div class="card-title" style="color: var(--accent);">📅 Quarterly Tax Payments 2026</div>
+        <div class="card-icon">🏛️</div>
+      </div>
+      
+      <div style="margin-top: 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px;">
+          
+          <!-- Q1 -->
+          <div style="background: var(--surface); padding: 16px; border-radius: 8px; border-left: 3px solid var(--critical);">
+            <div class="mono" style="color: var(--text-dim); font-size: 10px; margin-bottom: 4px;">Q1 (JAN-MAR)</div>
+            <div style="font-size: 20px; font-weight: 600; color: var(--critical);">MISSED</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Due: Apr 15, 2026</div>
+            <div style="font-size: 11px; color: var(--text-dim);">Pay with Q2 →</div>
+          </div>
+          
+          <!-- Q2 -->
+          <div style="background: var(--surface); padding: 16px; border-radius: 8px; border-left: 3px solid var(--warning);">
+            <div class="mono" style="color: var(--text-dim); font-size: 10px; margin-bottom: 4px;">Q2 (APR-JUN)</div>
+            <div style="font-size: 24px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q2Amount">$0</div>
+            <div style="font-size: 11px; color: var(--warning); margin-top: 4px; font-weight: 600;">Due: Jun 16, 2026</div>
+            <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Includes Mar-Jun</div>
+          </div>
+          
+          <!-- Q3 -->
+          <div style="background: var(--surface); padding: 16px; border-radius: 8px; border-left: 3px solid var(--text-dim); opacity: 0.6;">
+            <div class="mono" style="color: var(--text-dim); font-size: 10px; margin-bottom: 4px;">Q3 (JUL-SEP)</div>
+            <div style="font-size: 24px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q3Amount">$0</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Due: Sep 15, 2026</div>
+          </div>
+          
+          <!-- Q4 -->
+          <div style="background: var(--surface); padding: 16px; border-radius: 8px; border-left: 3px solid var(--text-dim); opacity: 0.6;">
+            <div class="mono" style="color: var(--text-dim); font-size: 10px; margin-bottom: 4px;">Q4 (OCT-DEC)</div>
+            <div style="font-size: 24px; font-weight: 600; font-family: 'JetBrains Mono', monospace;" id="q4Amount">$0</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Due: Jan 15, 2027</div>
+          </div>
+          
+        </div>
+        
+        <!-- Payment Instructions -->
+        <div style="background: var(--bg); padding: 20px; border-radius: 8px; margin-top: 20px;">
+          <div style="font-weight: 600; margin-bottom: 12px; color: var(--accent);">💳 How to Pay Quarterly Taxes</div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 13px;">
+            <div>
+              <div style="font-weight: 600; margin-bottom: 8px; color: var(--text);">Federal (IRS)</div>
+              <div style="color: var(--text-dim); line-height: 1.6;">
+                1. Go to <a href="https://www.irs.gov/payments" target="_blank" style="color: var(--accent);">irs.gov/payments</a><br>
+                2. Select "Form 1040-ES"<br>
+                3. Enter amount shown above<br>
+                4. Pay with bank account (free)<br>
+                5. Save confirmation number
+              </div>
+            </div>
+            
+            <div>
+              <div style="font-weight: 600; margin-bottom: 8px; color: var(--text);">California (FTB)</div>
+              <div style="color: var(--text-dim); line-height: 1.6;">
+                1. Go to <a href="https://www.ftb.ca.gov/pay" target="_blank" style="color: var(--accent);">ftb.ca.gov/pay</a><br>
+                2. Select "Estimated Tax"<br>
+                3. Enter 30% of federal amount<br>
+                4. Pay with bank account<br>
+                5. Save confirmation
+              </div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 16px; padding: 12px; background: rgba(96, 165, 250, 0.1); border-radius: 6px; font-size: 12px; color: var(--text-dim);">
+            💡 <strong>Tip:</strong> Total payment = Federal amount + (Federal × 0.3) for California. Dashboard shows combined estimate.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Revenue by Product -->
     <div class="card table-card fade-in delay-4">
       <div class="table-header">
@@ -2415,6 +2492,74 @@ function renderFinancialMetrics() {
   
   const profitMarginEl = document.getElementById('profitMargin');
   profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% margin</span>`;
+  
+  // Calculate quarterly tax estimates
+  calculateQuarterlyTaxes();
+}
+
+function calculateQuarterlyTaxes() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  
+  // Calculate profit by quarter
+  const quarters = [
+    { name: 'Q1', months: [0, 1, 2], element: 'q1Amount' },      // Jan-Mar
+    { name: 'Q2', months: [2, 3, 4, 5], element: 'q2Amount' },   // Mar-Jun (includes March from Q1)
+    { name: 'Q3', months: [6, 7, 8], element: 'q3Amount' },      // Jul-Sep
+    { name: 'Q4', months: [9, 10, 11], element: 'q4Amount' }     // Oct-Dec
+  ];
+  
+  quarters.forEach(q => {
+    // Filter orders for this quarter
+    const quarterOrders = ordersData.filter(row => {
+      if (!row[1]) return false;
+      const orderDate = new Date(row[1]);
+      return orderDate.getFullYear() === currentYear && q.months.includes(orderDate.getMonth());
+    });
+    
+    // Split revenue by payment type
+    let ccRevenue = 0;
+    let totalCOGS = 0;
+    const reportedMethods = ['Bankful', 'Credit Card', 'Debit Card'];
+    
+    quarterOrders.forEach(row => {
+      const total = parseFloat(row[14]) || 0;
+      const cogs = parseFloat(row[15]) || 0;
+      const refund = parseFloat(row[17]) || 0;
+      const paymentMethod = (row[8] || '').toString();
+      
+      totalCOGS += cogs;
+      
+      if (reportedMethods.some(m => paymentMethod.includes(m))) {
+        ccRevenue += (total - refund);
+      }
+      // In Clean Books mode, only count CC revenue for taxes
+    });
+    
+    // Get quarter expenses
+    const quarterExpenses = expensesData.filter(row => {
+      if (!row[0]) return false;
+      const expenseDate = new Date(row[0]);
+      return expenseDate.getFullYear() === currentYear && q.months.includes(expenseDate.getMonth());
+    });
+    
+    let expenses = 0;
+    quarterExpenses.forEach(row => {
+      expenses += parseFloat(row[4]) || 0;
+    });
+    
+    // Calculate profit (CC revenue only - conservative for taxes)
+    const profit = ccRevenue - totalCOGS - expenses;
+    
+    // Tax rate: 35% (accounts for W-2 income pushing to higher brackets)
+    const taxOwed = Math.max(0, profit * 0.35);
+    
+    // Update UI
+    const element = document.getElementById(q.element);
+    if (element) {
+      element.textContent = '$' + Math.round(taxOwed).toLocaleString();
+    }
+  });
 }
 
 // P&L Statement
