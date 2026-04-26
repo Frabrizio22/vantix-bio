@@ -209,6 +209,17 @@ body.light-mode .status-bar {
   flex-wrap: wrap;
 }
 
+/* Desktop: buttons in a row */
+@media (min-width: 769px) {
+  .header-actions {
+    flex-direction: row;
+  }
+  
+  .header-actions .btn {
+    width: auto;
+  }
+}
+
 .btn {
   padding: 10px 20px;
   border-radius: 6px;
@@ -715,6 +726,7 @@ tr:hover {
     gap: 16px;
   }
   
+  /* Mobile: stack buttons vertically */
   .header-actions {
     width: 100%;
     flex-direction: column;
