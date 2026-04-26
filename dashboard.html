@@ -909,32 +909,7 @@ tr:hover {
   <!-- Inventory Tab -->
   <div class="tab-content active" id="inventoryTab">
 
-  <!-- PRIORITY 1: Low Stock Alerts (What needs attention NOW) -->
-  <div class="card table-card fade-in delay-1">
-    <div class="table-header">
-      <div class="table-title">🚨 Low Stock Alerts</div>
-      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
-    </div>
-    <div class="table-wrapper">
-      <table id="lowStockTable">
-        <thead>
-          <tr>
-            <th>Batch ID</th>
-            <th>Product</th>
-            <th>Supplier</th>
-            <th>Vials Remaining</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="lowStockBody">
-          <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- PRIORITY 2: Overview Metrics -->
+  <!-- Metrics Grid -->
   <div class="grid">
     
     <div class="card fade-in delay-1">
@@ -975,7 +950,32 @@ tr:hover {
 
   </div>
 
-  <!-- PRIORITY 3: All Batches Table -->
+  <!-- Low Stock Alerts Table -->
+  <div class="card table-card fade-in delay-4">
+    <div class="table-header">
+      <div class="table-title">🚨 Low Stock Alerts</div>
+      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
+    </div>
+    <div class="table-wrapper">
+      <table id="lowStockTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Vials Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="lowStockBody">
+          <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- All Batches Table -->
   <div class="card table-card fade-in delay-4">
     <div class="table-header">
       <div class="table-title">All Active Batches</div>
@@ -1796,12 +1796,7 @@ function renderAllBatchesTable() {
 
 // Modal functions
 function openAddBatchModal() {
-  if (!isSignedIn && !gapi.client.getToken()) {
-    if (confirm('You need to sign in to add batches. Sign in now?')) {
-      handleAuthClick();
-    }
-    return;
-  }
+  // Auth check removed - password protection is sufficient
   
   document.getElementById('modalTitle').textContent = 'Add New Batch';
   document.getElementById('batchForm').reset();
@@ -1811,10 +1806,7 @@ function openAddBatchModal() {
 }
 
 function editBatch(rowIndex) {
-  if (!isSignedIn && !gapi.client.getToken()) {
-    handleAuthClick();
-    return;
-  }
+  // Auth check removed - password protection is sufficient
   
   const row = batchesData[rowIndex];
   
@@ -2296,10 +2288,7 @@ function renderShippedOrders() {
 }
 
 function openPackingModal(rowIndex) {
-  if (!isSignedIn && !gapi.client.getToken()) {
-    handleAuthClick();
-    return;
-  }
+  // Auth check removed - password protection is sufficient
   
   const row = ordersData[rowIndex];
   
@@ -2412,10 +2401,7 @@ async function completeShipping() {
 
 // Expense Modal
 function openExpenseModal() {
-  if (!isSignedIn && !gapi.client.getToken()) {
-    handleAuthClick();
-    return;
-  }
+  // Auth check removed - password protection is sufficient
   
   document.getElementById('expenseForm').reset();
   document.getElementById('expenseDate').valueAsDate = new Date();
