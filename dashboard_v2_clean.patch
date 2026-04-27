@@ -1,0 +1,10 @@
+--- dashboard.html.orig
++++ dashboard.html
+@@ -1120,6 +1120,9 @@
+       </div>
+       
+       <!-- Tax Rate Adjuster -->
++      <!-- Revenue by Product -->
++      <div id="revenueByProduct" style="margin-top: 24px;"></div>
++      <div id="profitLossStatement" style="margin-top: 24px;"></div>
+       <div style="margin-top: 16px; padding: 12px; background: var(--surface); border-radius: 8px;">

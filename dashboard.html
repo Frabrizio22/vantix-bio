@@ -1121,6 +1121,13 @@ tr:hover {
       </div>
       
       <!-- Tax Rate Adjuster -->
+
+<!-- Revenue by Product (V2) -->
+<div id="revenueByProduct" style="margin-top: 32px;"></div>
+
+<!-- Multi-Period P&L Statement (V2) -->
+<div id="profitLossStatement" style="margin-top: 32px;"></div>
+
       <div style="margin-top: 16px; padding: 12px; background: var(--surface); border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
         <div>
           <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">Tax Rate</div>
@@ -2386,134 +2393,154 @@ function switchTab(tabName) {
   } else if (tabName === 'financials') {
     document.getElementById('financialsTab').classList.add('active');
     document.querySelector('.tab:nth-child(2)').classList.add('active');
-  } else if (tabName === 'fulfillment') {
-    document.getElementById('fulfillmentTab').classList.add('active');
-    document.querySelector('.tab:nth-child(3)').classList.add('active');
-  }
-}
 
-// Financial Metrics
+// === V2 Financial Metrics (Replaces old renderFinancialMetrics) ===
+
 function renderFinancialMetrics() {
   const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
+  const currentMonth = calculatePeriodMetrics(now.getMonth(), now.getFullYear(), 'month');
+  const lastMonth = calculatePreviousMonth();
+  const ytd = calculateYTD(now.getFullYear());
+  const lastYearYTD = calculateYTD(now.getFullYear() - 1);
+  const revenueByProduct = calculateRevenueByProduct(now.getMonth(), now.getFullYear());
   
-  // Get all orders for this month
-  let allOrders = ordersData.filter(row => {
-    if (!row[1]) return false;
-    const orderDate = new Date(row[1]);
-    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
-  });
-  
-  // Payment method categorization
+  renderProfitLoss(currentMonth, lastMonth, ytd, lastYearYTD);
+  renderProductBreakdown(revenueByProduct);
+  updateSummaryCards(currentMonth, lastMonth);
+  calculateQuarterlyTaxes();
+}
+
+function calculatePeriodMetrics(month, year, type) {
   const reportedMethods = ['Bankful', 'Credit Card', 'Debit Card'];
   const unreportedMethods = ['Zelle', 'Cash', 'Bitcoin', 'Venmo', 'Crypto'];
   
-  // Split revenue by payment type and calculate fees
-  let ccRevenue = 0;
-  let zelleRevenue = 0;
-  let totalRefunds = 0;
-  let totalMerchantFees = 0;
-  let monthlyCOGS = 0;
-  
-  allOrders.forEach(row => {
-    const total = parseFloat(row[14]) || 0; // Column O
-    const cogs = parseFloat(row[15]) || 0;  // Column P
-    const refund = parseFloat(row[17]) || 0; // Column R (if exists)
-    const paymentMethod = (row[8] || '').toString(); // Column I
-    
-    const netRevenue = total - refund;
-    totalRefunds += refund;
-    monthlyCOGS += cogs;
-    
-    // Categorize revenue
-    if (reportedMethods.some(m => paymentMethod.includes(m))) {
-      ccRevenue += netRevenue;
-      if (total > 0) {
-        totalMerchantFees += calculateMerchantFees(total);
-      }
-    } else if (unreportedMethods.some(m => paymentMethod.includes(m))) {
-      zelleRevenue += netRevenue;
-    } else {
-      // Default to CC for unknown methods
-      ccRevenue += netRevenue;
-      if (total > 0) {
-        totalMerchantFees += calculateMerchantFees(total);
-      }
-    }
+  const orders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    if (type === 'month') return orderDate.getMonth() === month && orderDate.getFullYear() === year;
+    if (type === 'ytd') return orderDate.getFullYear() === year && orderDate <= new Date();
+    return false;
   });
   
-  const totalRevenue = ccRevenue + zelleRevenue;
-  const displayRevenue = cleanBooksMode ? ccRevenue : totalRevenue;
+  let ccRev = 0, zelleRev = 0, cogs = 0, fees = 0;
+  orders.forEach(row => {
+    const total = parseFloat(row[14]) || 0;
+    const pm = (row[8] || '').toString();
+    ccRev += reportedMethods.some(m => pm.includes(m)) ? total : 0;
+    zelleRev += unreportedMethods.some(m => pm.includes(m)) ? total : 0;
+    cogs += parseFloat(row[15]) || 0;
+    if (total > 0 && reportedMethods.some(m => pm.includes(m))) fees += total * 0.044 + 0.40;
+  });
   
-  // Filter displayed COGS if in clean books mode
-  if (cleanBooksMode) {
-    monthlyCOGS = 0;
-    allOrders.forEach(row => {
-      const paymentMethod = (row[8] || '').toString();
-      if (reportedMethods.some(m => paymentMethod.includes(m))) {
-        monthlyCOGS += parseFloat(row[15]) || 0;
+  const totalRev = ccRev + zelleRev;
+  const dispRev = cleanBooksMode ? ccRev : totalRev;
+  const exp = getExpenses(month, year, type);
+  const grossProfit = dispRev - cogs;
+  const netBT = grossProfit - exp.shipping - fees - exp.operating;
+  const tax = netBT * (getTaxRate() / 100);
+  
+  return {
+    revenue: dispRev, cogs, grossProfit,
+    shipping: exp.shipping, paymentFees: fees, operating: exp.operating,
+    netProfitBeforeTax: netBT, taxes: tax, yourNetProfit: netBT - tax,
+    orderCount: orders.length, aov: orders.length > 0 ? dispRev / orders.length : 0
+  };
+}
+
+function calculatePreviousMonth() {
+  const now = new Date();
+  const m = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+  const y = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+  return calculatePeriodMetrics(m, y, 'month');
+}
+
+function calculateYTD(year) {
+  return calculatePeriodMetrics(null, year, 'ytd');
+}
+
+function getExpenses(month, year, type) {
+  let ship = 0, op = 0;
+  expensesData.filter(row => {
+    if (!row[0]) return false;
+    const d = new Date(row[0]);
+    if (type === 'month') return d.getMonth() === month && d.getFullYear() === year;
+    if (type === 'ytd') return d.getFullYear() === year;
+    return false;
+  }).forEach(row => {
+    const amt = parseFloat(row[4]) || 0;
+    ((row[2] || '').toString() === 'Shipping') ? ship += amt : op += amt;
+  });
+  return { shipping: ship, operating: op };
+}
+
+function calculateRevenueByProduct(month, year) {
+  const orders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const d = new Date(row[1]);
+    return d.getMonth() === month && d.getFullYear() === year;
+  });
+  
+  const map = {};
+  orders.forEach(row => {
+    const items = (row[5] || '').toString();
+    const total = parseFloat(row[14]) || 0;
+    const matches = items.match(/([^(]+)\s*\((\d+)\)/g) || [];
+    matches.forEach(item => {
+      const m = item.match(/([^(]+)\s*\((\d+)\)/);
+      if (m) {
+        const name = m[1].trim();
+        const qty = parseInt(m[2]);
+        if (!map[name]) map[name] = { units: 0, revenue: 0 };
+        map[name].units += qty;
+        map[name].revenue += total / matches.length;
       }
     });
-  }
-  
-  // Operating expenses
-  const thisMonthExpenses = expensesData.filter(row => {
-    if (!row[0]) return false;
-    const expenseDate = new Date(row[0]);
-    return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
   });
   
-  let operatingExpenses = 0;
-  thisMonthExpenses.forEach(row => {
-    operatingExpenses += parseFloat(row[4]) || 0;
-  });
-  
-  // Gateway monthly minimum shortfall
-  const gatewayFeesCollected = totalMerchantFees * 0.136; // 0.6% / (3.8% + 0.6%)
-  const gatewayShortfall = Math.max(0, CC_FEES.gatewayMonthlyMin - gatewayFeesCollected);
-  
-  // Totals
-  const totalExpenses = monthlyCOGS + totalMerchantFees + operatingExpenses + gatewayShortfall;
-  const netProfit = displayRevenue - totalExpenses;
-  const taxableIncome = cleanBooksMode ? netProfit : (ccRevenue - (ccRevenue / totalRevenue * totalExpenses));
-  const taxesOwed = Math.max(0, taxableIncome * taxRate);
-  const profitMargin = displayRevenue > 0 ? ((netProfit / displayRevenue) * 100).toFixed(1) : 0;
-  
-  // Update UI
-  document.getElementById('monthlyRevenue').textContent = '$' + displayRevenue.toFixed(2);
-  document.getElementById('monthlyExpenses').textContent = '$' + totalExpenses.toFixed(2);
-  document.getElementById('netProfit').textContent = '$' + netProfit.toFixed(2);
-  document.getElementById('taxesOwed').textContent = '$' + taxesOwed.toFixed(2);
-  
-  // Revenue card
-  if (document.getElementById('revenueCardTitle')) {
-    document.getElementById('revenueCardTitle').textContent = cleanBooksMode ? 'Reported Revenue' : 'Total Revenue';
-    document.getElementById('revenueCardLabel').textContent = cleanBooksMode ? 'CC/Bankful only' : 'All payment methods';
-  }
-  
-  // Revenue breakdown
-  if (document.getElementById('revenueBreakdown')) {
-    if (!cleanBooksMode && zelleRevenue > 0) {
-      document.getElementById('revenueBreakdown').innerHTML = 
-        `CC: $${ccRevenue.toFixed(0)} | Zelle/Cash: <span style="color: var(--warning);">$${zelleRevenue.toFixed(0)}</span> 🔒`;
-    } else {
-      document.getElementById('revenueBreakdown').textContent = '';
-    }
-  }
-  
-  // Change indicators
-  const revenueChangeEl = document.getElementById('revenueChange');
-  let changeText = `${allOrders.length} orders`;
-  if (cleanBooksMode) changeText += ` (${allOrders.filter(r => reportedMethods.some(m => (r[8]||'').includes(m))).length} reported)`;
-  if (totalRefunds > 0) changeText += ` | Refunds: -$${totalRefunds.toFixed(0)}`;
-  revenueChangeEl.textContent = changeText;
-  
-  const expensesBreakdownEl = document.getElementById('expensesBreakdown');
-  let expenseText = `COGS: $${monthlyCOGS.toFixed(0)} | Fees: $${totalMerchantFees.toFixed(0)} | Operating: $${operatingExpenses.toFixed(0)}`;
-  if (gatewayShortfall > 0) expenseText += ` | Gateway: $${gatewayShortfall.toFixed(0)}`;
-  expensesBreakdownEl.innerHTML = expenseText;
-  
+  return Object.entries(map).map(([name, d]) => ({
+    name, units: d.units, revenue: d.revenue
+  })).sort((a, b) => b.revenue - a.revenue);
+}
+
+function renderProfitLoss(curr, last, ytd, lastYTD) {
+  const html = `
+    <h3 style="font-size: 16px; margin-bottom: 16px;">💰 P&L: Current Month vs Last Month vs YTD</h3>
+    <table style="width: 100%; font-size: 13px; font-family: monospace;">
+      <tr><th>Category</th><th>Current</th><th>Last</th><th>YTD</th><th>Last YTD</th></tr>
+      <tr><td>Revenue</td><td>$${curr.revenue.toFixed(0)}</td><td>$${last.revenue.toFixed(0)}</td><td>$${ytd.revenue.toFixed(0)}</td><td>$${lastYTD.revenue.toFixed(0)}</td></tr>
+      <tr><td>COGS</td><td>-$${curr.cogs.toFixed(0)}</td><td>-$${last.cogs.toFixed(0)}</td><td>-$${ytd.cogs.toFixed(0)}</td><td>-$${lastYTD.cogs.toFixed(0)}</td></tr>
+      <tr><td>Gross Profit</td><td>$${curr.grossProfit.toFixed(0)}</td><td>$${last.grossProfit.toFixed(0)}</td><td>$${ytd.grossProfit.toFixed(0)}</td><td>$${lastYTD.grossProfit.toFixed(0)}</td></tr>
+      <tr><td>Shipping</td><td>-$${curr.shipping.toFixed(0)}</td><td>-$${last.shipping.toFixed(0)}</td><td>-$${ytd.shipping.toFixed(0)}</td><td>-$${lastYTD.shipping.toFixed(0)}</td></tr>
+      <tr><td>Fees</td><td>-$${curr.paymentFees.toFixed(0)}</td><td>-$${last.paymentFees.toFixed(0)}</td><td>-$${ytd.paymentFees.toFixed(0)}</td><td>-$${lastYTD.paymentFees.toFixed(0)}</td></tr>
+      <tr><td>Operating</td><td>-$${curr.operating.toFixed(0)}</td><td>-$${last.operating.toFixed(0)}</td><td>-$${ytd.operating.toFixed(0)}</td><td>-$${lastYTD.operating.toFixed(0)}</td></tr>
+      <tr><td><strong>Net (Pre-Tax)</strong></td><td>$${curr.netProfitBeforeTax.toFixed(0)}</td><td>$${last.netProfitBeforeTax.toFixed(0)}</td><td>$${ytd.netProfitBeforeTax.toFixed(0)}</td><td>$${lastYTD.netProfitBeforeTax.toFixed(0)}</td></tr>
+      <tr><td>Taxes</td><td>-$${curr.taxes.toFixed(0)}</td><td>-$${last.taxes.toFixed(0)}</td><td>-$${ytd.taxes.toFixed(0)}</td><td>-$${lastYTD.taxes.toFixed(0)}</td></tr>
+      <tr><td><strong>Your Profit</strong></td><td><strong>$${curr.yourNetProfit.toFixed(0)}</strong></td><td><strong>$${last.yourNetProfit.toFixed(0)}</strong></td><td><strong>$${ytd.yourNetProfit.toFixed(0)}</strong></td><td><strong>$${lastYTD.yourNetProfit.toFixed(0)}</strong></td></tr>
+    </table>
+  `;
+  document.getElementById('profitLossStatement').innerHTML = html;
+}
+
+function renderProductBreakdown(products) {
+  const html = `
+    <h3 style="font-size: 16px; margin-bottom: 16px;">📊 Revenue by Product (Current Month)</h3>
+    <table style="width: 100%; font-size: 13px;">
+      <tr><th>Product</th><th>Units</th><th>Revenue</th></tr>
+      ${products.slice(0, 10).map(p => `<tr><td>${p.name}</td><td>${p.units}</td><td>$${p.revenue.toFixed(0)}</td></tr>`).join('')}
+    </table>
+  `;
+  document.getElementById('revenueByProduct').innerHTML = html;
+}
+
+function updateSummaryCards(curr, last) {
+  document.getElementById('monthlyRevenue').textContent = '$' + curr.revenue.toFixed(2);
+  document.getElementById('monthlyExpenses').textContent = '$' + (curr.cogs + curr.shipping + curr.paymentFees + curr.operating).toFixed(2);
+  document.getElementById('netProfit').textContent = '$' + curr.yourNetProfit.toFixed(2);
+  document.getElementById('taxesOwed').textContent = '$' + curr.taxes.toFixed(2);
+  const mom = last.revenue > 0 ? ((curr.revenue - last.revenue) / last.revenue * 100) : 0;
+  document.getElementById('revenueChange').textContent = curr.orderCount + ' orders | ' + (mom >= 0 ? '+' : '') + mom.toFixed(0) + '% MoM';
+}
+
   const profitMarginEl = document.getElementById('profitMargin');
   profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% margin</span>`;
   
