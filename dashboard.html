@@ -3223,6 +3223,7 @@ function checkAuth() {
   }
 }
 
+checkAuth();
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.removeItem('dashboardAuth');
@@ -3475,6 +3476,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+  // Also focus the input
+  passwordInput.focus();
 // Check auth on page load
 window.addEventListener('load', checkAuth);
 
@@ -3606,7 +3609,6 @@ window.gapiLoaded = gapiLoaded;
 window.gisLoaded = gisLoaded;
 
 // Check password auth on page load
-checkAuth();
 </script>
 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
