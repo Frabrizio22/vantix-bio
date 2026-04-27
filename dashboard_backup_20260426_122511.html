@@ -1,0 +1,3099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | Vantix Bio Operations</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #050812;
+  --surface: #0A1020;
+  --border: #1E293B;
+  --text: #E2E8F0;
+  --text-dim: #94A3B8;
+  --accent: #60a5fa;
+  --accent-glow: rgba(96, 165, 250, 0.2);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --critical: #ef4444;
+  --grid: #1a2332;
+}
+
+/* Day Mode (Light) */
+body.light-mode {
+  --bg: #FAFAF7;
+  --surface: #FFFFFF;
+  --border: #E5E5E0;
+  --text: #0A1628;
+  --text-dim: #143054;
+  --accent: #3973B0;
+  --accent-glow: rgba(57, 115, 176, 0.15);
+  --success: #059669;
+  --warning: #d97706;
+  --critical: #dc2626;
+  --grid: #f0f0ed;
+}
+
+/* Smooth transition for mode switching */
+body,
+.card,
+.modal,
+.status-bar,
+.btn,
+.form-input,
+.form-select,
+.alert {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  font-family: 'Geist', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Grid Background */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  opacity: 0.4;
+  animation: gridPulse 4s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+body.light-mode .grid-bg {
+  opacity: 0.2;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+body.light-mode .grid-bg {
+  animation: gridPulseLight 4s ease-in-out infinite;
+}
+
+@keyframes gridPulseLight {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.25; }
+}
+
+/* Status Bar */
+.status-bar {
+  position: sticky;
+  top: 0;
+  background: rgba(10, 16, 32, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  z-index: 100;
+}
+
+body.light-mode .status-bar {
+  background: rgba(250, 250, 247, 0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.status-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  position: relative;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.status-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+}
+
+.status-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.header-left h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.header-left .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: rgba(96, 165, 250, 0.05);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: #059669;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 10px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.tab {
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(96, 165, 250, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.card-value {
+  font-family: 'Fraunces', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.card-label {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* Table */
+.table-card {
+  grid-column: 1 / -1;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.table-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+  font-size: 14px;
+}
+
+tr:hover {
+  background: rgba(96, 165, 250, 0.03);
+}
+
+.batch-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.status-in-stock {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-low {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-critical {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--critical);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-depleted {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-dim);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Alert */
+.alert {
+  padding: 16px 20px;
+  border-radius: 8px;
+  border-left: 3px solid;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.alert-critical {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--critical);
+  color: var(--critical);
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.alert-icon {
+  font-size: 20px;
+}
+
+.alert-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 24px;
+  padding: 4px;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--text);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Custom dropdown arrow */
+.form-select {
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="%2360a5fa" stroke-width="2" stroke-linecap="round"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-input[readonly] {
+  background: rgba(148, 163, 184, 0.05);
+  color: var(--text-dim);
+}
+
+.modal-actions {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+.toast.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.toast-success {
+  border-left: 3px solid var(--success);
+}
+
+.toast-error {
+  border-left: 3px solid var(--critical);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .card-value {
+    font-size: 2rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .status-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .tabs {
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tab {
+    padding: 10px 16px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  
+  /* Table scroll on mobile */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  table {
+    font-size: 12px;
+    min-width: 600px;
+  }
+  
+  th, td {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+  
+  /* Keep original button size - no forced height */
+  
+  /* Full-screen modals on mobile */
+  .modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  .modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Bigger form elements on mobile */
+  .form-input,
+  .form-select {
+    font-size: 16px;
+    padding: 16px;
+    min-height: 48px;
+  }
+  
+  .form-label {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  /* Container padding */
+  .container {
+    padding: 20px 16px;
+  }
+  
+  /* Card spacing */
+  .card {
+    padding: 20px;
+  }
+  
+  /* Alert text */
+  .alert-text {
+    font-size: 11px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Password Protection Overlay -->
+<div id="passwordOverlay" style="
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+">
+  <div style="text-align: center; max-width: 400px; padding: 40px;">
+    <div style="font-size: 60px; margin-bottom: 24px;">🔒</div>
+    <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px;">
+      Vantix Bio Dashboard
+    </h1>
+    <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
+      Enter password to access operations dashboard
+    </p>
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Enter password"
+      style="
+        width: 100%;
+        padding: 14px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 16px;
+        margin-bottom: 16px;
+        font-family: 'Geist', sans-serif;
+      "
+    />
+    <button
+      onclick="checkPassword()"
+      style="
+        width: 100%;
+        padding: 14px 24px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+      "
+    >
+      🔓 Unlock Dashboard
+    </button>
+    <p id="passwordError" style="color: var(--critical); margin-top: 16px; font-size: 13px; display: none;">
+      ❌ Incorrect password
+    </p>
+  </div>
+</div>
+
+<div class="grid-bg"></div>
+
+<!-- Status Bar -->
+<div class="status-bar">
+  <div class="status-inner">
+    <div class="status-item">
+      <div class="pulse-dot"></div>
+      <span class="status-label">System</span>
+      <span class="status-value">OPERATIONAL</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Last Update</span>
+      <span class="status-value" id="lastUpdate">--:--:--</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Active Batches</span>
+      <span class="status-value" id="activeBatches">--</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Total Vials</span>
+      <span class="status-value" id="totalVials">--</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+  
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Operations Dashboard</h1>
+      <div class="subtitle">Vantix Bio Inventory System</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="toggleTheme()" id="themeToggle">☀️ Light</button>
+      <button class="btn btn-outline" onclick="toggleCleanBooks()" id="cleanBooksToggle">💰 Full View</button>
+      <button class="btn btn-success" onclick="openAddBatchModal()">+ Add Batch</button>
+      <button class="btn btn-success" onclick="openExpenseModal()">+ Add Expense</button>
+      <button class="btn btn-success" onclick="openManualSaleModal()">+ Log Manual Sale</button>
+      <button class="btn btn-outline" onclick="refreshData()">↻ Refresh</button>
+      <button class="btn btn-outline" onclick="logout()" style="border-color: var(--critical); color: var(--critical);">🚪 Logout</button>
+      <a href="https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/edit" class="btn btn-primary" target="_blank">Open Sheet</a>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('inventory')">📦 Inventory</button>
+    <button class="tab" onclick="switchTab('financials')">💰 Financials</button>
+    <button class="tab" onclick="switchTab('fulfillment')">🚚 Fulfillment</button>
+  </div>
+
+  <!-- Clean Books Mode Indicator -->
+  <div id="cleanBooksIndicator" style="display: none; background: var(--accent); color: white; padding: 12px 20px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 20px; border-radius: 8px;">
+    💼 CLEAN BOOKS MODE • Showing reported income only (CC/Bankful)
+  </div>
+
+  <!-- Alerts -->
+  <div id="alerts"></div>
+
+  <!-- Inventory Tab -->
+  <div class="tab-content active" id="inventoryTab">
+
+  <!-- Metrics Grid -->
+  <div class="grid">
+    
+    <div class="card fade-in delay-1">
+      <div class="card-header">
+        <div class="card-title">Total Batches</div>
+        <div class="card-icon">📦</div>
+      </div>
+      <div class="card-value" id="metricTotalBatches">--</div>
+      <div class="card-label">All time batches received</div>
+    </div>
+
+    <div class="card fade-in delay-2">
+      <div class="card-header">
+        <div class="card-title">In Stock</div>
+        <div class="card-icon">✓</div>
+      </div>
+      <div class="card-value" id="metricActiveBatches">--</div>
+      <div class="card-label">Batches ready to ship</div>
+    </div>
+
+    <div class="card fade-in delay-3">
+      <div class="card-header">
+        <div class="card-title">Vials Available</div>
+        <div class="card-icon">💊</div>
+      </div>
+      <div class="card-value" id="metricTotalVials">--</div>
+      <div class="card-label">Total inventory count</div>
+    </div>
+
+    <div class="card fade-in delay-4">
+      <div class="card-header">
+        <div class="card-title">Inventory Value</div>
+        <div class="card-icon">$</div>
+      </div>
+      <div class="card-value" id="metricInventoryValue">--</div>
+      <div class="card-label">Current stock value (COGS)</div>
+    </div>
+
+  </div>
+
+  <!-- Low Stock Alerts Table -->
+  <div class="card table-card fade-in delay-4">
+    <div class="table-header">
+      <div class="table-title">🚨 Low Stock Alerts</div>
+      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
+    </div>
+    <div class="table-wrapper">
+      <table id="lowStockTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Vials Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="lowStockBody">
+          <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- All Batches Table -->
+  <div class="card table-card fade-in delay-4">
+    <div class="table-header">
+      <div class="table-title">All Active Batches</div>
+      <span class="mono" style="color: var(--text-dim);">In stock inventory</span>
+    </div>
+    <div class="table-wrapper">
+      <table id="allBatchesTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Received</th>
+            <th>Vials Total</th>
+            <th>Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="allBatchesBody">
+          <tr><td colspan="8" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  </div>
+  <!-- End Inventory Tab -->
+
+  <!-- Financials Tab -->
+  <div class="tab-content" id="financialsTab">
+
+    <!-- PRIORITY 1: Current Month Performance -->
+    <div class="grid">
+      
+      <!-- Monthly Revenue -->
+      <div class="card fade-in delay-1">
+        <div class="card-header">
+          <div class="card-title" id="revenueCardTitle">Monthly Revenue</div>
+          <div class="card-icon">💵</div>
+        </div>
+        <div class="card-value" id="monthlyRevenue">--</div>
+        <div class="card-label" id="revenueCardLabel">Total sales this month</div>
+        <div class="card-change" id="revenueChange"></div>
+        <div class="card-change" id="revenueBreakdown" style="margin-top: 8px; font-size: 11px; color: var(--text-dim);"></div>
+      </div>
+
+      <!-- Monthly Expenses -->
+      <div class="card fade-in delay-2">
+        <div class="card-header">
+          <div class="card-title">Monthly Expenses</div>
+          <div class="card-icon">📉</div>
+        </div>
+        <div class="card-value" id="monthlyExpenses">--</div>
+        <div class="card-label">COGS + Operating costs</div>
+        <div class="card-change" id="expensesBreakdown"></div>
+      </div>
+
+      <!-- Net Profit -->
+      <div class="card fade-in delay-3">
+        <div class="card-header">
+          <div class="card-title">Net Profit</div>
+          <div class="card-icon">📈</div>
+        </div>
+        <div class="card-value" id="netProfit">--</div>
+        <div class="card-label">After all expenses</div>
+        <div class="card-change" id="profitMargin"></div>
+      </div>
+
+      <!-- Taxes Owed -->
+      <div class="card fade-in delay-4">
+        <div class="card-header">
+          <div class="card-title">Taxes Owed (30%)</div>
+          <div class="card-icon">🏛️</div>
+        </div>
+        <div class="card-value" id="taxesOwed">--</div>
+        <div class="card-label">Set aside for quarterly taxes</div>
+      </div>
+
+    </div>
+
+    <!-- P&L Statement -->
+    <div class="card table-card fade-in delay-4">
+      <div class="table-header">
+        <div class="table-title">💼 Profit & Loss Statement</div>
+        <span class="mono" style="color: var(--text-dim);">Current month breakdown</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="plTable">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>% of Revenue</th>
+            </tr>
+          </thead>
+          <tbody id="plBody">
+            <tr><td colspan="3" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Revenue by Product -->
+    <div class="card table-card fade-in delay-4">
+      <div class="table-header">
+        <div class="table-title">📊 Revenue by Product</div>
+        <span class="mono" style="color: var(--text-dim);">This month</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="revenueByProductTable">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Units Sold</th>
+              <th>Revenue</th>
+              <th>COGS</th>
+              <th>Gross Profit</th>
+              <th>Margin %</th>
+            </tr>
+          </thead>
+          <tbody id="revenueByProductBody">
+            <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Financials Tab -->
+
+  <!-- Fulfillment Tab -->
+  <div class="tab-content" id="fulfillmentTab">
+
+    <!-- Pending Orders Alert -->
+    <div id="pendingOrdersAlert"></div>
+
+    <!-- Pending Orders Table -->
+    <div class="card table-card fade-in delay-1">
+      <div class="table-header">
+        <div class="table-title">📋 Pending Orders</div>
+        <span class="mono" style="color: var(--text-dim);">Ready to pack & ship</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="pendingOrdersTable">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pendingOrdersBody">
+            <tr><td colspan="7" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Shipped Orders Table -->
+    <div class="card table-card fade-in delay-2">
+      <div class="table-header">
+        <div class="table-title">✅ Recently Shipped</div>
+        <span class="mono" style="color: var(--text-dim);">Last 30 days</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="shippedOrdersTable">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Shipped</th>
+              <th>Tracking</th>
+              <th>Batch ID</th>
+            </tr>
+          </thead>
+          <tbody id="shippedOrdersBody">
+            <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Fulfillment Tab -->
+
+</div>
+
+<!-- Packing Modal -->
+<div class="modal-overlay" id="packingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="packingModalTitle">Pack Order</div>
+      <button class="modal-close" onclick="closePackingModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="packingForm">
+        <input type="hidden" id="packOrderIndex">
+        <input type="hidden" id="packOrderNumber">
+        
+        <!-- Order Info (Read-only) -->
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <input type="text" class="form-input" id="packCustomer" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Product</label>
+          <input type="text" class="form-input" id="packProduct" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input type="text" class="form-input" id="packQuantity" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Shipping Address</label>
+          <input type="text" class="form-input" id="packAddress" readonly>
+        </div>
+        
+        <!-- Auto-Selected Batches (FIFO) -->
+        <div id="packBatchesSection" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <label class="form-label" style="margin-bottom: 12px;">📊 Auto-Selected Batches (FIFO)</label>
+          <div id="packBatchesList" style="background: var(--surface); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+            <!-- Populated by JavaScript -->
+          </div>
+          <input type="hidden" id="packBatchId">
+        </div>
+        
+        <!-- Packing Checklist -->
+        <div class="form-group">
+          
+          <div style="margin: 16px 0; font-size: 14px; color: var(--text-dim);">
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check1"> Pack vial in bubble wrap</div>
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check2"> Include COA card with batch QR code</div>
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check3"> Include storage instructions</div>
+            <div style="margin-bottom: 8px;"><input type="checkbox" id="check4"> Seal box securely</div>
+          </div>
+        </div>
+        
+        <!-- Shipping Info -->
+        <div class="form-group" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <label class="form-label">Tracking Number *</label>
+          <input type="text" class="form-input" id="packTracking" required placeholder="9400...">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Shipping Cost *</label>
+          <input type="number" class="form-input" id="packShippingCost" required min="0" step="0.01" placeholder="8.50">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Notes (Optional)</label>
+          <input type="text" class="form-input" id="packNotes" placeholder="Any special notes...">
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closePackingModal()">Cancel</button>
+      <button class="btn btn-success" onclick="completeShipping()" id="shipButton">✓ Mark as Shipped</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div class="modal-overlay" id="expenseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Expense</div>
+      <button class="modal-close" onclick="closeExpenseModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="expenseForm">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="expenseDate" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="expenseCategory" required>
+            <option value="">Select category...</option>
+            <option>Product Cost</option>
+            <option>Shipping</option>
+            <option>Testing</option>
+            <option>Software</option>
+            <option>Labels/Packaging</option>
+            <option>Merchant Fees</option>
+            <option>Marketing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Vendor</label>
+          <input type="text" class="form-input" id="expenseVendor" placeholder="e.g., USPS, Lydia, Janoshik">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-input" id="expenseDescription" required placeholder="What was this for?">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Amount</label>
+          <input type="number" class="form-input" id="expenseAmount" required min="0" step="0.01" placeholder="50.00">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Order # (Optional)</label>
+          <input type="text" class="form-input" id="expenseOrderNumber" placeholder="If related to specific order">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Payment Method</label>
+          <select class="form-select" id="expensePaymentMethod" required>
+            <option value="">Select method...</option>
+            <option>Credit Card</option>
+            <option>Debit Card</option>
+            <option>Zelle</option>
+            <option>PayPal</option>
+            <option>Cash</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeExpenseModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
+    </div>
+  </div>
+</div>
+
+<!-- Manual Sale Modal -->
+<div class="modal-overlay" id="manualSaleModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Log Manual Sale</div>
+      <button class="modal-close" onclick="closeManualSaleModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="manualSaleForm">
+        <div class="form-group">
+          <label class="form-label">Product</label>
+          <select class="form-select" id="manualSaleProduct" required>
+            <option value="">Select product...</option>
+            <option>Retatrutide 20mg</option>
+            <option>Tirzepatide 30mg</option>
+            <option>MOTS-c 10mg</option>
+            <option>NAD+ 1000mg</option>
+            <option>GHK-Cu 100mg</option>
+            <option>Semaglutide 10mg</option>
+            <option>BPC-157 10mg</option>
+            <option>TB-500 10mg</option>
+            <option>CJC-1295 10mg</option>
+            <option>Ipamorelin 5mg</option>
+            <option>Tesamorelin 10mg</option>
+            <option>AOD-9604 10mg</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input type="number" class="form-input" id="manualSaleQty" required min="1" value="1">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Sale Source</label>
+          <select class="form-select" id="manualSaleSource" required>
+            <option value="">Select source...</option>
+            <option>Reddit DM</option>
+            <option>Discord DM</option>
+            <option>In-Person</option>
+            <option>WhatsApp</option>
+            <option>Telegram</option>
+            <option>Referral</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Payment Method</label>
+          <select class="form-select" id="manualSalePayment" required>
+            <option value="">Select method...</option>
+            <option>Zelle</option>
+            <option>Venmo</option>
+            <option>Cash</option>
+            <option>Bitcoin</option>
+            <option>Other Crypto</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Amount Received</label>
+          <input type="number" class="form-input" id="manualSaleAmount" required min="0" step="0.01" placeholder="68.00">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Customer Name/Email (Optional)</label>
+          <input type="text" class="form-input" id="manualSaleCustomer" placeholder="u/peptideresearchguy or email">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Notes (Optional)</label>
+          <textarea class="form-input" id="manualSaleNotes" rows="2" placeholder="Any additional context..."></textarea>
+        </div>
+        
+        <!-- Auto-selected batches preview -->
+        <div id="manualSaleBatchPreview" style="display: none; background: var(--surface); border: 1px solid var(--accent); border-radius: 8px; padding: 16px; margin-top: 16px;">
+          <div class="mono" style="color: var(--accent); margin-bottom: 12px;">📊 Auto-Selected Batches (FIFO)</div>
+          <div id="manualSaleBatchList"></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeManualSaleModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="previewManualSaleBatches()">Preview Batches</button>
+      <button class="btn btn-success" onclick="saveManualSale()" style="display: none;" id="confirmManualSaleBtn">Confirm Sale</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Batch Modal -->
+<div class="modal-overlay" id="batchModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Add New Batch</div>
+      <button class="modal-close" onclick="closeBatchModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="batchForm">
+        <input type="hidden" id="editRowIndex">
+        
+        <div class="form-group">
+          <label class="form-label">Batch ID</label>
+          <input type="text" class="form-input" id="batchId" required placeholder="e.g., RETA-B2">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Product</label>
+          <select class="form-select" id="product" required>
+            <option value="">Select product...</option>
+            <option>Retatrutide 20mg</option>
+            <option>Tirzepatide 30mg</option>
+            <option>MOTS-c 10mg</option>
+            <option>NAD+ 1000mg</option>
+            <option>GHK-Cu 100mg</option>
+            <option>Semaglutide 10mg</option>
+            <option>BPC-157 10mg</option>
+            <option>TB-500 10mg</option>
+            <option>CJC-1295 10mg</option>
+            <option>Ipamorelin 5mg</option>
+            <option>Tesamorelin 10mg</option>
+            <option>AOD-9604 10mg</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Supplier</label>
+          <select class="form-select" id="supplier" required>
+            <option value="">Select supplier...</option>
+          </select>
+          <button type="button" class="btn btn-sm btn-outline" onclick="addNewSupplier()" style="margin-top: 8px; width: 100%;">
+            + Add New Supplier
+          </button>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Date Received</label>
+          <input type="date" class="form-input" id="dateReceived" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Vials Ordered</label>
+          <input type="number" class="form-input" id="vialsOrdered" required min="1" onchange="calculateCostPerVial()">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Supplier Cost Per Vial</label>
+          <input type="number" class="form-input" id="supplierCostPerVial" required min="0" step="0.01" placeholder="11.00" onchange="calculateCostPerVial()">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Testing Cost (Total)</label>
+          <input type="number" class="form-input" id="testingCost" required min="0" step="0.01" placeholder="440.00" onchange="calculateCostPerVial()">
+          <small style="color: var(--text-dim); font-size: 11px; display: block; margin-top: 4px;">Total Janoshik testing cost for this batch</small>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Vials Sacrificed for Testing</label>
+          <input type="number" class="form-input" id="vialsSacrificed" value="1" required min="0" onchange="calculateCostPerVial()">
+        </div>
+        
+        <!-- Auto-calculated fields (read-only) -->
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+          <div class="mono" style="color: var(--text-dim); margin-bottom: 12px;">📊 Calculated Costs</div>
+          
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 13px;">Total Supplier Cost:</span>
+            <span id="calcTotalSupplierCost" style="font-family: 'JetBrains Mono', monospace; font-weight: 600;">$0.00</span>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 13px;">Sellable Vials:</span>
+            <span id="calcSellableVials" style="font-family: 'JetBrains Mono', monospace; font-weight: 600;">0</span>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 13px;">Total Cost:</span>
+            <span id="calcTotalCost" style="font-family: 'JetBrains Mono', monospace; font-weight: 600;">$0.00</span>
+          </div>
+          
+          <div style="border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--accent); font-weight: 600; font-size: 14px;">Cost Per Vial:</span>
+              <span id="calcCostPerVial" style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); font-size: 16px;">$0.00</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hidden fields for sheet submission -->
+        <input type="hidden" id="vialsReceived">
+        <input type="hidden" id="costPerVial">
+        
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-select" id="status" required>
+            <option value="">Select status...</option>
+            <option>In Stock</option>
+            <option>Quarantine</option>
+            <option>Depleted</option>
+            <option>Recalled</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">COA Link (Optional)</label>
+          <input type="url" class="form-input" id="coaLink" placeholder="https://vantixbio.com/coa/...">
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeBatchModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveBatch()">Save Batch</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+// Configuration
+const SHEET_ID = '1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs';
+const API_KEY = 'AIzaSyBfRnto6b_gHiEJ9S8rDxdtJzpSd5kZGfw';
+const CLIENT_ID = '930087598511-76ukhb2bgpos5m779kmku77g9urvp2tr.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+
+let batchesData = [];
+let isSignedIn = false;
+let gapiInited = false;
+let tokenClient;
+
+// Authorized users (add emails here to grant access)
+const AUTHORIZED_USERS = [
+  'vantixbio@gmail.com',
+  'frabrizio@gmail.com',
+  'prcpeptides@gmail.com'
+];
+
+// Initialize Google API
+function gapiLoaded() {
+  gapi.load('client', initializeGapiClient);
+}
+
+async function initializeGapiClient() {
+  await gapi.client.init({
+    apiKey: API_KEY,
+    discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+  });
+  gapiInited = true;
+  maybeEnableButtons();
+}
+
+function gisLoaded() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: '', // defined later
+  });
+  maybeEnableButtons();
+}
+
+function maybeEnableButtons() {
+  if (gapiInited && tokenClient) {
+    // Load data directly (auth temporarily disabled due to OAuth config)
+    fetchSheetData();
+  }
+}
+
+// Check if user is authorized
+function checkAuthorization() {
+  const token = gapi.client.getToken();
+  
+  if (token === null) {
+    // Not signed in, show sign-in prompt
+    showSignInPrompt();
+  } else {
+    // Signed in, verify email
+    verifyUserEmail();
+  }
+}
+
+async function verifyUserEmail() {
+  try {
+    const response = await gapi.client.request({
+      path: 'https://www.googleapis.com/oauth2/v1/userinfo',
+    });
+    
+    const userEmail = response.result.email;
+    
+    if (AUTHORIZED_USERS.includes(userEmail)) {
+      // Authorized! Load dashboard
+      isSignedIn = true;
+      hideSignInPrompt();
+      document.body.style.visibility = 'visible';
+      await fetchSheetData();
+    } else {
+      // Not authorized
+      showAccessDenied(userEmail);
+    }
+  } catch (err) {
+    console.error('Error verifying user:', err);
+    showSignInPrompt();
+  }
+}
+
+function showSignInPrompt() {
+  // Remove existing overlay if present
+  const existing = document.getElementById('authOverlay');
+  if (existing) existing.remove();
+  
+  // Make body visible with auth prompt
+  document.body.style.visibility = 'visible';
+  
+  const overlay = document.createElement('div');
+  overlay.id = 'authOverlay';
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 24px;
+  `;
+  
+  overlay.innerHTML = `
+    <div style="text-align: center; max-width: 500px; padding: 40px;">
+      <div style="font-size: 60px; margin-bottom: 24px;">🔒</div>
+      <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px;">
+        Vantix Bio Dashboard
+      </h1>
+      <p style="color: var(--text-dim); margin-bottom: 32px; line-height: 1.6;">
+        Sign in with your authorized Google account to access the operations dashboard.
+      </p>
+      <button id="signInBtn" class="btn btn-primary" style="font-size: 14px; padding: 14px 32px;">
+        🔐 Sign in with Google
+      </button>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  // Add click handler
+  document.getElementById('signInBtn').addEventListener('click', handleAuthClick);
+}
+
+function hideSignInPrompt() {
+  const overlay = document.getElementById('authOverlay');
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function showAccessDenied(email) {
+  const overlay = document.getElementById('authOverlay');
+  if (overlay) {
+    overlay.innerHTML = `
+      <div style="text-align: center; max-width: 500px; padding: 40px;">
+        <div style="font-size: 60px; margin-bottom: 24px;">⛔</div>
+        <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px; color: var(--critical);">
+          Access Denied
+        </h1>
+        <p style="color: var(--text-dim); margin-bottom: 16px; line-height: 1.6;">
+          The account <strong>${email}</strong> is not authorized to access this dashboard.
+        </p>
+        <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
+          Contact the administrator if you believe this is an error.
+        </p>
+        <button onclick="signOutAndRetry()" class="btn btn-outline">
+          ← Sign in with different account
+        </button>
+      </div>
+    `;
+  }
+}
+
+function signOutAndRetry() {
+  const token = gapi.client.getToken();
+  if (token !== null) {
+    google.accounts.oauth2.revoke(token.access_token);
+    gapi.client.setToken('');
+  }
+  location.reload();
+}
+
+// Auth
+function handleAuthClick() {
+  tokenClient.callback = async (resp) => {
+    if (resp.error !== undefined) {
+      throw (resp);
+    }
+    // After getting token, verify user
+    await verifyUserEmail();
+  };
+
+  if (gapi.client.getToken() === null) {
+    tokenClient.requestAccessToken({prompt: 'consent'});
+  } else {
+    tokenClient.requestAccessToken({prompt: ''});
+  }
+}
+
+let ordersData = [];
+let expensesData = [];
+
+// Suppliers list (editable)
+let suppliers = ['Lydia', 'Smile', 'Other'];
+
+// Clean Books mode (toggle)
+let cleanBooksMode = false;
+
+// CC Fee Structure
+const CC_FEES = {
+  square: { percent: 0.038, fixed: 0.30 },
+  gateway: { percent: 0.006, fixed: 0.10 },
+  gatewayMonthlyMin: 50
+};
+
+function calculateMerchantFees(amount) {
+  const squareFee = (amount * CC_FEES.square.percent) + CC_FEES.square.fixed;
+  const gatewayFee = (amount * CC_FEES.gateway.percent) + CC_FEES.gateway.fixed;
+  return squareFee + gatewayFee; // Total: 4.4% + $0.40
+}
+
+// Fetch data
+async function fetchSheetData() {
+  try {
+    const batchesResponse = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: 'Batches!A2:S100',
+    });
+    
+    const ordersResponse = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: 'Orders!A2:Z100',
+    });
+    
+    const expensesResponse = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: 'Expenses!A2:G100',
+    });
+    
+    batchesData = batchesResponse.result.values || [];
+    ordersData = ordersResponse.result.values || [];
+    expensesData = expensesResponse.result.values || [];
+    
+    renderDashboard();
+    updateLastRefresh();
+  } catch (err) {
+    console.error('Error loading data:', err);
+    
+    if (err.status === 401 || err.status === 403) {
+      showSignInPrompt();
+    } else {
+      showToast('Failed to load data. Check console.', 'error');
+    }
+  }
+}
+
+// Render dashboard
+function renderDashboard() {
+  // Inventory tab
+  renderMetrics();
+  renderAlerts();
+  renderLowStockTable();
+  renderAllBatchesTable();
+  
+  // Financials tab
+  renderFinancialMetrics();
+  renderPLStatement();
+  renderRevenueByProduct();
+  
+  // Fulfillment tab
+  renderPendingOrders();
+  renderShippedOrders();
+}
+
+function renderMetrics() {
+  const totalBatches = batchesData.length;
+  const activeBatches = batchesData.filter(row => row[12] === 'In Stock').length;
+  
+  let totalVials = 0;
+  let inventoryValue = 0;
+  
+  batchesData.forEach(row => {
+    if (row[12] === 'In Stock') {
+      const remaining = parseInt(row[9]) || 0;
+      const costPerVial = parseFloat(row[8]) || 0;
+      totalVials += remaining;
+      inventoryValue += remaining * costPerVial;
+    }
+  });
+  
+  document.getElementById('metricTotalBatches').textContent = totalBatches;
+  document.getElementById('metricActiveBatches').textContent = activeBatches;
+  document.getElementById('metricTotalVials').textContent = totalVials.toLocaleString();
+  document.getElementById('metricInventoryValue').textContent = '$' + inventoryValue.toFixed(0);
+  
+  document.getElementById('activeBatches').textContent = activeBatches;
+  document.getElementById('totalVials').textContent = totalVials.toLocaleString();
+}
+
+function renderAlerts() {
+  const alertsDiv = document.getElementById('alerts');
+  alertsDiv.innerHTML = '';
+  
+  const criticalBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) < 10);
+  const lowBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) >= 10 && parseInt(row[9]) < 20);
+  
+  if (criticalBatches.length > 0) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-critical fade-in';
+    alert.innerHTML = `
+      <div class="alert-icon">🚨</div>
+      <div class="alert-text">
+        <strong>CRITICAL:</strong> ${criticalBatches.length} batch(es) below 10 vials. Immediate reorder required.
+      </div>
+    `;
+    alertsDiv.appendChild(alert);
+  }
+  
+  if (lowBatches.length > 0) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-warning fade-in';
+    alert.innerHTML = `
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text">
+        <strong>WARNING:</strong> ${lowBatches.length} batch(es) below 20 vials. Reorder recommended.
+      </div>
+    `;
+    alertsDiv.appendChild(alert);
+  }
+}
+
+function renderLowStockTable() {
+  const tbody = document.getElementById('lowStockBody');
+  const lowStockBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) < 30);
+  
+  if (lowStockBatches.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ All stock levels healthy</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = lowStockBatches
+    .sort((a, b) => parseInt(a[9]) - parseInt(b[9]))
+    .map((row, index) => {
+      const batchId = row[0];
+      const product = row[2];
+      const supplier = row[3];
+      const remaining = parseInt(row[9]) || 0;
+      
+      let statusClass = 'status-in-stock';
+      let statusText = 'Low Stock';
+      
+      if (remaining < 10) {
+        statusClass = 'status-critical';
+        statusText = 'Critical';
+      } else if (remaining < 20) {
+        statusClass = 'status-low';
+        statusText = 'Low';
+      }
+      
+      const rowIndex = batchesData.findIndex(r => r[0] === batchId);
+      
+      return `
+        <tr>
+          <td><span class="batch-id">${batchId}</span></td>
+          <td>${product}</td>
+          <td>${supplier}</td>
+          <td><strong>${remaining}</strong></td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline" onclick="editBatch(${rowIndex})">Edit</button>
+          </td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+function renderAllBatchesTable() {
+  const tbody = document.getElementById('allBatchesBody');
+  const activeBatches = batchesData.filter(row => row[12] === 'In Stock');
+  
+  if (activeBatches.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-dim); padding: 40px;">No active batches</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = activeBatches
+    .map((row, index) => {
+      const batchId = row[0];
+      const dateReceived = row[1];
+      const product = row[2];
+      const supplier = row[3];
+      const vialsTotal = row[4];
+      const remaining = parseInt(row[9]) || 0;
+      
+      let statusClass = 'status-in-stock';
+      let statusText = 'In Stock';
+      
+      if (remaining < 10) {
+        statusClass = 'status-critical';
+        statusText = 'Critical';
+      } else if (remaining < 20) {
+        statusClass = 'status-low';
+        statusText = 'Low Stock';
+      }
+      
+      const rowIndex = batchesData.findIndex(r => r[0] === batchId);
+      
+      return `
+        <tr>
+          <td><span class="batch-id">${batchId}</span></td>
+          <td>${product}</td>
+          <td>${supplier}</td>
+          <td>${dateReceived}</td>
+          <td>${vialsTotal}</td>
+          <td><strong>${remaining}</strong></td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline" onclick="editBatch(${rowIndex})">Edit</button>
+          </td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+// Modal functions
+function openAddBatchModal() {
+  // Auth check removed - password protection is sufficient
+  
+  document.getElementById('modalTitle').textContent = 'Add New Batch';
+  document.getElementById('batchForm').reset();
+  document.getElementById('editRowIndex').value = '';
+  document.getElementById('dateReceived').valueAsDate = new Date();
+  
+  // Populate supplier dropdown
+  populateSuppliers();
+  
+  document.getElementById('batchModal').classList.add('active');
+}
+
+function populateSuppliers() {
+  const supplierSelect = document.getElementById('supplier');
+  supplierSelect.innerHTML = '<option value="">Select supplier...</option>';
+  
+  suppliers.forEach(sup => {
+    supplierSelect.innerHTML += `<option value="${sup}">${sup}</option>`;
+  });
+}
+
+function addNewSupplier() {
+  const newSupplier = prompt('Enter new supplier name:');
+  
+  if (newSupplier && newSupplier.trim()) {
+    const supplierName = newSupplier.trim();
+    
+    // Check if already exists
+    if (suppliers.includes(supplierName)) {
+      alert('Supplier already exists!');
+      return;
+    }
+    
+    // Add to list (before "Other")
+    const otherIndex = suppliers.indexOf('Other');
+    if (otherIndex > -1) {
+      suppliers.splice(otherIndex, 0, supplierName);
+    } else {
+      suppliers.push(supplierName);
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('suppliers', JSON.stringify(suppliers));
+    
+    // Repopulate dropdown
+    populateSuppliers();
+    
+    // Select the new supplier
+    document.getElementById('supplier').value = supplierName;
+    
+    showToast(`Supplier "${supplierName}" added!`, 'success');
+  }
+}
+
+// Load suppliers from localStorage on page load
+function loadSuppliers() {
+  const saved = localStorage.getItem('suppliers');
+  if (saved) {
+    try {
+      suppliers = JSON.parse(saved);
+    } catch (e) {
+      console.error('Error loading suppliers:', e);
+    }
+  }
+}
+
+function calculateCostPerVial() {
+  const vialsOrdered = parseFloat(document.getElementById('vialsOrdered').value) || 0;
+  const supplierCost = parseFloat(document.getElementById('supplierCostPerVial').value) || 0;
+  const testingCost = parseFloat(document.getElementById('testingCost').value) || 0;
+  const vialsSacrificed = parseFloat(document.getElementById('vialsSacrificed').value) || 0;
+  
+  if (vialsOrdered <= 0) return;
+  
+  const totalSupplierCost = vialsOrdered * supplierCost;
+  const sellableVials = vialsOrdered - vialsSacrificed;
+  const totalCost = totalSupplierCost + testingCost;
+  const costPerVial = sellableVials > 0 ? totalCost / sellableVials : 0;
+  
+  // Update display
+  document.getElementById('calcTotalSupplierCost').textContent = '$' + totalSupplierCost.toFixed(2);
+  document.getElementById('calcSellableVials').textContent = sellableVials;
+  document.getElementById('calcTotalCost').textContent = '$' + totalCost.toFixed(2);
+  document.getElementById('calcCostPerVial').textContent = '$' + costPerVial.toFixed(2);
+  
+  // Update hidden fields for sheet submission
+  document.getElementById('vialsReceived').value = sellableVials;
+  document.getElementById('costPerVial').value = costPerVial.toFixed(2);
+}
+
+function editBatch(rowIndex) {
+  // Auth check removed - password protection is sufficient
+  
+  const row = batchesData[rowIndex];
+  
+  document.getElementById('modalTitle').textContent = 'Edit Batch';
+  document.getElementById('editRowIndex').value = rowIndex;
+  document.getElementById('batchId').value = row[0];
+  document.getElementById('product').value = row[2];
+  document.getElementById('supplier').value = row[3];
+  document.getElementById('dateReceived').value = row[1];
+  document.getElementById('vialsReceived').value = row[4];
+  document.getElementById('costPerVial').value = row[8];
+  document.getElementById('status').value = row[12];
+  document.getElementById('coaLink').value = row[10] || '';
+  
+  document.getElementById('batchId').readOnly = true;
+  document.getElementById('batchModal').classList.add('active');
+}
+
+function closeBatchModal() {
+  document.getElementById('batchModal').classList.remove('active');
+  document.getElementById('batchId').readOnly = false;
+}
+
+async function saveBatch() {
+  const form = document.getElementById('batchForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  const rowIndex = document.getElementById('editRowIndex').value;
+  const isEdit = rowIndex !== '';
+  
+  const batchId = document.getElementById('batchId').value;
+  const product = document.getElementById('product').value;
+  const supplier = document.getElementById('supplier').value;
+  const dateReceived = document.getElementById('dateReceived').value;
+  const vialsReceived = document.getElementById('vialsReceived').value;
+  const costPerVial = document.getElementById('costPerVial').value;
+  const status = document.getElementById('status').value;
+  const coaLink = document.getElementById('coaLink').value;
+  
+  // Build row data (matching Batches sheet structure)
+  const rowData = [
+    batchId,
+    dateReceived,
+    product,
+    supplier,
+    '', // Box Cost (calc in sheet)
+    '', // Vials per Box (calc in sheet)
+    '', // Cost per Vial (calc in sheet)
+    '', // Testing Cost (calc in sheet)
+    costPerVial, // Total Cost per Vial (Column I)
+    vialsReceived, // Quantity Remaining (Column J)
+    coaLink,
+    '', // QR Code
+    status,
+    '', // Empty column
+    '', // Batch Stats header
+    '', // Vials Sold (formula)
+    '', // Alert (formula)
+    ''  // Days Active (formula)
+  ];
+  
+  try {
+    let range;
+    let values;
+    
+    if (isEdit) {
+      // Update existing row
+      const sheetRow = parseInt(rowIndex) + 2; // +2 for header and 0-index
+      range = `Batches!A${sheetRow}:R${sheetRow}`;
+      values = [rowData];
+    } else {
+      // Append new row
+      range = 'Batches!A:R';
+      values = [rowData];
+    }
+    
+    await gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: SHEET_ID,
+      range: range,
+      valueInputOption: 'USER_ENTERED',
+      resource: { values: values }
+    });
+    
+    closeBatchModal();
+    await fetchSheetData();
+    showToast(isEdit ? 'Batch updated successfully!' : 'Batch added successfully!', 'success');
+  } catch (err) {
+    console.error('Error saving batch:', err);
+    showToast('Failed to save batch. Check console.', 'error');
+  }
+}
+
+// Utility functions
+function updateLastRefresh() {
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-US', { hour12: false });
+  document.getElementById('lastUpdate').textContent = time;
+}
+
+function refreshData() {
+  fetchSheetData();
+}
+
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `toast toast-${type} active`;
+  
+  setTimeout(() => {
+    toast.classList.remove('active');
+  }, 3000);
+}
+
+// Auto-refresh every 60 seconds
+setInterval(refreshData, 60000);
+
+// Tab Switching
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  if (tabName === 'inventory') {
+    document.getElementById('inventoryTab').classList.add('active');
+    document.querySelector('.tab:nth-child(1)').classList.add('active');
+  } else if (tabName === 'financials') {
+    document.getElementById('financialsTab').classList.add('active');
+    document.querySelector('.tab:nth-child(2)').classList.add('active');
+  } else if (tabName === 'fulfillment') {
+    document.getElementById('fulfillmentTab').classList.add('active');
+    document.querySelector('.tab:nth-child(3)').classList.add('active');
+  }
+}
+
+// Financial Metrics
+function renderFinancialMetrics() {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  // Filter orders for this month
+  const thisMonthOrders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+  });
+  
+  // Calculate revenue (column O = Total)
+  let monthlyRevenue = 0;
+  thisMonthOrders.forEach(row => {
+    const total = parseFloat(row[14]) || 0;
+    monthlyRevenue += total;
+  });
+  
+  // Calculate expenses (COGS from orders)
+  let monthlyCOGS = 0;
+  thisMonthOrders.forEach(row => {
+    const cogs = parseFloat(row[15]) || 0;
+    monthlyCOGS += cogs;
+  });
+  
+  // Add other expenses from Expenses sheet
+  const thisMonthExpenses = expensesData.filter(row => {
+    if (!row[0]) return false;
+    const expenseDate = new Date(row[0]);
+    return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+  });
+  
+  let operatingExpenses = 0;
+  thisMonthExpenses.forEach(row => {
+    const amount = parseFloat(row[4]) || 0;
+    operatingExpenses += amount;
+  });
+  
+  const totalExpenses = monthlyCOGS + operatingExpenses;
+  const netProfit = monthlyRevenue - totalExpenses;
+  const taxesOwed = netProfit * 0.30;
+  const profitMargin = monthlyRevenue > 0 ? ((netProfit / monthlyRevenue) * 100).toFixed(1) : 0;
+  
+  // Update UI
+  document.getElementById('monthlyRevenue').textContent = '$' + monthlyRevenue.toFixed(2);
+  document.getElementById('monthlyExpenses').textContent = '$' + totalExpenses.toFixed(2);
+  document.getElementById('netProfit').textContent = '$' + netProfit.toFixed(2);
+  document.getElementById('taxesOwed').textContent = '$' + taxesOwed.toFixed(2);
+  
+  // Change indicators
+  const revenueChangeEl = document.getElementById('revenueChange');
+  revenueChangeEl.textContent = `${thisMonthOrders.length} orders this month`;
+  
+  const expensesBreakdownEl = document.getElementById('expensesBreakdown');
+  expensesBreakdownEl.innerHTML = `COGS: $${monthlyCOGS.toFixed(0)} | Operating: $${operatingExpenses.toFixed(0)}`;
+  
+  const profitMarginEl = document.getElementById('profitMargin');
+  profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% profit margin</span>`;
+}
+
+// P&L Statement
+function renderPLStatement() {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  const thisMonthOrders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+  });
+  
+  let revenue = 0;
+  let cogs = 0;
+  let shipping = 0;
+  let fees = 0;
+  
+  thisMonthOrders.forEach(row => {
+    revenue += parseFloat(row[14]) || 0;
+    cogs += parseFloat(row[15]) || 0;
+    shipping += parseFloat(row[16]) || 0;
+    fees += parseFloat(row[17]) || 0;
+  });
+  
+  const thisMonthExpenses = expensesData.filter(row => {
+    if (!row[0]) return false;
+    const expenseDate = new Date(row[0]);
+    return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+  });
+  
+  let operatingExpenses = 0;
+  thisMonthExpenses.forEach(row => {
+    operatingExpenses += parseFloat(row[4]) || 0;
+  });
+  
+  const grossProfit = revenue - cogs;
+  const totalExpenses = shipping + fees + operatingExpenses;
+  const netProfit = grossProfit - totalExpenses;
+  const jessieShare = netProfit * 0.30;
+  const yourProfitBeforeTax = netProfit * 0.70;
+  const taxes = yourProfitBeforeTax * 0.30;
+  const yourNetProfit = yourProfitBeforeTax - taxes;
+  
+  const tbody = document.getElementById('plBody');
+  
+  const formatPercent = (val) => {
+    return revenue > 0 ? ((val / revenue) * 100).toFixed(1) + '%' : '0%';
+  };
+  
+  tbody.innerHTML = `
+    <tr style="background: rgba(96, 165, 250, 0.05);">
+      <td><strong>Revenue</strong></td>
+      <td><strong>$${revenue.toFixed(2)}</strong></td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Cost of Goods Sold (COGS)</td>
+      <td style="color: var(--critical);">-$${cogs.toFixed(2)}</td>
+      <td>${formatPercent(cogs)}</td>
+    </tr>
+    <tr style="border-top: 1px solid var(--border);">
+      <td><strong>Gross Profit</strong></td>
+      <td><strong>$${grossProfit.toFixed(2)}</strong></td>
+      <td>${formatPercent(grossProfit)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Shipping Costs</td>
+      <td style="color: var(--critical);">-$${shipping.toFixed(2)}</td>
+      <td>${formatPercent(shipping)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Payment Fees (5%)</td>
+      <td style="color: var(--critical);">-$${fees.toFixed(2)}</td>
+      <td>${formatPercent(fees)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Operating Expenses</td>
+      <td style="color: var(--critical);">-$${operatingExpenses.toFixed(2)}</td>
+      <td>${formatPercent(operatingExpenses)}</td>
+    </tr>
+    <tr style="border-top: 1px solid var(--border);">
+      <td><strong>Net Profit (Before Split)</strong></td>
+      <td><strong style="color: ${netProfit >= 0 ? 'var(--success)' : 'var(--critical)'};">$${netProfit.toFixed(2)}</strong></td>
+      <td>${formatPercent(netProfit)}</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Jessie's Share (30%)</td>
+      <td style="color: var(--critical);">-$${jessieShare.toFixed(2)}</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Your Profit Before Tax (70%)</td>
+      <td>$${yourProfitBeforeTax.toFixed(2)}</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 32px;">Taxes (30%)</td>
+      <td style="color: var(--critical);">-$${taxes.toFixed(2)}</td>
+      <td>--</td>
+    </tr>
+    <tr style="border-top: 2px solid var(--accent); background: rgba(96, 165, 250, 0.08);">
+      <td><strong>Your Net Profit (After All)</strong></td>
+      <td><strong style="color: ${yourNetProfit >= 0 ? 'var(--success)' : 'var(--critical)'};font-size: 1.1em;">$${yourNetProfit.toFixed(2)}</strong></td>
+      <td>--</td>
+    </tr>
+  `;
+}
+
+// Revenue by Product
+function renderRevenueByProduct() {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  const thisMonthOrders = ordersData.filter(row => {
+    if (!row[1]) return false;
+    const orderDate = new Date(row[1]);
+    return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+  });
+  
+  const productStats = {};
+  
+  thisMonthOrders.forEach(row => {
+    const product = row[9];
+    const qty = parseInt(row[10]) || 0;
+    const revenue = parseFloat(row[14]) || 0;
+    const cogs = parseFloat(row[15]) || 0;
+    
+    if (!productStats[product]) {
+      productStats[product] = {
+        units: 0,
+        revenue: 0,
+        cogs: 0
+      };
+    }
+    
+    productStats[product].units += qty;
+    productStats[product].revenue += revenue;
+    productStats[product].cogs += cogs;
+  });
+  
+  const tbody = document.getElementById('revenueByProductBody');
+  
+  if (Object.keys(productStats).length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">No sales this month</td></tr>';
+    return;
+  }
+  
+  const sorted = Object.entries(productStats).sort((a, b) => b[1].revenue - a[1].revenue);
+  
+  tbody.innerHTML = sorted.map(([product, stats]) => {
+    const grossProfit = stats.revenue - stats.cogs;
+    const margin = stats.revenue > 0 ? ((grossProfit / stats.revenue) * 100).toFixed(1) : 0;
+    
+    return `
+      <tr>
+        <td>${product}</td>
+        <td><strong>${stats.units}</strong></td>
+        <td>$${stats.revenue.toFixed(2)}</td>
+        <td>$${stats.cogs.toFixed(2)}</td>
+        <td style="color: ${grossProfit >= 0 ? 'var(--success)' : 'var(--critical)'};">
+          <strong>$${grossProfit.toFixed(2)}</strong>
+        </td>
+        <td>
+          <span class="status-badge ${margin >= 50 ? 'status-in-stock' : margin >= 30 ? 'status-low' : 'status-critical'}">
+            ${margin}%
+          </span>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Fulfillment Functions
+function renderPendingOrders() {
+  const pendingOrders = ordersData.filter(row => {
+    const status = (row[19] || '').toLowerCase();
+    return status !== 'shipped' && status !== 'cancelled';
+  });
+  
+  const tbody = document.getElementById('pendingOrdersBody');
+  const alert = document.getElementById('pendingOrdersAlert');
+  
+  if (pendingOrders.length > 0) {
+    alert.innerHTML = `
+      <div class="alert alert-warning fade-in">
+        <div class="alert-icon">📦</div>
+        <div class="alert-text">
+          <strong>${pendingOrders.length} order(s) pending shipment</strong>
+        </div>
+      </div>
+    `;
+  } else {
+    alert.innerHTML = `
+      <div class="alert alert-success fade-in">
+        <div class="alert-icon">✅</div>
+        <div class="alert-text">
+          <strong>All orders shipped! No pending orders.</strong>
+        </div>
+      </div>
+    `;
+  }
+  
+  if (pendingOrders.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ No pending orders</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = pendingOrders.map((row, index) => {
+    const orderNum = row[0];
+    const date = row[1] ? new Date(row[1]).toLocaleDateString() : '--';
+    const name = row[3];
+    const product = row[9];
+    const qty = row[10];
+    const status = row[19] || 'Pending';
+    
+    const rowIndex = ordersData.findIndex(r => r[0] === orderNum);
+    
+    return `
+      <tr>
+        <td><span class="batch-id">${orderNum}</span></td>
+        <td>${date}</td>
+        <td>${name}</td>
+        <td>${product}</td>
+        <td><strong>${qty}</strong></td>
+        <td><span class="status-badge status-low">${status}</span></td>
+        <td>
+          <button class="btn btn-sm btn-primary" onclick="openPackingModal(${rowIndex})">Pack & Ship</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderShippedOrders() {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  
+  const shippedOrders = ordersData.filter(row => {
+    const status = (row[19] || '').toLowerCase();
+    if (status !== 'shipped') return false;
+    
+    if (row[1]) {
+      const orderDate = new Date(row[1]);
+      return orderDate >= thirtyDaysAgo;
+    }
+    return true;
+  });
+  
+  const tbody = document.getElementById('shippedOrdersBody');
+  
+  if (shippedOrders.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">No shipped orders in last 30 days</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = shippedOrders.slice(0, 20).map(row => {
+    const orderNum = row[0];
+    const name = row[3];
+    const product = row[9];
+    const shipped = row[20] || '--';
+    const tracking = row[21] || '--';
+    const batchId = row[22] || '⚠️ Missing';
+    
+    return `
+      <tr>
+        <td><span class="batch-id">${orderNum}</span></td>
+        <td>${name}</td>
+        <td>${product}</td>
+        <td>${shipped}</td>
+        <td style="font-family: 'JetBrains Mono', monospace; font-size: 11px;">${tracking}</td>
+        <td><span class="batch-id">${batchId}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openPackingModal(rowIndex) {
+  // Auth check removed - password protection is sufficient
+  
+  const row = ordersData[rowIndex];
+  
+  document.getElementById('packOrderIndex').value = rowIndex;
+  document.getElementById('packOrderNumber').value = row[0];
+  document.getElementById('packCustomer').value = `${row[3]} (${row[2]})`;
+  document.getElementById('packProduct').value = row[9];
+  document.getElementById('packQuantity').value = row[10];
+  
+  const address = `${row[5]}, ${row[6]}, ${row[7]} ${row[8]}`;
+  document.getElementById('packAddress').value = address;
+  
+  // Auto-select batches using FIFO
+  const product = row[9];
+  const qty = parseInt(row[10]);
+  
+  // Get available batches for this product (FIFO - oldest first)
+  const availableBatches = batchesData
+    .map((batch, index) => ({ batch, index }))
+    .filter(b => b.batch[2] === product && b.batch[12] === 'In Stock' && parseInt(b.batch[9]) > 0)
+    .sort((a, b) => new Date(a.batch[1]) - new Date(b.batch[1])); // Sort by date received
+  
+  if (availableBatches.length === 0) {
+    document.getElementById('packBatchesList').innerHTML = '<div style="color: var(--critical); font-weight: 600;">⚠️ No stock available for this product!</div>';
+    document.getElementById('packBatchId').value = '';
+    window.currentPackingAllocations = [];
+  } else {
+    // Calculate FIFO allocation
+    let remaining = qty;
+    const allocations = [];
+    
+    for (const b of availableBatches) {
+      if (remaining <= 0) break;
+      
+      const available = parseInt(b.batch[9]);
+      const toUse = Math.min(remaining, available);
+      
+      allocations.push({
+        batchId: b.batch[0],
+        dateReceived: b.batch[1],
+        vials: toUse,
+        rowIndex: b.index
+      });
+      
+      remaining -= toUse;
+    }
+    
+    if (remaining > 0) {
+      document.getElementById('packBatchesList').innerHTML = `<div style="color: var(--critical); font-weight: 600;">⚠️ Insufficient stock! Only ${qty - remaining} vials available.</div>`;
+      window.currentPackingAllocations = [];
+    } else {
+      // Show allocated batches
+      const batchesHtml = allocations.map(a => `
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+          <div>
+            <strong>${a.batchId}</strong>
+            <div style="font-size: 11px; color: var(--text-dim);">Received: ${a.dateReceived}</div>
+          </div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent);">
+            ${a.vials} vial${a.vials > 1 ? 's' : ''}
+          </div>
+        </div>
+      `).join('');
+      
+      document.getElementById('packBatchesList').innerHTML = batchesHtml;
+      
+      // Store batch IDs for shipping
+      const batchIdsStr = allocations.map(a => `${a.batchId} (${a.vials})`).join(', ');
+      document.getElementById('packBatchId').value = batchIdsStr;
+      
+      // Store allocations for inventory update
+      window.currentPackingAllocations = allocations;
+    }
+  }
+  
+  // Reset form
+  document.getElementById('packTracking').value = '';
+  document.getElementById('packShippingCost').value = '';
+  document.getElementById('packNotes').value = '';
+  document.querySelectorAll('[type="checkbox"]').forEach(cb => cb.checked = false);
+  
+  document.getElementById('packingModal').classList.add('active');
+}
+
+function closePackingModal() {
+  document.getElementById('packingModal').classList.remove('active');
+}
+
+async function completeShipping() {
+  const form = document.getElementById('packingForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  // Check all checkboxes are checked
+  const allChecked = Array.from(document.querySelectorAll('[id^="check"]')).every(cb => cb.checked);
+  if (!allChecked) {
+    alert('Please complete all checklist items before shipping.');
+    return;
+  }
+  
+  const rowIndex = document.getElementById('packOrderIndex').value;
+  const orderNum = document.getElementById('packOrderNumber').value;
+  const batchId = document.getElementById('packBatchId').value;
+  const tracking = document.getElementById('packTracking').value;
+  const shippingCost = document.getElementById('packShippingCost').value;
+  const notes = document.getElementById('packNotes').value;
+  
+  if (!batchId) {
+    alert('No batches available to ship.');
+    return;
+  }
+  
+  if (!window.currentPackingAllocations || window.currentPackingAllocations.length === 0) {
+    alert('Batch allocation error. Please reopen packing modal.');
+    return;
+  }
+  
+  const sheetRow = parseInt(rowIndex) + 2;
+  
+  try {
+    // Update batch inventory (FIFO allocations)
+    for (const allocation of window.currentPackingAllocations) {
+      const batchRow = batchesData[allocation.rowIndex];
+      const currentRemaining = parseInt(batchRow[9]);
+      const newRemaining = currentRemaining - allocation.vials;
+      
+      // Update vials remaining
+      await gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: SHEET_ID,
+        range: `Batches!J${allocation.rowIndex + 2}`,
+        valueInputOption: 'RAW',
+        resource: { values: [[newRemaining]] }
+      });
+      
+      // Auto-deplete if 0
+      if (newRemaining === 0) {
+        await gapi.client.sheets.spreadsheets.values.update({
+          spreadsheetId: SHEET_ID,
+          range: `Batches!M${allocation.rowIndex + 2}`,
+          valueInputOption: 'RAW',
+          resource: { values: [['Depleted']] }
+        });
+      }
+    }
+    
+    // Update Orders sheet: Status, Shipped date, Tracking, Batch ID
+    const today = new Date().toLocaleDateString();
+    
+    await gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: SHEET_ID,
+      range: `Orders!T${sheetRow}:W${sheetRow}`,
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [['Shipped', today, tracking, batchId]]
+      }
+    });
+    
+    // Add shipping cost to Expenses sheet
+    if (shippingCost && parseFloat(shippingCost) > 0) {
+      await gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: SHEET_ID,
+        range: 'Expenses!A:G',
+        valueInputOption: 'USER_ENTERED',
+        resource: {
+          values: [[
+            today,
+            'Shipping',
+            'USPS',
+            `Order ${orderNum} shipping`,
+            shippingCost,
+            orderNum,
+            'Credit Card'
+          ]]
+        }
+      });
+    }
+    
+    closePackingModal();
+    await fetchSheetData();
+    showToast(`Order ${orderNum} shipped! Batches updated.`, 'success');
+  } catch (err) {
+    console.error('Error shipping order:', err);
+    showToast('Failed to update order. Check console.', 'error');
+  }
+}
+
+// Expense Modal
+function openExpenseModal() {
+  // Auth check removed - password protection is sufficient
+  
+  document.getElementById('expenseForm').reset();
+  document.getElementById('expenseDate').valueAsDate = new Date();
+  document.getElementById('expenseModal').classList.add('active');
+}
+
+function closeExpenseModal() {
+  document.getElementById('expenseModal').classList.remove('active');
+}
+
+async function saveExpense() {
+  const form = document.getElementById('expenseForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  const date = document.getElementById('expenseDate').value;
+  const category = document.getElementById('expenseCategory').value;
+  const vendor = document.getElementById('expenseVendor').value;
+  const description = document.getElementById('expenseDescription').value;
+  const amount = document.getElementById('expenseAmount').value;
+  const orderNum = document.getElementById('expenseOrderNumber').value;
+  const paymentMethod = document.getElementById('expensePaymentMethod').value;
+  
+  try {
+    await gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Expenses!A:G',
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [[
+          date,
+          category,
+          vendor,
+          description,
+          amount,
+          orderNum,
+          paymentMethod
+        ]]
+      }
+    });
+    
+    closeExpenseModal();
+    await fetchSheetData();
+    showToast('Expense added successfully!', 'success');
+  } catch (err) {
+    console.error('Error adding expense:', err);
+    showToast('Failed to add expense. Check console.', 'error');
+  }
+}
+
+// Theme Toggle
+function toggleTheme() {
+  const body = document.body;
+  const themeToggle = document.getElementById('themeToggle');
+  
+  if (body.classList.contains('light-mode')) {
+    body.classList.remove('light-mode');
+    themeToggle.textContent = '☀️ Light';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    body.classList.add('light-mode');
+    themeToggle.textContent = '🌙 Dark';
+    localStorage.setItem('theme', 'light');
+  }
+}
+
+// Load saved theme
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const themeToggle = document.getElementById('themeToggle');
+  
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    if (themeToggle) themeToggle.textContent = '🌙 Dark';
+  }
+}
+
+// Password Protection
+const DASHBOARD_PASSWORD = 'vantix2026'; // Change this to your password
+
+function checkPassword() {
+  const input = document.getElementById('passwordInput');
+  const error = document.getElementById('passwordError');
+  
+  if (input.value === DASHBOARD_PASSWORD) {
+    // Correct password
+    localStorage.setItem('dashboardAuth', 'true');
+    localStorage.setItem('authExpiry', Date.now() + (30 * 24 * 60 * 60 * 1000)); // 30 days
+    document.getElementById('passwordOverlay').style.display = 'none';
+    error.style.display = 'none';
+  } else {
+    // Wrong password
+    error.style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+
+function checkAuth() {
+  const isAuthed = localStorage.getItem('dashboardAuth');
+  const expiry = localStorage.getItem('authExpiry');
+  
+  if (isAuthed === 'true' && expiry && Date.now() < parseInt(expiry)) {
+    // Still authenticated
+    document.getElementById('passwordOverlay').style.display = 'none';
+  } else {
+    // Not authenticated or expired
+    localStorage.removeItem('dashboardAuth');
+    localStorage.removeItem('authExpiry');
+    document.getElementById('passwordOverlay').style.display = 'flex';
+  }
+}
+
+function logout() {
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.removeItem('dashboardAuth');
+    localStorage.removeItem('authExpiry');
+    location.reload();
+  }
+}
+
+function toggleCleanBooks() {
+  cleanBooksMode = !cleanBooksMode;
+  
+  // Update button
+  const btn = document.getElementById('cleanBooksToggle');
+  btn.textContent = cleanBooksMode ? '💼 Clean Books' : '💰 Full View';
+  btn.style.borderColor = cleanBooksMode ? 'var(--accent)' : 'var(--border)';
+  btn.style.color = cleanBooksMode ? 'var(--accent)' : 'var(--text)';
+  
+  // Show/hide indicator
+  document.getElementById('cleanBooksIndicator').style.display = cleanBooksMode ? 'block' : 'none';
+  
+  // Save preference
+  localStorage.setItem('cleanBooksMode', cleanBooksMode.toString());
+  
+  // Re-render financials
+  renderFinancialMetrics();
+  renderPLStatement();
+}
+
+function loadCleanBooksPreference() {
+  const saved = localStorage.getItem('cleanBooksMode');
+  if (saved === 'true') {
+    cleanBooksMode = true;
+    document.getElementById('cleanBooksToggle').textContent = '💼 Clean Books';
+    document.getElementById('cleanBooksIndicator').style.display = 'block';
+  }
+}
+
+// Manual Sale Functions
+function openManualSaleModal() {
+  document.getElementById('manualSaleForm').reset();
+  document.getElementById('manualSaleBatchPreview').style.display = 'none';
+  document.getElementById('confirmManualSaleBtn').style.display = 'none';
+  document.getElementById('manualSaleModal').classList.add('active');
+}
+
+function closeManualSaleModal() {
+  document.getElementById('manualSaleModal').classList.remove('active');
+}
+
+function previewManualSaleBatches() {
+  const form = document.getElementById('manualSaleForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  
+  const product = document.getElementById('manualSaleProduct').value;
+  const qty = parseInt(document.getElementById('manualSaleQty').value);
+  
+  // Get available batches for this product (FIFO - oldest first)
+  const availableBatches = batchesData
+    .map((row, index) => ({ row, index }))
+    .filter(b => b.row[2] === product && b.row[12] === 'In Stock' && parseInt(b.row[9]) > 0)
+    .sort((a, b) => new Date(a.row[1]) - new Date(b.row[1])); // Sort by date received (oldest first)
+  
+  if (availableBatches.length === 0) {
+    alert(`No stock available for ${product}!`);
+    return;
+  }
+  
+  // Calculate FIFO allocation
+  let remaining = qty;
+  const allocations = [];
+  
+  for (const batch of availableBatches) {
+    if (remaining <= 0) break;
+    
+    const available = parseInt(batch.row[9]);
+    const toUse = Math.min(remaining, available);
+    
+    allocations.push({
+      batchId: batch.row[0],
+      dateReceived: batch.row[1],
+      vials: toUse,
+      rowIndex: batch.index
+    });
+    
+    remaining -= toUse;
+  }
+  
+  if (remaining > 0) {
+    alert(`Insufficient stock! Only ${qty - remaining} vials available.`);
+    return;
+  }
+  
+  // Show preview
+  const previewHtml = allocations.map(a => `
+    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+      <div>
+        <strong>${a.batchId}</strong>
+        <div style="font-size: 11px; color: var(--text-dim);">Received: ${a.dateReceived}</div>
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent);">
+        ${a.vials} vial${a.vials > 1 ? 's' : ''}
+      </div>
+    </div>
+  `).join('');
+  
+  document.getElementById('manualSaleBatchList').innerHTML = previewHtml;
+  document.getElementById('manualSaleBatchPreview').style.display = 'block';
+  document.getElementById('confirmManualSaleBtn').style.display = 'inline-block';
+  
+  // Store allocations for save
+  window.currentManualSaleAllocations = allocations;
+}
+
+async function saveManualSale() {
+  if (!window.currentManualSaleAllocations || window.currentManualSaleAllocations.length === 0) {
+    alert('Please preview batches first!');
+    return;
+  }
+  
+  const product = document.getElementById('manualSaleProduct').value;
+  const qty = parseInt(document.getElementById('manualSaleQty').value);
+  const source = document.getElementById('manualSaleSource').value;
+  const payment = document.getElementById('manualSalePayment').value;
+  const amount = parseFloat(document.getElementById('manualSaleAmount').value);
+  const customer = document.getElementById('manualSaleCustomer').value || 'N/A';
+  const notes = document.getElementById('manualSaleNotes').value || '';
+  
+  const batchIds = window.currentManualSaleAllocations.map(a => `${a.batchId} (${a.vials})`).join(', ');
+  
+  try {
+    // Update batch inventory
+    for (const allocation of window.currentManualSaleAllocations) {
+      const row = batchesData[allocation.rowIndex];
+      const currentRemaining = parseInt(row[9]);
+      const newRemaining = currentRemaining - allocation.vials;
+      
+      await gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: SHEET_ID,
+        range: `Batches!J${allocation.rowIndex + 2}`,
+        valueInputOption: 'RAW',
+        resource: { values: [[newRemaining]] }
+      });
+      
+      // Auto-deplete if 0
+      if (newRemaining === 0) {
+        await gapi.client.sheets.spreadsheets.values.update({
+          spreadsheetId: SHEET_ID,
+          range: `Batches!M${allocation.rowIndex + 2}`,
+          valueInputOption: 'RAW',
+          resource: { values: [['Depleted']] }
+        });
+      }
+    }
+    
+    // Log as manual sale in Orders sheet
+    const today = new Date().toISOString().split('T')[0];
+    const orderId = `MANUAL-${Date.now()}`;
+    
+    // Calculate COGS from batch allocations
+    let totalCOGS = 0;
+    for (const allocation of window.currentManualSaleAllocations) {
+      const batch = batchesData[allocation.rowIndex];
+      const costPerVial = parseFloat(batch[8]) || 0;
+      totalCOGS += costPerVial * allocation.vials;
+    }
+    
+    await gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Orders!A:Z',
+      valueInputOption: 'RAW',
+      resource: {
+        values: [[
+          orderId,              // A: Order ID
+          today,                // B: Date
+          customer,             // C: Customer/Email
+          customer,             // D: Name (same as email for manual sales)
+          '',                   // E: Address 1
+          '',                   // F: City
+          '',                   // G: State
+          '',                   // H: Zip
+          payment,              // I: Payment Method
+          product,              // J: Product
+          qty,                  // K: Qty
+          '',                   // L: Discount Code
+          0,                    // M: Discount Amount
+          0,                    // N: Merchant Fees
+          amount,               // O: Total (REVENUE)
+          totalCOGS.toFixed(2), // P: COGS
+          '',                   // Q: Shipping Name
+          '',                   // R: Shipping Address
+          '',                   // S: Shipping City/State/Zip
+          'Shipped',            // T: Status
+          today,                // U: Shipped Date
+          'N/A',                // V: Tracking
+          batchIds,             // W: Batch IDs
+          `Manual Sale - ${source} - ${notes}` // X: Notes
+        ]]
+      }
+    });
+    
+    showToast(`Manual sale logged! ${qty}x ${product} for $${amount}`, 'success');
+    closeManualSaleModal();
+    await fetchSheetData();
+    
+  } catch (err) {
+    console.error('Error saving manual sale:', err);
+    alert('Error logging sale. Check console.');
+  }
+}
+
+// Allow Enter key to submit password
+document.addEventListener('DOMContentLoaded', () => {
+  const passwordInput = document.getElementById('passwordInput');
+  if (passwordInput) {
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+  }
+});
+
+// Check auth on page load
+window.addEventListener('load', checkAuth);
+
+// Load theme and suppliers on page load
+window.addEventListener('DOMContentLoaded', () => {
+  loadTheme();
+  loadSuppliers();
+  loadCleanBooksPreference();
+});
+
+// Load Google API
+window.gapiLoaded = gapiLoaded;
+window.gisLoaded = gisLoaded;
+</script>
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+
+</body>
+</html>
