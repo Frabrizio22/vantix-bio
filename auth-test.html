@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><title>Auth Test</title></head>
+<body>
+<div id="overlay" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:40px;border-radius:8px;">
+    <input type="password" id="pw" placeholder="Password">
+    <button onclick="check()">Unlock</button>
+    <p id="err" style="color:red;display:none;">Wrong</p>
+  </div>
+</div>
+<script>
+const PASS = 'vantix2026';
+function check() {
+  const input = document.getElementById('pw');
+  const err = document.getElementById('err');
+  console.log('Input value:', input.value);
+  console.log('Expected:', PASS);
+  console.log('Match:', input.value === PASS);
+  if (input.value === PASS) {
+    document.getElementById('overlay').style.display = 'none';
+    alert('Unlocked!');
+  } else {
+    err.style.display = 'block';
+  }
+}
+document.getElementById('pw').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') check();
+});
+</script>
+</body>
+</html>
