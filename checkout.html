@@ -772,7 +772,7 @@
                 <div class="option-info">
                     <div class="option-name">Pay with Zelle</div>
                     <div class="option-desc">Send directly from your bank app — no fees, no account needed</div>
-                    <span class="discount-tag">SAVE 5%</span>
+                    <span class="discount-tag"></span>
                 </div>
             </div>
             
@@ -1051,7 +1051,7 @@
             var subtotalNoKits = getSubtotalExcludingKits();
             var discount = 0;
             
-            // Zelle discount: 5% automatic when Zelle selected (applies to everything including kits)
+            // Zelle discount removed for compliance automatic when Zelle selected (applies to everything including kits)
             if (selectedPayment === 'zelle') {
                 discount += subtotal * 0.05;
             }
