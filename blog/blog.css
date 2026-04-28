@@ -121,6 +121,13 @@ article h2::before {
   margin-bottom: 16px;
 }
 
+.article-content p, article > p {
+  font-size: 17px;
+  line-height: 1.9;
+  margin-bottom: 28px;
+  color: rgba(10,22,40,.85);
+}
+
 article p {
   font-size: 17px;
   line-height: 1.9;
@@ -240,7 +247,15 @@ code {
   border-radius: 4px;
 }
 
-.meta {
+.article-header {
+  margin-bottom: 40px;
+}
+
+.article-header h1 {
+  padding-left: 0;
+}
+
+.meta, .article-meta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   text-transform: uppercase;
