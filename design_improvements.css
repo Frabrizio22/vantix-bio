@@ -1,0 +1,112 @@
+/* Typography & Line Length - Cap body text at 70ch */
+.editorial-panel p,
+.sidebar-card p,
+.chroma-card p {
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Spacing & Rhythm - Standardize vertical spacing */
+.hero { margin-bottom: 80px; }
+.three-col { margin-bottom: 80px; }
+.editorial-panel { margin-bottom: 80px; padding: 48px 32px; }
+.sidebar-layout { margin-bottom: 80px; }
+.cta-section { margin-top: 80px; padding: 48px 32px; }
+
+/* Three-Column Cards - Equal heights and better metric labels */
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.three-col > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.label-mono {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+
+/* Ticker Bar - Lighter separators */
+.ticker-track span::after {
+  content: '·';
+  margin: 0 24px;
+  opacity: 0.4;
+}
+
+/* Hero Chromatogram - Better stat spacing */
+.chroma-card .data-mono {
+  padding: 0 16px;
+  border-right: 1px solid var(--hairline);
+}
+
+.chroma-card .data-mono:last-child {
+  border-right: none;
+}
+
+/* Research Bundles - Better price hierarchy */
+.bundle-old-price {
+  color: #aaa;
+  font-size: 18px;
+  text-decoration: line-through;
+}
+
+.bundle-price {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.bundle-row {
+  padding-right: 24px;
+}
+
+/* FAQ - Larger hit targets */
+.faq-item summary {
+  padding: 20px 0;
+  cursor: pointer;
+  font-size: 18px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-item summary::after {
+  content: '+';
+  font-size: 28px;
+  min-width: 24px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+/* Join Waitlist Button */
+.btn-waitlist {
+  letter-spacing: 0.03em;
+}
+
+/* Consistent horizontal padding */
+.container {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
