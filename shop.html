@@ -293,7 +293,7 @@ const menuBtn = document.getElementById('menuBtn');
 const searchBtn = document.getElementById('searchBtn');
 const cartBtn = document.getElementById('cartBtn');
 
-if (menuBtn) menuBtn.onclick = () => window.location.href = 'index.html';
+if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.toggle('active');
 if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
 if (cartBtn) cartBtn.onclick = () => alert('Cart available mid-May 2026');
 </script>
