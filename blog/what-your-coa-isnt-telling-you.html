@@ -1,39 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Your COA Isn't Telling You: 5 Gaps in Standard Peptide Testing Reports — Vantix Bio</title>
-<link rel="icon" type="image/png" href="../favicon.png">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
-<link rel="stylesheet" href="blog.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Your COA Isn't Telling You: 5 Gaps in Standard Peptide Testing Reports | Vantix Bio</title>
+    <meta name="description" content="Most peptide COAs only report HPLC purity. Learn the 5 critical gaps — identity confirmation, endotoxin levels, degradation products, counterion content, and batch traceability — and what to demand from your vendor.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vantixbio.com/blog/what-your-coa-isnt-telling-you.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <!-- Premium Blog Stylesheet -->
+    <link rel="stylesheet" href="blog.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "What Your COA Isn't Telling You: 5 Gaps in Standard Peptide Testing Reports",
+      "description": "Most peptide COAs only report HPLC purity. Learn the 5 critical gaps — identity confirmation, endotoxin levels, degradation products, counterion content, and batch traceability.",
+      "author": {
+        "@type": "Organization",
+        "name": "Vantix Bio"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Vantix Bio",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://vantixbio.com/logo.jpg"
+        }
+      },
+      "datePublished": "2026-04-07",
+      "dateModified": "2026-04-07"
+    }
+    </script>
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should a complete peptide COA include?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A comprehensive COA should include HPLC purity (with method details), mass spectrometry identity confirmation, endotoxin quantification (EU/mL via LAL assay), residual solvent and counterion disclosure, batch-specific identification linking the report to a defined production lot, and the name of the independent laboratory that performed the analysis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is HPLC purity alone not sufficient for peptide quality assessment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HPLC measures chemical purity — the percentage of the target peptide relative to detectable impurities in the chromatogram. However, it cannot confirm molecular identity (a different peptide of similar hydrophobicity could co-elute), detect biological contaminants like endotoxins, or quantify non-UV-absorbing counterions such as TFA. A peptide can report 99% HPLC purity while failing on identity, safety, or net peptide content."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between HPLC purity and net peptide content?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HPLC purity reflects the proportion of the target peptide among UV-detectable species in the chromatogram. Net peptide content (NPC) represents the actual mass of active peptide per milligram of total material, accounting for counterions (typically TFA or acetate salts), residual moisture, and residual solvents. A peptide with 98% HPLC purity may have a net peptide content of only 70-80% depending on counterion and moisture burden."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I verify that a COA is authentic and not recycled from another batch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Look for batch-specific identifiers that tie the COA to a defined production lot. Authentic COAs from independent labs include unique task or job IDs that can be cross-referenced with the testing laboratory. If a vendor uses the same COA across multiple batches or cannot provide a lab-traceable identifier, the report may not reflect the actual product you are purchasing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are TFA counterions and why do they matter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Trifluoroacetic acid (TFA) is used during solid-phase peptide synthesis and HPLC purification. The resulting peptide typically retains TFA as a counterion salt, which can constitute 10-30% of the total vial weight depending on the peptide's charge state. TFA is not reported by standard HPLC purity analysis because it does not absorb UV light at typical detection wavelengths. This means HPLC purity overstates the amount of active peptide you are actually receiving."
+          }
+        }
+      ]
+    }
+    </script>
+
 </head>
 <body>
-<div class="status-bar"><div class="status-inner">Janoshik Verified</div></div>
-<div class="header">
-<div class="header-inner">
-<button class="back-btn" onclick="window.location.href='index.html'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
-<span>Back</span>
-</button>
-<a href="../index.html" class="logo"><img src="../logo-header.svg" alt="Vantix Bio"></a>
+    <!-- Pre-Launch Announcement Bar -->
+    <div class="announcement-bar">
+        PRE-LAUNCH — Orders open MAY 1 · <a href="../shop.html">Notify at Launch</a>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="../index.html" class="logo">
+                    <img src="../logo-header.svg" alt="VANTIX BIO" style="height:56px;width:auto">
+                </a>
+                <nav>
+                    <a href="../shop.html">Catalog</a>
+                    <a href="../verify.html">Verify</a>
+                    <a href="index.html" class="active">Research</a>
+                </nav>
+            </div>
+            <div class="nav-icons">
+                <a href="../shop.html" class="nav-icon" title="Cart">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Container -->
+    <div class="article-container">
+        <!-- Article Header -->
+        <header class="article-header">
+            <span class="category-badge category-research">QUALITY</span>
+            <h1>What Your COA Isn't Telling You: 5&nbsp;Gaps in Standard Peptide Testing&nbsp;Reports</h1>
+            <div class="article-meta">
+                <span>April 7, 2026</span>
+                <span>10 min read</span>
+                <span>Analytical Quality</span>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <article class="article-content">
+            <p>You ordered peptides. The vendor sent a Certificate of Analysis. It shows 98.5% purity by HPLC. Looks good — so you move forward.</p>
+
+            <p>But that single number is doing a lot of heavy lifting. It tells you something about chemical purity. It tells you nothing about whether the compound is actually the molecule you ordered, whether it carries biological contaminants, what percentage of the vial is active peptide versus salt, or whether the report even corresponds to the batch you&nbsp;received.</p>
+
+            <p>Most COAs in the research peptide market report one test: <strong>reversed-phase HPLC</strong>. That's the minimum. It's also where most vendors stop. Below are five gaps that standard COAs routinely leave open — and what each one means for your&nbsp;research.</p>
+
+            <div class="highlight">
+                <strong>Research Use Only:</strong> All mechanisms, pathways, and analytical methods discussed in this article refer to preclinical research applications. This content is educational and does not constitute medical advice. All cited references are linked in the <a href="#references">References</a>&nbsp;section.
+            </div>
+
+            <h2>Gap 1: No Identity Confirmation</h2>
+
+            <p>HPLC measures purity — the proportion of a single peak relative to total UV-absorbing species in the chromatogram. What it cannot determine is <strong>what that peak actually is</strong>.</p>
+
+            <p>Reversed-phase HPLC separates compounds by hydrophobicity. Two peptides with similar amino acid compositions and chain lengths can produce nearly identical retention times and peak shapes. A truncated synthesis product missing a single amino acid, a diastereomer with an inverted chiral center, or an entirely different peptide of similar hydrophobic character can all appear as a clean, sharp peak at >99% area — and HPLC alone cannot distinguish between&nbsp;them.</p>
+
+            <p>This is why <strong>mass spectrometry (MS)</strong> exists as a complementary method. LC-MS or LC-MS/MS measures the mass-to-charge ratio of the eluting compound, providing molecular weight confirmation that matches or excludes the target sequence. Sharma et al. reviewed the analytical characterization of synthetic peptides and emphasized that HPLC-UV alone is insufficient for definitive identification — mass spectrometric confirmation is required to verify molecular identity <a href="#ref-1">[1]</a>.</p>
+
+            <p>If your COA shows purity without mass spec data, you know the compound is <em>pure</em>. You don't know it's <em>correct</em>.</p>
+
+            <div class="spec-box">
+                <h3>What Each Method Answers</h3>
+                <div class="spec-row">
+                    <span class="spec-label">HPLC-DAD</span>
+                    <span class="spec-value">"How pure is this sample?" — Chemical purity as % of UV-absorbing species</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">LC-MS/MS</span>
+                    <span class="spec-value">"Is this the right molecule?" — Molecular weight and fragmentation pattern confirmation</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">LAL Assay</span>
+                    <span class="spec-value">"Is this biologically clean?" — Endotoxin quantification in EU/mL</span>
+                </div>
+            </div>
+
+            <h2>Gap 2: No Endotoxin Data</h2>
+
+            <p>A peptide can pass HPLC at 99% purity and still carry enough bacterial endotoxin to invalidate every downstream experiment. Endotoxins — lipopolysaccharide (LPS) fragments from Gram-negative bacteria — are invisible to HPLC, invisible to mass spec, and biologically active at picogram concentrations <a href="#ref-2">[2]</a>.</p>
+
+            <p>LPS activates Toll-like receptor 4 (TLR4), triggering NF-κB signaling and inflammatory cytokine release including TNF-α, IL-1β, and IL-6 <a href="#ref-3">[3]</a>. In any research model involving inflammation, immune response, cell viability, or tissue repair pathways, endotoxin contamination produces a baseline signal indistinguishable from the peptide's actual pharmacology. The result: confounded data that doesn't replicate.</p>
+
+            <p>Detection requires a dedicated assay — the <strong>Limulus Amebocyte Lysate (LAL) test</strong>, first described by Levin and Bang using the clotting cascade of horseshoe crab blood <a href="#ref-4">[4]</a>. The kinetic chromogenic variant quantifies endotoxin concentration down to 0.005 EU/mL and is recognized by USP &lt;85&gt;, EP 2.6.14, and JP 4.01 as the compendial standard <a href="#ref-5">[5]</a>.</p>
+
+            <p><strong>If endotoxin results don't appear on the COA, the test wasn't performed.</strong> No amount of HPLC purity compensates for an untested biological contaminant. For a deeper dive into endotoxin methodology, see our <a href="endotoxin-testing.html">Endotoxin Testing Deep&nbsp;Dive</a>.</p>
+
+            <h2>Gap 3: HPLC Purity ≠ Net Peptide Content</h2>
+
+            <p>This is the gap that costs researchers money without them realizing it.</p>
+
+            <p>When a COA reports "98% purity by HPLC," it means 98% of the UV-absorbing material in the chromatogram is the target peptide. But the chromatogram doesn't see everything in the vial. Specifically, it misses:</p>
+
+            <ul>
+                <li><strong>Counterion salts</strong> — Most synthetic peptides are manufactured using solid-phase synthesis with trifluoroacetic acid (TFA) cleavage and HPLC purification with TFA-containing mobile phases. The resulting product retains TFA as a counterion. Depending on the peptide's charge state, TFA can constitute 10–30% of total vial weight <a href="#ref-6">[6]</a>.</li>
+                <li><strong>Residual moisture</strong> — Lyophilized peptides typically contain 2–8% residual water content even after freeze-drying.</li>
+                <li><strong>Residual solvents</strong> — Trace amounts of acetonitrile, TFA, and other process solvents can remain bound to the peptide matrix.</li>
+            </ul>
+
+            <p>The practical result: a vial labeled "10 mg" with 98% HPLC purity may contain only 7–8 mg of actual active peptide. The rest is salt, water, and solvent. This difference between HPLC purity and <strong>net peptide content (NPC)</strong> is well-established in pharmaceutical peptide characterization — McCarthy et al. specifically noted the need for reference standards that account for counterion and moisture burden in synthetic peptide quality assessment <a href="#ref-7">[7]</a>.</p>
+
+            <p>Some COAs report net peptide content. Most don't. If yours doesn't, your dosing calculations are based on total material weight, not active peptide — and your effective concentration is lower than you&nbsp;think.</p>
+
+            <div style="background: #EFF6FF; border: 2px solid #2563EB; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                <h3 style="color: #1E40AF; margin-top: 0; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;">HPLC Purity vs. Net Peptide Content</h3>
+                <ul style="margin: 0.75rem 0 0 1.25rem; line-height: 1.9; color: #1E293B;">
+                    <li><strong>HPLC purity 98%</strong> = 98% of detectable UV peaks are the target peptide</li>
+                    <li><strong>Net peptide content ~75%</strong> = only 75% of the vial weight is active peptide</li>
+                    <li>The 23% gap is counterion salt + moisture + residual solvents</li>
+                    <li>If your COA only reports HPLC purity, you're overestimating your working concentration</li>
+                </ul>
+            </div>
+
+            <h2>Gap 4: No Degradation Product Profiling</h2>
+
+            <p>HPLC purity is measured at a single point in time — typically at the manufacturer's facility, shortly after synthesis and purification. It says nothing about what happens between that measurement and your reconstitution.</p>
+
+            <p>Peptides degrade through well-characterized chemical pathways. <strong>Deamidation</strong> — the spontaneous conversion of asparagine residues to aspartate via a succinimide intermediate — is the most common, occurring at rates that depend on sequence context, temperature, pH, and moisture exposure. Robinson demonstrated that deamidation rates can be predicted from three-dimensional structure, with certain Asn-Gly sequences degrading with half-lives as short as one day under physiological conditions <a href="#ref-8">[8]</a>.</p>
+
+            <p><strong>Methionine oxidation</strong> is the second major pathway — exposure to oxygen, light, or trace metals converts methionine to methionine sulfoxide, altering the peptide's biological activity and receptor binding properties. Manning et al. reviewed the major degradation pathways in pharmaceutical peptides and proteins, cataloging how these modifications accumulate during storage and handling <a href="#ref-9">[9]</a>.</p>
+
+            <p>A COA from the day of synthesis doesn't account for degradation during shipping, storage, or time on the vendor's shelf. Without stability data or a recent re-analysis, the purity number on the COA may not reflect what's actually in the vial when it reaches your&nbsp;bench.</p>
+
+            <h2>Gap 5: No Batch Traceability</h2>
+
+            <p>A COA is only meaningful if it corresponds to the specific batch you purchased. This sounds obvious, but it's the most frequently violated principle in the research peptide&nbsp;market.</p>
+
+            <p>Common traceability failures:</p>
+
+            <ul>
+                <li><strong>Recycled COAs</strong> — A vendor tests one batch, then attaches the same PDF to every subsequent order of that compound, regardless of when it was synthesized or by whom.</li>
+                <li><strong>Manufacturer-only testing</strong> — The COA comes from the synthesis facility, not an independent lab. The entity producing the compound is also the entity certifying its quality. There is no external verification.</li>
+                <li><strong>Missing batch identifiers</strong> — The COA shows a compound name and purity percentage but no lot number, no production date, no lab job ID, and no way to independently confirm the report is real.</li>
+            </ul>
+
+            <p>Authentic independent testing produces a unique task or job identifier for each submission. That identifier creates a chain of custody: you can verify with the laboratory directly that a specific compound was tested on a specific date and produced specific results. Without that chain, a COA is an unverifiable&nbsp;claim.</p>
+
+            <h2>What a Complete COA Looks Like</h2>
+
+            <p>A COA that addresses all five gaps includes:</p>
+
+            <div class="spec-box">
+                <h3>Minimum Analytical Panel for Research-Grade Peptides</h3>
+                <div class="spec-row">
+                    <span class="spec-label">Purity</span>
+                    <span class="spec-value">HPLC-DAD or HPLC-UV with method details (column, gradient, wavelength)</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Identity</span>
+                    <span class="spec-value">LC-MS or LC-MS/MS molecular weight confirmation matching target sequence</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Endotoxin</span>
+                    <span class="spec-value">Quantitative LAL result in EU/mL — not pass/fail, not "tested"</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Batch&nbsp;ID</span>
+                    <span class="spec-value">Unique lot number linked to the independent lab's task/job identifier</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Lab Name</span>
+                    <span class="spec-value">The independent third-party laboratory that performed the analysis</span>
+                </div>
+            </div>
+
+            <p>Net peptide content and residual solvent data are additional markers of thoroughness. Their absence doesn't disqualify a COA, but their presence signals a vendor operating at pharmaceutical-grade analytical&nbsp;standards.</p>
+
+            <h2>The Practical Takeaway</h2>
+
+            <p>A single HPLC purity number is a starting point, not a finish line. It confirms chemical purity but leaves identity, biological safety, actual peptide content, degradation status, and batch provenance unaddressed. Each gap introduces a variable into your research that you didn't account for — and can't control for after the&nbsp;fact.</p>
+
+            <p>Before your next purchase, look at the COA. Ask five questions:</p>
+
+            <ol>
+                <li>Is there mass spec data confirming this is the right molecule?</li>
+                <li>Is there an endotoxin result — a specific number, not just "tested"?</li>
+                <li>Does the report distinguish HPLC purity from net peptide content?</li>
+                <li>How old is this data, and does it match the batch I'm receiving?</li>
+                <li>Can I independently verify this report with the testing laboratory?</li>
+            </ol>
+
+            <p>If the answer to any of these is no, you have a gap. Whether that gap matters depends on your application. But you should know it's there.</p>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-section">
+                <details>
+                    <summary>Is HPLC purity meaningless?</summary>
+                    <p>No — HPLC purity is an essential baseline measurement. It tells you the proportion of the target compound relative to synthesis impurities and is the most widely used quality metric in peptide chemistry. The issue isn't that HPLC is wrong. It's that it's incomplete. Treating HPLC purity as the only quality indicator leaves four other categories of information unmeasured.</p>
+                </details>
+
+                <details>
+                    <summary>Can a vendor fake a mass spec result?</summary>
+                    <p>Any document can be fabricated. The defense against this is independent, third-party testing with a lab-traceable identifier. When the testing laboratory is separate from the vendor, and the report includes a task ID verifiable with the lab, the incentive and opportunity to falsify data drops significantly. This is why independent testing matters more than what's printed on the&nbsp;page.</p>
+                </details>
+
+                <details>
+                    <summary>Does TFA counterion content affect research results?</summary>
+                    <p>In most reconstitution-based research protocols, TFA content affects dosing accuracy — the effective peptide concentration is lower than calculated from total vial weight. At typical research concentrations, TFA itself is generally not considered a significant confounder, though its cytotoxicity at high concentrations has been documented in cell culture models. The primary concern is dosing precision, not direct TFA&nbsp;toxicity.</p>
+                </details>
+
+                <details>
+                    <summary>How often should a vendor re-test stored inventory?</summary>
+                    <p>There is no universal standard for re-testing frequency in the research peptide market. Pharmaceutical-grade protocols typically require stability testing at defined intervals (e.g., ICH Q1A guidelines). For research-grade vendors, the minimum defensible practice is batch-specific testing at the time of receipt, with fresh analysis if inventory exceeds the peptide's established stability window under the vendor's storage&nbsp;conditions.</p>
+                </details>
+
+                <details>
+                    <summary>What if my vendor provides HPLC but not mass spec — is the peptide necessarily wrong?</summary>
+                    <p>Not necessarily. Most reputable synthesis facilities produce the correct compound. The risk isn't that errors are common — it's that without MS confirmation, you have no way to verify. In high-stakes research where data reproducibility is critical, "probably correct" isn't the same standard as "confirmed correct." Identity verification eliminates the uncertainty entirely.</p>
+                </details>
+            </div>
+
+            <h2 id="references">References</h2>
+
+            <div class="references">
+                <ol>
+                    <li id="ref-1">Sharma N, Kukreja D, Giri T, Kumar S, Shah RP. <strong>Synthetic pharmaceutical peptides characterization by chromatography principles and method development.</strong> <em>J Sep Sci.</em> 2022;45(13):2200-2216. <a href="https://pubmed.ncbi.nlm.nih.gov/35460196/" target="_blank" rel="noopener">PMID:&nbsp;35460196</a></li>
+                    <li id="ref-2">Vanhaecke E, Pijck J, Vuye A. <strong>Endotoxin testing.</strong> <em>J Clin Pharm Ther.</em> 1987;12(4):223-235. <a href="https://pubmed.ncbi.nlm.nih.gov/3305530/" target="_blank" rel="noopener">PMID:&nbsp;3305530</a></li>
+                    <li id="ref-3">Poltorak A, He X, Smirnova I, et al. <strong>Defective LPS signaling in C3H/HeJ and C57BL/10ScCr mice: mutations in Tlr4 gene.</strong> <em>Science.</em> 1998;282(5396):2085-2088. <a href="https://pubmed.ncbi.nlm.nih.gov/9851930/" target="_blank" rel="noopener">PMID:&nbsp;9851930</a></li>
+                    <li id="ref-4">Levin J, Bang FB. <strong>Clottable protein in Limulus; its localization and kinetics of its coagulation by endotoxin.</strong> <em>Thromb Diath Haemorrh.</em> 1968;19(1):186-197. <a href="https://pubmed.ncbi.nlm.nih.gov/5690028/" target="_blank" rel="noopener">PMID:&nbsp;5690028</a></li>
+                    <li id="ref-5">Fennrich S, et al. <strong>More than 70 years of pyrogen detection: Current state and future perspectives.</strong> <em>Altern Lab Anim.</em> 2016;44(3):239-253. <a href="https://pubmed.ncbi.nlm.nih.gov/27494624/" target="_blank" rel="noopener">PMID:&nbsp;27494624</a></li>
+                    <li id="ref-6">Moore JV, et al. <strong>Impact of counterion and salt form on the properties of long-acting injectable peptide hydrogels for drug delivery.</strong> <em>Faraday Discuss.</em> 2025;260(0):215-234. <a href="https://pubmed.ncbi.nlm.nih.gov/40365687/" target="_blank" rel="noopener">PMID:&nbsp;40365687</a></li>
+                    <li id="ref-7">McCarthy D, Han Y, Carrick K, et al. <strong>Reference Standards to Support Quality of Synthetic Peptide Therapeutics.</strong> <em>Pharm Res.</em> 2023;40(6):1317-1327. <a href="https://pubmed.ncbi.nlm.nih.gov/36949371/" target="_blank" rel="noopener">PMID:&nbsp;36949371</a></li>
+                    <li id="ref-8">Robinson NE. <strong>Protein deamidation.</strong> <em>Proc Natl Acad Sci U S A.</em> 2002;99(8):5283-5288. <a href="https://pubmed.ncbi.nlm.nih.gov/11959979/" target="_blank" rel="noopener">PMID:&nbsp;11959979</a></li>
+                    <li id="ref-9">Manning MC, Chou DK, Murphy BM, Payne RW, Katayama DS. <strong>Stability of protein pharmaceuticals: an update.</strong> <em>Pharm Res.</em> 2010;27(4):544-575. <a href="https://pubmed.ncbi.nlm.nih.gov/20143256/" target="_blank" rel="noopener">PMID:&nbsp;20143256</a></li>
+                </ol>
+            </div>
+
+            <!-- CTA Section -->
+            <div style="background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%); color: #fff; padding: 2.5rem; border-radius: 12px; margin: 3rem 0; text-align: center;">
+                <h2 style="color: #fff; margin-top: 0; font-size: 1.5rem;">HPLC Purity. LC-MS Identity. LAL&nbsp;Endotoxin. Every&nbsp;Batch.</h2>
+                <p style="color: rgba(255,255,255,0.85); font-size: 1.05rem; max-width: 600px; margin: 1rem auto;">Vantix Bio COAs address all five gaps — purity, identity, endotoxin quantification, batch traceability, and independent lab verification through Janoshik&nbsp;Analytical.</p>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                    <a href="../shop.html" style="background: #2563EB; color: #fff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem;">View Catalog →</a>
+                    <a href="index.html" style="background: rgba(255,255,255,0.15); color: #fff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3);">More Research →</a>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <strong>Disclaimer:</strong> This article is for educational and informational purposes only. All products discussed are intended exclusively for in vitro laboratory research. They are not approved for human consumption, therapeutic use, or clinical application. Vantix Bio makes no claims regarding the safety or efficacy of any compound for any purpose other than qualified preclinical&nbsp;research.
+            </div>
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="../logo-footer.svg" alt="VANTIX BIO" style="height:48px;width:auto">
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../shop.html">Catalog</a>
+                <a href="../verify.html">Verify</a>
+                <a href="index.html">Research</a>
+            </div>
+            <div class="footer-disclaimer">
+                All products are sold exclusively for in vitro laboratory research purposes. Not for human consumption, therapeutic use, or clinical application. Must be 18+ to purchase. By using this site, you confirm all purchases are for legitimate research purposes only.<br><br>
+                © 2026 Vantix Bio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+<div style="background: #F8FAFC; border-top: 1px solid #E2E8F0; padding: 32px 24px; margin-top: 48px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h3 style="font-size: 20px; font-weight: 700; color: #1A2B44; margin-bottom: 20px;">Related Articles</h3>
+        <div style="display: grid; gap: 16px;">
+            <a href="how-to-read-a-janoshik-coa.html" style="display: block; background: white; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; text-decoration: none; transition: all 0.2s;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 15px; font-weight: 600; color: #1A2B44; margin-bottom: 4px;">Reading Janoshik COAs</div>
+                        <div style="font-size: 13px; color: #64748B;">Verification</div>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B8DBE" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <a href="endotoxin-testing.html" style="display: block; background: white; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; text-decoration: none; transition: all 0.2s;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 15px; font-weight: 600; color: #1A2B44; margin-bottom: 4px;">Endotoxin Testing Guide</div>
+                        <div style="font-size: 13px; color: #64748B;">Quality</div>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B8DBE" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <a href="how-to-verify-peptide-purity.html" style="display: block; background: white; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; text-decoration: none; transition: all 0.2s;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 15px; font-weight: 600; color: #1A2B44; margin-bottom: 4px;">Purity Verification</div>
+                        <div style="font-size: 13px; color: #64748B;">Methods</div>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B8DBE" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+
+        </div>
+    </div>
 </div>
-</div>
-<article>
-<div class="meta">Research Guide</div>
-<h1>What Your COA Isn't Telling You: 5 Gaps in Standard Peptide Testing Reports</h1>
-<p>Content being updated to match site standards. Check back soon.</p>
-</article>
-<footer>
-<div class="footer-content">
-<div class="footer-disclaimer">
-<p><strong>Research Use Only.</strong> Products are for laboratory research only—not for human consumption, therapeutic use, or diagnosis. Not approved by the FDA for clinical use.</p>
-</div>
-<div class="footer-legal">
-<p>&copy; 2026 Vantix Bio LLC · Research Use Only</p>
-</div>
-</div>
-</footer>
+
 </body>
 </html>
