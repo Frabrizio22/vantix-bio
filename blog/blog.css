@@ -34,7 +34,7 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
 
 .status-bar {
   background: var(--navy);
-  padding: 10px 0;
+  padding: 6px 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -42,9 +42,9 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
 
 .status-inner {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: .15em;
+  letter-spacing: .12em;
   color: rgba(255, 255, 255, .9);
   text-align: center;
 }
@@ -53,37 +53,43 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
   background: rgba(250, 250, 247, .98);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--hairline);
-  padding: 12px 0;
+  padding: 8px 0;
   position: sticky;
-  top: 37px;
+  top: 30px;
   z-index: 99;
 }
 
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .header-inner {
+    padding: 0 48px;
+  }
 }
 
 .back-btn {
   background: none;
   border: none;
-  padding: 6px;
+  padding: 4px;
   cursor: pointer;
   color: var(--navy);
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 4px;
+  font-size: 13px;
   font-weight: 500;
   transition: opacity .2s;
 }
 
 .back-btn:hover { opacity: .6; }
-.back-btn svg { width: 20px; height: 20px; stroke-width: 2; }
+.back-btn svg { width: 18px; height: 18px; stroke-width: 2; }
 
 .logo {
   display: flex;
@@ -94,7 +100,11 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
 }
 
 .logo:hover { opacity: .7; }
-.logo img { height: 32px; }
+.logo img { height: 28px; }
+
+@media (min-width: 768px) {
+  .logo img { height: 32px; }
+}
 
 article {
   max-width: 800px;
@@ -242,14 +252,14 @@ code {
 footer {
   background: var(--navy);
   color: rgba(255, 255, 255, .6);
-  padding: 24px 24px 20px;
+  padding: 20px 24px 16px;
   margin-top: 80px;
   border-top: 1px solid rgba(255,255,255,.1);
 }
 
 @media (min-width: 768px) {
   footer {
-    padding: 32px 48px 28px;
+    padding: 24px 48px 20px;
   }
 }
 
@@ -260,10 +270,10 @@ footer {
 }
 
 .footer-disclaimer {
-  font-size: 11px;
-  line-height: 1.6;
-  margin-bottom: 16px;
-  opacity: .7;
+  font-size: 10px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  opacity: .65;
 }
 
 .footer-disclaimer p {
@@ -272,11 +282,11 @@ footer {
 
 .footer-legal {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 8px;
   text-transform: uppercase;
-  letter-spacing: .1em;
-  opacity: .5;
-  margin-top: 16px;
-  padding-top: 16px;
+  letter-spacing: .08em;
+  opacity: .45;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255,255,255,.1);
 }
