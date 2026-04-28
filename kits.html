@@ -36,10 +36,10 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:32px;height:1px;background:var(--accent)}
 .chapter::after{content:'';width:32px;height:1px;background:var(--accent)}
-.kits-grid{padding:60px 0;display:grid;grid-template-columns:1fr;gap:40px}@media(min-width:768px){.kits-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1024px){.kits-grid{gap:60px}}
+.kits-grid{padding:60px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}@media(min-width:768px){.kits-grid{gap:40px}}@media(min-width:1024px){.kits-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1024px){.kits-grid{gap:60px}}
 .kit-card{background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:40px;transition:all .3s;position:relative}
 .kit-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,115,176,.08)}
-.kit-badge{position:absolute;top:20px;right:20px;background:#10b981;color:#fff;padding:6px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;box-shadow:0 2px 8px rgba(16,185,129,.3)}
+.kit-badge{position:absolute;top:16px;left:16px;background:#10b981;color:#fff;padding:6px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;box-shadow:0 2px 8px rgba(16,185,129,.3)}
 .kit-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:16px}
 .kit-name{font-family:'Fraunces',serif;font-size:28px;font-weight:300;margin-bottom:12px;color:var(--navy)}
 .kit-desc{font-size:16px;color:rgba(10,22,40,.7);margin-bottom:24px;line-height:1.7}
