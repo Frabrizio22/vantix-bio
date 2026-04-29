@@ -4,6 +4,8 @@
 <!-- v2.2-marquee-6s -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
 <title>Vantix Bio | Batch-Level Janoshik COAs for Every Vial | Research Peptides</title>
 <meta name="description" content="12 research peptides with batch-level verification. Independent Janoshik testing for every batch. HPLC Purity + LC-MS Identity + Endotoxin.">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -29,12 +31,16 @@
 <style>
 @import url('https://fonts.cdnfonts.com/css/geist');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#E5E5E0;--navy:#143054}
+:root{color-scheme:light;--bg:#F4F0E6;--text:#0F1B2D;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#D9D2BF;--navy:#0F1B2D;--signal:#7BA88F;--signal-bright:#5C9577}
+@media (prefers-color-scheme:dark){:root{color-scheme:light}}
+html{background:#F4F0E6 !important;color-scheme:light}
+html,body{background-color:#F4F0E6 !important;color:#0F1B2D !important}
 html,body{max-width:100%;overflow-x:hidden;position:relative}
 body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 *{max-width:100%}
 @keyframes floatIn{from{opacity:0;transform:translateY(30px);filter:blur(8px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
 @keyframes pulseRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes scan{0%{transform:translateX(0)}100%{transform:translateX(400px)}}
 @keyframes rotateIcon{from{transform:rotate(0deg)}to{transform:rotate(90deg)}}
@@ -46,15 +52,18 @@ body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var
 h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;text-wrap:balance}
 h1{font-size:clamp(2rem,6.5vw,6.5rem);letter-spacing:-.02em;padding-left:12px}
 h2{font-size:clamp(1.5rem,4vw,3.5rem);letter-spacing:-.015em;padding-left:12px}
-h1 em,h2 em{font-style:italic;font-weight:300}
+h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .label-mono{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
 .data-mono{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.05em}
 .container{max-width:100%;margin:0 auto;padding:0 48px;box-sizing:border-box}@media(min-width:768px){.container{padding:0 80px;max-width:1400px}}
 .hairline{width:100%;height:1px;background:var(--hairline)}
-.status-bar{background:var(--navy);padding:10px 0;position:sticky;top:0;z-index:100}
-.status-inner{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.9);text-align:center}
-.pulse-dot{position:relative;width:7px;height:7px;border-radius:50%;background:#10b981}
-.pulse-dot::before{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:pulseRing 2s ease-out infinite}
+.status-bar{background:var(--navy);padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
+.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:24px;max-width:1320px;margin:0 auto;padding:0 32px}
+.status-item{display:flex;align-items:center;gap:8px;opacity:.85}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 0 rgba(123,168,143,0.7);animation:pulse 2s infinite}
+.status-meta{display:flex;gap:24px}
+@media(max-width:720px){.status-meta{display:none}}
+@media(max-width:600px){.status-inner{padding:0 20px}}
 .header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}@media(min-width:768px){.header-nav{padding:20px 0}}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
 .logo-text{font-weight:600;font-size:17px;letter-spacing:-.01em}
@@ -216,8 +225,15 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 <body>
 
 <div class="status-bar">
-<div class="container">
-<div class="status-inner">Verified by <span style="white-space:nowrap">Janoshik</span></div>
+<div class="status-inner">
+<div class="status-item">
+<span class="pulse"></span>
+<span>Janoshik Verified — Live</span>
+</div>
+<div class="status-meta">
+<span>Last batch: VX-2604-A · 2h ago</span>
+<span>Catalog: 12 / 12 passing</span>
+</div>
 </div>
 </div>
 
