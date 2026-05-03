@@ -9,20 +9,44 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
 <link rel="stylesheet" href="blog.css">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
+.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
+.pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
+.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid #D9D2BF;position:sticky;top:37px;z-index:99}
+.header-content{max-width:1400px;margin:0 auto;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+@media(min-width:768px){.header-content{padding:16px 48px}}
+.logo-link{display:flex;align-items:center;text-decoration:none}
+.header-logo{height:32px}
+.nav{display:flex;gap:24px;align-items:center}
+.nav a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s}
+.nav a:hover{opacity:.6}
+@media(max-width:720px){.nav{gap:16px}.nav a{font-size:14px}}
+</style>
 </head>
 <body>
 
-<div class="status-bar"><div class="status-inner">Janoshik Verified</div></div>
+<div class="status-bar">
+  <div class="status-inner">
+    <span class="pulse"></span>
+    <span>JANOSHIK VERIFIED — LIVE</span>
+  </div>
+</div>
 
-<div class="header">
-<div class="header-inner">
-<button class="back-btn" onclick="window.location.href='index.html'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
-<span>Back</span>
-</button>
-<a href="../index.html" class="logo"><img src="../logo-header.svg" alt="Vantix Bio"></a>
-</div>
-</div>
+<header class="header">
+  <div class="header-content">
+    <a href="../index.html" class="logo-link">
+      <img src="../logo-header.svg" alt="Vantix Bio" class="header-logo">
+    </a>
+    <nav class="nav">
+      <a href="../shop.html">Products</a>
+      <a href="index.html">Research</a>
+      <a href="../verify.html">Verify</a>
+    </nav>
+  </div>
+</header>
 
 <article>
 
