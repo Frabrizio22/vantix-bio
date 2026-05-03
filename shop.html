@@ -195,18 +195,21 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 
 <script src="shop_products_data.js?v=20260503"></script>
 <script>
-// Map category labels to match filter buttons
+// Map product categories to filter buttons
 const categoryMap = {
   'metabolic': 'metabolic',
-  'cytoprotective': 'regen',
-  'growth-hormone': 'gh-axis',
-  'longevity': 'mito',
-  'dermal': 'dermal'
+  'regen': 'regen',
+  'gh-axis': 'gh-axis',
+  'mito': 'mito',
+  'dermal': 'dermal',
+  'cosmetic': 'dermal',
+  'tissue-repair': 'regen',
+  'growth-hormone': 'gh-axis'
 };
 
 function renderProducts(filter='all'){
   const allProducts = VX_PRODUCTS.phase1;
-  const filtered = filter === 'all' ? allProducts : allProducts.filter(p => categoryMap[p.category] === filter);
+  const filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
   
   document.getElementById('productsGrid').innerHTML = filtered.map(p => `
     <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">
