@@ -20,8 +20,10 @@ h1{font-size:clamp(2rem,6.5vw,4.5rem);letter-spacing:-.02em}
 h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .label-mono{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.25em;color:rgba(10,22,40,.5)}
 .container{max-width:100%;margin:0 auto;padding:0 20px;box-sizing:border-box}@media(min-width:768px){.container{padding:0 40px;max-width:1400px}}
-.status-bar{background:var(--navy);color:rgba(255,255,255,.9);padding:12px 0;position:sticky;top:0;z-index:100}
-.status-inner{max-width:1400px;margin:0 auto;padding:0 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;text-align:center}
+.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
+.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
+.pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
 .header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline)}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
 .header-icons{display:flex;align-items:center;gap:8px}
@@ -99,7 +101,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <body>
 
 <div class="status-bar">
-<div class="status-inner">Now Accepting Orders — Independent Janoshik Verification on Every Batch</div>
+  <div class="status-inner">
+    <span class="pulse"></span>
+    <span>JANOSHIK VERIFIED — LIVE</span>
+  </div>
 </div>
 
 <div class="container">
