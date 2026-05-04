@@ -20,7 +20,7 @@
 html,body{max-width:100%;overflow-x:hidden}
 body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;text-wrap:balance}
-h1{font-size:clamp(2rem,6vw,6.5rem);letter-spacing:-.02em;padding-left:12px;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
+h1{font-size:clamp(2rem,8vw,4rem);letter-spacing:-.02em;line-height:1.05}
 h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .container{max-width:1200px;margin:0 auto;padding:0 48px}@media(min-width:768px){.container{padding:0 80px}}
 .status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
@@ -57,10 +57,10 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
-.hero{padding:80px 0 60px;border-bottom:1px solid var(--hairline)}
-.chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;gap:12px}
-.chapter::before{content:'';width:32px;height:1px;background:var(--accent)}
-.chapter::after{content:'';width:32px;height:1px;background:var(--accent)}
+.hero{padding:40px 0 30px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.hero{padding:80px 0 60px}}
+.chapter{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}@media(min-width:768px){.chapter{font-size:11px;letter-spacing:.25em;margin-bottom:32px;gap:12px}}
+.chapter::before{content:'';width:24px;height:1px;background:var(--accent)}@media(min-width:768px){.chapter::before{width:32px}}
+.chapter::after{content:'';width:24px;height:1px;background:var(--accent)}@media(min-width:768px){.chapter::after{width:32px}}
 .kits-grid{padding:40px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:stretch}@media(min-width:768px){.kits-grid{padding:60px 0;gap:28px}}@media(min-width:1024px){.kits-grid{gap:36px}}
 .kit-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:12px;transition:all .2s;position:relative;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(10,22,40,.05)}@media(min-width:768px){.kit-card{border-radius:14px;padding:28px}}
 .kit-card:hover{border-color:rgba(57,115,176,.4);transform:translateY(-2px);box-shadow:0 6px 16px rgba(10,22,40,.1)}
@@ -175,10 +175,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <p style="margin-top:24px;font-size:18px;line-height:1.7;color:rgba(10,22,40,.7);max-width:700px">Pre-configured peptide combinations for multi-pathway research. Separate vials, individual COAs, verified by <strong><span style="white-space:nowrap">Janoshik</span></strong>.</p>
 </div>
 
-<div class="info-section" style="padding:40px 0 20px;border:none">
+<div class="info-section" style="padding:24px 0 16px;border:none">@media(min-width:768px){padding:40px 0 20px}
 <div style="max-width:800px">
-<h2 style="font-size:clamp(1.5rem,3vw,2rem);margin-bottom:20px;font-weight:300">Why Research Kits?</h2>
-<p style="font-size:16px;line-height:1.8;color:rgba(10,22,40,.75);margin:0">Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>HPLC-DAD purity</strong>, <strong>LC-MS/MS identity</strong>, and <strong>LAL endotoxin screening</strong>. All components verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
+<h2 style="font-size:clamp(1.35rem,4vw,2rem);margin-bottom:14px;font-weight:300;line-height:1.2">Why Research Kits?</h2>
+<p style="font-size:14px;line-height:1.65;color:rgba(10,22,40,.75);margin:0">@media(min-width:768px){font-size:16px;line-height:1.8}Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>HPLC-DAD purity</strong>, <strong>LC-MS/MS identity</strong>, and <strong>LAL endotoxin screening</strong>. All components verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
 </div>
 </div>
 
