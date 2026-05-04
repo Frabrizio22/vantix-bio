@@ -28,6 +28,7 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .nav{display:flex;gap:24px;align-items:center}
 .nav a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s}
 .nav a:hover{opacity:.6}
+@media(max-width:768px){.nav a:not([style*="background"]){display:none}.nav{gap:0;justify-content:flex-end;flex:1}}
 @media(max-width:720px){.nav{gap:16px}.nav a{font-size:14px}}
 .hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--hairline)}
 .faq-list{padding:60px 0}
