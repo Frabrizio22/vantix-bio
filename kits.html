@@ -61,10 +61,10 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:32px;height:1px;background:var(--accent)}
 .chapter::after{content:'';width:32px;height:1px;background:var(--accent)}
-.kits-grid{padding:40px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:stretch}@media(min-width:768px){.kits-grid{padding:60px 0;gap:40px}}@media(min-width:1024px){.kits-grid{gap:60px}}
+.kits-grid{padding:40px 0;display:grid;grid-template-columns:1fr;gap:20px;align-items:stretch;max-width:480px;margin:0 auto}@media(min-width:640px){.kits-grid{grid-template-columns:repeat(2,1fr);gap:24px;max-width:100%}}@media(min-width:768px){.kits-grid{padding:60px 0;gap:32px}}@media(min-width:1024px){.kits-grid{gap:40px}}
 .kit-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px;transition:all .3s;position:relative;display:flex;flex-direction:column;justify-content:space-between}@media(min-width:768px){.kit-card{border-radius:16px;padding:32px}}
 .kit-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,115,176,.08)}
-.kit-savings{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#fff;background:#10B981;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}@media(min-width:768px){.kit-savings{font-size:12px;padding:5px 12px;margin-bottom:14px}}
+.kit-savings{display:none}
 .kit-number{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(10,22,40,.4);margin-bottom:2px}@media(min-width:768px){.kit-number{font-size:10px;margin-bottom:6px}}
 .kit-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}@media(min-width:768px){.kit-label{font-size:10px;letter-spacing:.15em;margin-bottom:10px}}
 .kit-name{font-family:'Fraunces',serif;font-size:clamp(1.25rem,5.2vw,1.65rem);font-weight:400;margin-bottom:6px;color:var(--navy);line-height:1.15;text-wrap:balance}@media(min-width:768px){.kit-name{font-size:28px;margin-bottom:12px;line-height:1.2}}
@@ -76,10 +76,10 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .kit-item-name::before{content:'•';color:var(--accent);font-weight:bold;font-size:14px;margin-right:2px}
 .kit-item-dose{color:rgba(10,22,40,.6);font-family:'JetBrains Mono',monospace;font-size:11px}@media(min-width:768px){.kit-item-dose{font-size:12px}}
 .kit-item:last-child{margin-bottom:0}
-.kit-pricing{display:flex;align-items:baseline;gap:6px;margin-bottom:10px;margin-top:auto}@media(min-width:768px){.kit-pricing{gap:12px;margin-bottom:16px}}
+.kit-pricing{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;margin-top:auto;flex-wrap:wrap}@media(min-width:768px){.kit-pricing{gap:10px;margin-bottom:16px}}
 .kit-price{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:var(--navy)}@media(min-width:768px){.kit-price{font-size:32px}}
 .kit-price-regular{font-size:18px;color:rgba(10,22,40,.4);text-decoration:line-through}
-.kit-save{font-size:14px;color:rgba(10,22,40,.6)}
+.kit-save{font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace}@media(min-width:768px){.kit-save{font-size:13px}}
 .btn{padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;background:var(--navy);color:#fff;width:100%;text-align:center;text-decoration:none;display:inline-block}@media(min-width:768px){.btn{padding:14px 28px;border-radius:10px;font-size:15px}}
 .btn:hover{background:var(--accent)}
 .info-section{padding:80px 0;border-top:1px solid var(--hairline)}
@@ -191,10 +191,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <span class="kit-item-dose">10mg</span>
 </div>
 </div>
-<div class="kit-savings">-$10</div>
 <div class="kit-pricing">
 <span class="kit-price">$58</span>
 <span class="kit-price-regular">$68</span>
+<span class="kit-save">(save $10)</span>
 </div>
 <button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
 </div>
@@ -216,10 +216,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <span class="kit-item-dose">5mg</span>
 </div>
 </div>
-<div class="kit-savings">-$10</div>
 <div class="kit-pricing">
 <span class="kit-price">$62</span>
 <span class="kit-price-regular">$72</span>
+<span class="kit-save">(save $10)</span>
 </div>
 <button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
 </div>
@@ -241,10 +241,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <span class="kit-item-dose">20mg</span>
 </div>
 </div>
-<div class="kit-savings">-$15</div>
 <div class="kit-pricing">
 <span class="kit-price">$121</span>
 <span class="kit-price-regular">$136</span>
+<span class="kit-save">(save $15)</span>
 </div>
 <button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
 </div>
@@ -266,10 +266,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <span class="kit-item-dose">10mg</span>
 </div>
 </div>
-<div class="kit-savings">-$10</div>
 <div class="kit-pricing">
 <span class="kit-price">$90</span>
 <span class="kit-price-regular">$100</span>
+<span class="kit-save">(save $10)</span>
 </div>
 <button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
 </div>
