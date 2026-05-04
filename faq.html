@@ -20,32 +20,46 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
 .pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
-.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid #D9D2BF;position:sticky;top:37px;z-index:99}
-.header-content{max-width:1400px;margin:0 auto;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-@media(min-width:768px){.header-content{padding:16px 48px}}
-.logo-link{display:flex;align-items:center;text-decoration:none}
-.header-logo{height:32px}
-.nav{display:flex;gap:24px;align-items:center}
-.nav a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s}
-.nav a:hover{opacity:.6}
-.mobile-menu-btn{display:none;background:none;border:none;padding:8px;cursor:pointer;color:var(--navy)}
-@media(max-width:768px){.nav{display:none}.mobile-menu-btn{display:block !important;margin-left:auto}}
-.mobile-menu-btn svg{width:24px;height:24px;stroke-width:2}
-.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:1000;padding:80px 32px;overflow-y:auto}
-.mobile-nav.active{display:flex;flex-direction:column;gap:32px}
-.mobile-nav a{font-size:24px;color:var(--navy);text-decoration:none;font-family:'Fraunces',serif;font-weight:300}
-.mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;padding:8px;cursor:pointer;color:var(--navy)}
-.mobile-close svg{width:28px;height:28px;stroke-width:2}
-.hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--hairline)}
-.faq-list{padding:60px 0}
-.faq-item{margin-bottom:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
-.faq-question{padding:20px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;color:var(--navy);transition:background .2s}
+.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
+.header-icons{display:flex;align-items:center;gap:8px}
+.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
+.icon-btn:hover{opacity:.6}
+.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
+.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px;align-items:center}}
+.nav-links a{position:relative;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
+.nav-item{position:relative}
+.catalog-link{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text);font-size:15px;font-weight:500}
+.catalog-link svg{width:14px;height:14px;transition:transform .2s;stroke:currentColor;stroke-width:2}
+.nav-item:hover .catalog-link svg{transform:rotate(180deg)}
+.nav-dropdown{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
+.nav-dropdown::before{content:'';position:absolute;top:-8px;left:0;right:0;height:8px}
+.nav-item:hover .nav-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
+.nav-dropdown a:hover{background:var(--bg)}
+.nav-dropdown a::after{display:none}
+.menu-overlay{position:fixed;inset:0;background:#FAFAF7;z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;display:none}
+.menu-overlay.active{opacity:1;pointer-events:auto;display:block}
+.menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
+.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.95);border:2px solid #143054;border-radius:50%;padding:12px;cursor:pointer;color:#143054;z-index:10001;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:all .2s}
+.menu-close:hover{background:var(--navy);color:#fff;transform:scale(1.05)}
+.menu-close:active{transform:scale(.95)}
+.menu-close svg{width:20px;height:20px;stroke-width:2.5}
+.menu-section{margin-bottom:32px}
+.menu-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5);margin-bottom:16px}
+.menu-items{display:flex;flex-direction:column;gap:12px}
+.menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
+.menu-items a:hover{color:var(--accent)}
+.hero{padding:40px 0 32px;text-align:center;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.hero{padding:60px 0 40px}}
+.faq-list{padding:40px 0}@media(min-width:768px){.faq-list{padding:60px 0}}
+.faq-item{margin-bottom:16px;background:#fff;border:1px solid var(--hairline);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(10,22,40,.05)}@media(min-width:768px){.faq-item{margin-bottom:20px;border-radius:12px}}
+.faq-question{padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:600;color:var(--navy);transition:background .2s;font-family:'Fraunces',serif;line-height:1.3}@media(min-width:768px){.faq-question{padding:20px 24px;font-size:18px}}
 .faq-question:hover{background:rgba(57,115,176,.03)}
-.faq-icon{font-size:24px;color:var(--accent);transition:transform .3s}
+.faq-icon{font-size:20px;color:var(--accent);transition:transform .3s;flex-shrink:0;margin-left:12px}@media(min-width:768px){.faq-icon{font-size:24px}}
 .faq-item.active .faq-icon{transform:rotate(45deg)}
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease}
 .faq-item.active .faq-answer{max-height:800px}
-.faq-answer-inner{padding:0 24px 24px;color:rgba(10,22,40,.7);font-size:16px;line-height:1.7}
+.faq-answer-inner{padding:0 18px 18px;color:rgba(10,22,40,.7);font-size:14px;line-height:1.65}@media(min-width:768px){.faq-answer-inner{padding:0 24px 24px;font-size:16px;line-height:1.7}}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 .footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
 </style>
@@ -59,33 +73,71 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
   </div>
 </div>
 
-<header class="header">
-  <div class="header-content">
-    <a href="index.html" class="logo-link">
-      <img src="logo-header.svg" alt="Vantix Bio" class="header-logo">
-    </a>
-    <nav class="nav" style="display:flex;gap:24px;align-items:center">
-      <a href="shop.html">Catalog</a>
-      <a href="verify.html">Verify</a>
-      <a href="blog/index.html">Research</a>
-      <a href="about.html">About</a>
-      <a href="index.html#waitlist" class="btn btn-dark" style="padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none">Join Waitlist</a>
-    </nav>
-    <button class="mobile-menu-btn" onclick="document.getElementById('mobileNav').classList.add('active')">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
-  </div>
-</header>
+<div class="container">
+<nav class="header-nav">
+<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+<button class="icon-btn" id="menuBtn" aria-label="Menu">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+</button>
+<a href="index.html" class="logo">
+<img src="logo-header.svg" alt="Vantix Bio" style="height:32px">
+</a>
+</div>
+<div class="nav-links">
+<div class="nav-item">
+<div class="catalog-link">
+<span>Catalog</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
+</div>
+<div class="nav-dropdown">
+<a href="shop.html">Single Vials</a>
+<a href="kits.html">Research Kits</a>
+</div>
+</div>
+<a href="verify.html">Verify</a>
+<a href="blog/">Research</a>
+<a href="about.html">About</a>
+</div>
+<div class="header-icons">
+<button class="icon-btn" id="searchBtn" aria-label="Search">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+</button>
+<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+</button>
+</div>
+</nav>
+</div>
 
-<div class="mobile-nav" id="mobileNav">
-  <button class="mobile-close" onclick="document.getElementById('mobileNav').classList.remove('active')">
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-  </button>
-  <a href="shop.html">Catalog</a>
-  <a href="verify.html">Verify</a>
-  <a href="blog/index.html">Research</a>
-  <a href="about.html">About</a>
-  <a href="index.html#waitlist" style="background:var(--navy);color:#fff;padding:16px 32px;border-radius:24px;text-align:center;font-size:18px;font-family:'Geist',sans-serif;font-weight:600;margin-top:16px">Join Waitlist</a>
+<div class="menu-overlay" id="menuOverlay">
+<button class="menu-close" id="menuClose" aria-label="Close menu">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+</button>
+<div class="menu-inner">
+<div class="menu-section">
+<div class="menu-section-label">Product</div>
+<div class="menu-items">
+<a href="shop.html">Catalog</a>
+<a href="kits.html">Research Kits</a>
+<a href="verify.html">Verify Batch</a>
+</div>
+</div>
+<div class="menu-section">
+<div class="menu-section-label">Science</div>
+<div class="menu-items">
+<a href="blog/index.html">Articles</a>
+<a href="faq.html">FAQ</a>
+</div>
+</div>
+<div class="menu-section">
+<div class="menu-section-label">Support</div>
+<div class="menu-items">
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="index.html#waitlist">Join Waitlist</a>
+</div>
+</div>
+</div>
 </div>
 
 <div class="container">
@@ -164,5 +216,16 @@ q.onclick=()=>q.parentElement.classList.toggle('active');
 });
 </script>
 
-</body>
-</html>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const searchBtn = document.getElementById('searchBtn');
+const cartBtn = document.getElementById('cartBtn');
+const menuOverlay = document.getElementById('menuOverlay');
+const menuClose = document.getElementById('menuClose');
+
+if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
+if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
+if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
+if (cartBtn) cartBtn.onclick = () => alert('Cart available mid-May 2026');
+</script>
