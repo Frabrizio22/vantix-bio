@@ -64,24 +64,26 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .kits-grid{padding:40px 0;display:grid;grid-template-columns:1fr;gap:20px;align-items:stretch;max-width:420px;margin:0 auto}@media(min-width:480px){.kits-grid{grid-template-columns:repeat(2,1fr);max-width:100%;gap:18px}}@media(min-width:768px){.kits-grid{padding:60px 0;gap:32px}}@media(min-width:1024px){.kits-grid{gap:40px}}
 .kit-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px;transition:all .3s;position:relative;display:flex;flex-direction:column;justify-content:space-between}@media(min-width:768px){.kit-card{border-radius:16px;padding:32px}}
 .kit-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,115,176,.08)}
-.kit-savings{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:rgba(10,22,40,.5);margin-bottom:6px}@media(min-width:768px){.kit-savings{font-size:10px;margin-bottom:8px}}
-.kit-number{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(10,22,40,.4);margin-bottom:2px}@media(min-width:768px){.kit-number{font-size:9px;margin-bottom:4px}}
+
+.kit-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}@media(min-width:768px){.kit-header{margin-bottom:5px}}
+.kit-number{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(10,22,40,.4)}@media(min-width:768px){.kit-number{font-size:9px}}
+.kit-savings{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.08em;color:var(--accent);font-weight:500}@media(min-width:768px){.kit-savings{font-size:9px}}
 .kit-label{font-family:'JetBrains Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:4px}@media(min-width:768px){.kit-label{font-size:9px;letter-spacing:.12em;margin-bottom:8px}}
 .kit-name{font-family:'Fraunces',serif;font-size:clamp(1.3rem,5.5vw,1.7rem);font-weight:400;margin-bottom:6px;color:var(--navy);line-height:1.15;text-wrap:balance}@media(min-width:768px){.kit-name{font-size:28px;margin-bottom:12px;line-height:1.2}}
 .kit-desc{font-size:12px;color:rgba(10,22,40,.7);margin-bottom:8px;line-height:1.4;font-style:italic}@media(min-width:768px){.kit-desc{font-size:14px;margin-bottom:14px;line-height:1.5}}
-.kit-composition-label{display:none}
+.kit-composition-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,22,40,.5);margin-bottom:6px;padding-top:8px;border-top:1px dashed var(--hairline)}@media(min-width:768px){.kit-composition-label{font-size:9px;margin-bottom:8px;padding-top:12px}}
 .kit-items{margin-bottom:8px;padding:0}@media(min-width:768px){.kit-items{margin-bottom:14px}}
-.kit-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;font-size:13px;padding:4px 0}@media(min-width:768px){.kit-item{margin-bottom:7px;font-size:15px;padding:6px 0}}
-.kit-item-name{display:flex;align-items:center;gap:6px}
-.kit-item-name::before{content:'•';color:var(--accent);font-weight:bold;font-size:14px;margin-right:2px}
-.kit-item-dose{color:rgba(10,22,40,.6);font-family:'JetBrains Mono',monospace;font-size:12px}@media(min-width:768px){.kit-item-dose{font-size:13px}}
+.kit-item{margin-bottom:4px;font-size:12px;line-height:1.5;color:rgba(10,22,40,.8)}@media(min-width:768px){.kit-item{margin-bottom:5px;font-size:13px}}
+.kit-item::before{content:'• ';color:var(--accent);font-weight:bold;margin-right:4px}
+.kit-item-dose{color:rgba(10,22,40,.6);font-family:'JetBrains Mono',monospace;font-size:11px}@media(min-width:768px){.kit-item-dose{font-size:12px}}
 .kit-item:last-child{margin-bottom:0}
 .kit-pricing{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;margin-top:auto;flex-wrap:wrap}@media(min-width:768px){.kit-pricing{gap:10px;margin-bottom:16px}}
 .kit-price{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:var(--navy)}@media(min-width:768px){.kit-price{font-size:32px}}
 .kit-price-regular{font-size:18px;color:rgba(10,22,40,.4);text-decoration:line-through}
 .kit-save{display:none}
-.btn{padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;background:var(--navy);color:#fff;width:100%;text-align:center;text-decoration:none;display:inline-block}@media(min-width:768px){.btn{padding:14px 28px;border-radius:10px;font-size:15px}}
-.btn:hover{background:var(--accent)}
+.btn{padding:12px 16px;border-radius:0;font-size:11px;font-weight:600;cursor:pointer;transition:all .3s;border:1px solid var(--navy);background:var(--navy);color:#fff;width:100%;text-align:center;text-decoration:none;display:inline-block;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em}@media(min-width:768px){.btn{padding:14px 20px;font-size:12px}}
+.btn::before{content:'→ ';margin-right:6px}
+.btn:hover{background:var(--accent);border-color:var(--accent)}
 .info-section{padding:80px 0;border-top:1px solid var(--hairline)}
 .info-section h2{margin-bottom:24px}
 .info-section p{font-size:17px;line-height:1.8;color:rgba(10,22,40,.7);margin-bottom:20px;max-width:800px}
@@ -176,22 +178,18 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="kit-card">
 
+<div class="kit-header">
 <div class="kit-number">№ 003.01</div>
+<div class="kit-savings">−$10</div>
+</div>
 <div class="kit-label">Regenerative Research</div>
 <h2 class="kit-name">BPC-157 + TB-500</h2>
 <p class="kit-desc">Cytoprotective and actin-regulatory pathway investigation.</p>
 <div class="kit-composition-label">Composition</div>
 <div class="kit-items">
-<div class="kit-item">
-<span class="kit-item-name">BPC-157</span>
-<span class="kit-item-dose">10mg</span>
+<div class="kit-item">BPC-157 · <span class="kit-item-dose">10mg</span></div>
+<div class="kit-item">TB-500 · <span class="kit-item-dose">10mg</span></div>
 </div>
-<div class="kit-item">
-<span class="kit-item-name">TB-500</span>
-<span class="kit-item-dose">10mg</span>
-</div>
-</div>
-<div class="kit-savings">Save $10</div>
 <div class="kit-pricing">
 <span class="kit-price">$58</span>
 <span class="kit-price-regular">$68</span>
@@ -201,22 +199,18 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="kit-card">
 
+<div class="kit-header">
 <div class="kit-number">№ 003.02</div>
+<div class="kit-savings">−$10</div>
+</div>
 <div class="kit-label">Growth Hormone Axis</div>
 <h2 class="kit-name">CJC-1295 + Ipamorelin</h2>
 <p class="kit-desc">GHRH and ghrelin receptor pharmacology studies.</p>
 <div class="kit-composition-label">Composition</div>
 <div class="kit-items">
-<div class="kit-item">
-<span class="kit-item-name">CJC-1295</span>
-<span class="kit-item-dose">10mg (No DAC)</span>
+<div class="kit-item">CJC-1295 (No DAC) · <span class="kit-item-dose">10mg</span></div>
+<div class="kit-item">Ipamorelin · <span class="kit-item-dose">5mg</span></div>
 </div>
-<div class="kit-item">
-<span class="kit-item-name">Ipamorelin</span>
-<span class="kit-item-dose">5mg</span>
-</div>
-</div>
-<div class="kit-savings">Save $10</div>
 <div class="kit-pricing">
 <span class="kit-price">$62</span>
 <span class="kit-price-regular">$72</span>
@@ -226,22 +220,18 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="kit-card">
 
+<div class="kit-header">
 <div class="kit-number">№ 003.03</div>
+<div class="kit-savings">−$15</div>
+</div>
 <div class="kit-label">Metabolic Research</div>
 <h2 class="kit-name">Tirzepatide + Retatrutide</h2>
 <p class="kit-desc">Multi-receptor incretin agonist comparative studies.</p>
 <div class="kit-composition-label">Composition</div>
 <div class="kit-items">
-<div class="kit-item">
-<span class="kit-item-name">Tirzepatide</span>
-<span class="kit-item-dose">30mg</span>
+<div class="kit-item">Tirzepatide · <span class="kit-item-dose">30mg</span></div>
+<div class="kit-item">Retatrutide · <span class="kit-item-dose">20mg</span></div>
 </div>
-<div class="kit-item">
-<span class="kit-item-name">Retatrutide</span>
-<span class="kit-item-dose">20mg</span>
-</div>
-</div>
-<div class="kit-savings">Save $15</div>
 <div class="kit-pricing">
 <span class="kit-price">$121</span>
 <span class="kit-price-regular">$136</span>
@@ -251,22 +241,18 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="kit-card">
 
+<div class="kit-header">
 <div class="kit-number">№ 003.04</div>
+<div class="kit-savings">−$10</div>
+</div>
 <div class="kit-label">Mitochondrial Research</div>
 <h2 class="kit-name">NAD+ + MOTS-C</h2>
 <p class="kit-desc">Mitochondrial bioenergetics and NAD+ metabolism research.</p>
 <div class="kit-composition-label">Composition</div>
 <div class="kit-items">
-<div class="kit-item">
-<span class="kit-item-name">NAD+</span>
-<span class="kit-item-dose">1000mg</span>
+<div class="kit-item">NAD+ · <span class="kit-item-dose">1000mg</span></div>
+<div class="kit-item">MOTS-C · <span class="kit-item-dose">10mg</span></div>
 </div>
-<div class="kit-item">
-<span class="kit-item-name">MOTS-C</span>
-<span class="kit-item-dose">10mg</span>
-</div>
-</div>
-<div class="kit-savings">Save $10</div>
 <div class="kit-pricing">
 <span class="kit-price">$90</span>
 <span class="kit-price-regular">$100</span>
