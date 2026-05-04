@@ -112,10 +112,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 .nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
 .nav-dropdown a:hover{background:var(--bg)}
 .nav-dropdown a::after{display:none}
-.menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;display:none}
+.menu-overlay{position:fixed;inset:0;top:0;left:0;right:0;bottom:0;background:#FAFAF7;z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;display:none}
 .menu-overlay.active{opacity:1;pointer-events:auto;display:block}
 .menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
-.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.95);border:2px solid var(--navy);border-radius:50%;padding:12px;cursor:pointer;color:var(--navy);z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:all .2s}
+.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.95);border:2px solid #143054;border-radius:50%;padding:12px;cursor:pointer;color:#143054;z-index:10001;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:all .2s}
 .menu-close:hover{background:var(--navy);color:#fff;transform:scale(1.05)}
 .menu-close:active{transform:scale(.95)}
 .menu-close svg{width:20px;height:20px;stroke-width:2.5}
