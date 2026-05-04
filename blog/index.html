@@ -23,8 +23,15 @@
 .nav{display:flex;gap:24px;align-items:center}
 .nav a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s}
 .nav a:hover{opacity:.6}
-@media(max-width:768px){.nav a:not([style*="background"]){display:none}.nav{gap:0;justify-content:flex-end;flex:1}}
-@media(max-width:720px){.nav{gap:16px}.nav a{font-size:14px}}
+@media(max-width:768px){.nav{display:none}.mobile-menu-btn{display:block;margin-left:auto}}
+@media(min-width:769px){.mobile-menu-btn{display:none}}
+.mobile-menu-btn{background:none;border:none;padding:8px;cursor:pointer;color:var(--navy)}
+.mobile-menu-btn svg{width:24px;height:24px;stroke-width:2}
+.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:1000;padding:80px 32px;overflow-y:auto}
+.mobile-nav.active{display:flex;flex-direction:column;gap:32px}
+.mobile-nav a{font-size:24px;color:var(--navy);text-decoration:none;font-family:'Fraunces',serif;font-weight:300}
+.mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;padding:8px;cursor:pointer;color:var(--navy)}
+.mobile-close svg{width:28px;height:28px;stroke-width:2}
 </style>
 <style>
 .blog-grid{display:grid;grid-template-columns:1fr;gap:32px;max-width:900px;margin:80px auto;padding:0 24px}
@@ -58,8 +65,22 @@
       <a href="../about.html">About</a>
       <a href="../index.html#waitlist" style="background:var(--navy);color:#fff;padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .3s" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Join Waitlist</a>
     </nav>
+    <button class="mobile-menu-btn" onclick="document.getElementById('mobileNav').classList.add('active')">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
   </div>
 </header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="document.getElementById('mobileNav').classList.remove('active')">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <a href="../shop.html">Catalog</a>
+  <a href="../verify.html">Verify</a>
+  <a href="index.html">Research</a>
+  <a href="../about.html">About</a>
+  <a href="../index.html#waitlist" style="background:var(--navy);color:#fff;padding:16px 32px;border-radius:24px;text-align:center;font-size:18px;font-family:'Geist',sans-serif;font-weight:600;margin-top:16px">Join Waitlist</a>
+</div>
 
 <article style="max-width:900px;margin:80px auto 0;padding:0 24px">
 <div class="meta">Research</div>
