@@ -1,162 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Generate OG Image</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            padding: 40px;
-            background: #f5f5f5;
-        }
-        .controls {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        button {
-            background: #1E3A5F;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #2C4F7F;
-        }
-        #preview {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        canvas {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Generate OG Image</title>
 </head>
 <body>
-    <div class="controls">
-        <h1>Vantix Bio Social Share Image Generator</h1>
-        <button onclick="generateImage()">Generate & Download OG Image</button>
-    </div>
-    <div id="preview">
-        <canvas id="canvas" width="1200" height="630"></canvas>
-    </div>
+<canvas id="canvas" width="1200" height="630"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
+// Background - clean white
+ctx.fillStyle = '#FFFFFF';
+ctx.fillRect(0, 0, 1200, 630);
 
-        function generateImage() {
-            // Background gradient
-            const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
-            gradient.addColorStop(0, '#0F172A');
-            gradient.addColorStop(0.5, '#1E3A5F');
-            gradient.addColorStop(1, '#2C4F7F');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 1200, 630);
+// Navy border for definition
+ctx.strokeStyle = '#0F1B2D';
+ctx.lineWidth = 2;
+ctx.strokeRect(1, 1, 1198, 628);
 
-            // Grid pattern overlay
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            ctx.lineWidth = 1;
-            for (let x = 0; x < 1200; x += 50) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, 630);
-                ctx.stroke();
-            }
-            for (let y = 0; y < 630; y += 50) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(1200, y);
-                ctx.stroke();
-            }
+// Logo text - centered, large
+ctx.fillStyle = '#0F1B2D';
+ctx.font = 'bold 140px -apple-system, sans-serif';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
 
-            // Load and draw logo
-            const logoImg = new Image();
-            logoImg.onload = function() {
-                // Center logo at top
-                const logoWidth = 400;
-                const logoHeight = (logoImg.height / logoImg.width) * logoWidth;
-                const logoX = (1200 - logoWidth) / 2;
-                const logoY = 160;
-                
-                // Shadow
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-                ctx.shadowBlur = 24;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 8;
-                
-                ctx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
-                
-                // Reset shadow
-                ctx.shadowColor = 'transparent';
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 0;
+// VX in large letters
+ctx.fillText('VX', 600, 250);
 
-                // Text
-                ctx.font = '600 32px -apple-system, BlinkMacSystemFont, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                
-                // Text shadow
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
-                ctx.shadowBlur = 12;
-                ctx.shadowOffsetY = 4;
-                
-                const text1 = 'Janoshik-Verified ';
-                const text2 = '• ';
-                const text3 = 'analytical-grade Research Peptides';
-                
-                // Measure text widths for centering
-                ctx.font = '600 32px -apple-system, BlinkMacSystemFont, sans-serif';
-                const width1 = ctx.measureText(text1).width;
-                const width2 = ctx.measureText(text2).width;
-                ctx.font = '500 32px -apple-system, BlinkMacSystemFont, sans-serif';
-                const width3 = ctx.measureText(text3).width;
-                
-                const totalWidth = width1 + width2 + width3;
-                let x = (1200 - totalWidth) / 2;
-                const y = logoY + logoHeight + 90;
-                
-                // Draw text parts
-                ctx.font = '600 32px -apple-system, BlinkMacSystemFont, sans-serif';
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillText(text1, x + width1/2, y);
-                x += width1;
-                
-                ctx.fillStyle = '#60A5FA';
-                ctx.fillText(text2, x + width2/2, y);
-                x += width2;
-                
-                ctx.font = '500 32px -apple-system, BlinkMacSystemFont, sans-serif';
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillText(text3, x + width3/2, y);
+// VANTIX BIO below
+ctx.font = '600 52px -apple-system, sans-serif';
+ctx.fillText('VANTIX BIO', 600, 380);
 
-                // Download
-                canvas.toBlob(function(blob) {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'vantix-og-image.jpg';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                }, 'image/jpeg', 0.95);
-            };
-            
-            logoImg.src = 'logo-full.svg';
-        }
+// Tagline
+ctx.font = '400 28px -apple-system, sans-serif';
+ctx.fillStyle = '#64748B';
+ctx.fillText('Batch-Level Janoshik Verification', 600, 480);
 
-        // Auto-generate on load
-        window.onload = function() {
-            generateImage();
-        };
-    </script>
+// Small accent line
+ctx.strokeStyle = '#6FA5D9';
+ctx.lineWidth = 3;
+ctx.beginPath();
+ctx.moveTo(400, 340);
+ctx.lineTo(800, 340);
+ctx.stroke();
+
+// Download
+const link = document.createElement('a');
+link.download = 'vantix-og-image.jpg';
+link.href = canvas.toDataURL('image/jpeg', 0.95);
+link.click();
+console.log('Downloaded vantix-og-image.jpg');
+</script>
+<p>Image downloaded as vantix-og-image.jpg</p>
 </body>
 </html>
