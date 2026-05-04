@@ -57,21 +57,21 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
-.hero{padding:40px 0 30px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.hero{padding:80px 0 60px}}
-.chapter{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}@media(min-width:768px){.chapter{font-size:11px;letter-spacing:.25em;margin-bottom:32px;gap:12px}}
+.hero{padding:32px 0 24px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.hero{padding:80px 0 60px}}
+.chapter{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:8px}@media(min-width:768px){.chapter{font-size:11px;letter-spacing:.25em;margin-bottom:32px;gap:12px}}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}@media(min-width:768px){.chapter::before{width:32px}}
 .chapter::after{content:'';width:24px;height:1px;background:var(--accent)}@media(min-width:768px){.chapter::after{width:32px}}
-.kits-grid{padding:40px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:stretch}@media(min-width:768px){.kits-grid{padding:60px 0;gap:28px}}@media(min-width:1024px){.kits-grid{gap:36px}}
-.kit-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:12px;transition:all .2s;position:relative;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(10,22,40,.05)}@media(min-width:768px){.kit-card{border-radius:14px;padding:28px}}
+.kits-grid{padding:28px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:stretch}@media(min-width:768px){.kits-grid{padding:60px 0;gap:28px}}@media(min-width:1024px){.kits-grid{gap:36px}}
+.kit-card{background:#fff;border:1px solid var(--hairline);border-radius:10px;padding:11px;transition:all .2s;position:relative;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(10,22,40,.05)}@media(min-width:768px){.kit-card{border-radius:14px;padding:28px}}
 .kit-card:hover{border-color:rgba(57,115,176,.4);transform:translateY(-2px);box-shadow:0 6px 16px rgba(10,22,40,.1)}
 
 .kit-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}@media(min-width:768px){.kit-header{margin-bottom:6px}}
 .kit-number{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;color:rgba(10,22,40,.45)}@media(min-width:768px){.kit-number{font-size:9px}}
 .kit-savings{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;color:#10B981;font-weight:600}@media(min-width:768px){.kit-savings{font-size:9px}}
 .kit-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:5px}@media(min-width:768px){.kit-label{font-size:10px;letter-spacing:.12em;margin-bottom:8px}}
-.kit-name{font-family:'Fraunces',serif;font-size:clamp(1.15rem,4.8vw,1.5rem);font-weight:400;margin-bottom:5px;color:var(--navy);line-height:1.1;text-wrap:balance}@media(min-width:768px){.kit-name{font-size:26px;margin-bottom:10px;line-height:1.15}}
+.kit-name{font-family:'Fraunces',serif;font-size:clamp(1.05rem,4.5vw,1.4rem);font-weight:400;margin-bottom:4px;color:var(--navy);line-height:1.08;text-wrap:balance}@media(min-width:768px){.kit-name{font-size:26px;margin-bottom:10px;line-height:1.15}}
 .kit-desc{font-size:10px;color:rgba(10,22,40,.7);margin-bottom:6px;line-height:1.3;font-style:italic}@media(min-width:768px){.kit-desc{font-size:13px;margin-bottom:12px;line-height:1.4}}
-.kit-composition-label{font-family:'JetBrains Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:rgba(10,22,40,.5);margin-bottom:5px;padding-top:6px;border-top:1px dashed var(--hairline)}@media(min-width:768px){.kit-composition-label{font-size:8px;margin-bottom:7px;padding-top:10px}}
+.kit-composition-label{font-family:'JetBrains Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:rgba(10,22,40,.5);margin-bottom:4px;padding-top:5px;border-top:1px dashed var(--hairline)}@media(min-width:768px){.kit-composition-label{font-size:8px;margin-bottom:7px;padding-top:10px}}
 .kit-items{margin-bottom:8px;padding:0}@media(min-width:768px){.kit-items{margin-bottom:14px}}
 .kit-item{margin-bottom:3px;font-size:11px;line-height:1.4;color:rgba(10,22,40,.8)}@media(min-width:768px){.kit-item{margin-bottom:4px;font-size:12px}}
 .kit-item::before{content:'• ';color:var(--accent);font-weight:bold;margin-right:4px}
@@ -81,7 +81,7 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .kit-price{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:var(--navy)}@media(min-width:768px){.kit-price{font-size:32px}}
 .kit-price-regular{font-size:18px;color:rgba(10,22,40,.4);text-decoration:line-through}
 .kit-save{display:none}
-.btn{padding:10px 14px;border-radius:0;font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;border:none;background:var(--navy);color:#fff;width:100%;text-align:left;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.12em;box-shadow:0 2px 4px rgba(10,22,40,.15)}@media(min-width:768px){.btn{padding:12px 18px;font-size:11px}}
+.btn{padding:9px 12px;border-radius:0;font-size:9px;font-weight:600;cursor:pointer;transition:all .2s;border:none;background:var(--navy);color:#fff;width:100%;text-align:left;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;box-shadow:0 2px 4px rgba(10,22,40,.15);white-space:nowrap}@media(min-width:768px){.btn{padding:12px 18px;font-size:11px;letter-spacing:.12em}}
 .btn::before{content:'→';font-size:14px;font-weight:400}
 .btn:hover{background:#0F1B2D;transform:translateY(-1px);box-shadow:0 4px 8px rgba(10,22,40,.2)}
 .btn:active{transform:translateY(0);box-shadow:0 2px 4px rgba(10,22,40,.15)}
@@ -175,10 +175,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <p style="margin-top:24px;font-size:18px;line-height:1.7;color:rgba(10,22,40,.7);max-width:700px">Pre-configured peptide combinations for multi-pathway research. Separate vials, individual COAs, verified by <strong><span style="white-space:nowrap">Janoshik</span></strong>.</p>
 </div>
 
-<div class="info-section" style="padding:24px 0 16px;border:none">@media(min-width:768px){padding:40px 0 20px}
+<div style="padding:20px 0 14px;border:none">
 <div style="max-width:800px">
-<h2 style="font-size:clamp(1.35rem,4vw,2rem);margin-bottom:14px;font-weight:300;line-height:1.2">Why Research Kits?</h2>
-<p style="font-size:14px;line-height:1.65;color:rgba(10,22,40,.75);margin:0">@media(min-width:768px){font-size:16px;line-height:1.8}Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>HPLC-DAD purity</strong>, <strong>LC-MS/MS identity</strong>, and <strong>LAL endotoxin screening</strong>. All components verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
+<h2 style="font-size:1.3rem;margin-bottom:12px;font-weight:300;line-height:1.15;font-family:'Fraunces',serif">Why Research Kits?</h2>
+<p style="font-size:13px;line-height:1.6;color:rgba(10,22,40,.75);margin:0">Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>HPLC-DAD purity</strong>, <strong>LC-MS/MS identity</strong>, and <strong>LAL endotoxin screening</strong>. All components verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
 </div>
 </div>
 
