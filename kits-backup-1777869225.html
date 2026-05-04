@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Kits — <span style="white-space:nowrap">Vantix Bio</span></title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="analytical-grade peptide research kits. Janoshik-verified combinations with separate COAs for complete analytical transparency.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
+
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#E5E5E0;--navy:#143054}
+html,body{max-width:100%;overflow-x:hidden}
+body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,6vw,6.5rem);letter-spacing:-.02em;padding-left:12px;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
+.container{max-width:1200px;margin:0 auto;padding:0 48px}@media(min-width:768px){.container{padding:0 80px}}
+.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
+.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
+.pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
+.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);padding:12px 0;position:sticky;top:37px;z-index:99}
+.header-inner{max-width:1400px;margin:0 auto;padding:0 48px;display:flex;align-items:center;gap:16px}
+.back-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;transition:opacity .2s}
+.back-btn:hover{opacity:.6}
+.back-btn svg{width:20px;height:20px;stroke-width:2}
+.logo{display:flex;align-items:center;cursor:pointer;opacity:1;transition:opacity .2s}.logo:hover{opacity:.7}
+.logo img{height:32px}
+.hero{padding:80px 0 60px;border-bottom:1px solid var(--hairline)}
+.chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.chapter::before{content:'';width:32px;height:1px;background:var(--accent)}
+.chapter::after{content:'';width:32px;height:1px;background:var(--accent)}
+.kits-grid{padding:60px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}@media(min-width:768px){.kits-grid{gap:40px}}@media(min-width:1024px){.kits-grid{gap:60px}}
+.kit-card{background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:20px;transition:all .3s;position:relative;display:flex;flex-direction:column}@media(min-width:768px){.kit-card{padding:40px}}
+.kit-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(57,115,176,.08)}
+.kit-savings{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px;opacity:.75}
+.kit-label{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:8px}@media(min-width:768px){.kit-label{font-size:10px;margin-bottom:16px}}
+.kit-name{font-family:'Fraunces',serif;font-size:20px;font-weight:300;margin-bottom:8px;color:var(--navy);line-height:1.2}@media(min-width:768px){.kit-name{font-size:28px;margin-bottom:12px}}
+.kit-desc{font-size:13px;color:rgba(10,22,40,.7);margin-bottom:12px;line-height:1.5}@media(min-width:768px){.kit-desc{font-size:16px;margin-bottom:24px;line-height:1.7}}
+.kit-items{margin-bottom:16px;padding:12px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(min-width:768px){.kit-items{margin-bottom:24px;padding:20px 0}}
+.kit-item{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px}@media(min-width:768px){.kit-item{gap:12px;margin-bottom:12px;font-size:15px}}
+.kit-item:last-child{margin-bottom:0}
+.kit-item svg{width:18px;height:18px;stroke:var(--accent);stroke-width:2.5;flex-shrink:0}
+.kit-pricing{display:flex;align-items:baseline;gap:8px;margin-bottom:16px}@media(min-width:768px){.kit-pricing{gap:12px;margin-bottom:24px}}
+.kit-price{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--navy)}@media(min-width:768px){.kit-price{font-size:32px}}
+.kit-price-regular{font-size:18px;color:rgba(10,22,40,.4);text-decoration:line-through}
+.kit-save{font-size:14px;color:rgba(10,22,40,.6)}
+.btn{padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;border:none;background:var(--navy);color:#fff;width:100%;text-align:center;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--accent)}
+.info-section{padding:80px 0;border-top:1px solid var(--hairline)}
+.info-section h2{margin-bottom:24px}
+.info-section p{font-size:17px;line-height:1.8;color:rgba(10,22,40,.7);margin-bottom:20px;max-width:800px}
+footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
+.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+</style>
+</head>
+<body>
+
+<div class="status-bar">
+<div class="status-inner">
+    <span class="pulse"></span>
+    <span>JANOSHIK VERIFIED — LIVE</span>
+  </div>
+</div>
+
+<div class="header">
+<div class="header-inner">
+<button class="back-btn" onclick="window.location.href='index.html'">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+<span>Back</span>
+</button>
+<a href="index.html" class="logo">
+<img src="logo-header.svg" alt="Vantix Bio">
+</a>
+</div>
+</div>
+
+<div class="container">
+<div class="hero">
+<div class="chapter">Chapter 003</div>
+<h1>Research Combination Kits</h1>
+<p style="margin-top:24px;font-size:18px;line-height:1.7;color:rgba(10,22,40,.7);max-width:700px">Pre-configured peptide combinations for multi-pathway research. Separate vials, individual COAs, verified by <strong><span style="white-space:nowrap">Janoshik</span></strong>.</p>
+</div>
+
+<div class="kits-grid">
+
+<div class="kit-card">
+
+<div class="kit-label">Regenerative Research</div>
+<h2 class="kit-name">BPC-157 + TB-500 Research Pair</h2>
+<p class="kit-desc">Cytoprotective & actin-regulatory pathway investigation</p>
+<div class="kit-items">
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>BPC-157 10mg</span>
+</div>
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>TB-500 10mg</span>
+</div>
+</div>
+<div class="kit-savings">Bundle savings: $10</div>
+<div class="kit-pricing">
+<span class="kit-price">$58</span>
+<span class="kit-price-regular">$68</span>
+</div>
+<button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
+</div>
+
+<div class="kit-card">
+
+<div class="kit-label">Growth Hormone Axis</div>
+<h2 class="kit-name">CJC-1295 + Ipamorelin Research Pair</h2>
+<p class="kit-desc">GHRH & ghrelin receptor pharmacology studies</p>
+<div class="kit-items">
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>CJC-1295 10mg (No DAC)</span>
+</div>
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>Ipamorelin 5mg</span>
+</div>
+</div>
+<div class="kit-savings">Bundle savings: $10</div>
+<div class="kit-pricing">
+<span class="kit-price">$62</span>
+<span class="kit-price-regular">$72</span>
+</div>
+<button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
+</div>
+
+<div class="kit-card">
+
+<div class="kit-label">Metabolic Research</div>
+<h2 class="kit-name">Tirzepatide + Retatrutide Research Pair</h2>
+<p class="kit-desc">Multi-receptor incretin agonist comparative studies</p>
+<div class="kit-items">
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>Tirzepatide 30mg</span>
+</div>
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>Retatrutide 20mg</span>
+</div>
+</div>
+<div class="kit-savings">Bundle savings: $15</div>
+<div class="kit-pricing">
+<span class="kit-price">$121</span>
+<span class="kit-price-regular">$136</span>
+</div>
+<button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
+</div>
+
+<div class="kit-card">
+
+<div class="kit-label">Mitochondrial Research</div>
+<h2 class="kit-name">NAD+ + MOTS-C Research Pair</h2>
+<p class="kit-desc">Mitochondrial bioenergetics & NAD+ metabolism research</p>
+<div class="kit-items">
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>NAD+ 1000mg</span>
+</div>
+<div class="kit-item">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+<span>MOTS-C 10mg</span>
+</div>
+</div>
+<div class="kit-savings">Bundle savings: $10</div>
+<div class="kit-pricing">
+<span class="kit-price">$90</span>
+<span class="kit-price-regular">$100</span>
+</div>
+<button class="btn" onclick="alert('Waitlist functionality coming soon')">Join Waitlist</button>
+</div>
+
+</div>
+
+<div class="info-section">
+<h2>Why Research Kits?</h2>
+<p>Research kits contain separate, individually tested vials — not blends. Each peptide maintains its own batch COA with independent HPLC-DAD purity verification, LC-MS/MS identity confirmation, and LAL endotoxin screening.</p>
+<p>Pre-configured combinations simplify protocol design for researchers investigating multi-pathway interactions. All components are verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
+</div>
+
+</div>
+
+<footer>
+<div class="container">
+<div class="footer-legal">
+<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
+<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 <span style="white-space:nowrap">Vantix Bio</span> LLC</p>
+</div>
+</div>
+</footer>
+
+</body>
+</html>
