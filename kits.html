@@ -85,6 +85,9 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .btn::before{content:'→';font-size:14px;font-weight:400}
 .btn:hover{background:#0F1B2D;transform:translateY(-1px);box-shadow:0 4px 8px rgba(10,22,40,.2)}
 .btn:active{transform:translateY(0);box-shadow:0 2px 4px rgba(10,22,40,.15)}
+.why-section{padding:20px 0 14px;border:none}@media(min-width:768px){.why-section{padding:40px 0 20px}}
+.why-title{font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:12px;font-weight:300;line-height:1.15}@media(min-width:768px){.why-title{font-size:2rem;margin-bottom:20px}}
+.why-text{font-size:13px;line-height:1.6;color:rgba(10,22,40,.75);margin:0}@media(min-width:768px){.why-text{font-size:16px;line-height:1.8}}
 .info-section{padding:80px 0;border-top:1px solid var(--hairline)}
 .info-section h2{margin-bottom:24px}
 .info-section p{font-size:17px;line-height:1.8;color:rgba(10,22,40,.7);margin-bottom:20px;max-width:800px}
@@ -175,10 +178,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <p style="margin-top:24px;font-size:18px;line-height:1.7;color:rgba(10,22,40,.7);max-width:700px">Pre-configured peptide combinations for multi-pathway research. Separate vials, individual COAs, verified by <strong><span style="white-space:nowrap">Janoshik</span></strong>.</p>
 </div>
 
-<div style="padding:20px 0 14px;border:none">
+<div class="why-section">
 <div style="max-width:800px">
-<h2 style="font-size:1.3rem;margin-bottom:12px;font-weight:300;line-height:1.15;font-family:'Fraunces',serif">Why Research Kits?</h2>
-<p style="font-size:13px;line-height:1.6;color:rgba(10,22,40,.75);margin:0">Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>HPLC-DAD purity</strong>, <strong>LC-MS/MS identity</strong>, and <strong>LAL endotoxin screening</strong>. All components verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
+<h2 class="why-title">Why Research Kits?</h2>
+<p class="why-text">Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>HPLC-DAD purity</strong>, <strong>LC-MS/MS identity</strong>, and <strong>LAL endotoxin screening</strong>. All components verified by <strong><span style="white-space:nowrap">Janoshik</span></strong> before release.</p>
 </div>
 </div>
 
