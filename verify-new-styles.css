@@ -1,0 +1,248 @@
+/* New UX Flow Styles - Add to verify.html <style> section */
+
+.verified-section {
+  text-align: center;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 32px;
+}
+
+.verified-badge-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16,185,129,.12);
+  border: 1.5px solid rgba(16,185,129,.4);
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: #10b981;
+  margin-bottom: 24px;
+}
+
+.verified-badge-new svg {
+  width: 20px;
+  height: 20px;
+}
+
+.product-title {
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.batch-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: rgba(10,22,40,0.6);
+  margin-bottom: 8px;
+}
+
+.verified-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(10,22,40,0.5);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 32px 0;
+}
+
+@media(max-width: 640px) {
+  .metrics-grid {
+    gap: 16px;
+  }
+  .product-title {
+    font-size: 24px;
+  }
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+@media(max-width: 640px) {
+  .metric-value {
+    font-size: 22px;
+  }
+}
+
+.metric-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: rgba(10,22,40,0.5);
+  font-weight: 600;
+}
+
+.primary-cta {
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .3s;
+  margin-bottom: 32px;
+}
+
+.primary-cta:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+.primary-cta svg {
+  width: 18px;
+  height: 18px;
+}
+
+.coa-preview-section {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.coa-preview-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: rgba(10,22,40,0.6);
+  margin-bottom: 16px;
+}
+
+.coa-thumbnail {
+  width: 120px;
+  height: 160px;
+  background: #fff;
+  border: 2px solid var(--hairline);
+  border-radius: 8px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(10,22,40,0.3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.coa-btn {
+  background: transparent;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all .3s;
+}
+
+.coa-btn:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.analytical-section {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.analytical-toggle {
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--text);
+  transition: background .2s;
+}
+
+.analytical-toggle:hover {
+  background: rgba(0,0,0,0.02);
+}
+
+.analytical-toggle svg {
+  width: 16px;
+  height: 16px;
+  transition: transform .3s;
+}
+
+.analytical-toggle.active svg {
+  transform: rotate(180deg);
+}
+
+.analytical-content {
+  display: none;
+  padding: 24px;
+  background: var(--bg);
+  border-top: 1px solid var(--hairline);
+}
+
+.analytical-content.active {
+  display: block;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 14px;
+}
+
+.data-row:last-child {
+  border-bottom: none;
+}
+
+.data-label {
+  font-weight: 500;
+  color: rgba(10,22,40,0.7);
+}
+
+.data-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.footer-note {
+  text-align: center;
+  padding: 24px 0 0;
+  font-size: 13px;
+  color: rgba(10,22,40,0.6);
+  line-height: 1.6;
+}
