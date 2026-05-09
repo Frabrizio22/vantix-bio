@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- v1777867200 --><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Vantix Bio</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#E5E5E0;--navy:#143054}
+html,body{max-width:100%;overflow-x:hidden}
+body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
+h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
+.container{max-width:900px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
+.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
+.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
+.pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
+.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid #D9D2BF;position:sticky;top:37px;z-index:99}
+.header-content{max-width:1400px;margin:0 auto;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+@media(min-width:768px){.header-content{padding:16px 48px}}
+.logo-link{display:flex;align-items:center;text-decoration:none}
+.header-logo{height:32px}
+.nav{display:flex;gap:24px;align-items:center}
+.nav a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s}
+.nav a:hover{opacity:.6}
+.mobile-menu-btn{display:none;background:none;border:none;padding:8px;cursor:pointer;color:var(--navy)}
+@media(max-width:768px){.nav{display:none}.mobile-menu-btn{display:block !important;margin-left:auto}}
+.mobile-menu-btn svg{width:24px;height:24px;stroke-width:2}
+.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:1000;padding:80px 32px;overflow-y:auto}
+.mobile-nav.active{display:flex;flex-direction:column;gap:32px}
+.mobile-nav a{font-size:24px;color:var(--navy);text-decoration:none;font-family:'Fraunces',serif;font-weight:300}
+.mobile-close{position:absolute;top:20px;right:20px;background:none;border:none;padding:8px;cursor:pointer;color:var(--navy)}
+.mobile-close svg{width:28px;height:28px;stroke-width:2}
+.hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--hairline)}
+.faq-list{padding:60px 0}
+.faq-item{margin-bottom:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+.faq-question{padding:20px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;color:var(--navy);transition:background .2s}
+.faq-question:hover{background:rgba(57,115,176,.03)}
+.faq-icon{font-size:24px;color:var(--accent);transition:transform .3s}
+.faq-item.active .faq-icon{transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.active .faq-answer{max-height:800px}
+.faq-answer-inner{padding:0 24px 24px;color:rgba(10,22,40,.7);font-size:16px;line-height:1.7}
+footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
+.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+</style>
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="status-inner">
+    <span class="pulse"></span>
+    <span>JANOSHIK VERIFIED — LIVE</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-content">
+    <a href="index.html" class="logo-link">
+      <img src="logo-header.svg" alt="Vantix Bio" class="header-logo">
+    </a>
+    <nav class="nav" style="display:flex;gap:24px;align-items:center">
+      <a href="shop.html">Catalog</a>
+      <a href="verify.html">Verify</a>
+      <a href="blog/index.html">Research</a>
+      <a href="about.html">About</a>
+      <a href="index.html#waitlist" class="btn btn-dark" style="padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none">Join Waitlist</a>
+    </nav>
+    <button class="mobile-menu-btn" onclick="document.getElementById('mobileNav').classList.add('active')">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="document.getElementById('mobileNav').classList.remove('active')">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <a href="shop.html">Catalog</a>
+  <a href="verify.html">Verify</a>
+  <a href="blog/index.html">Research</a>
+  <a href="about.html">About</a>
+  <a href="index.html#waitlist" style="background:var(--navy);color:#fff;padding:16px 32px;border-radius:24px;text-align:center;font-size:18px;font-family:'Geist',sans-serif;font-weight:600;margin-top:16px">Join Waitlist</a>
+</div>
+
+<div class="container">
+<div class="hero">
+<h1>FAQ</h1>
+<p style="margin-top:20px;color:rgba(10,22,40,.7);font-size:17px">Common questions about verification, ordering, and research peptides.</p>
+</div>
+
+<div class="faq-list">
+
+<div class="faq-item">
+<div class="faq-question"><span>When does Vantix Bio officially launch?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">We are launching in mid-May 2026. Analytical testing is currently in progress at Janoshik for our initial 12-product catalog. Join the waitlist to be notified when COAs are published and orders open.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>What makes Vantix different from other peptide vendors?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Every batch is independently tested by Janoshik before release. We publish complete COAs (HPLC-DAD purity, LC-MS/MS identity, LAL endotoxin) for every product. QR codes on vials link directly to batch-specific results. No vendor claims, no trust-me testing — just third-party verification.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>What is included in a Janoshik COA?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner"><strong>Three independent tests per batch:</strong><br><br>1. <strong>HPLC-DAD Purity</strong> — Quantitative analysis showing peptide concentration and impurity profile.<br>2. <strong>LC-MS/MS Identity</strong> — Molecular confirmation via mass spectrometry.<br>3. <strong>LAL Endotoxin</strong> — Bacterial contamination screening.<br><br>All results are publicly accessible via QR scan or batch lookup. No login required.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>What is your purity threshold?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">All batches must meet ≥99% purity (HPLC-DAD), confirmed molecular identity (LC-MS/MS), and &lt;0.05 EU/mg endotoxin (LAL). Batches that fail any test are rejected — no exceptions.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>How do I verify my batch?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Scan the QR code on your vial label or visit <a href="verify.html" style="color:var(--accent);text-decoration:none;font-weight:600">verify.html</a> and enter your batch ID (e.g., VX-BPC10-001). You'll see the complete Janoshik COA including chromatograms, mass spectra, and endotoxin results.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>Are these peptides safe for human use?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner"><strong>No.</strong> All products are sold for research use only (RUO). They are not FDA-approved, not for human consumption, and not intended to diagnose, treat, cure, or prevent any disease. Vantix Bio does not provide medical advice or dosing guidance.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>What payment methods do you accept?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Credit/debit cards (Visa, Mastercard, Amex) and Zelle.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>What is your shipping policy?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Free shipping on orders $150+. Flat $8 shipping on orders under $150. All orders ship USPS Priority (2-3 business days). Tracking provided automatically.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>Do you ship internationally?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Currently US-only. International shipping coming Q3 2026.</div></div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question"><span>What is your refund policy?</span><span class="faq-icon">+</span></div>
+<div class="faq-answer"><div class="faq-answer-inner">Unopened vials can be returned within 30 days for a full refund (minus shipping). Opened products cannot be returned due to contamination risk. If a product fails third-party testing, we will replace or refund it immediately.</div></div>
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+<div class="footer-legal">
+<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
+<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 Vantix Bio LLC</p>
+</div>
+</div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-question').forEach(q=>{
+q.onclick=()=>q.parentElement.classList.toggle('active');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+  .email-container { max-width: 600px; margin: 0 auto; background: #FAFAF7; }
+  .header { background: #0F1B2D; padding: 32px 24px; text-align: center; }
+  .logo { font-family: 'Courier New', monospace; font-size: 24px; font-weight: 600; color: #FAFAF7; letter-spacing: 0.05em; }
+  .status-badge { background: #FFC107; color: #0A1628; padding: 8px 16px; border-radius: 20px; display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 16px; font-weight: 600; }
+  .content { padding: 40px 24px; }
+  .greeting { font-size: 15px; color: #0A1628; line-height: 1.6; margin-bottom: 24px; }
+  .confirmation-box { background: #143054; color: #FAFAF7; padding: 24px; border-radius: 8px; margin: 24px 0; }
+  .confirmation-box h2 { margin: 0 0 8px 0; font-size: 18px; font-weight: 300; }
+  .order-number { font-family: 'Courier New', monospace; font-size: 24px; font-weight: 600; letter-spacing: 0.05em; }
+  .payment-instructions { background: linear-gradient(135deg, #7BA88F 0%, #5A8A75 100%); color: #FAFAF7; padding: 32px 24px; border-radius: 8px; margin: 32px 0; }
+  .payment-instructions h3 { margin: 0 0 20px 0; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+  .payment-amount { font-family: 'Courier New', monospace; font-size: 36px; font-weight: 600; margin: 16px 0; }
+  .payment-detail { background: rgba(255,255,255,0.15); padding: 16px; border-radius: 6px; margin: 12px 0; }
+  .payment-detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 4px; }
+  .payment-detail-value { font-family: 'Courier New', monospace; font-size: 18px; font-weight: 600; }
+  .warning-box { background: #FFF3CD; border-left: 4px solid #FFC107; padding: 16px; margin: 20px 0; color: #856404; border-radius: 4px; }
+  .warning-box strong { color: #856404; }
+  .section { background: white; border: 1px solid #E5E5E0; border-radius: 8px; padding: 24px; margin: 24px 0; }
+  .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.15em; color: #3973B0; margin-bottom: 16px; font-weight: 600; }
+  .order-item { padding: 12px 0; border-bottom: 1px solid #E5E5E0; }
+  .order-item:last-child { border-bottom: none; }
+  .item-name { font-weight: 600; color: #0A1628; }
+  .item-meta { font-family: 'Courier New', monospace; font-size: 11px; color: rgba(10,22,40,0.6); margin-top: 4px; }
+  .total-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 15px; }
+  .total-row.grand { font-size: 20px; font-weight: 600; padding-top: 16px; border-top: 2px solid #143054; margin-top: 8px; }
+  .address-block { line-height: 1.8; color: #0A1628; }
+  .footer { background: #0B2545; color: rgba(255,255,255,0.7); padding: 32px 24px; text-align: center; font-size: 12px; line-height: 1.8; }
+  .footer-legal { font-family: 'Courier New', monospace; font-size: 10px; line-height: 1.6; margin-top: 16px; opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="email-container">
+  
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">VANTIX BIO</div>
+    <div class="status-badge">⏳ Awaiting Payment</div>
+  </div>
+  
+  <!-- Content -->
+  <div class="content">
+    <div class="greeting">
+      <strong>Hi {{CUSTOMER_NAME}},</strong><br><br>
+      Thank you for your order. Please complete payment using the Zelle instructions below to confirm your order.
+    </div>
+    
+    <!-- Order Number -->
+    <div class="confirmation-box">
+      <h2>Order Confirmation</h2>
+      <div class="order-number">{{ORDER_NUMBER}}</div>
+      <div style="margin-top: 12px; font-size: 13px; opacity: 0.8;">{{ORDER_DATE}}</div>
+    </div>
+    
+    <!-- Payment Instructions -->
+    <div class="payment-instructions">
+      <h3>💰 Zelle Payment Instructions</h3>
+      
+      <div>Send payment to:</div>
+      <div class="payment-amount">${{TOTAL}}</div>
+      
+      <div class="payment-detail">
+        <div class="payment-detail-label">Zelle Recipient</div>
+        <div class="payment-detail-value">(619) 587-1812</div>
+      </div>
+      
+      <div class="payment-detail">
+        <div class="payment-detail-label">Payment Memo (Required)</div>
+        <div class="payment-detail-value">{{ORDER_NUMBER}}</div>
+      </div>
+      
+      <div class="warning-box">
+        <strong>⚠️ Important Payment Guidelines:</strong><br>
+        • <strong>DO</strong> include your order number ({{ORDER_NUMBER}}) in the memo<br>
+        • <strong>DO NOT</strong> mention peptides, product names, or research purposes<br>
+        • <strong>DO NOT</strong> include words like "research", "peptide", "compound", etc.<br>
+        • Keep the memo as just the order number for fastest processing
+      </div>
+      
+      <div style="margin-top: 20px; font-size: 13px; line-height: 1.6;">
+        <strong>After sending payment:</strong><br>
+        Your order will be confirmed within 1 hour and shipped the next business day. You'll receive a confirmation email once we verify your payment.
+      </div>
+    </div>
+    
+    <!-- Order Details -->
+    <div class="section">
+      <div class="section-title">Order Details</div>
+      {{ORDER_ITEMS}}
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="section">
+      <div class="section-title">Order Summary</div>
+      <div class="total-row">
+        <span>Subtotal</span>
+        <span>${{SUBTOTAL}}</span>
+      </div>
+      {{DISCOUNT_LINE}}
+      <div class="total-row">
+        <span>Shipping</span>
+        <span>${{SHIPPING}}</span>
+      </div>
+      <div class="total-row">
+        <span style="color: #7BA88F; font-weight: 600;">5% Zelle Discount</span>
+        <span style="color: #7BA88F; font-weight: 600;">-${{ZELLE_DISCOUNT}}</span>
+      </div>
+      <div class="total-row grand">
+        <span>Total (Zelle)</span>
+        <span>${{TOTAL}}</span>
+      </div>
+    </div>
+    
+    <!-- Shipping Address -->
+    <div class="section">
+      <div class="section-title">Shipping Address</div>
+      <div class="address-block">
+        {{CUSTOMER_NAME}}<br>
+        {{ADDRESS}}<br>
+        {{CITY}}, {{STATE}} {{ZIP}}
+      </div>
+    </div>
+    
+    <!-- What Happens Next -->
+    <div style="background: #F0F7FF; padding: 20px; border-radius: 8px; border-left: 4px solid #3973B0; margin: 24px 0;">
+      <h3 style="margin: 0 0 12px 0; font-size: 14px; color: #143054;">What happens next:</h3>
+      <ol style="margin: 0; padding-left: 20px; line-height: 2; color: rgba(10,22,40,0.8);">
+        <li><strong>Send Zelle payment</strong> to (619) 587-1812 with memo: {{ORDER_NUMBER}}</li>
+        <li><strong>Confirmation:</strong> We'll verify payment within 1 hour</li>
+        <li><strong>Shipping:</strong> Your order ships the next business day</li>
+        <li><strong>Tracking:</strong> You'll receive tracking via email once shipped</li>
+      </ol>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="footer">
+    <strong>Questions about payment?</strong><br>
+    Reply to this email or contact us at <a href="mailto:support@vantixbio.com" style="color: #7BA88F;">support@vantixbio.com</a>
+    
+    <div class="footer-legal">
+      <strong>RUO</strong> — For research use only. Not for human consumption.<br>
+      Not FDA approved. Research-grade compounds only.<br><br>
+      © 2026 Vantix Bio LLC · Santa Cruz, CA
+    </div>
+  </div>
+  
+</div>
+</body>
+</html>
