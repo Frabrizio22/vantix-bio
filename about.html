@@ -61,12 +61,13 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
-.hero{padding:80px 0 60px;text-align:center;border-bottom:1px solid var(--hairline)}
-.content{padding:60px 0}
-.content p{font-size:17px;line-height:1.8;color:rgba(10,22,40,.8);margin-bottom:24px}
-.content h2{margin:60px 0 24px;color:var(--navy)}
+.hero{padding:60px 0 48px;text-align:center;border-bottom:1px solid var(--hairline)}@media(max-width:640px){.hero{padding:40px 0 32px}}
+.hero p{margin-top:20px;color:rgba(10,22,40,.65);font-size:17px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto}@media(max-width:640px){.hero p{font-size:16px;line-height:1.6;padding:0 8px}}
+.content{padding:56px 0}@media(max-width:640px){.content{padding:48px 0}}
+.content p{font-size:17px;line-height:1.7;color:rgba(10,22,40,.75);margin-bottom:20px}@media(max-width:640px){.content p{font-size:16px;line-height:1.65;margin-bottom:18px}}
+.content h2{margin:56px 0 20px;color:var(--navy);letter-spacing:-.01em}@media(max-width:640px){.content h2{margin:48px 0 18px;font-size:1.75rem}}
 .content h2:first-child{margin-top:0}
-.content strong{color:var(--navy)}
+.content strong{color:var(--navy);font-weight:600}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 .footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
 </style>
@@ -149,15 +150,15 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="container">
 <div class="hero">
-<h1>About <span style="white-space:nowrap">Vantix Bio</span></h1>
-<p style="margin-top:20px;color:rgba(10,22,40,.7);font-size:17px;line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto">Research peptides with third-party verification. Every batch independently tested by <span style="white-space:nowrap">Janoshik</span> before release.</p>
+<h1>About<br><span style="white-space:nowrap">Vantix Bio</span></h1>
+<p>Research peptides with third-party verification. Every batch independently tested by Janoshik before release.</p>
 </div>
 
 <div class="content">
 <h2>Our Mission</h2>
 <p>We test what we sell, publish the results, and stand behind the data. Third-party verification should be standard practice, not a premium feature.</p>
 
-<p>Every batch is independently tested by Janoshik in Prague, Czech Republic. We publish complete certificates of analysis — HPLC-DAD purity, LC-MS/MS identity confirmation, and LAL endotoxin screening — before any product is released.</p>
+<p>Every batch is independently tested by Janoshik. We publish complete certificates of analysis — HPLC-DAD purity, LC-MS/MS identity confirmation, and LAL endotoxin screening — before any product is released.</p>
 
 <h2>Why Janoshik?</h2>
 <p>Janoshik is the recognized standard for peptide verification in the research community. Their triple-method testing protocol (HPLC-DAD, LC-MS/MS, LAL) provides the analytical scrutiny serious researchers expect.</p>
@@ -165,11 +166,12 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <p>We chose Janoshik because their reputation is built on accuracy, not vendor relationships. Independent labs that prioritize data integrity over customer satisfaction are rare. Janoshik is one of them.</p>
 
 <h2>What We Don't Do</h2>
-<p><strong>We don't sell manufacturer claims.</strong> Every product enters our system with zero assumptions. No COAs, no purity data, no trust. We verify first, label second.</p>
 
-<p><strong>We don't cherry-pick batches.</strong> Samples are randomly selected from sealed production runs. What we test is what you receive.</p>
+<p style="margin-bottom:16px"><strong>We don't sell manufacturer claims.</strong><br>Every product enters our system with zero assumptions. No COAs, no purity data, no trust. We verify first, label second.</p>
 
-<p><strong>We don't hide results.</strong> Complete COAs are published to our verification portal before any batch is released. Chromatograms, mass spectra, endotoxin data — all public, no login required.</p>
+<p style="margin-bottom:16px"><strong>We don't cherry-pick batches.</strong><br>Samples are randomly selected from sealed production runs. What we test is what you receive.</p>
+
+<p style="margin-bottom:32px"><strong>We don't hide results.</strong><br>Complete COAs are published to our verification portal before any batch is released. Chromatograms, mass spectra, endotoxin data — all public, no login required.</p>
 
 <h2>Research Use Only</h2>
 <p>All products are sold for research purposes only (RUO). They are not FDA-approved, not for human consumption, and not intended to diagnose, treat, cure, or prevent any disease.</p>
