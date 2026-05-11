@@ -120,6 +120,12 @@ article {
   }
 }
 
+/* Override article padding when inside article-container */
+.article-container article {
+  padding: 0;
+  max-width: 100%;
+}
+
 article h2::before {
   content: '';
   display: block;
