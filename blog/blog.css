@@ -107,9 +107,15 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
 }
 
 article {
-  max-width: 800px;
-  margin: 80px auto 120px;
-  padding: 0 48px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 48px;
+}
+
+@media (max-width: 768px) {
+  article {
+    padding: 40px 24px;
+  }
 }
 
 article h2::before {
