@@ -255,6 +255,18 @@ code {
   border-radius: 4px;
 }
 
+.article-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 48px;
+}
+
+@media (max-width: 768px) {
+  .article-container {
+    padding: 40px 24px;
+  }
+}
+
 .article-header {
   margin-bottom: 40px;
 }
