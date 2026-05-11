@@ -91,19 +91,20 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
 .back-btn:hover { opacity: .6; }
 .back-btn svg { width: 18px; height: 18px; stroke-width: 2; }
 
-.logo {
+.logo, .logo-link {
   display: flex;
   align-items: center;
   cursor: pointer;
   opacity: 1;
   transition: opacity .2s;
+  text-decoration: none;
 }
 
-.logo:hover { opacity: .7; }
-.logo img { height: 28px; }
+.logo:hover, .logo-link:hover { opacity: .7; }
+.logo img, .header-logo { height: 28px; }
 
 @media (min-width: 768px) {
-  .logo img { height: 32px; }
+  .logo img, .header-logo { height: 32px; }
 }
 
 article {
