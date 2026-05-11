@@ -59,17 +59,18 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 32px 0 16px; }
   z-index: 99;
 }
 
-.header-inner {
+.header-inner, .header-content {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
 }
 
 @media (min-width: 768px) {
-  .header-inner {
+  .header-inner, .header-content {
     padding: 0 48px;
   }
 }
