@@ -667,6 +667,23 @@ L 410 160 L 450 159 L 490 160 L 540 159 L 600 160
 <p>Be notified when <span style="white-space:nowrap">Vantix Bio</span> launches in mid-May 2026. Full catalog with verified COAs.</p>
 <form class="waitlist-form" id="waitlistForm">
 <input type="email" class="waitlist-input" placeholder="your@email.com" required id="waitlistEmail">
+<div style="margin-top:16px">
+<label style="display:block;font-size:13px;color:rgba(10,22,40,0.6);margin-bottom:12px;font-weight:500">Products you're interested in (optional):</label>
+<div style="display:grid;grid-template-columns:1fr;gap:8px;max-height:200px;overflow-y:auto;padding:12px;background:#fff;border:1px solid var(--hairline);border-radius:10px">
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="tirz" style="cursor:pointer"> <span>Tirzepatide 30mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$68</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="reta" style="cursor:pointer"> <span>Retatrutide 20mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$68</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="sema" style="cursor:pointer"> <span>Semaglutide 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$42</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="bpc" style="cursor:pointer"> <span>BPC-157 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$30</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="tb500" style="cursor:pointer"> <span>TB-500 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$38</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="ghk" style="cursor:pointer"> <span>GHK-Cu 100mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$34</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="cjc" style="cursor:pointer"> <span>CJC-1295 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$42</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="ipa" style="cursor:pointer"> <span>Ipamorelin 5mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$30</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="mots" style="cursor:pointer"> <span>MOTS-c 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$32</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="nad" style="cursor:pointer"> <span>NAD+ 1000mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$68</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="tesa" style="cursor:pointer"> <span>Tesamorelin 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$52</span></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer"><input type="checkbox" name="interest" value="aod" style="cursor:pointer"> <span>AOD-9604 10mg</span> <span style="margin-left:auto;color:rgba(10,22,40,0.5);font-size:13px">$52</span></label>
+</div>
+</div>
 <button type="submit" class="waitlist-submit">Notify me at launch</button>
 </form>
 </div>
@@ -701,7 +718,7 @@ waitlistBtn.onclick=()=>waitlistModal.classList.add('active');
 waitlistModalClose.onclick=()=>{waitlistModal.classList.remove('active');setTimeout(()=>{waitlistFormContainer.style.display='block';waitlistSuccess.classList.remove('active');waitlistForm.reset()},300)};
 waitlistModal.onclick=(e)=>{if(e.target===waitlistModal)waitlistModalClose.click()};
 
-waitlistForm.onsubmit=async(e)=>{e.preventDefault();const email=document.getElementById('waitlistEmail').value,btn=waitlistForm.querySelector('button');btn.disabled=true;btn.textContent='Submitting...';try{const res=await fetch('https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec',{method:'POST',body:JSON.stringify({email:email,source:'homepage_waitlist',timestamp:new Date().toISOString()})});if(res.ok){waitlistFormContainer.style.display='none';waitlistSuccess.classList.add('active')}else{alert('Error submitting. Please try again.');btn.disabled=false;btn.textContent='Notify me at launch'}}catch(err){alert('Error submitting. Please try again.');btn.disabled=false;btn.textContent='Notify me at launch'}}
+waitlistForm.onsubmit=async(e)=>{e.preventDefault();const email=document.getElementById('waitlistEmail').value;const interests=Array.from(document.querySelectorAll('input[name="interest"]:checked')).map(cb=>cb.value);const btn=waitlistForm.querySelector('button');btn.disabled=true;btn.textContent='Submitting...';try{const res=await fetch('https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec',{method:'POST',body:JSON.stringify({email:email,interests:interests.join(', '),source:'homepage_waitlist',timestamp:new Date().toISOString()})});if(res.ok){waitlistFormContainer.style.display='none';waitlistSuccess.classList.add('active')}else{alert('Error submitting. Please try again.');btn.disabled=false;btn.textContent='Notify me at launch'}}catch(err){alert('Error submitting. Please try again.');btn.disabled=false;btn.textContent='Notify me at launch'}}
 
 
 
