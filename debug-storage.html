@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage Debug</title>
+<style>
+body{font-family:sans-serif;padding:20px;font-size:14px}
+pre{background:#f3f4f6;padding:15px;border-radius:6px;overflow-x:auto;font-size:12px}
+button{padding:10px 20px;margin:5px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer}
+h2{margin-top:30px}
+</style>
+</head>
+<body>
+<h1>Storage Debug</h1>
+
+<button onclick="refresh()">Refresh</button>
+<button onclick="clearAll()">Clear All Storage</button>
+<button onclick="addTest()">Add Test Item</button>
+
+<h2>localStorage</h2>
+<pre id="local"></pre>
+
+<h2>sessionStorage</h2>
+<pre id="session"></pre>
+
+<h2>Actions</h2>
+<button onclick="location.href='/products/semaglutide.html'">Go to Semaglutide</button>
+<button onclick="location.href='/checkout.html'">Go to Checkout</button>
+
+<script>
+function refresh() {
+  document.getElementById('local').textContent = JSON.stringify(
+    Object.keys(localStorage).reduce((obj, key) => {
+      obj[key] = localStorage.getItem(key);
+      return obj;
+    }, {}),
+    null,
+    2
+  ) || 'Empty';
+  
+  document.getElementById('session').textContent = JSON.stringify(
+    Object.keys(sessionStorage).reduce((obj, key) => {
+      obj[key] = sessionStorage.getItem(key);
+      return obj;
+    }, {}),
+    null,
+    2
+  ) || 'Empty';
+}
+
+function clearAll() {
+  localStorage.clear();
+  sessionStorage.clear();
+  alert('Cleared!');
+  refresh();
+}
+
+function addTest() {
+  const cart = [{name: 'Test Semaglutide 10mg', sku: 'VX-SEMA-10', price: 42, quantity: 1}];
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  alert('Added test item to vantixCart');
+  refresh();
+}
+
+refresh();
+</script>
+</body>
+</html>
