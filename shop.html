@@ -263,8 +263,10 @@ function renderProducts(filter='all'){
       <div class="product-meta">${p.dosage} · ${p.purity} PURE</div>
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
-        <a href="products/${p.slug}.html" class="btn btn-dark btn-waitlist" style="text-decoration:none">View Product</a>
-        ${p.inStock ? '<a href="verify.html" class="coa-link" onclick="event.stopPropagation()">COA →</a>' : ''}
+        ${p.inStock 
+          ? `<a href="products/${p.slug}.html" class="btn btn-dark btn-waitlist" style="text-decoration:none">View Product</a><a href="verify.html" class="coa-link" onclick="event.stopPropagation()">COA →</a>`
+          : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.name}')">Join Waitlist</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View →</a>`
+        }
       </div>
     </div>
   `).join('');
@@ -366,6 +368,32 @@ if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
 if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
 if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
+
+function joinWaitlist(productName) {
+  var email = prompt('Enter your email to join the waitlist for ' + productName + ':');
+  if (!email || !email.includes('@')) { return; }
+  fetch('https://vantix-checkout.prcpeptides.workers.dev', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'notify',
+      email: email,
+      product: productName,
+      source: 'shop_page'
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.status === 'success' || data.status === 'duplicate') {
+      alert('✓ You\'re on the waitlist! We\'ll notify you when ' + productName + ' is back in stock.');
+    } else {
+      alert('Error joining waitlist. Please try again.');
+    }
+  })
+  .catch(function() {
+    alert('Error joining waitlist. Please try again.');
+  });
+}
 </script>
 
 <!-- Waitlist Modal -->
