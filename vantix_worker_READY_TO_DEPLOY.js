@@ -75,6 +75,14 @@ async function handleRequest(request) {
 // BANKFUL CREDIT CARD PROCESSING
 // ============================================
 async function handleBankfulPayment(data, corsHeaders) {
+  // Format items for sheet
+  let itemsDetail = '';
+  if (data.items && data.items.length > 0) {
+    itemsDetail = data.items.map(item => 
+      `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
+    ).join(', ');
+  }
+  
   // First, log order to Google Sheets
   const orderData = {
     action: 'order',
@@ -86,15 +94,15 @@ async function handleBankfulPayment(data, corsHeaders) {
     state: data.state,
     zip: data.zip,
     phone: data.phone,
-    product_name: data.product_name || (data.items && data.items[0] ? data.items[0].name : ''),
-    quantity: data.quantity || (data.items && data.items[0] ? data.items[0].quantity : 1),
+    items_detail: itemsDetail,
     subtotal: data.subtotal,
-    shipping_customer: data.shipping || 0,
+    discount: data.discount || 0,
+    discount_code: data.discount_code || '',
+    referral_source: data.referral_source || '',
+    shipping: data.shipping || 0,
     total: data.total,
     payment_method: 'Credit Card',
-    payment_status: 'Pending',
-    batch_number: data.batch_number || '',
-    notes: 'Awaiting Bankful payment'
+    payment_status: 'Pending'
   }
 
   // Log to Google Sheets
@@ -161,6 +169,14 @@ async function handleBankfulCallback(request, corsHeaders) {
 // ZELLE ORDER PROCESSING
 // ============================================
 async function handleZelleOrder(data, corsHeaders) {
+  // Format items for sheet
+  let itemsDetail = '';
+  if (data.items && data.items.length > 0) {
+    itemsDetail = data.items.map(item => 
+      `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
+    ).join(', ');
+  }
+  
   const orderData = {
     action: 'order',
     order_number: data.order_number,
@@ -171,15 +187,15 @@ async function handleZelleOrder(data, corsHeaders) {
     state: data.state,
     zip: data.zip,
     phone: data.phone,
-    product_name: data.product_name || (data.items && data.items[0] ? data.items[0].name : ''),
-    quantity: data.quantity || (data.items && data.items[0] ? data.items[0].quantity : 1),
+    items_detail: itemsDetail,
     subtotal: data.subtotal,
-    shipping_customer: data.shipping || 0,
+    discount: data.discount || 0,
+    discount_code: data.discount_code || '',
+    referral_source: data.referral_source || '',
+    shipping: data.shipping || 0,
     total: data.total,
     payment_method: 'Zelle',
-    payment_status: 'Pending',
-    batch_number: data.batch_number || '',
-    notes: 'Awaiting Zelle payment'
+    payment_status: 'Pending'
   }
 
   // Log to Google Sheets
