@@ -902,7 +902,7 @@
             var product = getUrlParam('product');
             var price = getUrlParam('price');
             var saved = localStorage.getItem('vantixCart') || sessionStorage.getItem('vantixCart') || localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
-            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vxCart', saved); }
+            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vantixCart', saved); }
 
             if (product && price) {
                 var decoded = decodeURIComponent(product);
@@ -943,7 +943,7 @@
         }
 
         function saveCart() {
-            localStorage.setItem('vxCart', JSON.stringify(cart));
+            localStorage.setItem('vantixCart', JSON.stringify(cart));
         }
 
         function renderCart() {
