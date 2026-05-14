@@ -899,10 +899,12 @@
         }
 
         function loadCart() {
+            console.log('[LOAD CART] Starting...');
             var product = getUrlParam('product');
             var price = getUrlParam('price');
             var saved = localStorage.getItem('vantixCart') || sessionStorage.getItem('vantixCart') || localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
-            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vantixCart', saved); }
+            console.log('[LOAD CART] Found saved cart:', saved);
+            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vantixCart', saved); console.log('[LOAD CART] Parsed cart length:', cart.length); }
 
             if (product && price) {
                 var decoded = decodeURIComponent(product);
@@ -940,6 +942,7 @@
                     window.location.href = 'shop.html';
                 }
             }
+            console.log('[LOAD CART] Final cart length:', cart.length);
         }
 
         function saveCart() {
@@ -947,7 +950,9 @@
         }
 
         function renderCart() {
+            console.log('[RENDER CART] Starting, cart length:', cart.length);
             var container = document.getElementById('cartItems');
+            console.log('[RENDER CART] Container element:', container ? 'found' : 'NOT FOUND');
             if (cart.length === 0) {
                 container.innerHTML = '<div class="empty-cart"><div class="empty-cart-text">Your cart is empty</div><a href="shop.html" class="browse-btn">Browse Products</a></div>';
                 document.getElementById('footer').style.display = 'none';
