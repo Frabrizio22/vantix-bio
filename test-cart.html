@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart Test</title>
+<style>
+body{font-family:sans-serif;padding:20px;max-width:600px;margin:0 auto}
+button{padding:12px 24px;font-size:16px;margin:10px 0;cursor:pointer;background:#2563eb;color:white;border:none;border-radius:6px}
+.result{background:#f3f4f6;padding:15px;margin:15px 0;border-radius:6px;white-space:pre-wrap;font-family:monospace;font-size:13px}
+</style>
+</head>
+<body>
+<h1>Vantix Cart Test</h1>
+
+<button onclick="addTestItem()">Add Semaglutide to Cart</button>
+<button onclick="viewCart()">View Cart Contents</button>
+<button onclick="clearCart()">Clear Cart</button>
+<button onclick="goToCheckout()">Go to Checkout</button>
+
+<div class="result" id="result">Click buttons above to test cart</div>
+
+<script>
+function addTestItem() {
+  const cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+  cart.push({
+    name: 'Semaglutide 10mg',
+    sku: 'VX-SEMA-10',
+    price: 42,
+    quantity: 1
+  });
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  document.getElementById('result').textContent = '✅ Added Semaglutide to cart!\n\n' + JSON.stringify(cart, null, 2);
+}
+
+function viewCart() {
+  const cart = localStorage.getItem('vantixCart');
+  document.getElementById('result').textContent = 'Cart contents:\n\n' + (cart || 'Empty');
+}
+
+function clearCart() {
+  localStorage.removeItem('vantixCart');
+  document.getElementById('result').textContent = '✅ Cart cleared!';
+}
+
+function goToCheckout() {
+  window.location.href = '/checkout.html';
+}
+</script>
+</body>
+</html>
