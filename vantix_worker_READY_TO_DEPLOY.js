@@ -9,7 +9,7 @@ const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxGd-T
 const TELEGRAM_BOT_TOKEN = '8478171743:AAHc9H_QoXNsbaelWNwTrjHbWI_ZmDQY6L0';
 const TELEGRAM_CHAT_ID = '513307658';
 const BANKFUL_USERNAME = 'vantixbio@gmail.com';
-const BANKFUL_PASSWORD = 'RnBCTE1haW4yQCE=';
+const BANKFUL_PASSWORD = 'Vantixbio@140';
 const BANKFUL_GATEWAY = '70777';
 
 addEventListener('fetch', event => {
@@ -31,9 +31,10 @@ async function handleRequest(request) {
   if (request.method === 'POST') {
     try {
       const body = await request.json()
+      const url = new URL(request.url)
       
       // Route to appropriate handler
-      if (body.payment_method === 'bankful' || body.payment_method === 'credit_card') {
+      if (url.pathname === '/bankful' || body.payment_method === 'bankful' || body.payment_method === 'credit_card') {
         return handleBankfulPayment(body, corsHeaders)
       } else if (body.payment_method === 'zelle') {
         return handleZelleOrder(body, corsHeaders)
