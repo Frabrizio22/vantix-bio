@@ -162,6 +162,25 @@ async function handleBankfulCallback(request, corsHeaders) {
     body: JSON.stringify(callbackData)
   })
 
+  // Send Telegram notification ONLY if payment was approved
+  if (status === 'Approved') {
+    const message = '💳 *Payment Confirmed*\n\nOrder: ' + orderNumber + '\nStatus: Paid via Credit Card\n\nCustomer completed Bankful payment successfully.';
+    
+    try {
+      await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      });
+    } catch (e) {
+      // Continue even if Telegram fails
+    }
+  }
+
   // Redirect to thank you page
   return Response.redirect('https://vantixbio.com/thank-you.html', 302)
 }
