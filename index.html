@@ -710,7 +710,7 @@ menuBtn.onclick=()=>menuOverlay.classList.add('active');
 menuClose.onclick=(e)=>{e.stopPropagation();menuOverlay.classList.remove('active')};
 menuOverlay.onclick=(e)=>{if(e.target===menuOverlay)menuOverlay.classList.remove('active')};
 searchBtn.onclick=()=>{menuOverlay.classList.add('active');setTimeout(()=>searchInput.focus(),100)};
-cartBtn.onclick=()=>alert('Shopping cart available mid-May 2026');
+cartBtn.onclick=()=>window.location.href='checkout.html';
 
 const waitlistBtn=document.getElementById('waitlistBtn'),waitlistModal=document.getElementById('waitlistModal'),waitlistModalClose=document.getElementById('waitlistModalClose'),waitlistForm=document.getElementById('waitlistForm'),waitlistFormContainer=document.getElementById('waitlistFormContainer'),waitlistSuccess=document.getElementById('waitlistSuccess');
 
