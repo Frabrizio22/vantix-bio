@@ -899,12 +899,17 @@
         }
 
         function loadCart() {
-            console.log('[LOAD CART] Starting...');
             var product = getUrlParam('product');
             var price = getUrlParam('price');
             var saved = localStorage.getItem('vantixCart') || sessionStorage.getItem('vantixCart') || localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
-            console.log('[LOAD CART] Found saved cart:', saved);
-            if (saved) { cart = JSON.parse(saved); localStorage.setItem('vantixCart', saved); console.log('[LOAD CART] Parsed cart length:', cart.length); }
+            alert('DEBUG: saved cart = ' + (saved ? 'FOUND (' + saved.length + ' chars)' : 'NULL'));
+            if (saved) { 
+                cart = JSON.parse(saved); 
+                localStorage.setItem('vantixCart', saved); 
+                alert('DEBUG: Parsed cart, length = ' + cart.length + ', first item = ' + (cart[0] ? cart[0].name : 'none'));
+            } else {
+                alert('DEBUG: No saved cart found in localStorage!');
+            }
 
             if (product && price) {
                 var decoded = decodeURIComponent(product);
