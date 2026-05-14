@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Vantix Bio</title>
+<style>
+body{font-family:sans-serif;padding:20px;max-width:600px;margin:0 auto}
+h1{margin-bottom:30px}
+.cart-item{background:#f8f8f8;padding:15px;margin:10px 0;border-radius:8px}
+.item-name{font-size:18px;font-weight:bold;margin-bottom:5px}
+.item-price{color:#666;font-size:14px}
+.empty{text-align:center;padding:40px;color:#999}
+.total{font-size:24px;font-weight:bold;margin:30px 0;text-align:right}
+button{padding:15px 30px;font-size:16px;background:#2563eb;color:white;border:none;border-radius:8px;cursor:pointer;width:100%;margin-top:20px}
+</style>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+
+<div id="cart"></div>
+<div id="total"></div>
+
+<button onclick="alert('Checkout coming soon!')">Continue to Payment</button>
+
+<script>
+// Load cart from localStorage
+var cart = [];
+try {
+  var saved = localStorage.getItem('vantixCart');
+  if (saved) {
+    cart = JSON.parse(saved);
+  }
+} catch(e) {
+  console.error('Error loading cart:', e);
+}
+
+// Render cart
+var container = document.getElementById('cart');
+var totalEl = document.getElementById('total');
+
+if (cart.length === 0) {
+  container.innerHTML = '<div class="empty">Your cart is empty</div>';
+} else {
+  var html = '';
+  var subtotal = 0;
+  
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var itemTotal = item.price * item.quantity;
+    subtotal += itemTotal;
+    
+    html += '<div class="cart-item">';
+    html += '<div class="item-name">' + item.name + '</div>';
+    html += '<div class="item-price">$' + item.price.toFixed(2) + ' × ' + item.quantity + ' = $' + itemTotal.toFixed(2) + '</div>';
+    html += '</div>';
+  }
+  
+  container.innerHTML = html;
+  totalEl.innerHTML = '<div class="total">Subtotal: $' + subtotal.toFixed(2) + '</div>';
+}
+</script>
+
+</body>
+</html>
