@@ -263,7 +263,7 @@ function renderProducts(filter='all'){
       <div class="product-meta">${p.dosage} · ${p.purity} PURE</div>
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
-        <button class="btn btn-dark btn-waitlist" onclick="event.stopPropagation();openWaitlistModal('${p.slug}')">Join Waitlist</button>
+        <a href="products/${p.slug}.html" class="btn btn-dark btn-waitlist" style="text-decoration:none">View Product</a>
         ${p.inStock ? '<a href="verify.html" class="coa-link" onclick="event.stopPropagation()">COA →</a>' : ''}
       </div>
     </div>
@@ -365,7 +365,7 @@ const menuClose = document.getElementById('menuClose');
 if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
 if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
-if (cartBtn) cartBtn.onclick = () => alert('Cart available mid-May 2026');
+if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 </script>
 
 <!-- Waitlist Modal -->

@@ -901,7 +901,7 @@
         function loadCart() {
             var product = getUrlParam('product');
             var price = getUrlParam('price');
-            var saved = localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
+            var saved = sessionStorage.getItem('vantixCart') || localStorage.getItem('vxCart') || localStorage.getItem('prcCart') || sessionStorage.getItem('prcCart');
             if (saved) { cart = JSON.parse(saved); localStorage.setItem('vxCart', saved); }
 
             if (product && price) {

@@ -9,6 +9,22 @@ const TELEGRAM_CHAT_ID = '513307658';
 const FROM_EMAIL = 'vantixbio@gmail.com';
 const COMPANY_NAME = 'Vantix Bio';
 
+// Product name mapping
+const PRODUCT_NAMES = {
+  'tirz': 'Tirzepatide 30mg',
+  'reta': 'Retatrutide 20mg',
+  'sema': 'Semaglutide 10mg',
+  'bpc': 'BPC-157 10mg',
+  'tb500': 'TB-500 10mg',
+  'ghk': 'GHK-Cu 100mg',
+  'cjc': 'CJC-1295 10mg',
+  'ipa': 'Ipamorelin 5mg',
+  'mots': 'MOTS-c 10mg',
+  'nad': 'NAD+ 1000mg',
+  'tesa': 'Tesamorelin 10mg',
+  'aod': 'AOD-9604 10mg'
+};
+
 // Get active spreadsheet
 function getSheet(tabName) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -42,7 +58,7 @@ function doPost(e) {
       return handleNewOrder(data);
     } else if (action === 'payment_callback') {
       return handlePaymentCallback(data);
-    } else if (action === 'newsletter') {
+    } else if (action === 'newsletter' || action === 'waitlist') {
       return handleNewsletter(data);
     } else if (action === 'notify') {
       return handleNotification(data);
@@ -214,11 +230,51 @@ function handleNewsletter(data) {
     }
   }
   
+  // Parse product interests
+  const interests = data.interests || '';
+  const interestsList = interests ? interests.split(', ') : [];
+  const productNames = interestsList.map(code => PRODUCT_NAMES[code] || code).filter(n => n).join(', ');
+  
   newsletterSheet.appendRow([
     data.email,
     new Date(),
-    data.source || 'website'
+    data.source || 'website',
+    productNames || 'None'
   ]);
+  
+  // Send Telegram notification with products
+  let message = '📬 *New Waitlist Signup*\n\nEmail: ' + data.email + '\n';
+  
+  if (productNames) {
+    message += 'Interested in:\n';
+    interestsList.forEach(code => {
+      const name = PRODUCT_NAMES[code];
+      if (name) {
+        message += '  • ' + name + '\n';
+      }
+    });
+  } else {
+    message += 'Products: Not specified\n';
+  }
+  
+  message += 'Source: ' + (data.source || 'website') + '\n';
+  message += 'Time: ' + new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+  
+  const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+  
+  try {
+    UrlFetchApp.fetch(url, {
+      method: 'post',
+      contentType: 'application/json',
+      payload: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    });
+  } catch (err) {
+    Logger.log('Telegram failed: ' + err);
+  }
   
   return ContentService.createTextOutput(JSON.stringify({
     status: 'success',
