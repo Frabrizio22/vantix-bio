@@ -254,7 +254,7 @@ Total: <span id="confirmTotal" style="font-family:'JetBrains Mono',monospace"></
 
 <script>
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
-var promoCodes={'FOUNDER10':0.10,'TEST':0.20};
+var promoCodes={'FOUNDER10':0.10,'TEST':0.20,'FREESHIP':'free_shipping'};
 
 function getUrlParam(name){var params=new URLSearchParams(window.location.search);return params.get(name);}
 
@@ -316,12 +316,17 @@ return cart.reduce(function(sum,item){return sum+(item.price*item.quantity);},0)
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-if(promoCode&&promoCodes[promoCode]){discount+=subtotal*promoCodes[promoCode];}
+if(promoCode&&promoCodes[promoCode]){
+if(typeof promoCodes[promoCode]==='number'){
+discount+=subtotal*promoCodes[promoCode];
+}
+}
 if(selectedPayment==='zelle'){discount+=subtotal*0.05;}
 return discount;
 }
 
 function getShipping(){
+if(promoCode==='FREESHIP'){return 0;}
 var subtotal=getSubtotal();
 return subtotal>=150?0:9.99;
 }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Product - $1 | Vantix Bio</title>
+    <meta name="description" content="Test product for checkout verification. $1. Research use only.">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .cta-button {
+            background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+        }
+    </style>
+</head>
+<body>
+<nav class="header-nav">
+    <div style="display:flex;align-items:center;gap:8px">
+        <a href="../index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:8px">
+            <img src="../logo-header.svg" alt="Vantix Bio" style="height:32px;width:auto">
+        </a>
+    </div>
+    <div class="nav-links">
+        <a href="../shop.html">Shop</a>
+        <a href="../verify.html">Verify</a>
+        <a href="../about.html">About</a>
+    </div>
+</nav>
+
+<div class="container" style="max-width:800px;margin:60px auto;padding:20px">
+    <h1>Test Product</h1>
+    <p style="font-size:24px;color:#2563EB;font-weight:700;margin:20px 0">$1.00</p>
+    
+    <p>Test product for checkout verification. For testing purposes only.</p>
+    
+    <button class="cta-button" onclick="addToCart()">Add to Cart - $1</button>
+    
+    <div style="margin-top:40px;padding:20px;background:#F8FAFC;border-radius:8px">
+        <strong>SKU:</strong> VTX-TEST-1<br>
+        <strong>Dosage:</strong> 1mg<br>
+        <strong>Status:</strong> In Stock
+    </div>
+</div>
+
+<footer id="pageFooter">
+    <div class="footer-content">
+        <div class="footer-logo">VANTIX <span style="color:#5B8DBE">BIO</span></div>
+        <div class="footer-links">
+            <a href="../shop.html">Shop</a>
+            <a href="../verify.html">Verify COA</a>
+            <a href="mailto:support@vantixbio.com">Contact</a>
+        </div>
+        <div class="footer-disclaimer">RESEARCH USE ONLY. All Vantix Bio products are analytical reference materials intended for in vitro laboratory research only. NOT for human or veterinary consumption, diagnostic use, or therapeutic application. These materials are not drugs and are not approved by the FDA. Purchasers must be 21 years of age or older and certify qualified-researcher status at point of purchase. © 2026 Vantix Bio LLC</div>
+    </div>
+</footer>
+
+<script>
+function addToCart() {
+    const product = {
+        sku: 'VTX-TEST-1',
+        name: 'Test Product',
+        price: 1.00,
+        quantity: 1
+    };
+    
+    let cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+    const existing = cart.find(item => item.sku === product.sku);
+    
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push(product);
+    }
+    
+    localStorage.setItem('vantixCart', JSON.stringify(cart));
+    alert('Added to cart! Go to checkout.');
+    window.location.href = '../checkout.html';
+}
+</script>
+</body>
+</html>
