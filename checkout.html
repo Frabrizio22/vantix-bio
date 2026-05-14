@@ -89,6 +89,7 @@ h2{font-size:22px;margin-bottom:20px;color:#0A1628}
 <span>Shipping:</span>
 <span id="shipping">$0.00</span>
 </div>
+<div style="font-size:13px;color:#059669;margin-top:8px;text-align:center" id="freeShippingMsg"></div>
 <div class="summary-row total">
 <span>Total:</span>
 <span id="total">$0.00</span>
@@ -165,16 +166,44 @@ var selectedPayment = null;
 var promoCode = null;
 var promoDiscount = 0;
 var orderNumber = '';
+var referralSource = null;
 
 var promoCodes = {
   'FOUNDER10': 0.10,
   'TEST': 0.20
 };
 
+function getUrlParam(name) {
+  var params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
 function loadCart() {
   var saved = localStorage.getItem('vantixCart');
   if (saved) {
     cart = JSON.parse(saved);
+  }
+  
+  // Support ?ref= parameter for referral tracking
+  var ref = getUrlParam('ref');
+  if (ref) {
+    referralSource = ref.toLowerCase();
+    sessionStorage.setItem('vantixReferral', referralSource);
+  } else {
+    referralSource = sessionStorage.getItem('vantixReferral');
+  }
+  
+  // Support ?code= parameter for auto-applying promo codes
+  var code = getUrlParam('code');
+  if (code) {
+    var upperCode = code.toUpperCase();
+    if (promoCodes[upperCode]) {
+      promoCode = upperCode;
+      document.getElementById('promoInput').value = upperCode;
+      document.getElementById('promoBtn').textContent = '✓ Applied';
+      document.getElementById('promoBtn').classList.add('applied');
+      document.getElementById('promoInput').disabled = true;
+    }
   }
 }
 
@@ -251,6 +280,19 @@ function getShipping() {
   return subtotal >= 150 ? 0 : 9.99;
 }
 
+function updateFreeShippingMsg() {
+  var subtotal = getSubtotal();
+  var msg = document.getElementById('freeShippingMsg');
+  if (subtotal >= 150) {
+    msg.textContent = '✓ You qualified for FREE shipping!';
+    msg.style.color = '#059669';
+  } else {
+    var remaining = (150 - subtotal).toFixed(2);
+    msg.textContent = 'Add $' + remaining + ' more for FREE shipping';
+    msg.style.color = '#f59e0b';
+  }
+}
+
 function getTotal() {
   return getSubtotal() + getShipping() - getDiscount();
 }
@@ -274,6 +316,8 @@ function updateSummary() {
   } else {
     discountRow.style.display = 'none';
   }
+  
+  updateFreeShippingMsg();
 }
 
 function applyPromo() {
@@ -353,6 +397,7 @@ function placeOrder() {
     subtotal: getSubtotal(),
     discount: getDiscount(),
     discount_code: promoCode || '',
+    referral_source: referralSource || '',
     shipping: getShipping(),
     total: getTotal(),
     payment_method: selectedPayment === 'zelle' ? 'Zelle' : 'Credit Card',
