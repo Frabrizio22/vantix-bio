@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Checkout - Vantix Bio</title>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
@@ -12,24 +12,31 @@
 @import url('https://fonts.cdnfonts.com/css/geist');
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#FAFAF7;--text:#0F1B2D;--accent:#3973B0;--hairline:#D9D2BF;--navy:#0F1B2D;--signal:#7BA88F}
-body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:0;margin:0}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden;width:100%;position:relative}
+body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:0;margin:0;min-height:100vh}
 .status-bar{background:var(--navy);padding:10px 0;position:sticky;top:0;z-index:100}
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--bg);text-align:center;opacity:.85}
-.container{max-width:900px;margin:0 auto;padding:40px 24px 100px}
+.container{max-width:900px;margin:0 auto;padding:40px 24px 100px;width:100%}
+@media(max-width:640px){.container{padding:24px 16px 120px}}
 h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,42px);font-weight:300;letter-spacing:-.02em;margin-bottom:8px}
 h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300;letter-spacing:-.015em;margin:0 0 24px;color:var(--navy)}
 .section{background:white;border:1px solid var(--hairline);border-radius:12px;padding:32px;margin-bottom:24px;box-shadow:0 1px 3px rgba(15,27,45,0.04)}
+@media(max-width:640px){.section{padding:24px 20px;border-radius:10px}}
 .cart-empty{text-align:center;padding:60px 20px;color:#999}
 .cart-empty a{color:var(--accent);text-decoration:none;font-weight:500}
-.cart-item{display:grid;grid-template-columns:1fr auto;gap:20px;padding:20px 0;border-bottom:1px solid var(--hairline)}
+.cart-item{display:grid;grid-template-columns:1fr auto;gap:20px;padding:20px 0;border-bottom:1px solid var(--hairline);align-items:start}
+@media(max-width:640px){.cart-item{padding:16px 0;gap:16px}}
 .cart-item:last-child{border:none}
 .item-info{display:flex;flex-direction:column;gap:6px}
 .item-name{font-size:16px;font-weight:500;color:var(--navy)}
 .item-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:#666}
 .item-controls{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
 .qty-controls{display:flex;align-items:center;gap:10px}
-.qty-btn{background:var(--navy);color:white;border:none;width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.qty-btn{background:var(--navy);color:white;border:none;width:36px;height:36px;border-radius:6px;cursor:pointer;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;transition:background .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .qty-btn:hover{background:var(--accent)}
+.qty-btn:active{transform:scale(0.95)}
+@media(max-width:640px){.qty-btn{width:40px;height:40px;font-size:20px}}
 .qty-display{font-family:'JetBrains Mono',monospace;min-width:28px;text-align:center;font-weight:600;font-size:15px}
 .remove-btn{background:transparent;border:none;color:#999;cursor:pointer;font-size:13px;text-decoration:underline;padding:0}
 .remove-btn:hover{color:#666}
@@ -50,12 +57,14 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 .promo-btn.applied{background:var(--signal);cursor:default}
 .form-group{margin-bottom:20px}
 .form-group label{display:block;margin-bottom:8px;font-size:14px;font-weight:500;color:var(--navy)}
-.form-group input,.form-group select{width:100%;padding:14px;border:1px solid var(--hairline);border-radius:8px;font-family:'Geist',sans-serif;font-size:15px;transition:border-color .2s}
+.form-group input,.form-group select{width:100%;padding:14px;border:1px solid var(--hairline);border-radius:8px;font-family:'Geist',sans-serif;font-size:16px;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(57,115,176,0.1)}
+@media(max-width:640px){.form-group input,.form-group select{font-size:16px;padding:16px}}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:640px){.form-row{grid-template-columns:1fr}}
 .payment-options{display:grid;gap:16px;margin-top:16px}
-.payment-option{padding:22px;border:1.5px solid var(--hairline);border-radius:12px;cursor:pointer;transition:all .25s cubic-bezier(0.4,0,0.2,1);background:white;position:relative;overflow:hidden}
+.payment-option{padding:22px;border:1.5px solid var(--hairline);border-radius:12px;cursor:pointer;transition:all .25s cubic-bezier(0.4,0,0.2,1);background:white;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+@media(max-width:640px){.payment-option{padding:20px}}
 .payment-option::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(57,115,176,0.03) 0%,transparent 100%);opacity:0;transition:opacity .25s}
 .payment-option:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,27,45,0.08)}
 .payment-option:hover::before{opacity:1}
@@ -68,10 +77,11 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 .instructions h3{font-size:16px;font-weight:600;margin-bottom:10px;color:#92400e}
 .instructions p{font-size:14px;color:#78350f;line-height:1.6;margin:6px 0}
 .instructions strong{font-weight:600}
-.submit-btn{width:100%;padding:18px;background:var(--navy);color:white;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;margin-top:32px;transition:all .3s;font-family:'Geist',sans-serif;letter-spacing:-.01em}
+.submit-btn{width:100%;padding:18px;background:var(--navy);color:white;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;margin-top:32px;transition:all .3s;font-family:'Geist',sans-serif;letter-spacing:-.01em;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .submit-btn:hover:not(:disabled){background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(57,115,176,0.3)}
 .submit-btn:active:not(:disabled){transform:translateY(0)}
 .submit-btn:disabled{background:#d1d5db;cursor:not-allowed}
+@media(max-width:640px){.submit-btn{padding:20px;font-size:18px}}
 .confirmation{text-align:center;padding:40px 24px 120px}
 .confirmation .icon{width:72px;height:72px;margin:0 auto 28px;background:linear-gradient(135deg,#7BA88F 0%,#5a8a72 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(123,168,143,0.25)}
 .confirmation .icon svg{width:40px;height:40px;stroke:white;stroke-width:3}
@@ -91,17 +101,26 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 .confirmation .btn-secondary{background:white;color:var(--navy);border:2px solid var(--hairline)}
 .confirmation .btn-secondary:hover{border-color:var(--navy);background:#fafaf7}
 @media(max-width:640px){
-.cart-item{grid-template-columns:1fr;gap:12px}
+.cart-item{grid-template-columns:1fr;gap:16px}
 .item-controls{flex-direction:row;justify-content:space-between;align-items:center}
+.item-name{font-size:15px}
+.item-price{font-size:13px}
+.form-row{gap:12px}
+.promo-section{flex-direction:column}
+.promo-input{font-size:16px}
+.promo-btn{width:100%;padding:14px}
+.summary-row{font-size:14px}
+.summary-row.total{font-size:20px}
 .confirmation{padding:32px 20px 140px}
 .confirmation h1{font-size:32px}
 .confirmation .order-number{font-size:20px}
 .confirmation .details{padding:24px}
 .confirmation .zelle-instructions{padding:20px;margin:20px 0 60px}
-.confirmation .zelle-instructions h3{font-size:16px}
-.confirmation .zelle-instructions .zelle-contact{font-size:18px;padding:14px}
-.confirmation .actions{flex-direction:column;padding-bottom:60px}
-.confirmation .btn{width:100%;text-align:center}
+.confirmation .zelle-instructions h3{font-size:17px}
+.confirmation .zelle-instructions p{font-size:14px}
+.confirmation .zelle-instructions .zelle-contact{font-size:20px;padding:16px}
+.confirmation .actions{flex-direction:column;padding-bottom:60px;gap:10px}
+.confirmation .btn{width:100%;text-align:center;padding:18px}
 }
 </style>
 </head>
