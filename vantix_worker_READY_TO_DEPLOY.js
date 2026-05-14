@@ -75,7 +75,7 @@ async function handleRequest(request) {
 // BANKFUL CREDIT CARD PROCESSING
 // ============================================
 async function handleBankfulPayment(data, corsHeaders) {
-  // Format items for sheet
+  // Format items for display
   let itemsDetail = '';
   if (data.items && data.items.length > 0) {
     itemsDetail = data.items.map(item => 
@@ -94,7 +94,8 @@ async function handleBankfulPayment(data, corsHeaders) {
     state: data.state,
     zip: data.zip,
     phone: data.phone,
-    items_detail: itemsDetail,
+    items: JSON.stringify(data.items || []),  // JSON string for Products sheet
+    items_detail: itemsDetail,                 // Formatted string for Orders sheet
     subtotal: data.subtotal,
     discount: data.discount || 0,
     discount_code: data.discount_code || '',
@@ -169,7 +170,7 @@ async function handleBankfulCallback(request, corsHeaders) {
 // ZELLE ORDER PROCESSING
 // ============================================
 async function handleZelleOrder(data, corsHeaders) {
-  // Format items for sheet
+  // Format items for display
   let itemsDetail = '';
   if (data.items && data.items.length > 0) {
     itemsDetail = data.items.map(item => 
@@ -187,7 +188,8 @@ async function handleZelleOrder(data, corsHeaders) {
     state: data.state,
     zip: data.zip,
     phone: data.phone,
-    items_detail: itemsDetail,
+    items: JSON.stringify(data.items || []),  // JSON string for Products sheet
+    items_detail: itemsDetail,                 // Formatted string for Orders sheet
     subtotal: data.subtotal,
     discount: data.discount || 0,
     discount_code: data.discount_code || '',

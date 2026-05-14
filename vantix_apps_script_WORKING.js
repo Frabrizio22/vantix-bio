@@ -107,8 +107,9 @@ function handleNewOrder(data) {
   
   // Add to Orders sheet
   ordersSheet.appendRow([
-    '', // Auto-increment order number (formula handles this)
+    '', // Auto-increment ID (formula handles this)
     new Date(),
+    data.order_number || '',
     data.customer_name || '',
     data.customer_email || '',
     data.address || '',
@@ -119,6 +120,8 @@ function handleNewOrder(data) {
     data.items_detail || '',
     parseFloat(data.subtotal) || 0,
     parseFloat(data.discount) || 0,
+    data.discount_code || '',
+    data.referral_source || '',
     parseFloat(data.shipping) || 0,
     parseFloat(data.total) || 0,
     data.payment_method || '',
