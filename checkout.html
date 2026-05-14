@@ -69,7 +69,7 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,28px);font-weight:300
 .submit-btn:hover:not(:disabled){background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(57,115,176,0.3)}
 .submit-btn:active:not(:disabled){transform:translateY(0)}
 .submit-btn:disabled{background:#d1d5db;cursor:not-allowed}
-.confirmation{text-align:center;padding:60px 24px}
+.confirmation{text-align:center;padding:40px 24px 120px}
 .confirmation .icon{width:80px;height:80px;margin:0 auto 24px;background:var(--signal);border-radius:50%;display:flex;align-items:center;justify-content:center}
 .confirmation .icon svg{width:48px;height:48px;stroke:white;stroke-width:2.5}
 .confirmation h1{font-size:clamp(32px,6vw,48px);margin-bottom:12px}
@@ -77,19 +77,28 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,28px);font-weight:300
 .confirmation .details{background:#FAFAF7;padding:32px;border-radius:12px;margin:32px 0;text-align:left}
 .confirmation .details h3{font-size:18px;font-weight:600;margin-bottom:16px}
 .confirmation .details p{margin:10px 0;line-height:1.8;font-size:15px}
-.confirmation .zelle-instructions{background:#fef3c7;border-left:4px solid #f59e0b;padding:24px;border-radius:8px;margin:24px 0;text-align:left}
-.confirmation .zelle-instructions h3{color:#92400e;margin-bottom:12px;font-size:18px}
-.confirmation .zelle-instructions p{color:#78350f;font-size:15px;line-height:1.8}
-.confirmation .zelle-instructions .zelle-email{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--navy);background:white;padding:12px;border-radius:6px;margin:12px 0;text-align:center}
-.confirmation .actions{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.confirmation .btn{padding:14px 32px;border-radius:24px;font-weight:600;text-decoration:none;display:inline-block;transition:all .2s}
-.confirmation .btn-primary{background:var(--navy);color:white}
-.confirmation .btn-primary:hover{background:var(--accent);transform:translateY(-1px)}
-.confirmation .btn-secondary{background:white;color:var(--navy);border:2px solid var(--navy)}
-.confirmation .btn-secondary:hover{background:var(--navy);color:white}
+.confirmation .zelle-instructions{background:#fef3c7;border-left:4px solid #f59e0b;padding:24px;border-radius:8px;margin:24px 0 40px;text-align:left}
+.confirmation .zelle-instructions h3{color:#92400e;margin-bottom:16px;font-size:18px;font-weight:600}
+.confirmation .zelle-instructions p{color:#78350f;font-size:15px;line-height:1.8;margin:10px 0}
+.confirmation .zelle-instructions .zelle-contact{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--navy);background:white;padding:16px;border-radius:6px;margin:16px 0;text-align:center;letter-spacing:0.02em}
+.confirmation .actions{margin-top:40px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:40px}
+.confirmation .btn{padding:16px 32px;border-radius:28px;font-weight:600;text-decoration:none;display:inline-block;transition:all .2s;font-size:15px}
+.confirmation .btn-primary{background:var(--navy);color:white;box-shadow:0 2px 8px rgba(15,27,45,0.2)}
+.confirmation .btn-primary:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(57,115,176,0.3)}
+.confirmation .btn-secondary{background:white;color:var(--navy);border:2px solid var(--hairline)}
+.confirmation .btn-secondary:hover{border-color:var(--navy);background:#fafaf7}
 @media(max-width:640px){
 .cart-item{grid-template-columns:1fr;gap:12px}
 .item-controls{flex-direction:row;justify-content:space-between;align-items:center}
+.confirmation{padding:32px 20px 140px}
+.confirmation h1{font-size:32px}
+.confirmation .order-number{font-size:20px}
+.confirmation .details{padding:24px}
+.confirmation .zelle-instructions{padding:20px;margin:20px 0 60px}
+.confirmation .zelle-instructions h3{font-size:16px}
+.confirmation .zelle-instructions .zelle-contact{font-size:18px;padding:14px}
+.confirmation .actions{flex-direction:column;padding-bottom:60px}
+.confirmation .btn{width:100%;text-align:center}
 }
 </style>
 </head>
@@ -205,10 +214,10 @@ Total: <span id="confirmTotal" style="font-family:'JetBrains Mono',monospace"></
 
 <div id="zelleInstructions" style="display:none" class="zelle-instructions">
 <h3>⚡ Next Step: Send Payment via Zelle</h3>
-<p>Please send your payment to:</p>
-<div class="zelle-email">vantixbio@gmail.com</div>
-<p><strong>Important:</strong> Include your order number <span id="zelleOrderNumber" style="font-family:'JetBrains Mono',monospace;font-weight:600"></span> in the memo/note field.</p>
-<p>We'll process your order as soon as payment is received. You'll receive a confirmation email with tracking details.</p>
+<p>Send <strong id="zelleAmount" style="font-family:'JetBrains Mono',monospace"></strong> to:</p>
+<div class="zelle-contact">619-587-1812</div>
+<p><strong>Important:</strong> Include order number <span id="zelleOrderNumber" style="font-family:'JetBrains Mono',monospace;font-weight:600"></span> in the memo field.</p>
+<p style="margin-top:16px;padding-top:16px;border-top:1px solid #f59e0b33">We'll process your order as soon as payment is received and send tracking details via email.</p>
 </div>
 
 <div id="creditInstructions" style="display:none">
@@ -364,6 +373,7 @@ document.getElementById('confirmTotal').textContent='$'+getTotal().toFixed(2);
 if(paymentMethod==='zelle'){
 document.getElementById('zelleInstructions').style.display='block';
 document.getElementById('zelleOrderNumber').textContent=orderNumber;
+document.getElementById('zelleAmount').textContent='$'+getTotal().toFixed(2);
 document.getElementById('creditInstructions').style.display='none';
 }else{
 document.getElementById('zelleInstructions').style.display='none';
