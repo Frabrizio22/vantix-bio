@@ -240,6 +240,20 @@
                 <input type="checkbox" id="termsCheck" />
                 <label for="termsCheck">I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
             </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="researcherCheck" />
+                <label for="researcherCheck">I confirm I am a <strong>qualified researcher or affiliated with a research organization</strong>, and will use these materials exclusively for in vitro laboratory research</label>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 16px">
+            <label for="affiliation" style="font-size: 13px; color: #64748B; display: block; margin-bottom: 6px">Research affiliation (optional)</label>
+            <input type="text" id="affiliation" placeholder="University, laboratory, or institution name" style="width: 100%; padding: 10px; border: 1px solid #E2E8F0; border-radius: 6px; font-size: 14px" />
+        </div>
+
+        <div class="footer-note" style="margin-bottom: 16px; font-size: 11px">
+            Vantix Bio reserves the right to refuse or cancel orders inconsistent with research use.
         </div>
 
         <div class="remember-group">
@@ -261,21 +275,23 @@
         (function() {
             const ageCheck = document.getElementById('ageCheck');
             const termsCheck = document.getElementById('termsCheck');
+            const researcherCheck = document.getElementById('researcherCheck');
             const rememberCheck = document.getElementById('rememberCheck');
             const enterBtn = document.getElementById('enterBtn');
             const exitBtn = document.getElementById('exitBtn');
 
             // Update button state
             function updateButtonState() {
-                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked);
+                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked && researcherCheck.checked);
             }
 
             ageCheck.addEventListener('change', updateButtonState);
             termsCheck.addEventListener('change', updateButtonState);
+            researcherCheck.addEventListener('change', updateButtonState);
 
             // Enter site
             enterBtn.addEventListener('click', function() {
-                if (!ageCheck.checked || !termsCheck.checked) return;
+                if (!ageCheck.checked || !termsCheck.checked || !researcherCheck.checked) return;
 
                 const timestamp = Date.now();
                 const data = JSON.stringify({ accepted: true, timestamp: timestamp });
