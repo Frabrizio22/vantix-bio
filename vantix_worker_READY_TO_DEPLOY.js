@@ -4,13 +4,13 @@
 // READY TO DEPLOY
 // ============================================
 
-// Environment variables (set these in Cloudflare Worker settings):
-// GOOGLE_SHEET_WEBHOOK_URL
-// BANKFUL_USERNAME
-// BANKFUL_PASSWORD
-// BANKFUL_GATEWAY (optional, defaults to 70777)
-// TELEGRAM_BOT_TOKEN
-// TELEGRAM_CHAT_ID
+// Configuration (set as environment variables in Cloudflare dashboard for production)
+const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
+const TELEGRAM_BOT_TOKEN = '8478171743:AAHc9H_QoXNsbaelWNwTrjHbWI_ZmDQY6L0';
+const TELEGRAM_CHAT_ID = '513307658';
+const BANKFUL_USERNAME = 'vantixbio@gmail.com';
+const BANKFUL_PASSWORD = 'RnBCTE1haW4yQCE=';
+const BANKFUL_GATEWAY = '70777';
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
