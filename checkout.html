@@ -17,8 +17,8 @@ body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--bg);text-align:center;opacity:.85}
 .container{max-width:900px;margin:0 auto;padding:40px 24px 100px}
 h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,42px);font-weight:300;letter-spacing:-.02em;margin-bottom:8px}
-h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,28px);font-weight:300;letter-spacing:-.015em;margin:32px 0 20px}
-.section{background:white;border:1px solid var(--hairline);border-radius:12px;padding:32px;margin-bottom:24px}
+h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300;letter-spacing:-.015em;margin:0 0 24px;color:var(--navy)}
+.section{background:white;border:1px solid var(--hairline);border-radius:12px;padding:32px;margin-bottom:24px;box-shadow:0 1px 3px rgba(15,27,45,0.04)}
 .cart-empty{text-align:center;padding:60px 20px;color:#999}
 .cart-empty a{color:var(--accent);text-decoration:none;font-weight:500}
 .cart-item{display:grid;grid-template-columns:1fr auto;gap:20px;padding:20px 0;border-bottom:1px solid var(--hairline)}
@@ -33,9 +33,9 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,28px);font-weight:300
 .qty-display{font-family:'JetBrains Mono',monospace;min-width:28px;text-align:center;font-weight:600;font-size:15px}
 .remove-btn{background:transparent;border:none;color:#999;cursor:pointer;font-size:13px;text-decoration:underline;padding:0}
 .remove-btn:hover{color:#666}
-.summary{background:#FAFAF7;padding:24px;border-radius:8px;margin-top:24px}
+.summary{background:linear-gradient(to bottom,#FAFAF7 0%,#f5f5f2 100%);padding:24px;border-radius:10px;margin-top:24px;border:1px solid var(--hairline)}
 .summary-row{display:flex;justify-content:space-between;margin:12px 0;font-size:15px}
-.summary-row.total{font-size:22px;font-weight:600;margin-top:20px;padding-top:20px;border-top:2px solid var(--hairline)}
+.summary-row.total{font-size:24px;font-weight:600;margin-top:20px;padding-top:20px;border-top:1.5px solid var(--hairline);color:var(--navy);letter-spacing:-0.01em}
 .summary-value{font-family:'JetBrains Mono',monospace;font-weight:500}
 .discount-label{color:var(--signal);font-weight:500}
 .shipping-msg{text-align:center;margin-top:12px;font-size:13px;padding:10px;border-radius:6px;background:#f5f5f5}
@@ -55,12 +55,15 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,28px);font-weight:300
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:640px){.form-row{grid-template-columns:1fr}}
 .payment-options{display:grid;gap:16px;margin-top:16px}
-.payment-option{padding:20px;border:2px solid var(--hairline);border-radius:12px;cursor:pointer;transition:all .2s;background:white}
-.payment-option:hover{border-color:var(--accent);background:#f8f9fa}
-.payment-option.selected{border-color:var(--accent);background:#eff6ff}
-.payment-option .title{font-weight:600;font-size:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.payment-option .desc{font-size:14px;color:#666}
-.payment-option .discount-tag{color:var(--signal);font-size:13px;font-weight:600;margin-top:6px}
+.payment-option{padding:22px;border:1.5px solid var(--hairline);border-radius:12px;cursor:pointer;transition:all .25s cubic-bezier(0.4,0,0.2,1);background:white;position:relative;overflow:hidden}
+.payment-option::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(57,115,176,0.03) 0%,transparent 100%);opacity:0;transition:opacity .25s}
+.payment-option:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,27,45,0.08)}
+.payment-option:hover::before{opacity:1}
+.payment-option.selected{border-color:var(--accent);background:linear-gradient(135deg,#f8fbff 0%,#eff6ff 100%);box-shadow:0 2px 8px rgba(57,115,176,0.12)}
+.payment-option.selected::before{opacity:0}
+.payment-option .title{font-weight:600;font-size:16px;margin-bottom:6px;display:flex;align-items:center;gap:8px;color:var(--navy)}
+.payment-option .desc{font-size:14px;color:#6b7280;line-height:1.5}
+.payment-option .discount-tag{color:var(--signal);font-size:13px;font-weight:600;margin-top:8px;display:inline-block}
 .instructions{background:#fef3c7;border-left:4px solid #f59e0b;padding:20px;border-radius:8px;margin-top:20px}
 .instructions h3{font-size:16px;font-weight:600;margin-bottom:10px;color:#92400e}
 .instructions p{font-size:14px;color:#78350f;line-height:1.6;margin:6px 0}
@@ -70,17 +73,17 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,28px);font-weight:300
 .submit-btn:active:not(:disabled){transform:translateY(0)}
 .submit-btn:disabled{background:#d1d5db;cursor:not-allowed}
 .confirmation{text-align:center;padding:40px 24px 120px}
-.confirmation .icon{width:80px;height:80px;margin:0 auto 24px;background:var(--signal);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.confirmation .icon svg{width:48px;height:48px;stroke:white;stroke-width:2.5}
-.confirmation h1{font-size:clamp(32px,6vw,48px);margin-bottom:12px}
-.confirmation .order-number{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:var(--accent);margin:24px 0}
-.confirmation .details{background:#FAFAF7;padding:32px;border-radius:12px;margin:32px 0;text-align:left}
-.confirmation .details h3{font-size:18px;font-weight:600;margin-bottom:16px}
-.confirmation .details p{margin:10px 0;line-height:1.8;font-size:15px}
-.confirmation .zelle-instructions{background:#fef3c7;border-left:4px solid #f59e0b;padding:24px;border-radius:8px;margin:24px 0 40px;text-align:left}
-.confirmation .zelle-instructions h3{color:#92400e;margin-bottom:16px;font-size:18px;font-weight:600}
-.confirmation .zelle-instructions p{color:#78350f;font-size:15px;line-height:1.8;margin:10px 0}
-.confirmation .zelle-instructions .zelle-contact{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--navy);background:white;padding:16px;border-radius:6px;margin:16px 0;text-align:center;letter-spacing:0.02em}
+.confirmation .icon{width:72px;height:72px;margin:0 auto 28px;background:linear-gradient(135deg,#7BA88F 0%,#5a8a72 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(123,168,143,0.25)}
+.confirmation .icon svg{width:40px;height:40px;stroke:white;stroke-width:3}
+.confirmation h1{font-size:clamp(32px,6vw,48px);margin-bottom:16px;color:var(--navy);letter-spacing:-0.02em}
+.confirmation .order-number{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--accent);margin:20px 0;letter-spacing:0.02em;opacity:0.9}
+.confirmation .details{background:white;border:1px solid var(--hairline);padding:32px;border-radius:12px;margin:32px 0;text-align:left;box-shadow:0 1px 3px rgba(15,27,45,0.04)}
+.confirmation .details h3{font-family:'Fraunces',serif;font-size:20px;font-weight:300;margin-bottom:20px;color:var(--navy);letter-spacing:-0.01em}
+.confirmation .details p{margin:12px 0;line-height:1.7;font-size:15px;color:#374151}
+.confirmation .zelle-instructions{background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);border:1px solid #f59e0b30;padding:28px;border-radius:12px;margin:28px 0 40px;text-align:left;box-shadow:0 2px 8px rgba(245,158,11,0.08)}
+.confirmation .zelle-instructions h3{font-family:'Fraunces',serif;color:#78350f;margin-bottom:18px;font-size:20px;font-weight:400;letter-spacing:-0.01em}
+.confirmation .zelle-instructions p{color:#92400e;font-size:15px;line-height:1.7;margin:12px 0}
+.confirmation .zelle-instructions .zelle-contact{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--navy);background:white;padding:18px 24px;border-radius:8px;margin:18px 0;text-align:center;letter-spacing:0.05em;box-shadow:0 1px 3px rgba(15,27,45,0.08);border:1px solid var(--hairline)}
 .confirmation .actions{margin-top:40px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:40px}
 .confirmation .btn{padding:16px 32px;border-radius:28px;font-weight:600;text-decoration:none;display:inline-block;transition:all .2s;font-size:15px}
 .confirmation .btn-primary{background:var(--navy);color:white;box-shadow:0 2px 8px rgba(15,27,45,0.2)}
