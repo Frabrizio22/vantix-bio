@@ -18,7 +18,7 @@ const VX_PRODUCTS = {
             cogs: 17.38,
             image: 'images/products/tirzepatide-30mg.jpg',
             url: 'products/tirzepatide.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -34,7 +34,7 @@ const VX_PRODUCTS = {
             cogs: 19.98,
             image: 'images/products/retatrutide-20mg.jpg',
             url: 'products/retatrutide.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -50,7 +50,7 @@ const VX_PRODUCTS = {
             cogs: 12.98,
             image: 'images/products/semaglutide-10mg.jpg',
             url: 'products/semaglutide.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         
@@ -68,7 +68,7 @@ const VX_PRODUCTS = {
             cogs: 11.03,
             image: 'images/products/bpc-157-10mg.jpg',
             url: 'products/bpc-157.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -84,7 +84,7 @@ const VX_PRODUCTS = {
             cogs: 17.93,
             image: 'images/products/tb-500-10mg.jpg',
             url: 'products/tb-500.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -100,7 +100,7 @@ const VX_PRODUCTS = {
             cogs: 11.16,
             image: 'images/products/ghk-cu-100mg.jpg',
             url: 'products/ghk-cu.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         
@@ -118,7 +118,7 @@ const VX_PRODUCTS = {
             cogs: 19.53,
             image: 'images/products/cjc-1295-10mg.jpg',
             url: 'products/cjc-1295.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -134,7 +134,7 @@ const VX_PRODUCTS = {
             cogs: 9.93,
             image: 'images/products/ipamorelin-10mg.jpg',
             url: 'products/ipamorelin.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -150,7 +150,7 @@ const VX_PRODUCTS = {
             cogs: 20.03,
             image: 'images/tesamorelin.jpg',
             url: 'products/tesamorelin.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -184,7 +184,7 @@ const VX_PRODUCTS = {
             cogs: 16.01,
             image: 'images/products/mots-c-10mg.jpg',
             url: 'products/mots-c.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
         {
@@ -200,7 +200,7 @@ const VX_PRODUCTS = {
             cogs: 18.16,
             image: 'images/products/nad-1000mg.jpg',
             url: 'products/nad-plus.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         }
     ],
