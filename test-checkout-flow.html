@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout Flow Test</title>
+<style>
+body{font-family:monospace;padding:20px;font-size:13px;background:#1a1a1a;color:#0f0}
+.test{background:#000;border:1px solid #0f0;padding:15px;margin:10px 0;border-radius:4px}
+.pass{color:#0f0}.fail{color:#f00}.warn{color:#ff0}
+button{padding:10px 20px;margin:10px 5px 10px 0;background:#0f0;color:#000;border:none;border-radius:4px;cursor:pointer;font-family:monospace;font-weight:bold}
+pre{background:#000;padding:10px;border-left:3px solid #0f0;overflow-x:auto}
+</style>
+</head>
+<body>
+<h1>🔬 Vantix Checkout Flow Test</h1>
+
+<button onclick="runTests()">▶ Run All Tests</button>
+<button onclick="clearStorage()">🗑️ Clear Storage</button>
+<button onclick="simulateAddToCart()">➕ Simulate Add to Cart</button>
+<button onclick="location.href='/checkout.html'">🛒 Go to Checkout</button>
+
+<div id="results"></div>
+
+<script>
+const tests = [];
+let results = '';
+
+function log(msg, type = 'info') {
+  const className = type === 'pass' ? 'pass' : type === 'fail' ? 'fail' : type === 'warn' ? 'warn' : '';
+  results += `<div class="${className}">${msg}</div>`;
+}
+
+function test(name, fn) {
+  results += `<div class="test"><strong>TEST: ${name}</strong><br>`;
+  try {
+    const result = fn();
+    log(result ? '✅ PASS' : '❌ FAIL', result ? 'pass' : 'fail');
+  } catch(e) {
+    log('❌ ERROR: ' + e.message, 'fail');
+  }
+  results += '</div>';
+}
+
+function runTests() {
+  results = '';
+  
+  test('localStorage is available', () => {
+    return typeof localStorage !== 'undefined';
+  });
+  
+  test('Can write to localStorage', () => {
+    localStorage.setItem('test', 'value');
+    const val = localStorage.getItem('test');
+    localStorage.removeItem('test');
+    return val === 'value';
+  });
+  
+  test('vantixCart exists in localStorage', () => {
+    const cart = localStorage.getItem('vantixCart');
+    log('vantixCart value: ' + (cart || 'null'), 'info');
+    return cart !== null;
+  });
+  
+  test('vantixCart is valid JSON', () => {
+    const cart = localStorage.getItem('vantixCart');
+    if (!cart) return false;
+    try {
+      const parsed = JSON.parse(cart);
+      log('Parsed cart: <pre>' + JSON.stringify(parsed, null, 2) + '</pre>', 'info');
+      return Array.isArray(parsed);
+    } catch(e) {
+      log('Parse error: ' + e.message, 'fail');
+      return false;
+    }
+  });
+  
+  test('Cart has items', () => {
+    const cart = localStorage.getItem('vantixCart');
+    if (!cart) return false;
+    const parsed = JSON.parse(cart);
+    log('Cart length: ' + parsed.length, 'info');
+    return parsed.length > 0;
+  });
+  
+  test('Cart items have required fields', () => {
+    const cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+    if (cart.length === 0) return false;
+    const item = cart[0];
+    const hasName = 'name' in item;
+    const hasPrice = 'price' in item;
+    const hasQuantity = 'quantity' in item;
+    log(`Has name: ${hasName}, price: ${hasPrice}, quantity: ${hasQuantity}`, 'info');
+    return hasName && hasPrice && hasQuantity;
+  });
+  
+  test('No conflicting cart keys', () => {
+    const vxCart = localStorage.getItem('vxCart');
+    const prcCart = localStorage.getItem('prcCart');
+    log(`vxCart: ${vxCart ? 'exists' : 'null'}, prcCart: ${prcCart ? 'exists' : 'null'}`, 'info');
+    return !vxCart && !prcCart;
+  });
+  
+  document.getElementById('results').innerHTML = results;
+}
+
+function clearStorage() {
+  localStorage.clear();
+  sessionStorage.clear();
+  alert('Storage cleared!');
+  runTests();
+}
+
+function simulateAddToCart() {
+  const cart = [{
+    name: 'Semaglutide 10mg',
+    sku: 'VX-SEMA-10',
+    price: 47,
+    quantity: 1
+  }];
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  alert('Added Semaglutide 10mg to cart!\n\nNow click "Go to Checkout" to test.');
+  runTests();
+}
+
+// Auto-run on load
+runTests();
+</script>
+</body>
+</html>
