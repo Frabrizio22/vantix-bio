@@ -344,12 +344,11 @@ function selectPayment(method) {
   
   if (method === 'zelle') {
     document.getElementById('zelleOption').classList.add('selected');
-    document.getElementById('paymentInstructions').innerHTML = '<div class="instructions"><h3>Zelle Instructions</h3><p>After placing your order, send payment to: <strong>vantixbio@gmail.com</strong></p><p>Include your order number in the memo.</p></div>';
   } else {
     document.getElementById('creditOption').classList.add('selected');
-    document.getElementById('paymentInstructions').innerHTML = '';
   }
   
+  document.getElementById('paymentInstructions').innerHTML = '';
   updateSummary();
 }
 
@@ -384,7 +383,7 @@ function placeOrder() {
   orderNumber = generateOrderNumber();
   
   var orderData = {
-    action: 'order',
+    payment_method: selectedPayment === 'zelle' ? 'zelle' : 'credit_card',
     order_number: orderNumber,
     customer_name: name,
     customer_email: email,
@@ -399,9 +398,7 @@ function placeOrder() {
     discount_code: promoCode || '',
     referral_source: referralSource || '',
     shipping: getShipping(),
-    total: getTotal(),
-    payment_method: selectedPayment === 'zelle' ? 'Zelle' : 'Credit Card',
-    payment_status: 'Pending'
+    total: getTotal()
   };
   
   var submitBtn = document.getElementById('submitBtn');
