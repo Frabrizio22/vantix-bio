@@ -38,6 +38,22 @@ const VX_PRODUCTS = {
             dualTested: true
         },
         {
+            sku: 'VTX-TEST-1',
+            name: 'VTX Test Product',
+            shortName: 'VTX Test',
+            slug: 'semaglutide',
+            category: 'metabolic',
+            categoryLabel: 'TEST',
+            dosage: '1mg',
+            purity: '>99%',
+            price: 5.00,
+            cogs: 1.00,
+            image: 'images/products/semaglutide-10mg.jpg',
+            url: 'products/semaglutide.html',
+            inStock: true,
+            dualTested: true
+        },
+        {
             sku: 'VX-SEMA-10',
             name: 'Semaglutide 10mg',
             shortName: 'Semaglutide',
