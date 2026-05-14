@@ -474,7 +474,6 @@ body:JSON.stringify(orderData)
 .then(function(data){
 if(data.hpp_url&&data.hpp_params){
 localStorage.setItem('vantixLastOrder',JSON.stringify({orderNumber:orderNumber,total:getTotal()}));
-localStorage.removeItem('vantixCart');
 var form=document.createElement('form');
 form.method='POST';
 form.action=data.hpp_url;

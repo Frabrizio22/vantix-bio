@@ -4,9 +4,9 @@
 const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
 const TELEGRAM_BOT_TOKEN = '8478171743:AAHc9H_QoXNsbaelWNwTrjHbWI_ZmDQY6L0';
 const TELEGRAM_CHAT_ID = '513307658';
-const BANKFUL_USERNAME = 'support@prcpeptides.com';
-const BANKFUL_PASSWORD = 'Euro@140';
-const BANKFUL_GATEWAY = '70777';
+const BANKFUL_USERNAME = 'vantixbio@gmail.com';
+const BANKFUL_PASSWORD = 'Vantixbio@140';
+const BANKFUL_GATEWAY = '73922';
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
@@ -152,7 +152,7 @@ async function handleRequest(request) {
 
       return new Response(JSON.stringify({
         success: true,
-        hpp_url: 'https://api.paybybankful.com/front-calls/go-in/hosted-page',
+        hpp_url: 'https://api.paybybankful.com/front-calls/go-in/hosted-page-pay',
         hpp_params: hppParams
       }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
