@@ -113,29 +113,32 @@ async function handleRequest(request) {
         })
       })
 
-      // Build HPP parameters
+      // Build HPP parameters (match PRC's exact format)
       const hppParams = {
+        req_username: BANKFUL_USERNAME,
+        gateway_id: BANKFUL_GATEWAY,
         transaction_type: 'CAPTURE',
         amount: parseFloat(data.total).toFixed(2),
         request_currency: 'USD',
-        cust_email: data.customer_email || '',
+        xtl_order_id: data.order_number,
+        cart_name: 'Hosted-Page',
+        
         cust_fname: data.customer_name ? data.customer_name.split(' ')[0] : 'Customer',
         cust_lname: data.customer_name ? data.customer_name.split(' ').slice(1).join(' ') : '',
+        cust_email: data.customer_email || '',
         cust_phone: data.phone || '',
+        
         bill_addr: data.address || '',
         bill_addr_city: data.city || '',
         bill_addr_state: data.state || '',
         bill_addr_zip: data.zip || '',
         bill_addr_country: 'US',
-        xtl_order_id: data.order_number,
-        cart_name: 'Hosted-Page',
-        url_cancel: 'https://vantixbio.com/checkout.html',
+        
         url_complete: 'https://vantixbio.com/thank-you.html',
         url_failed: 'https://vantixbio.com/thank-you.html',
-        url_callback: 'https://vantix-checkout.prcpeptides.workers.dev/bankful/callback',
+        url_cancel: 'https://vantixbio.com/checkout.html',
         url_pending: 'https://vantixbio.com/thank-you.html',
-        return_redirect_url: 'Y',
-        req_username: BANKFUL_USERNAME
+        url_callback: 'https://vantix-checkout.prcpeptides.workers.dev/bankful/callback'
       }
 
       // Remove empty fields

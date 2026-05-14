@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Bankful Test</title>
-</head>
+<head><title>Bankful Test - PRC Credentials</title></head>
 <body>
-    <h1>Bankful HPP Test</h1>
-    <p>Click the button to submit Bankful's official test payload:</p>
+    <h1>Bankful HPP Test (PRC Gateway 70777)</h1>
+    <p>This uses PRC's working credentials with gateway_id included:</p>
     
     <form id="testForm" method="POST" action="https://api.paybybankful.com/front-calls/go-in/hosted-page">
+        <input type="hidden" name="req_username" value="support@prcpeptides.com">
+        <input type="hidden" name="gateway_id" value="70777">
         <input type="hidden" name="transaction_type" value="CAPTURE">
         <input type="hidden" name="amount" value="4.76">
         <input type="hidden" name="request_currency" value="USD">
-        <input type="hidden" name="cust_email" value="johndoe@example.com">
+        <input type="hidden" name="xtl_order_id" value="TEST307896478">
+        <input type="hidden" name="cart_name" value="Hosted-Page">
         <input type="hidden" name="cust_fname" value="John">
         <input type="hidden" name="cust_lname" value="Doe">
+        <input type="hidden" name="cust_email" value="johndoe@example.com">
         <input type="hidden" name="cust_phone" value="9999212345">
         <input type="hidden" name="bill_addr" value="123 Road">
         <input type="hidden" name="bill_addr_2" value="Main Avenue">
@@ -21,19 +23,15 @@
         <input type="hidden" name="bill_addr_state" value="CA">
         <input type="hidden" name="bill_addr_zip" value="90044">
         <input type="hidden" name="bill_addr_country" value="US">
-        <input type="hidden" name="xtl_order_id" value="TEST307896478">
-        <input type="hidden" name="cart_name" value="Hosted-Page">
-        <input type="hidden" name="url_cancel" value="https://webhook.site/test/decline-payment">
-        <input type="hidden" name="url_complete" value="https://webhook.site/test/success-payment">
-        <input type="hidden" name="url_failed" value="https://webhook.site/test/failed-payment">
-        <input type="hidden" name="url_callback" value="https://webhook.site/test/call-back-url">
-        <input type="hidden" name="url_pending" value="https://webhook.site/test/pending-payment">
-        <input type="hidden" name="return_redirect_url" value="Y">
-        <input type="hidden" name="req_username" value="support@prcpeptides.com">
-        <input type="hidden" name="signature" value="d004a55550e703433ff84994ba9768c52b4e3c65bd89977a4bba961f92c96a51">
+        <input type="hidden" name="url_complete" value="https://prcpeptides.com/order-confirmed.html">
+        <input type="hidden" name="url_failed" value="https://prcpeptides.com/payment-failed.html">
+        <input type="hidden" name="url_cancel" value="https://prcpeptides.com/payment-cancel.html">
+        <input type="hidden" name="url_pending" value="https://prcpeptides.com/payment-pending.html">
+        <input type="hidden" name="url_callback" value="https://prc-checkout.prcpeptides.workers.dev/bankful/callback">
+        <input type="hidden" name="signature" value="0ffc0f5f22ac2c0c04b7a4d28f50498dfc72c268868a80dc43b3fd712beae1e8">
         
         <button type="submit" style="padding:20px 40px;font-size:18px;background:#2563EB;color:white;border:none;border-radius:8px;cursor:pointer">
-            Submit Test Payment ($4.76)
+            Test PRC Gateway ($4.76)
         </button>
     </form>
 </body>
