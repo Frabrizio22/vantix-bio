@@ -128,7 +128,7 @@ async function handleBankfulPayment(data, corsHeaders) {
 
   return new Response(JSON.stringify({
     status: 'redirect',
-    url: `${bankfulUrl}?${params.toString()}`
+    hpp_url: `${bankfulUrl}?${params.toString()}`
   }), {
     headers: { ...corsHeaders, 'Content-Type': 'application/json' }
   })
