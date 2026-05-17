@@ -83,7 +83,6 @@ function doPost(e) {
 // ============================================
 function handleNewOrder(data) {
   const ordersSheet = getSheet('Orders');
-  const productsSheet = getSheet('Products');
   
   // Validate required fields
   if (!data.customer_name || !data.customer_email || !data.order_number || !data.total) {
@@ -94,7 +93,7 @@ function handleNewOrder(data) {
   }
   
   // Check if order already exists
-  const existingOrders = ordersSheet.getRange('C:C').getValues();
+  const existingOrders = ordersSheet.getRange('A:A').getValues(); // Column A = Order #
   for (let i = 1; i < existingOrders.length; i++) {
     if (existingOrders[i][0] === data.order_number) {
       Logger.log('Duplicate order: ' + data.order_number);
@@ -106,55 +105,36 @@ function handleNewOrder(data) {
   }
   
   // Add to Orders sheet
+  // Columns: A=Order# B=Timestamp C=Email D=Name E=Phone F=Address G=City H=State I=Zip J=Product K=Qty L=Payment M=Subtotal N=Discount O=Discount Code P=Shipping Q=Total R=Status S=Tracking T=Notes
   ordersSheet.appendRow([
-    '', // Auto-increment ID (formula handles this)
-    new Date(),
-    data.order_number || '',
-    data.customer_name || '',
-    data.customer_email || '',
-    data.address || '',
-    data.city || '',
-    data.state || '',
-    data.zip || '',
-    data.phone || '',
-    data.items_detail || '',
-    parseFloat(data.subtotal) || 0,
-    parseFloat(data.discount) || 0,
-    data.discount_code || '',
-    data.referral_source || '',
-    parseFloat(data.shipping) || 0,
-    parseFloat(data.total) || 0,
-    data.payment_method || '',
-    data.payment_status || 'Pending',
-    data.tracking || '',
-    data.notes || ''
+    data.order_number || '',           // A: Order #
+    new Date(),                         // B: Timestamp
+    data.customer_email || '',          // C: Email
+    data.customer_name || '',           // D: Name
+    data.phone || '',                   // E: Phone
+    data.address || '',                 // F: Address
+    data.city || '',                    // G: City
+    data.state || '',                   // H: State
+    data.zip || '',                     // I: Zip
+    data.items_detail || '',            // J: Product
+    data.items ? JSON.parse(data.items).reduce(function(sum, item) { return sum + (parseInt(item.quantity) || 1); }, 0) : '',  // K: Qty
+    data.payment_method || '',          // L: Payment
+    parseFloat(data.subtotal) || 0,     // M: Subtotal
+    parseFloat(data.shipping) || 0,     // N: Shipping (Cost)
+    parseFloat(data.total) || 0,        // O: Total
+    '',                                 // P: COGS (manual)
+    '',                                 // Q: Actual Ship Cost (manual)
+    '',                                 // R: CC Fees (formula)
+    '',                                 // S: Net Profit (formula)
+    data.payment_status || 'Pending'    // T: Status
   ]);
   
-  // Log individual products
-  if (data.items && productsSheet) {
-    try {
-      const items = JSON.parse(data.items);
-      items.forEach(item => {
-        productsSheet.appendRow([
-          data.order_number,
-          new Date(),
-          item.name || '',
-          item.sku || '',
-          parseInt(item.quantity) || 1,
-          parseFloat(item.price) || 0,
-          parseFloat(item.price) * parseInt(item.quantity)
-        ]);
-      });
-    } catch (e) {
-      Logger.log('Error parsing items: ' + e);
-    }
-  }
+  // Product line items removed - orders logged to Orders tab only
   
-  // Send notifications (only for confirmed orders)
-  if (data.payment_method === 'zelle' || data.payment_status === 'Paid') {
-    sendTelegramNotification(data);
-    sendCustomerConfirmation(data);
-  }
+  // Always send Telegram + email for debugging
+  Logger.log('Payment method received: [' + data.payment_method + ']');
+  sendTelegramNotification(data);
+  sendCustomerConfirmation(data);
   
   return ContentService.createTextOutput(JSON.stringify({
     status: 'success',
@@ -178,19 +158,19 @@ function handlePaymentCallback(data) {
   // Find order row
   const orders = ordersSheet.getDataRange().getValues();
   for (let i = 1; i < orders.length; i++) {
-    if (orders[i][2] === data.order_number) { // Column C (order_number in system)
-      // Update payment status (Column P)
-      ordersSheet.getRange(i + 1, 16).setValue(data.payment_status || 'Paid');
+    if (orders[i][0] === data.order_number) { // Column A = Order #
+      // Update payment status (Column T = index 19, 1-indexed = 20)
+      ordersSheet.getRange(i + 1, 20).setValue(data.payment_status || 'Paid');
       
       // Send notifications if newly paid
-      if (data.payment_status === 'Paid' && orders[i][15] !== 'Paid') {
+      if (data.payment_status === 'Paid' && orders[i][19] !== 'Paid') {
         const orderData = {
-          order_number: orders[i][2],
-          customer_name: orders[i][2],
-          customer_email: orders[i][3],
-          total: orders[i][13],
-          payment_method: 'credit_card',
-          items_detail: orders[i][9]
+          order_number: orders[i][0],   // A: Order #
+          customer_name: orders[i][3],  // D: Name
+          customer_email: orders[i][2], // C: Email
+          total: orders[i][14],         // O: Total
+          payment_method: 'Credit Card',
+          items_detail: orders[i][9]    // J: Product
         };
         sendTelegramNotification(orderData);
         sendCustomerConfirmation(orderData);
@@ -366,15 +346,32 @@ function sendCustomerConfirmation(data) {
   const subject = 'Order Confirmation - ' + data.order_number;
   const body = 'Hi ' + data.customer_name + ',\n\nThanks for your order!\n\nOrder Number: ' + data.order_number + '\nTotal: $' + parseFloat(data.total).toFixed(2) + '\nPayment Method: ' + data.payment_method + '\n\nItems:\n' + (data.items_detail || 'See your order details') + '\n\nWe\'ll send tracking information once your order ships.\n\nThanks,\n' + COMPANY_NAME;
   
+  Logger.log('Sending email to: ' + data.customer_email + ' subject: ' + subject);
+  
+  if (!data.customer_email) {
+    Logger.log('ERROR: No customer email!');
+    return;
+  }
+  
   try {
-    MailApp.sendEmail({
-      to: data.customer_email,
-      subject: subject,
-      body: body,
-      name: COMPANY_NAME
+    GmailApp.sendEmail(data.customer_email, subject, body, {
+      name: COMPANY_NAME,
+      replyTo: FROM_EMAIL
     });
+    Logger.log('Email sent successfully to ' + data.customer_email);
   } catch (e) {
     Logger.log('Email error: ' + e);
+    // Send error to Telegram so we can debug
+    try {
+      UrlFetchApp.fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+        method: 'post',
+        contentType: 'application/json',
+        payload: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: '⚠️ Email failed: ' + e.toString() + '\nTo: ' + data.customer_email
+        })
+      });
+    } catch (e2) {}
   }
 }
 

@@ -9,10 +9,10 @@ const BANKFUL_PASSWORD = 'Vantixbio@140';
 const BANKFUL_GATEWAY = '73922';
 
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
+  event.respondWith(handleRequest(event.request, event))
 })
 
-async function handleRequest(request) {
+async function handleRequest(request, event) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -176,54 +176,106 @@ async function handleRequest(request) {
       const data = await request.json()
       
       if (data.payment_method === 'zelle') {
-        await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'order',
-            order_number: data.order_number,
-            customer_name: data.customer_name,
-            customer_email: data.customer_email,
-            address: data.address,
-            city: data.city,
-            state: data.state,
-            zip: data.zip,
-            phone: data.phone,
-            items: JSON.stringify(data.items || []),
-            items_detail: data.items ? data.items.map(item => 
-              `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
-            ).join(', ') : '',
-            subtotal: data.subtotal,
-            discount: data.discount || 0,
-            discount_code: data.discount_code || '',
-            referral_source: data.referral_source || '',
-            shipping: data.shipping || 0,
-            total: data.total,
-            payment_method: 'Zelle',
-            payment_status: 'Pending'
+        // Fire-and-forget: log to sheet + send Telegram in background
+        const bgWork = Promise.all([
+          fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'order',
+              order_number: data.order_number,
+              customer_name: data.customer_name,
+              customer_email: data.customer_email,
+              address: data.address,
+              city: data.city,
+              state: data.state,
+              zip: data.zip,
+              phone: data.phone,
+              items: JSON.stringify(data.items || []),
+              items_detail: data.items ? data.items.map(item => 
+                `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
+              ).join(', ') : '',
+              subtotal: data.subtotal,
+              discount: data.discount || 0,
+              discount_code: data.discount_code || '',
+              referral_source: data.referral_source || '',
+              shipping: data.shipping || 0,
+              total: data.total,
+              payment_method: 'Zelle',
+              payment_status: 'Pending'
+            })
+          }),
+          fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: TELEGRAM_CHAT_ID,
+              text: `🔔 *New Vantix Order*\n\nOrder: ${data.order_number}\nName: ${data.customer_name}\nEmail: ${data.customer_email}\nTotal: $${data.total}\nPayment: Zelle (Pending)`,
+              parse_mode: 'Markdown'
           })
         })
-
-        const message = `🔔 *New Vantix Order*\n\n` +
-          `Order: ${data.order_number}\n` +
-          `Name: ${data.customer_name}\n` +
-          `Email: ${data.customer_email}\n` +
-          `Total: $${data.total}\n` +
-          `Payment: Zelle (Pending)`
-
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: message,
-            parse_mode: 'Markdown'
-          })
-        })
+        ]).catch(e => console.error('Background error:', e))
+        
+        event.waitUntil(bgWork)
 
         return new Response(JSON.stringify({
           status: 'success',
           message: 'Order placed - awaiting Zelle payment'
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
+    } catch (error) {
+      console.error('[ERROR]', error)
+    }
+  }
+
+  // === WAITLIST / NOTIFY ===
+  if (request.method === 'POST') {
+    try {
+      const data = await request.json()
+      
+      if (data.action === 'notify' || data.action === 'waitlist') {
+        // Log to Google Sheet
+        const sheetPromise = fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        
+        // Send Telegram notification
+        const tgPromise = fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: `📋 *Waitlist Signup*\n\nEmail: ${data.email}\nProduct: ${data.product}\nSource: ${data.source || 'website'}`,
+            parse_mode: 'Markdown'
+          })
+        })
+        
+        event.waitUntil(Promise.all([sheetPromise, tgPromise]).catch(e => console.error(e)))
+        
+        return new Response(JSON.stringify({
+          status: 'success',
+          message: 'Added to waitlist'
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
+
+      if (data.action === 'newsletter') {
+        const sheetPromise = fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        
+        event.waitUntil(sheetPromise.catch(e => console.error(e)))
+        
+        return new Response(JSON.stringify({
+          status: 'success',
+          message: 'Subscribed'
         }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         })
