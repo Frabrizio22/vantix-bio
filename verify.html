@@ -223,7 +223,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <div class="metrics-grid">
 <div class="metric"><div class="metric-value" id="content"></div><div class="metric-label">Content</div></div>
 <div class="metric"><div class="metric-value" id="purity"></div><div class="metric-label">Purity</div></div>
-<div class="metric"><div class="metric-value">&lt;0.05 EU/mg</div><div class="metric-label">Endotoxin</div></div>
+<div class="metric"><div class="metric-value" id="endotoxin"></div><div class="metric-label">Endotoxin</div></div>
 <div class="metric"><div class="metric-value" style="color:#10b981">✓ CONFIRMED</div><div class="metric-label">LC-MS Identity</div></div>
 </div>
 <div style="text-align:center;margin-bottom:32px"><a href="#" id="janoshikLink" target="_blank" rel="noopener" class="primary-cta"><span>Verify Independently on Janoshik.com</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></a></div>
@@ -335,7 +335,7 @@ const batches={
 'VX-GHK100-001':{name:'GHK-Cu 100mg',purity:'99.5%',taskId:'J-50286'},
 'VX-SEMA10-001':{name:'Semaglutide 10mg',purity:'99.3%',taskId:'J-50287'},
 'VX-TIRZ30-001':{name:'Tirzepatide 30mg',purity:'99.2%',taskId:'J-50288'},
-'VX-RETA20-001':{name:'Retatrutide 20mg',purity:'99.780%',content:'22.29mg',taskId:'155441',verifyKey:'8LU6I66JMMVN',tested:'May 18, 2026'},
+'VX-RETA20-001':{name:'Retatrutide 20mg',purity:'99.780%',content:'22.29mg',endotoxin:'1.164 EU/vial',taskId:'155441',taskId2:'155442',verifyKey:'8LU6I66JMMVN',verifyKey2:'Y1G67KF7GTUH',tested:'May 18, 2026'},
 'VX-TESA10-001':{name:'Tesamorelin 10mg',purity:'99.1%',taskId:'J-50290'},
 'VX-AOD10-001':{name:'AOD-9604 10mg',purity:'99.2%',taskId:'J-50291'}
 };
@@ -383,7 +383,8 @@ document.getElementById('productName').textContent=batch.name;
 document.getElementById('batchMeta').textContent=input+' · Verified '+batch.tested;
 document.getElementById('content').textContent=batch.content||'—';
 document.getElementById('purity').textContent=batch.purity;
-document.getElementById('taskId').textContent=batch.taskId;
+document.getElementById('endotoxin').textContent=batch.endotoxin||'<0.05 EU/mg';
+document.getElementById('taskId').textContent=batch.taskId+(batch.taskId2?' · '+batch.taskId2:'');
 document.getElementById('janoshikLink').href='https://janoshik.com/verify/?key='+batch.verifyKey;
 document.getElementById('coaDownloadLink').href='/coa/'+input+'.pdf';
 document.getElementById('resultCard').classList.add('active');
