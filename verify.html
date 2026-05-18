@@ -221,6 +221,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <div class="batch-meta" id="batchMeta"></div>
 </div>
 <div class="metrics-grid">
+<div class="metric"><div class="metric-value" id="content"></div><div class="metric-label">Content</div></div>
 <div class="metric"><div class="metric-value" id="purity"></div><div class="metric-label">Purity</div></div>
 <div class="metric"><div class="metric-value">&lt;0.05 EU/mg</div><div class="metric-label">Endotoxin</div></div>
 <div class="metric"><div class="metric-value" style="color:#10b981">✓ CONFIRMED</div><div class="metric-label">LC-MS Identity</div></div>
@@ -334,8 +335,7 @@ const batches={
 'VX-GHK100-001':{name:'GHK-Cu 100mg',purity:'99.5%',taskId:'J-50286'},
 'VX-SEMA10-001':{name:'Semaglutide 10mg',purity:'99.3%',taskId:'J-50287'},
 'VX-TIRZ30-001':{name:'Tirzepatide 30mg',purity:'99.2%',taskId:'J-50288'},
-'VX-RETA20-001':{name:'Retatrutide 20mg',purity:'99.1%',taskId:'J-50289'},
-'VX-RETA20-002':{name:'Retatrutide 20mg',purity:'99.1%',taskId:'J-50289'},
+'VX-RETA20-001':{name:'Retatrutide 20mg',purity:'99.780%',content:'22.29mg',taskId:'155441',verifyKey:'8LU6I66JMMVN',tested:'May 18, 2026'},
 'VX-TESA10-001':{name:'Tesamorelin 10mg',purity:'99.1%',taskId:'J-50290'},
 'VX-AOD10-001':{name:'AOD-9604 10mg',purity:'99.2%',taskId:'J-50291'}
 };
@@ -380,10 +380,11 @@ showResults(input,batch);
 
 function showResults(input,batch){
 document.getElementById('productName').textContent=batch.name;
-document.getElementById('batchMeta').textContent=input+' · Verified May 2026';
+document.getElementById('batchMeta').textContent=input+' · Verified '+batch.tested;
+document.getElementById('content').textContent=batch.content||'—';
 document.getElementById('purity').textContent=batch.purity;
 document.getElementById('taskId').textContent=batch.taskId;
-document.getElementById('janoshikLink').href='https://janoshik.com/tests/'+batch.taskId;
+document.getElementById('janoshikLink').href='https://janoshik.com/verify/?key='+batch.verifyKey;
 document.getElementById('coaDownloadLink').href='/coa/'+input+'.pdf';
 document.getElementById('resultCard').classList.add('active');
 document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
