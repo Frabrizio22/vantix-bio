@@ -204,7 +204,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="search-card">
 <div class="search-input-wrap" style="position:relative">
-<input type="text" id="batchInput" class="search-input" placeholder="RETA20-001" maxlength="30" value="VX-">
+<input type="text" id="batchInput" class="search-input" placeholder="RETA20-001" maxlength="30" value="VX-" onkeypress="if(event.key==='Enter')searchBatch()">
 <button class="btn" onclick="searchBatch()">Verify</button>
 <div class="suggestions" id="suggestions"></div>
 </div>
@@ -465,4 +465,4 @@ if(cartBtn) cartBtn.onclick=()=>alert('Cart available mid-May 2026');
 </script>
 </body>
 </html>
-<!-- cache bust 1778258810 -->
+<!-- cache bust 1778338540 -->
