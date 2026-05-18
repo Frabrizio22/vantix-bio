@@ -410,6 +410,52 @@ document.getElementById('resultCard').classList.add('active');
 document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+batchInput.value='VX-'+val.replace('VX-','');
+return;
+}
+if(val.length<=3){
+suggestionsDiv.style.display='none';
+return;
+}
+const query=val.substring(3);
+const matches=Object.keys(batches).filter(k=>k.substring(3).startsWith(query));
+if(matches.length>0){
+suggestionsDiv.innerHTML=matches.map(k=>`
+<div class="suggestion-item" onclick="selectBatch('${k}')">
+<div class="suggestion-batch">${k}</div>
+<div class="suggestion-name">${batches[k].name}</div>
+</div>
+`).join('');
+suggestionsDiv.style.display='block';
+}else{
+suggestionsDiv.style.display='none';
+}
+});
+
+batchInput.addEventListener('focus',()=>{
+if(batchInput.value==='VX-'){
+const cursor=batchInput.value.length;
+batchInput.setSelectionRange(cursor,cursor);
+}
+});
+
+batchInput.addEventListener('click',()=>{
+const cursor=batchInput.value.length;
+batchInput.setSelectionRange(cursor,cursor);
+});
+
+document.addEventListener('click',(e)=>{
+if(!e.target.closest('.search-input-wrap')){
+suggestionsDiv.style.display='none';
+}
+});
+
+function selectBatch(batchId){
+batchInput.value=batchId;
+suggestionsDiv.style.display='none';
+searchBatch();
+}
+
 if(!val.startsWith('VX-')){
 batchInput.value='VX-'+val.replace('VX-','');
 return;
