@@ -379,12 +379,14 @@ showResults(input,batch);
 
 function showResults(input,batch){
 document.getElementById('productName').textContent=batch.name;
-document.getElementById('batchMeta').textContent=input+' · Verified '+batch.tested;
+const verifiedDate=batch.tested||'May 2026';
+document.getElementById('batchMeta').textContent=input+' · Verified '+verifiedDate;
 document.getElementById('content').textContent=batch.content||'—';
 document.getElementById('purity').textContent=batch.purity;
 document.getElementById('endotoxin').textContent=batch.endotoxin||'<0.05 EU/mg';
 document.getElementById('taskId').textContent=batch.taskId+(batch.taskId2?' · '+batch.taskId2:'');
-document.getElementById('janoshikLink').href='https://janoshik.com/verify/?key='+batch.verifyKey;
+const verifyUrl=batch.verifyKey?'https://janoshik.com/verify/?key='+batch.verifyKey:'https://janoshik.com/tests/'+batch.taskId;
+document.getElementById('janoshikLink').href=verifyUrl;
 document.getElementById('coaDownloadLink').href='/coa/'+input+'.pdf';
 document.getElementById('resultCard').classList.add('active');
 document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
