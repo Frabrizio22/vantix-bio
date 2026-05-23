@@ -24,7 +24,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-RETA-20',
             name: 'Retatrutide 20mg',
-            shortName: 'Retatrutide',
+            shortName: 'Reta 20mg',
             slug: 'retatrutide',
             category: 'metabolic',
             categoryLabel: 'METABOLIC',
@@ -59,7 +59,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-BPC-10',
             name: 'BPC-157 10mg',
-            shortName: 'BPC-157',
+            shortName: 'BPC 10mg',
             slug: 'bpc-157',
             category: 'regen',
             categoryLabel: 'REGEN',
@@ -75,7 +75,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-TB-10',
             name: 'TB-500 10mg',
-            shortName: 'TB-500',
+            shortName: 'TB 10mg',
             slug: 'tb-500',
             category: 'regen',
             categoryLabel: 'REGEN',
@@ -91,7 +91,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-GHK-100',
             name: 'GHK-Cu 100mg',
-            shortName: 'GHK-Cu',
+            shortName: 'GHK 100mg',
             slug: 'ghk-cu',
             category: 'regen',
             categoryLabel: 'REGEN',
@@ -109,7 +109,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-CJC-10',
             name: 'CJC-1295 (No DAC) 10mg',
-            shortName: 'CJC-1295 (No DAC)',
+            shortName: 'CJC 10mg',
             slug: 'cjc-1295',
             category: 'gh-axis',
             categoryLabel: 'GH AXIS',
@@ -125,7 +125,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-IPA-5',
             name: 'Ipamorelin 5mg',
-            shortName: 'Ipamorelin',
+            shortName: 'Ipa 5mg',
             slug: 'ipamorelin',
             category: 'gh-axis',
             categoryLabel: 'GH AXIS',
@@ -157,7 +157,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-AOD-10',
             name: 'AOD-9604 10mg',
-            shortName: 'AOD-9604',
+            shortName: 'AOD 10mg',
             slug: 'aod-9604',
             category: 'gh-axis',
             categoryLabel: 'GH AXIS',
@@ -175,7 +175,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-MOTS-10',
             name: 'MOTS-C 10mg',
-            shortName: 'MOTS-C',
+            shortName: 'MOTS 10mg',
             slug: 'mots-c',
             category: 'mito',
             categoryLabel: 'MITO',
@@ -191,7 +191,7 @@ const VX_PRODUCTS = {
         {
             sku: 'VX-NAD-1000',
             name: 'NAD+ 1000mg',
-            shortName: 'NAD+',
+            shortName: 'NAD+ 1k',
             slug: 'nad-plus',
             category: 'mito',
             categoryLabel: 'MITO',
