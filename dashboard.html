@@ -3194,7 +3194,12 @@ function checkPassword() {
   const input = document.getElementById('passwordInput');
   const error = document.getElementById('passwordError');
   
-  if (input.value === DASHBOARD_PASSWORD) {
+  // Trim whitespace and normalize
+  const enteredPassword = input.value.trim();
+  
+  console.log('Password check:', { entered: enteredPassword, expected: DASHBOARD_PASSWORD, match: enteredPassword === DASHBOARD_PASSWORD });
+  
+  if (enteredPassword === DASHBOARD_PASSWORD) {
     // Correct password
     localStorage.setItem('dashboardAuth', 'true');
     localStorage.setItem('authExpiry', Date.now() + (30 * 24 * 60 * 60 * 1000)); // 30 days
@@ -3203,6 +3208,7 @@ function checkPassword() {
   } else {
     // Wrong password
     error.style.display = 'block';
+    error.textContent = `❌ Incorrect password (entered: "${enteredPassword}")`;
     input.value = '';
     input.focus();
   }
