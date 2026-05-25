@@ -831,6 +831,11 @@ tr:hover {
       type="password"
       id="passwordInput"
       placeholder="Enter password"
+      autocomplete="off"
+      autocapitalize="off"
+      autocorrect="off"
+      spellcheck="false"
+      inputmode="text"
       style="
         width: 100%;
         padding: 14px 20px;
@@ -3194,21 +3199,28 @@ function checkPassword() {
   const input = document.getElementById('passwordInput');
   const error = document.getElementById('passwordError');
   
-  // Trim whitespace and normalize
-  const enteredPassword = input.value.trim();
+  // Trim whitespace and lowercase for case-insensitive comparison
+  const enteredPassword = input.value.trim().toLowerCase();
+  const expectedPassword = DASHBOARD_PASSWORD.toLowerCase();
   
-  console.log('Password check:', { entered: enteredPassword, expected: DASHBOARD_PASSWORD, match: enteredPassword === DASHBOARD_PASSWORD });
+  console.log('Password check:', { 
+    entered: enteredPassword, 
+    expected: expectedPassword, 
+    match: enteredPassword === expectedPassword,
+    enteredLength: enteredPassword.length,
+    expectedLength: expectedPassword.length
+  });
   
-  if (enteredPassword === DASHBOARD_PASSWORD) {
+  if (enteredPassword === expectedPassword) {
     // Correct password
     localStorage.setItem('dashboardAuth', 'true');
     localStorage.setItem('authExpiry', Date.now() + (30 * 24 * 60 * 60 * 1000)); // 30 days
     document.getElementById('passwordOverlay').style.display = 'none';
     error.style.display = 'none';
   } else {
-    // Wrong password
+    // Wrong password - show what was entered for debugging
     error.style.display = 'block';
-    error.textContent = `❌ Incorrect password (entered: "${enteredPassword}")`;
+    error.textContent = `❌ Incorrect password. Expected: "${DASHBOARD_PASSWORD}", Got: "${input.value.trim()}"`;
     input.value = '';
     input.focus();
   }
