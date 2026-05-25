@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reset Dashboard Auth</title>
+</head>
+<body>
+<h1>Resetting Dashboard Auth...</h1>
+<script>
+// Clear all localStorage
+localStorage.clear();
+
+// Set new auth
+localStorage.setItem('dashboardAuth', 'true');
+localStorage.setItem('authExpiry', Date.now() + (30 * 24 * 60 * 60 * 1000));
+
+// Redirect
+setTimeout(() => {
+    window.location.href = '/dashboard.html';
+}, 1000);
+</script>
+<p>Redirecting to dashboard...</p>
+</body>
+</html>
