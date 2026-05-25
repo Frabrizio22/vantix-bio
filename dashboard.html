@@ -2398,6 +2398,11 @@ function switchTab(tabName) {
   } else if (tabName === 'financials') {
     document.getElementById('financialsTab').classList.add('active');
     document.querySelector('.tab:nth-child(2)').classList.add('active');
+  } else if (tabName === 'fulfillment') {
+    document.getElementById('fulfillmentTab').classList.add('active');
+    document.querySelector('.tab:nth-child(3)').classList.add('active');
+  }
+}
 
 // === V2 Financial Metrics (Replaces old renderFinancialMetrics) ===
 
@@ -2544,13 +2549,6 @@ function updateSummaryCards(curr, last) {
   document.getElementById('taxesOwed').textContent = '$' + curr.taxes.toFixed(2);
   const mom = last.revenue > 0 ? ((curr.revenue - last.revenue) / last.revenue * 100) : 0;
   document.getElementById('revenueChange').textContent = curr.orderCount + ' orders | ' + (mom >= 0 ? '+' : '') + mom.toFixed(0) + '% MoM';
-}
-
-  const profitMarginEl = document.getElementById('profitMargin');
-  profitMarginEl.innerHTML = `<span class="${netProfit >= 0 ? 'change-positive' : 'change-negative'}">${profitMargin}% margin</span>`;
-  
-  // Calculate quarterly tax estimates
-  calculateQuarterlyTaxes();
 }
 
 function calculateQuarterlyTaxes() {
