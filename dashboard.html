@@ -3196,6 +3196,7 @@ function loadTheme() {
 const DASHBOARD_PASSWORD = 'vantix2026'; // Change this to your password
 
 function checkPassword() {
+  console.log('[AUTH] checkPassword() called');
   const input = document.getElementById('passwordInput');
   const error = document.getElementById('passwordError');
   
@@ -3226,7 +3227,11 @@ function checkPassword() {
   }
 }
 
+// Expose to window for onclick handler
+window.checkPassword = checkPassword;
+
 function checkAuth() {
+  console.log('[AUTH] checkAuth() called');
   const isAuthed = localStorage.getItem('dashboardAuth');
   const expiry = localStorage.getItem('authExpiry');
   
