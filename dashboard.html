@@ -3487,20 +3487,35 @@ async function saveManualSale() {
   }
 }
 
-// Allow Enter key to submit password
+// Password input handlers
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('[AUTH] Setting up password handlers');
+  
   const passwordInput = document.getElementById('passwordInput');
+  const unlockButton = document.querySelector('button[onclick="window.checkPassword()"]');
+  
   if (passwordInput) {
+    // Enter key handler
     passwordInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
+        e.preventDefault();
         checkPassword();
       }
+    });
+    
+    // Focus the input
+    passwordInput.focus();
+  }
+  
+  // Button click handler (backup for onclick)
+  if (unlockButton) {
+    unlockButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      checkPassword();
     });
   }
 });
 
-  // Also focus the input
-  passwordInput.focus();
 // Check auth on page load
 window.addEventListener('load', checkAuth);
 
