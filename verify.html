@@ -136,18 +136,19 @@ h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;max-width:
 .terminal-cursor { display: inline-block; width: 10px; height: 18px; background: #6ee7a3; margin-left: 6px; animation: blink 0.7s step-end infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-.result-container { display: none; }
+.result-container { display: none; max-width: 100%; overflow-x: hidden; }
 .result-container.active { display: block; }
 
-.hero { padding: 32px 22px 24px; border-bottom: 1px solid var(--hairline); margin-top: 60px; }
-@media (max-width: 768px) { .hero { margin-top: 80px; } }
+.hero { padding: 20px 22px 24px; border-bottom: 1px solid var(--hairline); margin-top: 0; }
+@media (max-width: 768px) { .hero { padding: 16px 20px 20px; } }
 .verified-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--green-soft); color: var(--green); padding: 7px 12px 7px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 22px; }
 .verified-pill svg { width: 14px; height: 14px; }
-.product-name { font-family: "Fraunces", serif; font-weight: 500; font-size: 44px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 14px; }
+.product-name { font-family: "Fraunces", serif; font-weight: 500; font-size: 44px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 14px; max-width: 100%; word-wrap: break-word; }
+@media (max-width: 480px) { .product-name { font-size: 36px; } }
 .product-meta { font-family: "JetBrains Mono", monospace; font-size: 12px; color: rgba(15,27,45,0.6); display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .product-meta strong { color: var(--text); font-weight: 500; }
 
-.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--hairline); }
+.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--hairline); width: 100%; max-width: 100%; }
 .stat { padding: 22px 14px; border-right: 1px solid var(--hairline); min-width: 0; }
 .stat:last-child { border-right: 0; }
 .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(15,27,45,0.6); margin-bottom: 8px; }
@@ -159,7 +160,8 @@ h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;max-width:
 .section-label::after { content: ""; flex: 1; height: 1px; background: var(--hairline); }
 .section-label-count { font-family: "JetBrains Mono", monospace; font-size: 9px; color: rgba(15,27,45,0.6); background: var(--cream-2); padding: 2px 7px; border-radius: 2px; }
 
-.report { margin: 0 22px 18px; background: var(--card-bg); border: 1px solid var(--hairline); border-radius: 4px; overflow: hidden; box-shadow: var(--shadow); }
+.report { margin: 0 22px 18px; background: var(--card-bg); border: 1px solid var(--hairline); border-radius: 4px; overflow: hidden; box-shadow: var(--shadow); max-width: calc(100% - 44px); }
+@media (max-width: 480px) { .report { margin: 0 16px 16px; max-width: calc(100% - 32px); } }
 .report-header { padding: 16px 18px; background: var(--navy); color: var(--paper); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .report-header-left { min-width: 0; }
 .report-title { font-family: "Fraunces", serif; font-size: 17px; font-weight: 500; line-height: 1.15; }
