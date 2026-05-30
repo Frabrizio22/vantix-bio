@@ -168,6 +168,15 @@ font-weight: 500;
 @media (max-width: 480px) { .what-content p { font-size: 12px; } }
 .footer-legal { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule-soft); text-align: center; font-size: 9px; color: var(--ink-muted); line-height: 1.5; letter-spacing: 0.04em; text-transform: uppercase; }
 @media (max-width: 480px) { .footer-legal { margin-top: 24px; padding-top: 20px; font-size: 8.5px; } }
+
+.input-wrap { position: relative; }
+.suggestions { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid var(--rule); border-top: none; border-radius: 0 0 8px 8px; max-height: 240px; overflow-y: auto; z-index: 10; display: none; margin-top: -1px; box-shadow: 0 4px 12px rgba(15,30,61,0.08); }
+.suggestions.active { display: block; }
+.suggestion-item { padding: 14px 16px; cursor: pointer; border-bottom: 1px solid var(--rule-soft); transition: background 0.15s; }
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: var(--paper); }
+.suggestion-batch { font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.suggestion-name { font-size: 12px; color: var(--ink-muted); }
 .search-input { width: 100%; padding: 16px 18px; border: 1px solid var(--rule); border-radius: 8px; font-family: "JetBrains Mono", monospace; font-size: 15px; margin-bottom: 16px; background: var(--paper); transition: border-color 0.2s, background 0.2s; }
 .search-input:focus { outline: none; border-color: var(--navy); background: white; }
 .search-input::placeholder { color: var(--ink-muted); opacity: 0.5; }
@@ -200,7 +209,10 @@ font-weight: 500;
 <p class="search-subtitle">Enter the batch ID from your vial label to view complete verification results.</p>
 <div id="errorMsg" style="display: none; color: #d32f2f; background: #ffebee; padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid #d32f2f;"></div>
 <div class="input-label">Batch ID</div>
+<div class="input-wrap">
 <input type="text" id="batchInput" class="search-input" placeholder="VX-MOTS10-001" maxlength="30">
+<div class="suggestions" id="suggestions"></div>
+</div>
 <button class="search-btn" onclick="searchBatch()">
 View lab reports
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -510,11 +522,34 @@ document.body.style.overflow = '';
 
 // Input autocomplete and VX- prefix
 const batchInput = document.getElementById('batchInput');
+const suggestionsDiv = document.getElementById('suggestions');
 
 batchInput.addEventListener('input', function() {
 const val = this.value.toUpperCase();
 if (!val.startsWith('VX-') && val.length > 0) {
 batchInput.value = 'VX-' + val.replace('VX-', '');
+return;
+}
+
+// Show suggestions
+if (val.length <= 3) {
+suggestionsDiv.classList.remove('active');
+return;
+}
+
+const query = val.substring(3);
+const matches = Object.keys(batches).filter(k => k.substring(3).toLowerCase().startsWith(query.toLowerCase()));
+
+if (matches.length > 0) {
+suggestionsDiv.innerHTML = matches.map(k => `
+<div class="suggestion-item" onclick="selectBatch('${k}')">
+<div class="suggestion-batch">${k}</div>
+<div class="suggestion-name">${batches[k].name}</div>
+</div>
+`).join('');
+suggestionsDiv.classList.add('active');
+} else {
+suggestionsDiv.classList.remove('active');
 }
 });
 
@@ -530,6 +565,18 @@ batchInput.addEventListener('click', function() {
 const cursor = batchInput.value.length;
 batchInput.setSelectionRange(cursor, cursor);
 });
+
+// Close suggestions when clicking outside
+document.addEventListener('click', function(e) {
+if (!e.target.closest('.input-wrap')) {
+suggestionsDiv.classList.remove('active');
+}
+});
+
+function selectBatch(batchId) {
+batchInput.value = batchId;
+suggestionsDiv.classList.remove('active');
+}
 
 // Pre-fill batch ID from URL parameter (don't auto-verify)
 const params = new URLSearchParams(window.location.search);
