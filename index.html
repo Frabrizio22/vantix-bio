@@ -96,10 +96,10 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow-y:auto;display:none}
 .menu-overlay.active{opacity:1;pointer-events:auto;display:block}
 .menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
-.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.95);border:2px solid var(--navy);border-radius:50%;padding:12px;cursor:pointer;color:var(--navy);z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:all .2s}
-.menu-close:hover{background:var(--navy);color:#fff;transform:scale(1.05)}
-.menu-close:active{transform:scale(.95)}
-.menu-close svg{width:20px;height:20px;stroke-width:2.5}
+.menu-close{position:fixed;top:16px;right:16px;background:var(--navy);border:none;border-radius:50%;padding:10px;cursor:pointer;color:#fff;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);transition:all .2s;display:flex;align-items:center;justify-content:center}
+.menu-close:hover{background:var(--accent);transform:scale(1.08)}
+.menu-close:active{transform:scale(.92)}
+.menu-close svg{width:18px;height:18px;stroke-width:2.8}
 .menu-search{margin-bottom:24px}
 .menu-search-wrap{position:relative}
 .menu-search input{width:100%;padding:16px 20px;border:1px solid var(--hairline);border-radius:12px;font-size:16px;font-family:'Geist',sans-serif;background:#fff}
