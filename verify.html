@@ -30,9 +30,11 @@ font-family: "Inter", system-ui, sans-serif;
 color-scheme: light !important;
 forced-color-adjust: none;
 }
-body { max-width: 480px; margin: 0 auto; background: #fbf7ec !important; min-height: 100vh; padding-bottom: 64px; position: relative; }
+body { max-width: 480px; margin: 0 auto; background: #fbf7ec !important; min-height: 100vh; padding-bottom: 40px; position: relative; }
+@media (max-width: 480px) { body { padding-bottom: 24px; } }
 
-.topbar { padding: 18px 22px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); }
+.topbar { padding: 16px 20px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); }
+@media (max-width: 480px) { .topbar { padding: 14px 16px 10px; } }
 .brand { font-family: "Fraunces", serif; font-weight: 500; font-size: 16px; }
 .brand-dot { display: inline-block; width: 6px; height: 6px; background: var(--navy); margin-right: 8px; transform: translateY(-2px); }
 .topbar-meta { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; }
@@ -146,18 +148,26 @@ font-weight: 500;
 .terminal-cursor { display: inline-block; width: 10px; height: 18px; background: #6ee7a3; margin-left: 6px; animation: blink 0.7s step-end infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-.search-card { max-width: 600px; margin: 60px auto 0; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 40px 28px; box-shadow: var(--shadow); }
-.search-title { font-family: "Fraunces", serif; font-size: 36px; font-weight: 500; line-height: 1.1; margin-bottom: 16px; color: var(--navy); }
-.search-subtitle { font-size: 15px; line-height: 1.6; color: var(--ink-muted); margin-bottom: 32px; }
-.input-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; }
-.what-section { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--rule-soft); }
-.what-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
-.what-item { display: flex; gap: 14px; margin-bottom: 24px; align-items: flex-start; }
-.what-check { flex-shrink: 0; width: 22px; height: 22px; background: var(--green-soft); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-.what-check svg { width: 14px; height: 14px; stroke: var(--green); stroke-width: 2.5; }
-.what-content h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; line-height: 1.3; }
-.what-content p { font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
-.footer-legal { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--rule-soft); text-align: center; font-size: 10px; color: var(--ink-muted); line-height: 1.6; letter-spacing: 0.04em; text-transform: uppercase; }
+.search-card { max-width: 600px; margin: 20px auto 40px; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 32px 24px 28px; box-shadow: var(--shadow); }
+@media (max-width: 480px) { .search-card { margin: 12px 16px 32px; padding: 28px 20px 24px; } }
+.search-title { font-family: "Fraunces", serif; font-size: 36px; font-weight: 500; line-height: 1.05; margin-bottom: 12px; color: var(--navy); }
+@media (max-width: 480px) { .search-title { font-size: 32px; margin-bottom: 10px; } }
+.search-subtitle { font-size: 15px; line-height: 1.5; color: var(--ink-muted); margin-bottom: 28px; }
+@media (max-width: 480px) { .search-subtitle { font-size: 14px; margin-bottom: 24px; } }
+.input-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+.what-section { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--rule-soft); }
+@media (max-width: 480px) { .what-section { margin-top: 28px; padding-top: 24px; } }
+.what-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; }
+.what-item { display: flex; gap: 12px; margin-bottom: 20px; align-items: flex-start; }
+.what-item:last-child { margin-bottom: 0; }
+.what-check { flex-shrink: 0; width: 20px; height: 20px; background: var(--green-soft); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.what-check svg { width: 13px; height: 13px; stroke: var(--green); stroke-width: 2.5; }
+.what-content h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 3px; line-height: 1.25; }
+@media (max-width: 480px) { .what-content h3 { font-size: 14px; } }
+.what-content p { font-size: 13px; color: var(--ink-muted); line-height: 1.45; }
+@media (max-width: 480px) { .what-content p { font-size: 12px; } }
+.footer-legal { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule-soft); text-align: center; font-size: 9px; color: var(--ink-muted); line-height: 1.5; letter-spacing: 0.04em; text-transform: uppercase; }
+@media (max-width: 480px) { .footer-legal { margin-top: 24px; padding-top: 20px; font-size: 8.5px; } }
 .search-input { width: 100%; padding: 16px 18px; border: 1px solid var(--rule); border-radius: 8px; font-family: "JetBrains Mono", monospace; font-size: 15px; margin-bottom: 16px; background: var(--paper); transition: border-color 0.2s, background 0.2s; }
 .search-input:focus { outline: none; border-color: var(--navy); background: white; }
 .search-input::placeholder { color: var(--ink-muted); opacity: 0.5; }
