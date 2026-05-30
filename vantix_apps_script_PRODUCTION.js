@@ -1,6 +1,6 @@
 // ============================================
-// VANTIX BIO - COMPLETE APPS SCRIPT
-// Order Processing + Analytics API + Automation
+// VANTIX BIO - PRODUCTION APPS SCRIPT
+// Complete Order Processing + Inventory + Profit Tracking
 // ============================================
 
 // CONFIGURATION
@@ -8,6 +8,7 @@ const TELEGRAM_BOT_TOKEN = '8478171743:AAGmYaPtMFh5yHWI-UQmInSlLuYNEcGFbXo';
 const TELEGRAM_CHAT_ID = '513307658';
 const FROM_EMAIL = 'vantixbio@gmail.com';
 const COMPANY_NAME = 'Vantix Bio';
+const LOW_STOCK_THRESHOLD = 10; // Alert when batch < 10 vials
 
 // Get active spreadsheet
 function getSheet(tabName) {
@@ -29,7 +30,7 @@ function doPost(e) {
       try {
         data = JSON.parse(postData.contents);
       } catch (err) {
-        data = params; // Fallback to form parameters
+        data = params;
       }
     } else {
       data = params;
@@ -63,11 +64,11 @@ function doPost(e) {
 }
 
 // ============================================
-// ORDER PROCESSING
+// ORDER PROCESSING WITH INVENTORY
 // ============================================
 function handleNewOrder(data) {
   const ordersSheet = getSheet('Orders');
-  const productsSheet = getSheet('Products');
+  const batchesSheet = getSheet('Batches');
   
   // Validate required fields
   if (!data.customer_name || !data.customer_email || !data.order_number || !data.total) {
@@ -78,7 +79,7 @@ function handleNewOrder(data) {
   }
   
   // Check if order already exists
-  const existingOrders = ordersSheet.getRange('C:C').getValues();
+  const existingOrders = ordersSheet.getRange('A:A').getValues();
   for (let i = 1; i < existingOrders.length; i++) {
     if (existingOrders[i][0] === data.order_number) {
       Logger.log('Duplicate order: ' + data.order_number);
@@ -89,58 +90,162 @@ function handleNewOrder(data) {
     }
   }
   
-  // Add to Orders sheet
-  ordersSheet.appendRow([
-    '', // Auto-increment order number (formula handles this)
-    new Date(),
-    data.customer_name || '',
-    data.customer_email || '',
-    data.address || '',
-    data.city || '',
-    data.state || '',
-    data.zip || '',
-    data.phone || '',
-    data.items_detail || '',
-    parseFloat(data.subtotal) || 0,
-    parseFloat(data.discount) || 0,
-    parseFloat(data.shipping) || 0,
-    parseFloat(data.total) || 0,
-    data.payment_method || '',
-    data.payment_status || 'Pending',
-    data.tracking || '',
-    data.notes || ''
-  ]);
+  // Parse order items
+  let items = [];
+  try {
+    items = JSON.parse(data.items);
+  } catch (e) {
+    Logger.log('Error parsing items: ' + e);
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: 'Invalid items format'
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
   
-  // Log individual products
-  if (data.items && productsSheet) {
-    try {
-      const items = JSON.parse(data.items);
-      items.forEach(item => {
-        productsSheet.appendRow([
-          data.order_number,
-          new Date(),
-          item.name || '',
-          item.sku || '',
-          parseInt(item.quantity) || 1,
-          parseFloat(item.price) || 0,
-          parseFloat(item.price) * parseInt(item.quantity)
-        ]);
-      });
-    } catch (e) {
-      Logger.log('Error parsing items: ' + e);
+  // Calculate COGS and deduct inventory
+  let totalCOGS = 0;
+  const batchUpdates = [];
+  const lowStockAlerts = [];
+  
+  for (const item of items) {
+    const productName = item.name;
+    const quantity = parseInt(item.quantity) || 1;
+    
+    // Find active batch for this product
+    const batch = findActiveBatch(batchesSheet, productName);
+    
+    if (!batch) {
+      Logger.log('No active batch found for: ' + productName);
+      return ContentService.createTextOutput(JSON.stringify({
+        status: 'error',
+        message: 'No inventory available for: ' + productName
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Check if enough stock
+    if (batch.quantityRemaining < quantity) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: 'error',
+        message: `Insufficient stock for ${productName}. Available: ${batch.quantityRemaining}, Requested: ${quantity}`
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Calculate COGS for this item
+    const itemCOGS = batch.costPerVial * quantity;
+    totalCOGS += itemCOGS;
+    
+    // Prepare batch update
+    const newQuantity = batch.quantityRemaining - quantity;
+    batchUpdates.push({
+      row: batch.row,
+      newQuantity: newQuantity,
+      batchId: batch.batchId,
+      product: productName
+    });
+    
+    // Check for low stock
+    if (newQuantity <= LOW_STOCK_THRESHOLD && newQuantity > 0) {
+      lowStockAlerts.push(`⚠️ LOW STOCK: ${productName} (${batch.batchId}) - ${newQuantity} vials remaining`);
+    } else if (newQuantity === 0) {
+      lowStockAlerts.push(`🔴 DEPLETED: ${productName} (${batch.batchId}) - Out of stock`);
     }
   }
   
-  // Send notifications (only for confirmed orders)
+  // Calculate fees and profit
+  const total = parseFloat(data.total) || 0;
+  const actualShipCost = parseFloat(data.actual_ship_cost) || 0;
+  const ccFees = (data.payment_method && data.payment_method.toLowerCase().includes('credit')) 
+    ? (total * 0.05) 
+    : 0;
+  const netProfit = total - totalCOGS - actualShipCost - ccFees;
+  
+  // Write order to sheet
+  ordersSheet.appendRow([
+    data.order_number,                    // A: Order #
+    new Date(),                           // B: Timestamp
+    data.customer_email || '',            // C: Email
+    data.customer_name || '',             // D: Name
+    data.phone || '',                     // E: Phone
+    data.address || '',                   // F: Address
+    data.city || '',                      // G: City
+    data.state || '',                     // H: State
+    data.zip || '',                       // I: Zip
+    data.items_detail || '',              // J: Product
+    items.reduce((sum, i) => sum + (parseInt(i.quantity) || 1), 0), // K: Qty
+    data.payment_method || '',            // L: Payment
+    parseFloat(data.subtotal) || 0,       // M: Subtotal
+    parseFloat(data.shipping) || 0,       // N: Shipping (Cost)
+    total,                                // O: Total
+    totalCOGS,                            // P: COGS
+    actualShipCost,                       // Q: Actual Ship Cost
+    ccFees,                               // R: CC Fees (5%)
+    netProfit,                            // S: Net Profit
+    data.payment_status || 'Pending',     // T: Status
+    '',                                   // U: Shipped
+    '',                                   // V: Tracking
+    batchUpdates.map(u => u.batchId).join(', ') // W: Batch #
+  ]);
+  
+  // Update batch inventory
+  for (const update of batchUpdates) {
+    // Update Quantity Remaining (column J)
+    batchesSheet.getRange(update.row, 10).setValue(update.newQuantity);
+    
+    // Update Status (column M) to Depleted if quantity is 0
+    if (update.newQuantity === 0) {
+      batchesSheet.getRange(update.row, 13).setValue('Depleted');
+    }
+    
+    // Increment Vials Sold (column P) if it exists
+    const currentSold = batchesSheet.getRange(update.row, 16).getValue() || 0;
+    const quantitySold = batchUpdates.find(u => u.row === update.row) ? 
+      (items.find(i => i.name === update.product)?.quantity || 1) : 0;
+    batchesSheet.getRange(update.row, 16).setValue(currentSold + quantitySold);
+  }
+  
+  // Send notifications
   if (data.payment_method === 'zelle' || data.payment_status === 'Paid') {
-    sendTelegramNotification(data);
+    sendTelegramNotification(data, totalCOGS, netProfit, lowStockAlerts);
     sendCustomerConfirmation(data);
   }
   
   return ContentService.createTextOutput(JSON.stringify({
     status: 'success',
-    message: 'Order processed'
+    message: 'Order processed',
+    cogs: totalCOGS,
+    profit: netProfit
   })).setMimeType(ContentService.MimeType.JSON);
+}
+
+// ============================================
+// FIND ACTIVE BATCH FOR PRODUCT
+// ============================================
+function findActiveBatch(batchesSheet, productName) {
+  const batches = batchesSheet.getDataRange().getValues();
+  
+  // Normalize product name for matching
+  const normalizedSearch = productName.toLowerCase().trim();
+  
+  for (let i = 1; i < batches.length; i++) {
+    const batchProduct = (batches[i][2] || '').toString().toLowerCase().trim(); // Column C
+    const status = (batches[i][12] || '').toString().toLowerCase(); // Column M
+    const quantityRemaining = parseInt(batches[i][9]) || 0; // Column J
+    
+    // Match product name and check if active and has stock
+    if (batchProduct.includes(normalizedSearch) || normalizedSearch.includes(batchProduct)) {
+      if (status === 'active' && quantityRemaining > 0) {
+        return {
+          row: i + 1,
+          batchId: batches[i][0], // Column A
+          product: batches[i][2], // Column C
+          costPerVial: parseFloat(batches[i][8]) || 0, // Column I (Total Cost per Vial)
+          quantityRemaining: quantityRemaining
+        };
+      }
+    }
+  }
+  
+  return null;
 }
 
 // ============================================
@@ -159,21 +264,26 @@ function handlePaymentCallback(data) {
   // Find order row
   const orders = ordersSheet.getDataRange().getValues();
   for (let i = 1; i < orders.length; i++) {
-    if (orders[i][2] === data.order_number) { // Column C (order_number in system)
-      // Update payment status (Column P)
-      ordersSheet.getRange(i + 1, 16).setValue(data.payment_status || 'Paid');
+    if (orders[i][0] === data.order_number) { // Column A (order_number)
+      const oldStatus = orders[i][19]; // Column T
+      
+      // Update payment status (Column T)
+      ordersSheet.getRange(i + 1, 20).setValue(data.payment_status || 'Paid');
       
       // Send notifications if newly paid
-      if (data.payment_status === 'Paid' && orders[i][15] !== 'Paid') {
+      if (data.payment_status === 'Paid' && oldStatus !== 'Paid') {
         const orderData = {
-          order_number: orders[i][2],
-          customer_name: orders[i][2],
-          customer_email: orders[i][3],
-          total: orders[i][13],
+          order_number: orders[i][0],
+          customer_name: orders[i][3],
+          customer_email: orders[i][2],
+          total: orders[i][14],
           payment_method: 'credit_card',
           items_detail: orders[i][9]
         };
-        sendTelegramNotification(orderData);
+        const cogs = orders[i][15];
+        const profit = orders[i][18];
+        
+        sendTelegramNotification(orderData, cogs, profit, []);
         sendCustomerConfirmation(orderData);
       }
       
@@ -240,10 +350,10 @@ function handleNotification(data) {
   }
   
   waitlistSheet.appendRow([
-    new Date(),                    // A: Timestamp
-    data.email,                    // B: Email
-    data.source || 'product_waitlist', // C: Source
-    data.product                   // D: Product
+    new Date(),
+    data.email,
+    data.source || 'product_waitlist',
+    data.product
   ]);
   
   // Send Telegram notification
@@ -254,19 +364,7 @@ function handleNotification(data) {
       `Source: ${data.source || 'Unknown'}\n` +
       `Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}`;
     
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    const payload = {
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: 'Markdown'
-    };
-    
-    UrlFetchApp.fetch(url, {
-      method: 'post',
-      contentType: 'application/json',
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
-    });
+    sendToTelegram(message);
   } catch (err) {
     Logger.log('Telegram notification failed: ' + err);
   }
@@ -280,15 +378,26 @@ function handleNotification(data) {
 // ============================================
 // TELEGRAM NOTIFICATIONS
 // ============================================
-function sendTelegramNotification(data) {
-  const message = `🔔 *New Vantix Order*\n\n` +
+function sendTelegramNotification(data, cogs, profit, alerts) {
+  let message = `🔔 *New Vantix Order*\n\n` +
     `Order: ${data.order_number}\n` +
     `Customer: ${data.customer_name}\n` +
     `Email: ${data.customer_email}\n` +
     `Total: $${parseFloat(data.total).toFixed(2)}\n` +
+    `COGS: $${cogs.toFixed(2)}\n` +
+    `*Net Profit: $${profit.toFixed(2)}*\n` +
     `Payment: ${data.payment_method}\n\n` +
     `Items:\n${data.items_detail || 'N/A'}`;
   
+  // Add stock alerts
+  if (alerts && alerts.length > 0) {
+    message += '\n\n' + alerts.join('\n');
+  }
+  
+  sendToTelegram(message);
+}
+
+function sendToTelegram(message) {
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
   const payload = {
     chat_id: TELEGRAM_CHAT_ID,
@@ -332,115 +441,4 @@ function sendCustomerConfirmation(data) {
   } catch (e) {
     Logger.log('Email error: ' + e);
   }
-}
-
-// ============================================
-// ANALYTICS API (GET REQUESTS)
-// ============================================
-function doGet(e) {
-  const params = e.parameter;
-  const action = params.action || 'dashboard';
-  
-  if (action === 'dashboard') {
-    return getDashboardData(params);
-  }
-  
-  return ContentService.createTextOutput(JSON.stringify({
-    status: 'error',
-    message: 'Unknown action'
-  })).setMimeType(ContentService.MimeType.JSON);
-}
-
-function getDashboardData(params) {
-  const ordersSheet = getSheet('Orders');
-  const productsSheet = getSheet('Products');
-  
-  const orders = ordersSheet.getDataRange().getValues();
-  const products = productsSheet.getDataRange().getValues();
-  
-  // Filter by month if specified
-  const month = params.month; // Format: YYYY-MM
-  
-  let totalRevenue = 0;
-  let totalOrders = 0;
-  const paymentMethods = {};
-  const productCounts = {};
-  const dailyRevenue = {};
-  
-  // Process orders (skip header row)
-  for (let i = 1; i < orders.length; i++) {
-    const orderDate = new Date(orders[i][1]);
-    const orderMonth = Utilities.formatDate(orderDate, Session.getScriptTimeZone(), 'yyyy-MM');
-    
-    // Skip if filtering by month and doesn't match
-    if (month && orderMonth !== month) continue;
-    
-    const total = parseFloat(orders[i][13]) || 0;
-    const paymentMethod = orders[i][14] || 'Unknown';
-    const dateKey = Utilities.formatDate(orderDate, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-    
-    totalRevenue += total;
-    totalOrders++;
-    
-    // Payment method breakdown
-    paymentMethods[paymentMethod] = (paymentMethods[paymentMethod] || 0) + total;
-    
-    // Daily revenue
-    dailyRevenue[dateKey] = (dailyRevenue[dateKey] || 0) + total;
-  }
-  
-  // Process products
-  for (let i = 1; i < products.length; i++) {
-    const orderDate = new Date(products[i][1]);
-    const orderMonth = Utilities.formatDate(orderDate, Session.getScriptTimeZone(), 'yyyy-MM');
-    
-    if (month && orderMonth !== month) continue;
-    
-    const productName = products[i][2];
-    const quantity = parseInt(products[i][4]) || 0;
-    
-    productCounts[productName] = (productCounts[productName] || 0) + quantity;
-  }
-  
-  // Calculate today vs yesterday
-  const today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
-  const yesterday = Utilities.formatDate(new Date(Date.now() - 86400000), Session.getScriptTimeZone(), 'yyyy-MM-dd');
-  const todayRevenue = dailyRevenue[today] || 0;
-  const yesterdayRevenue = dailyRevenue[yesterday] || 0;
-  
-  // Calculate last 7 days
-  const last7Days = {};
-  const prev7Days = {};
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(Date.now() - i * 86400000);
-    const dateKey = Utilities.formatDate(date, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-    last7Days[dateKey] = dailyRevenue[dateKey] || 0;
-    
-    const prevDate = new Date(Date.now() - (i + 7) * 86400000);
-    const prevDateKey = Utilities.formatDate(prevDate, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-    prev7Days[prevDateKey] = dailyRevenue[prevDateKey] || 0;
-  }
-  
-  const last7DaysRevenue = Object.values(last7Days).reduce((a, b) => a + b, 0);
-  const prev7DaysRevenue = Object.values(prev7Days).reduce((a, b) => a + b, 0);
-  
-  const response = {
-    totalRevenue: totalRevenue,
-    totalOrders: totalOrders,
-    avgOrderValue: totalOrders > 0 ? totalRevenue / totalOrders : 0,
-    paymentMethods: paymentMethods,
-    topProducts: productCounts,
-    dailyRevenue: dailyRevenue,
-    today: {
-      revenue: todayRevenue,
-      vsYesterday: yesterdayRevenue > 0 ? ((todayRevenue - yesterdayRevenue) / yesterdayRevenue * 100) : 0
-    },
-    last7Days: {
-      revenue: last7DaysRevenue,
-      vsPrev7Days: prev7DaysRevenue > 0 ? ((last7DaysRevenue - prev7DaysRevenue) / prev7DaysRevenue * 100) : 0
-    }
-  };
-  
-  return ContentService.createTextOutput(JSON.stringify(response))
-    .setMimeType(ContentService.MimeType.JSON);
 }

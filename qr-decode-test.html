@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Decoder - Test Your Vial</title>
+    <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 { color: #1a1a2e; }
+        .upload-area {
+            border: 3px dashed #ccc;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            background: #f9f9f9;
+        }
+        .upload-area.drag-over {
+            border-color: #0066cc;
+            background: #e6f2ff;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .upload-btn {
+            background: #0066cc;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        .result {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result.show { display: block; }
+        .qr-data {
+            background: white;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+    <h1>🔍 QR Code Decoder</h1>
+    <p>Upload a photo of your MOTS-c vial's QR code to see what URL it actually contains.</p>
+
+    <div class="upload-area" id="uploadArea">
+        <label for="fileInput" class="upload-btn">📷 Choose Photo</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <p style="margin-top: 12px; color: #666;">or drag and drop here</p>
+    </div>
+
+    <div class="result" id="result">
+        <h3>Decoded QR Code:</h3>
+        <div class="qr-data" id="qrData"></div>
+        <p id="diagnosis"></p>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const result = document.getElementById('result');
+        const qrData = document.getElementById('qrData');
+        const diagnosis = document.getElementById('diagnosis');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        fileInput.addEventListener('change', handleFile);
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processImage(files[0]);
+            }
+        });
+
+        function handleFile(e) {
+            const file = e.target.files[0];
+            if (file) {
+                processImage(file);
+            }
+        }
+
+        function processImage(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        qrData.textContent = code.data;
+                        result.classList.add('show');
+
+                        // Diagnosis
+                        const expected = 'https://vantixbio.com/verify.html?batch=VX-MOTS10-001';
+                        if (code.data === expected) {
+                            diagnosis.innerHTML = '<strong style="color: green;">✅ CORRECT!</strong> QR code matches expected URL.';
+                        } else {
+                            diagnosis.innerHTML = `<strong style="color: red;">❌ MISMATCH</strong><br>Expected: <code>${expected}</code><br><br>This QR code points to a different URL. The vial labels may have the wrong QR codes.`;
+                        }
+                    } else {
+                        result.classList.add('show');
+                        qrData.textContent = 'No QR code detected. Try a clearer photo.';
+                        diagnosis.textContent = '';
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
