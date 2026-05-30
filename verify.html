@@ -411,6 +411,12 @@ document.getElementById('resultCard').classList.add('active');
 document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+const batchInput=document.getElementById('batchInput');
+const suggestionsDiv=document.getElementById('suggestions');
+
+batchInput.addEventListener('input',function(){
+const val=this.value.toUpperCase();
+if(!val.startsWith('VX-')){
 batchInput.value='VX-'+val.replace('VX-','');
 return;
 }
