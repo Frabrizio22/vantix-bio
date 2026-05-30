@@ -3,489 +3,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Batch Verification — Vantix Bio</title>
-<meta name="description" content="Verify any Vantix batch ID instantly. View complete Janoshik COA with HPLC chromatogram, LC-MS mass spectrum, and endotoxin screening results.">
-<link rel="canonical" href="https://vantixbio.com/verify.html">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://vantixbio.com/verify.html">
-<meta property="og:title" content="Batch Verification Portal — Vantix Bio">
-<meta property="og:description" content="Verify batch authenticity with Janoshik's independent testing database. HPLC purity, LC-MS identity, endotoxin screening.">
-<meta property="og:image" content="https://vantixbio.com/vantix-og-final.jpg">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Verify Batch — Vantix Bio">
-<meta name="twitter:description" content="Enter batch ID to view complete Janoshik COA with chromatogram and mass spectrum.">
-<meta name="twitter:image" content="https://vantixbio.com/vantix-og-final.jpg">
-
-<link rel="icon" type="image/png" href="favicon.png">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<title>Verify Batch · Vantix Bio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.cdnfonts.com/css/geist');
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--accent-light:#6FA5D9;--hairline:#E5E5E0;--navy:#143054}
-html,body{max-width:100%;overflow-x:hidden}
-body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-@media print{body *{visibility:hidden !important}body::after{content:'PRINT DISABLED — VANTIX BIO TAMPER-EVIDENT COA';visibility:visible !important;position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#0A1628;background:#FAFAF7;font-family:'JetBrains Mono',monospace;letter-spacing:4px;z-index:99999}}
-h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
-h1{font-size:clamp(2rem,6vw,6.5rem);letter-spacing:-.02em;padding-left:12px;font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.02em}
-.label-mono{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.25em;color:rgba(10,22,40,.5)}
-.container{max-width:1400px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 48px}}@media(min-width:1024px){.container{padding:0 80px}}
-.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
-.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
-.pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
-.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline);background:rgba(250,250,247,.98);position:sticky;top:37px;z-index:99}@media(min-width:768px){.header-nav{padding:20px 0}}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0;cursor:pointer;opacity:1;transition:opacity .2s}.logo:hover{opacity:.7}
-.logo img{height:28px}@media(min-width:768px){.logo img{height:32px}}
-.header-icons{display:flex;align-items:center;gap:8px}@media(max-width:1023px){.header-icons .icon-btn{display:none}.header-icons .btn{padding:8px 16px;font-size:12px}}
-.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
-.icon-btn:hover{opacity:.6}
-.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
-.btn{padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}@media(min-width:480px){.btn{padding:11px 24px;font-size:14px}}
-.btn-dark{background:var(--navy);color:#fff}
-.btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
-.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px;align-items:center}}
-.nav-links a{position:relative;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
-.nav-links a:hover::after{width:100%}
-.nav-item{position:relative}
-.catalog-link{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text);font-size:15px;font-weight:500}
-.catalog-link svg{width:14px;height:14px;transition:transform .2s;stroke:currentColor;stroke-width:2}
-.nav-item:hover .catalog-link svg{transform:rotate(180deg)}
-.nav-dropdown{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
-.nav-item:hover .nav-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
-.nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
-.nav-dropdown a:hover{background:var(--bg)}
-.nav-dropdown a::after{display:none}
-.hero{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--hairline)}
-.chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px}
-.chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
-.chapter::after{content:'';width:24px;height:1px;background:var(--accent)}
-.search-card{max-width:640px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:24px}@media(min-width:768px){.search-card{padding:32px}}
-.search-input-wrap{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}@media(min-width:480px){.search-input-wrap{flex-direction:row}}
-.search-input{flex:1;padding:14px 16px;border:1px solid var(--hairline);border-radius:10px;font-size:15px;font-family:'Geist',sans-serif}
-.search-input:focus{outline:none;border-color:var(--accent)}
-.btn{padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;border:none;background:var(--navy);color:#fff;white-space:nowrap}
-.btn:hover{background:var(--accent)}
-.terminal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.97);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column}
-.terminal-overlay.active{display:flex}
-.terminal-text{font-family:'JetBrains Mono',monospace;color:var(--accent-light);font-size:14px;letter-spacing:2px;line-height:2}
-.terminal-cursor{display:inline-block;width:8px;height:16px;background:var(--accent-light);margin-left:4px;animation:blink .7s step-end infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.result-card{max-width:720px;margin:40px auto;background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:32px;display:none;animation:fadeUp .5s ease}
-.result-card.active{display:block}@media(max-width:640px){.result-card{padding:24px}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.verified-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:10px 16px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:#10b981;margin-bottom:20px}
-.verified-badge svg{width:18px;height:18px}
-.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;padding:24px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(max-width:640px){.result-grid{gap:12px}}
-.result-item{display:flex;flex-direction:column;gap:8px}
-.result-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
-.result-value{font-size:15px;font-weight:600;color:var(--navy)}
-.chromatogram{margin:24px 0}
-.chromatogram-toggle{background:transparent;border:1.5px solid var(--hairline);color:var(--text);width:100%;padding:14px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px}
-.chromatogram-toggle:hover{border-color:var(--accent);background:rgba(57,115,176,.05)}
-.chromatogram-toggle svg{width:16px;height:16px;transition:transform .3s}
-.chromatogram-toggle.active svg{transform:rotate(180deg)}
-.chart-container{position:relative;height:200px;border:1px solid var(--hairline);border-radius:8px;padding:16px;background:#fff;margin-top:16px;display:none}
-.chart-container.active{display:block}
-svg.chart{width:100%;height:100%}
-.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}@media(max-width:640px){.cta-grid{grid-template-columns:1fr}}
-.btn-outline{background:transparent;border:1.5px solid var(--hairline);color:var(--text)}
-.btn-outline:hover{border-color:var(--accent);background:rgba(57,115,176,.05)}
-.verified-section{text-align:center;padding-bottom:32px;border-bottom:1px solid var(--hairline);margin-bottom:32px}
-.verified-badge-new{display:inline-flex;align-items:center;gap:10px;background:rgba(16,185,129,.12);border:1.5px solid rgba(16,185,129,.4);border-radius:24px;padding:12px 24px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:#10b981;margin-bottom:24px}
-.verified-badge-new svg{width:20px;height:20px}
-.product-title{font-size:32px;font-weight:300;margin-bottom:8px;color:var(--navy)}@media(max-width:640px){.product-title{font-size:24px}}
-.batch-meta{font-family:'JetBrains Mono',monospace;font-size:13px;color:rgba(10,22,40,0.6);margin-bottom:8px}
-.verified-date{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(10,22,40,0.5)}
-.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:24px 0}@media(max-width:640px){.metrics-grid{gap:16px}}
-.metric{text-align:center;display:flex;flex-direction:column;align-items:center;min-height:80px;justify-content:center}
-.metric-value{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.1;white-space:nowrap}@media(max-width:640px){.metric-value{font-size:18px}}
-.metric-label{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,0.5);font-weight:600}
-.primary-cta{background:var(--navy);color:#fff;text-decoration:none;padding:16px 28px;border-radius:10px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .3s;margin-bottom:24px}
-.primary-cta:hover{background:var(--accent);transform:translateY(-2px)}
-.primary-cta svg{width:18px;height:18px}
-.coa-preview-section{background:var(--bg);border:1px solid var(--hairline);border-radius:12px;padding:20px;margin-bottom:20px;text-align:center}
-.coa-preview-title{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,0.6);margin-bottom:16px}
-.coa-thumbnail{width:120px;height:160px;background:#fff;border:2px solid var(--hairline);border-radius:8px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;color:rgba(10,22,40,0.3);font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:600}
-.coa-btn{background:transparent;border:1.5px solid var(--navy);color:var(--navy);padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;transition:all .3s}
-.coa-btn:hover{background:var(--navy);color:#fff}
-.analytical-section{border:1px solid var(--hairline);border-radius:12px;overflow:hidden;margin-bottom:16px}
-.analytical-toggle{background:transparent;border:none;width:100%;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--text);transition:background .2s}
-.analytical-toggle:hover{background:rgba(0,0,0,0.02)}
-.analytical-toggle svg{width:16px;height:16px;transition:transform .3s}
-.analytical-toggle.active svg{transform:rotate(180deg)}
-.analytical-content{display:none;padding:24px;background:var(--bg);border-top:1px solid var(--hairline)}
-.analytical-content.active{display:block}
-.data-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--hairline);font-size:14px}
-.data-row:last-child{border-bottom:none}
-.data-label{font-weight:500;color:rgba(10,22,40,0.7)}
-.data-value{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--navy)}
-.footer-note{text-align:center;padding:16px 0 0;font-size:13px;color:rgba(10,22,40,0.6);line-height:1.6}
-footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
-.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
-.no-results{text-align:center;padding:40px 20px;color:rgba(10,22,40,.6);display:none}
-.protocol-section{padding:32px 0 60px;background:#fff;border-top:1px solid var(--hairline)}
-.protocol-header{text-align:center;margin-bottom:60px}
-.protocol-header h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:12px}
-.protocol-header p{font-size:16px;color:rgba(10,22,40,.7);max-width:640px;margin:0 auto;line-height:1.5}
-.step{margin-bottom:32px;display:grid;grid-template-columns:40px 1fr;gap:20px;padding:24px;background:var(--bg);border:1px solid var(--hairline);border-radius:12px}@media(max-width:640px){.step{grid-template-columns:32px 1fr;gap:16px;padding:20px;margin-bottom:24px}}
-.step-number{width:36px;height:36px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;flex-shrink:0}
-.step-content h3{font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin-bottom:8px;color:var(--navy)}@media(min-width:768px){.step-content h3{font-size:22px}}
-.step-content p{font-size:15px;line-height:1.4;color:rgba(10,22,40,.7)}
-.suggestions{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--hairline);border-top:none;border-radius:0 0 10px 10px;max-height:240px;overflow-y:auto;z-index:10;display:none;margin-top:-1px}
-.suggestion-item{padding:12px 16px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;border-bottom:1px solid var(--hairline);transition:background .2s}
-.suggestion-item:last-child{border-bottom:none}
-.suggestion-item:hover{background:rgba(57,115,176,.05)}
-.suggestion-batch{color:var(--accent);font-weight:600}
-.suggestion-name{color:rgba(10,22,40,.6);font-size:12px;margin-top:4px}
+:root {
+--navy: #0f1e3d; --navy-soft: #1a2c52;
+--cream: #f6f1e6; --cream-2: #ede4d1; --paper: #fbf7ec;
+--ink: #0f1e3d; --ink-muted: #5a6580;
+--rule: #d8cdb5; --rule-soft: #e8dec6;
+--green: #2f8a5a; --green-soft: #e3efe7;
+--shadow: 0 1px 2px rgba(15,30,61,.04), 0 8px 24px rgba(15,30,61,.06);
+--card-bg: white;
+color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body {
+margin: 0; padding: 0;
+background: #f6f1e6 !important;
+color: #0f1e3d !important;
+font-family: "Inter", system-ui, sans-serif;
+-webkit-font-smoothing: antialiased;
+color-scheme: light !important;
+forced-color-adjust: none;
+}
+body { max-width: 480px; margin: 0 auto; background: #fbf7ec !important; min-height: 100vh; padding-bottom: 64px; }
+
+.topbar { padding: 18px 22px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); }
+.brand { font-family: "Fraunces", serif; font-weight: 500; font-size: 16px; }
+.brand-dot { display: inline-block; width: 6px; height: 6px; background: var(--navy); margin-right: 8px; transform: translateY(-2px); }
+.topbar-meta { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+
+.hero { padding: 32px 22px 24px; border-bottom: 1px solid var(--rule); }
+.verified-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--green-soft); color: var(--green); padding: 7px 12px 7px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 22px; }
+.verified-pill svg { width: 14px; height: 14px; }
+.product-name { font-family: "Fraunces", serif; font-weight: 500; font-size: 44px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 14px; }
+.product-meta { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.product-meta strong { color: var(--ink); font-weight: 500; }
+
+.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--rule); }
+.stat { padding: 22px 14px; border-right: 1px solid var(--rule); min-width: 0; }
+.stat:last-child { border-right: 0; }
+.stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+.stat-value { font-family: "Fraunces", serif; font-weight: 500; font-size: 24px; line-height: 1; letter-spacing: -0.01em; }
+.stat-unit { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-muted); margin-top: 4px; letter-spacing: 0.04em; }
+.stat-spec { font-size: 10px; color: var(--green); margin-top: 6px; font-weight: 500; }
+
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin: 28px 22px 12px; display: flex; align-items: center; gap: 10px; }
+.section-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.section-label-count { font-family: "JetBrains Mono", monospace; font-size: 9px; color: var(--ink-muted); background: var(--cream-2); padding: 2px 7px; border-radius: 2px; }
+
+.report { margin: 0 22px 18px; background: var(--card-bg); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; box-shadow: var(--shadow); }
+.report-header { padding: 16px 18px; background: var(--navy); color: var(--cream); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.report-header-left { min-width: 0; }
+.report-title { font-family: "Fraunces", serif; font-size: 17px; font-weight: 500; line-height: 1.15; }
+.report-sub { font-family: "JetBrains Mono", monospace; font-size: 10px; opacity: 0.65; letter-spacing: 0.04em; margin-top: 4px; }
+.report-status { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6ee7a3; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
+.report-status::before { content: ""; width: 6px; height: 6px; background: #6ee7a3; border-radius: 50%; }
+
+.report-summary { padding: 4px 18px; }
+.report-row { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rule-soft); gap: 14px; }
+.report-row:last-of-type { border-bottom: 0; }
+.report-key { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; }
+.report-val { font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 500; color: var(--ink); text-align: right; }
+.report-val.large { font-family: "Fraunces", serif; font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }
+.report-val.large .unit { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-muted); margin-left: 6px; font-weight: 400; }
+
+.toggle-row {
+width: 100%;
+padding: 16px 18px;
+background: var(--navy);
+border: none;
+border-top: 1px solid var(--rule-soft);
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+font-family: "Inter", sans-serif;
+font-size: 13px;
+font-weight: 500;
+color: var(--cream);
+letter-spacing: 0.04em;
+transition: background 0.15s ease;
+}
+.toggle-row:hover { background: var(--navy-soft); }
+.toggle-row:active { background: var(--navy-soft); }
+.toggle-row-left { display: flex; align-items: center; gap: 10px; }
+.toggle-row-icon {
+width: 22px; height: 22px;
+background: rgba(246, 241, 230, 0.12);
+border-radius: 3px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+}
+.toggle-row-icon svg { width: 12px; height: 12px; color: var(--cream); }
+.toggle-row-chevron { transition: transform 0.25s ease; }
+.toggle-row-chevron svg { width: 14px; height: 14px; color: var(--cream); }
+.toggle-row.open .toggle-row-chevron { transform: rotate(180deg); }
+
+.toggle-content { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; background: var(--card-bg); }
+.toggle-content.open { max-height: 4000px; }
+.report-image-wrap { background: var(--card-bg); padding: 12px; }
+.report-image { width: 100%; height: auto; display: block; border: 1px solid #eee; cursor: zoom-in; }
+.report-image-hint {
+text-align: center;
+font-size: 10px;
+color: var(--ink-muted);
+padding: 4px 0 8px;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+font-weight: 500;
+}
+
+.report-actions { padding: 14px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: var(--card-bg); border-top: 1px solid var(--rule-soft); }
+.btn { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 12px 10px; font-size: 12px; font-weight: 500; border-radius: 3px; border: 1px solid var(--navy); cursor: pointer; text-decoration: none; }
+.btn-primary { background: var(--navy); color: var(--cream); }
+.btn-secondary { background: var(--card-bg); color: var(--navy); }
+.btn svg { width: 12px; height: 12px; }
+
+.verify-key { padding: 11px 16px; background: var(--cream); border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.verify-key-label { color: var(--ink-muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; font-size: 9px; }
+.verify-key-val { font-family: "JetBrains Mono", monospace; font-weight: 500; color: var(--navy); letter-spacing: 0.08em; font-size: 11px; }
+
+.footnote { margin: 24px 22px 0; padding: 18px; background: var(--cream-2); border-left: 2px solid var(--navy); font-size: 12px; line-height: 1.6; color: var(--navy-soft); }
+.footnote strong { display: block; margin-bottom: 6px; font-family: "Fraunces", serif; font-weight: 500; font-size: 14px; color: var(--navy); }
+.footnote a { color: var(--navy); }
+.ruo { margin: 24px 22px 0; font-size: 10px; text-align: center; color: var(--ink-muted); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.7; }
+
+.lightbox { position: fixed; inset: 0; background: rgba(15,30,61,0.92); display: none; align-items: flex-start; justify-content: center; z-index: 100; padding: 60px 10px 20px; overflow: auto; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 100%; height: auto; background: white; }
+.lightbox-close { position: fixed; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 22px; color: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 101; }
+
+.search-card { max-width: 600px; margin: 40px 22px; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 32px 24px; box-shadow: var(--shadow); }
+.search-input { width: 100%; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 8px; font-family: "JetBrains Mono", monospace; font-size: 14px; margin-bottom: 16px; }
+.search-input:focus { outline: none; border-color: var(--navy); }
+.search-btn { width: 100%; padding: 14px; background: var(--navy); color: var(--cream); border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.search-btn:hover { background: var(--navy-soft); }
+
+.result-container { display: none; }
+.result-container.active { display: block; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.hero, .stats, .report, .footnote, .section-label { animation: rise 0.5s ease both; }
+.stats { animation-delay: 0.05s; }
+.section-label { animation-delay: 0.08s; }
+.report:nth-of-type(1) { animation-delay: 0.12s; }
+.report:nth-of-type(2) { animation-delay: 0.18s; }
+.footnote { animation-delay: 0.24s; }
 </style>
 </head>
 <body>
 
-<div class="status-bar">
-  <div class="status-inner">
-    <span class="pulse"></span>
-    <span>JANOSHIK VERIFIED — LIVE</span>
-  </div>
+<div class="topbar">
+<div class="brand"><span class="brand-dot"></span>Vantix Bio</div>
+<div class="topbar-meta">Verify</div>
 </div>
 
-<div class="container">
-<nav class="header-nav">
-<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
-<button class="icon-btn" id="menuBtn" aria-label="Menu">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-</button>
-<a href="index.html" class="logo">
-<img src="logo-header.svg" alt="Vantix Bio" style="height:32px">
-</a>
-</div>
-<div class="nav-links">
-<div class="nav-item">
-<div class="catalog-link">
-<span>Catalog</span>
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
-</div>
-<div class="nav-dropdown">
-<a href="shop.html">Single Vials</a>
-<a href="kits.html">Research Kits</a>
-</div>
-</div>
-<a href="verify.html">Verify</a>
-<a href="blog/">Research</a>
-<a href="about.html">About</a>
-</div>
-<div class="header-icons">
-<button class="icon-btn" id="searchBtn" aria-label="Search">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-</button>
-<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026" style="position:relative">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
-</button>
-<button class="btn btn-dark" onclick="window.location.href='index.html#waitlist'">Join Waitlist</button>
-</div>
-</nav>
+<!-- Search Card (shown when no batch param) -->
+<div class="search-card" id="searchCard">
+<h2 style="font-family: 'Fraunces', serif; font-size: 28px; margin-bottom: 12px;">Verify Batch</h2>
+<p style="color: var(--ink-muted); font-size: 14px; margin-bottom: 24px;">Enter your batch ID to view complete Janoshik verification</p>
+<input type="text" id="batchInput" class="search-input" placeholder="VX-MOTS10-001" maxlength="30">
+<button class="search-btn" onclick="searchBatch()">Verify Batch</button>
 </div>
 
-<div class="terminal-overlay" id="terminalOverlay">
-<div class="terminal-text" id="terminalText">INITIALIZING VERIFICATION<span class="terminal-cursor"></span></div>
+<!-- Result Container (shown after verification) -->
+<div class="result-container" id="resultContainer">
+<section class="hero">
+<div class="verified-pill">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+Independently verified
+</div>
+<h1 class="product-name" id="productName"></h1>
+<div class="product-meta"><span>Batch <strong id="batchId"></strong></span><span id="verifiedDate"></span></div>
+</section>
+
+<section class="stats" id="statsSection"></section>
+
+<div class="section-label">Janoshik Lab Reports<span class="section-label-count" id="certCount"></span></div>
+
+<div id="reportsContainer"></div>
+
+<div class="footnote">
+<strong>Two tests, two certificates, one batch.</strong>
+Every Vantix batch is held until both content/purity and endotoxin results return from Janoshik's independent lab. Each certificate above tests this specific batch, not a different batch sold under the same product page. <a href="https://vantixbio.com/blog/batch-coas.html">Why this matters →</a>
 </div>
 
-<div class="container">
-<div class="hero">
-<div class="chapter">Chapter 001</div>
-<h1>The Matrix</h1>
-<p style="margin-top:20px;max-width:600px;margin-left:auto;margin-right:auto;color:rgba(10,22,40,.7);font-size:17px;line-height:1.7">Enter your batch ID to view the complete analytical verification.</p>
+<div class="ruo">Research Use Only · Not for human consumption<br>© 2026 Vantix Bio</div>
 </div>
 
-<div class="search-card">
-<div class="search-input-wrap" style="position:relative">
-<input type="text" id="batchInput" class="search-input" placeholder="RETA20-001" maxlength="30" value="VX-">
-<button class="btn" onclick="searchBatch()">Verify</button>
-<div class="suggestions" id="suggestions"></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<button class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">×</button>
+<img id="lightbox-img" src="" alt="Full-size report">
 </div>
-<p style="font-size:13px;color:rgba(10,22,40,.5);text-align:center">Batch ID printed on vial label or scan QR code</p>
-</div>
-
-<div class="result-card" id="resultCard">
-<div class="verified-section">
-<div class="verified-badge-new">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-<span>Verified by Janoshik</span>
-</div>
-<h2 class="product-title" id="productName"></h2>
-<div class="batch-meta" id="batchMeta"></div>
-</div>
-
-<!-- COA MOVED HERE (BEFORE METRICS) -->
-<div class="coa-preview-section" style="margin-bottom:32px"><div class="coa-preview-title">Official Certificate of Analysis</div><a href="#" id="coaDownloadLink" target="_blank" class="coa-btn" style="margin-top:12px">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;display:inline;margin-right:8px">
-<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
-</svg>
-View Official Janoshik Report</a>
-<div style="font-size:11px;color:rgba(10,22,40,0.6);margin-top:12px">Task ID: <span id="taskId" style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--navy)"></span></div>
-</div>
-
-<!-- METRICS GRID (MOVED AFTER COA) -->
-<div class="metrics-grid">
-<div class="metric"><div class="metric-value" id="content"></div><div class="metric-label">Content</div></div>
-<div class="metric"><div class="metric-value" id="purity"></div><div class="metric-label">Purity</div></div>
-<div class="metric"><div class="metric-value" id="endotoxin"></div><div class="metric-label">Endotoxin</div></div>
-<div class="metric"><div class="metric-value" style="color:#10b981">✓ CONFIRMED</div><div class="metric-label">LC-MS Identity</div></div>
-</div>
-
-<!-- VERIFY LINK (KEPT) -->
-<div style="text-align:center;margin:24px 0"><a href="#" id="janoshikLink" target="_blank" rel="noopener" style="font-size:13px;color:var(--accent);text-decoration:none;font-weight:600">Verify Independently on Janoshik.com →</a></div>
-
-<!-- TEST DETAILS (REMOVED FAKE CHROMATOGRAM) -->
-<div style="margin:24px 0;padding:20px;background:rgba(57,115,176,0.05);border:1px solid var(--hairline);border-radius:12px">
-<div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,0.6);margin-bottom:16px">Test Methodology</div>
-<div class="data-row"><span class="data-label">Purity Analysis</span><span class="data-value">HPLC-DAD</span></div>
-<div class="data-row"><span class="data-label">Identity Confirmation</span><span class="data-value">LC-MS/MS</span></div>
-<div class="data-row"><span class="data-label">Endotoxin Screening</span><span class="data-value">LAL Assay</span></div>
-</div>
-
-<div class="footer-note">Need additional verification?<br><a href="mailto:support@vantixbio.com" style="color:var(--accent);text-decoration:none">Contact us</a> or test independently through Janoshik.</div>
-</div>
-
-
-<div class="no-results" id="noResults">
-<p style="font-size:18px;font-weight:600;margin-bottom:12px">Batch not found</p>
-<p style="color:rgba(10,22,40,.6)">Check the batch ID and try again, or contact support.</p>
-</div>
-</div>
-
-<div class="protocol-section">
-  <div class="container">
-    <div class="protocol-header">
-      <h2>8-Step Verification Protocol</h2>
-      <p>From blind entry to public COA — analytical-grade authenticity, every batch.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">1</div>
-      <div class="step-content">
-        <h3>Blind Entry</h3>
-        <p>No manufacturer claims accepted. We verify first, label second.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">2</div>
-      <div class="step-content">
-        <h3>Sample Selection</h3>
-        <p>Random vials pulled from sealed production batches for testing.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">3</div>
-      <div class="step-content">
-        <h3>Chain of Custody</h3>
-        <p>Secured shipment to Janoshik for independent analysis.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">4</div>
-      <div class="step-content">
-        <h3>HPLC-DAD Purity</h3>
-        <p>Quantitative analysis via high-performance liquid chromatography with diode array detection.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">5</div>
-      <div class="step-content">
-        <h3>LC-MS/MS Identity</h3>
-        <p>Molecular confirmation via liquid chromatography tandem mass spectrometry.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">6</div>
-      <div class="step-content">
-        <h3>LAL Endotoxin Screening</h3>
-        <p>Bacterial contamination testing using limulus amebocyte lysate assay.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">7</div>
-      <div class="step-content">
-        <h3>Pass/Fail Gate</h3>
-        <p>≥99% purity, confirmed molecular identity, &lt;0.05 EU/mg endotoxin. No exceptions.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">8</div>
-      <div class="step-content">
-        <h3>Public COA + QR Linking</h3>
-        <p>Full Janoshik report published. Every vial QR-scans to its chromatogram, mass spectrum, and endotoxin data.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer>
-<div class="container">
-<div class="footer-legal">
-<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
-<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 Vantix Bio LLC</p>
-</div>
-</div>
-</footer>
 
 <script>
-// Batch 1 - All products ready for June 1, 2026 launch
-// Update with real Janoshik data when COAs arrive
-const batches={
-'VX-RETA20-001':{name:'Retatrutide 20mg',purity:'99.78%',content:'22.29mg',endotoxin:'1.164 EU/vial',taskId:'155441',taskId2:'155442',verifyKey:'8LU6I66JMMVN',verifyKey2:'Y1G67KF7GTUH',tested:'May 18, 2026'},
-'VX-SEMA10-001':{name:'Semaglutide 10mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-BPC10-001':{name:'BPC-157 10mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-TB10-001':{name:'TB-500 10mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-CJC10-001':{name:'CJC-1295 10mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-IPA5-001':{name:'Ipamorelin 5mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-MOTS10-001':{name:'MOTS-c 10mg',purity:'99.402%',content:'10.55mg',endotoxin:'<1 EU/vial',taskId:'165874',verifyKey:'SSELJFCHMJCC',tested:'May 29, 2026'},
-'VX-NAD1K-001':{name:'NAD+ 1000mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-GHK100-001':{name:'GHK-Cu 100mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-TESA10-001':{name:'Tesamorelin 10mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'},
-'VX-AOD10-001':{name:'AOD-9604 10mg',purity:'TBD',content:'TBD',endotoxin:'TBD',taskId:'PENDING',verifyKey:'PENDING',tested:'June 2026'}
+// Batch database with dual-test support
+const batches = {
+'VX-MOTS10-001': {
+name: 'MOTS-c 10mg',
+content: '10.55',
+contentUnit: 'mg/vial',
+purity: '99.402',
+endotoxin: '<1',
+endotoxinUnit: 'EU/vial',
+endotoxinSpec: '≤ 0.1 EU/mg spec',
+contentSpec: '≥ 10 mg spec',
+puritySpec: '≥ 99% spec',
+tested: 'May 29, 2026',
+tests: [
+{
+title: 'Purity & Identity',
+taskId: '165874',
+date: '29 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content', value: '10.55', unit: 'mg/vial', large: true },
+{ key: 'Purity', value: '99.402', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC',
+verifyKey: 'SSELJFCHMJCC',
+downloadUrl: '/coa/VX-MOTS10-001-purity.pdf',
+imageUrl: 'img/vx-mots10-001-purity.jpg'
+},
+{
+title: 'Endotoxin',
+taskId: '165875',
+date: '28 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Endotoxin', value: '<1', unit: 'EU/vial', large: true },
+{ key: 'Specification', value: '≤ 0.1 EU/mg' },
+{ key: 'Method', value: 'LAL Assay' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165875-MOTS_c_10mg_E8SZBFXHVEZV',
+verifyKey: 'E8SZBFXHVEZV',
+downloadUrl: '/coa/VX-MOTS10-001-endotoxin.pdf',
+imageUrl: 'img/vx-mots10-001-endotoxin.jpg'
+}
+]
+},
+'VX-RETA20-001': {
+name: 'Retatrutide 20mg',
+content: '22.29',
+contentUnit: 'mg/vial',
+purity: '99.78',
+endotoxin: '1.164',
+endotoxinUnit: 'EU/vial',
+endotoxinSpec: '≤ 0.1 EU/mg spec',
+contentSpec: '≥ 20 mg spec',
+puritySpec: '≥ 99% spec',
+tested: 'May 18, 2026',
+tests: [
+{
+title: 'Purity & Identity',
+taskId: '155441',
+date: '18 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content', value: '22.29', unit: 'mg/vial', large: true },
+{ key: 'Purity', value: '99.78', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/155441-Sample_1_8LU6I66JMMVN',
+verifyKey: '8LU6I66JMMVN',
+downloadUrl: '/coa/VX-RETA20-001-purity.pdf',
+imageUrl: 'img/vx-reta20-001-purity.jpg'
+},
+{
+title: 'Endotoxin',
+taskId: '155442',
+date: '18 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Endotoxin', value: '1.164', unit: 'EU/vial', large: true },
+{ key: 'Specification', value: '≤ 0.1 EU/mg' },
+{ key: 'Method', value: 'LAL Assay' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/155442-Sample_1_Y1G67KF7GTUH',
+verifyKey: 'Y1G67KF7GTUH',
+downloadUrl: '/coa/VX-RETA20-001-endotoxin.pdf',
+imageUrl: 'img/vx-reta20-001-endotoxin.jpg'
+}
+]
+}
 };
 
-const terminalSteps=[
-'INITIALIZING VERIFICATION',
-'CONNECTING TO JANOSHIK DATABASE',
-'AUTHENTICATING BATCH SIGNATURE',
-'LOADING HPLC DATA',
-'PARSING LC-MS/MS RESULTS',
-'VALIDATING ENDOTOXIN SCREENING',
-'RETRIEVING BATCH RECORD',
-'✓ VERIFICATION COMPLETE'
-];
-
-function searchBatch(){
-let input=document.getElementById('batchInput').value.trim().toUpperCase();
-if(!input.startsWith('VX-'))input='VX-'+input;
-const batch=batches[input];
-if(!batch){
-document.getElementById('noResults').style.display='block';
+function searchBatch() {
+let input = document.getElementById('batchInput').value.trim().toUpperCase();
+if (!input.startsWith('VX-')) input = 'VX-' + input;
+const batch = batches[input];
+if (!batch) {
+alert('Batch not found. Please check the batch ID and try again.');
 return;
 }
-document.getElementById('noResults').style.display='none';
-const terminal=document.getElementById('terminalOverlay');
-const terminalText=document.getElementById('terminalText');
-terminal.classList.add('active');
-let step=0;
-const interval=setInterval(()=>{
-if(step<terminalSteps.length){
-terminalText.innerHTML=terminalSteps[step]+'<span class="terminal-cursor"></span>';
-step++;
-}else{
-clearInterval(interval);
-setTimeout(()=>{
-terminal.classList.remove('active');
-showResults(input,batch);
-},800);
-}
-},180);
+showResults(input, batch);
 }
 
-function showResults(input,batch){
-document.getElementById('productName').textContent=batch.name;
-const verifiedDate=batch.tested||'May 2026';
-document.getElementById('batchMeta').textContent=input+' · Verified '+verifiedDate;
-document.getElementById('content').textContent=batch.content||'—';
-document.getElementById('purity').textContent=batch.purity;
-document.getElementById('endotoxin').textContent=batch.endotoxin||'<0.05 EU/mg';
-document.getElementById('taskId').textContent=batch.taskId+(batch.taskId2?' · '+batch.taskId2:'');
-const verifyUrl=batch.verifyKey?'https://janoshik.com/verify/?key='+batch.verifyKey:'https://janoshik.com/tests/'+batch.taskId;
-document.getElementById('janoshikLink').href=verifyUrl;
-document.getElementById('coaDownloadLink').href='/coa/'+input+'.pdf';
-document.getElementById('resultCard').classList.add('active');
-document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
-}
+function showResults(batchId, batch) {
+// Hide search, show results
+document.getElementById('searchCard').style.display = 'none';
+document.getElementById('resultContainer').classList.add('active');
 
-const batchInput=document.getElementById('batchInput');
-const suggestionsDiv=document.getElementById('suggestions');
+// Set product info
+document.getElementById('productName').innerHTML = batch.name.replace(' ', '<br>').replace('mg', '&nbsp;mg');
+document.getElementById('batchId').textContent = batchId;
+document.getElementById('verifiedDate').textContent = 'Verified ' + batch.tested;
 
-batchInput.addEventListener('input',function(){
-const val=this.value.toUpperCase();
-if(!val.startsWith('VX-')){
-batchInput.value='VX-'+val.replace('VX-','');
-return;
-}
-if(val.length<=3){
-suggestionsDiv.style.display='none';
-return;
-}
-const query=val.substring(3);
-const matches=Object.keys(batches).filter(k=>k.substring(3).startsWith(query));
-if(matches.length>0){
-suggestionsDiv.innerHTML=matches.map(k=>`
-<div class="suggestion-item" onclick="selectBatch('${k}')">
-<div class="suggestion-batch">${k}</div>
-<div class="suggestion-name">${batches[k].name}</div>
+// Build stats
+const statsHtml = `
+<div class="stat"><div class="stat-label">Content</div><div class="stat-value">${batch.content}</div><div class="stat-unit">${batch.contentUnit}</div><div class="stat-spec">${batch.contentSpec}</div></div>
+<div class="stat"><div class="stat-label">Purity</div><div class="stat-value">${batch.purity}<span style="font-size:14px;">%</span></div><div class="stat-unit">HPLC</div><div class="stat-spec">${batch.puritySpec}</div></div>
+<div class="stat"><div class="stat-label">Endotoxin</div><div class="stat-value">${batch.endotoxin}</div><div class="stat-unit">${batch.endotoxinUnit}</div><div class="stat-spec">${batch.endotoxinSpec}</div></div>
+`;
+document.getElementById('statsSection').innerHTML = statsHtml;
+
+// Set cert count
+document.getElementById('certCount').textContent = batch.tests.length + ' Certificates';
+
+// Build reports
+const reportsHtml = batch.tests.map((test, idx) => `
+<section class="report">
+<div class="report-header">
+<div class="report-header-left">
+<div class="report-title">${test.title}</div>
+<div class="report-sub">Task #${test.taskId} · ${test.date}</div>
 </div>
+<div class="report-status">${test.status}</div>
+</div>
+<div class="report-summary">
+${test.rows.map(row => `
+<div class="report-row">
+<span class="report-key">${row.key}</span>
+<span class="report-val ${row.large ? 'large' : ''}">${row.value}${row.unit ? `<span class="unit">${row.unit}</span>` : ''}</span>
+</div>
+`).join('')}
+</div>
+<button class="toggle-row" onclick="toggleReport(this)">
+<span class="toggle-row-left">
+<span class="toggle-row-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+</span>
+<span class="toggle-row-label">View Janoshik COA</span>
+</span>
+<span class="toggle-row-chevron">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+</span>
+</button>
+<div class="toggle-content">
+<div class="report-image-wrap">
+<img src="${test.imageUrl}" alt="Janoshik Test Report #${test.taskId}" class="report-image" onclick="openLightbox('${test.imageUrl}')">
+<div class="report-image-hint">Tap image to zoom</div>
+</div>
+</div>
+<div class="report-actions">
+<a class="btn btn-primary" href="${test.downloadUrl}" download>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+Download
+</a>
+<a class="btn btn-secondary" href="${test.verifyUrl}" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+Verify on Janoshik
+</a>
+</div>
+<div class="verify-key"><span class="verify-key-label">Verification Key</span><span class="verify-key-val">${test.verifyKey}</span></div>
+</section>
 `).join('');
-suggestionsDiv.style.display='block';
-if(matches.length===1){
-const completion=matches[0];
-const cursorPos=val.length;
-batchInput.value=completion;
-batchInput.setSelectionRange(cursorPos,completion.length);
-}
-}else{
-suggestionsDiv.style.display='none';
-}
-});
 
-batchInput.addEventListener('focus',()=>{
-if(batchInput.value==='VX-'){
-const cursor=batchInput.value.length;
-batchInput.setSelectionRange(cursor,cursor);
+document.getElementById('reportsContainer').innerHTML = reportsHtml;
+
+// Scroll to results
+document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-});
 
-batchInput.addEventListener('click',()=>{
-const cursor=batchInput.value.length;
-batchInput.setSelectionRange(cursor,cursor);
-});
-
-document.addEventListener('click',(e)=>{
-if(!e.target.closest('.search-input-wrap')){
-suggestionsDiv.style.display='none';
+function toggleReport(btn) {
+const content = btn.nextElementSibling;
+const label = btn.querySelector('.toggle-row-label');
+btn.classList.toggle('open');
+content.classList.toggle('open');
+label.textContent = btn.classList.contains('open') ? 'Hide Janoshik COA' : 'View Janoshik COA';
 }
-});
 
-function selectBatch(batchId){
-batchInput.value=batchId;
-suggestionsDiv.style.display='none';
+function openLightbox(src) {
+document.getElementById('lightbox-img').src = src;
+document.getElementById('lightbox').classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+document.getElementById('lightbox').classList.remove('active');
+document.body.style.overflow = '';
+}
+
+// Auto-trigger verification from URL parameter
+const params = new URLSearchParams(window.location.search);
+const batchParam = params.get('batch') || params.get('id');
+if (batchParam) {
+let input = batchParam.toUpperCase();
+if (!input.startsWith('VX-')) input = 'VX-' + input;
+document.getElementById('batchInput').value = input;
 searchBatch();
 }
-const params=new URLSearchParams(window.location.search);
-const batchParam=params.get('batch')||params.get('id');
-if(batchParam){
-let input=batchParam.toUpperCase();
-if(!input.startsWith('VX-'))input='VX-'+input;
-batchInput.value=input;
-searchBatch();
-}
-
-// Header button handlers
-const menuBtn=document.getElementById('menuBtn');
-const searchBtn=document.getElementById('searchBtn');
-const cartBtn=document.getElementById('cartBtn');
-
-if(menuBtn) menuBtn.onclick=()=>window.location.href='index.html';
-if(searchBtn) searchBtn.onclick=()=>window.location.href='verify.html';
-if(cartBtn) cartBtn.onclick=()=>alert('Cart available mid-May 2026');
 </script>
 </body>
 </html>
-<!-- cache bust 1778258810 -->
