@@ -146,12 +146,24 @@ font-weight: 500;
 .terminal-cursor { display: inline-block; width: 10px; height: 18px; background: #6ee7a3; margin-left: 6px; animation: blink 0.7s step-end infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-.search-card { max-width: 600px; margin: 0 22px; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 32px 24px; box-shadow: var(--shadow); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: calc(100% - 44px); }
-@media (max-width: 480px) { .search-card { top: 45%; } }
-.search-input { width: 100%; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 8px; font-family: "JetBrains Mono", monospace; font-size: 14px; margin-bottom: 16px; }
-.search-input:focus { outline: none; border-color: var(--navy); }
-.search-btn { width: 100%; padding: 14px; background: var(--navy); color: var(--cream); border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
-.search-btn:hover { background: var(--navy-soft); }
+.search-card { max-width: 600px; margin: 60px auto 0; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 40px 28px; box-shadow: var(--shadow); }
+.search-title { font-family: "Fraunces", serif; font-size: 36px; font-weight: 500; line-height: 1.1; margin-bottom: 16px; color: var(--navy); }
+.search-subtitle { font-size: 15px; line-height: 1.6; color: var(--ink-muted); margin-bottom: 32px; }
+.input-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; }
+.what-section { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--rule-soft); }
+.what-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+.what-item { display: flex; gap: 14px; margin-bottom: 24px; align-items: flex-start; }
+.what-check { flex-shrink: 0; width: 22px; height: 22px; background: var(--green-soft); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.what-check svg { width: 14px; height: 14px; stroke: var(--green); stroke-width: 2.5; }
+.what-content h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; line-height: 1.3; }
+.what-content p { font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+.footer-legal { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--rule-soft); text-align: center; font-size: 10px; color: var(--ink-muted); line-height: 1.6; letter-spacing: 0.04em; text-transform: uppercase; }
+.search-input { width: 100%; padding: 16px 18px; border: 1px solid var(--rule); border-radius: 8px; font-family: "JetBrains Mono", monospace; font-size: 15px; margin-bottom: 16px; background: var(--paper); transition: border-color 0.2s, background 0.2s; }
+.search-input:focus { outline: none; border-color: var(--navy); background: white; }
+.search-input::placeholder { color: var(--ink-muted); opacity: 0.5; }
+.search-btn { width: 100%; padding: 16px; background: #7c8ca8; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.search-btn:hover { background: #6a7a94; }
+.search-btn svg { width: 16px; height: 16px; }
 
 .result-container { display: none; }
 .result-container.active { display: block; }
@@ -174,11 +186,48 @@ font-weight: 500;
 
 <!-- Search Card (shown when no batch param) -->
 <div class="search-card" id="searchCard">
-<h2 style="font-family: 'Fraunces', serif; font-size: 28px; margin-bottom: 12px;">Verify Batch</h2>
-<p style="color: var(--ink-muted); font-size: 14px; margin-bottom: 24px;">Enter your batch ID to view complete Janoshik verification</p>
+<h1 class="search-title">Verify a batch</h1>
+<p class="search-subtitle">Enter the batch ID from your vial label to view complete verification results.</p>
 <div id="errorMsg" style="display: none; color: #d32f2f; background: #ffebee; padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid #d32f2f;"></div>
+<div class="input-label">Batch ID</div>
 <input type="text" id="batchInput" class="search-input" placeholder="VX-MOTS10-001" maxlength="30">
-<button class="search-btn" onclick="searchBatch()">Verify Batch</button>
+<button class="search-btn" onclick="searchBatch()">
+View lab reports
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+</button>
+
+<div class="what-section">
+<div class="what-title">What you'll see</div>
+<div class="what-item">
+<div class="what-check">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+</div>
+<div class="what-content">
+<h3>Content, purity, and endotoxin results</h3>
+<p>Tested for your exact batch by Janoshik</p>
+</div>
+</div>
+<div class="what-item">
+<div class="what-check">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+</div>
+<div class="what-content">
+<h3>The original lab certificates</h3>
+<p>Both COAs as issued by Janoshik, with task IDs and verification keys</p>
+</div>
+</div>
+<div class="what-item">
+<div class="what-check">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+</div>
+<div class="what-content">
+<h3>Independent verification link</h3>
+<p>Cross-check directly on janoshik.com for full HPLC data and sample photo</p>
+</div>
+</div>
+</div>
+
+<div class="footer-legal">Research Use Only · Not for Human Consumption<br>© 2026 Vantix Bio</div>
 </div>
 
 <!-- Result Container (shown after verification) -->
