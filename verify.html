@@ -40,11 +40,13 @@ max-width: 100%;
 overflow-x: hidden;
 }
 body { margin: 0 auto; background: var(--bg) !important; min-height: 100vh; position: relative; width: 100%; }
-h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;max-width:100%;word-wrap:break-word}
 .container{max-width:100%;margin:0 auto;padding:0 20px;width:100%;box-sizing:border-box}@media(min-width:768px){.container{padding:0 80px;max-width:1400px}}
 .status-bar{background:var(--navy);padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--bg);display:flex;justify-content:center;align-items:center;gap:24px;max-width:1320px;margin:0 auto;padding:0 20px;width:100%;box-sizing:border-box}@media(max-width:480px){.status-inner{font-size:10px;gap:12px;padding:0 16px}}
-.status-item{display:flex;align-items:center;gap:8px;opacity:.85}
+.status-item{display:flex;align-items:center;gap:8px;opacity:.85;max-width:100%;overflow:hidden}
+.status-text-mobile{display:none}
+@media(max-width:640px){.status-text-desktop{display:none}.status-text-mobile{display:block}}
 .pulse{width:6px;height:6px;border-radius:50%;background:var(--signal);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
 .header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.header-nav{padding:20px 0}}
@@ -61,7 +63,7 @@ h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
 .catalog-link{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text);font-size:15px;font-weight:500}
 .catalog-link svg{width:14px;height:14px;transition:transform .2s;stroke:currentColor;stroke-width:2}
 .nav-item:hover .catalog-link svg{transform:rotate(180deg)}
-.nav-dropdown{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
+.nav-dropdown{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;max-width:90vw;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
 .nav-item:hover .nav-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
 .nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
 .nav-dropdown a:hover{background:var(--bg)}
@@ -77,8 +79,8 @@ h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
 
 .search-card { max-width: 600px; margin: 80px auto 60px; background: white; border: 1px solid var(--hairline); border-radius: 12px; padding: 32px 24px 28px; box-shadow: var(--shadow); }
 @media (max-width: 480px) { .search-card { margin: 24px 16px 40px; padding: 28px 20px 24px; } }
-.search-title { font-family: "Fraunces", serif; font-size: 36px; font-weight: 500; line-height: 1.05; margin-bottom: 12px; color: var(--navy); }
-@media (max-width: 480px) { .search-title { font-size: 32px; margin-bottom: 10px; } }
+.search-title { font-family: "Fraunces", serif; font-size: 36px; font-weight: 500; line-height: 1.05; margin-bottom: 12px; color: var(--navy); max-width: 100%; word-wrap: break-word; }
+@media (max-width: 480px) { .search-title { font-size: 28px; margin-bottom: 10px; } }
 .search-subtitle { font-size: 15px; line-height: 1.5; color: rgba(15,27,45,0.6); margin-bottom: 28px; }
 @media (max-width: 480px) { .search-subtitle { font-size: 14px; margin-bottom: 24px; } }
 .input-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(15,27,45,0.6); margin-bottom: 8px; }
@@ -263,7 +265,8 @@ footer{background:#0B2545;color:#E8EEF5;padding:32px 20px 20px;margin-top:60px;f
 <div class="status-inner">
 <div class="status-item">
 <span class="pulse"></span>
-<span>PRE-LAUNCH — JOIN WAITLIST FOR LAUNCH NOTIFICATION + EXCLUSIVE DISCOUNT</span>
+<span class="status-text-desktop">PRE-LAUNCH — JOIN WAITLIST FOR LAUNCH NOTIFICATION + EXCLUSIVE DISCOUNT</span>
+<span class="status-text-mobile">PRE-LAUNCH — JOIN WAITLIST</span>
 </div>
 </div>
 </div>
