@@ -508,13 +508,36 @@ document.getElementById('lightbox').classList.remove('active');
 document.body.style.overflow = '';
 }
 
+// Input autocomplete and VX- prefix
+const batchInput = document.getElementById('batchInput');
+
+batchInput.addEventListener('input', function() {
+const val = this.value.toUpperCase();
+if (!val.startsWith('VX-') && val.length > 0) {
+batchInput.value = 'VX-' + val.replace('VX-', '');
+}
+});
+
+batchInput.addEventListener('focus', function() {
+if (batchInput.value === '') {
+batchInput.value = 'VX-';
+}
+const cursor = batchInput.value.length;
+batchInput.setSelectionRange(cursor, cursor);
+});
+
+batchInput.addEventListener('click', function() {
+const cursor = batchInput.value.length;
+batchInput.setSelectionRange(cursor, cursor);
+});
+
 // Pre-fill batch ID from URL parameter (don't auto-verify)
 const params = new URLSearchParams(window.location.search);
 const batchParam = params.get('batch') || params.get('id');
 if (batchParam) {
 let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
-document.getElementById('batchInput').value = input;
+batchInput.value = input;
 // Clear any error message
 const errorMsg = document.getElementById('errorMsg');
 if (errorMsg) errorMsg.style.display = 'none';
