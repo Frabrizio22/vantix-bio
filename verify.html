@@ -410,15 +410,16 @@ document.getElementById('lightbox').classList.remove('active');
 document.body.style.overflow = '';
 }
 
-// Auto-trigger verification from URL parameter
+// Pre-fill batch ID from URL parameter (don't auto-verify)
 const params = new URLSearchParams(window.location.search);
 const batchParam = params.get('batch') || params.get('id');
 if (batchParam) {
 let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
 document.getElementById('batchInput').value = input;
-// Small delay to ensure DOM is ready
-setTimeout(() => searchBatch(), 100);
+// Clear any error message
+const errorMsg = document.getElementById('errorMsg');
+if (errorMsg) errorMsg.style.display = 'none';
 }
 </script>
 </body>
