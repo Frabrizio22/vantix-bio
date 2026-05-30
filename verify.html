@@ -33,16 +33,15 @@ font-family: "Geist", -apple-system, sans-serif;
 color-scheme: light !important;
 forced-color-adjust: none;
 }
-body { max-width: 100%; margin: 0 auto; background: #fbf7ec !important; min-height: 100vh; padding-bottom: 40px; position: relative; }
-@media (max-width: 480px) { body { padding-bottom: 24px; } }
+body { max-width: 100%; margin: 0 auto; background: #fbf7ec !important; min-height: 100vh; position: relative; }
 h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
-.container{max-width:100%;margin:0 auto;padding:0 48px}@media(min-width:768px){.container{padding:0 80px;max-width:1400px}}
+.container{max-width:100%;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 80px;max-width:1400px}}
 .status-bar{background:var(--navy);padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--bg);display:flex;justify-content:center;align-items:center;gap:24px;max-width:1320px;margin:0 auto;padding:0 32px}
 .status-item{display:flex;align-items:center;gap:8px;opacity:.85}
 .pulse{width:6px;height:6px;border-radius:50%;background:var(--signal);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
-.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}@media(min-width:768px){.header-nav{padding:20px 0}}
+.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.header-nav{padding:20px 0}}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
 .header-icons{display:flex;align-items:center;gap:8px}
 .icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
@@ -65,8 +64,14 @@ h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
 .btn-dark{background:var(--navy);color:#fff}
 .btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
 
-.search-card { max-width: 600px; margin: 20px auto 40px; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 32px 24px 28px; box-shadow: var(--shadow); }
-@media (max-width: 480px) { .search-card { margin: 12px 16px 32px; padding: 28px 20px 24px; } }
+@media (max-width: 768px) {
+  .header-nav { display: none; }
+  .status-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+  .search-card { margin-top: 80px; }
+}
+
+.search-card { max-width: 600px; margin: 80px auto 60px; background: white; border: 1px solid var(--rule); border-radius: 12px; padding: 32px 24px 28px; box-shadow: var(--shadow); }
+@media (max-width: 480px) { .search-card { margin: 24px 16px 40px; padding: 28px 20px 24px; } }
 .search-title { font-family: "Fraunces", serif; font-size: 36px; font-weight: 500; line-height: 1.05; margin-bottom: 12px; color: var(--navy); }
 @media (max-width: 480px) { .search-title { font-size: 32px; margin-bottom: 10px; } }
 .search-subtitle { font-size: 15px; line-height: 1.5; color: var(--ink-muted); margin-bottom: 28px; }
@@ -115,7 +120,8 @@ h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
 .result-container { display: none; }
 .result-container.active { display: block; }
 
-.hero { padding: 32px 22px 24px; border-bottom: 1px solid var(--rule); }
+.hero { padding: 32px 22px 24px; border-bottom: 1px solid var(--rule); margin-top: 60px; }
+@media (max-width: 768px) { .hero { margin-top: 80px; } }
 .verified-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--green-soft); color: var(--green); padding: 7px 12px 7px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 22px; }
 .verified-pill svg { width: 14px; height: 14px; }
 .product-name { font-family: "Fraunces", serif; font-weight: 500; font-size: 44px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 14px; }
@@ -218,7 +224,7 @@ font-weight: 500;
 .lightbox img { max-width: 100%; height: auto; background: white; }
 .lightbox-close { position: fixed; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: white; border: none; cursor: pointer; font-size: 22px; color: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 101; }
 
-footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geist',-apple-system,sans-serif}@media(min-width:768px){footer{padding:60px 40px 32px}}
+footer{background:#0B2545;color:#E8EEF5;padding:48px 20px 32px;margin-top:80px;font-family:'Geist',-apple-system,sans-serif}@media(min-width:768px){footer{padding:60px 40px 32px}}
 .footer-inner{max-width:1200px;margin:0 auto}
 .footer-brand{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
 .footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:8px;text-decoration:none;color:inherit}
