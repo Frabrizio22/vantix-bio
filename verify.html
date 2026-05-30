@@ -169,6 +169,7 @@ font-weight: 500;
 <div class="search-card" id="searchCard">
 <h2 style="font-family: 'Fraunces', serif; font-size: 28px; margin-bottom: 12px;">Verify Batch</h2>
 <p style="color: var(--ink-muted); font-size: 14px; margin-bottom: 24px;">Enter your batch ID to view complete Janoshik verification</p>
+<div id="errorMsg" style="display: none; color: #d32f2f; background: #ffebee; padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid #d32f2f;"></div>
 <input type="text" id="batchInput" class="search-input" placeholder="VX-MOTS10-001" maxlength="30">
 <button class="search-btn" onclick="searchBatch()">Verify Batch</button>
 </div>
@@ -301,7 +302,14 @@ let input = document.getElementById('batchInput').value.trim().toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
 const batch = batches[input];
 if (!batch) {
-alert('Batch not found. Please check the batch ID and try again.');
+// Show search card with error message instead of blocking alert
+document.getElementById('searchCard').style.display = 'block';
+document.getElementById('resultContainer').classList.remove('active');
+const errorMsg = document.getElementById('errorMsg');
+if (errorMsg) {
+errorMsg.textContent = 'Batch ' + input + ' not found. Janoshik COA pending or batch ID invalid.';
+errorMsg.style.display = 'block';
+}
 return;
 }
 showResults(input, batch);
@@ -409,7 +417,8 @@ if (batchParam) {
 let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
 document.getElementById('batchInput').value = input;
-searchBatch();
+// Small delay to ensure DOM is ready
+setTimeout(() => searchBatch(), 100);
 }
 </script>
 </body>
