@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Research Peptides Catalog — Vantix Bio</title>
 <meta name="description" content="12 research peptides with batch-level Janoshik verification. HPLC purity, LC-MS identity, and endotoxin testing for every batch.">
 <link rel="canonical" href="https://vantixbio.com/shop.html">
@@ -503,12 +503,12 @@ function joinWaitlist(productName) {
     <h3 style="font-size:20px;margin-bottom:6px;font-family:'Fraunces',serif;font-weight:300">Select Quantity</h3>
     <p id="qtyProductName" style="color:rgba(10,22,40,.5);margin-bottom:32px;font-size:13px">MOTS-C 10mg</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:32px">
-      <button onclick="updateQty(-1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
-        <span style="margin-bottom:4px;user-select:none">−</span>
+      <button onclick="updateQty(-1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
+        <span style="margin-bottom:4px;user-select:none;pointer-events:none">−</span>
       </button>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:600;min-width:80px;text-align:center" id="qtyValue">1</div>
-      <button onclick="updateQty(1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
-        <span style="margin-bottom:4px;user-select:none">+</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:600;min-width:80px;text-align:center;touch-action:none;user-select:none" id="qtyValue">1</div>
+      <button onclick="updateQty(1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
+        <span style="margin-bottom:4px;user-select:none;pointer-events:none">+</span>
       </button>
     </div>
     <button onclick="confirmQuickAdd()" style="width:100%;padding:16px 24px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;font-family:'Geist',sans-serif" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Add to Cart</button>
