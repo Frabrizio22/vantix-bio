@@ -376,15 +376,23 @@ if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 
 // Quick Add - Premium E-commerce UX
 function quickAdd(sku, productName, price) {
-  let cart = JSON.parse(localStorage.getItem('vantix_cart') || '[]');
+  const quantity = parseInt(prompt(`How many vials of ${productName}?`, '1'));
+  if (!quantity || quantity < 1) return;
+  
+  let cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
   const existing = cart.find(item => item.sku === sku);
   if (existing) {
-    existing.quantity += 1;
+    existing.quantity += quantity;
   } else {
-    cart.push({sku, name: productName, price, quantity: 1});
+    cart.push({sku, name: productName, price, quantity});
   }
-  localStorage.setItem('vantix_cart', JSON.stringify(cart));
-  showToast(`${productName} added to cart`);
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  showToast(`${quantity}x ${productName} added to cart`);
+  
+  // Redirect to checkout after short delay
+  setTimeout(() => {
+    window.location.href = 'checkout.html';
+  }, 1500);
 }
 
 function showToast(message) {
