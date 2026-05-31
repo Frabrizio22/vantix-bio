@@ -185,7 +185,7 @@ const VX_PRODUCTS = {
             cogs: 16.01,
             image: 'images/products/mots-c-10mg.jpg',
             url: 'products/mots-c.html',
-            inStock: false,
+            inStock: true,
             dualTested: true
         },
         {
