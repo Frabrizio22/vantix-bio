@@ -375,21 +375,49 @@ if (searchBtn) searchBtn.onclick = () => menuOverlay.classList.add('active');
 if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 
 // Quick Add - Premium E-commerce UX
+let currentQuickAddProduct = null;
+
 function quickAdd(sku, productName, price) {
-  const quantity = parseInt(prompt(`How many vials of ${productName}?`, '1'));
-  if (!quantity || quantity < 1) return;
+  currentQuickAddProduct = {sku, name: productName, price};
+  document.getElementById('qtyProductName').textContent = productName;
+  document.getElementById('qtyValue').textContent = '1';
+  document.getElementById('quickAddModal').classList.add('active');
+}
+
+function closeQuickAdd() {
+  document.getElementById('quickAddModal').classList.remove('active');
+  currentQuickAddProduct = null;
+}
+
+function updateQty(change) {
+  const qtyEl = document.getElementById('qtyValue');
+  let qty = parseInt(qtyEl.textContent);
+  qty = Math.max(1, qty + change);
+  qtyEl.textContent = qty;
+}
+
+function confirmQuickAdd() {
+  if (!currentQuickAddProduct) return;
   
+  const quantity = parseInt(document.getElementById('qtyValue').textContent);
   let cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
-  const existing = cart.find(item => item.sku === sku);
+  
+  const existing = cart.find(item => item.sku === currentQuickAddProduct.sku);
   if (existing) {
     existing.quantity += quantity;
   } else {
-    cart.push({sku, name: productName, price, quantity});
+    cart.push({
+      sku: currentQuickAddProduct.sku,
+      name: currentQuickAddProduct.name,
+      price: currentQuickAddProduct.price,
+      quantity
+    });
   }
-  localStorage.setItem('vantixCart', JSON.stringify(cart));
-  showToast(`${quantity}x ${productName} added to cart`);
   
-  // Redirect to checkout after short delay
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  closeQuickAdd();
+  showToast(`${quantity}x ${currentQuickAddProduct.name} added to cart`);
+  
   setTimeout(() => {
     window.location.href = 'checkout.html';
   }, 1500);
@@ -455,6 +483,27 @@ function joinWaitlist(productName) {
       <h3 style="font-size:22px;margin-bottom:8px">You're on the list</h3>
       <p style="margin-bottom:0">We'll notify you when this product is in stock.</p>
     </div>
+  </div>
+</div>
+
+<!-- Quick Add Modal -->
+<div class="waitlist-modal" id="quickAddModal">
+  <div class="waitlist-modal-content" style="max-width:400px">
+    <button class="waitlist-modal-close" onclick="closeQuickAdd()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+    <h3 style="font-size:22px;margin-bottom:8px">Select Quantity</h3>
+    <p id="qtyProductName" style="color:rgba(10,22,40,.6);margin-bottom:24px;font-size:14px">MOTS-C 10mg</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:24px">
+      <button onclick="updateQty(-1)" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
+        <span style="margin-bottom:3px">−</span>
+      </button>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;min-width:60px;text-align:center" id="qtyValue">1</div>
+      <button onclick="updateQty(1)" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
+        <span style="margin-bottom:3px">+</span>
+      </button>
+    </div>
+    <button onclick="confirmQuickAdd()" style="width:100%;padding:14px 24px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Add to Cart</button>
   </div>
 </div>
 
