@@ -52,11 +52,14 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .hero{padding:60px 0 40px;border-bottom:1px solid var(--hairline)}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
-.filters{display:flex;gap:24px;padding:20px 0 20px 20px;border-bottom:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:37px;background:var(--bg);z-index:50;scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth}
+.filters{display:flex;gap:16px;padding:16px 20px;border-bottom:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:37px;background:var(--bg);z-index:50;scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth;justify-content:flex-start}
 .filters::-webkit-scrollbar{display:none}
-.filter-item{color:rgba(10,22,40,.5);cursor:pointer;white-space:nowrap;transition:color .3s;position:relative}
+.filter-item{color:rgba(10,22,40,.5);cursor:pointer;white-space:nowrap;transition:color .3s,background .3s;position:relative;padding:8px 16px;border-radius:20px;background:transparent;flex-shrink:0;touch-action:manipulation}
 .filter-item:hover,.filter-item.active{color:var(--accent)}
-.filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}
+.filter-item.active{background:rgba(57,115,176,.08);color:var(--accent)}
+.filter-mobile{display:inline}
+.filter-desktop{display:none}
+@media(min-width:768px){.filter-mobile{display:none}.filter-desktop{display:inline}.filters{font-size:11px;gap:24px;padding:20px 20px;justify-content:flex-start}.filter-item{padding:0;border-radius:0;background:transparent}.filter-item.active{background:transparent}.filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}}
 .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
 .product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:12px;transition:all .3s;position:relative;cursor:pointer}@media(min-width:768px){.product-card{padding:24px}}
 .product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--bg)}
@@ -216,10 +219,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 </div>
 
 <div class="filters" id="filters">
-<div class="filter-item active" data-category="all">All</div>
-<div class="filter-item" data-category="glp1-gip">GLP-1 / GIP Agonists</div>
-<div class="filter-item" data-category="gh-peptides">Growth Hormone Peptides</div>
-<div class="filter-item" data-category="specialty">Specialty Compounds</div>
+<div class="filter-item active" data-category="all"><span class="filter-mobile">All</span><span class="filter-desktop">All</span></div>
+<div class="filter-item" data-category="glp1-gip"><span class="filter-mobile">GLP-1/GIP</span><span class="filter-desktop">GLP-1 / GIP Agonists</span></div>
+<div class="filter-item" data-category="gh-peptides"><span class="filter-mobile">GH Peptides</span><span class="filter-desktop">Growth Hormone Peptides</span></div>
+<div class="filter-item" data-category="specialty"><span class="filter-mobile">Specialty</span><span class="filter-desktop">Specialty Compounds</span></div>
 </div>
 
 <div class="products-grid" id="productsGrid"></div>
