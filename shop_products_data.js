@@ -182,7 +182,7 @@ const VX_PRODUCTS = {
             dosage: '10mg',
             purity: '>99%',
             price: 32,
-            cogs: 16.01,
+            cogs: 22.00,
             image: 'images/products/mots-c-10mg.jpg',
             url: 'products/mots-c.html',
             inStock: true,
