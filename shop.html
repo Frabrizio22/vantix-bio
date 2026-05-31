@@ -83,7 +83,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 .oos-badge{display:none}
 
 /* Waitlist Modal */
-.waitlist-modal{position:fixed;inset:0;background:rgba(10,22,40,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.waitlist-modal{position:fixed;inset:0;background:rgba(10,22,40,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .waitlist-modal.active{display:flex}
 .waitlist-modal-content{background:var(--bg);border-radius:16px;padding:40px 32px;max-width:480px;width:100%;position:relative}
 .waitlist-modal-close{position:absolute;top:16px;right:16px;background:none;border:none;padding:8px;cursor:pointer;color:var(--text);opacity:.6}
@@ -488,22 +488,22 @@ function joinWaitlist(productName) {
 
 <!-- Quick Add Modal -->
 <div class="waitlist-modal" id="quickAddModal">
-  <div class="waitlist-modal-content" style="max-width:400px">
+  <div class="waitlist-modal-content" style="max-width:360px;width:calc(100% - 40px);padding:32px 24px">
     <button class="waitlist-modal-close" onclick="closeQuickAdd()">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
     </button>
-    <h3 style="font-size:22px;margin-bottom:8px">Select Quantity</h3>
-    <p id="qtyProductName" style="color:rgba(10,22,40,.6);margin-bottom:24px;font-size:14px">MOTS-C 10mg</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:24px">
-      <button onclick="updateQty(-1)" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
-        <span style="margin-bottom:3px">−</span>
+    <h3 style="font-size:20px;margin-bottom:6px;font-family:'Fraunces',serif;font-weight:300">Select Quantity</h3>
+    <p id="qtyProductName" style="color:rgba(10,22,40,.5);margin-bottom:32px;font-size:13px">MOTS-C 10mg</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:32px">
+      <button onclick="updateQty(-1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
+        <span style="margin-bottom:4px;user-select:none">−</span>
       </button>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;min-width:60px;text-align:center" id="qtyValue">1</div>
-      <button onclick="updateQty(1)" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
-        <span style="margin-bottom:3px">+</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:600;min-width:80px;text-align:center" id="qtyValue">1</div>
+      <button onclick="updateQty(1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
+        <span style="margin-bottom:4px;user-select:none">+</span>
       </button>
     </div>
-    <button onclick="confirmQuickAdd()" style="width:100%;padding:14px 24px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Add to Cart</button>
+    <button onclick="confirmQuickAdd()" style="width:100%;padding:16px 24px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;font-family:'Geist',sans-serif" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Add to Cart</button>
   </div>
 </div>
 
