@@ -149,7 +149,7 @@ const VX_PRODUCTS = {
             purity: '>99%',
             price: 52,
             cogs: 20.03,
-            image: 'images/tesamorelin.jpg',
+            image: 'images/products/coming-soon.svg',
             url: 'products/tesamorelin.html',
             inStock: false,
             dualTested: true
@@ -165,7 +165,7 @@ const VX_PRODUCTS = {
             purity: '>99%',
             price: 52,
             cogs: 21.03,
-            image: 'images/aod-9604.jpg',
+            image: 'images/products/coming-soon.svg',
             url: 'products/aod-9604.html',
             inStock: false,
             dualTested: true
@@ -203,11 +203,7 @@ const VX_PRODUCTS = {
             url: 'products/nad-plus.html',
             inStock: false,
             dualTested: true
-        }
-    ],
-    
-    // PHASE 2 - Coming Soon (Future expansion)
-    phase2: [
+        },
         {
             sku: 'VX-MT2-10',
             name: 'Melanotan II 10mg',
@@ -219,12 +215,15 @@ const VX_PRODUCTS = {
             purity: '>99%',
             price: 28,
             cogs: 9.50,
-            image: 'images/melanotan-2.jpg',
+            image: 'images/products/coming-soon.svg',
             url: 'products/melanotan-2.html',
             inStock: false,
-            comingSoon: true,
-            dualTested: false
+            dualTested: true
         }
+    ],
+    
+    // PHASE 2 - Coming Soon (Future expansion)
+    phase2: [
     ],
     
     // RESEARCH STACKS - Clinical-grade protocol bundles
