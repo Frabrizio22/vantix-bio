@@ -264,8 +264,8 @@ function renderProducts(filter='all'){
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
         ${p.inStock 
-          ? `<a href="products/${p.slug}.html" class="btn btn-dark btn-waitlist" style="text-decoration:none">View Product</a><a href="verify.html" class="coa-link" onclick="event.stopPropagation()">COA →</a>`
-          : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}')">Join Waitlist</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View →</a>`
+          ? `<button class="btn btn-dark btn-waitlist" onclick="window.location.href='products/${p.slug}.html'">Add to Cart</button><a href="verify.html?batch=${p.sku}" class="coa-link" onclick="event.stopPropagation()">View COA →</a>`
+          : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}')">Join Waitlist</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
     </div>
