@@ -124,6 +124,10 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
+.toast-notification{position:fixed;bottom:-100px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px 20px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:9999;transition:bottom .3s ease;max-width:90%;width:auto}
+.toast-notification.show{bottom:24px}
+.toast-content{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;color:var(--text)}
+@media(min-width:768px){.toast-notification{max-width:480px}}
 </style>
 </head>
 <body>
@@ -264,7 +268,7 @@ function renderProducts(filter='all'){
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
         ${p.inStock 
-          ? `<button class="btn btn-dark btn-waitlist" onclick="window.location.href='products/${p.slug}.html'">Add to Cart</button><a href="verify.html?batch=${p.sku}" class="coa-link" onclick="event.stopPropagation()">View COA →</a>`
+          ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.name}', ${p.price}); event.stopPropagation()">Quick Add</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Product →</a>`
           : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}')">Join Waitlist</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
@@ -369,6 +373,33 @@ if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
 if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => menuOverlay.classList.add('active');
 if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
+
+// Quick Add - Premium E-commerce UX
+function quickAdd(sku, productName, price) {
+  let cart = JSON.parse(localStorage.getItem('vantix_cart') || '[]');
+  const existing = cart.find(item => item.sku === sku);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({sku, name: productName, price, quantity: 1});
+  }
+  localStorage.setItem('vantix_cart', JSON.stringify(cart));
+  showToast(`${productName} added to cart`);
+}
+
+function showToast(message) {
+  const existing = document.querySelector('.toast-notification');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification';
+  toast.innerHTML = `<div class="toast-content"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:#7BA88F;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>${message}</span><button onclick="window.location.href='checkout.html'" style="background:var(--navy);color:#fff;border:none;padding:6px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">View Cart</button></div>`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
 
 function joinWaitlist(productName) {
   var email = prompt('Enter your email to join the waitlist for ' + productName + ':');
