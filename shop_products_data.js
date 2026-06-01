@@ -18,7 +18,7 @@ const VX_PRODUCTS = {
             cogs: 17.38,
             image: 'images/products/tirzepatide-30mg.jpg',
             url: 'products/tirzepatide.html',
-            inStock: false,
+            inStock: true,
             dualTested: true
         },
         {
@@ -34,7 +34,7 @@ const VX_PRODUCTS = {
             cogs: 19.98,
             image: 'images/products/retatrutide-20mg.jpg',
             url: 'products/retatrutide.html',
-            inStock: false,
+            inStock: true,
             dualTested: true
         },
 
@@ -201,7 +201,7 @@ const VX_PRODUCTS = {
             cogs: 18.16,
             image: 'images/products/nad-1000mg.jpg',
             url: 'products/nad-plus.html',
-            inStock: false,
+            inStock: true,
             dualTested: true
         },
         {
