@@ -56,6 +56,8 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .filters{display:inline-flex;gap:12px;padding:16px 20px 16px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;background:var(--bg);min-width:100%;width:max-content}
 .filters-wrapper{overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;position:sticky;top:37px;z-index:50;border-bottom:1px solid var(--hairline)}
 .filters-wrapper::-webkit-scrollbar{display:none}
+.filters-wrapper::after{content:'›';position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:24px;color:var(--accent);pointer-events:none;opacity:.4;font-weight:300;animation:pulse-hint 2s infinite}@keyframes pulse-hint{0%,100%{opacity:.4}50%{opacity:.15}}
+@media(max-width:640px){.filters-wrapper.scrolled::after{display:none}}
 
 .filters::-webkit-scrollbar{display:none}
 .filters::-webkit-scrollbar{display:none}
@@ -299,6 +301,18 @@ document.querySelectorAll('.filter-item').forEach(f => {
 });
 
 renderProducts();
+
+// Hide scroll hint when user scrolls
+const filtersWrapper = document.querySelector('.filters-wrapper');
+if (filtersWrapper) {
+  filtersWrapper.addEventListener('scroll', () => {
+    if (filtersWrapper.scrollLeft > 10) {
+      filtersWrapper.classList.add('scrolled');
+    } else {
+      filtersWrapper.classList.remove('scrolled');
+    }
+  });
+}
 
 // Waitlist Modal Functions
 let currentProductSlug = '';
