@@ -61,11 +61,17 @@ h2{font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-.015em;margin-bottom:14px;
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
-.hero{padding:60px 0 48px;text-align:center;border-bottom:1px solid var(--hairline)}@media(max-width:640px){.hero{padding:40px 0 32px}}
+.hero{padding:60px 0 48px;text-align:center;background:linear-gradient(180deg,rgba(57,115,176,.03) 0%,var(--bg) 100%);border-bottom:1px solid var(--hairline)}@media(max-width:640px){.hero{padding:40px 0 32px}}
 .hero p{margin-top:20px;color:rgba(10,22,40,.65);font-size:17px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto}@media(max-width:640px){.hero p{font-size:16px;line-height:1.6;padding:0 8px}}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:720px;margin:40px auto;padding:0 20px}@media(max-width:640px){.stats-grid{grid-template-columns:1fr;gap:16px}}
+.stat-card{text-align:center;padding:28px 20px;background:#fff;border:1px solid var(--hairline);border-radius:10px;transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(57,115,176,.12)}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;color:var(--accent);margin-bottom:8px;line-height:1}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);font-weight:600}
 .content{padding:56px 0}@media(max-width:640px){.content{padding:48px 0}}
 .content p{font-size:17px;line-height:1.7;color:rgba(10,22,40,.75);margin-bottom:20px}@media(max-width:640px){.content p{font-size:16px;line-height:1.65;margin-bottom:18px}}
-.content h2{margin:48px 0 16px;color:var(--navy);letter-spacing:-.01em}@media(max-width:640px){.content h2{margin:40px 0 14px;font-size:1.5rem}}
+.content h2{margin:48px 0 16px;color:var(--navy);letter-spacing:-.01em;padding-top:48px;border-top:1px solid var(--hairline)}@media(max-width:640px){.content h2{margin:40px 0 14px;font-size:1.5rem;padding-top:40px}}
+.content h2:first-child{border-top:none;padding-top:0;margin-top:0}
 .content h2:first-child{margin-top:0}
 .content strong{color:var(--navy);font-weight:600}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
@@ -152,6 +158,21 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 <div class="hero">
 <h1>About</h1>
 <p>Research peptides with batch-level verification. Independently tested before release.</p>
+</div>
+
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-value">13</div>
+<div class="stat-label">Products</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">>99%</div>
+<div class="stat-label">Purity</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">3</div>
+<div class="stat-label">Test Methods</div>
+</div>
 </div>
 
 <div class="content">
