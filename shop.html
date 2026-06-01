@@ -53,7 +53,9 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .hero{padding:60px 0 40px;border-bottom:1px solid var(--hairline)}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
-.filters{display:flex;gap:12px;padding:16px 0 16px 20px;border-bottom:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;position:sticky;top:37px;background:var(--bg);z-index:50;scrollbar-width:none;-ms-overflow-style:none}
+.filters{display:inline-flex;gap:12px;padding:16px 0 16px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;background:var(--bg);min-width:100%;width:max-content}
+.filters-wrapper{overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;position:sticky;top:37px;z-index:50;border-bottom:1px solid var(--hairline)}
+.filters-wrapper::-webkit-scrollbar{display:none}
 .filter-item:last-child{margin-right:20px}
 .filters::-webkit-scrollbar{display:none}
 .filters::-webkit-scrollbar{display:none}
@@ -223,11 +225,13 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <p style="margin-top:20px;max-width:640px;color:rgba(10,22,40,.7);font-size:17px">12 independently tested compounds. Every batch verified through Janoshik before release.</p>
 </div>
 
+<div class="filters-wrapper">
 <div class="filters" id="filters">
 <div class="filter-item active" data-category="all"><span class="filter-mobile">All</span><span class="filter-desktop">All</span></div>
 <div class="filter-item" data-category="glp1-gip"><span class="filter-mobile">GLP-1/GIP</span><span class="filter-desktop">GLP-1 / GIP Agonists</span></div>
 <div class="filter-item" data-category="gh-peptides"><span class="filter-mobile">GH Peptides</span><span class="filter-desktop">Growth Hormone Peptides</span></div>
 <div class="filter-item" data-category="specialty"><span class="filter-mobile">Specialty</span><span class="filter-desktop">Specialty Compounds</span></div>
+</div>
 </div>
 
 <div class="products-grid" id="productsGrid"></div>
