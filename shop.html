@@ -70,7 +70,7 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 @media(min-width:768px){.filter-mobile{display:none}.filter-desktop{display:inline}.filters{font-size:11px;gap:24px;padding:20px 20px;justify-content:flex-start}.filters::after{display:none}.filter-item{padding:0;border-radius:0;background:transparent}.filter-item.active{background:transparent}.filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}}
 .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
 .product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:10px;transition:all .3s;position:relative;cursor:pointer}@media(min-width:768px){.product-card{padding:20px}}
-.product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--bg)}
+.product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--hairline)}
 .oos-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);text-align:center;padding:4px 0;border-top:1px solid var(--hairline);margin-bottom:8px}
 .product-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .product-category{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(57,115,176,.7);margin-bottom:4px}@media(min-width:768px){.product-category{font-size:9px;margin-bottom:8px}}
@@ -271,7 +271,7 @@ function renderProducts(filter='all'){
   
   document.getElementById('productsGrid').innerHTML = filtered.map(p => `
     <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">
-      ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
+      ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image" loading="lazy" decoding="async">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
       ${!p.inStock ? '<div class="oos-label">COA Pending</div>' : ''}
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
