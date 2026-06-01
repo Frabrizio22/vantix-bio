@@ -279,7 +279,36 @@ if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=up
 
 function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
 
+// Auto-bundle cart items into kits when applicable
+function autoBundleKits(){
+var kits=[
+{name:'Tissue Repair Kit',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
+{name:'GH Axis Kit',price:62,skus:['VX-CJC-10','VX-IPA-5'],newSku:'VX-KIT-GH'},
+{name:'Next-Gen Agonist Kit',price:115,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
+{name:'Mitochondrial Kit',price:90,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
+];
+for(var k=0;k<kits.length;k++){
+var kit=kits[k];
+var item1=cart.find(item=>item.sku===kit.skus[0]);
+var item2=cart.find(item=>item.sku===kit.skus[1]);
+if(item1&&item2){
+var bundleQty=Math.min(item1.quantity,item2.quantity);
+if(bundleQty>0){
+item1.quantity-=bundleQty;
+item2.quantity-=bundleQty;
+var existing=cart.find(item=>item.sku===kit.newSku);
+if(existing){existing.quantity+=bundleQty;}
+else{cart.push({sku:kit.newSku,name:kit.name,price:kit.price,quantity:bundleQty});}
+if(item1.quantity===0)cart=cart.filter(item=>item.sku!==kit.skus[0]);
+if(item2.quantity===0)cart=cart.filter(item=>item.sku!==kit.skus[1]);
+}
+}
+}
+saveCart();
+}
+
 function renderCart(){
+autoBundleKits();
 var container=document.getElementById('cartItems');
 if(cart.length===0){
 container.innerHTML='<div class="cart-empty">Your cart is empty<br><br><a href="shop.html">Browse Products →</a></div>';
