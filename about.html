@@ -24,8 +24,8 @@
 html,body{max-width:100%;overflow-x:hidden}
 body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
-h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em;line-height:1.2;padding:0 20px}@media(max-width:640px){h1{font-size:2.25rem}}
-h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
+h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em;line-height:1.2;padding:0 20px;margin-bottom:16px}@media(max-width:640px){h1{font-size:2.25rem}}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-.015em;margin-bottom:14px;color:var(--navy)}
 .container{max-width:900px;margin:0 auto;padding:0 48px}@media(min-width:768px){.container{padding:0 80px}}
 .status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
@@ -65,7 +65,7 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .hero p{margin-top:20px;color:rgba(10,22,40,.65);font-size:17px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto}@media(max-width:640px){.hero p{font-size:16px;line-height:1.6;padding:0 8px}}
 .content{padding:56px 0}@media(max-width:640px){.content{padding:48px 0}}
 .content p{font-size:17px;line-height:1.7;color:rgba(10,22,40,.75);margin-bottom:20px}@media(max-width:640px){.content p{font-size:16px;line-height:1.65;margin-bottom:18px}}
-.content h2{margin:56px 0 20px;color:var(--navy);letter-spacing:-.01em}@media(max-width:640px){.content h2{margin:48px 0 18px;font-size:1.75rem}}
+.content h2{margin:48px 0 16px;color:var(--navy);letter-spacing:-.01em}@media(max-width:640px){.content h2{margin:40px 0 14px;font-size:1.5rem}}
 .content h2:first-child{margin-top:0}
 .content strong{color:var(--navy);font-weight:600}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
@@ -150,7 +150,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <div class="container">
 <div class="hero">
-<h1>About Vantix Bio</h1>
+<h1>About</h1>
 <p>Research peptides with third-party verification.<br>Every batch independently tested by Janoshik before release.</p>
 </div>
 
@@ -165,13 +165,15 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 
 <p>We chose Janoshik because their reputation is built on accuracy, not vendor relationships. Independent labs that prioritize data integrity over customer satisfaction are rare. Janoshik is one of them.</p>
 
-<h2>What We Don't Do</h2>
+<div style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border:2px solid #bae6fd;border-radius:12px;padding:32px 28px;margin:48px 0">
+<h2 style="margin-bottom:20px">What We Don't Do</h2>
 
-<p style="margin-bottom:16px"><strong>We don't sell manufacturer claims.</strong><br>Every product enters our system with zero assumptions. No COAs, no purity data, no trust. We verify first, label second.</p>
+<p style="margin-bottom:18px;line-height:1.7"><strong style="color:var(--navy)">We don't sell manufacturer claims.</strong><br>Every product enters our system with zero assumptions. No COAs, no purity data, no trust. We verify first, label second.</p>
 
-<p style="margin-bottom:16px"><strong>We don't cherry-pick batches.</strong><br>Samples are randomly selected from sealed production runs. What we test is what you receive.</p>
+<p style="margin-bottom:18px;line-height:1.7"><strong style="color:var(--navy)">We don't cherry-pick batches.</strong><br>Samples are randomly selected from sealed production runs. What we test is what you receive.</p>
 
-<p style="margin-bottom:32px"><strong>We don't hide results.</strong><br>Complete COAs are published to our verification portal before any batch is released. Chromatograms, mass spectra, endotoxin data — all public, no login required.</p>
+<p style="margin-bottom:0;line-height:1.7"><strong style="color:var(--navy)">We don't hide results.</strong><br>Complete COAs are published to our verification portal before any batch is released. Chromatograms, mass spectra, endotoxin data — all public, no login required.</p>
+</div>
 
 <h2>Research Use Only</h2>
 <p>All products are sold for research purposes only (RUO). They are not FDA-approved, not for human consumption, and not intended to diagnose, treat, cure, or prevent any disease.</p>
