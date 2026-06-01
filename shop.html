@@ -46,6 +46,7 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
 .icon-btn:hover{opacity:.6}
 .icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
+.cart-badge{position:absolute;top:-4px;right:-6px;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 5px;pointer-events:none}
 .btn{padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}
 .btn-dark{background:var(--navy);color:#fff}
 .btn-dark:hover{background:var(--accent)}
@@ -173,8 +174,9 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <button class="icon-btn" id="searchBtn" aria-label="Search">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
 </button>
-<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026" style="position:relative">
+<button class="icon-btn" id="cartBtn" aria-label="Cart" style="position:relative">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+<span class="cart-badge" id="cartBadge" style="display:none">0</span>
 </button>
 </div>
 </nav>
@@ -382,6 +384,27 @@ if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => menuOverlay.classList.add('active');
 if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 
+// Update cart badge
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const badge = document.getElementById('cartBadge');
+  if (badge) {
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+}
+
+// Update badge on page load
+updateCartBadge();
+
+// Listen for storage changes (when items added)
+window.addEventListener('storage', updateCartBadge);
+
 // Quick Add - Premium E-commerce UX
 let currentQuickAddProduct = null;
 
@@ -423,6 +446,7 @@ function confirmQuickAdd() {
   }
   
   localStorage.setItem('vantixCart', JSON.stringify(cart));
+  updateCartBadge();
   closeQuickAdd();
   showToast(`${quantity}x ${currentQuickAddProduct.name} added to cart`);
   
