@@ -285,16 +285,12 @@ function renderProducts(filter='all'){
 }
 
 document.querySelectorAll('.filter-item').forEach(f => {
-  // Use touchstart for immediate response on mobile, click for desktop
   const handleFilter = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
     document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
     f.classList.add('active');
     renderProducts(f.dataset.category);
   };
   
-  f.addEventListener('touchstart', handleFilter, {passive: false});
   f.addEventListener('click', handleFilter);
 });
 
