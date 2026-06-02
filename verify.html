@@ -906,17 +906,21 @@ const batchAliases = {
 'VX-RETA20-001': 'VX-RETA20-002'
 };
 
+// Check if this came from a product link (auto-submit) or QR/batch link (pre-fill only)
+const isProductLink = params.get('product') && !params.get('batch') && !params.get('id');
+
 if (batchParam) {
 let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
 // Check aliases
 if (batchAliases[input]) input = batchAliases[input];
 batchInput.value = input;
-if (input.length >= 13) {
-// Hide search card and trigger verification immediately
-document.getElementById('searchCard').style.display = 'none';
 searchButton.classList.add('ready');
 searchButton.disabled = false;
+
+if (isProductLink && input.length >= 13) {
+// Product links: auto-submit and go straight to results
+document.getElementById('searchCard').style.display = 'none';
 // Trigger search immediately (no delay)
 searchButton.click();
 }
