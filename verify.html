@@ -905,10 +905,12 @@ let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
 batchInput.value = input;
 if (input.length >= 13) {
+// Hide search card and trigger verification immediately
+document.getElementById('searchCard').style.display = 'none';
 searchButton.classList.add('ready');
 searchButton.disabled = false;
-// Auto-submit to show results immediately
-setTimeout(() => searchButton.click(), 100);
+// Trigger search immediately (no delay)
+searchButton.click();
 }
 }
 
