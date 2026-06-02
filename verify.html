@@ -907,6 +907,8 @@ batchInput.value = input;
 if (input.length >= 13) {
 searchButton.classList.add('ready');
 searchButton.disabled = false;
+// Auto-submit to show results immediately
+setTimeout(() => searchButton.click(), 100);
 }
 }
 
