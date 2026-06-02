@@ -888,7 +888,8 @@ const productToBatch = {
 'tirzepatide': 'VX-TIRZ30-001',
 'retatrutide': 'VX-RETA20-002',
 'nad-plus': 'VX-NAD1K-001',
-'mots-c': 'VX-MOTS10-001'
+'mots-c': 'VX-MOTS10-001',
+'ghk-cu': 'VX-GHK100-001'
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -900,9 +901,16 @@ const mapped = productToBatch[batchParam.toLowerCase()];
 if (mapped) batchParam = mapped;
 }
 
+// Batch aliases (QR codes may reference old batch numbers)
+const batchAliases = {
+'VX-RETA20-001': 'VX-RETA20-002'
+};
+
 if (batchParam) {
 let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
+// Check aliases
+if (batchAliases[input]) input = batchAliases[input];
 batchInput.value = input;
 if (input.length >= 13) {
 // Hide search card and trigger verification immediately
