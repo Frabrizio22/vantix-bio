@@ -651,7 +651,34 @@ imageUrl: '/coa/VX-NAD1k-001-purity.png'
 'VX-TB10-001': { name: 'TB-500 10mg' },
 'VX-CJC10-001': { name: 'CJC-1295 10mg' },
 'VX-IPA5-001': { name: 'Ipamorelin 5mg' },
-'VX-GHK100-001': { name: 'GHK-Cu 100mg' },
+'VX-GHK100-001': {
+name: 'GHK-Cu 100mg',
+content: '108.58',
+contentUnit: 'mg/vial',
+purity: '99.958',
+tested: 'June 1, 2026',
+contentSpec: '≥ 100 mg spec',
+puritySpec: '≥ 99% spec',
+tests: [
+{
+title: 'Purity & Content',
+taskId: '165872',
+date: '01 Jun 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content (Total)', value: '108.58', unit: 'mg/vial', large: true },
+{ key: 'GHK Content', value: '91.18', unit: 'mg' },
+{ key: 'Copper Content', value: '17.40', unit: 'mg' },
+{ key: 'Purity', value: '99.958', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
+],
+verifyUrl: 'https://janoshik.com/verify/',
+verifyKey: 'UW7KTUA5BDFS',
+downloadUrl: '/coa/VX-GHK100-001-purity.pdf',
+imageUrl: 'img/vx-ghk100-001-purity.jpg'
+}
+]
+},
 'VX-TESA10-001': { name: 'Tesamorelin 10mg' },
 'VX-AOD10-001': { name: 'AOD-9604 10mg' }
 };
