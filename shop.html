@@ -267,7 +267,9 @@ const categoryMap = {
 
 function renderProducts(filter='all'){
   const allProducts = VX_PRODUCTS.phase1;
-  const filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
+  let filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
+  // In-stock products first
+  filtered = [...filtered].sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0));
   
   document.getElementById('productsGrid').innerHTML = filtered.map(p => `
     <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">

@@ -101,7 +101,7 @@ const VX_PRODUCTS = {
             cogs: 11.16,
             image: 'images/products/ghk-cu-100mg.jpg',
             url: 'products/ghk-cu.html',
-            inStock: false,
+            inStock: true,
             dualTested: true
         },
         
