@@ -577,8 +577,9 @@ name: 'Retatrutide 20mg',
 content: '21.95',
 contentUnit: 'mg/vial',
 purity: '99.440',
-endotoxin: 'Not tested',
-endotoxinUnit: '',
+endotoxin: '<1',
+endotoxinUnit: 'EU/vial',
+endotoxinSpec: '≤ 0.1 EU/mg spec',
 contentSpec: '≥ 20 mg spec',
 puritySpec: '≥ 99% spec',
 tested: 'June 1, 2026',
@@ -596,6 +597,20 @@ rows: [
 verifyUrl: 'https://verify.janoshik.com/tests/165868-Retatrutide_20mg_JQ08BZLM8YKS',
 verifyKey: 'JQ08BZLM8YKS',
 downloadUrl: '/coa/VX-RETA20-002-purity.png'
+},
+{
+title: 'Endotoxin',
+taskId: '165869',
+date: '28 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Endotoxin', value: '<1', unit: 'EU/vial', large: true },
+{ key: 'Specification', value: '≤ 0.1 EU/mg' },
+{ key: 'Method', value: 'LAL Assay' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165869-Retatrutide_20mg_R4CWKQHP3ED3',
+verifyKey: 'R4CWKQHP3ED3',
+downloadUrl: '/coa/VX-RETA20-002-endotoxin.jpg'
 }
 ]
 },
