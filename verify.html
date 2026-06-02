@@ -365,7 +365,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:32px 20px 20px;margin-top:60px;f
 <div class="error-box" id="errorMsg"></div>
 <div class="input-label">Batch ID</div>
 <div class="input-wrap">
-<input type="text" id="batchInput" class="search-input" placeholder="VX-MOTS10-001" maxlength="30">
+<input type="text" id="batchInput" class="search-input" placeholder="VX-TIRZ30-001" maxlength="30">
 <div class="suggestions" id="suggestions"></div>
 </div>
 <button class="search-btn" id="searchButton" onclick="searchBatch()" disabled>
@@ -530,12 +530,107 @@ imageUrl: 'img/vx-mots10-001-endotoxin.jpg'
 }
 ]
 },
+'VX-TIRZ30-001': {
+name: 'Tirzepatide 30mg',
+content: '32.35',
+contentUnit: 'mg/vial',
+purity: '99.891',
+endotoxin: '<1',
+endotoxinUnit: 'EU/vial',
+endotoxinSpec: '≤ 0.1 EU/mg spec',
+contentSpec: '≥ 30 mg spec',
+puritySpec: '≥ 99% spec',
+tested: 'June 1, 2026',
+tests: [
+{
+title: 'Purity & Identity',
+taskId: '165870',
+date: '01 Jun 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content', value: '32.35', unit: 'mg/vial', large: true },
+{ key: 'Purity', value: '99.891', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165870-Tirzepatide_30mg_P13VV4QMNVV7',
+verifyKey: 'P13VV4QMNVV7',
+downloadUrl: '/coa/VX-TIRZ30-001-purity.jpg'
+},
+{
+title: 'Endotoxin',
+taskId: '165871',
+date: '28 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Endotoxin', value: '<1', unit: 'EU/vial', large: true },
+{ key: 'Specification', value: '≤ 0.1 EU/mg' },
+{ key: 'Method', value: 'LAL Assay' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165871-Tirzepatide_30mg_4GXKXMF72FV9',
+verifyKey: '4GXKXMF72FV9',
+downloadUrl: '/coa/VX-TIRZ30-001-endotoxin.jpg'
+}
+]
+},
+'VX-RETA20-002': {
+name: 'Retatrutide 20mg',
+content: '21.95',
+contentUnit: 'mg/vial',
+purity: '99.440',
+endotoxin: 'Not tested',
+endotoxinUnit: '',
+contentSpec: '≥ 20 mg spec',
+puritySpec: '≥ 99% spec',
+tested: 'June 1, 2026',
+tests: [
+{
+title: 'Purity & Identity',
+taskId: '165868',
+date: '01 Jun 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content', value: '21.95', unit: 'mg/vial', large: true },
+{ key: 'Purity', value: '99.440', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165868-Retatrutide_20mg_JQ08BZLM8YKS',
+verifyKey: 'JQ08BZLM8YKS',
+downloadUrl: '/coa/VX-RETA20-002-purity.png'
+}
+]
+},
+'VX-NAD1K-001': {
+name: 'NAD+ 1000mg',
+content: '1042.81',
+contentUnit: 'mg/vial',
+purity: 'N/A',
+endotoxin: 'Not applicable',
+endotoxinUnit: '',
+contentSpec: '≥ 1000 mg spec',
+puritySpec: 'Nucleotide (quant only)',
+tested: 'May 28, 2026',
+tests: [
+{
+title: 'NAD+ Content Analysis',
+taskId: '165876',
+date: '28 May 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content', value: '1042.81', unit: 'mg/vial', large: true },
+{ key: 'Specification', value: '≥ 1000 mg' },
+{ key: 'Method', value: 'Quantitative Analysis' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/165876-NAD_1000mg_B9A5W5KYHMGU',
+verifyKey: 'B9A5W5KYHMGU',
+downloadUrl: '/coa/VX-NAD1k-001-purity.png'
+}
+]
+},
 'VX-SEMA10-001': { name: 'Semaglutide 10mg' },
 'VX-BPC10-001': { name: 'BPC-157 10mg' },
 'VX-TB10-001': { name: 'TB-500 10mg' },
 'VX-CJC10-001': { name: 'CJC-1295 10mg' },
 'VX-IPA5-001': { name: 'Ipamorelin 5mg' },
-'VX-NAD1K-001': { name: 'NAD+ 1000mg' },
 'VX-GHK100-001': { name: 'GHK-Cu 100mg' },
 'VX-TESA10-001': { name: 'Tesamorelin 10mg' },
 'VX-AOD10-001': { name: 'AOD-9604 10mg' }
@@ -768,8 +863,23 @@ searchButton.disabled = false;
 }
 
 // Pre-fill batch ID from URL parameter (don't auto-verify)
+// Product slug to batch mapping
+const productToBatch = {
+'tirzepatide': 'VX-TIRZ30-001',
+'retatrutide': 'VX-RETA20-002',
+'nad-plus': 'VX-NAD1K-001',
+'mots-c': 'VX-MOTS10-001'
+};
+
 const params = new URLSearchParams(window.location.search);
-const batchParam = params.get('batch') || params.get('id');
+let batchParam = params.get('batch') || params.get('id') || params.get('product');
+
+// If product slug, map to batch ID
+if (batchParam && !batchParam.startsWith('VX-') && !batchParam.startsWith('vx-')) {
+const mapped = productToBatch[batchParam.toLowerCase()];
+if (mapped) batchParam = mapped;
+}
+
 if (batchParam) {
 let input = batchParam.toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
