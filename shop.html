@@ -301,6 +301,15 @@ document.querySelectorAll('.filter-item').forEach(f => {
 
 renderProducts();
 
+// Capture referral + promo from URL
+(function(){
+var params=new URLSearchParams(window.location.search);
+var ref=params.get('ref');
+var code=params.get('code');
+if(ref){sessionStorage.setItem('vantixReferral',ref.toLowerCase());}
+if(code){sessionStorage.setItem('vantixPromoCode',code.toUpperCase());}
+})();
+
 // Hide scroll hint when user scrolls
 const filtersWrapper = document.querySelector('.filters-wrapper');
 if (filtersWrapper) {

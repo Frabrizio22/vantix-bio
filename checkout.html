@@ -264,7 +264,7 @@ Total: <span id="confirmTotal" style="font-family:'JetBrains Mono',monospace"></
 
 <script>
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
-var promoCodes={'FOUNDER10':0.10,'LAUNCH15':0.15,'MURPHY15':0.10,'TEST':0.20,'FREESHIP':'free_shipping','TESTDOLLAR':{type:'override',sku:'VX-MOTS-10',price:1,freeShipping:true}};
+var promoCodes={'FOUNDER10':0.10,'LAUNCH15':0.15,'MURPHY15':0.10,'POSH10':0.10,'TEST':0.20,'FREESHIP':'free_shipping','TESTDOLLAR':{type:'override',sku:'VX-MOTS-10',price:1,freeShipping:true}};
 
 function getUrlParam(name){var params=new URLSearchParams(window.location.search);return params.get(name);}
 
@@ -273,8 +273,8 @@ var saved=localStorage.getItem('vantixCart');
 if(saved){cart=JSON.parse(saved);}
 var ref=getUrlParam('ref');
 if(ref){referralSource=ref.toLowerCase();sessionStorage.setItem('vantixReferral',referralSource);}else{referralSource=sessionStorage.getItem('vantixReferral');}
-var code=getUrlParam('code');
-if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;}}
+var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');
+if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
 }
 
 function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
