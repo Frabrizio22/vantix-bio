@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Research Peptides Catalog — Vantix Bio</title>
 <meta name="description" content="12 research peptides with batch-level Janoshik verification. HPLC purity, LC-MS identity, and endotoxin testing for every batch.">
 <link rel="canonical" href="https://vantixbio.com/shop.html">
@@ -20,8 +20,7 @@
 <meta name="twitter:description" content="12 peptides with batch-level verification. Janoshik HPLC + LC-MS + endotoxin testing.">
 <meta name="twitter:image" content="https://vantixbio.com/vantix-og-final.jpg">
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
@@ -47,43 +46,32 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
 .icon-btn:hover{opacity:.6}
 .icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
-.cart-badge{position:absolute;top:-4px;right:-6px;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 5px;pointer-events:none}
 .btn{padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}
 .btn-dark{background:var(--navy);color:#fff}
 .btn-dark:hover{background:var(--accent)}
 .hero{padding:60px 0 40px;border-bottom:1px solid var(--hairline)}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
-.filters{display:inline-flex;gap:12px;padding:16px 40px 16px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;background:var(--bg);min-width:100%;width:max-content}
-.filters-wrapper{overflow-x:scroll;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;position:sticky;top:37px;z-index:50;border-bottom:1px solid var(--hairline)}
-.filters-wrapper::-webkit-scrollbar{display:none}
-.filters-wrapper::after{content:'→';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--accent);pointer-events:none;opacity:.35;font-weight:400;animation:pulse-hint 2.5s ease-in-out infinite;text-shadow:none;background:transparent}@keyframes pulse-hint{0%,100%{opacity:.35;transform:translateY(-50%) translateX(0)}50%{opacity:.2;transform:translateY(-50%) translateX(3px)}}
-@media(max-width:640px){.filters-wrapper.scrolled::after{display:none}}
-
+.filters{display:flex;gap:24px;padding:20px 0 20px 20px;border-bottom:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:37px;background:var(--bg);z-index:50;scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth}
 .filters::-webkit-scrollbar{display:none}
-.filters::-webkit-scrollbar{display:none}
-.filter-item{color:rgba(10,22,40,.5);cursor:pointer;white-space:nowrap;transition:none;position:relative;padding:10px 18px;border-radius:20px;background:transparent;flex-shrink:0;user-select:none}
+.filter-item{color:rgba(10,22,40,.5);cursor:pointer;white-space:nowrap;transition:color .3s;position:relative}
 .filter-item:hover,.filter-item.active{color:var(--accent)}
-.filter-item.active{background:rgba(57,115,176,.08);color:var(--accent)}
-.filter-mobile{display:inline}
-.filter-desktop{display:none}
-.filters::after{display:none}
-@media(min-width:768px){.filter-mobile{display:none}.filter-desktop{display:inline}.filters{font-size:11px;gap:24px;padding:20px 20px;justify-content:flex-start}.filters::after{display:none}.filter-item{padding:0;border-radius:0;background:transparent}.filter-item.active{background:transparent}.filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}}
+.filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}
 .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
-.product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:10px;transition:all .3s;position:relative;cursor:pointer}@media(min-width:768px){.product-card{padding:20px}}
-.product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--hairline)}
+.product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:12px;transition:all .3s;position:relative;cursor:pointer}@media(min-width:768px){.product-card{padding:24px}}
+.product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--bg)}
 .oos-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);text-align:center;padding:4px 0;border-top:1px solid var(--hairline);margin-bottom:8px}
 .product-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.product-category{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(57,115,176,.7);margin-bottom:4px}@media(min-width:768px){.product-category{font-size:9px;margin-bottom:8px}}
-.product-name{font-family:'Fraunces',serif;font-size:16px;font-weight:300;margin-bottom:4px;line-height:1.15}@media(min-width:768px){.product-name{font-size:24px;margin-bottom:6px}}
+.product-category{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:6px}@media(min-width:768px){.product-category{font-size:9px;margin-bottom:12px}}
+.product-name{font-family:'Fraunces',serif;font-size:16px;font-weight:300;margin-bottom:6px;line-height:1.15}@media(min-width:768px){.product-name{font-size:24px;margin-bottom:8px}}
 .product-desc{font-size:13px;color:rgba(10,22,40,.7);margin-bottom:12px;line-height:1.5;display:none}@media(min-width:768px){.product-desc{display:block}}
-.product-meta{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,22,40,.5);margin-bottom:6px}@media(min-width:768px){.product-meta{font-size:10px;margin-bottom:10px}}
+.product-meta{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(10,22,40,.6);margin-bottom:8px}@media(min-width:768px){.product-meta{font-size:11px;margin-bottom:12px}}
 .meta-item{display:none}
 .meta-label{display:none}
 .meta-value{display:none}
-.product-price{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--text);margin-bottom:8px}@media(min-width:768px){.product-price{font-size:28px;margin-bottom:12px}}
-.product-cta{display:flex;gap:6px;align-items:center}
-.btn-waitlist{flex:1;text-align:center;padding:7px 12px;font-size:11px}@media(min-width:768px){.btn-waitlist{padding:9px 18px;font-size:13px}}
+.product-price{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--text);margin-bottom:8px}@media(min-width:768px){.product-price{font-size:28px;margin-bottom:16px}}
+.product-cta{display:flex;gap:8px;align-items:center}
+.btn-waitlist{flex:1;text-align:center;padding:8px 12px;font-size:11px}@media(min-width:768px){.btn-waitlist{padding:10px 20px;font-size:13px}}
 .coa-link{font-size:13px;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:4px;transition:opacity .3s}
 .coa-link:hover{opacity:.7}
 .verification-strip{background:var(--navy);padding:16px 0;margin:60px 0;color:rgba(255,255,255,.9)}
@@ -95,7 +83,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 .oos-badge{display:none}
 
 /* Waitlist Modal */
-.waitlist-modal{position:fixed;inset:0;background:rgba(10,22,40,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.waitlist-modal{position:fixed;inset:0;background:rgba(10,22,40,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
 .waitlist-modal.active{display:flex}
 .waitlist-modal-content{background:var(--bg);border-radius:16px;padding:40px 32px;max-width:480px;width:100%;position:relative}
 .waitlist-modal-close{position:absolute;top:16px;right:16px;background:none;border:none;padding:8px;cursor:pointer;color:var(--text);opacity:.6}
@@ -136,17 +124,16 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
-.toast-notification{position:fixed;bottom:-100px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px 20px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:9999;transition:bottom .3s ease;max-width:90%;width:auto}
-.toast-notification.show{bottom:24px}
-.toast-content{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;color:var(--text)}
-@media(min-width:768px){.toast-notification{max-width:480px}}
 </style>
 </head>
 <body>
 
 <div class="status-bar">
   <div class="status-inner">
-      <span>FREE SHIPPING ON ORDERS OVER $150</span>
+    <div class="status-item">
+      <span class="pulse"></span>
+      <span>PRE-LAUNCH — JOIN WAITLIST FOR LAUNCH<br>NOTIFICATION + EXCLUSIVE DISCOUNT</span>
+    </div>
   </div>
 </div>
 
@@ -179,9 +166,8 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <button class="icon-btn" id="searchBtn" aria-label="Search">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
 </button>
-<button class="icon-btn" id="cartBtn" aria-label="Cart" style="position:relative">
+<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026" style="position:relative">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
-<span class="cart-badge" id="cartBadge" style="display:none">0</span>
 </button>
 </div>
 </nav>
@@ -225,13 +211,11 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
 <p style="margin-top:20px;max-width:640px;color:rgba(10,22,40,.7);font-size:17px">12 independently tested compounds. Every batch verified through Janoshik before release.</p>
 </div>
 
-<div class="filters-wrapper">
 <div class="filters" id="filters">
-<div class="filter-item active" data-category="all"><span class="filter-mobile">All</span><span class="filter-desktop">All</span></div>
-<div class="filter-item" data-category="glp1-gip"><span class="filter-mobile">GLP-1/GIP</span><span class="filter-desktop">GLP-1 / GIP Agonists</span></div>
-<div class="filter-item" data-category="gh-peptides"><span class="filter-mobile">GH Peptides</span><span class="filter-desktop">Growth Hormone Peptides</span></div>
-<div class="filter-item" data-category="specialty"><span class="filter-mobile">Specialty</span><span class="filter-desktop">Specialty Compounds</span></div>
-</div>
+<div class="filter-item active" data-category="all">All</div>
+<div class="filter-item" data-category="glp1-gip">GLP-1 / GIP Agonists</div>
+<div class="filter-item" data-category="gh-peptides">Growth Hormone Peptides</div>
+<div class="filter-item" data-category="specialty">Specialty Compounds</div>
 </div>
 
 <div class="products-grid" id="productsGrid"></div>
@@ -268,13 +252,11 @@ const categoryMap = {
 
 function renderProducts(filter='all'){
   const allProducts = VX_PRODUCTS.phase1;
-  let filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
-  // In-stock products first
-  filtered = [...filtered].sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0));
+  const filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
   
   document.getElementById('productsGrid').innerHTML = filtered.map(p => `
     <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">
-      ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image" loading="lazy" decoding="async">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
+      ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
       ${!p.inStock ? '<div class="oos-label">COA Pending</div>' : ''}
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
@@ -282,7 +264,7 @@ function renderProducts(filter='all'){
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
         ${p.inStock 
-          ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
+          ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.name}', ${p.price}); event.stopPropagation()">Quick Add</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Product →</a>`
           : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}')">Join Waitlist</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
@@ -291,37 +273,15 @@ function renderProducts(filter='all'){
 }
 
 document.querySelectorAll('.filter-item').forEach(f => {
-  const handleFilter = (e) => {
+  f.onclick = (e) => {
+    e.preventDefault();
     document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
     f.classList.add('active');
     renderProducts(f.dataset.category);
   };
-  
-  f.addEventListener('click', handleFilter);
 });
 
 renderProducts();
-
-// Capture referral + promo from URL
-(function(){
-var params=new URLSearchParams(window.location.search);
-var ref=params.get('ref');
-var code=params.get('code');
-if(ref){sessionStorage.setItem('vantixReferral',ref.toLowerCase());}
-if(code){sessionStorage.setItem('vantixPromoCode',code.toUpperCase());}
-})();
-
-// Hide scroll hint when user scrolls
-const filtersWrapper = document.querySelector('.filters-wrapper');
-if (filtersWrapper) {
-  filtersWrapper.addEventListener('scroll', () => {
-    if (filtersWrapper.scrollLeft > 10) {
-      filtersWrapper.classList.add('scrolled');
-    } else {
-      filtersWrapper.classList.remove('scrolled');
-    }
-  });
-}
 
 // Waitlist Modal Functions
 let currentProductSlug = '';
@@ -410,92 +370,73 @@ if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => menuOverlay.classList.add('active');
 if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 
-// Update cart badge
-function updateCartBadge() {
-  const cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
-  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const badge = document.getElementById('cartBadge');
-  if (badge) {
-    if (count > 0) {
-      badge.textContent = count;
-      badge.style.display = 'flex';
-    } else {
-      badge.style.display = 'none';
-    }
-  }
-}
+function joinWaitlist(productName) {
 
-// Update badge on page load
-updateCartBadge();
-
-// Listen for storage changes (when items added)
-window.addEventListener('storage', updateCartBadge);
-
-// Quick Add - Premium E-commerce UX
-let currentQuickAddProduct = null;
-
+// Quick Add Function - Premium E-commerce UX
 function quickAdd(sku, productName, price) {
-  currentQuickAddProduct = {sku, name: productName, price};
-  document.getElementById('qtyProductName').textContent = productName;
-  document.getElementById('qtyValue').textContent = '1';
-  document.getElementById('quickAddModal').classList.add('active');
-}
-
-function closeQuickAdd() {
-  document.getElementById('quickAddModal').classList.remove('active');
-  currentQuickAddProduct = null;
-}
-
-function updateQty(change) {
-  const qtyEl = document.getElementById('qtyValue');
-  let qty = parseInt(qtyEl.textContent);
-  qty = Math.max(1, qty + change);
-  qtyEl.textContent = qty;
-}
-
-function confirmQuickAdd() {
-  if (!currentQuickAddProduct) return;
+  // Add to cart (localStorage for now, can integrate with real cart later)
+  let cart = JSON.parse(localStorage.getItem('vantix_cart') || '[]');
   
-  const quantity = parseInt(document.getElementById('qtyValue').textContent);
-  let cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
-  
-  const existing = cart.find(item => item.sku === currentQuickAddProduct.sku);
+  // Check if product already in cart
+  const existing = cart.find(item => item.sku === sku);
   if (existing) {
-    existing.quantity += quantity;
+    existing.quantity += 1;
   } else {
     cart.push({
-      sku: currentQuickAddProduct.sku,
-      name: currentQuickAddProduct.name,
-      price: currentQuickAddProduct.price,
-      quantity
+      sku: sku,
+      name: productName,
+      price: price,
+      quantity: 1
     });
   }
   
-  localStorage.setItem('vantixCart', JSON.stringify(cart));
-  updateCartBadge();
-  closeQuickAdd();
-  showToast(`${quantity}x ${currentQuickAddProduct.name} added to cart`);
+  localStorage.setItem('vantix_cart', JSON.stringify(cart));
   
-  setTimeout(() => {
-    window.location.href = 'checkout.html';
-  }, 1500);
+  // Show toast notification
+  showToast(`${productName} added to cart`);
+  
+  // Update cart badge if exists
+  updateCartBadge();
 }
 
+// Toast Notification
 function showToast(message) {
+  // Remove existing toast if any
   const existing = document.querySelector('.toast-notification');
   if (existing) existing.remove();
+  
   const toast = document.createElement('div');
   toast.className = 'toast-notification';
-  toast.innerHTML = `<div class="toast-content"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:#7BA88F;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>${message}</span><button onclick="window.location.href='checkout.html'" style="background:var(--navy);color:#fff;border:none;padding:6px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">View Cart</button></div>`;
+  toast.innerHTML = `
+    <div class="toast-content">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:#7BA88F;flex-shrink:0">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+      <span>${message}</span>
+      <button onclick="window.location.href='checkout.html'" style="background:var(--navy);color:#fff;border:none;padding:6px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">View Cart</button>
+    </div>
+  `;
+  
   document.body.appendChild(toast);
+  
+  // Trigger animation
   setTimeout(() => toast.classList.add('show'), 10);
+  
+  // Auto-hide after 4 seconds
   setTimeout(() => {
     toast.classList.remove('show');
     setTimeout(() => toast.remove(), 300);
   }, 4000);
 }
 
-function joinWaitlist(productName) {
+// Update cart badge count
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('vantix_cart') || '[]');
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  
+  // This would update a badge on the cart icon (implement if you add a badge)
+  console.log('Cart count:', count);
+}
   var email = prompt('Enter your email to join the waitlist for ' + productName + ':');
   if (!email || !email.includes('@')) { return; }
   fetch('https://vantix-checkout.prcpeptides.workers.dev', {
@@ -541,27 +482,6 @@ function joinWaitlist(productName) {
       <h3 style="font-size:22px;margin-bottom:8px">You're on the list</h3>
       <p style="margin-bottom:0">We'll notify you when this product is in stock.</p>
     </div>
-  </div>
-</div>
-
-<!-- Quick Add Modal -->
-<div class="waitlist-modal" id="quickAddModal">
-  <div class="waitlist-modal-content" style="max-width:360px;width:calc(100% - 40px);padding:32px 24px">
-    <button class="waitlist-modal-close" onclick="closeQuickAdd()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
-    </button>
-    <h3 style="font-size:20px;margin-bottom:6px;font-family:'Fraunces',serif;font-weight:300">Select Quantity</h3>
-    <p id="qtyProductName" style="color:rgba(10,22,40,.5);margin-bottom:32px;font-size:13px">MOTS-C 10mg</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:32px">
-      <button onclick="updateQty(-1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
-        <span style="margin-bottom:4px;user-select:none;pointer-events:none">−</span>
-      </button>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:600;min-width:80px;text-align:center;touch-action:none;user-select:none" id="qtyValue">1</div>
-      <button onclick="updateQty(1)" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--hairline);background:#fff;font-size:28px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--hairline)'">
-        <span style="margin-bottom:4px;user-select:none;pointer-events:none">+</span>
-      </button>
-    </div>
-    <button onclick="confirmQuickAdd()" style="width:100%;padding:16px 24px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;font-family:'Geist',sans-serif" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Add to Cart</button>
   </div>
 </div>
 
