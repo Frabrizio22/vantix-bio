@@ -1,0 +1,93 @@
+<!-- =========================================================================
+     VANTIX BIO — CHECKOUT RESEARCH-USE AFFIRMATION
+     Place this block inside your checkout form, above the submit button.
+     It produces a required, per-order acknowledgment with a logged record.
+     The submit handler shows how to gate order placement on the checkbox
+     and how to include the affirmation payload in your order webhook.
+     ========================================================================= -->
+
+<div class="vx-affirm">
+  <p class="vx-affirm__eyebrow">Terms of Sale — Required</p>
+
+  <div class="vx-affirm__statements">
+    <p>By placing this order I confirm and agree that:</p>
+    <ul>
+      <li>I am at least <strong>21 years of age</strong>.</li>
+      <li>These materials are laboratory reference compounds intended
+          <strong>solely for in-vitro research and analytical use</strong>.</li>
+      <li>They are <strong>not for human or veterinary use</strong>, and not
+          for any diagnostic, therapeutic, or consumptive purpose in humans
+          or animals.</li>
+      <li>I am acquiring them for lawful research purposes and accept full
+          responsibility for their proper, compliant handling.</li>
+    </ul>
+  </div>
+
+  <label class="vx-affirm__check">
+    <input type="checkbox" id="vx-affirm-box" required>
+    <span>I have read and agree to the above and to the Terms of Sale.</span>
+  </label>
+
+  <p class="vx-affirm__err" id="vx-affirm-err" hidden>
+    Please confirm the research-use terms to complete your order.
+  </p>
+</div>
+
+<style>
+  .vx-affirm{
+    --vx-cream:#FAFAF7; --vx-navy:#0F1B2D; --vx-blue:#3973B0; --vx-hair:#D8D6CF;
+    background:var(--vx-cream); border:1px solid var(--vx-hair);
+    border-left:3px solid var(--vx-blue); border-radius:3px;
+    padding:22px 24px; margin:24px 0;
+  }
+  .vx-affirm__eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--vx-blue); margin:0 0 14px;
+  }
+  .vx-affirm__statements{
+    font-family:'Geist',system-ui,sans-serif; font-size:13px; line-height:1.55;
+    color:#3a4555;
+  }
+  .vx-affirm__statements p{margin:0 0 8px}
+  .vx-affirm__statements ul{margin:0; padding-left:18px}
+  .vx-affirm__statements li{margin-bottom:6px}
+  .vx-affirm__statements strong{color:var(--vx-navy)}
+  .vx-affirm__check{
+    display:flex; gap:11px; align-items:flex-start; cursor:pointer; margin-top:16px;
+    font-family:'Geist',system-ui,sans-serif; font-size:13px; line-height:1.5;
+    color:var(--vx-navy);
+  }
+  .vx-affirm__check input{margin-top:2px; width:16px; height:16px; accent-color:var(--vx-blue); flex:none}
+  .vx-affirm__err{
+    font-family:'Geist',system-ui,sans-serif; font-size:12px; color:#b4452f;
+    margin:10px 0 0;
+  }
+</style>
+
+<script>
+(function(){
+  // Wire this into your existing place-order button.
+  // Replace 'vx-place-order' with the id of your checkout submit button.
+  var btn=document.getElementById('vx-place-order');
+  var box=document.getElementById('vx-affirm-box');
+  var err=document.getElementById('vx-affirm-err');
+  if(!btn||!box) return;
+
+  btn.addEventListener('click',function(e){
+    if(!box.checked){
+      e.preventDefault();
+      err.hidden=false;
+      box.focus();
+      return false;
+    }
+    err.hidden=true;
+    // Per-order affirmation record — merge into your order webhook payload:
+    window.vxAffirmation={
+      affirmed:true,
+      ts:new Date().toISOString(),
+      version:'ruo-v1'
+    };
+    // e.g. inside your order POST body: affirmation: window.vxAffirmation
+  });
+})();
+</script>

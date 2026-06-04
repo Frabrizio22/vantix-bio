@@ -1,329 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service — VANTIX BIO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-navy: #1A2B44;
-            --font-heading: 'Space Grotesk', 'Inter', sans-serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: var(--font-body);
-            background: #F8FAFC;
-            color: var(--color-navy);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-
-        .header {
-            background: #FFFFFF;
-            padding: 20px 24px;
-            border-bottom: 2px solid #2563EB;
-            box-shadow: 0 1px 4px rgba(26,43,68,0.06);
-        }
-
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .logo {
-            height: 60px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 48px auto;
-            padding: 0 24px 48px;
-        }
-
-        .content-box {
-            background: #FFFFFF;
-            padding: 48px;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(26,43,68,0.06);
-        }
-
-        h1 {
-            font-size: 32px;
-            font-weight: 800;
-            color: #1A2B44;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .last-updated {
-            font-size: 13px;
-            color: #94A3B8;
-            margin-bottom: 32px;
-        }
-
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1A2B44;
-            margin-top: 32px;
-            margin-bottom: 16px;
-        }
-
-        p {
-            font-size: 15px;
-            color: #475569;
-            margin-bottom: 16px;
-        }
-
-        ul {
-            margin-left: 20px;
-            margin-bottom: 16px;
-        }
-
-        li {
-            font-size: 15px;
-            color: #475569;
-            margin-bottom: 8px;
-        }
-
-        strong {
-            color: #1A2B44;
-            font-weight: 600;
-        }
-
-        .warning-box {
-            background: #FEF2F2;
-            border-left: 4px solid #EF4444;
-            padding: 20px;
-            margin: 24px 0;
-            border-radius: 6px;
-        }
-
-        .warning-box strong {
-            color: #DC2626;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 32px;
-            color: #2563EB;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 640px) {
-            .content-box {
-                padding: 32px 24px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            h2 {
-                font-size: 18px;
-            }
-        }
-    
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-            background: none;
-            border: none;
-        }
-        .hamburger span {
-            width: 20px;
-            height: 2px;
-            background: #1A2B44;
-            transition: all 0.3s;
-        }
-        
-        /* Mobile Menu */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 140;
-        }
-        .mobile-overlay.active { display: block; }
-        
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 260px;
-            height: 100%;
-            background: #FFFFFF;
-            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-            z-index: 150;
-            padding: 60px 24px 24px;
-            overflow-y: auto;
-        }
-        .mobile-menu.active { display: block; }
-        
-        .mobile-menu-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 32px;
-            color: #64748B;
-            cursor: pointer;
-            padding: 8px;
-        }
-        .mobile-menu a {
-            display: block;
-            padding: 12px 24px;
-            color: #1A2B44;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .mobile-menu a:hover {
-            background: #F8FAFC;
-        }
-        
-        @media (max-width: 768px) {
-            .hamburger { display: flex !important; }
-            nav { display: none !important; }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantix Bio — Terms of Sale</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAFAF7; --navy:#0F1B2D; --blue:#3973B0; --sage:#4A8568;
+    --hair:#D8D6CF; --body:#3a4555; --mute:#7a8290;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--cream); color:var(--body);
+    font-family:'Geist',system-ui,-apple-system,sans-serif;
+    line-height:1.65; font-size:15px;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:56px 28px 96px}
+  .mast{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.28em;
+    color:var(--navy); margin-bottom:8px;
+  }
+  .nav{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.08em;
+    border-bottom:1px solid var(--hair); padding-bottom:20px; margin-bottom:48px;
+  }
+  .nav a{color:var(--blue); text-decoration:none; margin-right:20px}
+  .nav a:hover{text-decoration:underline}
+  article{margin-bottom:80px; scroll-margin-top:24px}
+  h1{
+    font-family:'Fraunces',Georgia,serif; font-weight:500; font-size:30px;
+    line-height:1.15; color:var(--navy); margin:0 0 6px;
+  }
+  h2{
+    font-family:'Fraunces',Georgia,serif; font-weight:500; font-size:19px;
+    color:var(--navy); margin:36px 0 10px;
+  }
+  .updated{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em;
+    color:var(--mute); text-transform:uppercase; margin-bottom:28px;
+  }
+  p{margin:0 0 14px}
+  strong{color:var(--navy)}
+  ul{margin:0 0 14px; padding-left:20px}
+  li{margin-bottom:7px}
+  .callout{
+    background:#fff; border:1px solid var(--hair); border-left:3px solid var(--blue);
+    border-radius:3px; padding:18px 20px; margin:22px 0; font-size:14px;
+  }
+  .callout strong{color:var(--navy)}
+  a{color:var(--blue)}
+  footer{
+    border-top:1px solid var(--hair); padding-top:24px; font-size:12px;
+    color:var(--mute); font-family:'JetBrains Mono',monospace; letter-spacing:.04em;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div style="display:flex;align-items:center;gap:28px;">
-                <a href="index.html" style="display:flex;align-items:center;text-decoration:none">
-                    <img src="logo-header.svg" alt="VANTIX BIO" style="height:56px;width:auto">
-                </a>
-                <nav>
-                    <a href="shop.html">Shop</a>
-                    <a href="kits.html">Research Kits</a>
-                    <a href="verify.html">Verify</a>
-                    <a href="about.html">About</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Contact</a>
-                </nav>
-            </div>
-            <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
-        </div>
-    </header>
+<div class="wrap">
+  <div class="mast">VANTIX&nbsp;BIO</div>
+  <nav class="nav">
+    <a href="terms.html" style="color:var(--navy);font-weight:500">Terms of Sale</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="shipping.html">Shipping &amp; Refund</a>
+  </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
-        <a href="shop.html" onclick="toggleMobileMenu()">Shop</a>
-        <a href="kits.html" onclick="toggleMobileMenu()">Research Kits</a>
-        <a href="verify.html" onclick="toggleMobileMenu()">Verify</a>
-        <a href="about.html" onclick="toggleMobileMenu()">About Us</a>
-        <a href="faq.html" onclick="toggleMobileMenu()">FAQ</a>
-        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+  <article>
+    <h1>Terms of Sale</h1>
+    <p class="updated">Last updated: June 3, 2026</p>
+
+    <p>These Terms of Sale ("Terms") govern all purchases of materials from
+    Vantix Bio ("Vantix Bio," "we," "us," or "our") through
+    vantixbio.com (the "Site"). By placing an order, you ("Customer," "you")
+    agree to these Terms in full. If you do not agree, do not purchase.</p>
+
+    <div class="callout">
+      <strong>Research-use-only nature of all materials.</strong> All materials
+      offered by Vantix Bio are supplied strictly as laboratory reference
+      compounds for in-vitro research and analytical use only. They are
+      <strong>not for human or veterinary use</strong>, and are not intended for
+      any diagnostic, therapeutic, clinical, or consumptive purpose in humans or
+      animals. They are not drugs, foods, cosmetics, dietary supplements, or
+      medical devices, and have not been approved by the U.S. Food and Drug
+      Administration for any such use.
     </div>
 
-    <div class="container">
-        <div class="content-box">
-            <h1>Terms of Service</h1>
-            <p class="last-updated">Last Updated: March 5, 2026</p>
+    <h2>1. Eligibility and Customer Representations</h2>
+    <p>By purchasing, you represent and warrant that:</p>
+    <ul>
+      <li>You are at least 21 years of age and have the legal capacity to enter
+      into this agreement.</li>
+      <li>You are acquiring the materials solely for lawful laboratory research
+      or analytical purposes, and not for resale for human or animal
+      consumption.</li>
+      <li>You are qualified and equipped to handle, store, and dispose of
+      research compounds safely and in accordance with all applicable laws and
+      institutional requirements.</li>
+      <li>You will not use, administer, or distribute the materials for human or
+      veterinary use, and you accept full responsibility for any use to which
+      you put the materials.</li>
+    </ul>
 
-            <div class="warning-box">
-                <strong>RESEARCH USE ONLY:</strong> All products sold by Vantix Bio are intended exclusively for in vitro laboratory research. They are not for human consumption, animal consumption, or any medical/therapeutic use. Products are not drugs, dietary supplements, or approved medical treatments.
-            </div>
+    <h2>2. No Medical or Use Guidance</h2>
+    <p>Vantix Bio does not provide, and will not provide, dosing instructions,
+    administration protocols, treatment guidance, or any representation
+    regarding the use of the materials in humans or animals. Any information on
+    the Site is provided for scientific and educational reference regarding the
+    properties of the compounds and must not be construed as guidance for use in
+    living subjects. You are solely responsible for determining the suitability
+    of any material for your research and for designing and conducting that
+    research lawfully.</p>
 
-            <h2>1. Acceptance of Terms</h2>
-            <p>By accessing and using vantixbio.com (the "Site"), you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, you may not access or use the Site.</p>
+    <h2>3. Assumption of Risk and Customer Responsibility</h2>
+    <p>You assume all risk and responsibility for the use, handling, storage,
+    and disposal of materials purchased from Vantix Bio. You agree to comply
+    with all applicable federal, state, local, and international laws and
+    regulations governing the purchase, possession, handling, and use of
+    research compounds in your jurisdiction. It is your responsibility to verify
+    the legality of any material in your jurisdiction prior to ordering.</p>
 
-            <h2>2. Eligibility</h2>
-            <p>You must be at least 21 years of age to purchase products from Vantix Bio. By using this Site, you represent that you:</p>
-            <ul>
-                <li>Are 21 years of age or older</li>
-                <li>Are a qualified researcher or affiliated with a legitimate research organization</li>
-                <li>Will use products exclusively for lawful in vitro research purposes</li>
-                <li>Understand that products are not for human or animal consumption</li>
-            </ul>
+    <h2>4. Disclaimer of Warranties</h2>
+    <p>Except for any certificate of analysis or specification expressly
+    provided for a given batch, the materials are supplied "as is" without
+    warranties of any kind, whether express or implied, including any implied
+    warranty of merchantability or fitness for a particular purpose. Vantix Bio
+    does not warrant that the materials are suitable for any purpose beyond the
+    laboratory research use for which they are supplied.</p>
 
-            <h2>3. Product Use and Restrictions</h2>
-            <p><strong>Research Materials Only:</strong> All products are research-grade analytical reference materials. They are not intended, designed, or approved for:</p>
-            <ul>
-                <li>Human consumption or administration</li>
-                <li>Animal consumption or veterinary use</li>
-                <li>Medical diagnosis, treatment, or therapy</li>
-                <li>Food or dietary supplement use</li>
-            </ul>
+    <h2>5. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, Vantix Bio and its owner shall not
+    be liable for any indirect, incidental, special, consequential, or punitive
+    damages, or for any loss or injury arising from the misuse of the materials,
+    including any use in or on humans or animals. In all cases, our total
+    aggregate liability arising from or related to any order shall not exceed the
+    amount you paid for the specific material giving rise to the claim. You agree
+    to indemnify and hold harmless Vantix Bio and its owner from any claim
+    arising out of your use, handling, or distribution of the materials in
+    violation of these Terms.</p>
 
-            <h2>4. Buyer Responsibilities</h2>
-            <p>By purchasing from Vantix Bio, you agree to:</p>
-            <ul>
-                <li>Use products only for lawful research purposes</li>
-                <li>Comply with all applicable local, state, and federal laws</li>
-                <li>Maintain proper laboratory safety protocols</li>
-                <li>Not resell or redistribute products for human consumption</li>
-                <li>Assume all responsibility for proper handling and storage</li>
-            </ul>
+    <h2>6. Product Information and Availability</h2>
+    <p>We make reasonable efforts to describe materials accurately, including
+    third-party batch testing data where provided. We do not warrant that all
+    descriptions are complete or error-free. Pricing and availability are subject
+    to change without notice. We reserve the right to limit, refuse, or cancel
+    any order at our discretion.</p>
 
-            <h2>5. Certificates of Analysis (COAs)</h2>
-            <p>Vantix Bio provides third-party Certificates of Analysis for product verification. COAs are for informational purposes only and do not constitute medical advice or approval for therapeutic use.</p>
+    <h2>7. Orders, Pricing, and Payment</h2>
+    <p>All prices are listed in U.S. dollars. Payment is processed by
+    third-party payment processors; by purchasing you also agree to any
+    applicable terms of those processors. We reserve the right to refuse or
+    cancel any order, including where we suspect the materials are intended for a
+    prohibited use.</p>
 
-            <h2>6. No Medical Claims</h2>
-            <p>Vantix Bio makes no claims regarding the medical efficacy, safety, or therapeutic benefits of any products. All product information is for research reference only.</p>
+    <h2>8. Shipping, Returns, and Refunds</h2>
+    <p>Shipping, return, and refund terms are set out in our
+    <a href="shipping.html">Shipping &amp; Refund Policy</a>, which forms part of
+    these Terms.</p>
 
-            <h2>7. Limitation of Liability</h2>
-            <p>Vantix Bio shall not be liable for any damages arising from the use or misuse of products, including but not limited to direct, indirect, incidental, consequential, or punitive damages. Maximum liability is limited to the purchase price of the product.</p>
+    <h2>9. Governing Law</h2>
+    <p>These Terms are governed by the laws of the State of California, without
+    regard to its conflict-of-laws principles. Any dispute shall be resolved in
+    the state or federal courts located in Santa Cruz County, California, and you consent
+    to that venue.</p>
 
-            <h2>8. Returns and Refunds</h2>
-            <p>Due to the nature of research materials, all sales are final. Products cannot be returned once shipped, except in cases of verified shipping damage or manufacturer defect.</p>
+    <h2>10. Changes to These Terms</h2>
+    <p>We may update these Terms at any time. The version in effect at the time
+    of your order governs that order. Continued use of the Site after changes
+    constitutes acceptance of the revised Terms.</p>
 
-            <h2>9. Privacy</h2>
-            <p>Your use of the Site is also governed by our <a href="privacy.html" style="color:#2563EB">Privacy Policy</a>.</p>
+    <h2>11. Contact</h2>
+    <p>Questions about these Terms: support@vantixbio.com.</p>
+  </article>
 
-            <h2>10. Changes to Terms</h2>
-            <p>Vantix Bio reserves the right to modify these Terms of Service at any time. Continued use of the Site after changes constitutes acceptance of the revised terms.</p>
-
-            <h2>11. Governing Law</h2>
-            <p>These Terms are governed by the laws of the State of California, United States, without regard to conflict of law principles.</p>
-
-            <h2>12. Contact</h2>
-            <p>For questions about these Terms of Service, contact: <strong>support@vantixbio.com</strong></p>
-
-            <a href="gate.html" class="back-link">← Back to Gate</a>
-        </div>
-    </div>
-    <script>
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
-    </script>
-
+  <footer>
+    VANTIX BIO · Research-Use-Only Materials · Not for human or veterinary use<br>
+    © 2026 Vantix Bio. All rights reserved.
+  </footer>
+</div>
 </body>
 </html>

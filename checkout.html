@@ -125,6 +125,70 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 </style>
 </head>
 <body>
+<!-- VANTIX AGE GATE -->
+<div id="vantix-gate" class="vx-gate" role="dialog" aria-modal="true" aria-labelledby="vx-gate-title" hidden>
+  <div class="vx-gate__panel">
+    <div class="vx-gate__mark">VANTIX&nbsp;BIO</div>
+    <p class="vx-gate__eyebrow">Research-Use-Only Materials</p>
+    <h1 id="vx-gate-title" class="vx-gate__title">Confirm before entering</h1>
+    <p class="vx-gate__body">
+      The materials on this site are sold strictly as laboratory reference
+      compounds for in-vitro research and analytical use. They are
+      <strong>not for human or veterinary use</strong>, and not for any
+      diagnostic, therapeutic, or consumptive purpose.
+    </p>
+    <label class="vx-gate__check">
+      <input type="checkbox" id="vx-gate-attest">
+      <span>I am at least 21 years of age and am acquiring these materials for lawful laboratory research use only.</span>
+    </label>
+    <div class="vx-gate__actions">
+      <button id="vx-gate-enter" class="vx-gate__btn vx-gate__btn--primary" disabled>Enter site</button>
+      <button id="vx-gate-leave" class="vx-gate__btn vx-gate__btn--ghost">Leave</button>
+    </div>
+    <p class="vx-gate__fine">
+      By entering you agree to our Terms of Sale and acknowledge the
+      research-use-only nature of all listed materials.
+    </p>
+  </div>
+</div>
+<style>
+  :root{--vx-cream:#FAFAF7;--vx-navy:#0F1B2D;--vx-blue:#3973B0;--vx-sage:#7BA88F;--vx-hair:#D8D6CF}
+  .vx-gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(15,27,45,0.86);backdrop-filter:blur(6px);padding:24px;animation:vxFade .35s ease}
+  @keyframes vxFade{from{opacity:0}to{opacity:1}}
+  .vx-gate__panel{width:100%;max-width:440px;background:var(--vx-cream);border:1px solid var(--vx-hair);border-radius:4px;padding:40px 36px;box-shadow:0 24px 60px rgba(15,27,45,0.4);animation:vxRise .4s cubic-bezier(.2,.7,.3,1)}
+  @keyframes vxRise{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .vx-gate__mark{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;color:var(--vx-navy);margin-bottom:28px}
+  .vx-gate__eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--vx-blue);margin:0 0 8px}
+  .vx-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:28px;line-height:1.15;color:var(--vx-navy);margin:0 0 16px}
+  .vx-gate__body{font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.6;color:#3a4555;margin:0 0 24px}
+  .vx-gate__body strong{color:var(--vx-navy)}
+  .vx-gate__check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-family:'Geist',system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--vx-navy);margin-bottom:28px}
+  .vx-gate__check input{margin-top:3px;width:16px;height:16px;accent-color:var(--vx-blue);flex:none}
+  .vx-gate__actions{display:flex;gap:12px;margin-bottom:20px}
+  .vx-gate__btn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:13px 20px;border-radius:3px;cursor:pointer;border:1px solid var(--vx-navy);transition:all .18s ease}
+  .vx-gate__btn--primary{background:var(--vx-navy);color:var(--vx-cream);flex:1}
+  .vx-gate__btn--primary:disabled{opacity:.35;cursor:not-allowed}
+  .vx-gate__btn--primary:not(:disabled):hover{background:var(--vx-blue);border-color:var(--vx-blue)}
+  .vx-gate__btn--ghost{background:transparent;color:var(--vx-navy)}
+  .vx-gate__btn--ghost:hover{background:rgba(15,27,45,0.06)}
+  .vx-gate__fine{font-family:'Geist',system-ui,sans-serif;font-size:11px;line-height:1.5;color:#7a8290;margin:0}
+</style>
+<script>
+(function(){
+  var COOKIE='vx_age_ok',DAYS=30;
+  var WEBHOOK_URL='https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
+  function getCookie(n){return document.cookie.split('; ').reduce(function(a,c){var p=c.split('=');return p[0]===n?decodeURIComponent(p[1]):a;},'');}
+  function setCookie(n,v,days){var d=new Date();d.setTime(d.getTime()+days*864e5);document.cookie=n+'='+encodeURIComponent(v)+';expires='+d.toUTCString()+';path=/;SameSite=Lax';}
+  if(getCookie(COOKIE)==='1')return;
+  var gate=document.getElementById('vantix-gate');var box=document.getElementById('vx-gate-attest');var enter=document.getElementById('vx-gate-enter');var leave=document.getElementById('vx-gate-leave');
+  gate.hidden=false;document.documentElement.style.overflow='hidden';
+  box.addEventListener('change',function(){enter.disabled=!box.checked;});
+  enter.addEventListener('click',function(){if(!box.checked)return;setCookie(COOKIE,'1',DAYS);if(WEBHOOK_URL){try{fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'age_gate',ts:new Date().toISOString(),ua:navigator.userAgent})});}catch(e){}}gate.style.display='none';document.documentElement.style.overflow='';});
+  leave.addEventListener('click',function(){window.location.href='https://www.google.com';});
+})();
+</script>
+<!-- /VANTIX AGE GATE -->
+
 
 <div class="status-bar">
 <div class="status-inner">Free Shipping on Orders Over $150</div>
@@ -225,6 +289,55 @@ Continue Shopping
 </div>
 <div id="paymentInstructions"></div>
 </div>
+
+<div class="vx-affirm">
+  <p class="vx-affirm__eyebrow">Terms of Sale — Required</p>
+  <div class="vx-affirm__statements">
+    <p>By placing this order I confirm and agree that:</p>
+    <ul>
+      <li>I am at least <strong>21 years of age</strong>.</li>
+      <li>These materials are laboratory reference compounds intended
+          <strong>solely for in-vitro research and analytical use</strong>.</li>
+      <li>They are <strong>not for human or veterinary use</strong>, and not
+          for any diagnostic, therapeutic, or consumptive purpose in humans
+          or animals.</li>
+      <li>I am acquiring them for lawful research purposes and accept full
+          responsibility for their proper, compliant handling.</li>
+    </ul>
+  </div>
+  <label class="vx-affirm__check">
+    <input type="checkbox" id="vx-affirm-box" required>
+    <span>I have read and agree to the above and to the Terms of Sale.</span>
+  </label>
+  <p class="vx-affirm__err" id="vx-affirm-err" hidden>
+    Please confirm the research-use terms to complete your order.
+  </p>
+</div>
+<style>
+  .vx-affirm{--vx-cream:#FAFAF7;--vx-navy:#0F1B2D;--vx-blue:#3973B0;--vx-hair:#D8D6CF;background:var(--vx-cream);border:1px solid var(--vx-hair);border-left:3px solid var(--vx-blue);border-radius:3px;padding:22px 24px;margin:24px 0}
+  .vx-affirm__eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--vx-blue);margin:0 0 14px}
+  .vx-affirm__statements{font-family:'Geist',system-ui,sans-serif;font-size:13px;line-height:1.55;color:#3a4555}
+  .vx-affirm__statements p{margin:0 0 8px}
+  .vx-affirm__statements ul{margin:0;padding-left:18px}
+  .vx-affirm__statements li{margin-bottom:6px}
+  .vx-affirm__statements strong{color:var(--vx-navy)}
+  .vx-affirm__check{display:flex;gap:11px;align-items:flex-start;cursor:pointer;margin-top:16px;font-family:'Geist',system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--vx-navy)}
+  .vx-affirm__check input{margin-top:2px;width:16px;height:16px;accent-color:var(--vx-blue);flex:none}
+  .vx-affirm__err{font-family:'Geist',system-ui,sans-serif;font-size:12px;color:#b4452f;margin:10px 0 0}
+</style>
+<script>
+(function(){
+  var btn=document.getElementById('submitBtn');
+  var box=document.getElementById('vx-affirm-box');
+  var err=document.getElementById('vx-affirm-err');
+  if(!btn||!box) return;
+  btn.addEventListener('click',function(e){
+    if(!box.checked){e.preventDefault();err.hidden=false;box.focus();return false;}
+    err.hidden=true;
+    window.vxAffirmation={affirmed:true,ts:new Date().toISOString(),version:'ruo-v1'};
+  });
+})();
+</script>
 
 <button class="submit-btn" id="submitBtn" onclick="placeOrder()">Place Order</button>
 </div>
@@ -500,7 +613,8 @@ discount:getDiscount(),
 discount_code:promoCode||'',
 referral_source:referralSource||'',
 shipping:getShipping(),
-total:getTotal()
+total:getTotal(),
+affirmation:window.vxAffirmation||{}
 };
 var submitBtn=document.getElementById('submitBtn');
 submitBtn.disabled=true;
