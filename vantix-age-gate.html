@@ -109,7 +109,11 @@
     document.cookie=n+'='+encodeURIComponent(v)+';expires='+d.toUTCString()+';path=/;SameSite=Lax';
   }
 
-  if(getCookie(COOKIE)==='1') return; // already attested
+  // Check both localStorage and cookie for persistence across iOS Safari configs
+  var accepted=false;
+  try{accepted=localStorage.getItem('vx_age_ok')==='1';}catch(e){}
+  if(!accepted)accepted=getCookie(COOKIE)==='1';
+  if(accepted) return;
 
   var gate=document.getElementById('vantix-gate');
   var box=document.getElementById('vx-gate-attest');
@@ -119,10 +123,18 @@
   gate.hidden=false;
   document.documentElement.style.overflow='hidden';
 
-  box.addEventListener('change',function(){ enter.disabled=!box.checked; });
+  // Robust checkbox handling for iOS Safari
+  function syncBtn(){enter.disabled=!box.checked;}
+  box.addEventListener('input',syncBtn);
+  box.addEventListener('click',function(){setTimeout(syncBtn,0);setTimeout(syncBtn,50);setTimeout(syncBtn,150);});
+  var label=box.closest('label')||document.querySelector('label[for="'+box.id+'"]');
+  if(label)label.addEventListener('click',function(){setTimeout(syncBtn,0);setTimeout(syncBtn,100);});
+  var poll=setInterval(function(){syncBtn();if(box.checked){clearInterval(poll);}},200);
+  setTimeout(function(){clearInterval(poll);},5000);
 
   enter.addEventListener('click',function(){
     if(!box.checked) return;
+    try{localStorage.setItem('vx_age_ok','1');}catch(e){}
     setCookie(COOKIE,'1',DAYS);
     if(WEBHOOK_URL){
       try{
