@@ -423,9 +423,16 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
+var kitsOnlyCodes=['FOUNDER10','LAUNCH15','MURPHY15','TEST'];
 if(promoCode&&promoCodes[promoCode]){
 if(typeof promoCodes[promoCode]==='number'){
+if(kitsOnlyCodes.indexOf(promoCode)!==-1){
 discount+=subtotal*promoCodes[promoCode];
+}else{
+var singlesTotal=0;
+cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=item.price*item.quantity;}});
+discount+=singlesTotal*promoCodes[promoCode];
+}
 }
 }
 if(selectedPayment==='zelle'){discount+=subtotal*0.05;}
