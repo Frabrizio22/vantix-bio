@@ -129,15 +129,15 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 </style>
 <script>
 (function(){
-  var COOKIE='vx_age_ok',DAYS=30;
+  var STORAGE_KEY='vx_age_ok';
   var WEBHOOK_URL='https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
-  function getCookie(n){return document.cookie.split('; ').reduce(function(a,c){var p=c.split('=');return p[0]===n?decodeURIComponent(p[1]):a;},'');}
-  function setCookie(n,v,days){var d=new Date();d.setTime(d.getTime()+days*864e5);document.cookie=n+'='+encodeURIComponent(v)+';expires='+d.toUTCString()+';path=/;SameSite=Lax';}
-  if(getCookie(COOKIE)==='1')return;
+  
+  
+  if(localStorage.getItem(STORAGE_KEY)==='1')return;
   var gate=document.getElementById('vantix-gate');var box=document.getElementById('vx-gate-attest');var enter=document.getElementById('vx-gate-enter');var leave=document.getElementById('vx-gate-leave');
   gate.hidden=false;document.documentElement.style.overflow='hidden';
   box.addEventListener('change',function(){enter.disabled=!box.checked;});
-  enter.addEventListener('click',function(){if(!box.checked)return;setCookie(COOKIE,'1',DAYS);if(WEBHOOK_URL){try{fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'age_gate',ts:new Date().toISOString(),ua:navigator.userAgent})});}catch(e){}}gate.style.display='none';document.documentElement.style.overflow='';});
+  enter.addEventListener('click',function(){if(!box.checked)return;localStorage.setItem(STORAGE_KEY,'1');if(WEBHOOK_URL){try{fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'age_gate',ts:new Date().toISOString(),ua:navigator.userAgent})});}catch(e){}}gate.style.display='none';document.documentElement.style.overflow='';});
   leave.addEventListener('click',function(){window.location.href='https://www.google.com';});
 })();
 </script>
