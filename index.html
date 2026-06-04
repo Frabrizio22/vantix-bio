@@ -271,17 +271,14 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
       <strong>not for human or veterinary use</strong>, and not for any
       diagnostic, therapeutic, or consumptive purpose.
     </p>
-    <label class="vx-gate__check" id="vx-gate-label">
-      <span id="vx-gate-box" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border:2px solid var(--vx-navy);border-radius:3px;flex:none;cursor:pointer;transition:all .15s;background:#fff" role="checkbox" aria-checked="false" tabindex="0"></span>
-      <span>I am at least 21 years of age and am acquiring these materials for lawful laboratory research use only.</span>
-    </label>
     <div class="vx-gate__actions">
-      <button id="vx-gate-enter" class="vx-gate__btn vx-gate__btn--primary" style="opacity:0.35;cursor:not-allowed" disabled>Enter site</button>
+      <button id="vx-gate-enter" class="vx-gate__btn vx-gate__btn--primary">I confirm &amp; enter</button>
       <button id="vx-gate-leave" class="vx-gate__btn vx-gate__btn--ghost">Leave</button>
     </div>
     <p class="vx-gate__fine">
-      By entering you agree to our Terms of Sale and acknowledge the
-      research-use-only nature of all listed materials.
+      By clicking "I confirm &amp; enter" you affirm that you are at least 21 years of age,
+      are acquiring these materials for lawful laboratory research use only,
+      and agree to our Terms of Sale.
     </p>
   </div>
 </div>
@@ -370,19 +367,11 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
   if(ck(KEY)==='1')ok=true;
   if(ok){try{sessionStorage.setItem(KEY,'1');}catch(e){}try{localStorage.setItem(KEY,'1');}catch(e){}sk(KEY,'1');vxIntercept();return;}
   var gate=document.getElementById('vantix-gate');
-  var fakeBox=document.getElementById('vx-gate-box');
   var enter=document.getElementById('vx-gate-enter');
   var leave=document.getElementById('vx-gate-leave');
-  var label=document.getElementById('vx-gate-label');
-  if(!gate||!fakeBox||!enter)return;
+  if(!gate||!enter)return;
   gate.hidden=false;document.documentElement.style.overflow='hidden';
-  var checked=false;
-  function toggle(){checked=!checked;fakeBox.setAttribute('aria-checked',checked);fakeBox.style.background=checked?'var(--vx-navy)':'#fff';fakeBox.innerHTML=checked?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':'';enter.disabled=!checked;enter.style.opacity=checked?'1':'0.35';enter.style.cursor=checked?'pointer':'not-allowed';}
-  fakeBox.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggle();});
-  if(label)label.addEventListener('click',function(e){e.preventDefault();toggle();});
-  fakeBox.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle();}});
   enter.addEventListener('click',function(){
-    if(!checked)return;
     try{sessionStorage.setItem(KEY,'1');}catch(e){}
     try{localStorage.setItem(KEY,'1');}catch(e){}
     sk(KEY,'1');
