@@ -163,7 +163,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:48px 20px 28px;margin-top:80px}@
   if(accepted)return;
   var gate=document.getElementById('vantix-gate');var box=document.getElementById('vx-gate-attest');var enter=document.getElementById('vx-gate-enter');var leave=document.getElementById('vx-gate-leave');
   gate.hidden=false;document.documentElement.style.overflow='hidden';
-  function syncBtn(){enter.disabled=!box.checked;}
+  function syncBtn(){enter.disabled=!box.checked;enter.style.opacity=box.checked?'1':'0.35';enter.style.cursor=box.checked?'pointer':'not-allowed';}
   box.addEventListener('input',syncBtn);box.addEventListener('click',function(){setTimeout(syncBtn,0);setTimeout(syncBtn,50);setTimeout(syncBtn,150);});
   var label=box.closest('label')||document.querySelector('label[for="'+box.id+'"]');if(label)label.addEventListener('click',function(){setTimeout(syncBtn,0);setTimeout(syncBtn,100);});
   var poll=setInterval(function(){syncBtn();if(box.checked){clearInterval(poll);}},200);setTimeout(function(){clearInterval(poll);},5000);
