@@ -329,13 +329,54 @@ footer{background:#0B2545;color:#E8EEF5;padding:32px 20px 20px;margin-top:60px;f
   var WEBHOOK_URL='https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
   function ck(n){return document.cookie.split('; ').reduce(function(a,c){var p=c.split('=');return p[0]===n?p[1]:a;},'')}
   function sk(n,v){try{var d=new Date();d.setTime(d.getTime()+30*864e5);document.cookie=n+'='+v+';expires='+d.toUTCString()+';path=/;SameSite=Lax';}catch(e){}}
-  function tagLinks(){
+  function vxAppend(url){
+    if(!url||url.startsWith('http')||url.startsWith('mailto')||url.startsWith('#')||url.startsWith('javascript')||url.indexOf('vx=1')!==-1)return url;
+    return url+(url.indexOf('?')>-1?'&':'?')+'vx=1';
+  }
+  function vxIntercept(){
     document.querySelectorAll('a[href]').forEach(function(a){
       var h=a.getAttribute('href');
-      if(h&&!h.startsWith('http')&&!h.startsWith('mailto')&&!h.startsWith('#')&&!h.startsWith('javascript')&&h.indexOf('vx=1')===-1){
-        a.setAttribute('href',h+(h.indexOf('?')>-1?'&':'?')+'vx=1');
-      }
+      var nv=vxAppend(h);
+      if(nv!==h)a.setAttribute('href',nv);
     });
+    document.addEventListener('click',function(e){
+      var a=e.target.closest?e.target.closest('a[href]'):null;
+      if(a){
+        var h=a.getAttribute('href');
+        var nv=vxAppend(h);
+        if(nv!==h){e.preventDefault();window._vxNav=true;window.location.href=nv;}
+      }
+    },true);
+    var origDesc=Object.getOwnPropertyDescriptor(window.__proto__,'location')||Object.getOwnPropertyDescriptor(Window.prototype,'location');
+    try{
+      var _loc=window.location;
+      Object.defineProperty(window,'_vxLoc',{get:function(){return _loc},configurable:true});
+    }catch(e){}
+    var origAssign=window.location.assign;
+    var origReplace=window.location.replace;
+    if(origAssign)window.location.assign=function(u){return origAssign.call(window.location,vxAppend(u));};
+    if(origReplace)window.location.replace=function(u){return origReplace.call(window.location,vxAppend(u));};
+    var _origHrefSet=Object.getOwnPropertyDescriptor(Location.prototype,'href');
+    if(_origHrefSet&&_origHrefSet.set){
+      Object.defineProperty(Location.prototype,'href',{
+        get:_origHrefSet.get,
+        set:function(v){return _origHrefSet.set.call(this,vxAppend(v));},
+        configurable:true,enumerable:true
+      });
+    }
+    new MutationObserver(function(muts){
+      muts.forEach(function(m){
+        m.addedNodes.forEach(function(n){
+          if(n.querySelectorAll){
+            n.querySelectorAll('a[href]').forEach(function(a){
+              var h=a.getAttribute('href');
+              var nv=vxAppend(h);
+              if(nv!==h)a.setAttribute('href',nv);
+            });
+          }
+        });
+      });
+    }).observe(document.documentElement,{childList:true,subtree:true});
   }
   var ok=false;
   var u=new URLSearchParams(window.location.search);
@@ -343,7 +384,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:32px 20px 20px;margin-top:60px;f
   try{if(sessionStorage.getItem(KEY)==='1')ok=true;}catch(e){}
   try{if(localStorage.getItem(KEY)==='1')ok=true;}catch(e){}
   if(ck(KEY)==='1')ok=true;
-  if(ok){try{sessionStorage.setItem(KEY,'1');}catch(e){}try{localStorage.setItem(KEY,'1');}catch(e){}sk(KEY,'1');tagLinks();return;}
+  if(ok){try{sessionStorage.setItem(KEY,'1');}catch(e){}try{localStorage.setItem(KEY,'1');}catch(e){}sk(KEY,'1');vxIntercept();return;}
   var gate=document.getElementById('vantix-gate');
   var box=document.getElementById('vx-gate-attest');
   var enter=document.getElementById('vx-gate-enter');
@@ -361,7 +402,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:32px 20px 20px;margin-top:60px;f
     try{localStorage.setItem(KEY,'1');}catch(e){}
     sk(KEY,'1');
     if(WEBHOOK_URL){try{fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'age_gate',ts:new Date().toISOString(),ua:navigator.userAgent})});}catch(e){}}
-    tagLinks();
+    vxIntercept();
     gate.style.display='none';document.documentElement.style.overflow='';
   });
   leave.addEventListener('click',function(){window.location.href='https://www.google.com';});
