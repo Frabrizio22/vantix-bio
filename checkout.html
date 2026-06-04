@@ -182,7 +182,7 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
   if(localStorage.getItem(STORAGE_KEY)==='1')return;
   var gate=document.getElementById('vantix-gate');var box=document.getElementById('vx-gate-attest');var enter=document.getElementById('vx-gate-enter');var leave=document.getElementById('vx-gate-leave');
   gate.hidden=false;document.documentElement.style.overflow='hidden';
-  box.addEventListener('change',function(){enter.disabled=!box.checked;});
+  box.addEventListener('change',function(){enter.disabled=!box.checked;});box.addEventListener('click',function(){setTimeout(function(){enter.disabled=!box.checked;},50);});
   enter.addEventListener('click',function(){if(!box.checked)return;localStorage.setItem(STORAGE_KEY,'1');if(WEBHOOK_URL){try{fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'age_gate',ts:new Date().toISOString(),ua:navigator.userAgent})});}catch(e){}}gate.style.display='none';document.documentElement.style.overflow='';});
   leave.addEventListener('click',function(){window.location.href='https://www.google.com';});
 })();
