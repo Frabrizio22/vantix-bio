@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0;
+            background: #f8fafc;
+        }
+        .email-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .header { padding: 0; text-align: center; }
+        .content { padding: 20px 24px; }
+        h1 { color: #1e3a5f; font-size: 22px; margin: 0 0 20px 0; font-weight: 600; }
+        p { margin: 0 0 16px 0; color: #475569; }
+        .highlight-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid #2563eb;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+        .highlight-box p { margin: 0; color: #1e40af; font-weight: 500; }
+        .discount-code {
+            background: #fef3c7;
+            border: 2px dashed #f59e0b;
+            padding: 16px;
+            margin: 24px 0;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .discount-code strong {
+            font-size: 24px;
+            color: #92400e;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 24px 0;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+        ul { margin: 16px 0; padding-left: 20px; }
+        li { margin: 8px 0; color: #475569; }
+        .footer {
+            background: #f8fafc;
+            padding: 24px 24px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <img src="https://vantixbio.com/logo-email.jpg" alt="Vantix Bio" style="max-width: 300px; height: auto; display: block; margin: 0 auto; padding: 0;">
+        </div>
+        
+        <div class="content">
+            <h1>Hey Marc,</h1>
+            
+            <p>I wanted to reach out personally.</p>
+            
+            <p>You've been a solid repeat customer — multiple orders, always coming back. That doesn't go unnoticed.</p>
+            
+            <p>I launched <strong>Vantix Bio</strong> — same me, same products, but every batch is now independently verified by Janoshik Analytical before it ships.</p>
+            
+            <div class="highlight-box">
+                <p>Every batch tested: HPLC purity, LC-MS identity, and endotoxin screening. QR code on every vial — scan and verify instantly.</p>
+            </div>
+            
+            <ul>
+                <li><strong>>99% purity</strong> on every peptide</li>
+                <li><strong>Endotoxin testing</strong> on every batch</li>
+                <li><strong>Raw chromatography data</strong> published</li>
+                <li><strong>Credit cards accepted</strong> (Zelle still available too)</li>
+            </ul>
+            
+            <p><strong>Currently in stock:</strong></p>
+            
+            <div style="background:#f8fafc;border-radius:8px;padding:16px;margin:20px 0">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2e8f0">
+                <span style="font-weight:500;color:#1e293b">Retatrutide 20mg</span>
+                <span><span style="text-decoration:line-through;color:#94a3b8;font-size:13px">$68</span> <strong style="color:#2563eb">$57.80</strong></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2e8f0">
+                <span style="font-weight:500;color:#1e293b">Tirzepatide 30mg</span>
+                <span><span style="text-decoration:line-through;color:#94a3b8;font-size:13px">$68</span> <strong style="color:#2563eb">$57.80</strong></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2e8f0">
+                <span style="font-weight:500;color:#1e293b">NAD+ 1000mg</span>
+                <span><span style="text-decoration:line-through;color:#94a3b8;font-size:13px">$68</span> <strong style="color:#2563eb">$57.80</strong></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2e8f0">
+                <span style="font-weight:500;color:#1e293b">MOTS-c 10mg</span>
+                <span><span style="text-decoration:line-through;color:#94a3b8;font-size:13px">$32</span> <strong style="color:#2563eb">$27.20</strong></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0">
+                <span style="font-weight:500;color:#1e293b">GHK-Cu 100mg</span>
+                <span><span style="text-decoration:line-through;color:#94a3b8;font-size:13px">$34</span> <strong style="color:#2563eb">$28.90</strong></span>
+              </div>
+            </div>
+            
+            <p><em>All Janoshik-verified. Prices with LAUNCH15.</em></p>
+            
+            <div class="discount-code">
+                <p style="margin: 0 0 8px 0; color: #92400e;">Your code:</p>
+                <strong>LAUNCH15</strong>
+                <p style="margin: 8px 0 0 0; font-size: 14px; color: #78350f;">15% off your first order</p>
+            </div>
+            
+            <p>We're adding more products soon. If there's anything specific you're looking for, let me know.</p>
+            
+            <p>If you have questions, just reply to this email.</p>
+            
+            <a href="https://vantixbio.com/shop.html" class="cta-button">Shop Vantix Bio →</a>
+            
+            <p style="margin-top: 32px;">Appreciate you, Marc.</p>
+            
+            <p>— Frabrizio<br>
+            <span style="font-size: 14px; color: #64748b;">Founder, Vantix Bio</span></p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>VANTIX BIO</strong><br>
+            Independently Verified Research Peptides<br>
+            <a href="https://vantixbio.com" style="color: #2563eb; text-decoration: none;">vantixbio.com</a></p>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 16px;">
+                For research use only. Not for human consumption.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
