@@ -301,7 +301,7 @@ View Official Janoshik Report</a></div>
       <div class="step-number">7</div>
       <div class="step-content">
         <h3>Pass/Fail Gate</h3>
-        <p>≥99% purity, confirmed molecular identity, &lt;0.05 EU/mg endotoxin. No exceptions.</p>
+        <p>≥99% purity, confirmed molecular identity, ≤0.1 EU/mg endotoxin. No exceptions.</p>
       </div>
     </div>
 
@@ -383,7 +383,7 @@ document.getElementById('productName').textContent=batch.name;
 document.getElementById('batchMeta').textContent=input+' · Verified '+batch.tested;
 document.getElementById('content').textContent=batch.content||'—';
 document.getElementById('purity').textContent=batch.purity;
-document.getElementById('endotoxin').textContent=batch.endotoxin||'<0.05 EU/mg';
+document.getElementById('endotoxin').textContent=batch.endotoxin||'≤0.1 EU/mg';
 document.getElementById('taskId').textContent=batch.taskId+(batch.taskId2?' · '+batch.taskId2:'');
 document.getElementById('janoshikLink').href='https://janoshik.com/verify/?key='+batch.verifyKey;
 document.getElementById('coaDownloadLink').href='/coa/'+input+'.pdf';
