@@ -283,7 +283,7 @@ function renderProducts(filter='all'){
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
         ${p.inStock 
-          ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
+          ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
           : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}')">Join Waitlist</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>

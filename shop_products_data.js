@@ -7,7 +7,7 @@ const VX_PRODUCTS = {
         // METABOLIC SIGNALING - GLP-1, GIP & glucagon pathway peptides
         {
             sku: 'VX-TIRZ-30',
-            name: 'Tirzepatide 30mg',
+            name: 'Tirzepatide 30mg', cartName: 'Tirz 30mg',
             shortName: 'Tirzepatide',
             slug: 'tirzepatide',
             category: 'glp1-gip',
@@ -23,7 +23,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-RETA-20',
-            name: 'Retatrutide 20mg',
+            name: 'Retatrutide 20mg', cartName: 'Reta 20mg',
             shortName: 'Reta 20mg',
             slug: 'retatrutide',
             category: 'glp1-gip',
@@ -40,7 +40,7 @@ const VX_PRODUCTS = {
 
         {
             sku: 'VX-SEMA-10',
-            name: 'Semaglutide 10mg',
+            name: 'Semaglutide 10mg', cartName: 'Sema 10mg',
             shortName: 'Semaglutide',
             slug: 'semaglutide',
             category: 'glp1-gip',
@@ -58,7 +58,7 @@ const VX_PRODUCTS = {
         // BIOREGENERATIVE SIGNALING - Cellular signaling, matrix interaction, tissue-level pathways
         {
             sku: 'VX-BPC-10',
-            name: 'BPC-157 10mg',
+            name: 'BPC-157 10mg', cartName: 'BPC 10mg',
             shortName: 'BPC 10mg',
             slug: 'bpc-157',
             category: 'specialty',
@@ -74,7 +74,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-TB-10',
-            name: 'TB-500 10mg',
+            name: 'TB-500 10mg', cartName: 'TB 10mg',
             shortName: 'TB 10mg',
             slug: 'tb-500',
             category: 'specialty',
@@ -90,7 +90,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-GHK-100',
-            name: 'GHK-Cu 100mg',
+            name: 'GHK-Cu 100mg', cartName: 'GHK 100mg',
             shortName: 'GHK 100mg',
             slug: 'ghk-cu',
             category: 'specialty',
@@ -108,7 +108,7 @@ const VX_PRODUCTS = {
         // SOMATOTROPIC SIGNALING (GH AXIS) - Growth hormone axis & secretagogue research
         {
             sku: 'VX-CJC-10',
-            name: 'CJC-1295 (No DAC) 10mg',
+            name: 'CJC-1295 (No DAC) 10mg', cartName: 'CJC 10mg',
             shortName: 'CJC 10mg',
             slug: 'cjc-1295',
             category: 'gh-peptides',
@@ -124,7 +124,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-IPA-5',
-            name: 'Ipamorelin 5mg',
+            name: 'Ipamorelin 5mg', cartName: 'Ipa 5mg',
             shortName: 'Ipa 5mg',
             slug: 'ipamorelin',
             category: 'gh-peptides',
@@ -140,7 +140,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-TESA-10',
-            name: 'Tesamorelin 10mg',
+            name: 'Tesamorelin 10mg', cartName: 'Tesa 10mg',
             shortName: 'Tesamorelin',
             slug: 'tesamorelin',
             category: 'gh-peptides',
@@ -156,7 +156,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-AOD-10',
-            name: 'AOD-9604 10mg',
+            name: 'AOD-9604 10mg', cartName: 'AOD 10mg',
             shortName: 'AOD 10mg',
             slug: 'aod-9604',
             category: 'gh-peptides',
@@ -174,7 +174,7 @@ const VX_PRODUCTS = {
         // MITOCHONDRIAL & CELLULAR RESEARCH - Cellular energy, mitochondrial signaling, metabolic regulation
         {
             sku: 'VX-MOTS-10',
-            name: 'MOTS-C 10mg',
+            name: 'MOTS-C 10mg', cartName: 'MOTS 10mg',
             shortName: 'MOTS 10mg',
             slug: 'mots-c',
             category: 'specialty',
@@ -190,7 +190,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-NAD-1000',
-            name: 'NAD+ 1000mg',
+            name: 'NAD+ 1000mg', cartName: 'NAD+ 1g',
             shortName: 'NAD+ 1k',
             slug: 'nad-plus',
             category: 'specialty',
@@ -206,7 +206,7 @@ const VX_PRODUCTS = {
         },
         {
             sku: 'VX-MT2-10',
-            name: 'Melanotan II 10mg',
+            name: 'Melanotan II 10mg', cartName: 'MT-2 10mg',
             shortName: 'Melanotan II',
             slug: 'melanotan-2',
             category: 'specialty',

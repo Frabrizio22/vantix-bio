@@ -173,7 +173,7 @@ This product is intended for laboratory research use only. Not for human consump
 
 <script>
 function addToCart(){
-const product={sku:'VX-NAD-1000',name:'NAD+ 1000mg',price:68,quantity:1};
+const product={sku:'VX-NAD-1000',name:'NAD+ 1g',price:68,quantity:1};
 let cart=JSON.parse(localStorage.getItem('vantixCart')||'[]');
 const existing=cart.find(item=>item.sku===product.sku);
 if(existing){existing.quantity+=1;}else{cart.push(product);}

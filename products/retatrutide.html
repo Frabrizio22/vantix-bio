@@ -173,7 +173,7 @@ This product is intended for laboratory research use only. Not for human consump
 
 <script>
 function addToCart(){
-const product={sku:'VX-RETA-20',name:'Retatrutide 20mg',price:68,quantity:1};
+const product={sku:'VX-RETA-20',name:'Reta 20mg',price:68,quantity:1};
 let cart=JSON.parse(localStorage.getItem('vantixCart')||'[]');
 const existing=cart.find(item=>item.sku===product.sku);
 if(existing){existing.quantity+=1;}else{cart.push(product);}

@@ -173,7 +173,7 @@ This product is intended for laboratory research use only. Not for human consump
 
 <script>
 function addToCart(){
-const product={sku:'VX-TESA-10',name:'Tesamorelin 10mg',price:52,quantity:1};
+const product={sku:'VX-TESA-10',name:'Tesa 10mg',price:52,quantity:1};
 let cart=JSON.parse(localStorage.getItem('vantixCart')||'[]');
 const existing=cart.find(item=>item.sku===product.sku);
 if(existing){existing.quantity+=1;}else{cart.push(product);}
