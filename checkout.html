@@ -331,10 +331,10 @@ function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
 // Auto-bundle cart items into kits when applicable
 function autoBundleKits(){
 var kits=[
-{name:'Tissue Repair Kit',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
-{name:'GH Axis Kit',price:62,skus:['VX-CJC-10','VX-IPA-5'],newSku:'VX-KIT-GH'},
-{name:'Next-Gen Agonist Kit',price:115,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
-{name:'Mitochondrial Kit',price:90,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
+{name:'Tissue Repair Kit (BPC-157 10mg + TB-500 10mg)',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
+{name:'GH Axis Kit (CJC-1295 10mg + Ipa 5mg)',price:62,skus:['VX-CJC-10','VX-IPA-5'],newSku:'VX-KIT-GH'},
+{name:'Next-Gen Kit (Tirz 30mg + Reta 20mg)',price:115,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
+{name:'Mito Kit (NAD+ 1000mg + MOTS-C 10mg)',price:90,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
 ];
 for(var k=0;k<kits.length;k++){
 var kit=kits[k];
