@@ -3,376 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vantix Bio — Poshmart</title>
+<title>Vantix Bio — POSH10</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 @import url('https://fonts.cdnfonts.com/css/geist');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--navy:#143054;--hairline:#E5E5E0;--muted:#64748B}
 
-@page { size: letter; margin: 0; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
+body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 
-body {
-  font-family: 'Geist', -apple-system, sans-serif;
-  background: #FAFAF7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-}
+.flyer{max-width:480px;margin:0 auto;background:#fff}
 
-.flyer {
-  width: 8.5in;
-  height: 11in;
-  background: white;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  position: relative;
-  overflow: hidden;
-}
+/* Header */
+.header{background:var(--navy);padding:40px 28px 32px;text-align:center}
+.header img{height:48px;margin-bottom:16px}
+.header .tagline{font-family:'Fraunces',serif;font-size:16px;color:rgba(255,255,255,.7);font-style:italic;font-weight:300}
+.header .badge{display:inline-block;margin-top:14px;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.6)}
 
-.header {
-  background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
-  padding: 36px 40px;
-  text-align: center;
-  position: relative;
-}
+/* Content */
+.content{padding:28px 24px}
 
-.logo-area img { height: 60px; }
-.logo-area { margin-bottom: 16px; }
+.chapter{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.chapter::after{content:'';flex:1;height:1px;background:var(--hairline)}
 
-.tagline {
-  font-family: 'Fraunces', serif;
-  font-size: 18px;
-  color: #94A3B8;
-  font-style: italic;
-  font-weight: 300;
-}
+/* Product cards */
+.product{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--hairline)}
+.product:last-child{border-bottom:none}
+.product-left{display:flex;flex-direction:column;gap:3px}
+.product-name{font-size:15px;font-weight:500;color:var(--text)}
+.product-badge{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;padding:2px 6px;border-radius:3px;display:inline-block;width:fit-content}
+.badge-stock{background:#DCFCE7;color:#166534}
+.badge-soon{background:#FEF3C7;color:#92400E}
+.product-right{text-align:right;display:flex;align-items:baseline;gap:8px}
+.price-old{font-family:'JetBrains Mono',monospace;font-size:13px;color:#94A3B8;text-decoration:line-through}
+.price-new{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--accent)}
 
-.verification-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(123, 168, 143, 0.2);
-  border: 1px solid rgba(123, 168, 143, 0.4);
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-top: 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #7BA88F;
-}
+/* Discount Box */
+.discount{background:var(--navy);border-radius:12px;padding:28px 24px;margin:28px 0;text-align:center}
+.discount-code{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:#fff;letter-spacing:4px;margin-bottom:10px}
+.discount-sub{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7}
+.discount-sub strong{color:#fff}
 
-.content { padding: 32px 40px; }
+/* Features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.feat{text-align:center;padding:16px 8px;background:var(--bg);border-radius:10px;border:1px solid var(--hairline)}
+.feat-icon{font-size:20px;margin-bottom:6px}
+.feat-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:600;margin-bottom:2px}
+.feat-desc{font-size:11px;color:var(--muted)}
 
-.section-title {
-  font-family: 'Fraunces', serif;
-  font-size: 26px;
-  font-weight: 400;
-  color: #0A1628;
-  margin-bottom: 20px;
-  text-align: center;
-}
+/* QR */
+.qr{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0;border-top:1px solid var(--hairline);margin-top:8px}
+.qr img{width:90px;height:90px;border-radius:8px;border:1px solid var(--hairline)}
+.qr-text{font-size:12px;color:var(--muted);line-height:1.5;max-width:160px}
+.qr-text strong{color:var(--text)}
 
-.stock-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #3973B0;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
+/* Footer */
+.footer{background:var(--navy);padding:20px 24px;text-align:center}
+.footer-url{font-family:'JetBrains Mono',monospace;font-size:18px;color:#fff;font-weight:700;letter-spacing:2px;margin-bottom:4px}
+.footer-email{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px}
+.footer-ruo{font-family:'JetBrains Mono',monospace;font-size:7px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;line-height:1.5}
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 28px;
-  margin-bottom: 12px;
-}
-
-.product-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #E5E5E0;
-}
-
-.product-name { font-size: 14px; font-weight: 500; color: #0A1628; }
-
-.product-prices { text-align: right; white-space: nowrap; }
-
-.price-retail {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: #94A3B8;
-  text-decoration: line-through;
-  margin-right: 6px;
-}
-
-.price-posh {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  color: #3973B0;
-}
-
-.stock-badge {
-  display: inline-block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 7px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 2px 5px;
-  border-radius: 3px;
-  margin-left: 4px;
-  position: relative;
-  top: -1px;
-}
-.badge-in { background: #DCFCE7; color: #166534; }
-.badge-soon { background: #FEF3C7; color: #92400E; }
-
-.coming-divider {
-  grid-column: 1 / -1;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #92400E;
-  margin-top: 8px;
-  padding-top: 12px;
-  border-top: 1px dashed #E5E5E0;
-  font-weight: 600;
-}
-
-.discount-box {
-  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-  border-left: 4px solid #3973B0;
-  padding: 20px;
-  margin: 24px 0;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.discount-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 40px;
-  font-weight: 700;
-  color: #0A1628;
-  letter-spacing: 4px;
-  margin-bottom: 8px;
-}
-
-.discount-details {
-  font-size: 14px;
-  color: #475569;
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 24px;
-}
-
-.feature {
-  text-align: center;
-  padding: 14px;
-  background: #FAFAF7;
-  border-radius: 8px;
-}
-
-.feature-icon { font-size: 22px; margin-bottom: 6px; }
-
-.feature-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #3973B0;
-  margin-bottom: 4px;
-  font-weight: 600;
-}
-
-.feature-desc { font-size: 11px; color: #64748B; line-height: 1.4; }
-
-.qr-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin: 20px 0;
-}
-
-.qr-text {
-  font-size: 12px;
-  color: #475569;
-  max-width: 180px;
-  line-height: 1.5;
-}
-
-.footer {
-  background: #0B2545;
-  padding: 22px 40px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-
-.footer-url {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 22px;
-  color: #FFFFFF;
-  font-weight: 700;
-  margin-bottom: 6px;
-  letter-spacing: 2px;
-}
-
-.footer-email {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: #94A3B8;
-  margin-bottom: 10px;
-}
-
-.footer-disclaimer {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  line-height: 1.4;
-}
-
-@media print {
-  body { padding: 0; background: white; }
-  .flyer { box-shadow: none; }
-}
+/* Print */
+@media print{body{background:#fff}.flyer{box-shadow:none}}
 </style>
 </head>
 <body>
 
 <div class="flyer">
   <div class="header">
-    <div class="logo-area">
-      <img src="logo-header.svg" alt="Vantix Bio" style="filter: brightness(0) invert(1);">
-    </div>
+    <img src="logo-header.svg" alt="Vantix Bio" style="filter:brightness(0) invert(1)">
     <div class="tagline">Janoshik-Verified Research Peptides</div>
-    <div class="verification-badge">
-      ✓ BATCH-LEVEL TESTING • HPLC + LC-MS + ENDOTOXIN
-    </div>
+    <div class="badge">✓ HPLC Purity · LC-MS Identity · Endotoxin Screening</div>
   </div>
 
   <div class="content">
-    <div class="section-title">Product Catalog</div>
+    <div class="chapter">In Stock</div>
 
-    <div class="products-grid">
-      <!-- IN STOCK -->
-      <div class="product-item">
-        <span class="product-name">Tirzepatide 30mg <span class="stock-badge badge-in">In Stock</span></span>
-        <span class="product-prices"><span class="price-retail">$68</span><span class="price-posh">$61.20</span></span>
+    <div class="product">
+      <div class="product-left">
+        <span class="product-name">Tirzepatide 30mg</span>
+        <span class="product-badge badge-stock">In Stock</span>
       </div>
-      <div class="product-item">
-        <span class="product-name">Retatrutide 20mg <span class="stock-badge badge-in">In Stock</span></span>
-        <span class="product-prices"><span class="price-retail">$68</span><span class="price-posh">$61.20</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">NAD+ 1000mg <span class="stock-badge badge-in">In Stock</span></span>
-        <span class="product-prices"><span class="price-retail">$68</span><span class="price-posh">$61.20</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">MOTS-C 10mg <span class="stock-badge badge-in">In Stock</span></span>
-        <span class="product-prices"><span class="price-retail">$32</span><span class="price-posh">$28.80</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">GHK-Cu 100mg <span class="stock-badge badge-in">In Stock</span></span>
-        <span class="product-prices"><span class="price-retail">$34</span><span class="price-posh">$30.60</span></span>
-      </div>
-
-      <!-- COMING SOON DIVIDER -->
-      <div class="coming-divider">Coming Soon</div>
-
-      <div class="product-item">
-        <span class="product-name">BPC-157 10mg</span>
-        <span class="product-prices"><span class="price-retail">$30</span><span class="price-posh">$27.00</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">TB-500 10mg</span>
-        <span class="product-prices"><span class="price-retail">$38</span><span class="price-posh">$34.20</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">CJC-1295 10mg</span>
-        <span class="product-prices"><span class="price-retail">$42</span><span class="price-posh">$37.80</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">Ipamorelin 5mg</span>
-        <span class="product-prices"><span class="price-retail">$30</span><span class="price-posh">$27.00</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">Semaglutide 10mg</span>
-        <span class="product-prices"><span class="price-retail">$42</span><span class="price-posh">$37.80</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">Tesamorelin 10mg</span>
-        <span class="product-prices"><span class="price-retail">$52</span><span class="price-posh">$46.80</span></span>
-      </div>
-      <div class="product-item">
-        <span class="product-name">AOD-9604 10mg</span>
-        <span class="product-prices"><span class="price-retail">$52</span><span class="price-posh">$46.80</span></span>
+      <div class="product-right">
+        <span class="price-old">$68</span>
+        <span class="price-new">$61.20</span>
       </div>
     </div>
 
-    <div class="discount-box">
-      <div class="discount-code">POSH10</div>
-      <div class="discount-details">
-        <strong>10% off all individual products</strong><br>
-        Pay via Zelle for an additional 5% off (15% total)<br>
-        Free shipping on orders over $150
+    <div class="product">
+      <div class="product-left">
+        <span class="product-name">Retatrutide 20mg</span>
+        <span class="product-badge badge-stock">In Stock</span>
       </div>
+      <div class="product-right">
+        <span class="price-old">$68</span>
+        <span class="price-new">$61.20</span>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-left">
+        <span class="product-name">NAD+ 1000mg</span>
+        <span class="product-badge badge-stock">In Stock</span>
+      </div>
+      <div class="product-right">
+        <span class="price-old">$68</span>
+        <span class="price-new">$61.20</span>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-left">
+        <span class="product-name">MOTS-C 10mg</span>
+        <span class="product-badge badge-stock">In Stock</span>
+      </div>
+      <div class="product-right">
+        <span class="price-old">$32</span>
+        <span class="price-new">$28.80</span>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-left">
+        <span class="product-name">GHK-Cu 100mg</span>
+        <span class="product-badge badge-stock">In Stock</span>
+      </div>
+      <div class="product-right">
+        <span class="price-old">$34</span>
+        <span class="price-new">$30.60</span>
+      </div>
+    </div>
+
+    <div class="chapter" style="margin-top:24px">Coming Soon</div>
+
+    <div class="product">
+      <div class="product-left"><span class="product-name">BPC-157 10mg</span></div>
+      <div class="product-right"><span class="price-old">$30</span><span class="price-new">$27.00</span></div>
+    </div>
+    <div class="product">
+      <div class="product-left"><span class="product-name">TB-500 10mg</span></div>
+      <div class="product-right"><span class="price-old">$38</span><span class="price-new">$34.20</span></div>
+    </div>
+    <div class="product">
+      <div class="product-left"><span class="product-name">CJC-1295 10mg</span></div>
+      <div class="product-right"><span class="price-old">$42</span><span class="price-new">$37.80</span></div>
+    </div>
+    <div class="product">
+      <div class="product-left"><span class="product-name">Ipamorelin 5mg</span></div>
+      <div class="product-right"><span class="price-old">$30</span><span class="price-new">$27.00</span></div>
+    </div>
+    <div class="product">
+      <div class="product-left"><span class="product-name">Semaglutide 10mg</span></div>
+      <div class="product-right"><span class="price-old">$42</span><span class="price-new">$37.80</span></div>
+    </div>
+    <div class="product">
+      <div class="product-left"><span class="product-name">Tesamorelin 10mg</span></div>
+      <div class="product-right"><span class="price-old">$52</span><span class="price-new">$46.80</span></div>
+    </div>
+    <div class="product">
+      <div class="product-left"><span class="product-name">AOD-9604 10mg</span></div>
+      <div class="product-right"><span class="price-old">$52</span><span class="price-new">$46.80</span></div>
+    </div>
+
+    <div class="discount">
+      <div class="discount-code">POSH10</div>
+      <div class="discount-sub"><strong>10% off individual products</strong><br>Pay via Zelle for an extra 5% off<br>Free shipping over $150</div>
     </div>
 
     <div class="features">
-      <div class="feature">
-        <div class="feature-icon">🔬</div>
-        <div class="feature-title">Janoshik Verified</div>
-        <div class="feature-desc">Every batch independently tested</div>
+      <div class="feat">
+        <div class="feat-icon">🔬</div>
+        <div class="feat-label">Janoshik Verified</div>
+        <div class="feat-desc">Every batch tested</div>
       </div>
-      <div class="feature">
-        <div class="feature-icon">📊</div>
-        <div class="feature-title">≥99% Purity</div>
-        <div class="feature-desc">HPLC + LC-MS confirmation</div>
+      <div class="feat">
+        <div class="feat-icon">📊</div>
+        <div class="feat-label">≥99% Purity</div>
+        <div class="feat-desc">HPLC confirmed</div>
       </div>
-      <div class="feature">
-        <div class="feature-icon">🧪</div>
-        <div class="feature-title">QR Verified</div>
-        <div class="feature-desc">Scan vial → see full COA</div>
+      <div class="feat">
+        <div class="feat-icon">📱</div>
+        <div class="feat-label">QR Verified</div>
+        <div class="feat-desc">Scan vial → COA</div>
       </div>
     </div>
 
-    <div class="qr-section">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://vantixbio.com/shop.html?code=POSH10" alt="Scan to shop" style="width: 110px; height: 110px; border: 2px solid #E5E5E0; border-radius: 8px;">
-      <div class="qr-text">
-        <strong>Scan to shop</strong><br>
-        POSH10 code auto-applied.<br>
-        Ships same-day before 2 PM PST.
-      </div>
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://vantixbio.com/shop.html?code=POSH10" alt="Scan">
+      <div class="qr-text"><strong>Scan to shop</strong><br>POSH10 auto-applied at checkout.<br>Same-day shipping before 2 PM PST.</div>
     </div>
   </div>
 
   <div class="footer">
     <div class="footer-url">VANTIXBIO.COM</div>
     <div class="footer-email">vantixbio@gmail.com</div>
-    <div class="footer-disclaimer">
-      RUO — FOR RESEARCH USE ONLY • NOT FOR HUMAN CONSUMPTION<br>
-      © 2026 VANTIX BIO
-    </div>
+    <div class="footer-ruo">For research use only · Not for human consumption · © 2026 Vantix Bio</div>
   </div>
 </div>
 
