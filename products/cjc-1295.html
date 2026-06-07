@@ -162,7 +162,7 @@ This product is intended for laboratory research use only. Not for human consump
 </main>
 
 <div class="cta">
-<button class="btn" style="background:#94a3b8;cursor:not-allowed;" disabled>Out of Stock</button><button class="btn" style="background:var(--navy);margin-top:8px;" onclick="window.location.href='/shop.html?waitlist=cjc-1295'">Notify Me When Available</button>
+<button class="btn" style="background:#94a3b8;cursor:not-allowed;" disabled>Out of Stock</button><button class="btn" style="background:var(--navy);margin-top:8px;" onclick="event.preventDefault(); joinWaitlist('Cjc 1295')">Notify Me When Available</button>
 </div>
 
 <footer>
@@ -182,5 +182,32 @@ window.location.href='../checkout.html';
 }
 </script>
 
+<script>
+function joinWaitlist(productName) {
+  var email = prompt("Enter your email to join the waitlist for " + productName + ":");
+  if (!email || !email.includes("@")) { return; }
+  fetch("https://vantix-checkout.prcpeptides.workers.dev", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "notify",
+      email: email,
+      product: productName,
+      source: "product_page"
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.status === "success" || data.status === "duplicate") {
+      alert("✓ You are on the waitlist! We will notify you when " + productName + " is back in stock.");
+    } else {
+      alert("Error joining waitlist. Please try again.");
+    }
+  })
+  .catch(function() {
+    alert("Network error. Please try again.");
+  });
+}
+</script>
 </body>
 </html>
