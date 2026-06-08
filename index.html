@@ -267,7 +267,7 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 </head>
 <body>
 <!-- Checkout Fixed Banner -->
-<div id="checkoutBanner" class="checkout-banner" style="display:none">
+<div id="checkoutBanner" class="checkout-banner">
   ✅ Credit card checkout is back online. <a href="/checkout.html">Complete your order now</a>
   <button class="checkout-banner-close" onclick="document.getElementById('checkoutBanner').style.display='none';localStorage.setItem('vxCheckoutBannerDismissed','1')" aria-label="Close banner">×</button>
 </div>
@@ -814,9 +814,11 @@ function genP(pr){const pts=[],n=Math.floor(pr/100*70);for(let i=0;i<=n;i++){con
 function anim(){p=(p>=100)?0:p+.4;const pts=genP(p),x=p/100*400,g=Math.exp(-Math.pow(x-200,2)/2500),y=140-g*100;document.getElementById('chromaFill').setAttribute('points',`0,140 ${pts} ${x},140`);document.getElementById('chromaLine').setAttribute('points',pts);document.getElementById('chromaDot').setAttribute('cx',x);document.getElementById('chromaDot').setAttribute('cy',y);const lbl=document.getElementById('peakLabel');lbl.setAttribute('opacity',p>55?Math.min(1,(p-55)/10):0);requestAnimationFrame(anim)}
 anim();
 
-// Show checkout banner if not dismissed
-if (!localStorage.getItem('vxCheckoutBannerDismissed')) {
-  document.getElementById('checkoutBanner').style.display = 'block';
+// Auto-hide checkout banner after 24 hours (deployed 2026-06-07 20:47 PDT)
+const bannerDeployTime = 1717819620000; // Unix timestamp
+const now = Date.now();
+if (now - bannerDeployTime > 86400000 || localStorage.getItem('vxCheckoutBannerDismissed')) {
+  document.getElementById('checkoutBanner').style.display = 'none';
 }
 
 </script>
