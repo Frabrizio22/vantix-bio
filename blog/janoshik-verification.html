@@ -15,17 +15,32 @@
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
 .pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
-.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid #D9D2BF;position:sticky;top:37px;z-index:99}
-article{padding-top:80px}
-@media(max-width:720px){article{padding-top:60px;padding-left:20px;padding-right:20px}}
-.header-content{max-width:1400px;margin:0 auto;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-@media(min-width:768px){.header-content{padding:16px 48px}}
-.logo-link{display:flex;align-items:center;text-decoration:none}
-.header-logo{height:32px}
-.nav{display:flex;gap:24px;align-items:center}
-.nav a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s}
-.nav a:hover{opacity:.6}
-@media(max-width:720px){.nav{gap:16px}.nav a{font-size:14px}}
+.container{max-width:100%;margin:0 auto;padding:0 48px;box-sizing:border-box}
+@media(min-width:768px){.container{padding:0 80px;max-width:1400px}}
+.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+@media(min-width:768px){.header-nav{padding:20px 0}}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#0F1B2D;flex-shrink:0}
+.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:#0F1B2D;display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
+.icon-btn:hover{opacity:.6}
+.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
+.nav-links{display:none;gap:24px;align-items:center;flex:1;justify-content:center}
+@media(min-width:768px){.nav-links{display:flex}}
+.nav-links > a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s;white-space:nowrap}
+.nav-links > a:hover{opacity:.6}
+.nav-item{position:relative}
+.catalog-link{display:flex;align-items:center;gap:4px;color:#0F1B2D;cursor:pointer;font-size:15px;font-weight:500;transition:opacity .3s}
+.catalog-link:hover{opacity:.6}
+.catalog-link svg{width:16px;height:16px}
+.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #D9D2BF;border-radius:8px;padding:8px 0;min-width:160px;box-shadow:0 4px 12px rgba(0,0,0,0.1);margin-top:8px}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-dropdown a{display:block;padding:8px 16px;color:#0F1B2D;text-decoration:none;font-size:14px;transition:background .2s}
+.nav-dropdown a:hover{background:#f5f5f5}
+.header-icons{display:flex;align-items:center;gap:8px}
+.btn{padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;white-space:nowrap;border:none;cursor:pointer;display:inline-block}
+.btn-dark{background:#0F1B2D;color:#fff}
+.btn-dark:hover{background:#3973B0}
+article{padding-top:40px}
+@media(max-width:767px){article{padding-left:20px;padding-right:20px}.icon-btn{display:flex}}
 </style>
 </head>
 <body>
@@ -37,20 +52,36 @@ article{padding-top:80px}
   </div>
 </div>
 
-<header class="header">
-  <div class="header-content">
-    <a href="../index.html" class="logo-link">
-      <img src="../logo-header.svg" alt="Vantix Bio" class="header-logo">
-    </a>
-    <nav class="nav" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
-                <a href="../shop.html">Catalog</a>
-                <a href="../verify.html">Verify</a>
-                <a href="index.html">Research</a>
-                <a href="../about.html">About</a>
-                <a href="../index.html#waitlist" style="background:var(--navy);color:#fff;padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .3s" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--navy)'">Join Waitlist</a>
-            </nav>
-  </div>
-</header>
+<div class="container">
+<nav class="header-nav">
+<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+<button class="icon-btn" id="menuBtn" aria-label="Menu">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+</button>
+<a href="../index.html" class="logo">
+<img src="../logo-header.svg" alt="Vantix Bio" style="height:32px">
+</a>
+</div>
+<div class="nav-links">
+<div class="nav-item">
+<div class="catalog-link">
+<span>Catalog</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
+</div>
+<div class="nav-dropdown">
+<a href="../shop.html">Single Vials</a>
+<a href="../kits.html">Research Kits</a>
+</div>
+</div>
+<a href="../verify.html">Verify</a>
+<a href="index.html">Research</a>
+<a href="../about.html">About</a>
+</div>
+<div class="header-icons">
+<a href="../shop.html" class="btn btn-dark">Shop Now</a>
+</div>
+</nav>
+</div>
 
 <article>
             <div class="article-header">
