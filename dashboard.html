@@ -808,70 +808,7 @@ tr:hover {
 </head>
 <body>
 
-<!-- Password Protection Overlay -->
-<div id="passwordOverlay" style="
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-">
-  <div style="text-align: center; max-width: 400px; padding: 40px;">
-    <div style="font-size: 60px; margin-bottom: 24px;">🔒</div>
-    <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px;">
-      Vantix Bio Dashboard
-    </h1>
-    <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
-      Enter password to access operations dashboard
-    </p>
-    <input
-      type="password"
-      id="passwordInput"
-      placeholder="Enter password"
-      autocomplete="off"
-      autocapitalize="off"
-      autocorrect="off"
-      spellcheck="false"
-      inputmode="text"
-      style="
-        width: 100%;
-        padding: 14px 20px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        color: var(--text);
-        font-size: 16px;
-        margin-bottom: 16px;
-        font-family: 'Geist', sans-serif;
-      "
-    />
-    <button
-      onclick="window.checkPassword()"
-      style="
-        width: 100%;
-        padding: 14px 24px;
-        background: var(--accent);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        cursor: pointer;
-      "
-    >
-      🔓 Unlock Dashboard
-    </button>
-    <p id="passwordError" style="color: var(--critical); margin-top: 16px; font-size: 13px; display: none;">
-      ❌ Incorrect password
-    </p>
-  </div>
-</div>
+<!-- Password handled by initDashboard() in JS -->
 
 <div class="grid-bg"></div>
 
@@ -3035,61 +2972,7 @@ function loadTheme() {
   }
 }
 
-// Password Protection
-const DASHBOARD_PASSWORD = 'vantix2026'; // Change this to your password
-
-function checkPassword() {
-  console.log('[AUTH] checkPassword() called');
-  const input = document.getElementById('passwordInput');
-  const error = document.getElementById('passwordError');
-  
-  // Trim whitespace and lowercase for case-insensitive comparison
-  const enteredPassword = input.value.trim().toLowerCase();
-  const expectedPassword = DASHBOARD_PASSWORD.toLowerCase();
-  
-  console.log('Password check:', { 
-    entered: enteredPassword, 
-    expected: expectedPassword, 
-    match: enteredPassword === expectedPassword,
-    enteredLength: enteredPassword.length,
-    expectedLength: expectedPassword.length
-  });
-  
-  if (enteredPassword === expectedPassword) {
-    // Correct password
-    localStorage.setItem('dashboardAuth', 'true');
-    localStorage.setItem('authExpiry', Date.now() + (30 * 24 * 60 * 60 * 1000)); // 30 days
-    document.getElementById('passwordOverlay').style.display = 'none';
-    error.style.display = 'none';
-  } else {
-    // Wrong password - show what was entered for debugging
-    error.style.display = 'block';
-    error.textContent = `❌ Incorrect password. Expected: "${DASHBOARD_PASSWORD}", Got: "${input.value.trim()}"`;
-    input.value = '';
-    input.focus();
-  }
-}
-
-// Expose to window for onclick handler
-window.checkPassword = checkPassword;
-
-function checkAuth() {
-  console.log('[AUTH] checkAuth() called');
-  const isAuthed = localStorage.getItem('dashboardAuth');
-  const expiry = localStorage.getItem('authExpiry');
-  
-  if (isAuthed === 'true' && expiry && Date.now() < parseInt(expiry)) {
-    // Still authenticated
-    document.getElementById('passwordOverlay').style.display = 'none';
-  } else {
-    // Not authenticated or expired
-    localStorage.removeItem('dashboardAuth');
-    localStorage.removeItem('authExpiry');
-    document.getElementById('passwordOverlay').style.display = 'flex';
-  }
-}
-
-checkAuth();
+// Auth handled by initDashboard() above
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     localStorage.removeItem('dashboardAuth');
@@ -3314,36 +3197,7 @@ async function saveManualSale() {
 }
 
 // Password input handlers
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('[AUTH] Setting up password handlers');
-  
-  const passwordInput = document.getElementById('passwordInput');
-  const unlockButton = document.querySelector('button[onclick="window.checkPassword()"]');
-  
-  if (passwordInput) {
-    // Enter key handler
-    passwordInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        checkPassword();
-      }
-    });
-    
-    // Focus the input
-    passwordInput.focus();
-  }
-  
-  // Button click handler (backup for onclick)
-  if (unlockButton) {
-    unlockButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      checkPassword();
-    });
-  }
-});
-
-// Check auth on page load
-window.addEventListener('load', checkAuth);
+// Old password handlers removed - using initDashboard() instead
 
 // Load theme and suppliers on page load
 window.addEventListener('DOMContentLoaded', () => {
