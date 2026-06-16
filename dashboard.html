@@ -1764,17 +1764,6 @@ function calculateMerchantFees(amount) {
   return squareFee + gatewayFee; // Total: 4.4% + $0.40
 }
 
-// Helper: convert object to array matching column order
-function batchObjToArr(b) {
-  return [b.batchId, b.receivedDate, b.product, b.supplier, b.supplierBatchId, b.initialQuantity, b.receiptCost, b.testingCost, b.costPerVial, b.quantityRemaining, b.coaUrl, b.purity, b.status, b.location, b.expiryDate, b.quantitySold, b.notes];
-}
-function orderObjToArr(o) {
-  return [o.orderNumber, o.date, o.email, o.name, o.phone, o.address, o.city, o.state, o.zip, o.itemsDetail, o.qty, o.paymentMethod, o.subtotal, o.discountCode, o.discount, o.shipping, o.total, o.cogs, o.ccFees, o.netProfit, o.status, o.trackingNumber, o.notes, o.batchIds];
-}
-function expenseObjToArr(ex) {
-  return [ex.date, ex.category, ex.description, ex.amount, ex.paymentMethod, ex.vendor, ex.notes];
-}
-
 // Fetch data from Apps Script API
 async function fetchSheetData() {
   try {
@@ -1786,9 +1775,9 @@ async function fetchSheetData() {
       return;
     }
     
-    batchesData = (json.batches || []).map(batchObjToArr);
-    ordersData = (json.orders || []).map(orderObjToArr);
-    expensesData = (json.expenses || []).map(expenseObjToArr);
+    batchesData = json.batches || [];
+    ordersData = json.orders || [];
+    expensesData = json.expenses || [];
     
     renderDashboard();
     updateLastRefresh();
