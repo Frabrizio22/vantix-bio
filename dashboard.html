@@ -2249,7 +2249,7 @@ function calculatePeriodMetrics(month, year, type) {
   const exp = getExpenses(month, year, type);
   const grossProfit = dispRev - cogs;
   const netBT = grossProfit - exp.shipping - fees - exp.operating;
-  const tax = netBT * (getTaxRate() / 100);
+  const tax = netBT * 0.30; // 30% tax estimate
   
   return {
     revenue: dispRev, cogs, grossProfit,
