@@ -2247,11 +2247,11 @@ function calculatePeriodMetrics(month, year, type) {
   
   let ccRev = 0, zelleRev = 0, cogs = 0, fees = 0;
   orders.forEach(row => {
-    const total = parseFloat(row[14]) || 0;
-    const pm = (row[8] || '').toString();
+    const total = parseFloat(row[16]) || 0;
+    const pm = (row[11] || '').toString();
     ccRev += reportedMethods.some(m => pm.includes(m)) ? total : 0;
     zelleRev += unreportedMethods.some(m => pm.includes(m)) ? total : 0;
-    cogs += parseFloat(row[15]) || 0;
+    cogs += parseFloat(row[17]) || 0;
     if (total > 0 && reportedMethods.some(m => pm.includes(m))) fees += total * 0.044 + 0.40;
   });
   
@@ -2305,8 +2305,8 @@ function calculateRevenueByProduct(month, year) {
   
   const map = {};
   orders.forEach(row => {
-    const items = (row[5] || '').toString();
-    const total = parseFloat(row[14]) || 0;
+    const items = (row[9] || '').toString();
+    const total = parseFloat(row[16]) || 0;
     const matches = items.match(/([^(]+)\s*\((\d+)\)/g) || [];
     matches.forEach(item => {
       const m = item.match(/([^(]+)\s*\((\d+)\)/);
@@ -2390,10 +2390,10 @@ function calculateQuarterlyTaxes() {
     const reportedMethods = ['Bankful', 'Credit Card', 'Debit Card'];
     
     quarterOrders.forEach(row => {
-      const total = parseFloat(row[14]) || 0;
-      const cogs = parseFloat(row[15]) || 0;
-      const refund = parseFloat(row[17]) || 0;
-      const paymentMethod = (row[8] || '').toString();
+      const total = parseFloat(row[16]) || 0;
+      const cogs = parseFloat(row[17]) || 0;
+      const refund = parseFloat(row[18]) || 0;
+      const paymentMethod = (row[11] || '').toString();
       
       totalCOGS += cogs;
       
@@ -2447,10 +2447,10 @@ function renderPLStatement() {
   let fees = 0;
   
   thisMonthOrders.forEach(row => {
-    revenue += parseFloat(row[14]) || 0;
-    cogs += parseFloat(row[15]) || 0;
-    shipping += parseFloat(row[16]) || 0;
-    fees += parseFloat(row[17]) || 0;
+    revenue += parseFloat(row[16]) || 0;
+    cogs += parseFloat(row[17]) || 0;
+    shipping += parseFloat(row[15]) || 0;
+    fees += parseFloat(row[18]) || 0;
   });
   
   const thisMonthExpenses = expensesData.filter(row => {
@@ -2554,8 +2554,8 @@ function renderRevenueByProduct() {
   thisMonthOrders.forEach(row => {
     const product = row[9];
     const qty = parseInt(row[10]) || 0;
-    const revenue = parseFloat(row[14]) || 0;
-    const cogs = parseFloat(row[15]) || 0;
+    const revenue = parseFloat(row[16]) || 0;
+    const cogs = parseFloat(row[17]) || 0;
     
     if (!productStats[product]) {
       productStats[product] = {
@@ -3233,8 +3233,8 @@ function updateRefundAmount() {
   const type = document.getElementById('refundType').value;
   const rowIndex = document.getElementById('refundOrderIndex').value;
   const row = ordersData[rowIndex];
-  const total = parseFloat(row[14]) || 0;
-  const paymentMethod = row[8] || '';
+  const total = parseFloat(row[16]) || 0;
+  const paymentMethod = row[11] || '';
   
   if (type === 'full') {
     document.getElementById('partialAmountGroup').style.display = 'none';
@@ -3268,7 +3268,7 @@ async function processRefund() {
   const reason = document.getElementById('refundReason').value;
   
   const row = ordersData[rowIndex];
-  const total = parseFloat(row[14]) || 0;
+  const total = parseFloat(row[16]) || 0;
   const ccFees = calculateMerchantFees(total);
   
   if (!confirm(`Issue ${type} refund of $${refundAmount.toFixed(2)}?`)) return;
