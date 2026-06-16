@@ -2605,7 +2605,7 @@ function renderRevenueByProduct() {
 // Fulfillment Functions
 function renderPendingOrders() {
   const pendingOrders = ordersData.filter(row => {
-    const status = (row[19] || '').toLowerCase();
+    const status = (row[20] || '').toLowerCase();
     return status !== 'shipped' && status !== 'cancelled';
   });
   
@@ -2643,7 +2643,7 @@ function renderPendingOrders() {
     const name = row[3];
     const product = row[9];
     const qty = row[10];
-    const status = row[19] || 'Pending';
+    const status = row[20] || 'Pending';
     
     const rowIndex = ordersData.findIndex(r => r[0] === orderNum);
     
@@ -2669,7 +2669,7 @@ function renderShippedOrders() {
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   
   const shippedOrders = ordersData.filter(row => {
-    const status = (row[19] || '').toLowerCase();
+    const status = (row[20] || '').toLowerCase();
     if (status !== 'shipped') return false;
     
     if (row[1]) {
@@ -2690,9 +2690,9 @@ function renderShippedOrders() {
     const orderNum = row[0];
     const name = row[3];
     const product = row[9];
-    const shipped = row[20] || '--';
+    const shipped = '--';
     const tracking = row[21] || '--';
-    const batchId = row[22] || '⚠️ Missing';
+    const batchId = row[23] || '';
     
     return `
       <tr>
