@@ -2237,11 +2237,12 @@ function calculatePeriodMetrics(month, year, type) {
   let ccRev = 0, zelleRev = 0, cogs = 0, fees = 0;
   orders.forEach(row => {
     const total = parseFloat(row[16]) || 0;
-    const pm = (row[11] || '').toString();
-    ccRev += reportedMethods.some(m => pm.includes(m)) ? total : 0;
-    zelleRev += unreportedMethods.some(m => pm.includes(m)) ? total : 0;
-    cogs += parseFloat(row[17]) || 0;
-    if (total > 0 && reportedMethods.some(m => pm.includes(m))) fees += total * 0.044 + 0.40;
+    const pm = (row[11] || '').toString().toLowerCase();
+    const rowCOGS = parseFloat(row[17]);
+    ccRev += reportedMethods.some(m => pm.includes(m.toLowerCase())) ? total : 0;
+    zelleRev += unreportedMethods.some(m => pm.includes(m.toLowerCase())) ? total : 0;
+    cogs += isNaN(rowCOGS) ? 0 : rowCOGS;
+    if (total > 0 && reportedMethods.some(m => pm.includes(m.toLowerCase()))) fees += total * 0.044 + 0.40;
   });
   
   const totalRev = ccRev + zelleRev;
