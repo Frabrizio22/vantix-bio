@@ -1836,13 +1836,13 @@ function renderDashboard() {
 
 function renderMetrics() {
   const totalBatches = batchesData.length;
-  const activeBatches = batchesData.filter(row => row[12] === 'In Stock').length;
+  const activeBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active').length;
   
   let totalVials = 0;
   let inventoryValue = 0;
   
   batchesData.forEach(row => {
-    if (row[12] === 'In Stock') {
+    if (row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active') {
       const remaining = parseInt(row[9]) || 0;
       const costPerVial = parseFloat(row[8]) || 0;
       totalVials += remaining;
@@ -1863,8 +1863,8 @@ function renderAlerts() {
   const alertsDiv = document.getElementById('alerts');
   alertsDiv.innerHTML = '';
   
-  const criticalBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) < 10);
-  const lowBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) >= 10 && parseInt(row[9]) < 20);
+  const criticalBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) < 10);
+  const lowBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) >= 10 && parseInt(row[9]) < 20);
   
   if (criticalBatches.length > 0) {
     const alert = document.createElement('div');
@@ -1893,7 +1893,7 @@ function renderAlerts() {
 
 function renderLowStockTable() {
   const tbody = document.getElementById('lowStockBody');
-  const lowStockBatches = batchesData.filter(row => row[12] === 'In Stock' && parseInt(row[9]) < 30);
+  const lowStockBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) < 30);
   
   if (lowStockBatches.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ All stock levels healthy</td></tr>';
@@ -1939,7 +1939,7 @@ function renderLowStockTable() {
 
 function renderAllBatchesTable() {
   const tbody = document.getElementById('allBatchesBody');
-  const activeBatches = batchesData.filter(row => row[12] === 'In Stock');
+  const activeBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active');
   
   if (activeBatches.length === 0) {
     tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-dim); padding: 40px;">No active batches</td></tr>';
@@ -3062,7 +3062,7 @@ function previewManualSaleBatches() {
   // Get available batches for this product (FIFO - oldest first)
   const availableBatches = batchesData
     .map((row, index) => ({ row, index }))
-    .filter(b => b.row[2] === product && b.row[12] === 'In Stock' && parseInt(b.row[9]) > 0)
+    .filter(b => b.row[2] === product && b.row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(b.row[9]) > 0)
     .sort((a, b) => new Date(a.row[1]) - new Date(b.row[1])); // Sort by date received (oldest first)
   
   if (availableBatches.length === 0) {
