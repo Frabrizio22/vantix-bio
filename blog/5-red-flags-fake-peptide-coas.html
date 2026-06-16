@@ -9,49 +9,6 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
 <link rel="stylesheet" href="blog.css">
-<style>
-@import url('https://fonts.cdnfonts.com/css/geist');
-.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
-.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
-.pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
-.container{max-width:100%;margin:0 auto;padding:0 48px;box-sizing:border-box}
-@media(min-width:768px){.container{padding:0 80px;max-width:1400px}}
-.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
-@media(min-width:768px){.header-nav{padding:20px 0}}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#0F1B2D;flex-shrink:0}
-.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:#0F1B2D;display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
-.icon-btn:hover{opacity:.6}
-.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
-.nav-links{display:none;gap:24px;align-items:center;flex:1;justify-content:center}
-@media(min-width:768px){.nav-links{display:flex}}
-.nav-links > a{color:#0F1B2D;text-decoration:none;font-size:15px;font-weight:500;transition:opacity .3s;white-space:nowrap}
-.nav-links > a:hover{opacity:.6}
-.nav-item{position:relative}
-.catalog-link{display:flex;align-items:center;gap:4px;color:#0F1B2D;cursor:pointer;font-size:15px;font-weight:500;transition:opacity .3s}
-.catalog-link:hover{opacity:.6}
-.catalog-link svg{width:16px;height:16px}
-.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #D9D2BF;border-radius:8px;padding:8px 0;min-width:160px;box-shadow:0 4px 12px rgba(0,0,0,0.1);margin-top:8px}
-.nav-item:hover .nav-dropdown{display:block}
-.nav-dropdown a{display:block;padding:8px 16px;color:#0F1B2D;text-decoration:none;font-size:14px;transition:background .2s}
-.nav-dropdown a:hover{background:#f5f5f5}
-.header-icons{display:flex;align-items:center;gap:8px}
-.btn{padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;white-space:nowrap;border:none;cursor:pointer;display:inline-block}
-.btn-dark{background:#0F1B2D;color:#fff}
-.btn-dark:hover{background:#3973B0}
-article{padding-top:40px}
-@media(max-width:767px){article{padding-left:20px;padding-right:20px}.icon-btn{display:flex}}
-.menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,27,45,0.95);backdrop-filter:blur(10px);z-index:1000;display:none;opacity:0;transition:opacity .3s}
-.menu-overlay.active{display:flex;opacity:1;align-items:center;justify-content:center}
-.menu-close{position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;cursor:pointer;padding:8px}
-.menu-close svg{width:24px;height:24px}
-.menu-inner{max-width:600px;width:100%;padding:80px 32px}
-.menu-section{margin-bottom:48px}
-.menu-section-label{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,0.5);margin-bottom:16px}
-.menu-items{display:flex;flex-direction:column;gap:12px}
-.menu-items a{color:#fff;text-decoration:none;font-size:20px;font-weight:300;transition:opacity .2s;font-family:'Fraunces',serif}
-.menu-items a:hover{opacity:.6}
-</style>
 </head>
 <body>
 
@@ -62,314 +19,249 @@ article{padding-top:40px}
   </div>
 </div>
 
-<div class="container">
-<nav class="header-nav">
-<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
-<button class="icon-btn" id="menuBtn" aria-label="Menu">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-</button>
-<a href="../index.html" class="logo">
-<img src="../logo-header.svg" alt="Vantix Bio" style="height:32px">
-</a>
-</div>
-<div class="nav-links">
-<div class="nav-item">
-<div class="catalog-link">
-<span>Catalog</span>
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
-</div>
-<div class="nav-dropdown">
-<a href="../shop.html">Single Vials</a>
-<a href="../kits.html">Research Kits</a>
-</div>
-</div>
-<a href="../verify.html">Verify</a>
-<a href="index.html">Research</a>
-<a href="../about.html">About</a>
-</div>
-<div class="header-icons">
-<a href="../shop.html" class="btn btn-dark">Shop Now</a>
-</div>
-</nav>
+<div class="header">
+  <div class="header-content">
+    <div class="header-left">
+      <a href="../index.html" class="logo">
+        <img src="../logo-header.svg" alt="Vantix Bio" style="height:32px">
+      </a>
+      <nav>
+        <a href="../shop.html">Catalog</a>
+        <a href="../verify.html">Verify</a>
+        <a href="index.html" class="active">Research</a>
+        <a href="../about.html">About</a>
+      </nav>
+    </div>
+    <div class="nav-icons">
+      <a href="../shop.html" class="btn btn-dark">Shop Now</a>
+    </div>
+  </div>
 </div>
 
-<article>
-<div class="article-header">
-<h1>5 Red Flags Your Peptide COA is Fake</h1>
-<div class="article-meta">
-<time datetime="2026-06-15">June 15, 2026</time>
-<span class="reading-time">· 8 min read</span>
-<span class="category">COA Verification</span>
-</div>
-</div>
+<article class="article-container">
+  <div class="article-header">
+    <span class="category-badge">COA VERIFICATION</span>
+    <h1>5 Red Flags Your Peptide COA is Fake</h1>
+    <div class="article-meta">
+      <time datetime="2026-06-15">June 15, 2026</time>
+      <span class="reading-time">· 8 min read</span>
+    </div>
+  </div>
 
-<div class="article-content">
-<p class="lead">A customer emailed us last month. $340 on Semaglutide from a vendor with a polished website and "99.8% purity" everywhere. Two weeks of dosing—nothing happened.</p>
+  <div class="article-content">
+    <p class="lead">A customer emailed us last month. $340 on Semaglutide from a vendor with a polished website and "99.8% purity" everywhere. Two weeks of dosing—nothing happened.</p>
 
-<p>He sent it to Janoshik. Result: <strong>38% purity</strong>. The rest was mannitol and mystery filler.</p>
+    <p>He sent it to Janoshik. Result: <strong>38% purity</strong>. The rest was mannitol and mystery filler.</p>
 
-<p>For every legitimate peptide vendor, there are three selling underdosed compounds, fake certificates, or products that don't match the label. Not every imperfect vendor is a scam—but certain red flags separate honest suppliers from those hoping you don't test their products.</p>
+    <p>For every legitimate peptide vendor, there are three selling underdosed compounds, fake certificates, or products that don't match the label. Not every imperfect vendor is a scam—but certain red flags separate honest suppliers from those hoping you don't test their products.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>Red Flag #1: No Way to Verify Testing</h2>
+    <h2>Red Flag #1: No Way to Verify Testing</h2>
 
-<p>Every vendor claims "lab-tested peptides." The question is: <strong>tested by whom, and can you verify it?</strong></p>
+    <p>Every vendor claims "lab-tested peptides." The question is: <strong>tested by whom, and can you verify it?</strong></p>
 
-<p>A Certificate of Analysis (COA) verifies that <em>a specific sample</em> was tested—not necessarily the vial you receive. What matters is whether the testing is <strong>batch-specific</strong>, <strong>recent</strong>, and <strong>verifiable</strong>.</p>
+    <p>A Certificate of Analysis (COA) verifies that <em>a specific sample</em> was tested—not necessarily the vial you receive. What matters is whether the testing is <strong>batch-specific</strong>, <strong>recent</strong>, and <strong>verifiable</strong>.</p>
 
-<h3>The Three Tiers of COA Credibility</h3>
+    <h3>The Three Tiers of COA Credibility</h3>
 
-<p><strong>Tier 1 (Gold standard):</strong> COAs posted publicly on product pages with batch numbers that match vials. Testing is recent (within 6 months) and anyone can cross-reference the lab report.</p>
+    <p><strong>Tier 1 (Gold standard):</strong> COAs posted publicly on product pages with batch numbers that match vials. Testing is recent (within 6 months) and anyone can cross-reference the lab report.</p>
 
-<p><strong>Tier 2 (Acceptable):</strong> COAs not posted publicly but provided immediately on request via email. Batch numbers match inventory and reports are from accredited third-party labs.</p>
+    <p><strong>Tier 2 (Acceptable):</strong> COAs not posted publicly but provided immediately on request via email. Batch numbers match inventory and reports are from accredited third-party labs.</p>
 
-<p><strong>Tier 3 (Red flag):</strong> Vendor refuses to provide COAs, provides generic reports with no batch numbers, offers only "in-house testing," or shows years-old reports that don't match current inventory.</p>
+    <p><strong>Tier 3 (Red flag):</strong> Vendor refuses to provide COAs, provides generic reports with no batch numbers, offers only "in-house testing," or shows years-old reports that don't match current inventory.</p>
 
-<div style="background:#EFF6FF;border:2px solid #2563EB;padding:1.5rem;border-radius:8px;margin:2rem 0">
-<h3 style="color:#1E40AF;margin-top:0;font-size:1.05rem;font-weight:700">How to Verify a Janoshik COA in 60 Seconds</h3>
-<ol style="margin:0.75rem 0 0 1.25rem;line-height:1.9">
-<li>Check the report ID format (should be formatted like #XXXXX)</li>
-<li>Visit <strong>janoshik.com/verify</strong> and enter the unique verification key</li>
-<li>Verify the batch number matches what's printed on your vial</li>
-<li>Check the date—reports older than 6-12 months may not reflect current batches</li>
-</ol>
-<p style="margin:1rem 0 0;font-size:14px;color:#1E40AF"><strong>If the vendor claims Janoshik testing but the report doesn't verify, it's fake.</strong></p>
-</div>
+    <div class="callout">
+      <h3>How to Verify a Janoshik COA in 60 Seconds</h3>
+      <ol>
+        <li>Check the report ID format (should be formatted like #XXXXX)</li>
+        <li>Visit <strong>janoshik.com/verify</strong> and enter the unique verification key</li>
+        <li>Verify the batch number matches what's printed on your vial</li>
+        <li>Check the date—reports older than 6-12 months may not reflect current batches</li>
+      </ol>
+      <p><strong>If the vendor claims Janoshik testing but the report doesn't verify, it's fake.</strong></p>
+    </div>
 
-<h3>COA Red Flags to Watch For</h3>
+    <h3>COA Red Flags to Watch For</h3>
 
-<ul>
-<li>No lab name or contact information on the report</li>
-<li>No batch or lot number (or batch doesn't match your vial)</li>
-<li>Identical results across multiple products (e.g., every peptide tests at exactly 99.5%)</li>
-<li>No testing methodology listed (HPLC, MS, etc.)</li>
-<li>Reports older than 12 months with no newer testing</li>
-<li>Blurry, low-resolution PDFs that look like photocopies of photocopies</li>
-<li>Generic "Certificate of Purity" instead of detailed analytical data</li>
-</ul>
+    <ul>
+      <li>No lab name or contact information on the report</li>
+      <li>No batch or lot number (or batch doesn't match your vial)</li>
+      <li>Identical results across multiple products (e.g., every peptide tests at exactly 99.5%)</li>
+      <li>No testing methodology listed (HPLC, MS, etc.)</li>
+      <li>Reports older than 12 months with no newer testing</li>
+      <li>Blurry, low-resolution PDFs that look like photocopies of photocopies</li>
+      <li>Generic "Certificate of Purity" instead of detailed analytical data</li>
+    </ul>
 
-<h3>Understanding HPLC Purity vs. Actual Content</h3>
+    <h3>Understanding HPLC Purity vs. Actual Content</h3>
 
-<p>When a COA says "99.2% purity," that <strong>doesn't mean your vial is 99.2% peptide</strong>.</p>
+    <p>When a COA says "99.2% purity," that <strong>doesn't mean your vial is 99.2% peptide</strong>.</p>
 
-<p>HPLC purity measures the ratio of your target peptide to other <em>peptide-related impurities</em>. It doesn't account for water content, salts, or counterions (like acetate or TFA) that are part of the final product.</p>
+    <p>HPLC purity measures the ratio of your target peptide to other <em>peptide-related impurities</em>. It doesn't account for water content, salts, or counterions (like acetate or TFA) that are part of the final product.</p>
 
-<p>A 5mg vial at 99% HPLC purity might contain:</p>
+    <p>A 5mg vial at 99% HPLC purity might contain:</p>
 
-<ul>
-<li>3.5-4mg actual peptide</li>
-<li>0.5-1mg water (hygroscopic peptides absorb moisture)</li>
-<li>0.5-1mg counterions (acetate, TFA, chloride salts from synthesis)</li>
-</ul>
+    <ul>
+      <li>3.5-4mg actual peptide</li>
+      <li>0.5-1mg water (hygroscopic peptides absorb moisture)</li>
+      <li>0.5-1mg counterions (acetate, TFA, chloride salts from synthesis)</li>
+    </ul>
 
-<p>This is <strong>normal and expected</strong>. The key is whether the vendor is honest about peptide content per vial, not just HPLC purity.</p>
+    <p>This is <strong>normal and expected</strong>. The key is whether the vendor is honest about peptide content per vial, not just HPLC purity.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>Red Flag #2: Prices That Don't Make Sense</h2>
+    <h2>Red Flag #2: Prices That Don't Make Sense</h2>
 
-<p>GMP synthesis, quality control, proper cold chain storage, and third-party testing <strong>cost money</strong>. Vendors selling significantly below market rate are cutting corners somewhere.</p>
+    <p>GMP synthesis, quality control, proper cold chain storage, and third-party testing <strong>cost money</strong>. Vendors selling significantly below market rate are cutting corners somewhere.</p>
 
-<h3>Current Market Rates (June 2026)</h3>
+    <h3>Current Market Rates (June 2026)</h3>
 
-<ul>
-<li>Semaglutide 10mg: $40-50</li>
-<li>Tirzepatide 30mg: $60-75</li>
-<li>Retatrutide 20mg: $60-75</li>
-<li>BPC-157 10mg: $25-35</li>
-<li>TB-500 10mg: $35-45</li>
-</ul>
+    <ul>
+      <li>Semaglutide 10mg: $40-50</li>
+      <li>Tirzepatide 30mg: $60-75</li>
+      <li>Retatrutide 20mg: $60-75</li>
+      <li>BPC-157 10mg: $25-35</li>
+      <li>TB-500 10mg: $35-45</li>
+    </ul>
 
-<p>If someone's selling Semaglutide 10mg for $20, they're either losing money (unlikely) or one of three things is happening:</p>
+    <p>If someone's selling Semaglutide 10mg for $20, they're either losing money (unlikely) or one of three things is happening:</p>
 
-<ul>
-<li><strong>Underdosing:</strong> Vial is labeled 10mg but contains 4mg. You're paying $5/mg—which is market rate—but the label lies.</li>
-<li><strong>Low purity:</strong> 10mg of 60% pure product costs less to make than 10mg of 98% pure product.</li>
-<li><strong>No testing:</strong> They skip third-party verification entirely and hope you don't test it yourself.</li>
-</ul>
+    <ul>
+      <li><strong>Underdosing:</strong> Vial is labeled 10mg but contains 4mg. You're paying $5/mg—which is market rate—but the label lies.</li>
+      <li><strong>Low purity:</strong> 10mg of 60% pure product costs less to make than 10mg of 98% pure product.</li>
+      <li><strong>No testing:</strong> They skip third-party verification entirely and hope you don't test it yourself.</li>
+    </ul>
 
-<p>Pricing 10-15% below competitors? Probably fine—volume discounts and direct sourcing can explain that. <strong>Pricing 40-50% below market? That's not a deal. That's a warning.</strong></p>
+    <p>Pricing 10-15% below competitors? Probably fine—volume discounts and direct sourcing can explain that. <strong>Pricing 40-50% below market? That's not a deal. That's a warning.</strong></p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>Red Flag #3: No Real Return or Refund Policy</h2>
+    <h2>Red Flag #3: No Real Return or Refund Policy</h2>
 
-<p>Peptides are temperature-sensitive. They degrade if mishandled. Legitimate vendors know this, so they offer return policies with reasonable conditions.</p>
+    <p>Peptides are temperature-sensitive. They degrade if mishandled. Legitimate vendors know this, so they offer return policies with reasonable conditions.</p>
 
-<p><strong>What you should see:</strong> "Unopened products in original packaging, stored refrigerated, returned within 14 days qualify for refund or exchange."</p>
+    <p><strong>What you should see:</strong> "Unopened products in original packaging, stored refrigerated, returned within 14 days qualify for refund or exchange."</p>
 
-<p><strong>What's a red flag:</strong> "All sales final. No refunds. No exceptions."</p>
+    <p><strong>What's a red flag:</strong> "All sales final. No refunds. No exceptions."</p>
 
-<p>A vendor with no return policy is signaling: <em>"If our product is bunk, you have no recourse."</em> That's not confidence in their quality—that's insulation from accountability.</p>
+    <p>A vendor with no return policy is signaling: <em>"If our product is bunk, you have no recourse."</em> That's not confidence in their quality—that's insulation from accountability.</p>
 
-<h3>Test Customer Service Before You Buy</h3>
+    <h3>Test Customer Service Before You Buy</h3>
 
-<p>Email them a technical question: <em>"What's the reconstitution protocol for your BPC-157?"</em> or <em>"Do you ship with cold packs?"</em></p>
+    <p>Email them a technical question: <em>"What's the reconstitution protocol for your BPC-157?"</em> or <em>"Do you ship with cold packs?"</em></p>
 
-<p>If they respond in 24-48 hours with a competent answer, that's a good sign. If they don't respond, or you get generic copy-paste replies, they're not equipped to handle problems when they arise.</p>
+    <p>If they respond in 24-48 hours with a competent answer, that's a good sign. If they don't respond, or you get generic copy-paste replies, they're not equipped to handle problems when they arise.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>Red Flag #4: Anonymous or Untraceable Business</h2>
+    <h2>Red Flag #4: Anonymous or Untraceable Business</h2>
 
-<p>Who are you buying from? A registered company with verifiable contact information? Or a Shopify dropshipper with a ProtonMail address and privacy-protected domain registration?</p>
+    <p>Who are you buying from? A registered company with verifiable contact information? Or a Shopify dropshipper with a ProtonMail address and privacy-protected domain registration?</p>
 
-<h3>Legitimate Vendors Disclose:</h3>
+    <h3>Legitimate Vendors Disclose:</h3>
 
-<ul>
-<li>Business name and state of registration</li>
-<li>Physical address or registered agent</li>
-<li>Real email (not just a contact form)</li>
-<li>Transparent ownership or About page</li>
-</ul>
+    <ul>
+      <li>Business name and state of registration</li>
+      <li>Physical address or registered agent</li>
+      <li>Real email (not just a contact form)</li>
+      <li>Transparent ownership or About page</li>
+    </ul>
 
-<p><strong>Scammers hide.</strong> If a vendor gets caught selling bunk peptides, they vanish and relaunch under a new name. Anonymous vendors have no reputation to protect.</p>
+    <p><strong>Scammers hide.</strong> If a vendor gets caught selling bunk peptides, they vanish and relaunch under a new name. Anonymous vendors have no reputation to protect.</p>
 
-<p><strong>Quick due diligence:</strong> Search "[vendor name] reddit" or "[vendor name] scam." If you find multiple reports of underdosed products, non-delivery, or fake COAs from the past 6 months, that's your answer.</p>
+    <p><strong>Quick due diligence:</strong> Search "[vendor name] reddit" or "[vendor name] scam." If you find multiple reports of underdosed products, non-delivery, or fake COAs from the past 6 months, that's your answer.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>Red Flag #5: Inventory That Never Changes</h2>
+    <h2>Red Flag #5: Inventory That Never Changes</h2>
 
-<p>Real suppliers occasionally run out of stock. Manufacturing takes time. Batches get delayed. Popular compounds sell out.</p>
+    <p>Real suppliers occasionally run out of stock. Manufacturing takes time. Batches get delayed. Popular compounds sell out.</p>
 
-<p>If a vendor's entire catalog has been "in stock" for six months straight—including hard-to-source peptides like Retatrutide or high-dose Tirzepatide—<strong>something's off</strong>.</p>
+    <p>If a vendor's entire catalog has been "in stock" for six months straight—including hard-to-source peptides like Retatrutide or high-dose Tirzepatide—<strong>something's off</strong>.</p>
 
-<p>Two possibilities:</p>
+    <p>Two possibilities:</p>
 
-<ul>
-<li>They're not actually selling much volume (which raises questions about freshness and batch turnover)</li>
-<li>They don't have inventory and are dropshipping—or worse, they're not checking stock before taking your order</li>
-</ul>
+    <ul>
+      <li>They're not actually selling much volume (which raises questions about freshness and batch turnover)</li>
+      <li>They don't have inventory and are dropshipping—or worse, they're not checking stock before taking your order</li>
+    </ul>
 
-<p><strong>What to look for:</strong> Vendors who occasionally mark items as "temporarily out of stock" or "expected restock date: X" are being honest about their supply chain. That's a good sign.</p>
+    <p><strong>What to look for:</strong> Vendors who occasionally mark items as "temporarily out of stock" or "expected restock date: X" are being honest about their supply chain. That's a good sign.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>What COAs Don't Tell You</h2>
+    <h2>What COAs Don't Tell You</h2>
 
-<p>Even a legitimate COA has limits. Here's what testing typically <strong>does not cover</strong> unless explicitly stated:</p>
+    <p>Even a legitimate COA has limits. Here's what testing typically <strong>does not cover</strong> unless explicitly stated:</p>
 
-<ul>
-<li><strong>Sterility:</strong> Most COAs test purity and identity, not microbial contamination. Sterility testing is expensive and rarely included.</li>
-<li><strong>Endotoxins:</strong> Bacterial endotoxins can survive sterilization. Endotoxin testing (LAL assay) is a separate, costly test that most vendors skip.</li>
-<li><strong>Manufacturing quality:</strong> A COA doesn't tell you if the synthesis was done in a GMP facility or someone's garage.</li>
-<li><strong>Consistency across batches:</strong> One good test result doesn't mean every batch is the same. Batch-to-batch variation is common.</li>
-<li><strong>What's actually in your vial:</strong> The COA tested a sample. Your vial might be from a different batch, improperly stored, or mislabeled.</li>
-</ul>
+    <ul>
+      <li><strong>Sterility:</strong> Most COAs test purity and identity, not microbial contamination. Sterility testing is expensive and rarely included.</li>
+      <li><strong>Endotoxins:</strong> Bacterial endotoxins can survive sterilization. Endotoxin testing (LAL assay) is a separate, costly test that most vendors skip.</li>
+      <li><strong>Manufacturing quality:</strong> A COA doesn't tell you if the synthesis was done in a GMP facility or someone's garage.</li>
+      <li><strong>Consistency across batches:</strong> One good test result doesn't mean every batch is the same. Batch-to-batch variation is common.</li>
+      <li><strong>What's actually in your vial:</strong> The COA tested a sample. Your vial might be from a different batch, improperly stored, or mislabeled.</li>
+    </ul>
 
-<p>This is why <strong>batch-level testing</strong> matters. A vendor who tests every batch and provides batch-matched COAs is far more reliable than one who tested a single sample two years ago and has been using that report ever since.</p>
+    <p>This is why <strong>batch-level testing</strong> matters. A vendor who tests every batch and provides batch-matched COAs is far more reliable than one who tested a single sample two years ago and has been using that report ever since.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>Your 5-Minute Pre-Order Checklist</h2>
+    <h2>Your 5-Minute Pre-Order Checklist</h2>
 
-<p>Before you buy from a new vendor:</p>
+    <p>Before you buy from a new vendor:</p>
 
-<ol>
-<li><strong>Request a batch-specific COA.</strong> If they won't provide one, or the report is generic/outdated, stop.</li>
-<li><strong>Verify the COA.</strong> Use the lab's verification system (if available) to confirm it's real.</li>
-<li><strong>Compare prices.</strong> Check 3-4 other vendors. If this one is 40%+ cheaper, investigate why.</li>
-<li><strong>Read the return policy.</strong> "All sales final" with no exceptions is a red flag.</li>
-<li><strong>Google "[vendor] reddit" or "[vendor] scam."</strong> Recent complaints? Move on.</li>
-<li><strong>Email a technical question.</strong> Gauge their responsiveness and competence before committing.</li>
-</ol>
+    <ol>
+      <li><strong>Request a batch-specific COA.</strong> If they won't provide one, or the report is generic/outdated, stop.</li>
+      <li><strong>Verify the COA.</strong> Use the lab's verification system (if available) to confirm it's real.</li>
+      <li><strong>Compare prices.</strong> Check 3-4 other vendors. If this one is 40%+ cheaper, investigate why.</li>
+      <li><strong>Read the return policy.</strong> "All sales final" with no exceptions is a red flag.</li>
+      <li><strong>Google "[vendor] reddit" or "[vendor] scam."</strong> Recent complaints? Move on.</li>
+      <li><strong>Email a technical question.</strong> Gauge their responsiveness and competence before committing.</li>
+    </ol>
 
-<p>Five minutes of research can save you $200 and weeks of frustration.</p>
+    <p>Five minutes of research can save you $200 and weeks of frustration.</p>
 
-<hr style="border:none;border-top:1px solid #E2E8F0;margin:3rem 0">
+    <hr>
 
-<h2>The Boring Truth</h2>
+    <h2>The Boring Truth</h2>
 
-<p>Most peptide vendors aren't actively scamming you. They're just <strong>mediocre</strong>. They buy from middlemen who buy from middlemen, mark up the price, and hope nobody tests the products.</p>
+    <p>Most peptide vendors aren't actively scamming you. They're just <strong>mediocre</strong>. They buy from middlemen who buy from middlemen, mark up the price, and hope nobody tests the products.</p>
 
-<p>The best vendors—the ones worth your repeat business—are boring. They test every batch. They run out of stock occasionally. They answer emails within 48 hours. They don't promise miracles. <strong>They just deliver what the label claims, backed by verifiable testing.</strong></p>
+    <p>The best vendors—the ones worth your repeat business—are boring. They test every batch. They run out of stock occasionally. They answer emails within 48 hours. They don't promise miracles. <strong>They just deliver what the label claims, backed by verifiable testing.</strong></p>
 
-<p>Your job isn't to find perfection. It's to avoid the bottom 30% of vendors who are either incompetent or dishonest, and identify the top 10% who are doing it right.</p>
+    <p>Your job isn't to find perfection. It's to avoid the bottom 30% of vendors who are either incompetent or dishonest, and identify the top 10% who are doing it right.</p>
 
-<p>The red flags above help you do that.</p>
+    <p>The red flags above help you do that.</p>
 
-</div>
+  </div>
 
-<div class="article-footer">
-<div class="related-articles">
-<h3>Related Articles</h3>
-<a href="how-to-verify-janoshik-coa.html" class="related-card">
-<span class="related-category">VERIFICATION</span>
-<h3>How to Verify a Janoshik COA (And Spot Fakes)</h3>
-<p>Step-by-step guide to using Janoshik's official verification system and spotting altered reports.</p>
-</a>
-<a href="batch-testing-why-every-batch-matters.html" class="related-card">
-<span class="related-category">TESTING</span>
-<h3>Why Batch-Level Testing Matters</h3>
-<p>Why one COA per product isn't enough, and how batch-to-batch variance affects reproducibility.</p>
-</a>
-</div>
-</div>
+  <div class="article-footer">
+    <div class="related-articles">
+      <h3>Related Articles</h3>
+      <a href="janoshik-verification.html" class="related-card">
+        <span class="related-category">VERIFICATION</span>
+        <h3>How to Verify a Janoshik COA (And Spot Fakes)</h3>
+        <p>Step-by-step guide to using Janoshik's official verification system and spotting altered reports.</p>
+      </a>
+      <a href="batch-testing-why-every-batch-matters.html" class="related-card">
+        <span class="related-category">TESTING</span>
+        <h3>Why Batch-Level Testing Matters</h3>
+        <p>Why one COA per product isn't enough, and how batch-to-batch variance affects reproducibility.</p>
+      </a>
+    </div>
+  </div>
 </article>
 
 <footer>
-<div class="footer-content">
-<div class="footer-disclaimer">RESEARCH USE ONLY. All Vantix Bio products are analytical reference materials intended for in vitro laboratory research only. NOT for human or veterinary consumption, diagnostic use, or therapeutic application. These materials are not drugs and are not approved by the FDA. Purchasers must be 21 years of age or older and certify qualified-researcher status at point of purchase. © 2026 Vantix Bio LLC</div>
-<div class="footer-legal">
-<p>&copy; 2026 Vantix Bio LLC · Research Use Only</p>
-</div>
-</div>
+  <div class="footer-content">
+    <div class="footer-disclaimer">RESEARCH USE ONLY. All Vantix Bio products are analytical reference materials intended for in vitro laboratory research only. NOT for human or veterinary consumption, diagnostic use, or therapeutic application. These materials are not drugs and are not approved by the FDA. Purchasers must be 21 years of age or older and certify qualified-researcher status at point of purchase. © 2026 Vantix Bio LLC</div>
+    <div class="footer-legal">
+      <p>&copy; 2026 Vantix Bio LLC · Research Use Only</p>
+    </div>
+  </div>
 </footer>
-
-<div class="menu-overlay" id="menuOverlay">
-<button class="menu-close" id="menuClose" aria-label="Close menu">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
-</button>
-<div class="menu-inner">
-<div class="menu-section">
-<div class="menu-section-label">Product</div>
-<div class="menu-items">
-<a href="../shop.html">Catalog</a>
-<a href="../kits.html">Research Kits</a>
-<a href="../verify.html">Verify Batch</a>
-</div>
-</div>
-<div class="menu-section">
-<div class="menu-section-label">Science</div>
-<div class="menu-items">
-<a href="../the-matrix.html">Verification Protocol</a>
-<a href="index.html">Articles</a>
-<a href="../faq.html">FAQ</a>
-</div>
-</div>
-<div class="menu-section">
-<div class="menu-section-label">Support</div>
-<div class="menu-items">
-<a href="../about.html">About</a>
-<a href="../contact.html">Contact</a>
-</div>
-</div>
-</div>
-</div>
-
-<script>
-const menuBtn = document.getElementById('menuBtn');
-const menuOverlay = document.getElementById('menuOverlay');
-const menuClose = document.getElementById('menuClose');
-if (menuBtn && menuOverlay && menuClose) {
-  menuBtn.addEventListener('click', () => {
-    menuOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  });
-  menuClose.addEventListener('click', () => {
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-  menuOverlay.addEventListener('click', (e) => {
-    if (e.target === menuOverlay) {
-      menuOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-}
-</script>
 
 </body>
 </html>

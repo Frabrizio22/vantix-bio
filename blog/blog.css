@@ -543,3 +543,100 @@ body {
     font-size: 10px;
   }
 }
+
+/* Status Bar (homepage style) */
+.status-bar {
+  background: var(--navy);
+  padding: 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(26,41,66,.5);
+}
+
+.status-inner {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(123,168,143,0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(123,168,143,0); }
+  100% { box-shadow: 0 0 0 0 rgba(123,168,143,0); }
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .3s;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-dark {
+  background: var(--navy);
+  color: #fff;
+}
+
+.btn-dark:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Callout Boxes */
+.callout {
+  background: #EFF6FF;
+  border: 2px solid var(--accent);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.callout h3 {
+  color: #1E40AF;
+  margin-top: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: 'Geist', sans-serif;
+}
+
+.callout ul {
+  margin: 0.75rem 0 0 1.25rem;
+  line-height: 1.9;
+}
+
+.callout p {
+  margin: 1rem 0 0;
+  font-size: 14px;
+  color: #1E40AF;
+}
+
+/* Article Lead */
+.lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(15,27,45,.8);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
