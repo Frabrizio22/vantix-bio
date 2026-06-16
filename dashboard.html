@@ -861,6 +861,7 @@ tr:hover {
     <button class="tab active" onclick="switchTab('inventory')">📦 Inventory</button>
     <button class="tab" onclick="switchTab('financials')">💰 Financials</button>
     <button class="tab" onclick="switchTab('fulfillment')">🚚 Fulfillment</button>
+    <button class="tab" onclick="switchTab('products')">📊 Top Products</button>
   </div>
 
   <!-- Clean Books Mode Indicator -->
@@ -1247,6 +1248,33 @@ tr:hover {
 
   </div>
   <!-- End Fulfillment Tab -->
+
+  <!-- Top Products Tab -->
+  <div class="tab-content" id="productsTab">
+    <div class="card table-card fade-in delay-1">
+      <div class="table-header">
+        <div class="table-title">📊 Top Products</div>
+        <span class="mono" style="color: var(--text-dim);">By units sold</span>
+      </div>
+      <div class="table-wrapper">
+        <table id="topProductsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Units Sold</th>
+              <th>Revenue</th>
+              <th>Avg Price</th>
+            </tr>
+          </thead>
+          <tbody id="topProductsBody">
+            <tr><td colspan="5" class="loading"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- End Top Products Tab -->
 
 </div>
 
@@ -2203,6 +2231,10 @@ function switchTab(tabName) {
   } else if (tabName === 'fulfillment') {
     document.getElementById('fulfillmentTab').classList.add('active');
     document.querySelector('.tab:nth-child(3)').classList.add('active');
+  } else if (tabName === 'products') {
+    document.getElementById('productsTab').classList.add('active');
+    document.querySelector('.tab:nth-child(4)').classList.add('active');
+    renderTopProducts();
   }
 }
 
@@ -2697,6 +2729,62 @@ function renderShippedOrders() {
       </tr>
     `;
   }).join('');
+}
+
+function renderTopProducts() {
+  const productMap = {};
+  
+  ordersData.forEach(row => {
+    const items = (row[9] || '').toString();
+    const total = parseFloat(row[16]) || 0;
+    
+    // Parse items like "Retatrutide 20mg, GHK-Cu 100mg, MOTS-C 10mg" or "1x Reta 20mg ($68)"
+    const itemLines = items.split(/,|\n/).map(s => s.trim()).filter(Boolean);
+    
+    itemLines.forEach(item => {
+      // Extract product name (before quantity or price)
+      let productName = item;
+      productName = productName.replace(/^\d+x?\s*/i, ''); // Remove "1x " or "2 "
+      productName = productName.replace(/\s*\([^)]*\)\s*$/g, ''); // Remove " ($68)"
+      productName = productName.trim();
+      
+      if (!productName) return;
+      
+      // Extract quantity
+      const qtyMatch = item.match(/^(\d+)x?\s/i);
+      const qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
+      
+      // Extract price (from parentheses if available)
+      const priceMatch = item.match(/\(\$([\d.]+)\)/);
+      const itemPrice = priceMatch ? parseFloat(priceMatch[1]) : 0;
+      
+      if (!productMap[productName]) {
+        productMap[productName] = { name: productName, units: 0, revenue: 0 };
+      }
+      
+      productMap[productName].units += qty;
+      productMap[productName].revenue += itemPrice || (total / itemLines.length); // Distribute total if no item price
+    });
+  });
+  
+  // Convert to array and sort by units
+  const products = Object.values(productMap).sort((a, b) => b.units - a.units);
+  
+  const tbody = document.getElementById('topProductsBody');
+  if (products.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-dim); padding: 40px;">No product data available</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = products.map((p, i) => `
+    <tr>
+      <td><strong>${i + 1}</strong></td>
+      <td>${p.name}</td>
+      <td><strong>${p.units}</strong></td>
+      <td>$${p.revenue.toFixed(2)}</td>
+      <td>$${(p.revenue / p.units).toFixed(2)}</td>
+    </tr>
+  `).join('');
 }
 
 function openPackingModal(rowIndex) {
