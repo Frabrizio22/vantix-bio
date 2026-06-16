@@ -1752,194 +1752,53 @@ tr:hover {
 <!-- Toast Notification -->
 <div class="toast" id="toast"></div>
 
-<script src="https://apis.google.com/js/api.js"></script>
 <script>
 // Configuration
 const SHEET_ID = '1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs';
-const API_KEY = 'AIzaSyBfRnto6b_gHiEJ9S8rDxdtJzpSd5kZGfw';
-const CLIENT_ID = '930087598511-76ukhb2bgpos5m779kmku77g9urvp2tr.apps.googleusercontent.com';
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxGd-TzTIFXou9Cp7iOpq0qHKLDcTZsDqx9sjMuiNYaeD_kGTGcF7HYK57xfPZ_aM_A4w/exec';
+const DASH_PASSWORD = 'VantixDash2026';
 
 let batchesData = [];
 let isSignedIn = false;
-let gapiInited = false;
-let tokenClient;
 
-// Authorized users (add emails here to grant access)
-const AUTHORIZED_USERS = [
-  'vantixbio@gmail.com',
-  'frabrizio@gmail.com',
-  'prcpeptides@gmail.com'
-];
-
-// Initialize Google API
-function gapiLoaded() {
-  gapi.load('client', initializeGapiClient);
-}
-
-async function initializeGapiClient() {
-  await gapi.client.init({
-    apiKey: API_KEY,
-    discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-  });
-  gapiInited = true;
-  maybeEnableButtons();
-}
-
-function gisLoaded() {
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: CLIENT_ID,
-    scope: SCOPES,
-    callback: '', // defined later
-  });
-  maybeEnableButtons();
-}
-
-function maybeEnableButtons() {
-  if (gapiInited && tokenClient) {
-    // Check if we already have a token
-    const token = gapi.client.getToken();
-    if (token !== null) {
-      fetchSheetData();
-    } else {
-      checkAuthorization();
-    }
-  }
-}
-
-// Check if user is authorized
-function checkAuthorization() {
-  const token = gapi.client.getToken();
-  
-  if (token === null) {
-    // Not signed in, show sign-in prompt
-    showSignInPrompt();
+// Password auth
+function initDashboard() {
+  const saved = sessionStorage.getItem('vantixDashPassword');
+  if (saved === DASH_PASSWORD) {
+    isSignedIn = true;
+    document.body.style.visibility = 'visible';
+    fetchSheetData();
   } else {
-    // Signed in, verify email
-    verifyUserEmail();
+    showPasswordPrompt();
   }
 }
 
-async function verifyUserEmail() {
-  try {
-    const response = await gapi.client.request({
-      path: 'https://www.googleapis.com/oauth2/v1/userinfo',
-    });
-    
-    const userEmail = response.result.email;
-    
-    if (AUTHORIZED_USERS.includes(userEmail)) {
-      // Authorized! Load dashboard
-      isSignedIn = true;
-      hideSignInPrompt();
-      document.body.style.visibility = 'visible';
-      await fetchSheetData();
-    } else {
-      // Not authorized
-      showAccessDenied(userEmail);
-    }
-  } catch (err) {
-    console.error('Error verifying user:', err);
-    showSignInPrompt();
-  }
-}
-
-function showSignInPrompt() {
-  // Remove existing overlay if present
+function showPasswordPrompt() {
+  document.body.style.visibility = 'visible';
   const existing = document.getElementById('authOverlay');
   if (existing) existing.remove();
   
-  // Make body visible with auth prompt
-  document.body.style.visibility = 'visible';
-  
   const overlay = document.createElement('div');
   overlay.id = 'authOverlay';
-  overlay.style.cssText = `
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 24px;
-  `;
-  
-  overlay.innerHTML = `
-    <div style="text-align: center; max-width: 500px; padding: 40px;">
-      <div style="font-size: 60px; margin-bottom: 24px;">🔒</div>
-      <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px;">
-        Vantix Bio Dashboard
-      </h1>
-      <p style="color: var(--text-dim); margin-bottom: 32px; line-height: 1.6;">
-        Sign in with your authorized Google account to access the operations dashboard.
-      </p>
-      <button id="signInBtn" class="btn btn-primary" style="font-size: 14px; padding: 14px 32px;">
-        🔐 Sign in with Google
-      </button>
-    </div>
-  `;
-  
+  overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;';
+  overlay.innerHTML = '<div style="text-align:center;max-width:500px;padding:40px;"><div style="font-size:60px;margin-bottom:24px;">🔒</div><h1 style="font-family:Fraunces,serif;font-size:2rem;font-weight:300;margin-bottom:16px;">Vantix Bio Dashboard</h1><p style="color:var(--text-dim);margin-bottom:32px;line-height:1.6;">Enter your password to access the operations dashboard.</p><input id="dashPwdInput" type="password" placeholder="Password" style="padding:12px 16px;font-size:16px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);width:280px;text-align:center;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto;"><br><button id="dashPwdBtn" class="btn btn-primary" style="font-size:14px;padding:14px 32px;">Sign In</button><p id="dashPwdError" style="color:var(--critical);margin-top:16px;display:none;">Incorrect password</p></div>';
   document.body.appendChild(overlay);
   
-  // Add click handler
-  document.getElementById('signInBtn').addEventListener('click', handleAuthClick);
+  document.getElementById('dashPwdBtn').addEventListener('click', checkPassword);
+  document.getElementById('dashPwdInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPassword(); });
+  document.getElementById('dashPwdInput').focus();
 }
 
-function hideSignInPrompt() {
-  const overlay = document.getElementById('authOverlay');
-  if (overlay) {
-    overlay.remove();
-  }
-}
-
-function showAccessDenied(email) {
-  const overlay = document.getElementById('authOverlay');
-  if (overlay) {
-    overlay.innerHTML = `
-      <div style="text-align: center; max-width: 500px; padding: 40px;">
-        <div style="font-size: 60px; margin-bottom: 24px;">⛔</div>
-        <h1 style="font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 16px; color: var(--critical);">
-          Access Denied
-        </h1>
-        <p style="color: var(--text-dim); margin-bottom: 16px; line-height: 1.6;">
-          The account <strong>${email}</strong> is not authorized to access this dashboard.
-        </p>
-        <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
-          Contact the administrator if you believe this is an error.
-        </p>
-        <button onclick="signOutAndRetry()" class="btn btn-outline">
-          ← Sign in with different account
-        </button>
-      </div>
-    `;
-  }
-}
-
-function signOutAndRetry() {
-  const token = gapi.client.getToken();
-  if (token !== null) {
-    google.accounts.oauth2.revoke(token.access_token);
-    gapi.client.setToken('');
-  }
-  location.reload();
-}
-
-// Auth
-function handleAuthClick() {
-  tokenClient.callback = async (resp) => {
-    if (resp.error !== undefined) {
-      throw (resp);
-    }
-    // After getting token, verify user
-    await verifyUserEmail();
-  };
-
-  if (gapi.client.getToken() === null) {
-    tokenClient.requestAccessToken({prompt: 'consent'});
+function checkPassword() {
+  const pwd = document.getElementById('dashPwdInput').value;
+  if (pwd === DASH_PASSWORD) {
+    sessionStorage.setItem('vantixDashPassword', pwd);
+    isSignedIn = true;
+    const overlay = document.getElementById('authOverlay');
+    if (overlay) overlay.remove();
+    fetchSheetData();
   } else {
-    tokenClient.requestAccessToken({prompt: ''});
+    document.getElementById('dashPwdError').style.display = 'block';
   }
 }
 
@@ -1968,39 +1827,56 @@ function calculateMerchantFees(amount) {
   return squareFee + gatewayFee; // Total: 4.4% + $0.40
 }
 
-// Fetch data
+// Helper: convert object to array matching column order
+function batchObjToArr(b) {
+  return [b.batchId, b.receivedDate, b.product, b.supplier, b.supplierBatchId, b.initialQuantity, b.receiptCost, b.testingCost, b.costPerVial, b.quantityRemaining, b.coaUrl, b.purity, b.status, b.location, b.expiryDate, b.quantitySold, b.notes];
+}
+function orderObjToArr(o) {
+  return [o.orderNumber, o.date, o.email, o.name, o.phone, o.address, o.city, o.state, o.zip, o.itemsDetail, o.qty, o.paymentMethod, o.subtotal, o.discountCode, o.discount, o.shipping, o.total, o.cogs, o.ccFees, o.netProfit, o.status, o.trackingNumber, o.notes, o.batchIds];
+}
+function expenseObjToArr(ex) {
+  return [ex.date, ex.category, ex.description, ex.amount, ex.paymentMethod, ex.vendor, ex.notes];
+}
+
+// Fetch data from Apps Script API
 async function fetchSheetData() {
   try {
-    const batchesResponse = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SHEET_ID,
-      range: 'Batches!A2:S100',
-    });
+    const response = await fetch(API_URL + '?password=' + encodeURIComponent(DASH_PASSWORD));
+    const json = await response.json();
     
-    const ordersResponse = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SHEET_ID,
-      range: 'Orders!A2:Z100',
-    });
+    if (json.error) {
+      showToast('API error: ' + json.message, 'error');
+      return;
+    }
     
-    const expensesResponse = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SHEET_ID,
-      range: 'Expenses!A2:G100',
-    });
-    
-    batchesData = batchesResponse.result.values || [];
-    ordersData = ordersResponse.result.values || [];
-    expensesData = expensesResponse.result.values || [];
+    batchesData = (json.batches || []).map(batchObjToArr);
+    ordersData = (json.orders || []).map(orderObjToArr);
+    expensesData = (json.expenses || []).map(expenseObjToArr);
     
     renderDashboard();
     updateLastRefresh();
   } catch (err) {
     console.error('Error loading data:', err);
-    
-    if (err.status === 401 || err.status === 403) {
-      showSignInPrompt();
-    } else {
-      showToast('Failed to load data. Check console.', 'error');
-    }
+    showToast('Failed to load data. Check console.', 'error');
   }
+}
+
+// Helper: write to sheet via Apps Script
+async function sheetUpdate(range, values) {
+  const resp = await fetch(API_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify({action: 'dashboard_write', password: DASH_PASSWORD, operation: 'update', sheet: SHEET_ID, range: range, values: values})
+  });
+  return resp.json();
+}
+async function sheetAppend(range, values) {
+  const resp = await fetch(API_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify({action: 'dashboard_write', password: DASH_PASSWORD, operation: 'append', sheet: SHEET_ID, range: range, values: values})
+  });
+  return resp.json();
 }
 
 // Render dashboard
@@ -2347,12 +2223,7 @@ async function saveBatch() {
       values = [rowData];
     }
     
-    await gapi.client.sheets.spreadsheets.values.update({
-      spreadsheetId: SHEET_ID,
-      range: range,
-      valueInputOption: 'USER_ENTERED',
-      resource: { values: values }
-    });
+    await sheetUpdate(range, values);
     
     closeBatchModal();
     await fetchSheetData();
@@ -3030,44 +2901,22 @@ async function completeShipping() {
       const newRemaining = currentRemaining - allocation.vials;
       
       // Update vials remaining
-      await gapi.client.sheets.spreadsheets.values.update({
-        spreadsheetId: SHEET_ID,
-        range: `Batches!J${allocation.rowIndex + 2}`,
-        valueInputOption: 'RAW',
-        resource: { values: [[newRemaining]] }
-      });
+      await sheetUpdate(`Batches!J${allocation.rowIndex + 2}`, [[newRemaining]]);
       
       // Auto-deplete if 0
       if (newRemaining === 0) {
-        await gapi.client.sheets.spreadsheets.values.update({
-          spreadsheetId: SHEET_ID,
-          range: `Batches!M${allocation.rowIndex + 2}`,
-          valueInputOption: 'RAW',
-          resource: { values: [['Depleted']] }
-        });
+        await sheetUpdate(`Batches!M${allocation.rowIndex + 2}`, [['Depleted']]);
       }
     }
     
     // Update Orders sheet: Status, Shipped date, Tracking, Batch ID
     const today = new Date().toLocaleDateString();
     
-    await gapi.client.sheets.spreadsheets.values.update({
-      spreadsheetId: SHEET_ID,
-      range: `Orders!T${sheetRow}:W${sheetRow}`,
-      valueInputOption: 'USER_ENTERED',
-      resource: {
-        values: [['Shipped', today, tracking, batchId]]
-      }
-    });
+    await sheetUpdate(`Orders!T${sheetRow}:W${sheetRow}`, [['Shipped', today, tracking, batchId]]);
     
     // Add shipping cost to Expenses sheet
     if (shippingCost && parseFloat(shippingCost) > 0) {
-      await gapi.client.sheets.spreadsheets.values.append({
-        spreadsheetId: SHEET_ID,
-        range: 'Expenses!A:G',
-        valueInputOption: 'USER_ENTERED',
-        resource: {
-          values: [[
+      await sheetAppend('Expenses!A:G', [[
             today,
             'Shipping',
             'USPS',
@@ -3075,9 +2924,7 @@ async function completeShipping() {
             shippingCost,
             orderNum,
             'Credit Card'
-          ]]
-        }
-      });
+          ]]);
     }
     
     closePackingModal();
@@ -3142,12 +2989,7 @@ async function saveExpense() {
   const paymentMethod = document.getElementById('expensePaymentMethod').value;
   
   try {
-    await gapi.client.sheets.spreadsheets.values.append({
-      spreadsheetId: SHEET_ID,
-      range: 'Expenses!A:G',
-      valueInputOption: 'USER_ENTERED',
-      resource: {
-        values: [[
+    await sheetAppend('Expenses!A:G', [[
           date,
           category,
           vendor,
@@ -3155,9 +2997,7 @@ async function saveExpense() {
           amount,
           orderNum,
           paymentMethod
-        ]]
-      }
-    });
+        ]]);
     
     closeExpenseModal();
     await fetchSheetData();
@@ -3416,21 +3256,11 @@ async function saveManualSale() {
       const currentRemaining = parseInt(row[9]);
       const newRemaining = currentRemaining - allocation.vials;
       
-      await gapi.client.sheets.spreadsheets.values.update({
-        spreadsheetId: SHEET_ID,
-        range: `Batches!J${allocation.rowIndex + 2}`,
-        valueInputOption: 'RAW',
-        resource: { values: [[newRemaining]] }
-      });
+      await sheetUpdate(`Batches!J${allocation.rowIndex + 2}`, [[newRemaining]]);
       
       // Auto-deplete if 0
       if (newRemaining === 0) {
-        await gapi.client.sheets.spreadsheets.values.update({
-          spreadsheetId: SHEET_ID,
-          range: `Batches!M${allocation.rowIndex + 2}`,
-          valueInputOption: 'RAW',
-          resource: { values: [['Depleted']] }
-        });
+        await sheetUpdate(`Batches!M${allocation.rowIndex + 2}`, [['Depleted']]);
       }
     }
     
@@ -3446,12 +3276,7 @@ async function saveManualSale() {
       totalCOGS += costPerVial * allocation.vials;
     }
     
-    await gapi.client.sheets.spreadsheets.values.append({
-      spreadsheetId: SHEET_ID,
-      range: 'Orders!A:Z',
-      valueInputOption: 'RAW',
-      resource: {
-        values: [[
+    await sheetAppend('Orders!A:Z', [[
           orderId,              // A: Order ID
           today,                // B: Date
           customer,             // C: Customer/Email
@@ -3476,9 +3301,7 @@ async function saveManualSale() {
           'N/A',                // V: Tracking
           batchIds,             // W: Batch IDs
           `Manual Sale - ${source} - ${notes}` // X: Notes
-        ]]
-      }
-    });
+        ]]);
     
     showToast(`Manual sale logged! ${qty}x ${product} for $${amount}`, 'success');
     closeManualSaleModal();
@@ -3601,28 +3424,16 @@ async function processRefund() {
     const today = new Date().toLocaleDateString();
     
     // Update Orders sheet: Refund amount, Status
-    await gapi.client.sheets.spreadsheets.values.update({
-      spreadsheetId: SHEET_ID,
-      range: `Orders!R${sheetRow}:T${sheetRow}`,
-      valueInputOption: 'RAW',
-      resource: {
-        values: [[
+    await sheetUpdate(`Orders!R${sheetRow}:T${sheetRow}`, [[
           refundAmount,
           today,
           type === 'full' ? 'Refunded' : 'Partial Refund'
-        ]]
-      }
-    });
+        ]]);
     
     // Add CC fees to expenses if CC payment
     const paymentMethod = row[8] || '';
     if (paymentMethod.includes('Credit') || paymentMethod.includes('Bankful')) {
-      await gapi.client.sheets.spreadsheets.values.append({
-        spreadsheetId: SHEET_ID,
-        range: 'Expenses!A:G',
-        valueInputOption: 'RAW',
-        resource: {
-          values: [[
+      await sheetAppend('Expenses!A:G', [[
             today,
             'Merchant Fees',
             'Payment Processor',
@@ -3630,9 +3441,7 @@ async function processRefund() {
             ccFees.toFixed(2),
             orderId,
             'N/A'
-          ]]
-        }
-      });
+          ]]);
     }
     
     showToast(`Refund processed: $${refundAmount.toFixed(2)}`, 'success');
@@ -3645,14 +3454,9 @@ async function processRefund() {
   }
 }
 
-// Load Google API
-window.gapiLoaded = gapiLoaded;
-window.gisLoaded = gisLoaded;
-
-// Check password auth on page load
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', initDashboard);
 </script>
-<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 
 </body>
 </html>
