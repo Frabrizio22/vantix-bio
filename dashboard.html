@@ -1797,8 +1797,13 @@ function gisLoaded() {
 
 function maybeEnableButtons() {
   if (gapiInited && tokenClient) {
-    // Load data directly (auth temporarily disabled due to OAuth config)
-    fetchSheetData();
+    // Check if we already have a token
+    const token = gapi.client.getToken();
+    if (token !== null) {
+      fetchSheetData();
+    } else {
+      checkAuthorization();
+    }
   }
 }
 
