@@ -119,49 +119,43 @@ article{padding-top:40px}
             <p>Reddit is full of stories:</p>
 
             <blockquote>
-            "The site sent me vials with just the white filler but no actual peptides. Got me for around $300."
+            A Reddit user reported receiving vials containing only white filler powder with no active peptide—a $300 loss from a vendor with no verifiable COAs.
             </blockquote>
 
             <blockquote>
-            "Asked for COA, it's blurred so can't verify. Ask if they test for sterility or endotoxins—nope, just compound and weight. It's an absolute ball ache."
+            Another researcher described frustration with a vendor who provided blurred COAs that couldn't be verified, and only tested for compound identity and weight—skipping sterility and endotoxin analysis entirely.
             </blockquote>
 
             <p>The good news? <strong>Janoshik makes verification straightforward.</strong> Their public database lets anyone confirm a COA's authenticity without involving the vendor. If you know what to look for, you can spot fakes in under a minute.</p>
 
-            <div style="background: #EFF6FF; border: 2px solid #2563EB; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+            <div style="background: #EFF6FF; border: 2px solid #2563EB; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; display: none;">
                 <h3 style="color: #1E40AF; margin-top: 0; font-size: 1.05rem; font-weight: 700;">Quick Verification Guide</h3>
-                <ul style="margin: 0.75rem 0 0 1.25rem; line-height: 1.9;">
-                    <li>Go to <strong>janoshik.com/verification</strong></li>
-                    <li>Enter the sample ID from your COA (alphanumeric code like "F005B")</li>
-                    <li>Verify purity, molecular weight, and test date match exactly</li>
-                    <li>If not found or values differ → fake or altered COA</li>
-                    <li>Batch number on your vial must match the COA</li>
-                </ul>
+
             </div>
 
             <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 3rem 0;">
 
             <h2>The Official Verification Method (Step-by-Step)</h2>
 
-            <h3>Step 1: Find the Sample ID</h3>
+            <h3>Step 1: Find the Task Number and Verification Key</h3>
 
-            <p>Every legitimate Janoshik COA includes a unique <strong>sample ID</strong> or <strong>batch reference number</strong>.</p>
+            <p>Every legitimate Janoshik COA includes a <strong>Task Number</strong> (e.g., #165868) and a unique <strong>verification key</strong> (e.g., JQQ8BZLM8YKS).</p>
 
-            <p>This is typically an alphanumeric code like "F005B" or "TIRZ-2024-0127" displayed prominently on the report.</p>
+            <p>These identifiers are displayed prominently on the report and are required to verify the COA in Janoshik's database.</p>
 
-            <p><span class="emoji-flag">🚩</span><strong>Red flag:</strong> No sample ID, batch number, or report identifier anywhere on the document. Can't verify what doesn't exist.</p>
+            <p><span class="emoji-flag">🚩</span><strong>Red flag:</strong> No Task Number, verification key, or report identifier anywhere on the document. Can't verify what doesn't exist.</p>
 
             <h3>Step 2: Go to the Official Verification Page</h3>
 
-            <p>Navigate to <strong>janoshik.com/verification</strong>.</p>
+            <p>Navigate to <strong>janoshik.com/verify/</strong>.</p>
 
             <p><strong>Important:</strong> Only use janoshik.com.</p>
 
             <p>Don't trust any other site claiming to offer Janoshik verification—phishing sites do exist.</p>
 
-            <h3>Step 3: Enter the Sample ID</h3>
+            <h3>Step 3: Enter the Verification Key</h3>
 
-            <p>Input the sample ID from your COA using the search function. The system will pull up the original lab record, showing:</p>
+            <p>Input the unique verification key from your COA into the search field. The system will pull up the original lab record, showing:</p>
 
             <ul>
                 <li>Compound name</li>
@@ -195,7 +189,7 @@ article{padding-top:40px}
                 </div>
             </div>
 
-            <p><strong>Even a 0.01% difference</strong> in purity means the COA was altered. Janoshik reports to three decimal places (e.g., 99.247%).</p>
+            <p>Values should match the database record. <strong>Unexplained discrepancies—not minor rounding—are the red flag.</strong> A difference of several percentage points or mismatched compound names indicates alteration.</p>
 
             <h3>Step 5: Match Batch Numbers</h3>
 
@@ -241,6 +235,8 @@ article{padding-top:40px}
 
             <p>Real peptide synthesis has variance. Legitimate manufacturers see purity ranges like 98.743%, 99.187%, 99.621%—not uniform round numbers across every compound.</p>
 
+            <p>Measured content rarely lands exactly on the label weight. A vial labeled 20mg may test at 21.95mg—slight over- or under-fill is normal and is disclosed on the COA. Be suspicious of values that land perfectly on the label every time, or purity figures that are suspiciously round across every product.</p>
+
             <p><strong>Especially suspicious:</strong> Purity >100%. Thermodynamically impossible. Instant disqualification.</p>
 
             <h3>5. Blurry, Low-Resolution, or Inconsistent Formatting</h3>
@@ -282,12 +278,12 @@ article{padding-top:40px}
 
             <p>These aren't theoretical. Here are actual tactics vendors use:</p>
 
-            <h3>Case 1: The Blurred Sample ID</h3>
-            <p>Vendor provides a Janoshik-branded PDF, but the sample ID section is pixelated or blurred "to protect proprietary information."</p>
-            <p><strong>Why it's suspicious:</strong> Janoshik publishes all results publicly. There's no proprietary data to protect. Blurring the ID prevents you from verifying the report.</p>
+            <h3>Case 1: The Blurred Verification Key</h3>
+            <p>Vendor provides a Janoshik-branded PDF, but the verification key or Task Number is pixelated or blurred "to protect proprietary information."</p>
+            <p><strong>Why it's suspicious:</strong> Janoshik publishes all results publicly. There's no proprietary data to protect. Blurring the key prevents you from verifying the report.</p>
 
             <h3>Case 2: The Single COA for Multiple Products</h3>
-            <p>Vendor shows the same report (same sample ID, test date, purity) for Tirzepatide, Retatrutide, <em>and</em> Semaglutide.</p>
+            <p>Vendor shows the same report (same Task Number, test date, purity) for Tirzepatide, Retatrutide, <em>and</em> Semaglutide.</p>
             <p><strong>Why it's impossible:</strong> Each peptide has a unique molecular structure. LC-MS would produce different results. This is Photoshop, not testing.</p>
 
             <h3>Case 3: The "Available After Purchase" COA</h3>
@@ -306,14 +302,14 @@ article{padding-top:40px}
 
             <p>Janoshik will confirm COA authenticity if you send them the report ID. This is the gold standard if you're uncertain.</p>
 
-            <p><strong>Contact:</strong> Use the form at janoshik.com or email them with the sample ID in question.</p>
+            <p><strong>Contact:</strong> Use the form at janoshik.com or email them with the Task Number and verification key in question.</p>
 
             <h3>Option 2: Request a Batch-Specific COA from the Vendor</h3>
 
             <p>If the batch number doesn't match or the report can't be verified, ask the vendor for:</p>
             <ul>
                 <li>A COA specific to <em>your</em> batch (not a generic master report)</li>
-                <li>The exact sample ID used in Janoshik's database</li>
+                <li>The exact Task Number and verification key used in Janoshik's database</li>
                 <li>An explanation for any discrepancies</li>
             </ul>
 
@@ -341,10 +337,6 @@ article{padding-top:40px}
                 <p style="margin: 0;">Vendor shows a Tirzepatide COA at 99.4% purity from Batch A (January). You receive Batch C (March), which actually tested at 96.8%. Without batch-level verification, you'd never know you're underdosing by 2.6%—enough to impact experimental outcomes.</p>
             </div>
 
-            <p>At Vantix, <a href="../verify.html">every product links to a batch-specific Janoshik COA</a> with a QR code you can verify yourself. Scan the code on your vial → view the PDF → enter the sample ID at janoshik.com/verification → confirm it matches.</p>
-
-            <p>No trust required.</p>
-
             <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 3rem 0;">
 
             <h2>How We Use Janoshik Verification</h2>
@@ -356,12 +348,12 @@ article{padding-top:40px}
                 <li><strong>Endotoxin testing</strong> (for peptides—NAD+ is a nucleotide, so no LAL test)</li>
             </ul>
 
-            <p>The resulting COA gets published with a batch-specific QR code. You can:</p>
+            <p>The resulting COA gets published online. You can:</p>
             <ol>
-                <li>Scan the QR code on the vial</li>
-                <li>View the Janoshik PDF</li>
-                <li>Enter the sample ID at janoshik.com/verification</li>
-                <li>Confirm purity, identity, and endotoxin levels match</li>
+                <li>View the Janoshik PDF for your batch</li>
+                <li>Go to janoshik.com/verify/</li>
+                <li>Enter the verification key from the COA</li>
+                <li>Cross-check the Task Number, purity, identity, and endotoxin levels against the database record</li>
             </ol>
 
             <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 3rem 0;">
@@ -371,13 +363,13 @@ article{padding-top:40px}
             <p>Before purchasing from any peptide supplier, confirm:</p>
 
             <div style="background: #F0F9FF; border-left: 4px solid #2B7DE9; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0;">
-                <p style="margin: 0 0 10px 0;">✓ <strong>COA has a unique sample ID or batch reference</strong></p>
-                <p style="margin: 0 0 10px 0;">✓ <strong>Sample ID verifies at janoshik.com/verification</strong></p>
+                <p style="margin: 0 0 10px 0;">✓ <strong>COA has a Task Number and unique verification key</strong></p>
+                <p style="margin: 0 0 10px 0;">✓ <strong>Verification key returns results at janoshik.com/verify/</strong></p>
                 <p style="margin: 0 0 10px 0;">✓ <strong>Batch number on product label matches COA</strong></p>
-                <p style="margin: 0 0 10px 0;">✓ <strong>Test results match Janoshik's database exactly</strong></p>
+                <p style="margin: 0 0 10px 0;">✓ <strong>Test results match Janoshik's database record</strong></p>
                 <p style="margin: 0 0 10px 0;">✓ <strong>COA is recent (within 6 months preferred)</strong></p>
                 <p style="margin: 0 0 10px 0;">✓ <strong>Vendor provides COAs before purchase, not after</strong></p>
-                <p style="margin: 0;">✓ <strong>Different products have different sample IDs</strong></p>
+                <p style="margin: 0;">✓ <strong>Different products have different Task Numbers</strong></p>
             </div>
 
             <p>If even one fails, ask questions. If the vendor can't provide satisfactory answers, there are better options.</p>
@@ -400,7 +392,7 @@ article{padding-top:40px}
             <p><strong>Reddit user experience:</strong></p>
 
             <blockquote>
-            "COAs are useful, but… unless you tie that report to your exact batch, it's more of a general signal than proof."
+            One researcher noted that while COAs are useful, they function more as a general quality signal unless the report is explicitly tied to the batch number on your vial—otherwise it's trust, not proof.
             </blockquote>
 
             <p>The only way to close this gap: demand batch-specific COAs where the batch number on your vial matches the report. If a vendor can't or won't provide this, you're operating on trust—not verification.</p>
