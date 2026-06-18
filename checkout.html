@@ -626,6 +626,27 @@ submitBtn.textContent='Place Order';
 
 loadCart();
 renderCart();
+
+// Push InitiateCheckout event to Data Layer for GTM
+if (cart && cart.length > 0) {
+  window.dataLayer = window.dataLayer || [];
+  var totalValue = cart.reduce(function(sum, item) { return sum + (item.price * item.quantity); }, 0);
+  window.dataLayer.push({
+    event: 'begin_checkout',
+    ecommerce: {
+      currency: 'USD',
+      value: totalValue,
+      items: cart.map(function(item) {
+        return {
+          item_id: item.sku,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.quantity
+        };
+      })
+    }
+  });
+}
 </script>
 
 </body>

@@ -168,6 +168,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 document.getElementById('orderNumber').textContent = order.orderNumber || '—';
                 document.getElementById('orderTotal').textContent = '$' + (parseFloat(order.total) || 0).toFixed(2);
                 document.getElementById('orderDetails').style.display = 'block';
+                
+                // Push Purchase event to Data Layer for GTM
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  event: 'purchase',
+                  ecommerce: {
+                    currency: 'USD',
+                    transaction_id: order.orderNumber,
+                    value: parseFloat(order.total) || 0,
+                    items: (order.items || []).map(function(item) {
+                      return {
+                        item_id: item.sku,
+                        item_name: item.name,
+                        price: item.price,
+                        quantity: item.quantity
+                      };
+                    })
+                  }
+                });
+                
                 localStorage.removeItem('vantixLastOrder');
             } catch(e) {}
         }

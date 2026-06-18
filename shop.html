@@ -485,6 +485,23 @@ function confirmQuickAdd() {
   
   localStorage.setItem('vantixCart', JSON.stringify(cart));
   updateCartBadge();
+  
+  // Push AddToCart event to Data Layer for GTM
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'add_to_cart',
+    ecommerce: {
+      currency: 'USD',
+      value: currentQuickAddProduct.price * quantity,
+      items: [{
+        item_id: currentQuickAddProduct.sku,
+        item_name: currentQuickAddProduct.name,
+        price: currentQuickAddProduct.price,
+        quantity: quantity
+      }]
+    }
+  });
+  
   closeQuickAdd();
   showToast(`${quantity}x ${currentQuickAddProduct.name} added to cart`);
   
