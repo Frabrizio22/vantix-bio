@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Order Received - Vantix Bio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 40px;
+            color: #0F172A;
+        }
+        .logo span { color: #5B8DBE; }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #059669, #10B981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.25);
+        }
+        .checkmark svg { width: 40px; height: 40px; }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0F172A;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #64748B;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        .order-details {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        .order-row .label { color: #64748B; }
+        .order-row .value { font-weight: 600; color: #0F172A; }
+        .info-box {
+            background: #EFF6FF;
+            border: 1px solid #DBEAFE;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #1E40AF;
+            line-height: 1.5;
+        }
+        .zelle-box {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #166534;
+            line-height: 1.5;
+            text-align: left;
+        }
+        .zelle-box strong { display: block; margin-bottom: 8px; }
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #0F172A;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #1E293B; }
+        .footer-note {
+            margin-top: 32px;
+            font-size: 12px;
+            color: #94A3B8;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BBBNSQT84M');
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PM5J7G2C');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM5J7G2C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="container">
+        <div class="logo">VANTIX <span>BIO</span></div>
+        
+        <div class="checkmark">
+            <svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+        </div>
+        
+        <h1>Order Received</h1>
+        <p class="subtitle" id="subtitleText">Your order has been placed successfully. You'll receive a confirmation email shortly.</p>
+        
+        <div class="order-details" id="orderDetails" style="display:none">
+            <div class="order-row">
+                <span class="label">Order Number</span>
+                <span class="value" id="orderNumber">—</span>
+            </div>
+            <div class="order-row">
+                <span class="label">Total</span>
+                <span class="value" id="orderTotal">—</span>
+            </div>
+            <div class="order-row">
+                <span class="label">Payment</span>
+                <span class="value" id="orderPayment">—</span>
+            </div>
+            <div class="order-row">
+                <span class="label">Status</span>
+                <span class="value" id="orderStatus" style="color:#059669">✓ Confirmed</span>
+            </div>
+        </div>
+
+        <div class="zelle-box" id="zelleBox" style="display:none">
+            <strong>💳 Zelle Payment Instructions</strong>
+            Send <strong id="zelleAmount">$0.00</strong> to:<br>
+            <strong>prcpeptides@gmail.com</strong><br><br>
+            Include your order number <strong id="zelleOrderNum">—</strong> in the memo.<br>
+            Your order ships once payment is received.
+        </div>
+        
+        <div class="info-box">
+            📦 Your order will ship within 1 business day. Tracking will be sent to your email.
+        </div>
+        
+        <a href="shop.html" class="btn">Continue Shopping</a>
+        
+        <div class="footer-note">
+            Questions? Email <a href="mailto:vantixbio@gmail.com" style="color:#64748B">vantixbio@gmail.com</a>
+        </div>
+        <p style="margin-top:8px;font-size:11px;text-align:center;color:#94a3b8"><a href="terms.html" style="color:inherit;text-decoration:underline">Terms</a> &middot; <a href="privacy.html" style="color:inherit;text-decoration:underline">Privacy</a> &middot; <a href="shipping.html" style="color:inherit;text-decoration:underline">Shipping &amp; Refund</a></p>
+    </div>
+
+    <script>
+        // Show order details if available
+        var lastOrder = localStorage.getItem('vantixLastOrder');
+        if (lastOrder) {
+            try {
+                var order = JSON.parse(lastOrder);
+                document.getElementById('orderNumber').textContent = order.orderNumber || '—';
+                document.getElementById('orderTotal').textContent = '$' + (parseFloat(order.total) || 0).toFixed(2);
+                document.getElementById('orderDetails').style.display = 'block';
+
+                // Payment method display
+                if (order.paymentMethod === 'zelle') {
+                    document.getElementById('orderPayment').textContent = 'Zelle';
+                    document.getElementById('orderStatus').textContent = '⏳ Awaiting Payment';
+                    document.getElementById('orderStatus').style.color = '#D97706';
+                    document.getElementById('zelleBox').style.display = 'block';
+                    document.getElementById('zelleAmount').textContent = '$' + (parseFloat(order.total) || 0).toFixed(2);
+                    document.getElementById('zelleOrderNum').textContent = order.orderNumber;
+                } else {
+                    document.getElementById('orderPayment').textContent = 'Credit Card';
+                    document.getElementById('orderStatus').textContent = '✓ Paid';
+                    document.getElementById('orderStatus').style.color = '#059669';
+                }
+                
+                // Push Purchase event to Data Layer for GTM
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  event: 'purchase',
+                  ecommerce: {
+                    currency: 'USD',
+                    transaction_id: order.orderNumber,
+                    value: parseFloat(order.total) || 0,
+                    items: (order.items || []).map(function(item) {
+                      return {
+                        item_id: item.sku,
+                        item_name: item.name,
+                        price: item.price,
+                        quantity: item.quantity
+                      };
+                    })
+                  }
+                });
+                
+                localStorage.removeItem('vantixLastOrder');
+            } catch(e) {}
+        }
+
+        // Clear cart
+        localStorage.removeItem('vantixCart');
+    </script>
+</body>
+</html>

@@ -526,6 +526,11 @@ return 'VX'+Date.now().toString().slice(-5);
 }
 
 function showConfirmation(paymentMethod){
+// Save order data and redirect to order-received page
+localStorage.setItem('vantixLastOrder',JSON.stringify({orderNumber:orderNumber,total:getTotal(),items:cart.map(function(item){return {sku:item.sku,name:item.name,price:item.price,quantity:item.quantity};}),paymentMethod:paymentMethod}));
+localStorage.removeItem('vantixCart');
+window.location.href='order-received.html?order='+orderNumber;
+return;
 document.getElementById('checkoutView').style.display='none';
 document.getElementById('confirmationView').style.display='block';
 document.getElementById('confirmOrderNumber').textContent='Order #'+orderNumber;
