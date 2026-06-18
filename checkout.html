@@ -457,6 +457,8 @@ return discount;
 }
 
 function getShipping(){
+// MAHMUD100 test code - free shipping
+if(promoCode==='MAHMUD100'){return 0;}
 if(promoCode==='FREESHIP'){return 0;}
 // Check for freeShipping in promo code object
 if(promoCode&&promoCodes[promoCode]){
