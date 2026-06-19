@@ -167,7 +167,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .instrument::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
 .instrument::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
 .inst-header{padding:14px 20px;background:var(--navy);color:var(--bg);display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;gap:12px}
-.inst-header-left{display:flex;align-items:center;gap:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.inst-header-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;font-size:9px}
 .inst-status{color:var(--signal);display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0}
 .inst-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:pulse 2s infinite}
 .inst-body{padding:24px}
@@ -196,7 +196,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .add-btn{background:var(--navy);color:var(--bg);border:none;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:10px}
 .add-btn:hover{background:rgba(15,27,45,.85)}
 .add-btn::after{content:'→';font-family:var(--sans)}
-@media(max-width:480px){.inst-body{padding:18px}.inst-header{padding:12px 14px}}
+@media(max-width:480px){.inst-body{padding:18px}.inst-header{padding:10px 12px;font-size:9px;letter-spacing:.1em}}
 .marquee{background:var(--navy);padding:14px 0;overflow:hidden;margin:40px 0;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:64px 0}}
 .marquee-inner{display:flex;white-space:nowrap;animation:marquee 18s linear infinite;width:max-content}
 .marquee-content{display:flex;align-items:center;gap:48px;padding:0 24px;font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.75)}
@@ -492,9 +492,10 @@ C 286 156, 288 158, 292 159
 L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
 " />
 <g class="peak-marker">
-<line x1="110" y1="18" x2="110" y2="6" stroke="#7BA88F" stroke-width="1"/>
+<line x1="110" y1="18" x2="110" y2="4" stroke="#7BA88F" stroke-width="1"/>
 <circle cx="110" cy="18" r="3" fill="#5C9577"/>
-<text x="117" y="10" font-family="JetBrains Mono" font-size="9" fill="#0F1B2D">0.623 min · 99.958%</text>
+<text x="118" y="8" font-family="JetBrains Mono" font-size="8" fill="#0F1B2D">RT 0.623 min</text>
+<text x="118" y="18" font-family="JetBrains Mono" font-size="8" fill="#5C9577" font-weight="600">99.958%</text>
 </g>
 </svg>
 </div>
@@ -576,7 +577,7 @@ L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
 <p class="bundle-quote">"Research kits contain separate, individually tested vials — not pre-mixed formulations."</p>
 </div>
 
-<div class="container" style="padding-top:0;padding-bottom:0">
+<div class="container section" style="border-top:1px solid var(--hairline)">
 <div style="margin-bottom:24px">
 <h2 style="margin:0 0 8px">Three steps from batch to vial.</h2>
 <p style="font-size:17px;color:rgba(10,22,40,.7);line-height:1.6;margin:0">No vendor-issued COAs, no screenshots. The chain runs from an independent lab straight to the QR code on your vial.</p>
