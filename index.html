@@ -197,18 +197,18 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .add-btn:hover{background:rgba(15,27,45,.85)}
 .add-btn::after{content:'→';font-family:var(--sans)}
 @media(max-width:480px){.inst-body{padding:18px}.inst-header{padding:12px 14px}}
-.marquee{background:var(--navy);padding:20px 0;overflow:hidden;margin:60px 0;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:80px 0}}
+.marquee{background:var(--navy);padding:16px 0;overflow:hidden;margin:32px 0;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:60px 0}}
 .marquee-inner{display:flex;white-space:nowrap;animation:marquee 18s linear infinite;width:max-content}
 .marquee-content{display:flex;align-items:center;gap:48px;padding:0 24px;font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.75)}
 .marquee-content span:nth-child(even){color:var(--accent-light);font-size:13px}
-.section{padding:40px 0}@media(min-width:768px){.section{padding:80px 0}}
-.section-header{max-width:900px;margin:0 0 40px;text-align:left}@media(min-width:768px){.section-header{margin:0 0 60px}}
+.section{padding:32px 0}@media(min-width:768px){.section{padding:64px 0}}
+.section-header{max-width:900px;margin:0 0 24px;text-align:left}@media(min-width:768px){.section-header{margin:0 0 48px}}
 .section-header p{font-size:17px;color:rgba(10,22,40,.7);margin-top:16px;line-height:1.6}
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);margin-bottom:32px;align-items:stretch}.three-col > div{padding:32px}@media(max-width:1023px){.three-col > div{padding:24px 20px}}
-.col-item{background:var(--bg);padding:48px 36px;transition:all .3s}
+.col-item{background:var(--bg);padding:32px 24px;transition:all .3s}@media(min-width:768px){.col-item{padding:40px 36px}}
 .col-item:hover{background:rgba(30,64,175,.02)}
-.col-number{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:300;color:#A8A090;line-height:1;margin-bottom:16px}
-.col-title{font-family:'Fraunces',serif;font-size:24px;font-weight:300;margin-bottom:12px}
+.col-number{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:300;color:#A8A090;line-height:1;margin-bottom:10px}
+.col-title{font-family:'Fraunces',serif;font-size:20px;font-weight:300;margin-bottom:8px}
 .col-metric{font-family:'Fraunces',serif;font-size:56px;font-weight:300;color:var(--signal-bright);margin-top:24px;line-height:1}
 .bundle-table{display:grid;gap:1px;background:var(--hairline)}
 .bundle-row{display:grid;pointer-events:auto;padding-right:24px;grid-template-columns:2fr 1.2fr 1fr .8fr;background:var(--bg);padding:28px 48px;align-items:center;transition:all .3s;cursor:pointer}
@@ -229,7 +229,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .editorial-panel{background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:56px}
 .editorial-panel h3{font-family:'Fraunces',serif;font-size:26px;font-weight:300;margin-bottom:16px}
 .editorial-panel p{line-height:1.8;color:rgba(10,22,40,.75);max-width:70ch;margin-left:auto;margin-right:auto}
-.cta-section{background:#fff;border:1px solid var(--hairline);border-radius:24px;padding:48px 32px;margin-top:24px;text-align:center;position:relative;overflow:hidden;margin-bottom:40px}@media(min-width:768px){.cta-section{padding:60px 48px;margin-bottom:48px}}
+.cta-section{background:#fff;border:1px solid var(--hairline);border-radius:24px;padding:40px 24px;margin-top:8px;text-align:center;position:relative;overflow:hidden;margin-bottom:24px}@media(min-width:768px){.cta-section{padding:60px 48px;margin-top:16px;margin-bottom:48px}}
 .cta-section h2{margin-bottom:20px}
 .cta-section p{font-size:18px;color:rgba(10,22,40,.7);margin-bottom:40px}
 .cta-buttons{display:flex;gap:16px;justify-content:center}
@@ -576,7 +576,7 @@ L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
 <p class="bundle-quote">"Research kits contain separate, individually tested vials — not pre-mixed formulations."</p>
 </div>
 
-<div class="container" style="padding-top:24px;padding-bottom:32px">
+<div class="container" style="padding-top:16px;padding-bottom:16px">
 <div class="section-header" style="margin-bottom:32px">
 <h2>Three steps from batch to vial.</h2>
 <p style="margin-top:12px">No vendor-issued COAs, no screenshots. The chain runs from an independent lab straight to the QR code on your vial.</p>
