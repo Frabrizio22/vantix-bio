@@ -606,38 +606,57 @@ L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
 </div>
 </section>
 
-<div class="container section">
-<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
-<span style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);white-space:nowrap">Verification Chain</span>
-<span style="flex:1;height:1px;background:var(--hairline)"></span>
-</div>
-<h2 style="font-size:clamp(2rem,5vw,3rem);margin:0 0 20px;line-height:1.1">Three steps from batch to vial.</h2>
-<p style="font-size:16px;color:rgba(10,22,40,.6);line-height:1.7;margin:0 0 48px;max-width:520px">No vendor-issued COAs, no screenshots. The chain runs from an independent lab straight to the QR code on your vial.</p>
+<style>
+.vx-verify{--vx-bg:#FAFAF7;--vx-text:#0A1628;--vx-accent:#3973B0;--vx-hair:#E5E5E0;--vx-muted:#6B7280;background:var(--vx-bg);color:var(--vx-text);font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;padding:56px 0}
+.vx-verify *{box-sizing:border-box}
+.vx-verify .vx-wrap{max-width:440px;margin:0 auto;padding:0 28px}
+.vx-verify .vx-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--vx-accent);display:flex;align-items:center;gap:10px;margin:0 0 22px}
+.vx-verify .vx-eyebrow::after{content:"";flex:1;height:1px;background:var(--vx-hair)}
+.vx-verify .vx-title{font-family:'Fraunces',serif;font-weight:500;font-size:38px;line-height:1.04;letter-spacing:-0.02em;color:var(--vx-text);margin:0 0 16px}
+.vx-verify .vx-subtitle{font-size:16px;line-height:1.5;color:var(--vx-muted);max-width:34ch;margin:0}
+.vx-verify .vx-steps{margin-top:30px}
+.vx-verify .vx-step{display:grid;grid-template-columns:38px 1fr;gap:20px;padding:30px 0;border-bottom:1px solid var(--vx-hair)}
+.vx-verify .vx-step:last-child{border-bottom:none}
+.vx-verify .vx-num{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--vx-accent);padding-top:9px}
+.vx-verify .vx-step-title{font-family:'Fraunces',serif;font-weight:500;font-size:24px;letter-spacing:-0.01em;margin:0 0 10px}
+.vx-verify .vx-body{font-size:15px;line-height:1.55;color:var(--vx-muted);margin:0}
+.vx-verify .vx-body b{color:var(--vx-text);font-weight:600}
+@media(min-width:768px){.vx-verify .vx-wrap{max-width:560px}}
+</style>
 
-<div style="display:flex;flex-direction:column">
-<div style="display:flex;gap:24px;align-items:flex-start;padding:32px 0;border-top:1px solid var(--hairline)">
-<div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--navy);padding-top:4px;flex-shrink:0;width:32px">01</div>
+<section class="vx-verify">
+<div class="vx-wrap">
+<div class="vx-eyebrow">Verification chain</div>
+<h2 class="vx-title">Three steps<br>from batch to vial.</h2>
+<p class="vx-subtitle">No vendor-issued COAs, no screenshots. The chain runs from an independent lab straight to the QR code on your vial.</p>
+
+<div class="vx-steps">
+<div class="vx-step">
+<div class="vx-num">01</div>
 <div>
-<div style="font-family:'Fraunces',serif;font-size:22px;font-weight:400;margin-bottom:10px">Independent testing</div>
-<p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.6);margin:0">Every batch is sent to <strong style="color:var(--text)">Janoshik</strong> for third-party verification - HPLC purity, LC-MS identity, and endotoxin screening.</p>
+<h3 class="vx-step-title">Independent testing</h3>
+<p class="vx-body">Every batch is sent to <b>Janoshik</b> for third-party verification — HPLC purity, LC-MS identity, and endotoxin screening.</p>
 </div>
 </div>
-<div style="display:flex;gap:24px;align-items:flex-start;padding:32px 0;border-top:1px solid var(--hairline)">
-<div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--navy);padding-top:4px;flex-shrink:0;width:32px">02</div>
+
+<div class="vx-step">
+<div class="vx-num">02</div>
 <div>
-<div style="font-family:'Fraunces',serif;font-size:22px;font-weight:400;margin-bottom:10px">Public verification</div>
-<p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.6);margin:0">Scan the QR code on your vial. The portal opens with the batch ID pre-filled, showing the COA, chromatogram, and a <strong style="color:var(--text)">direct link to the Janoshik source report</strong>.</p>
+<h3 class="vx-step-title">Public verification</h3>
+<p class="vx-body">Scan the QR code on your vial. The portal opens with the batch ID pre-filled, showing the COA, chromatogram, and a <b>direct link to the Janoshik source report</b>.</p>
 </div>
 </div>
-<div style="display:flex;gap:24px;align-items:flex-start;padding:32px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)">
-<div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--navy);padding-top:4px;flex-shrink:0;width:32px">03</div>
+
+<div class="vx-step">
+<div class="vx-num">03</div>
 <div>
-<div style="font-family:'Fraunces',serif;font-size:22px;font-weight:400;margin-bottom:10px">Batch traceability</div>
-<p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.6);margin:0">Nothing ships until the report clears. Every batch tested, every vial traceable - <strong style="color:var(--text)">no exceptions</strong>.</p>
+<h3 class="vx-step-title">Batch traceability</h3>
+<p class="vx-body">Nothing ships until the report clears. Every batch tested, every vial traceable — <b>no exceptions</b>.</p>
 </div>
 </div>
 </div>
 </div>
+</section>
 
 <div class="container section">
 <div class="cta-section">
