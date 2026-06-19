@@ -452,7 +452,7 @@ cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTo
 discount+=singlesTotal*promoValue.discount;
 }
 }
-if(selectedPayment==='zelle'){discount+=subtotal*0.05;}
+if(selectedPayment==='zelle'&&promoCode!=='MAHMUD100'){discount+=subtotal*0.05;}
 return discount;
 }
 
