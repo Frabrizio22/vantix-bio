@@ -1,0 +1,13 @@
+# Never commit secrets
+*_worker_*.js
+*_apps_script_*.js
+*APPS_SCRIPT*.js
+*_telegram_*.js
+apps-script-*.js
+*secrets*
+*.env
+.env.*
+
+# Local backups
+*-backup-*.html
+*-OLD-BACKUP*.html
