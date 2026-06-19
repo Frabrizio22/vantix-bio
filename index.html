@@ -535,53 +535,76 @@ L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
 </div>
 </div>
 
-<div class="container section">
-<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
-<span style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);white-space:nowrap">Research Combinations</span>
-<span style="flex:1;height:1px;background:var(--hairline)"></span>
-</div>
-<h2 style="font-size:clamp(2rem,5vw,3rem);margin:0 0 20px;line-height:1.1">Research combination bundles</h2>
-<p style="font-size:16px;color:rgba(10,22,40,.6);line-height:1.7;margin:0 0 48px;max-width:520px">Protocol-optimized pairings with separate COAs for complete analytical transparency.</p>
+<style>
+.vx-bundles{--vx-bg:#FAFAF7;--vx-text:#0A1628;--vx-accent:#3973B0;--vx-hair:#E5E5E0;--vx-muted:#6B7280;--vx-muted-soft:#9CA3AF;background:var(--vx-bg);color:var(--vx-text);font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;padding:56px 0}
+.vx-bundles *{box-sizing:border-box}
+.vx-bundles .vx-wrap{max-width:440px;margin:0 auto;padding:0 28px}
+.vx-bundles .vx-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--vx-accent);display:flex;align-items:center;gap:10px;margin:0 0 22px}
+.vx-bundles .vx-eyebrow::after{content:"";flex:1;height:1px;background:var(--vx-hair)}
+.vx-bundles .vx-title{font-family:'Fraunces',serif;font-weight:500;font-size:38px;line-height:1.04;letter-spacing:-0.02em;color:var(--vx-text);margin:0 0 16px}
+.vx-bundles .vx-subtitle{font-size:16px;line-height:1.5;color:var(--vx-muted);max-width:34ch;margin:0}
+.vx-bundles .vx-list{margin-top:8px}
+.vx-bundles .vx-bundle{padding:26px 0;border-bottom:1px solid var(--vx-hair)}
+.vx-bundles .vx-bundle:first-child{padding-top:34px}
+.vx-bundles .vx-name{font-family:'Fraunces',serif;font-weight:500;font-size:21px;letter-spacing:-0.01em;line-height:1.15;margin:0 0 8px}
+.vx-bundles .vx-desc{font-size:14px;line-height:1.45;color:var(--vx-muted);margin:0 0 18px;max-width:38ch}
+.vx-bundles .vx-foot{display:flex;align-items:baseline;gap:14px}
+.vx-bundles .vx-was{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--vx-muted-soft);text-decoration:line-through}
+.vx-bundles .vx-now{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:26px;color:var(--vx-text);letter-spacing:-0.01em}
+.vx-bundles .vx-link{margin-left:auto;font-size:14px;font-weight:500;color:var(--vx-accent);text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap .15s ease}
+.vx-bundles .vx-link:hover{gap:9px}
+@media(min-width:768px){.vx-bundles .vx-wrap{max-width:560px}}
+</style>
 
-<div style="display:flex;flex-direction:column">
-<a href="kits.html" style="text-decoration:none;color:inherit;padding:32px 0;border-top:1px solid var(--hairline);transition:background .3s" onmouseover="this.style.background='rgba(57,115,176,.02)'" onmouseout="this.style.background='transparent'">
-<div style="font-family:'Geist',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px;color:var(--text)">BPC-157 + TB-500 Research Pair</div>
-<div style="font-size:14px;color:rgba(10,22,40,.55);margin-bottom:16px">Cytoprotective & actin-regulatory pathway investigation</div>
-<div style="display:flex;align-items:center;gap:12px">
-<span style="font-size:14px;color:rgba(10,22,40,.35);text-decoration:line-through">$68</span>
-<span style="font-family:'Geist',sans-serif;font-size:24px;font-weight:700;color:var(--text)">$58</span>
-<a href="kits.html" style="margin-left:auto;font-size:14px;color:var(--accent);text-decoration:none;font-weight:600">View pair →</a>
-</div>
-</a>
-<a href="kits.html" style="text-decoration:none;color:inherit;padding:32px 0;border-top:1px solid var(--hairline);transition:background .3s" onmouseover="this.style.background='rgba(57,115,176,.02)'" onmouseout="this.style.background='transparent'">
-<div style="font-family:'Geist',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px;color:var(--text)">CJC-1295 + Ipamorelin Research Pair</div>
-<div style="font-size:14px;color:rgba(10,22,40,.55);margin-bottom:16px">GHRH & ghrelin receptor pharmacology studies</div>
-<div style="display:flex;align-items:center;gap:12px">
-<span style="font-size:14px;color:rgba(10,22,40,.35);text-decoration:line-through">$72</span>
-<span style="font-family:'Geist',sans-serif;font-size:24px;font-weight:700;color:var(--text)">$62</span>
-<a href="kits.html" style="margin-left:auto;font-size:14px;color:var(--accent);text-decoration:none;font-weight:600">View pair →</a>
-</div>
-</a>
-<a href="kits.html" style="text-decoration:none;color:inherit;padding:32px 0;border-top:1px solid var(--hairline);transition:background .3s" onmouseover="this.style.background='rgba(57,115,176,.02)'" onmouseout="this.style.background='transparent'">
-<div style="font-family:'Geist',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px;color:var(--text)">NAD+ + MOTS-C Research Pair</div>
-<div style="font-size:14px;color:rgba(10,22,40,.55);margin-bottom:16px">Mitochondrial bioenergetics & NAD+ metabolism research</div>
-<div style="display:flex;align-items:center;gap:12px">
-<span style="font-size:14px;color:rgba(10,22,40,.35);text-decoration:line-through">$100</span>
-<span style="font-family:'Geist',sans-serif;font-size:24px;font-weight:700;color:var(--text)">$90</span>
-<a href="kits.html" style="margin-left:auto;font-size:14px;color:var(--accent);text-decoration:none;font-weight:600">View pair →</a>
-</div>
-</a>
-<a href="kits.html" style="text-decoration:none;color:inherit;padding:32px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);transition:background .3s" onmouseover="this.style.background='rgba(57,115,176,.02)'" onmouseout="this.style.background='transparent'">
-<div style="font-family:'Geist',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px;color:var(--text)">Tirzepatide + Retatrutide Research Pair</div>
-<div style="font-size:14px;color:rgba(10,22,40,.55);margin-bottom:16px">Multi-receptor incretin agonist comparative studies</div>
-<div style="display:flex;align-items:center;gap:12px">
-<span style="font-size:14px;color:rgba(10,22,40,.35);text-decoration:line-through">$136</span>
-<span style="font-family:'Geist',sans-serif;font-size:24px;font-weight:700;color:var(--text)">$121</span>
-<a href="kits.html" style="margin-left:auto;font-size:14px;color:var(--accent);text-decoration:none;font-weight:600">View pair →</a>
-</div>
-</a>
+<section class="vx-bundles">
+<div class="vx-wrap">
+<div class="vx-eyebrow">Research pairs</div>
+<h2 class="vx-title">Research<br>combination bundles</h2>
+<p class="vx-subtitle">Protocol-optimized pairings with separate COAs for complete analytical transparency.</p>
+
+<div class="vx-list">
+<div class="vx-bundle">
+<h3 class="vx-name">BPC-157 + TB-500 Research Pair</h3>
+<p class="vx-desc">Cytoprotective &amp; actin-regulatory pathway investigation</p>
+<div class="vx-foot">
+<span class="vx-was">$68</span>
+<span class="vx-now">$58</span>
+<a class="vx-link" href="kits.html">View pair →</a>
 </div>
 </div>
+
+<div class="vx-bundle">
+<h3 class="vx-name">CJC-1295 + Ipamorelin Research Pair</h3>
+<p class="vx-desc">GHRH &amp; ghrelin receptor pharmacology studies</p>
+<div class="vx-foot">
+<span class="vx-was">$72</span>
+<span class="vx-now">$62</span>
+<a class="vx-link" href="kits.html">View pair →</a>
+</div>
+</div>
+
+<div class="vx-bundle">
+<h3 class="vx-name">NAD+ + MOTS-C Research Pair</h3>
+<p class="vx-desc">Mitochondrial bioenergetics &amp; NAD+ metabolism research</p>
+<div class="vx-foot">
+<span class="vx-was">$100</span>
+<span class="vx-now">$90</span>
+<a class="vx-link" href="kits.html">View pair →</a>
+</div>
+</div>
+
+<div class="vx-bundle">
+<h3 class="vx-name">Tirzepatide + Retatrutide Research Pair</h3>
+<p class="vx-desc">Multi-receptor incretin agonist comparative studies</p>
+<div class="vx-foot">
+<span class="vx-was">$136</span>
+<span class="vx-now">$121</span>
+<a class="vx-link" href="kits.html">View pair →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 <div class="container section">
 <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
