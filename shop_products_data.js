@@ -203,22 +203,6 @@ const VX_PRODUCTS = {
             url: 'products/nad-plus.html',
             inStock: true,
             dualTested: true
-        },
-        {
-            sku: 'VX-MT2-10',
-            name: 'Melanotan II 10mg', cartName: 'MT-2 10mg',
-            shortName: 'Melanotan II',
-            slug: 'melanotan-2',
-            category: 'specialty',
-            categoryLabel: 'Specialty Compounds',
-            dosage: '10mg',
-            purity: '>99%',
-            price: 28,
-            cogs: 9.50,
-            image: 'images/products/coming-soon.svg',
-            url: 'products/melanotan-2.html',
-            inStock: false,
-            dualTested: true
         }
     ],
     
