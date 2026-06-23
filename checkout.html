@@ -190,6 +190,14 @@ Continue Shopping
 <input type="text" id="name" required>
 </div>
 <div class="form-group">
+<label>Cardholder Name *</label>
+<input type="text" id="cardholderName" required>
+<label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:400;cursor:pointer">
+<input type="checkbox" id="sameAsName" checked onchange="toggleCardholderName()" style="width:18px;height:18px;cursor:pointer">
+<span>Same as Full Name</span>
+</label>
+</div>
+<div class="form-group">
 <label>Email Address *</label>
 <input type="email" id="email" required>
 </div>
@@ -512,6 +520,28 @@ updateSummary();
 }else{alert('Invalid promo code');}
 }
 
+function toggleCardholderName(){
+var checkbox=document.getElementById('sameAsName');
+var cardholderInput=document.getElementById('cardholderName');
+var nameInput=document.getElementById('name');
+if(checkbox.checked){
+cardholderInput.value=nameInput.value;
+cardholderInput.readOnly=true;
+cardholderInput.style.backgroundColor='#f5f5f5';
+}else{
+cardholderInput.readOnly=false;
+cardholderInput.style.backgroundColor='white';
+cardholderInput.focus();
+}
+}
+
+document.getElementById('name').addEventListener('input',function(){
+var checkbox=document.getElementById('sameAsName');
+if(checkbox.checked){
+document.getElementById('cardholderName').value=this.value;
+}
+});
+
 function selectPayment(method){
 selectedPayment=method;
 document.getElementById('zelleOption').classList.remove('selected');
@@ -556,18 +586,19 @@ function placeOrder(){
 if(cart.length===0){alert('Your cart is empty');return;}
 if(!selectedPayment){alert('Please select a payment method');return;}
 var name=document.getElementById('name').value.trim();
+var cardholderName=document.getElementById('cardholderName').value.trim();
 var email=document.getElementById('email').value.trim();
 var phone=document.getElementById('phone').value.trim();
 var address=document.getElementById('address').value.trim();
 var city=document.getElementById('city').value.trim();
 var state=document.getElementById('state').value.trim();
 var zip=document.getElementById('zip').value.trim();
-if(!name||!email||!phone||!address||!city||!state||!zip){alert('Please fill in all required fields');return;}
+if(!name||!cardholderName||!email||!phone||!address||!city||!state||!zip){alert('Please fill in all required fields');return;}
 orderNumber=generateOrderNumber();
 var orderData={
 payment_method:selectedPayment==='zelle'?'zelle':'credit_card',
 order_number:orderNumber,
-customer_name:name,
+customer_name:cardholderName,
 customer_email:email,
 phone:phone,
 address:address,
@@ -649,6 +680,11 @@ submitBtn.textContent='Place Order';
 
 loadCart();
 renderCart();
+
+// Initialize cardholder name field
+var cardholderInput=document.getElementById('cardholderName');
+cardholderInput.readOnly=true;
+cardholderInput.style.backgroundColor='#f5f5f5';
 
 // Push InitiateCheckout event to Data Layer for GTM
 if (cart && cart.length > 0) {
