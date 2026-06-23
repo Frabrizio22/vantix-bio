@@ -728,8 +728,9 @@ window.scrollTo(0,0);
 }
 
 function placeOrder(){
-if(cart.length===0){alert('Your cart is empty');return;}
-if(!selectedPayment){alert('Please select a payment method');return;}
+console.log('Place order clicked');
+if(cart.length===0){console.error('Cart empty');alert('Your cart is empty');return;}
+if(!selectedPayment){console.error('No payment method selected');alert('Please select a payment method');return;}
 var name=document.getElementById('name').value.trim();
 var email=document.getElementById('email').value.trim();
 var phone=document.getElementById('phone').value.trim();
