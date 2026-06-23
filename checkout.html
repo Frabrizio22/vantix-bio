@@ -642,21 +642,6 @@ updateSummary();
 }else{alert('Invalid promo code');}
 }
 
-function toggleCardholderName(){
-var checkbox=document.getElementById('sameAsName');
-var cardholderInput=document.getElementById('cardholderName');
-var nameInput=document.getElementById('name');
-if(checkbox.checked){
-cardholderInput.value=nameInput.value;
-cardholderInput.readOnly=true;
-cardholderInput.style.backgroundColor='#f5f5f5';
-}else{
-cardholderInput.readOnly=false;
-cardholderInput.style.backgroundColor='white';
-cardholderInput.focus();
-}
-}
-
 function toggleBillingAddress(){
 var checkbox=document.getElementById('billingSameAsShipping');
 var billingFields=document.getElementById('billingFields');
@@ -859,11 +844,6 @@ submitBtn.textContent='Place Order';
 
 loadCart();
 renderCart();
-
-// Initialize cardholder name field
-var cardholderInput=document.getElementById('cardholderName');
-cardholderInput.readOnly=true;
-cardholderInput.style.backgroundColor='#f5f5f5';
 
 // Push InitiateCheckout event to Data Layer for GTM
 if (cart && cart.length > 0) {
