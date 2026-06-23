@@ -1,35 +1,14 @@
-# Vantix Bio - robots.txt
-# Research use only - compliance crawlers not welcome
-
 User-agent: *
 Allow: /
+Disallow: /*-email.html
+Disallow: /*backup*.html
+Disallow: /*premium*.html
+Disallow: /*generator*.html
+Disallow: /vantix-age-gate.html
+Disallow: /vantix-checkout-affirmation.html
+Disallow: /EXACT_KITS_HEADER.html
+Disallow: /footer-premium.html
+Disallow: /product.html
+Disallow: /shop_premium.html
 
-# Block known pharmaceutical industry crawlers
-User-agent: PharmaCrawler
-Disallow: /
-
-User-agent: ComplianceBot
-Disallow: /
-
-User-agent: RegulatorySpider
-Disallow: /
-
-# Block aggressive commercial scrapers
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-# Allow Google, Bing (for SEO)
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# Sitemap
 Sitemap: https://vantixbio.com/sitemap.xml
