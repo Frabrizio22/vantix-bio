@@ -192,10 +192,10 @@ Continue Shopping
 <div class="form-group">
 <label>Cardholder Name *</label>
 <input type="text" id="cardholderName" required>
-<label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:400;cursor:pointer">
-<input type="checkbox" id="sameAsName" checked onchange="toggleCardholderName()" style="width:18px;height:18px;cursor:pointer">
-<span>Same as Full Name</span>
-</label>
+<div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:400">
+<input type="checkbox" id="sameAsName" checked onchange="toggleCardholderName()" style="width:18px;height:18px;cursor:pointer;margin:0">
+<label for="sameAsName" style="cursor:pointer;margin:0">Same as Full Name</label>
+</div>
 </div>
 <div class="form-group">
 <label>Email Address *</label>
