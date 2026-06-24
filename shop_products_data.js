@@ -200,7 +200,7 @@ const VX_PRODUCTS = {
             price: 68,
             cogs: 18.16,
             image: 'images/products/nad-1000mg.jpg',
-            url: 'products/nad-plus.html',
+            url: 'products/nad-1000mg.html',
             inStock: true,
             dualTested: true
         }
