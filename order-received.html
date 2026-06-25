@@ -207,13 +207,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 }
                 
                 // Push Purchase event to Data Layer for GTM
+                var purchaseValue = parseFloat(order.total) || 0;
+                console.log('Purchase event:', order.orderNumber, 'Value:', purchaseValue, 'Items:', order.items);
+                
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                   event: 'purchase',
                   ecommerce: {
                     currency: 'USD',
                     transaction_id: order.orderNumber,
-                    value: parseFloat(order.total) || 0,
+                    value: purchaseValue,
                     items: (order.items || []).map(function(item) {
                       return {
                         item_id: item.sku,
@@ -224,6 +227,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     })
                   }
                 });
+                
+                // Also send directly via gtag as fallback
+                if (typeof gtag === 'function') {
+                  gtag('event', 'purchase', {
+                    transaction_id: order.orderNumber,
+                    value: purchaseValue,
+                    currency: 'USD',
+                    items: (order.items || []).map(function(item) {
+                      return {
+                        item_id: item.sku,
+                        item_name: item.name,
+                        price: item.price,
+                        quantity: item.quantity
+                      };
+                    })
+                  });
+                }
                 
                 localStorage.removeItem('vantixLastOrder');
             } catch(e) {}
