@@ -671,7 +671,8 @@ imageUrl: '/coa/VX-NAD1k-001-purity.png'
 'VX-SEMA10-001': { name: 'Semaglutide 10mg' },
 'VX-BPC10-001': { name: 'BPC-157 10mg' },
 'VX-TB10-001': { name: 'TB-500 10mg' },
-'VX-CJC10-001': { name: 'CJC-1295 10mg' },
+'VX-CJC5-001': { name: 'CJC-1295 10mg' },
+'VX-CJC10-001': { name: 'CJC-1295 10mg', alias: 'VX-CJC5-001' },
 'VX-IPA5-001': { name: 'Ipamorelin 5mg' },
 'VX-GHK100-001': {
 name: 'GHK-Cu 100mg',
@@ -736,7 +737,13 @@ const terminalSteps = [
 function searchBatch() {
 let input = document.getElementById('batchInput').value.trim().toUpperCase();
 if (!input.startsWith('VX-')) input = 'VX-' + input;
-const batch = batches[input];
+let batch = batches[input];
+
+// Handle aliases (e.g., VX-CJC10-001 -> VX-CJC5-001)
+if (batch && batch.alias) {
+input = batch.alias;
+batch = batches[input];
+}
 if (!batch || !batch.tests) {
 // Show inline error message
 document.getElementById('searchCard').style.display = 'block';

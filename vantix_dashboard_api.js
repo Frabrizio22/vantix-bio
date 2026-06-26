@@ -23,22 +23,23 @@ function doGet(e) {
   const headers = ordersData[0];
   const orders = ordersData.slice(1).filter(row => row[0]); // Skip empty rows
   
-  // Column indices (match your Vantix sheet)
-  const COL_DATE = 0;        // A: Date
-  const COL_ORDER_NUM = 1;   // B: Order #
-  const COL_CUSTOMER = 2;    // C: Customer
-  const COL_EMAIL = 3;       // D: Email
-  const COL_ITEMS_DETAIL = 9; // J: Items Detail
+  // Column indices (match your Vantix sheet - UPDATED June 24, 2026)
+  const COL_ORDER_NUM = 0;   // A: Order #
+  const COL_DATE = 1;        // B: Timestamp
+  const COL_EMAIL = 2;       // C: Email
+  const COL_CUSTOMER = 3;    // D: Name
+  const COL_ITEMS_DETAIL = 9; // J: Product
   const COL_QTY = 10;        // K: Qty
-  const COL_SUBTOTAL = 11;   // L: Subtotal
-  const COL_DISCOUNT = 12;   // M: Discount
-  const COL_SHIPPING = 13;   // N: Shipping
-  const COL_TOTAL = 14;      // O: Total
-  const COL_PAYMENT = 15;    // P: Payment
-  const COL_STATUS = 16;     // Q: Status
+  const COL_PAYMENT = 11;    // L: Payment
+  const COL_SUBTOTAL = 12;   // M: Subtotal
+  const COL_DISCOUNT = 14;   // O: Discount
+  const COL_SHIPPING = 15;   // P: Shipping
+  const COL_TOTAL = 16;      // Q: Total
   const COL_COGS = 17;       // R: COGS
-  const COL_CC_FEES = 18;    // S: CC Fees
-  const COL_NET_PROFIT = 19; // T: Net Profit
+  const COL_CC_FEES = 18;    // S: CC Fees (4.4%)
+  const COL_SHIP_COST = 19;  // T: Ship Cost Actual
+  const COL_NET_PROFIT = 20; // U: Net Profit
+  const COL_STATUS = 21;     // V: Status
   
   function isCompleted(status) {
     const s = String(status).toLowerCase();

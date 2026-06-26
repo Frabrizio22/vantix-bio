@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VX-RETA20-003 QR Code</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<style>
+body { font-family: monospace; padding: 40px; text-align: center; background: #fafaf7; }
+#qr { margin: 20px auto; }
+.label { font-size: 14px; font-weight: bold; margin-top: 20px; color: #0F1B2D; }
+.batch { font-size: 12px; color: #666; margin-top: 8px; }
+.print-btn { margin-top: 30px; padding: 12px 24px; background: #3973B0; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.print-btn:hover { background: #2c5a8c; }
+@media print { .print-btn { display: none; } body { padding: 0; } }
+</style>
+</head>
+<body>
+<h1>Retatrutide 20mg - Batch 3</h1>
+<div class="batch">VX-RETA20-003</div>
+<div id="qr"></div>
+<div class="label">Scan to verify batch</div>
+<button class="print-btn" onclick="window.print()">Print QR Code</button>
+
+<script>
+const batchId = 'VX-RETA20-003';
+const verifyUrl = `https://vantixbio.com/verify.html?batch=${batchId}`;
+
+QRCode.toCanvas(document.getElementById('qr'), verifyUrl, {
+  width: 256,
+  margin: 2,
+  color: {
+    dark: '#0F1B2D',
+    light: '#FFFFFF'
+  }
+}, function (error) {
+  if (error) console.error(error);
+  console.log('QR code generated for:', verifyUrl);
+});
+</script>
+</body>
+</html>
