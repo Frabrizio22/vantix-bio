@@ -261,6 +261,21 @@ footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;font-family:'Geis
 .footer-ruo{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(232,238,245,.55);margin:0 0 4px 0;line-height:1.4}
 .footer-ruo strong{color:#4A8DD8}
 .footer-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(232,238,245,.4);margin:0;letter-spacing:.04em}
+/* July 4th Sale Styles */
+.sale-banner{background:linear-gradient(135deg,#DC2626 0%,#991b1b 100%);color:#fff;padding:14px 20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;border-bottom:2px solid #7f1d1d;position:sticky;top:37px;z-index:99}
+.sale-banner a{color:#fef3c7;text-decoration:underline;margin-left:8px}
+.sale-popup{position:fixed;inset:0;background:rgba(10,22,40,.9);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.sale-popup.active{display:flex}
+.sale-popup-content{background:#0A1628;border:2px solid #DC2626;border-radius:16px;padding:40px 32px;max-width:520px;width:100%;position:relative;text-align:center;box-shadow:0 20px 60px rgba(220,38,38,.4)}
+.sale-popup-close{position:absolute;top:16px;right:16px;background:#fff;border:none;padding:8px;cursor:pointer;border-radius:50%;opacity:.9}
+.sale-popup-close:hover{opacity:1}
+.sale-popup-close svg{width:18px;height:18px}
+.sale-popup h2{font-size:42px;color:#DC2626;margin-bottom:8px;font-weight:900;letter-spacing:-1px}
+.sale-popup h3{font-size:24px;color:#60A5FA;margin-bottom:20px;font-weight:700}
+.sale-popup p{color:rgba(255,255,255,.85);font-size:15px;line-height:1.7;margin-bottom:20px}
+.sale-popup .cta{background:#DC2626;color:#fff;padding:16px 40px;border-radius:8px;font-size:16px;font-weight:700;text-decoration:none;display:inline-block;margin-top:12px;transition:background .3s}
+.sale-popup .cta:hover{background:#991b1b}
+@media(max-width:640px){.sale-banner{font-size:11px;padding:12px}.sale-popup h2{font-size:32px}.sale-popup h3{font-size:20px}.sale-popup-content{padding:32px 24px}}
 @media(max-width:480px){h1{font-size:clamp(1.75rem,8vw,2.5rem)}h2{font-size:clamp(1.35rem,6vw,2rem)}.hero p{font-size:16px}.container{padding:0 24px}}@media(max-width:1023px){.nav-links{display:none}.three-col{grid-template-columns:1fr;gap:0;background:transparent}.bundle-row{display:flex;flex-wrap:wrap;padding:20px 16px;gap:6px 12px;align-items:center}.bundle-row>div:first-child{width:100%;margin-bottom:6px}.bundle-name{font-size:16px}.bundle-desc{font-size:13px;margin-top:4px}.bundle-price{font-size:20px}.bundle-old-price{font-size:14px}.sidebar-layout{grid-template-columns:1fr;gap:40px}.footer-grid{grid-template-columns:1fr;gap:32px}.chroma-card{padding:20px}.verify-widget{padding:20px;width:100%}.verify-input{font-size:13px}.verify-btn{padding:12px 16px;font-size:12px}.cta-section{padding:40px 20px}.cta-buttons{flex-direction:column;width:100%;gap:12px}.cta-buttons .btn{width:100%}.editorial-panel{padding:28px 20px}.sidebar-card{padding:24px}}@media(min-width:768px) and (max-width:1023px){.footer-grid{grid-template-columns:1fr 1fr}.bundle-name{font-size:18px}.bundle-price{font-size:22px}}
 </style>
 <!-- Google Tag Manager -->
@@ -359,6 +374,28 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 <span class="pulse"></span>
 <span>FREE SHIPPING ON ORDERS OVER $150</span>
 </div>
+</div>
+</div>
+
+<!-- July 4th Sale Banner -->
+<div class="sale-banner" id="saleBanner" style="display:none">
+🇺🇸 INDEPENDENCE WEEK: 25% OFF + WIN $250<br>
+<a href="shop.html" style="font-size:11px;margin-top:2px;display:inline-block">SHOP NOW</a>
+</div>
+
+<!-- Sale Popup -->
+<div class="sale-popup" id="salePopup">
+<div class="sale-popup-content">
+<button class="sale-popup-close" onclick="closeSalePopup()">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+</button>
+<h2>🇺🇸 INDEPENDENCE WEEK</h2>
+<h3>25% OFF + Win $250 Store Credit</h3>
+<p><strong>20% OFF SITEWIDE</strong> — Use code <strong>JULY4</strong> at checkout<br>
+<strong>+5% ZELLE BONUS</strong> — Pay with Zelle for total 25% savings</p>
+<p><strong>🎁 FREE BAC WATER WITH EVERY ORDER</strong></p>
+<p style="font-size:13px;opacity:.8">🎯 Orders $150+ after discounts automatically enter to win $250 store credit (announced July 8)</p>
+<a href="shop.html" class="cta">Shop Sale →</a>
 </div>
 </div>
 
@@ -820,7 +857,37 @@ function genP(pr){const pts=[],n=Math.floor(pr/100*70);for(let i=0;i<=n;i++){con
 function anim(){p=(p>=100)?0:p+.4;const pts=genP(p),x=p/100*400,g=Math.exp(-Math.pow(x-200,2)/2500),y=140-g*100;document.getElementById('chromaFill').setAttribute('points',`0,140 ${pts} ${x},140`);document.getElementById('chromaLine').setAttribute('points',pts);document.getElementById('chromaDot').setAttribute('cx',x);document.getElementById('chromaDot').setAttribute('cy',y);const lbl=document.getElementById('peakLabel');lbl.setAttribute('opacity',p>55?Math.min(1,(p-55)/10):0);requestAnimationFrame(anim)}
 anim();
 
+// July 4th Sale Logic
+(function(){
+  // Get current time in Pacific timezone
+  const now = new Date();
+  const pstOffset = -7 * 60; // PST is UTC-7 (in minutes)
+  const localOffset = now.getTimezoneOffset();
+  const pstTime = new Date(now.getTime() + (localOffset - pstOffset) * 60000);
+  
+  // Sale runs July 1-5, 2026 (inclusive, any time on those days)
+  const year = pstTime.getFullYear();
+  const month = pstTime.getMonth() + 1; // JS months are 0-indexed
+  const day = pstTime.getDate();
+  
+  const isSaleActive = (year === 2026 && month === 7 && day >= 1 && day <= 5);
+  
+  if(isSaleActive){
+    document.getElementById('saleBanner').style.display = 'block';
+    
+    // Show popup once per session after 3 seconds
+    if(!sessionStorage.getItem('vantixSalePopupSeen')){
+      setTimeout(function(){
+        document.getElementById('salePopup').classList.add('active');
+      }, 3000);
+      sessionStorage.setItem('vantixSalePopupSeen', 'true');
+    }
+  }
+})();
 
+function closeSalePopup(){
+  document.getElementById('salePopup').classList.remove('active');
+}
 
 </script>
 </body>
