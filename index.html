@@ -859,15 +859,13 @@ anim();
 
 // July 4th Sale Logic
 (function(){
-  // Get current time in Pacific timezone
+  // Get current Pacific time using Intl API
   const now = new Date();
-  const pstOffset = -7 * 60; // PST is UTC-7 (in minutes)
-  const localOffset = now.getTimezoneOffset();
-  const pstTime = new Date(now.getTime() + (localOffset - pstOffset) * 60000);
+  const pstTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
   
-  // Sale runs July 1-5, 2026 (inclusive, any time on those days)
+  // Sale runs July 1-5, 2026 (inclusive)
   const year = pstTime.getFullYear();
-  const month = pstTime.getMonth() + 1; // JS months are 0-indexed
+  const month = pstTime.getMonth() + 1;
   const day = pstTime.getDate();
   
   const isSaleActive = (year === 2026 && month === 7 && day >= 1 && day <= 5);
