@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banner Test</title>
+<style>
+body { margin: 0; font-family: sans-serif; }
+.sale-banner{background:linear-gradient(135deg,#DC2626 0%,#991b1b 100%);color:#fff;padding:14px 20px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;letter-spacing:.08em;border-bottom:2px solid #7f1d1d}
+.sale-banner a{color:#fef3c7;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="sale-banner" style="display:block">
+🇺🇸 INDEPENDENCE WEEK: 25% OFF + WIN $250<br>
+<a href="shop.html">SHOP NOW</a>
+</div>
+
+<div style="padding:40px;text-align:center">
+<h1>Banner Test Page</h1>
+<p>If you see the red banner above, the CSS is working.</p>
+<p>Current date check:</p>
+<pre id="output"></pre>
+</div>
+
+<script>
+const now = new Date();
+const pstTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+const year = pstTime.getFullYear();
+const month = pstTime.getMonth() + 1;
+const day = pstTime.getDate();
+const isSaleActive = (year === 2026 && month === 7 && day >= 1 && day <= 5);
+
+document.getElementById('output').textContent = 
+`Browser time: ${now}
+PST time: ${pstTime}
+Year: ${year}, Month: ${month}, Day: ${day}
+Sale active? ${isSaleActive}`;
+</script>
+
+</body>
+</html>
