@@ -380,7 +380,7 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 <!-- July 4th Sale Banner -->
 <div class="sale-banner" id="saleBanner">
 🇺🇸 INDEPENDENCE WEEK: 25% OFF + WIN $250<br>
-<a href="shop.html" style="font-size:11px;margin-top:2px;display:inline-block">SHOP NOW</a>
+<a href="#" onclick="showSalePopup();return false" style="font-size:11px;margin-top:2px;display:inline-block">VIEW DETAILS</a>
 </div>
 
 <!-- Sale Popup -->
@@ -883,6 +883,10 @@ anim();
     }
   }
 })();
+
+function showSalePopup(){
+  document.getElementById('salePopup').classList.add('active');
+}
 
 function closeSalePopup(){
   document.getElementById('salePopup').classList.remove('active');
