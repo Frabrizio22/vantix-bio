@@ -181,7 +181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- July 4th Sale Banner -->
-<div class="sale-banner" id="saleBanner" style="display:none">
+<div class="sale-banner" id="saleBanner">
 🇺🇸 INDEPENDENCE WEEK: 25% OFF + WIN $250<br>
 <a href="#" onclick="showSalePopup();return false" style="font-size:11px;margin-top:2px;display:inline-block">VIEW DETAILS</a>
 </div>
@@ -620,8 +620,10 @@ function joinWaitlist(productName) {
   
   const isSaleActive = (year === 2026 && month === 7 && day >= 1 && day <= 5);
   
-  if(isSaleActive){
-    document.getElementById('saleBanner').style.display = 'block';
+  // Show banner if sale is active, hide if not
+  if(!isSaleActive){
+    document.getElementById('saleBanner').style.display = 'none';
+  } else {
     
     // Show popup once per session after 2 seconds
     if(!sessionStorage.getItem('vantixSalePopupSeen')){

@@ -378,7 +378,7 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 </div>
 
 <!-- July 4th Sale Banner -->
-<div class="sale-banner" id="saleBanner" style="display:none">
+<div class="sale-banner" id="saleBanner">
 🇺🇸 INDEPENDENCE WEEK: 25% OFF + WIN $250<br>
 <a href="shop.html" style="font-size:11px;margin-top:2px;display:inline-block">SHOP NOW</a>
 </div>
@@ -870,9 +870,10 @@ anim();
   
   const isSaleActive = (year === 2026 && month === 7 && day >= 1 && day <= 5);
   
-  if(isSaleActive){
-    document.getElementById('saleBanner').style.display = 'block';
-    
+  // Show banner if sale is active, hide if not
+  if(!isSaleActive){
+    document.getElementById('saleBanner').style.display = 'none';
+  } else {
     // Show popup once per session after 3 seconds
     if(!sessionStorage.getItem('vantixSalePopupSeen')){
       setTimeout(function(){
