@@ -246,9 +246,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'Tirzepatide (GLP-1/GIP) + Retatrutide (GLP-1/GIP/Glucagon) for metabolic pathway investigation',
             products: ['VX-TIRZ-30', 'VX-RETA-20'],
             regularPrice: 130,
-            stackPrice: 115,
-            discount: 11.5,
-            savings: 15,
+            stackPrice: 104,
+            discount: 20.0,
+            savings: 26,
             category: 'glp1'
         },
         {
