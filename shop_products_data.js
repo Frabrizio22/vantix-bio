@@ -217,7 +217,7 @@ const VX_PRODUCTS = {
             purity: 'Sterile',
             price: 10,
             cogs: 3.50,
-            image: 'images/products/bac-water.jpg',
+            image: 'images/products/bac-water.svg',
             url: '#',
             inStock: true,
             dualTested: false
