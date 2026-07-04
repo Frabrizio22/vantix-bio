@@ -259,9 +259,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
             regularPrice: 100,
-            stackPrice: 90,
-            discount: 10.0,
-            savings: 10,
+            stackPrice: 80,
+            discount: 20.0,
+            savings: 20,
             category: 'longevity'
         }
     ]
