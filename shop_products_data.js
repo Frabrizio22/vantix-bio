@@ -203,6 +203,24 @@ const VX_PRODUCTS = {
             url: 'products/nad-1000mg.html',
             inStock: true,
             dualTested: true
+        },
+        
+        // RECONSTITUTION SUPPLIES
+        {
+            sku: 'VX-BAC-30',
+            name: 'Bacteriostatic Water 30mL', cartName: 'BAC Water 30mL',
+            shortName: 'BAC Water',
+            slug: 'bac-water',
+            category: 'supplies',
+            categoryLabel: 'Research Supplies',
+            dosage: '30mL',
+            purity: 'Sterile',
+            price: 10,
+            cogs: 3.50,
+            image: 'images/products/bac-water.jpg',
+            url: '#',
+            inStock: true,
+            dualTested: false
         }
     ],
     
