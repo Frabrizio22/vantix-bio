@@ -238,9 +238,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'BPC-157 + TB-500 combination for systemic repair research',
             products: ['VX-BPC-10', 'VX-TB-10'],
             regularPrice: 68,
-            stackPrice: 58,
-            discount: 14.7,
-            savings: 10,
+            stackPrice: 54,
+            discount: 20.6,
+            savings: 14,
             category: 'tissue-repair'
         },
         {
@@ -251,9 +251,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'CJC-1295 (No DAC) + Ipamorelin synergistic pairing for pulsatile GH release research',
             products: ['VX-CJC-10', 'VX-IPA-5'],
             regularPrice: 72,
-            stackPrice: 62,
-            discount: 13.9,
-            savings: 10,
+            stackPrice: 58,
+            discount: 19.4,
+            savings: 14,
             category: 'growth-hormone'
         },
         {
