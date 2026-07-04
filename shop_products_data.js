@@ -207,13 +207,13 @@ const VX_PRODUCTS = {
         
         // RECONSTITUTION SUPPLIES
         {
-            sku: 'VX-BAC-30',
-            name: 'Bacteriostatic Water 30mL', cartName: 'BAC Water 30mL',
+            sku: 'VX01',
+            name: 'Bacteriostatic Water 10mL', cartName: 'BAC Water 10mL',
             shortName: 'BAC Water',
             slug: 'bac-water',
             category: 'supplies',
             categoryLabel: 'Research Supplies',
-            dosage: '30mL',
+            dosage: '10mL',
             purity: 'Sterile',
             price: 10,
             cogs: 3.50,
