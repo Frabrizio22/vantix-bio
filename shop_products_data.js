@@ -214,10 +214,10 @@ const VX_PRODUCTS = {
             category: 'supplies',
             categoryLabel: 'Research Supplies',
             dosage: '10mL',
-            purity: 'Sterile',
+            purity: '0.9% BA',
             price: 10,
             cogs: 3.50,
-            image: 'images/products/bac-water.svg',
+            image: 'images/products/coming-soon.svg',
             url: '#',
             inStock: true,
             dualTested: false
