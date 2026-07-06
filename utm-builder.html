@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantix UTM Link Builder</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+  background: #f5f5f5; 
+  padding: 40px 20px;
+}
+.container { 
+  max-width: 700px; 
+  margin: 0 auto; 
+  background: white; 
+  padding: 40px; 
+  border-radius: 12px; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+h1 { 
+  font-size: 28px; 
+  margin-bottom: 8px; 
+  color: #0F1B2D;
+}
+.subtitle { 
+  color: #6b7280; 
+  margin-bottom: 32px; 
+  font-size: 14px;
+}
+.form-group { 
+  margin-bottom: 20px;
+}
+label { 
+  display: block; 
+  margin-bottom: 6px; 
+  font-weight: 500; 
+  font-size: 14px;
+  color: #374151;
+}
+input, select { 
+  width: 100%; 
+  padding: 12px; 
+  border: 1px solid #d1d5db; 
+  border-radius: 6px; 
+  font-size: 15px;
+}
+input:focus, select:focus { 
+  outline: none; 
+  border-color: #3973B0; 
+  box-shadow: 0 0 0 3px rgba(57, 115, 176, 0.1);
+}
+.result { 
+  background: #f9fafb; 
+  padding: 20px; 
+  border-radius: 8px; 
+  margin-top: 32px;
+  border: 1px solid #e5e7eb;
+}
+.result-label { 
+  font-weight: 600; 
+  margin-bottom: 10px; 
+  color: #374151;
+  font-size: 14px;
+}
+.url-output { 
+  background: white; 
+  padding: 14px; 
+  border-radius: 6px; 
+  word-break: break-all; 
+  font-family: monospace; 
+  font-size: 13px;
+  border: 1px solid #d1d5db;
+  color: #0F1B2D;
+}
+.copy-btn { 
+  margin-top: 12px; 
+  padding: 10px 20px; 
+  background: #3973B0; 
+  color: white; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.copy-btn:hover { 
+  background: #2d5a8a;
+}
+.copy-btn:active { 
+  transform: scale(0.98);
+}
+.hint { 
+  font-size: 12px; 
+  color: #6b7280; 
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Vantix UTM Link Builder</h1>
+  <div class="subtitle">Create trackable links for Facebook, Reddit, email campaigns</div>
+
+  <div class="form-group">
+    <label>Website URL</label>
+    <select id="baseUrl" onchange="updateUrl()">
+      <option value="https://vantixbio.com">Homepage</option>
+      <option value="https://vantixbio.com/shop.html">Shop</option>
+      <option value="https://vantixbio.com/verify">Verify</option>
+      <option value="https://vantixbio.com/about.html">About</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Source (where is traffic coming from?)</label>
+    <select id="source" onchange="updateUrl()">
+      <option value="facebook">Facebook</option>
+      <option value="instagram">Instagram</option>
+      <option value="reddit">Reddit</option>
+      <option value="twitter">Twitter</option>
+      <option value="email">Email</option>
+      <option value="youtube">YouTube</option>
+      <option value="tiktok">TikTok</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Medium (type of traffic)</label>
+    <select id="medium" onchange="updateUrl()">
+      <option value="cpc">Paid Ad (CPC)</option>
+      <option value="social">Organic Social</option>
+      <option value="email">Email</option>
+      <option value="referral">Referral</option>
+      <option value="affiliate">Affiliate</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Campaign Name</label>
+    <input type="text" id="campaign" placeholder="june_reta_launch" oninput="updateUrl()">
+    <div class="hint">Use lowercase and underscores (e.g., june_reta_launch)</div>
+  </div>
+
+  <div class="form-group">
+    <label>Content (optional - ad variation)</label>
+    <input type="text" id="content" placeholder="image_ad_1" oninput="updateUrl()">
+    <div class="hint">Track different ad creatives (e.g., image_ad_1, video_ad_2)</div>
+  </div>
+
+  <div class="result">
+    <div class="result-label">Your tracked URL:</div>
+    <div class="url-output" id="output">Enter campaign details above</div>
+    <button class="copy-btn" onclick="copyUrl()">Copy to Clipboard</button>
+  </div>
+
+</div>
+
+<script>
+function updateUrl() {
+  const base = document.getElementById('baseUrl').value;
+  const source = document.getElementById('source').value;
+  const medium = document.getElementById('medium').value;
+  const campaign = document.getElementById('campaign').value;
+  const content = document.getElementById('content').value;
+
+  if (!campaign) {
+    document.getElementById('output').textContent = 'Enter campaign details above';
+    return;
+  }
+
+  let url = `${base}?utm_source=${source}&utm_medium=${medium}&utm_campaign=${campaign}`;
+  
+  if (content) {
+    url += `&utm_content=${content}`;
+  }
+
+  document.getElementById('output').textContent = url;
+}
+
+function copyUrl() {
+  const url = document.getElementById('output').textContent;
+  if (url === 'Enter campaign details above') return;
+  
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const originalText = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    btn.style.background = '#10B981';
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '#3973B0';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

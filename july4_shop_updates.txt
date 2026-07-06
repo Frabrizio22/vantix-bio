@@ -1,0 +1,102 @@
+=== JULY 4TH SALE - SHOP PAGE UPDATES ===
+
+1. ADD AFTER LINE 146 (before </style>):
+
+/* July 4th Sale Styles */
+.sale-banner{background:linear-gradient(135deg,#DC2626 0%,#991b1b 100%);color:#fff;padding:14px 20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;border-bottom:2px solid #7f1d1d;position:sticky;top:37px;z-index:99}
+.sale-banner a{color:#fef3c7;text-decoration:underline;margin-left:8px}
+.sale-popup{position:fixed;inset:0;background:rgba(10,22,40,.9);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.sale-popup.active{display:flex}
+.sale-popup-content{background:#0A1628;border:2px solid #DC2626;border-radius:16px;padding:40px 32px;max-width:520px;width:100%;position:relative;text-align:center;box-shadow:0 20px 60px rgba(220,38,38,.4)}
+.sale-popup-close{position:absolute;top:16px;right:16px;background:#fff;border:none;padding:8px;cursor:pointer;border-radius:50%;opacity:.9}
+.sale-popup-close:hover{opacity:1}
+.sale-popup-close svg{width:18px;height:18px}
+.sale-popup h2{font-size:42px;color:#DC2626;margin-bottom:8px;font-weight:900;letter-spacing:-1px}
+.sale-popup h3{font-size:24px;color:#60A5FA;margin-bottom:20px;font-weight:700}
+.sale-popup p{color:rgba(255,255,255,.85);font-size:15px;line-height:1.7;margin-bottom:20px}
+.sale-popup .cta{background:#DC2626;color:#fff;padding:16px 40px;border-radius:8px;font-size:16px;font-weight:700;text-decoration:none;display:inline-block;margin-top:12px;transition:background .3s}
+.sale-popup .cta:hover{background:#991b1b}
+.sale-price{display:flex;align-items:center;gap:10px}
+.original-price{text-decoration:line-through;opacity:.5;font-size:20px}
+.sale-badge{background:#DC2626;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;letter-spacing:.05em;text-transform:uppercase}
+@media(max-width:640px){.sale-banner{font-size:11px;padding:12px}.sale-popup h2{font-size:32px}.sale-popup h3{font-size:20px}.sale-popup-content{padding:32px 24px}}
+
+
+2. ADD AFTER LINE 162 (after <div class="status-bar">...</div>):
+
+<!-- July 4th Sale Banner -->
+<div class="sale-banner" id="saleBanner" style="display:none">
+🇺🇸 INDEPENDENCE WEEK: 25% OFF + WIN $250 
+<a href="#" onclick="showSalePopup();return false">VIEW DETAILS</a>
+</div>
+
+<!-- Sale Popup -->
+<div class="sale-popup" id="salePopup">
+<div class="sale-popup-content">
+<button class="sale-popup-close" onclick="closeSalePopup()">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+</button>
+<h2>25% OFF</h2>
+<h3>+ Win $250 Store Credit</h3>
+<p style="max-width:400px;margin:0 auto 16px">America turns 250. Your savings go up to 25%. Shop July 1-5 and orders $150+ are automatically entered to win.</p>
+<p style="color:#60A5FA;font-size:14px;font-weight:600;margin-bottom:24px">20% OFF SITEWIDE + 5% ZELLE BONUS</p>
+<a href="shop.html" class="cta" onclick="closeSalePopup()">SHOP THE SALE →</a>
+<p style="font-size:12px;margin-top:20px;opacity:.7">Sale ends July 5, 11:59 PM PST</p>
+</div>
+</div>
+
+
+3. REPLACE renderProducts function (around line 281) WITH:
+
+function renderProducts(filter='all'){
+const grid=document.getElementById('productsGrid');
+const filtered=filter==='all'?products:products.filter(p=>p.category.includes(filter));
+const now=new Date();
+const saleStart=new Date('2026-07-01T00:00:00-07:00');
+const saleEnd=new Date('2026-07-05T23:59:59-07:00');
+const isSaleActive=(now>=saleStart&&now<=saleEnd);
+grid.innerHTML=filtered.map(p=>{
+const oos=!p.inStock;
+const salePrice=isSaleActive?(p.price*0.8).toFixed(0):null;
+return `
+<div class="product-card" onclick="window.location.href='${p.url}'">
+  ${p.image?`<img src="${p.image}" alt="${p.name}" class="product-image" loading="lazy">`:`<div class="product-image"></div>`}
+  ${oos?'<div class="oos-label">Out of Stock</div>':''}
+  <div class="product-category">${p.categoryLabel||''}</div>
+  <div class="product-name">${p.name}</div>
+  <div class="product-desc">${p.desc||''}</div>
+  <div class="product-meta">${p.meta||''}</div>
+  ${isSaleActive&&!oos?`
+    <div class="sale-price">
+      <div class="product-price" style="font-size:28px">$${salePrice}</div>
+      <div class="original-price">$${p.price}</div>
+      <div class="sale-badge">20% OFF</div>
+    </div>
+  `:`<div class="product-price">$${p.price}</div>`}
+  <div class="product-cta">
+    ${oos?`<button class="btn btn-dark btn-waitlist" onclick="event.stopPropagation();openWaitlist('${p.sku}','${p.name.replace(/'/g,"\\'")}')">Join Waitlist</button>`:`<button class="btn btn-dark" onclick="event.stopPropagation();addToCart('${p.sku}','${p.name.replace(/'/g,"\\'")}',${salePrice||p.price})">Add to Cart</button>`}
+    ${p.coa?`<a href="${p.coa}" class="coa-link" onclick="event.stopPropagation()" target="_blank">COA ↗</a>`:''}
+  </div>
+</div>
+`}).join('');
+}
+
+
+4. ADD BEFORE </script> (end of script section, around line 596):
+
+// July 4th Sale Logic
+(function(){
+const now=new Date();
+const saleStart=new Date('2026-07-01T00:00:00-07:00');
+const saleEnd=new Date('2026-07-05T23:59:59-07:00');
+const isSaleActive=(now>=saleStart&&now<=saleEnd);
+if(isSaleActive){
+document.getElementById('saleBanner').style.display='block';
+if(!sessionStorage.getItem('vantixSalePopupSeen')){
+setTimeout(()=>{document.getElementById('salePopup').classList.add('active');},2000);
+sessionStorage.setItem('vantixSalePopupSeen','true');
+}
+}
+})();
+function showSalePopup(){document.getElementById('salePopup').classList.add('active');}
+function closeSalePopup(){document.getElementById('salePopup').classList.remove('active');}

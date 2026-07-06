@@ -454,7 +454,6 @@ Total: <span id="confirmTotal" style="font-family:'JetBrains Mono',monospace"></
 
 <script>
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
-var promoCodes={'JULY4':0.20,'FOUNDER':0.10,'FOUNDER10':0.10,'LAUNCH15':0.15,'MURPHY15':0.10,'PP10':0.10,'WELCOME10':0.10,'FRIDGE':0.10,'BREEZY':0.10,'PRG':0.10,'MAHMUD100':{discount:1.00,freeShipping:true},'FREESHIP':'free_shipping'};
 
 function getUrlParam(name){var params=new URLSearchParams(window.location.search);return params.get(name);}
 
@@ -463,13 +462,11 @@ var saved=localStorage.getItem('vantixCart');
 if(saved){cart=JSON.parse(saved);}
 var ref=getUrlParam('ref');
 if(ref){referralSource=ref.toLowerCase();sessionStorage.setItem('vantixReferral',referralSource);}else{referralSource=sessionStorage.getItem('vantixReferral');}
-// Auto-apply JULY4 if between July 1-5, 2026 and no other code set
 var now=new Date();
 var saleStart=new Date('2026-07-01T00:00:00-07:00');
 var saleEnd=new Date('2026-07-05T23:59:59-07:00');
 var inSaleWindow=(now>=saleStart&&now<=saleEnd);
 var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');
-if(!code&&inSaleWindow){code='JULY4';}
 if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
 }
 
