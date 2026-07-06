@@ -264,9 +264,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'Tirzepatide (GLP-1/GIP) + Retatrutide (GLP-1/GIP/Glucagon) for metabolic pathway investigation',
             products: ['VX-TIRZ-30', 'VX-RETA-20'],
             regularPrice: 130,
-            stackPrice: 104,
-            discount: 20.0,
-            savings: 26,
+            stackPrice: 115,
+            discount: 11.5,
+            savings: 15,
             category: 'glp1'
         },
         {
@@ -277,9 +277,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
             regularPrice: 100,
-            stackPrice: 80,
-            discount: 20.0,
-            savings: 20,
+            stackPrice: 90,
+            discount: 10.0,
+            savings: 10,
             category: 'longevity'
         }
     ]
