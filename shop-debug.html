@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shop Debug</title>
+</head>
+<body>
+<h1>Debug Output</h1>
+<div id="output"></div>
+
+<script src="shop_products_data.js?v=20260517"></script>
+<script>
+try {
+  const output = document.getElementById('output');
+  output.innerHTML = `
+    <p>VX_PRODUCTS exists: ${typeof VX_PRODUCTS !== 'undefined'}</p>
+    <p>Phase1 exists: ${typeof VX_PRODUCTS?.phase1 !== 'undefined'}</p>
+    <p>Product count: ${VX_PRODUCTS?.phase1?.length || 0}</p>
+    <p>First product: ${JSON.stringify(VX_PRODUCTS?.phase1?.[0]?.name)}</p>
+  `;
+} catch(e) {
+  document.getElementById('output').innerHTML = `<p style="color:red">ERROR: ${e.message}</p>`;
+}
+</script>
+</body>
+</html>
