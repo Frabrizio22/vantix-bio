@@ -69,7 +69,7 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .filter-desktop{display:none}
 .filters::after{display:none}
 @media(min-width:768px){.filter-mobile{display:none}.filter-desktop{display:inline}.filters{font-size:11px;gap:24px;padding:20px 20px;justify-content:flex-start}.filters::after{display:none}.filter-item{padding:0;border-radius:0;background:transparent}.filter-item.active{background:transparent}.filter-item.active::after{content:'';position:absolute;bottom:-21px;left:0;right:0;height:2px;background:var(--accent)}}
-.products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:60px;box-sizing:border-box}@media(min-width:640px){.products-grid{gap:16px}}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
+.products-grid{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:12px;margin-bottom:60px;box-sizing:border-box}@media(min-width:640px){.products-grid{gap:16px}}@media(min-width:768px){.products-grid{gap:20px}}@media(min-width:1024px){.products-grid{grid-template-columns:repeat(3,1fr)}}
 .product-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:10px;transition:all .3s;position:relative;cursor:pointer;display:flex;flex-direction:column;box-sizing:border-box;min-width:0;height:100%}@media(min-width:768px){.product-card{padding:20px}}
 .product-image{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--hairline)}
 .oos-label{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);text-align:center;padding:4px 0;border-top:1px solid var(--hairline);margin-bottom:8px}
