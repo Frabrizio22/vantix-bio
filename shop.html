@@ -312,7 +312,9 @@ document.querySelectorAll('.filter-item').forEach(f => {
   f.addEventListener('click', handleFilter);
 });
 
+console.log('VX_PRODUCTS check:', typeof VX_PRODUCTS, VX_PRODUCTS?.phase1?.length);
 renderProducts();
+console.log('renderProducts() called, grid HTML length:', document.getElementById('productsGrid')?.innerHTML?.length);
 
 // Capture referral + promo from URL
 (function(){
