@@ -1068,6 +1068,9 @@ tr:hover {
 <!-- Revenue by Product (V2) -->
 <div id="revenueByProduct" style="margin-top: 32px;"></div>
 
+<!-- Monthly Earnings Breakdown -->
+<div id="monthlyEarnings" style="margin-top: 32px;"></div>
+
 <!-- Multi-Period P&L Statement (V2) -->
 <div id="profitLossStatement" style="margin-top: 32px;"></div>
 
@@ -2250,6 +2253,7 @@ function renderFinancialMetrics() {
   
   renderProfitLoss(currentMonth, lastMonth, ytd, lastYearYTD);
   renderProductBreakdown(revenueByProduct);
+  renderMonthlyEarnings(now.getFullYear());
   updateSummaryCards(currentMonth, lastMonth);
   calculateQuarterlyTaxes();
 }
@@ -2347,6 +2351,65 @@ function calculateRevenueByProduct(month, year) {
   return Object.entries(map).map(([name, d]) => ({
     name, units: d.units, revenue: d.revenue
   })).sort((a, b) => b.revenue - a.revenue);
+}
+
+function renderMonthlyEarnings(year) {
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const now = new Date();
+  let totalRev = 0, totalOrders = 0;
+  
+  let rows = '';
+  for (let m = 0; m < 12; m++) {
+    const data = calculatePeriodMetrics(m, year, 'month');
+    const isCurrent = (m === now.getMonth() && year === now.getFullYear());
+    const highlight = isCurrent ? 'background: rgba(57,115,176,0.08); font-weight: 600;' : '';
+    totalRev += data.revenue;
+    totalOrders += data.orderCount;
+    
+    if (data.revenue > 0 || data.orderCount > 0 || m <= now.getMonth()) {
+      const netColor = data.yourNetProfit >= 0 ? 'color: #16a34a;' : 'color: #dc2626;';
+      rows += `<tr style="${highlight}">
+        <td>${monthNames[m]}${isCurrent ? ' ←' : ''}</td>
+        <td style="text-align:right;">$${data.revenue.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</td>
+        <td style="text-align:right;">${data.orderCount}</td>
+        <td style="text-align:right;">$${data.aov.toFixed(0)}</td>
+        <td style="text-align:right; ${netColor}">$${data.yourNetProfit.toFixed(0)}</td>
+      </tr>`;
+    }
+  }
+  
+  const avgMonthly = now.getMonth() > 0 ? totalRev / (now.getMonth() + 1) : totalRev;
+  
+  rows += `<tr style="border-top: 2px solid var(--hairline, #D9D2BF); font-weight: 700;">
+    <td>Total</td>
+    <td style="text-align:right;">$${totalRev.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</td>
+    <td style="text-align:right;">${totalOrders}</td>
+    <td style="text-align:right;">$${totalOrders > 0 ? (totalRev / totalOrders).toFixed(0) : '0'}</td>
+    <td style="text-align:right;">—</td>
+  </tr>`;
+  
+  rows += `<tr style="font-size: 11px; color: var(--text-dim, #666);">
+    <td>Avg/Month</td>
+    <td style="text-align:right;">$${avgMonthly.toFixed(0)}</td>
+    <td style="text-align:right;">${(totalOrders / (now.getMonth() + 1)).toFixed(1)}</td>
+    <td colspan="2"></td>
+  </tr>`;
+  
+  document.getElementById('monthlyEarnings').innerHTML = `
+    <h3 style="font-size: 16px; margin-bottom: 16px;">📅 Monthly Earnings ${year}</h3>
+    <table style="width: 100%; font-size: 13px; font-family: monospace;">
+      <thead>
+        <tr style="border-bottom: 2px solid var(--hairline, #D9D2BF);">
+          <th style="text-align:left;">Month</th>
+          <th style="text-align:right;">Revenue</th>
+          <th style="text-align:right;">Orders</th>
+          <th style="text-align:right;">AOV</th>
+          <th style="text-align:right;">Net Profit</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
 }
 
 function renderProfitLoss(curr, last, ytd, lastYTD) {
