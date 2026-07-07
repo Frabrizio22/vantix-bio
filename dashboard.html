@@ -2356,60 +2356,102 @@ function calculateRevenueByProduct(month, year) {
 function renderMonthlyEarnings(year) {
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const now = new Date();
-  let totalRev = 0, totalOrders = 0;
+  let totalRev = 0, totalOrders = 0, totalNet = 0;
+  const isMobile = window.innerWidth < 768;
   
   let rows = '';
+  let cards = '';
   for (let m = 0; m < 12; m++) {
     const data = calculatePeriodMetrics(m, year, 'month');
     const isCurrent = (m === now.getMonth() && year === now.getFullYear());
     const highlight = isCurrent ? 'background: rgba(57,115,176,0.08); font-weight: 600;' : '';
     totalRev += data.revenue;
     totalOrders += data.orderCount;
+    totalNet += data.yourNetProfit;
     
     if (data.revenue > 0 || data.orderCount > 0 || m <= now.getMonth()) {
       const netColor = data.yourNetProfit >= 0 ? 'color: #16a34a;' : 'color: #dc2626;';
+      const fmtRev = '$' + data.revenue.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+      const fmtNet = '$' + data.yourNetProfit.toFixed(0);
+      const fmtAOV = '$' + data.aov.toFixed(0);
+      
+      // Table row (desktop)
       rows += `<tr style="${highlight}">
         <td>${monthNames[m]}${isCurrent ? ' ←' : ''}</td>
-        <td style="text-align:right;">$${data.revenue.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</td>
+        <td style="text-align:right;">${fmtRev}</td>
         <td style="text-align:right;">${data.orderCount}</td>
-        <td style="text-align:right;">$${data.aov.toFixed(0)}</td>
-        <td style="text-align:right; ${netColor}">$${data.yourNetProfit.toFixed(0)}</td>
+        <td style="text-align:right;">${fmtAOV}</td>
+        <td style="text-align:right; ${netColor}">${fmtNet}</td>
       </tr>`;
+      
+      // Card (mobile)
+      const border = isCurrent ? 'border-left: 3px solid var(--accent, #3973B0);' : 'border-left: 3px solid transparent;';
+      cards += `<div style="padding: 12px 14px; ${highlight} ${border} border-bottom: 1px solid var(--hairline, #eee); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; align-items: center;">
+        <div style="font-weight: 600; font-size: 14px;">${monthNames[m]} ${year}${isCurrent ? ' ←' : ''}</div>
+        <div style="text-align: right; font-size: 18px; font-weight: 700; font-family: monospace;">${fmtRev}</div>
+        <div style="font-size: 11px; color: var(--text-dim, #888);">${data.orderCount} orders · AOV ${fmtAOV}</div>
+        <div style="text-align: right; font-size: 13px; font-family: monospace; ${netColor}">Net: ${fmtNet}</div>
+      </div>`;
     }
   }
   
   const avgMonthly = now.getMonth() > 0 ? totalRev / (now.getMonth() + 1) : totalRev;
+  const avgOrders = (totalOrders / (now.getMonth() + 1)).toFixed(1);
   
+  // Total row (desktop)
   rows += `<tr style="border-top: 2px solid var(--hairline, #D9D2BF); font-weight: 700;">
     <td>Total</td>
     <td style="text-align:right;">$${totalRev.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</td>
     <td style="text-align:right;">${totalOrders}</td>
     <td style="text-align:right;">$${totalOrders > 0 ? (totalRev / totalOrders).toFixed(0) : '0'}</td>
-    <td style="text-align:right;">—</td>
+    <td style="text-align:right;">$${totalNet.toFixed(0)}</td>
   </tr>`;
   
   rows += `<tr style="font-size: 11px; color: var(--text-dim, #666);">
-    <td>Avg/Month</td>
+    <td>Avg/Mo</td>
     <td style="text-align:right;">$${avgMonthly.toFixed(0)}</td>
-    <td style="text-align:right;">${(totalOrders / (now.getMonth() + 1)).toFixed(1)}</td>
+    <td style="text-align:right;">${avgOrders}</td>
     <td colspan="2"></td>
   </tr>`;
   
-  document.getElementById('monthlyEarnings').innerHTML = `
-    <h3 style="font-size: 16px; margin-bottom: 16px;">📅 Monthly Earnings ${year}</h3>
-    <table style="width: 100%; font-size: 13px; font-family: monospace;">
+  // Total card (mobile)
+  const totalNetColor = totalNet >= 0 ? 'color: #16a34a;' : 'color: #dc2626;';
+  cards += `<div style="padding: 14px; background: var(--surface, #f5f5f0); border-top: 2px solid var(--hairline, #D9D2BF); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;">
+    <div style="font-weight: 700; font-size: 14px;">YTD Total</div>
+    <div style="text-align: right; font-size: 18px; font-weight: 700; font-family: monospace;">$${totalRev.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>
+    <div style="font-size: 11px; color: var(--text-dim, #888);">${totalOrders} orders · Avg $${avgMonthly.toFixed(0)}/mo</div>
+    <div style="text-align: right; font-size: 13px; font-family: monospace; ${totalNetColor}">Net: $${totalNet.toFixed(0)}</div>
+  </div>`;
+  
+  // Desktop: table, Mobile: cards
+  const desktopTable = `
+    <table style="width: 100%; font-size: 13px; font-family: monospace; border-collapse: collapse;">
       <thead>
         <tr style="border-bottom: 2px solid var(--hairline, #D9D2BF);">
-          <th style="text-align:left;">Month</th>
-          <th style="text-align:right;">Revenue</th>
-          <th style="text-align:right;">Orders</th>
-          <th style="text-align:right;">AOV</th>
-          <th style="text-align:right;">Net Profit</th>
+          <th style="text-align:left; padding: 8px 6px;">Month</th>
+          <th style="text-align:right; padding: 8px 6px;">Revenue</th>
+          <th style="text-align:right; padding: 8px 6px;">Orders</th>
+          <th style="text-align:right; padding: 8px 6px;">AOV</th>
+          <th style="text-align:right; padding: 8px 6px;">Net Profit</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
-    </table>
+    </table>`;
+  
+  const mobileCards = `<div style="border-radius: 8px; overflow: hidden; border: 1px solid var(--hairline, #eee);">${cards}</div>`;
+  
+  document.getElementById('monthlyEarnings').innerHTML = `
+    <h3 style="font-size: 16px; margin-bottom: 16px;">📅 Monthly Earnings ${year}</h3>
+    <div class="me-desktop" style="display: none;">${desktopTable}</div>
+    <div class="me-mobile" style="display: none;">${mobileCards}</div>
   `;
+  
+  // Show correct layout
+  if (window.innerWidth < 768) {
+    document.querySelector('.me-mobile').style.display = 'block';
+  } else {
+    document.querySelector('.me-desktop').style.display = 'block';
+  }
 }
 
 function renderProfitLoss(curr, last, ytd, lastYTD) {
@@ -3453,6 +3495,16 @@ async function processRefund() {
 
 // Initialize on page load
 window.addEventListener('DOMContentLoaded', initDashboard);
+
+// Responsive layout toggle for monthly earnings
+window.addEventListener('resize', () => {
+  const d = document.querySelector('.me-desktop');
+  const m = document.querySelector('.me-mobile');
+  if (d && m) {
+    if (window.innerWidth < 768) { d.style.display = 'none'; m.style.display = 'block'; }
+    else { d.style.display = 'block'; m.style.display = 'none'; }
+  }
+});
 </script>
 
 </body>
