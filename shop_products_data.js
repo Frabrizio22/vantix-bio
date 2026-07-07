@@ -154,22 +154,7 @@ const VX_PRODUCTS = {
             inStock: false,
             dualTested: true
         },
-        {
-            sku: 'VX-AOD-10',
-            name: 'AOD-9604 10mg', cartName: 'AOD 10mg',
-            shortName: 'AOD 10mg',
-            slug: 'aod-9604',
-            category: 'gh-peptides',
-            categoryLabel: 'Growth Hormone Peptides',
-            dosage: '10mg',
-            purity: '>99%',
-            price: 52,
-            cogs: 21.03,
-            image: 'images/products/coming-soon.svg',
-            url: 'products/aod-9604.html',
-            inStock: false,
-            dualTested: true
-        },
+        // AOD-9604 removed (low demand, high testing cost) - July 7, 2026
         
         // MITOCHONDRIAL & CELLULAR RESEARCH - Cellular energy, mitochondrial signaling, metabolic regulation
         {
