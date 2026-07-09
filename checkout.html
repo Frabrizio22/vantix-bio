@@ -457,7 +457,6 @@ var promoCodes={
 'FOUNDER':0.10,
 'FOUNDER10':0.10,
 'WELCOME10':0.10,
-'LAUNCH15':0.15,
 'MURPHY15':0.15
 };
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
@@ -572,7 +571,7 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var kitsOnlyCodes=['FOUNDER10','LAUNCH15','MURPHY15'];
+var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
 if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
