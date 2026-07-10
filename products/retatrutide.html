@@ -94,7 +94,7 @@ Shop
 <h1>Retatrutide 20mg</h1>
 
 <div class="meta">
-<div class="price">$68</div>
+<div class="price">$67</div>
 <div class="badge">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
 Batch Verified
@@ -173,7 +173,7 @@ This product is intended for laboratory research use only. Not for human consump
 </main>
 
 <div class="cta">
-<button class="btn" onclick="addToCart()">Add to Cart — $68</button>
+<button class="btn" onclick="addToCart()">Add to Cart — $67</button>
 </div>
 
 <footer>
@@ -184,7 +184,7 @@ This product is intended for laboratory research use only. Not for human consump
 
 <script>
 function addToCart(){
-const product={sku:'VX-RETA-20',name:'Reta 20mg',price:68,quantity:1};
+const product={sku:'VX-RETA-20',name:'Reta 20mg',price:67,quantity:1};
 let cart=JSON.parse(localStorage.getItem('vantixCart')||'[]');
 const existing=cart.find(item=>item.sku===product.sku);
 if(existing){existing.quantity+=1;}else{cart.push(product);}
