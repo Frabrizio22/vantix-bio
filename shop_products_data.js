@@ -182,7 +182,7 @@ const VX_PRODUCTS = {
             categoryLabel: 'Specialty Compounds',
             dosage: '1000mg',
             purity: '>99%',
-            price: 68,
+            price: 67,
             cogs: 18.16,
             image: 'images/products/nad-1000mg.jpg',
             url: 'products/nad-1000mg.html',
@@ -261,9 +261,9 @@ const VX_PRODUCTS = {
             description: 'Mitochondrial bioenergetics & NAD+ metabolism research',
             clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
-            regularPrice: 100,
-            stackPrice: 90,
-            discount: 10.0,
+            regularPrice: 99,
+            stackPrice: 89,
+            discount: 10.1,
             savings: 10,
             category: 'longevity'
         }
