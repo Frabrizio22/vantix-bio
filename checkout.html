@@ -464,9 +464,25 @@ var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var r
 
 function getUrlParam(name){var params=new URLSearchParams(window.location.search);return params.get(name);}
 
+// Current prices - validates cart against stale/cached prices
+var currentPrices={
+'VX-TIRZ-30':59,'VX-RETA-20':67,'VX-SEMA-10':42,'VX-BPC-10':30,'VX-TB-10':38,
+'VX-GHK-100':34,'VX-CJC-10':42,'VX-IPA-5':30,'VX-TESA-10':52,'VX-MOTS-10':32,
+'VX-NAD-1000':67,'VX01':10,
+'VX-KIT-TISSUE':54,'VX-KIT-GH':58,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':89
+};
+
 function loadCart(){
 var saved=localStorage.getItem('vantixCart');
-if(saved){cart=JSON.parse(saved);}
+if(saved){cart=JSON.parse(saved);
+// Validate prices against current prices (prevent stale cached prices)
+cart.forEach(function(item){
+if(item.sku && currentPrices[item.sku] && item.price !== currentPrices[item.sku]){
+item.price=currentPrices[item.sku];
+}
+});
+saveCart();
+}
 var ref=getUrlParam('ref');
 if(ref){referralSource=ref.toLowerCase();sessionStorage.setItem('vantixReferral',referralSource);}else{referralSource=sessionStorage.getItem('vantixReferral');}
 var now=new Date();
