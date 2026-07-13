@@ -2843,62 +2843,33 @@ function renderTopProducts() {
     const items = (row[9] || '').toString();
     const total = parseFloat(row[16]) || 0;
     
-    // Match all patterns: "3x Tirz 20mg", "Reta 20mg ($68)", "GHK 3x Tirz"
-    // Use regex to find all quantity+product pairs
-    const pattern = /(\d+)x?\s+([^\d(]+(?:\d+mg)?)/gi;
-    const matches = [...items.matchAll(pattern)];
+    // Parse items like "Retatrutide 20mg, GHK-Cu 100mg, MOTS-C 10mg" or "1x Reta 20mg ($68)"
+    const itemLines = items.split(/,|\n/).map(s => s.trim()).filter(Boolean);
     
-    if (matches.length > 0) {
-      // Found explicit quantities
-      matches.forEach(match => {
-        const qty = parseInt(match[1]) || 1;
-        let productName = match[2].trim();
-        
-        // Remove trailing price
-        productName = productName.replace(/\s*\([^)]*\)\s*$/, '').trim();
-        
-        // Normalize
-        productName = productName
-          .replace(/^Retatrutide/i, 'Reta')
-          .replace(/^Tirzepatide/i, 'Tirz')
-          .replace(/^Semaglutide/i, 'Sema')
-          .replace(/^GHK-Cu/i, 'GHK')
-          .replace(/^MOTS-C/i, 'MOTS')
-          .replace(/BAC Water/i, 'BAC');
-        
-        if (!productMap[productName]) {
-          productMap[productName] = { name: productName, units: 0, revenue: 0 };
-        }
-        
-        productMap[productName].units += qty;
-        productMap[productName].revenue += total / matches.length; // Distribute revenue
-      });
-    } else {
-      // No explicit quantity patterns, fall back to comma/newline split
-      const itemLines = items.split(/,|\n/).map(s => s.trim()).filter(Boolean);
+    itemLines.forEach(item => {
+      // Extract product name (before quantity or price)
+      let productName = item;
+      productName = productName.replace(/^\d+x?\s*/i, ''); // Remove "1x " or "2 "
+      productName = productName.replace(/\s*\([^)]*\)\s*$/g, ''); // Remove " ($68)"
+      productName = productName.trim();
       
-      itemLines.forEach(item => {
-        let productName = item.replace(/\s*\([^)]*\)\s*$/, '').trim();
-        
-        if (!productName) return;
-        
-        // Normalize
-        productName = productName
-          .replace(/^Retatrutide/i, 'Reta')
-          .replace(/^Tirzepatide/i, 'Tirz')
-          .replace(/^Semaglutide/i, 'Sema')
-          .replace(/^GHK-Cu/i, 'GHK')
-          .replace(/^MOTS-C/i, 'MOTS')
-          .replace(/BAC Water/i, 'BAC');
-        
-        if (!productMap[productName]) {
-          productMap[productName] = { name: productName, units: 0, revenue: 0 };
-        }
-        
-        productMap[productName].units += 1;
-        productMap[productName].revenue += total / itemLines.length;
-      });
-    }
+      if (!productName) return;
+      
+      // Extract quantity
+      const qtyMatch = item.match(/^(\d+)x?\s/i);
+      const qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
+      
+      // Extract price (from parentheses if available)
+      const priceMatch = item.match(/\(\$([\d.]+)\)/);
+      const itemPrice = priceMatch ? parseFloat(priceMatch[1]) : 0;
+      
+      if (!productMap[productName]) {
+        productMap[productName] = { name: productName, units: 0, revenue: 0 };
+      }
+      
+      productMap[productName].units += qty;
+      productMap[productName].revenue += itemPrice || (total / itemLines.length); // Distribute total if no item price
+    });
   });
   
   // Convert to array and sort by units
