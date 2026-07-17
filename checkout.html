@@ -460,7 +460,8 @@ var promoCodes={
 'MURPHY15':0.15,
 'PRG':0.10,
 'BREEZY':0.10,
-'SORRY10':0.10
+'SORRY10':0.10,
+'TEST1': { discount: 0, setPrice: 1.00, freeShipping: true }
 };
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
 
@@ -601,6 +602,9 @@ var singlesTotal=0;
 cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=item.price*item.quantity;}});
 discount+=singlesTotal*promoValue;
 }
+}else if(promoValue.setPrice){
+// TEST1: Set order total to $1 (discount everything except $1)
+discount=subtotal-promoValue.setPrice;
 }else if(promoValue.discount){
 // Handle object format with discount property (e.g., MAHMUD100)
 var singlesTotal=0;
@@ -608,7 +612,7 @@ cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTo
 discount+=singlesTotal*promoValue.discount;
 }
 }
-if(selectedPayment==='zelle'&&promoCode!=='MAHMUD100'){discount+=subtotal*0.05;}
+if(selectedPayment==='zelle'&&promoCode!=='MAHMUD100'&&promoCode!=='TEST1'){discount+=subtotal*0.05;}
 return discount;
 }
 
