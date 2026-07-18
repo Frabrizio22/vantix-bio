@@ -1894,8 +1894,8 @@ function renderAlerts() {
   const alertsDiv = document.getElementById('alerts');
   alertsDiv.innerHTML = '';
   
-  const criticalBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) < 10);
-  const lowBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) >= 10 && parseInt(row[9]) < 20);
+  const criticalBatches = batchesData.filter(row => (row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active') && parseInt(row[9]) < 10);
+  const lowBatches = batchesData.filter(row => (row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active') && parseInt(row[9]) >= 10 && parseInt(row[9]) < 20);
   
   if (criticalBatches.length > 0) {
     const alert = document.createElement('div');
@@ -1924,7 +1924,7 @@ function renderAlerts() {
 
 function renderLowStockTable() {
   const tbody = document.getElementById('lowStockBody');
-  const lowStockBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) < 20);
+  const lowStockBatches = batchesData.filter(row => (row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active') && parseInt(row[9]) < 20);
   
   if (lowStockBatches.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ All stock levels healthy</td></tr>';
