@@ -920,7 +920,7 @@ tr:hover {
   <div class="card table-card fade-in delay-4">
     <div class="table-header">
       <div class="table-title">🚨 Low Stock Alerts</div>
-      <span class="mono" style="color: var(--text-dim);">Critical threshold: < 20 vials</span>
+      <span class="mono" style="color: var(--text-dim);">Low stock: < 20 vials, Critical: < 10 vials</span>
     </div>
     <div class="table-wrapper">
       <table id="lowStockTable">
@@ -1924,7 +1924,7 @@ function renderAlerts() {
 
 function renderLowStockTable() {
   const tbody = document.getElementById('lowStockBody');
-  const lowStockBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) < 30);
+  const lowStockBatches = batchesData.filter(row => row[12] === 'Active' || row[12] === 'In Stock' || row[11] === 'Active' && parseInt(row[9]) < 20);
   
   if (lowStockBatches.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 40px;">✅ All stock levels healthy</td></tr>';
