@@ -1034,6 +1034,17 @@ tr:hover {
       </div>
     </div>
 
+    <!-- Payment Method Breakdown -->
+    <div class="card fade-in delay-5" style="margin-bottom: 20px;">
+      <div class="card-header">
+        <div class="card-title">💳 Payment Methods</div>
+        <div class="card-icon">📊</div>
+      </div>
+      <div id="paymentBreakdownChart" style="margin-top: 16px;">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+    </div>
+
     <!-- P&L Statement -->
     <div class="card table-card fade-in delay-4">
       <div class="table-header">
@@ -2256,6 +2267,54 @@ function renderFinancialMetrics() {
   renderMonthlyEarnings(now.getFullYear());
   updateSummaryCards(currentMonth, lastMonth);
   calculateQuarterlyTaxes();
+  renderPaymentBreakdown();
+}
+
+function renderPaymentBreakdown() {
+  const breakdown = { 'Credit Card': 0, 'Zelle': 0, 'Crypto': 0, 'Other': 0 };
+  
+  ordersData.forEach(row => {
+    const pm = (row[11] || '').toString().toLowerCase().trim();
+    const total = parseFloat(row[16]) || 0;
+    
+    if (pm.includes('credit') || pm.includes('card') || pm.includes('bankful')) {
+      breakdown['Credit Card'] += total;
+    } else if (pm.includes('zelle')) {
+      breakdown['Zelle'] += total;
+    } else if (pm.includes('crypto') || pm.includes('bitcoin')) {
+      breakdown['Crypto'] += total;
+    } else if (pm) {
+      breakdown['Other'] += total;
+    }
+  });
+  
+  const container = document.getElementById('paymentBreakdownChart');
+  if (!container) return;
+  
+  const total = Object.values(breakdown).reduce((sum, val) => sum + val, 0);
+  if (total === 0) {
+    container.innerHTML = '<div style="text-align: center; color: var(--text-dim); padding: 20px;">No payment data available</div>';
+    return;
+  }
+  
+  let html = '<div style="display: flex; flex-direction: column; gap: 14px;">';
+  Object.entries(breakdown).forEach(([method, amount]) => {
+    if (amount === 0) return;
+    const pct = ((amount / total) * 100).toFixed(1);
+    html += `
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-size: 13px; font-weight: 500; color: var(--text);">${method}</span>
+          <span style="font-size: 13px; font-weight: 600; color: var(--text); font-family: 'JetBrains Mono', monospace;">$${amount.toFixed(2)} <span style="color: var(--text-dim); font-weight: 400;">(${pct}%)</span></span>
+        </div>
+        <div style="background: var(--border); border-radius: 4px; height: 8px; overflow: hidden;">
+          <div style="background: var(--accent); height: 100%; width: ${pct}%; transition: width 0.4s ease;"></div>
+        </div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 function calculatePeriodMetrics(month, year, type) {
@@ -2836,45 +2895,89 @@ function renderShippedOrders() {
   }).join('');
 }
 
+// ===== ENHANCED PRODUCT PARSING =====
+
+function parseProductLine(line) {
+  const products = [];
+  
+  // Pattern 1: "3x GHK 3x Tirz" (space-separated multiple products)
+  if (/\d+x\s+\w+\s+\d+x/.test(line)) {
+    const segments = line.split(/(\d+x\s+[^0-9]+?)(?=\d+x|\s*\(|\s*$)/g).filter(Boolean);
+    segments.forEach(seg => {
+      const match = seg.match(/^(\d+)x\s+(.+?)(?:\s*\(|$)/);
+      if (match) {
+        const qty = parseInt(match[1]);
+        const name = match[2].trim();
+        const priceMatch = seg.match(/\(\$([\d.]+)\)/);
+        products.push({ name: cleanProductName(name), quantity: qty, price: priceMatch ? parseFloat(priceMatch[1]) : null });
+      }
+    });
+  }
+  // Pattern 2: "1x Reta 20mg ($68)"
+  else if (/^\d+x/.test(line)) {
+    const match = line.match(/^(\d+)x\s+(.+?)(?:\s*\(|$)/);
+    if (match) {
+      const qty = parseInt(match[1]);
+      const name = match[2].trim();
+      const priceMatch = line.match(/\(\$([\d.]+)\)/);
+      products.push({ name: cleanProductName(name), quantity: qty, price: priceMatch ? parseFloat(priceMatch[1]) : null });
+    }
+  }
+  // Pattern 3: "Retatrutide 20mg"
+  else {
+    const priceMatch = line.match(/\(\$([\d.]+)\)/);
+    products.push({ name: cleanProductName(line.replace(/\s*\([^)]*\)\s*$/g, '').trim()), quantity: 1, price: priceMatch ? parseFloat(priceMatch[1]) : null });
+  }
+  
+  return products;
+}
+
+function cleanProductName(name) {
+  let cleaned = name.trim();
+  const shortcuts = {
+    'reta': 'Retatrutide 20mg', 'tirz': 'Tirzepatide 30mg', 'sema': 'Semaglutide 10mg',
+    'ghk': 'GHK-Cu 100mg', 'mots': 'MOTS-c 10mg', 'bpc': 'BPC-157 10mg',
+    'tb': 'TB-500 10mg', 'tb500': 'TB-500 10mg', 'cjc': 'CJC-1295 10mg',
+    'ipa': 'Ipamorelin 5mg', 'nad': 'NAD+ 1000mg', 'tesa': 'Tesamorelin 10mg',
+    'aod': 'AOD-9604 10mg', 'bac': 'BAC Water 10mL'
+  };
+  
+  const lower = cleaned.toLowerCase().replace(/[^a-z0-9]/g, '');
+  for (const [short, full] of Object.entries(shortcuts)) {
+    if (lower.startsWith(short)) return full;
+  }
+  
+  if (/mito.*kit/i.test(cleaned)) return 'Mito Research Kit';
+  if (/next.*gen.*kit/i.test(cleaned)) return 'Next-Gen Research Kit';
+  if (/tissue.*repair.*kit/i.test(cleaned)) return 'Tissue Repair Research Kit';
+  
+  return cleaned;
+}
+
 function renderTopProducts() {
   const productMap = {};
   
   ordersData.forEach(row => {
-    const items = (row[9] || '').toString();
-    const total = parseFloat(row[16]) || 0;
+    const itemsStr = (row[9] || '').toString();
+    const orderTotal = parseFloat(row[16]) || 0;
+    const lines = itemsStr.split(/[,\n]+/).map(s => s.trim()).filter(Boolean);
     
-    // Parse items like "Retatrutide 20mg, GHK-Cu 100mg, MOTS-C 10mg" or "1x Reta 20mg ($68)"
-    const itemLines = items.split(/,|\n/).map(s => s.trim()).filter(Boolean);
-    
-    itemLines.forEach(item => {
-      // Extract product name (before quantity or price)
-      let productName = item;
-      productName = productName.replace(/^\d+x?\s*/i, ''); // Remove "1x " or "2 "
-      productName = productName.replace(/\s*\([^)]*\)\s*$/g, ''); // Remove " ($68)"
-      productName = productName.trim();
-      
-      if (!productName) return;
-      
-      // Extract quantity
-      const qtyMatch = item.match(/^(\d+)x?\s/i);
-      const qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
-      
-      // Extract price (from parentheses if available)
-      const priceMatch = item.match(/\(\$([\d.]+)\)/);
-      const itemPrice = priceMatch ? parseFloat(priceMatch[1]) : 0;
-      
-      if (!productMap[productName]) {
-        productMap[productName] = { name: productName, units: 0, revenue: 0 };
-      }
-      
-      productMap[productName].units += qty;
-      productMap[productName].revenue += itemPrice || (total / itemLines.length); // Distribute total if no item price
+    lines.forEach(line => {
+      const products = parseProductLine(line);
+      products.forEach(({ name, quantity, price }) => {
+        if (!productMap[name]) productMap[name] = { name, units: 0, revenue: 0 };
+        productMap[name].units += quantity;
+        if (price) {
+          productMap[name].revenue += price * quantity;
+        } else {
+          const totalItems = lines.reduce((sum, l) => sum + parseProductLine(l).reduce((s, p) => s + p.quantity, 0), 0);
+          productMap[name].revenue += (orderTotal / totalItems) * quantity;
+        }
+      });
     });
   });
   
-  // Convert to array and sort by units
   const products = Object.values(productMap).sort((a, b) => b.units - a.units);
-  
   const tbody = document.getElementById('topProductsBody');
   if (products.length === 0) {
     tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-dim); padding: 40px;">No product data available</td></tr>';
