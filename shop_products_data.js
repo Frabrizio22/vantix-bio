@@ -34,7 +34,7 @@ const VX_PRODUCTS = {
             cogs: 19.98,
             image: 'images/products/retatrutide-20mg.jpg',
             url: 'products/retatrutide.html',
-            inStock: true,
+            inStock: false,
             dualTested: true
         },
 
