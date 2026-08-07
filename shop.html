@@ -368,7 +368,7 @@ function openWaitlistModal(slug) {
   
   // Update modal text
   document.getElementById('waitlistProductName').textContent = 
-    `Be notified when ${currentProductName} is back in stock with batch-specific Janoshik COAs.`;
+    `Enter your email to be notified when ${currentProductName} is back in stock.`;
   
   document.getElementById('waitlistModal').classList.add('active');
   document.getElementById('waitlistFormContainer').style.display = 'block';
@@ -549,7 +549,7 @@ function showToast(message) {
 }
 
 function joinWaitlist(productName) {
-  var email = prompt('Enter your email to join the waitlist for ' + productName + ':');
+  var email = prompt('Enter your email to be notified when ' + productName + ' is back in stock:');
   if (!email || !email.includes('@')) { return; }
   fetch('https://vantix-checkout.prcpeptides.workers.dev', {
     method: 'POST',
@@ -582,11 +582,10 @@ function joinWaitlist(productName) {
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
     </button>
     <div id="waitlistFormContainer">
-      <h3>Join the waitlist</h3>
-      <p id="waitlistProductName">Be notified when this product launches with batch-specific Janoshik COAs.</p>
+      <p id="waitlistProductName" style="font-size:17px;line-height:1.5;color:var(--text);margin-bottom:24px">Enter your email to be notified when this product is back in stock.</p>
       <form class="waitlist-form" onsubmit="submitWaitlist(event)">
         <input type="email" id="waitlistEmail" class="waitlist-input" placeholder="your@email.com" required>
-        <button type="submit" id="waitlistSubmit" class="waitlist-submit">Notify me at launch</button>
+        <button type="submit" id="waitlistSubmit" class="waitlist-submit">Notify Me</button>
       </form>
     </div>
     <div class="waitlist-success" id="waitlistSuccess">
