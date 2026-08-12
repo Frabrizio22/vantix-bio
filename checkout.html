@@ -492,9 +492,34 @@ var currentPrices={
 'VX-KIT-TISSUE':54,'VX-KIT-GH':58,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':89
 };
 
+// Out of stock products - prevents checkout
+var outOfStock = ['VX-RETA-20'];
+
 function loadCart(){
 var saved=localStorage.getItem('vantixCart');
-if(saved){cart=JSON.parse(saved);
+if(saved){
+cart=JSON.parse(saved);
+
+// Remove OOS items from cart
+var hadOOS = false;
+cart = cart.filter(function(item){
+if(outOfStock.indexOf(item.sku) !== -1){
+hadOOS = true;
+return false;
+}
+return true;
+});
+
+// Alert if OOS items were removed
+if(hadOOS){
+alert('Some items in your cart are currently out of stock and have been removed.');
+saveCart();
+if(cart.length === 0){
+window.location.href = 'shop.html';
+return;
+}
+}
+
 // Validate prices against current prices (prevent stale cached prices)
 cart.forEach(function(item){
 if(item.sku && currentPrices[item.sku] && item.price !== currentPrices[item.sku]){
