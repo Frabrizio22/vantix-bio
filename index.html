@@ -166,10 +166,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .verify-row.total{padding-top:8px;margin-top:8px;border-top:1px solid rgba(16,185,129,.3)}
 .verify-label-text{color:rgba(255,255,255,.6)}
 .verify-value{color:#10b981}
-.instrument{background:#FBF8EE;border:1px solid var(--text);position:relative;overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;cursor:pointer}
-.instrument:hover{box-shadow:0 8px 24px rgba(15,27,45,0.12)}
-.instrument.expanded{transform:scale(1.15);z-index:100;cursor:default}
-@media(max-width:768px){.instrument.expanded{transform:scale(1.05)}}
+.instrument{background:#FBF8EE;border:1px solid var(--text);position:relative;overflow:hidden}
 .instrument::before,.instrument::after{content:'';position:absolute;width:12px;height:12px;border:1px solid var(--text)}
 .instrument::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
 .instrument::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
@@ -177,17 +174,14 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .inst-header-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;font-size:9px}
 .inst-status{color:var(--signal);display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0}
 .inst-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:pulse 2s infinite}
-.inst-body{padding:20px}@media(min-width:768px){.inst-body{padding:24px}}
+.inst-body{padding:24px}
 .inst-meta{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(15,27,45,.6);padding-bottom:14px;border-bottom:1px solid var(--hairline);margin-bottom:18px}
 .inst-meta strong{color:var(--text);font-weight:500}
 .inst-product{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:6px;flex-wrap:wrap}
-.inst-product h2{font-family:'Fraunces',serif;font-size:clamp(24px,4.5vw,28px);font-weight:500;letter-spacing:-.015em;white-space:nowrap;color:var(--text);transition:font-size 0.3s ease}
-.instrument.expanded .inst-product h2{font-size:clamp(26px,5vw,32px)}
+.inst-product h2{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,32px);font-weight:500;letter-spacing:-.015em;white-space:nowrap;color:var(--text)}
 .inst-product .mw{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(15,27,45,.6);text-align:right}
 .inst-sequence{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(15,27,45,.6);word-break:break-all;padding:8px 10px;background:var(--bg);margin-bottom:22px;border-left:2px solid var(--signal)}
-.chromo{position:relative;height:140px;background:linear-gradient(to right,var(--hairline) 1px,transparent 1px) 0 0/16.66% 100%,linear-gradient(to bottom,var(--hairline) 1px,transparent 1px) 0 0/100% 25%,#FDFBF3;border:1px solid var(--hairline);margin-bottom:6px;transition:height 0.3s ease}
-@media(min-width:768px){.chromo{height:160px}}
-.instrument.expanded .chromo{height:200px}
+.chromo{position:relative;height:180px;background:linear-gradient(to right,var(--hairline) 1px,transparent 1px) 0 0/16.66% 100%,linear-gradient(to bottom,var(--hairline) 1px,transparent 1px) 0 0/100% 25%,#FDFBF3;border:1px solid var(--hairline);margin-bottom:6px}
 .chromo svg{width:100%;height:100%;display:block}
 .trace{fill:none;stroke:var(--navy);stroke-width:1.5;stroke-linejoin:round;stroke-dasharray:2000;stroke-dashoffset:2000;animation:trace-cycle 10.9s cubic-bezier(.65,0,.35,1) infinite}
 @keyframes trace-cycle{0%{stroke-dashoffset:2000;opacity:1}41.3%{stroke-dashoffset:0;opacity:1}87.2%{stroke-dashoffset:0;opacity:1}90.8%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:2000;opacity:0}}
@@ -196,14 +190,12 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .chromo-axis{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(15,27,45,.6);padding:6px 4px 0}
 .readouts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--text);margin-top:18px;padding-top:16px;gap:12px}
 .readout-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.6);margin-bottom:4px}
-.readout-value{font-family:'Fraunces',serif;font-size:clamp(20px,4.5vw,24px);font-weight:500;letter-spacing:-.015em;line-height:1;color:var(--text);animation:readout-refresh 10.9s ease infinite;transition:font-size 0.3s ease}
-.instrument.expanded .readout-value{font-size:clamp(22px,5vw,28px)}
+.readout-value{font-family:'Fraunces',serif;font-size:clamp(22px,5vw,28px);font-weight:500;letter-spacing:-.015em;line-height:1;color:var(--text);animation:readout-refresh 10.9s ease infinite}
 .readout-value .u{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;color:rgba(15,27,45,.6);margin-left:3px}
 .readout-value.pass{color:var(--signal-bright)}
 @keyframes readout-refresh{0%{opacity:1}39%{opacity:.5}41.3%{opacity:1}100%{opacity:1}}
 .inst-footer{margin-top:20px;padding-top:16px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center}
-.price{font-family:'Fraunces',serif;font-size:22px;font-weight:500;transition:font-size 0.3s ease}
-.instrument.expanded .price{font-size:26px}
+.price{font-family:'Fraunces',serif;font-size:24px;font-weight:500}
 .price .per{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(15,27,45,.6);margin-left:4px}
 .add-btn{background:var(--navy);color:var(--bg);border:none;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:10px}
 .add-btn:hover{background:rgba(15,27,45,.85)}
@@ -551,8 +543,6 @@ L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
 </div>
 </div>
 
-<div style="text-align:center;margin:12px 0 -8px;opacity:0.4;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text);pointer-events:none">Click to expand ↕</div>
-
 <div class="inst-footer">
 <div class="price">$34<span class="per">/ 100mg vial</span></div>
 <a href="verify.html?batch=VX-GHK100-001" class="add-btn" style="text-decoration:none;text-align:center">View COA</a>
@@ -804,31 +794,6 @@ let p=0;
 function genP(pr){const pts=[],n=Math.floor(pr/100*70);for(let i=0;i<=n;i++){const x=i/70*400,g=Math.exp(-Math.pow(x-200,2)/2500),y=140-g*100+(Math.random()-.5);pts.push(`${x},${y}`)}return pts.join(' ')}
 function anim(){p=(p>=100)?0:p+.4;const pts=genP(p),x=p/100*400,g=Math.exp(-Math.pow(x-200,2)/2500),y=140-g*100;document.getElementById('chromaFill').setAttribute('points',`0,140 ${pts} ${x},140`);document.getElementById('chromaLine').setAttribute('points',pts);document.getElementById('chromaDot').setAttribute('cx',x);document.getElementById('chromaDot').setAttribute('cy',y);const lbl=document.getElementById('peakLabel');lbl.setAttribute('opacity',p>55?Math.min(1,(p-55)/10):0);requestAnimationFrame(anim)}
 anim();
-
-// Click-to-expand verification widget
-const instrument = document.querySelector('.instrument');
-if(instrument){
-  instrument.addEventListener('click', function(e){
-    // Don't expand if clicking the View COA button
-    if(e.target.closest('.add-btn')) return;
-    
-    this.classList.toggle('expanded');
-    
-    // Scroll into view if expanded on mobile
-    if(this.classList.contains('expanded') && window.innerWidth < 768){
-      setTimeout(() => {
-        this.scrollIntoView({behavior: 'smooth', block: 'center'});
-      }, 100);
-    }
-  });
-  
-  // Close when clicking outside on mobile
-  document.addEventListener('click', function(e){
-    if(!e.target.closest('.instrument') && instrument.classList.contains('expanded')){
-      instrument.classList.remove('expanded');
-    }
-  });
-}
 
 </script>
 </body>
