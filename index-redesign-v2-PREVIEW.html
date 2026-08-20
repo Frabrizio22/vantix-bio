@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantix Bio | Third-Party Tested Research Peptides</title>
+<meta name="description" content="Every batch independently verified by Janoshik. HPLC purity, LC-MS identity, endotoxin screening. Nothing ships until the report clears.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/geist');
+
+:root {
+  --bg: #FAFAF7;
+  --text: #0A1628;
+  --accent: #3973B0;
+  --accent-muted: #7BA88F;
+  --signal-bright: #5C9577;
+  --hairline: #E5E5E0;
+  --navy: #143054;
+  --card-bg: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Geist', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 24px 120px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(10, 22, 40, 0.5);
+  margin-bottom: 48px;
+}
+
+/* Hero Section */
+.hero {
+  margin-bottom: 100px;
+}
+
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 7vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: var(--navy);
+}
+
+h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent-muted);
+}
+
+.hero-description {
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(10, 22, 40, 0.7);
+  margin-bottom: 40px;
+  max-width: 580px;
+}
+
+.hero-description strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin: 48px 0 60px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(10, 22, 40, 0.5);
+}
+
+/* CTA Buttons */
+.cta-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 100px;
+}
+
+.btn {
+  padding: 18px 32px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid var(--hairline);
+}
+
+.btn-secondary:hover {
+  border-color: var(--navy);
+}
+
+/* Verification Chain */
+.verification-chain {
+  margin-bottom: 100px;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(10, 22, 40, 0.5);
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+  color: var(--navy);
+}
+
+.verification-description {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(10, 22, 40, 0.7);
+  margin-bottom: 48px;
+}
+
+.guarantee-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.guarantee {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.guarantee-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background: rgba(57, 115, 176, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.guarantee-content h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.guarantee-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(10, 22, 40, 0.65);
+}
+
+/* Chromatograph Card */
+.chromo-card {
+  background: var(--card-bg);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 100px;
+}
+
+.chromo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.batch-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.batch-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.batch-product {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: 28px;
+}
+
+/* Animated Chromatograph */
+.chromo {
+  position: relative;
+  height: 180px;
+  background: 
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px) 0 0/16.66% 100%,
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px) 0 0/100% 25%,
+    #FDFBF3;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.chromo svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.trace {
+  fill: none;
+  stroke: var(--navy);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: trace-cycle 10.9s cubic-bezier(.65,0,.35,1) infinite;
+}
+
+@keyframes trace-cycle {
+  0% { stroke-dashoffset: 2000; opacity: 1; }
+  41.3% { stroke-dashoffset: 0; opacity: 1; }
+  87.2% { stroke-dashoffset: 0; opacity: 1; }
+  90.8% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 2000; opacity: 0; }
+}
+
+.peak-marker {
+  animation: peak-cycle 10.9s ease-out infinite;
+}
+
+@keyframes peak-cycle {
+  0% { opacity: 0; }
+  41.3% { opacity: 1; }
+  87.2% { opacity: 1; }
+  90.8% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.chromo-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(15, 27, 45, 0.6);
+  padding: 6px 4px 0;
+}
+
+.readouts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline);
+}
+
+.readout-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(15, 27, 45, 0.6);
+  margin-bottom: 6px;
+}
+
+.readout-value {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  color: var(--text);
+  animation: readout-refresh 10.9s ease infinite;
+}
+
+.readout-value .u {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(15, 27, 45, 0.6);
+  margin-left: 3px;
+}
+
+.readout-value.pass {
+  color: var(--signal-bright);
+}
+
+@keyframes readout-refresh {
+  0% { opacity: 1; }
+  39% { opacity: 0.5; }
+  41.3% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* FAQ Section */
+.faq-section {
+  margin-bottom: 100px;
+}
+
+.faq-intro {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(10, 22, 40, 0.7);
+  margin-bottom: 48px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--hairline);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.faq-item {
+  background: var(--card-bg);
+  padding: 24px 28px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.faq-item:hover {
+  background: rgba(250, 250, 247, 0.5);
+}
+
+.faq-question {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--navy);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-toggle {
+  font-size: 24px;
+  color: var(--accent);
+  transition: transform 0.3s;
+}
+
+.faq-answer {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(10, 22, 40, 0.65);
+  margin-top: 16px;
+  display: none;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-item.active .faq-toggle {
+  transform: rotate(45deg);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding-top: 60px;
+  border-top: 1px solid var(--hairline);
+}
+
+.footer-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(10, 22, 40, 0.4);
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 14px;
+}
+
+.footer-links a {
+  color: rgba(10, 22, 40, 0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--navy);
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .container {
+    padding: 40px 20px 80px;
+  }
+  
+  .stats {
+    gap: 24px;
+  }
+  
+  .stat-value {
+    font-size: 44px;
+  }
+  
+  .cta-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .guarantee {
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+  }
+  
+  .guarantee-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .chromo-card {
+    padding: 24px 20px;
+  }
+  
+  .batch-product {
+    font-size: 24px;
+  }
+  
+  .readouts {
+    gap: 12px;
+  }
+  
+  .readout-value {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header>
+    <div class="logo">VANTIX BIO</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="label">INDEPENDENT VERIFICATION</div>
+    <h1>Third-party tested <em>research</em> peptides.</h1>
+    <p class="hero-description">Every batch independently verified by <strong>Janoshik</strong> — HPLC purity, LC-MS identity, and endotoxin screening. Nothing ships until the report clears.</p>
+    
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Compounds</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Batch Tested</div>
+      </div>
+    </div>
+
+    <div class="cta-buttons">
+      <a href="shop.html" class="btn btn-primary">Shop Verified Peptides</a>
+      <a href="verify.html" class="btn btn-secondary">Verify a Batch</a>
+    </div>
+  </section>
+
+  <!-- Verification Chain -->
+  <section class="verification-chain">
+    <div class="section-label">VERIFICATION CHAIN</div>
+    <h2>Three guarantees on every order.</h2>
+    <p class="verification-description">From raw material to your doorstep, every batch follows the same protocol.</p>
+    
+    <div class="guarantee-list">
+      <div class="guarantee">
+        <div class="guarantee-icon">✓</div>
+        <div class="guarantee-content">
+          <h3>Independent testing</h3>
+          <p>Every batch is sent to Janoshik for third-party verification — HPLC purity, LC-MS identity, and endotoxin screening.</p>
+        </div>
+      </div>
+      
+      <div class="guarantee">
+        <div class="guarantee-icon">🔍</div>
+        <div class="guarantee-content">
+          <h3>Public verification</h3>
+          <p>Scan the QR code on your vial. Enter your batch ID to view test results and Janoshik certificates.</p>
+        </div>
+      </div>
+      
+      <div class="guarantee">
+        <div class="guarantee-icon">═</div>
+        <div class="guarantee-content">
+          <h3>Batch traceability</h3>
+          <p>Nothing ships until the report clears. Every batch tested, every vial traceable — no exceptions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Chromatograph Card -->
+  <div class="chromo-card">
+    <div class="chromo-header">
+      <div class="batch-id">VX-GHK100-001 · HPLC-PDA</div>
+      <div class="batch-status">
+        <span style="width:6px;height:6px;background:#7BA88F;border-radius:50%;display:inline-block"></span>
+        VERIFIED
+      </div>
+    </div>
+    
+    <div class="batch-product">GHK-Cu</div>
+    
+    <div class="chromo" aria-hidden="true">
+      <svg viewBox="0 0 600 180" preserveAspectRatio="none">
+        <path class="trace" d="
+          M 0 160
+          L 20 159 L 40 160 L 60 159 L 75 160
+          C 80 159, 85 158, 90 155
+          C 95 148, 98 135, 102 100
+          C 105 65, 108 30, 110 18
+          C 112 12, 114 14, 116 22
+          C 118 35, 120 55, 122 80
+          C 124 100, 126 115, 128 130
+          C 130 140, 132 148, 134 150
+          C 136 148, 138 140, 140 130
+          C 142 115, 144 95, 146 80
+          C 148 65, 150 50, 152 42
+          C 154 38, 156 40, 158 48
+          C 160 60, 162 80, 166 110
+          C 170 135, 175 150, 182 156
+          C 190 159, 200 160, 220 159
+          L 260 160
+          C 268 159, 272 158, 276 156
+          C 280 154, 282 152, 284 154
+          C 286 156, 288 158, 292 159
+          L 320 160 L 380 159 L 440 160 L 500 159 L 560 160 L 600 159
+        " />
+        <g class="peak-marker">
+          <line x1="110" y1="18" x2="110" y2="4" stroke="#7BA88F" stroke-width="1"/>
+          <circle cx="110" cy="18" r="3" fill="#5C9577"/>
+          <text x="118" y="8" font-family="JetBrains Mono" font-size="8" fill="#0F1B2D">RT 0.623 min</text>
+          <text x="118" y="18" font-family="JetBrains Mono" font-size="8" fill="#5C9577" font-weight="600">99.958%</text>
+        </g>
+      </svg>
+    </div>
+    
+    <div class="chromo-axis">
+      <span>0.0</span><span>1.0</span><span>2.0</span><span>3.0</span><span>4.0</span><span>5.0 min</span>
+    </div>
+    
+    <div class="readouts">
+      <div>
+        <div class="readout-label">Purity</div>
+        <div class="readout-value pass">99.958<span class="u">%</span></div>
+      </div>
+      <div>
+        <div class="readout-label">Content</div>
+        <div class="readout-value">108.58<span class="u">mg</span></div>
+      </div>
+      <div>
+        <div class="readout-label">Endotoxin</div>
+        <div class="readout-value">1.421<span class="u">EU</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="section-label">FREQUENTLY ASKED QUESTIONS</div>
+    <h2>What buyers ask first.</h2>
+    <p class="faq-intro">The questions we hear most often about batch verification and research peptide quality.</p>
+    
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          What does Janoshik-verified mean?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          Janoshik is an independent EU-based laboratory specializing in peptide testing. Every batch we receive is sent to Janoshik for third-party verification before release. They test HPLC purity, LC-MS identity confirmation, and endotoxin levels. Nothing ships until we receive passing results.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          Do you ship internationally?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          Currently we ship within the United States only. International shipping is complex due to varying customs regulations for research compounds. We're exploring international options for future expansion.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          How do I verify my COA?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          Every vial includes a QR code linking to our verification page. You can also visit vantixbio.com/verify and enter your batch ID (printed on the vial label). This displays the full Janoshik certificate, HPLC chart, and test results for your specific batch.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          Are these for human consumption?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          No. All products are sold for laboratory research use only. They are not FDA-approved for human consumption, clinical use, or therapeutic purposes. These are research-grade compounds intended for qualified researchers and institutions.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-label">For Laboratory Research Use Only</div>
+    <div class="footer-links">
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="shipping.html">Shipping & Refund</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+// FAQ Accordion
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const wasActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!wasActive) {
+      item.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
