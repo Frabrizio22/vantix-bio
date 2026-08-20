@@ -861,6 +861,51 @@ function normalizePayment(payment) {
   return 'other';
 }
 
+// Parse product strings
+function parseProductString(productString) {
+  const products = [];
+  const str = String(productString || '');
+  const items = str.split(',').map(s => s.trim());
+  
+  items.forEach(item => {
+    let quantity = 1;
+    const qtyMatch = item.match(/(\d+)x\s+/i);
+    if (qtyMatch) {
+      quantity = parseInt(qtyMatch[1]);
+      item = item.replace(qtyMatch[0], '');
+    }
+    
+    const normalized = normalizeProductName(item);
+    if (normalized) {
+      products.push({ name: normalized, quantity: quantity });
+    }
+  });
+  
+  return products;
+}
+
+function normalizeProductName(name) {
+  const n = String(name).toLowerCase().trim();
+  
+  if (n.includes('tirz') || n.includes('tirzepatide')) return 'Tirzepatide 30mg';
+  if (n.includes('reta') || n.includes('retatrutide')) return 'Retatrutide 20mg';
+  if (n.includes('sema') || n.includes('semaglutide')) return 'Semaglutide 10mg';
+  if (n.includes('bpc')) return 'BPC-157 10mg';
+  if (n.includes('tb') && n.includes('500')) return 'TB-500 10mg';
+  if (n.includes('ghk')) return 'GHK-Cu 100mg';
+  if (n.includes('mots')) return 'MOTS-c 10mg';
+  if (n.includes('nad')) return 'NAD+ 1000mg';
+  if (n.includes('cjc')) return 'CJC-1295 10mg';
+  if (n.includes('ipa') || n.includes('ipamorelin')) return 'Ipamorelin 5mg';
+  if (n.includes('tesa') || n.includes('tesamorelin')) return 'Tesamorelin 10mg';
+  if (n.includes('aod')) return 'AOD-9604 10mg';
+  if (n.includes('next-gen')) return 'Next-Gen Kit';
+  if (n.includes('tissue') && n.includes('repair')) return 'Tissue Repair Kit';
+  if (n.includes('bac') && n.includes('water')) return 'BAC Water';
+  
+  return name.replace(/\(\$[\d.]+\)/g, '').replace(/\d+x\s+/gi, '').trim() || null;
+}
+
 // Transform API Data
 function transformData(apiData) {
   const ordersRaw = apiData.orders || [];
@@ -963,9 +1008,11 @@ function transformData(apiData) {
         cryptoOrders++;
       }
       
-      // Product sales
-      const prodName = String(product).split(',')[0].trim(); // Take first product
-      productSales[prodName] = (productSales[prodName] || 0) + 1;
+      // Product sales (parse and count vials)
+      const parsedProducts = parseProductString(product);
+      parsedProducts.forEach(p => {
+        productSales[p.name] = (productSales[p.name] || 0) + p.quantity;
+      });
     }
     
     // Pending
