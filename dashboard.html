@@ -941,7 +941,8 @@ async function init() {
 }
 
 function showPasswordPrompt() {
-  document.getElementById('passwordOverlay').style.display = 'flex';
+  const overlay = document.getElementById('passwordOverlay');
+  overlay.style.display = 'flex';
   document.body.style.visibility = 'visible';
   
   const input = document.getElementById('passwordInput');
@@ -949,24 +950,38 @@ function showPasswordPrompt() {
   const error = document.getElementById('passwordError');
   
   function checkPassword() {
-    const pwd = input.value;
+    const pwd = input.value.trim();
+    console.log('Checking password...');
     if (pwd === DASH_PASSWORD) {
+      console.log('Password correct!');
       sessionStorage.setItem('vantixDashPassword', pwd);
-      document.getElementById('passwordOverlay').style.display = 'none';
+      overlay.style.display = 'none';
       init();
     } else {
+      console.log('Password incorrect');
       error.style.display = 'block';
       input.value = '';
       input.focus();
     }
   }
   
-  btn.addEventListener('click', checkPassword);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') checkPassword();
+  // Remove old listeners if any
+  const newBtn = btn.cloneNode(true);
+  btn.parentNode.replaceChild(newBtn, btn);
+  
+  const newInput = input.cloneNode(true);
+  input.parentNode.replaceChild(newInput, input);
+  
+  // Add new listeners
+  newBtn.addEventListener('click', checkPassword);
+  newInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      checkPassword();
+    }
   });
   
-  input.focus();
+  setTimeout(() => newInput.focus(), 100);
 }
 
 // Load Data from API
