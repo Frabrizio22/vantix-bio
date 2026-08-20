@@ -1,23 +1,24 @@
 {
-  "name": "Vantix Bio - Research Peptides",
-  "short_name": "Vantix Bio",
-  "description": "Batch-level Janoshik verification for research peptides",
-  "start_url": "/",
+  "name": "Vantix Bio Dashboard",
+  "short_name": "Vantix",
+  "description": "Operations dashboard for Vantix Bio",
+  "start_url": "/dashboard_UPGRADED.html",
   "display": "standalone",
-  "background_color": "#FAFAF7",
-  "theme_color": "#143054",
+  "background_color": "#050812",
+  "theme_color": "#050812",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon-192.png",
+      "src": "/favicon.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "/favicon.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
-  ]
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": []
 }
