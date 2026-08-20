@@ -533,6 +533,13 @@ canvas {
       <input type="text" class="search-input" placeholder="Search orders, customers..." id="globalSearch">
     </div>
     <div class="nav-actions">
+      <select id="dateRange" class="btn btn-ghost" style="padding: 8px 12px; cursor: pointer;" onchange="changeDateRange()">
+        <option value="30">Last 30 Days</option>
+        <option value="7">Last 7 Days</option>
+        <option value="month">This Month</option>
+        <option value="lastmonth">Last Month</option>
+        <option value="all">All Time</option>
+      </select>
       <button class="btn btn-ghost" onclick="refreshDashboard()">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
           <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
@@ -807,6 +814,7 @@ const DASH_PASSWORD = 'vantix2026';
 
 let dashboardData = null;
 let charts = {};
+let dateRangeDays = 30; // Default to 30 days
 
 // Initialize
 async function init() {
@@ -864,8 +872,23 @@ function transformData(apiData) {
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const yesterdayStart = new Date(todayStart);
   yesterdayStart.setDate(yesterdayStart.getDate() - 1);
-  const last30Start = new Date(todayStart);
-  last30Start.setDate(last30Start.getDate() - 30);
+  // Use selected date range
+  const rangeStart = new Date(todayStart);
+  
+  if (dateRangeDays === 'month') {
+    rangeStart.setDate(1); // First day of current month
+  } else if (dateRangeDays === 'lastmonth') {
+    rangeStart.setMonth(rangeStart.getMonth() - 1);
+    rangeStart.setDate(1);
+    const rangeEnd = new Date(todayStart);
+    rangeEnd.setDate(0); // Last day of last month
+  } else if (dateRangeDays === 'all') {
+    rangeStart.setFullYear(2020, 0, 1); // Go way back
+  } else {
+    rangeStart.setDate(rangeStart.getDate() - parseInt(dateRangeDays));
+  }
+  
+  const last30Start = rangeStart;
   
   let todayRevenue = 0, yesterdayRevenue = 0;
   let last30Revenue = 0, last30COGS = 0, last30Fees = 0;
@@ -1255,6 +1278,12 @@ function showToast(message, type = 'success') {
   toast.textContent = message;
   toast.className = `toast ${type} show`;
   setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function changeDateRange() {
+  const select = document.getElementById('dateRange');
+  dateRangeDays = select.value;
+  renderDashboard(); // Re-render with new date range
 }
 
 window.addEventListener('DOMContentLoaded', init);
