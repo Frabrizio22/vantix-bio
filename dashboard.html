@@ -972,7 +972,7 @@ function showPasswordPrompt() {
 // Load Data from API
 async function loadDashboardData() {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}?password=${encodeURIComponent(DASH_PASSWORD)}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -1006,101 +1006,142 @@ async function loadDashboardData() {
 
 // Transform API response to dashboard format
 function transformApiData(apiData) {
-  // Your current API returns data in a specific format
-  // Transform it to match what the dashboard expects
+  // Your API returns: {batches: [], orders: [], expenses: [], metrics: {}}
+  console.log('API Data:', apiData); // Debug
   
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   
+  // Calculate metrics from raw data
+  const orders = apiData.orders || [];
+  const batches = apiData.batches || [];
+  
+  let todayRevenue = 0, todayOrders = 0;
+  let yesterdayRevenue = 0, yesterdayOrders = 0;
+  let last7Revenue = 0, last30Revenue = 0;
+  let pendingOrders = [];
+  
+  const yesterdayStart = new Date(todayStart);
+  yesterdayStart.setDate(yesterdayStart.getDate() - 1);
+  const last7Start = new Date(todayStart);
+  last7Start.setDate(last7Start.getDate() - 7);
+  const last30Start = new Date(todayStart);
+  last30Start.setDate(last30Start.getDate() - 30);
+  
+  orders.forEach(order => {
+    const date = new Date(order.timestamp || order.date);
+    const total = parseFloat(order.total) || 0;
+    const status = (order.status || '').toLowerCase();
+    
+    if (date >= todayStart) {
+      todayRevenue += total;
+      todayOrders++;
+    }
+    if (date >= yesterdayStart && date < todayStart) {
+      yesterdayRevenue += total;
+      yesterdayOrders++;
+    }
+    if (date >= last7Start) {
+      last7Revenue += total;
+    }
+    if (date >= last30Start) {
+      last30Revenue += total;
+    }
+    
+    if (status === 'pending' || status === 'paid' || status === '') {
+      pendingOrders.push(order);
+    }
+  });
+  
+  const revenueChange = yesterdayRevenue > 0 
+    ? ((todayRevenue - yesterdayRevenue) / yesterdayRevenue * 100).toFixed(1)
+    : 0;
+  
+  let totalVials = 0;
+  let lowStockItems = [];
+  
+  batches.forEach(batch => {
+    const remaining = parseInt(batch.vials_remaining || batch.remaining) || 0;
+    const status = (batch.status || '').toLowerCase();
+    
+    if (status === 'active' || status === 'in stock') {
+      totalVials += remaining;
+      
+      if (remaining < 20) {
+        lowStockItems.push({
+          batchId: batch.batch_id || batch.batchId,
+          product: batch.product_name || batch.product,
+          remaining: remaining,
+          threshold: 10,
+          status: remaining === 0 ? 'out' : remaining < 10 ? 'critical' : 'low'
+        });
+      }
+    }
+  });
+  
   return {
     overview: {
       today: {
-        revenue: apiData.todayRevenue || 0,
-        orders: apiData.todayOrders || 0,
-        revenueChange: apiData.revenueChange || 0,
-        ordersChange: apiData.ordersChange || 0
+        revenue: todayRevenue,
+        orders: todayOrders,
+        revenueChange: revenueChange,
+        ordersChange: 0
       },
       yesterday: {
-        revenue: apiData.yesterdayRevenue || 0,
-        orders: apiData.yesterdayOrders || 0
+        revenue: yesterdayRevenue,
+        orders: yesterdayOrders
       },
       last7days: {
-        revenue: apiData.last7DaysRevenue || 0,
-        orders: apiData.last7DaysOrders || 0,
-        avgDailyRevenue: apiData.last7DaysRevenue ? (apiData.last7DaysRevenue / 7).toFixed(2) : 0
+        revenue: last7Revenue,
+        orders: 0,
+        avgDailyRevenue: (last7Revenue / 7).toFixed(2)
       },
       last30days: {
-        revenue: apiData.last30DaysRevenue || 0,
-        orders: apiData.last30DaysOrders || 0,
-        avgDailyRevenue: apiData.last30DaysRevenue ? (apiData.last30DaysRevenue / 30).toFixed(2) : 0
+        revenue: last30Revenue,
+        orders: 0,
+        avgDailyRevenue: (last30Revenue / 30).toFixed(2)
       }
     },
     pending: {
-      count: apiData.pendingOrders || 0,
-      total: apiData.pendingRevenue || 0,
-      orders: (apiData.orders || []).filter(o => {
-        const status = (o.status || '').toLowerCase();
-        return status === 'pending' || status === 'paid' || status === '';
-      }).map(o => ({
-        orderNum: o.orderNum || o.order_num || 'N/A',
-        date: o.date || o.timestamp || new Date().toISOString(),
-        customer: o.customer || o.name || 'Unknown',
+      count: pendingOrders.length,
+      total: pendingOrders.reduce((sum, o) => sum + (parseFloat(o.total) || 0), 0),
+      orders: pendingOrders.map(o => ({
+        orderNum: o.order_num || o.orderNum || 'N/A',
+        date: o.timestamp || o.date || new Date().toISOString(),
+        customer: o.name || o.customer || 'Unknown',
         email: o.email || '',
         product: o.product || o.items || '',
         total: parseFloat(o.total) || 0,
         status: o.status || 'pending'
       }))
     },
-    recent: (apiData.orders || []).slice(0, 10).map(o => ({
-      orderNum: o.orderNum || o.order_num || 'N/A',
-      date: o.date || o.timestamp || new Date().toISOString(),
-      customer: o.customer || o.name || 'Unknown',
+    recent: orders.slice(0, 10).map(o => ({
+      orderNum: o.order_num || o.orderNum || 'N/A',
+      date: o.timestamp || o.date || new Date().toISOString(),
+      customer: o.name || o.customer || 'Unknown',
       total: parseFloat(o.total) || 0,
       status: o.status || 'pending'
     })),
     inventory: {
-      totalVials: apiData.totalVials || 0,
-      lowStockCount: apiData.lowStockCount || 0,
-      lowStockItems: (apiData.batches || []).filter(b => {
-        const remaining = parseInt(b.remaining || b.vials_remaining) || 0;
-        return remaining < 20;
-      }).map(b => ({
-        batchId: b.batchId || b.batch_id || 'N/A',
-        product: b.product || b.product_name || 'Unknown',
-        remaining: parseInt(b.remaining || b.vials_remaining) || 0,
-        threshold: parseInt(b.threshold || b.restock_threshold) || 10,
-        status: (parseInt(b.remaining || b.vials_remaining) || 0) === 0 ? 'out' : 
-                (parseInt(b.remaining || b.vials_remaining) || 0) <= 5 ? 'critical' : 'low'
-      }))
+      totalVials: totalVials,
+      lowStockCount: lowStockItems.length,
+      lowStockItems: lowStockItems
     },
-    alerts: generateAlerts(apiData)
+    alerts: [
+      ...(pendingOrders.length > 0 ? [{
+        type: 'orders',
+        severity: pendingOrders.length > 5 ? 'high' : 'normal',
+        message: `${pendingOrders.length} pending order${pendingOrders.length > 1 ? 's' : ''} need fulfillment`,
+        action: 'View Orders'
+      }] : []),
+      ...(lowStockItems.length > 0 ? [{
+        type: 'inventory',
+        severity: 'warning',
+        message: `${lowStockItems.length} product${lowStockItems.length > 1 ? 's' : ''} low on stock`,
+        action: 'View Inventory'
+      }] : [])
+    ]
   };
-}
-
-function generateAlerts(apiData) {
-  const alerts = [];
-  
-  const pendingCount = apiData.pendingOrders || 0;
-  if (pendingCount > 0) {
-    alerts.push({
-      type: 'orders',
-      severity: pendingCount > 5 ? 'high' : 'normal',
-      message: `${pendingCount} pending order${pendingCount > 1 ? 's' : ''} need fulfillment`,
-      action: 'View Orders'
-    });
-  }
-  
-  const lowStockCount = apiData.lowStockCount || 0;
-  if (lowStockCount > 0) {
-    alerts.push({
-      type: 'inventory',
-      severity: 'warning',
-      message: `${lowStockCount} product${lowStockCount > 1 ? 's' : ''} low on stock`,
-      action: 'View Inventory'
-    });
-  }
-  
-  return alerts;
 }
 
 // Render Dashboard
