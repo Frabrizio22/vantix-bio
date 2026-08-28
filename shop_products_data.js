@@ -333,31 +333,6 @@ const VX_PRODUCTS = {
                 const status = getStockStatus(this.sku);
                 return status !== null ? status.inStock : this.inStock;
             }
-        },
-        {
-            sku: 'VX-AOD-10',
-            name: 'AOD-9604 10mg', 
-            cartName: 'AOD-9604 10mg',
-            shortName: 'AOD-9604',
-            slug: 'aod-9604',
-            category: 'metabolic',
-            categoryLabel: 'Metabolic Signaling',
-            dosage: '10mg',
-            purity: '>99%',
-            price: 52,
-            cogs: 25.57,
-            image: 'images/products/coming-soon.svg',
-            url: 'products/aod-9604.html',
-            inStock: false,
-            dualTested: true,
-            get stock() {
-                const status = getStockStatus(this.sku);
-                return status ? status.stock : null;
-            },
-            get isInStock() {
-                const status = getStockStatus(this.sku);
-                return status !== null ? status.inStock : this.inStock;
-            }
         }
     ],
 
