@@ -634,6 +634,19 @@ function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
+
+// AUTO-DISCOUNT: 15% off NAD+ when buying 2+ vials
+var nadCount=0;
+var nadTotal=0;
+cart.forEach(function(item){
+if(item.sku==='VX-NAD-1000'){
+nadCount+=item.quantity;
+nadTotal+=item.price*item.quantity;
+}
+});
+if(nadCount>=2&&!promoCode){
+discount+=nadTotal*0.15;
+}
 if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
@@ -686,7 +699,15 @@ document.getElementById('total').textContent='$'+total.toFixed(2);
 var discountRow=document.getElementById('discountRow');
 if(discount>0){
 document.getElementById('discount').textContent='-$'+discount.toFixed(2);
-var label=promoCode?'Discount ('+promoCode+')':'Zelle Discount (5%)';
+// Check if NAD+ multi-vial discount is active
+var nadCount=0;
+cart.forEach(function(item){if(item.sku==='VX-NAD-1000'){nadCount+=item.quantity;}});
+var label;
+if(nadCount>=2&&!promoCode){
+label='Multi-vial discount';
+}else{
+label=promoCode?'Discount ('+promoCode+')':'Zelle Discount (5%)';
+}
 document.getElementById('discountLabel').textContent=label;
 discountRow.style.display='flex';
 }else{discountRow.style.display='none';}
