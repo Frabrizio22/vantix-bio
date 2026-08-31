@@ -850,6 +850,14 @@ billingState=state;
 billingZip=zip;
 }
 if(!name||!email||!phone||!address||!city||!state||!zip){alert('Please fill in all required fields');return;}
+
+// Validate email format
+var emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if(!emailRegex.test(email)){alert('Please enter a valid email address');return;}
+
+// Validate phone number (at least 10 digits)
+var phoneDigits=phone.replace(/\D/g,'');
+if(phoneDigits.length<10){alert('Please enter a valid phone number (at least 10 digits)');return;}
 if(selectedPayment==='credit'&&!billingSameAsShipping&&(!cardholderName||!billingAddress||!billingCity||!billingState||!billingZip)){alert('Please fill in all billing information');return;}
 orderNumber=generateOrderNumber();
 var orderData={
