@@ -1,0 +1,14 @@
+
+/* Three Guarantees - Updated Design */
+.guarantee{display:flex;gap:16px;padding:20px 0;border-top:1px solid #E4E1D8;}
+.guarantee:last-child{border-bottom:1px solid #E4E1D8;}
+.g-icon{width:44px;height:44px;border-radius:10px;background:#EAF3EC;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.g-icon svg{width:19px;height:19px;stroke:#7BA88F;stroke-width:1.7;fill:none;}
+.g-text h3{font-family:'Fraunces',serif;font-size:17px;font-weight:500;margin:0 0 5px;}
+.g-text p{font-size:13.5px;color:#5B6470;line-height:1.5;margin:0;}
+
+/* Trust Bar */
+.trust-bar{background:#0F1B2D;padding:22px 20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;border-radius:14px;margin:24px 20px 40px;}
+.trust-item{display:flex;gap:10px;align-items:flex-start;}
+.trust-item svg{width:17px;height:17px;stroke:#7BA88F;fill:none;stroke-width:1.6;flex-shrink:0;margin-top:1px;}
+.trust-item span{font-family:'JetBrains Mono',monospace;font-size:10px;color:#C9D4DE;letter-spacing:.02em;line-height:1.4;}
