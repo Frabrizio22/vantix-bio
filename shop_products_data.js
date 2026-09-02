@@ -333,6 +333,33 @@ const VX_PRODUCTS = {
                 const status = getStockStatus(this.sku);
                 return status !== null ? status.inStock : this.inStock;
             }
+        },
+
+        // SUPPLIES - Bacteriostatic water
+        {
+            sku: 'VX-BAC-30',
+            name: 'Bacteriostatic Water 30mL', 
+            cartName: 'BAC Water 30mL',
+            shortName: 'BAC Water',
+            slug: 'bac-water',
+            category: 'supplies',
+            categoryLabel: 'Research Supplies',
+            dosage: '30mL',
+            purity: 'USP',
+            price: 12,
+            cogs: 3.50,
+            image: 'images/products/bac-water-30ml.jpg',
+            url: '#',
+            inStock: true,
+            dualTested: false,
+            get stock() {
+                const status = getStockStatus(this.sku);
+                return status ? status.stock : null;
+            },
+            get isInStock() {
+                const status = getStockStatus(this.sku);
+                return status !== null ? status.inStock : this.inStock;
+            }
         }
     ],
 
