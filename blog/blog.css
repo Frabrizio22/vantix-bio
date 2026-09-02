@@ -938,3 +938,35 @@ body {
     padding: 20px 48px;
   }
 }
+
+/* Blog Header Elements - MISSING STYLES */
+.header-logo {
+  height: 28px;
+  width: auto;
+}
+
+.header-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.header-nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.header-nav a:hover {
+  color: var(--accent);
+}
+
+.header-nav a.active {
+  color: var(--accent);
+}
+
+.logo-link {
+  text-decoration: none;
+}
