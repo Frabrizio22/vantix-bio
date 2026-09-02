@@ -847,3 +847,51 @@ body {
     margin: 32px 0;
   }
 }
+
+/* Prevent text overflow on mobile */
+.article-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.article-content a {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.article-content code {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Ensure images never overflow */
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive iframes (if any) */
+.article-content iframe {
+  max-width: 100%;
+}
+
+/* Long technical terms */
+.article-content strong,
+.article-content em {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Code blocks */
+.article-content pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* Blockquotes */
+.article-content blockquote {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
