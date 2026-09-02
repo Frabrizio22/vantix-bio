@@ -151,18 +151,24 @@ body {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  padding: 48px 48px 80px;
+  padding: 32px 20px 64px;
   width: 100%;
   box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .article-container {
-    padding: 80px 80px 120px;
+    padding: 64px 48px 96px;
   }
 }
 
 @media (min-width: 1024px) {
+  .article-container {
+    padding: 80px 80px 120px;
+  }
+}
+
+@media (min-width: 1280px) {
   .article-container {
     padding: 80px 120px 120px;
   }
@@ -776,5 +782,68 @@ body {
   
   .data-table thead th:first-child {
     background: #f5f5f5;
+  }
+}
+
+/* Mobile Article Improvements */
+@media (max-width: 640px) {
+  .article-header {
+    margin-bottom: 32px;
+  }
+  
+  .article-header h1 {
+    font-size: clamp(1.65rem, 7vw, 2.25rem);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  
+  .article-subtitle {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+  
+  .article-meta {
+    font-size: 10px;
+    gap: 8px;
+  }
+  
+  .article-content {
+    font-size: 16px;
+  }
+  
+  .article-content h2 {
+    font-size: 1.4rem;
+    margin: 40px 0 20px;
+  }
+  
+  .article-content h2::before {
+    width: 40px;
+    height: 2px;
+    margin-bottom: 16px;
+  }
+  
+  .article-content h3 {
+    font-size: 1.15rem;
+    margin: 32px 0 16px;
+  }
+  
+  .article-content p {
+    margin-bottom: 20px;
+  }
+  
+  .article-content ul,
+  .article-content ol {
+    margin-left: 20px;
+  }
+  
+  .callout {
+    padding: 16px;
+    margin: 20px 0;
+  }
+  
+  .article-cta,
+  .callout-cta {
+    padding: 24px 20px;
+    margin: 32px 0;
   }
 }
