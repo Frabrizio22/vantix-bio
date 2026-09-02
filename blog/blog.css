@@ -895,3 +895,46 @@ body {
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
+
+/* Blog Article Wrapper - CRITICAL MOBILE FIX */
+.blog-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.blog-article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+@media (min-width: 768px) {
+  .blog-article {
+    padding: 64px 48px 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-article {
+    padding: 80px 64px 120px;
+  }
+}
+
+.blog-header {
+  border-bottom: 1px solid var(--hairline);
+  padding: 16px 20px;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .blog-header {
+    padding: 20px 48px;
+  }
+}
