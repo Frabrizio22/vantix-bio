@@ -250,15 +250,33 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .cta-section h2{margin-bottom:16px;font-size:clamp(1.5rem,4vw,2.5rem)}
 .cta-section p{font-size:16px;color:rgba(10,22,40,.65);margin-bottom:32px;line-height:1.65;max-width:540px;margin-left:auto;margin-right:auto}@media(min-width:768px){.cta-section p{font-size:17px;margin-bottom:36px}}
 .cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.faq{max-width:900px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--hairline);padding:28px 0;cursor:pointer;transition:all .25s ease}
-.faq-item:hover{background:rgba(57,115,176,.02);padding-left:8px;padding-right:8px;margin-left:-8px;margin-right:-8px}
-.faq-question{display:flex;align-items:center;justify-content:space-between;font-family:'Fraunces',serif;font-size:18px;font-weight:400;line-height:1.3}
-.faq-icon{font-size:20px;color:var(--accent);transition:transform .3s}
-.faq-item.open .faq-icon{transform:rotate(90deg)}
-.faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.faq-item.open .faq-answer{max-height:500px}
-.faq-answer p{padding-top:18px;color:rgba(10,22,40,.68);line-height:1.7;font-size:15px}@media(min-width:768px){.faq-answer p{font-size:15.5px}}
+.faq-section{background:#FAFAF7;padding:64px 20px;border-top:1px solid #E5E5E0}
+.faq-container{max-width:900px;margin:0 auto}
+.faq-header{margin-bottom:48px}
+.faq-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.15em;color:#3973B0;margin-bottom:12px;font-weight:600}
+.faq-title{font-family:'Fraunces',serif;font-size:32px;font-weight:400;line-height:1.1;margin:0;color:#0F1B2D}
+.faq-grid{display:grid;gap:16px}
+.faq-card{background:#fff;border:1px solid #E4E1D8;border-radius:8px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.faq-card:hover{border-color:#3973B0;box-shadow:0 2px 8px rgba(57,115,176,0.08)}
+.faq-card-header{padding:20px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(to right,rgba(57,115,176,0.02),transparent)}
+.faq-card.open .faq-card-header{border-bottom:1px solid #E4E1D8}
+.faq-card-question{display:flex;align-items:baseline;gap:12px;flex:1}
+.faq-index{font-family:'JetBrains Mono',monospace;font-size:11px;color:#3973B0;font-weight:600;min-width:24px}
+.faq-question-text{font-family:'Geist',sans-serif;font-size:16px;font-weight:500;line-height:1.4;color:#0F1B2D}
+.faq-toggle{width:24px;height:24px;border-radius:4px;background:rgba(57,115,176,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.faq-toggle svg{width:14px;height:14px;stroke:#3973B0;stroke-width:2.5;transition:transform .3s}
+.faq-card.open .faq-toggle{background:#3973B0}
+.faq-card.open .faq-toggle svg{stroke:#fff;transform:rotate(90deg)}
+.faq-card-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-card.open .faq-card-body{max-height:500px}
+.faq-answer{padding:20px 24px;font-size:15px;line-height:1.7;color:rgba(15,27,45,0.75)}
+.faq-answer strong{color:#0F1B2D;font-weight:600}
+.faq-answer code{font-family:'JetBrains Mono',monospace;font-size:13px;background:rgba(57,115,176,0.08);padding:2px 6px;border-radius:3px;color:#3973B0}
+.faq-footer{text-align:center;margin-top:32px}
+.faq-footer-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#3973B0;text-decoration:none;transition:gap .2s}
+.faq-footer-link:hover{gap:10px}
+.faq-footer-link svg{width:14px;height:14px;stroke:currentColor;stroke-width:2}
+@media(max-width:640px){.faq-section{padding:48px 20px}.faq-title{font-size:26px}.faq-card-header{padding:16px 18px}.faq-question-text{font-size:15px}.faq-answer{padding:16px 18px;font-size:14px}}
 footer{background:#0B2545;color:#E8EEF5;padding:32px 24px 20px;font-family:'Geist',-apple-system,sans-serif}@media(min-width:768px){footer{padding:64px 48px 36px}}
 .footer-inner{max-width:1200px;margin:0 auto}
 .footer-brand{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -689,38 +707,102 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 </div>
 </div>
 
-<div class="container section">
-<div style="margin-bottom:24px;padding-top:8px">
-<div class="label-mono" style="color:var(--accent);margin-bottom:12px">● &nbsp;Frequently asked questions</div>
-<h2 style="margin:0">What buyers ask first.</h2>
+<section class="faq-section">
+<div class="faq-container">
+<div class="faq-header">
+<div class="faq-eyebrow">Documentation</div>
+<h2 class="faq-title">Common questions.</h2>
 </div>
-
-<div class="faq">
-<div class="faq-item" onclick="this.classList.toggle('open')">
-<div class="faq-question"><span>What does <strong>Janoshik</strong>-verified mean?</span><span class="faq-icon">+</span></div>
-<div class="faq-answer"><p>Every batch is sent to <strong><span style="white-space:nowrap">Janoshik</span></strong> for independent third-party testing. This includes HPLC-DAD (purity), LC-MS/MS (identity), and endotoxin screening.</p></div>
+<div class="faq-grid">
+<div class="faq-card" onclick="this.classList.toggle('open')">
+<div class="faq-card-header">
+<div class="faq-card-question">
+<span class="faq-index">01</span>
+<div class="faq-question-text">What testing does each batch receive?</div>
 </div>
-<div class="faq-item" onclick="this.classList.toggle('open')">
-<div class="faq-question"><span>Do you ship internationally?</span><span class="faq-icon">+</span></div>
-<div class="faq-answer"><p>We currently ship within the United States only.</p></div>
-</div>
-<div class="faq-item" onclick="this.classList.toggle('open')">
-<div class="faq-question"><span>How do I verify my COA?</span><span class="faq-icon">+</span></div>
-<div class="faq-answer"><p>Enter your VX Batch ID (printed on the vial label) into our Verification Portal. The full analytical report displays instantly with one-click <strong>Janoshik.com</strong> verification.</p></div>
-</div>
-<div class="faq-item" onclick="this.classList.toggle('open')">
-<div class="faq-question"><span>Are these products for human consumption?</span><span class="faq-icon">+</span></div>
-<div class="faq-answer"><p>No. All <span style="white-space:nowrap">Vantix Bio</span> compounds are sold strictly for in vitro and in vivo laboratory research purposes only under the Research Use Only (RUO) exemption.</p></div>
-</div>
-<div class="faq-item" onclick="this.classList.toggle('open')">
-<div class="faq-question"><span>Why <strong><span style="white-space:nowrap">Janoshik</span></strong>?</span><span class="faq-icon">+</span></div>
-<div class="faq-answer"><p>Janoshik is the peptide research community's verification standard due to publicly verifiable Task IDs, specialized peptide testing expertise, and 10+ years of track record.</p></div>
+<div class="faq-toggle">
+<svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </div>
 </div>
-<div style="text-align:center;margin-top:24px;padding-bottom:16px">
-<a href="faq.html" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:600">View all FAQs →</a>
+<div class="faq-card-body">
+<div class="faq-answer">
+Every batch undergoes independent third-party verification: <strong>HPLC-DAD</strong> (purity quantification), <strong>LC-MS/MS</strong> (molecular identity), and <strong>LAL endotoxin screening</strong> (bacterial contamination check). Reports are published with verifiable task IDs.
 </div>
 </div>
+</div>
+<div class="faq-card" onclick="this.classList.toggle('open')">
+<div class="faq-card-header">
+<div class="faq-card-question">
+<span class="faq-index">02</span>
+<div class="faq-question-text">How do I verify a COA?</div>
+</div>
+<div class="faq-toggle">
+<svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+</div>
+<div class="faq-card-body">
+<div class="faq-answer">
+Enter your <code>VX-[PRODUCT]-XXX</code> batch ID (printed on vial label) into the <a href="verify.html" style="color:#3973B0;font-weight:600">Verification Portal</a>. The full analytical report displays instantly with direct links to lab verification pages.
+</div>
+</div>
+</div>
+<div class="faq-card" onclick="this.classList.toggle('open')">
+<div class="faq-card-header">
+<div class="faq-card-question">
+<span class="faq-index">03</span>
+<div class="faq-question-text">What does "Research Use Only" mean?</div>
+</div>
+<div class="faq-toggle">
+<svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+</div>
+<div class="faq-card-body">
+<div class="faq-answer">
+All Vantix Bio compounds are sold strictly for <strong>in vitro</strong> and <strong>in vivo</strong> laboratory research under the RUO exemption. Not for human consumption, clinical use, or therapeutic purposes.
+</div>
+</div>
+</div>
+<div class="faq-card" onclick="this.classList.toggle('open')">
+<div class="faq-card-header">
+<div class="faq-card-question">
+<span class="faq-index">04</span>
+<div class="faq-question-text">Do you ship internationally?</div>
+</div>
+<div class="faq-toggle">
+<svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+</div>
+<div class="faq-card-body">
+<div class="faq-answer">
+We currently ship within the United States only. International shipping introduces regulatory complexity and delays that compromise batch traceability.
+</div>
+</div>
+</div>
+<div class="faq-card" onclick="this.classList.toggle('open')">
+<div class="faq-card-header">
+<div class="faq-card-question">
+<span class="faq-index">05</span>
+<div class="faq-question-text">How long until my order ships?</div>
+</div>
+<div class="faq-toggle">
+<svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+</div>
+<div class="faq-card-body">
+<div class="faq-answer">
+In-stock orders ship same-day or next business day. USPS Priority Mail typically delivers in 2-3 business days. You receive tracking immediately after shipment.
+</div>
+</div>
+</div>
+</div>
+<div class="faq-footer">
+<a href="faq.html" class="faq-footer-link">
+View full documentation
+<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+</div>
+</div>
+</section>
 
 <!-- Research & Education Section -->
 <section class="research-preview" style="background:#fff;padding:28px 0;border-top:1px solid var(--hairline)">
