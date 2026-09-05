@@ -27,28 +27,30 @@ body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var
 .nav-links{display:flex;gap:20px}
 .nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
 .nav-links a:hover{color:#fff}
-.hero{padding:80px 24px 64px;text-align:center;background:linear-gradient(to bottom,#fff,var(--bg))}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:400;line-height:1.1;margin-bottom:16px;color:var(--navy)}
-.hero p{font-size:18px;color:rgba(15,27,45,.68);max-width:600px;margin:0 auto;line-height:1.6}
+.hero{padding:64px 24px 48px;background:var(--bg)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:600;margin-bottom:12px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,2.5rem);font-weight:400;line-height:1.1;margin-bottom:16px;color:var(--navy)}
+.hero p{font-size:16px;color:rgba(15,27,45,.65);max-width:560px;line-height:1.65}
 .section{padding:64px 24px}
 .section-title{font-family:'Fraunces',serif;font-size:28px;font-weight:400;margin-bottom:32px;color:var(--navy)}
-.card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:32px;margin-bottom:24px}
-.card h3{font-family:'Geist',sans-serif;font-size:18px;font-weight:600;margin-bottom:12px;color:var(--navy)}
-.card p{font-size:15px;line-height:1.7;color:rgba(15,27,45,.75)}
-.card ul{margin:16px 0 0 20px}
-.card li{font-size:15px;line-height:1.8;color:rgba(15,27,45,.75);margin-bottom:8px}
+.card{background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:28px;margin-bottom:20px;border-left:3px solid var(--accent)}
+.card h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:600;margin-bottom:16px}
+.card p{font-size:14px;line-height:1.65;color:rgba(15,27,45,.7)}
+.card ul{margin:12px 0 0 0;padding:0;list-style:none}
+.card li{font-size:14px;line-height:1.8;color:rgba(15,27,45,.75);margin-bottom:10px;padding-left:20px;position:relative}
+.card li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:600}
 .form-group{margin-bottom:24px}
-.form-label{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--navy);font-weight:600;margin-bottom:8px;display:block}
-.form-input,.form-textarea,.form-select{width:100%;padding:14px 16px;border:1px solid var(--hairline);border-radius:8px;font-family:'Geist',sans-serif;font-size:15px;transition:border-color .2s;background:#fff}
-.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--accent)}
-.form-textarea{min-height:120px;resize:vertical}
-.btn-submit{background:var(--navy);color:#fff;border:none;padding:16px 32px;font-size:15px;font-weight:600;border-radius:8px;cursor:pointer;transition:all .2s;width:100%}
-.btn-submit:hover{background:#1a2d4d;transform:translateY(-1px)}
-.not-fit{background:#FEF3F2;border:1px solid #FDA29B;border-radius:12px;padding:24px;margin-top:32px}
-.not-fit h3{font-size:16px;font-weight:600;color:#B42318;margin-bottom:12px}
-.not-fit ul{margin:0;padding:0;list-style:none}
-.not-fit li{font-size:14px;color:#B42318;margin-bottom:6px}
-.not-fit li::before{content:'❌';margin-right:8px}
+.form-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(15,27,45,.6);font-weight:600;margin-bottom:8px;display:block}
+.form-input,.form-textarea,.form-select{width:100%;padding:12px 14px;border:1px solid var(--hairline);border-radius:6px;font-family:'Geist',sans-serif;font-size:14px;transition:all .2s;background:#fff}
+.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(57,115,176,.08)}
+.form-textarea{min-height:100px;resize:vertical;font-family:'Geist',sans-serif}
+.btn-submit{background:var(--navy);color:#fff;border:none;padding:14px 24px;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .2s;width:100%;font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
+.btn-submit:hover{background:#1a2d4d;box-shadow:0 4px 12px rgba(15,27,45,.15)}
+.not-fit{background:#FEF3F2;border:1px solid #FDA29B;border-radius:8px;padding:24px;margin-top:40px;border-left:3px solid #B42318}
+.not-fit h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#B42318;font-weight:600;margin-bottom:12px}
+.not-fit ul{margin:8px 0 0 0;padding:0;list-style:none}
+.not-fit li{font-size:13px;color:#B42318;margin-bottom:8px;padding-left:20px;position:relative}
+.not-fit li::before{content:'×';position:absolute;left:0;font-size:16px;font-weight:700}
 footer{background:var(--navy);color:#E8EEF5;padding:32px 24px;margin-top:64px}
 .footer-text{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(232,238,245,.4);text-align:center}
 @media(max-width:640px){.hero{padding:48px 20px 40px}.hero h1{font-size:1.75rem}.section{padding:48px 20px}.card{padding:24px}}
@@ -71,33 +73,39 @@ footer{background:var(--navy);color:#E8EEF5;padding:32px 24px;margin-top:64px}
 </header>
 
 <div class="hero">
-<h1>Wholesale Program</h1>
-<p>Volume pricing for research institutions, university labs, and authorized distributors. Same batch-level verification standard.</p>
+<div class="container">
+<div class="eyebrow">Wholesale / Volume Pricing</div>
+<h1>Research institution partnerships.</h1>
+<p>Volume pricing for university labs, research facilities, and authorized distributors. Same batch-level verification, competitive wholesale rates.</p>
+</div>
 </div>
 
 <div class="container section">
 
 <div class="card">
-<h3>Minimum Requirements</h3>
+<h3>Requirements</h3>
 <ul>
-<li><strong>$2,000+ per order</strong> (or $5,000/month commitment)</li>
+<li>$2,000+ per order (or $5,000/month commitment)</li>
 <li>Valid institutional credentials or business license</li>
 <li>Research Use Only compliance agreement</li>
 </ul>
 </div>
 
 <div class="card">
-<h3>What You Get</h3>
+<h3>Program Benefits</h3>
 <ul>
-<li><strong>Volume pricing</strong> — 15-30% discount depending on order size</li>
-<li><strong>Priority restocking</strong> — wholesale orders jump the fulfillment queue</li>
-<li><strong>Direct lab communication</strong> — coordinate custom testing needs</li>
-<li><strong>Dedicated account manager</strong> — single point of contact</li>
-<li><strong>NET 30 payment terms</strong> — after account approval</li>
+<li>Volume pricing — 15-30% discount depending on order size</li>
+<li>Priority restocking — wholesale orders jump the fulfillment queue</li>
+<li>Direct lab communication — coordinate custom testing needs</li>
+<li>Dedicated account manager — single point of contact</li>
+<li>NET 30 payment terms — after account approval</li>
 </ul>
 </div>
 
-<h2 class="section-title">Inquiry Form</h2>
+<div style="margin:48px 0 32px">
+<div class="eyebrow">Wholesale Inquiry</div>
+<h2 class="section-title">Submit request.</h2>
+</div>
 
 <form action="https://formspree.io/f/xanyzkld" method="POST">
 <div class="form-group">
@@ -135,8 +143,7 @@ footer{background:var(--navy);color:#E8EEF5;padding:32px 24px;margin-top:64px}
 </form>
 
 <div class="not-fit">
-<h3>Not a Good Fit</h3>
-<p style="font-size:14px;margin-bottom:12px;color:#B42318">We don't support:</p>
+<h3>Not Supported</h3>
 <ul>
 <li>Resellers without established customer base</li>
 <li>Orders intended for human consumption</li>
