@@ -132,6 +132,23 @@ footer{background:var(--navy);color:#E8EEF5;padding:32px 24px;margin-top:64px}
 </div>
 
 <div class="form-group">
+<label class="form-label" for="business-type">Business Type</label>
+<select id="business-type" name="business_type" class="form-select" required>
+<option value="">Select type...</option>
+<option value="research-institution">Research Institution / University Lab</option>
+<option value="biotech">Biotech Company</option>
+<option value="cro">Contract Research Organization (CRO)</option>
+<option value="distributor">Distributor / Reseller</option>
+<option value="other">Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="products">Products of Interest <span style="font-size:9px;font-weight:400;opacity:0.6">(optional)</span></label>
+<input type="text" id="products" name="products" class="form-input" placeholder="e.g., Tirzepatide, BPC-157, Retatrutide">
+</div>
+
+<div class="form-group">
 <label class="form-label" for="volume">Estimated Monthly Volume</label>
 <select id="volume" name="volume" class="form-select" required>
 <option value="">Select range...</option>
@@ -143,8 +160,19 @@ footer{background:var(--navy);color:#E8EEF5;padding:32px 24px;margin-top:64px}
 </div>
 
 <div class="form-group">
-<label class="form-label" for="message">Research Use Case / Additional Details</label>
-<textarea id="message" name="message" class="form-textarea"></textarea>
+<label class="form-label" for="timeline">First Order Timeline <span style="font-size:9px;font-weight:400;opacity:0.6">(optional)</span></label>
+<select id="timeline" name="timeline" class="form-select">
+<option value="">Select timeline...</option>
+<option value="2-weeks">Within 2 weeks</option>
+<option value="1-month">Within 1 month</option>
+<option value="3-months">Within 3 months</option>
+<option value="exploring">Exploring options</option>
+</select>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="message">Additional Details <span style="font-size:9px;font-weight:400;opacity:0.6">(optional)</span></label>
+<textarea id="message" name="message" class="form-textarea" placeholder="Research use case, special requirements, questions..."></textarea>
 </div>
 
 <button type="submit" class="btn-submit">Submit Inquiry</button>
