@@ -834,11 +834,15 @@ document.getElementById('productName').innerHTML = batch.name.replace(' ', '<br>
 document.getElementById('batchId').textContent = batchId;
 document.getElementById('verifiedDate').textContent = 'Verified ' + batch.tested;
 
-// Build stats
+// Build stats (conditionally show endotoxin)
+const endotoxinHtml = (batch.endotoxin && batch.endotoxin !== 'Not tested' && batch.endotoxin !== 'Not applicable') 
+  ? `<div class="stat"><div class="stat-label">Endotoxin</div><div class="stat-value">${batch.endotoxin}</div><div class="stat-unit">${batch.endotoxinUnit}</div><div class="stat-spec">${batch.endotoxinSpec}</div></div>`
+  : '';
+
 const statsHtml = `
 <div class="stat"><div class="stat-label">Content</div><div class="stat-value">${batch.content}</div><div class="stat-unit">${batch.contentUnit}</div><div class="stat-spec">${batch.contentSpec}</div></div>
 <div class="stat"><div class="stat-label">Purity</div><div class="stat-value">${batch.purity}<span style="font-size:14px;">%</span></div><div class="stat-unit">HPLC</div><div class="stat-spec">${batch.puritySpec}</div></div>
-<div class="stat"><div class="stat-label">Endotoxin</div><div class="stat-value">${batch.endotoxin}</div><div class="stat-unit">${batch.endotoxinUnit}</div><div class="stat-spec">${batch.endotoxinSpec}</div></div>
+${endotoxinHtml}
 `;
 document.getElementById('statsSection').innerHTML = statsHtml;
 
