@@ -8,8 +8,8 @@
   "VX-RETA-20": {
     "sku": "VX-RETA-20",
     "name": "Retatrutide 20mg",
-    "stock": 0,
-    "inStock": false
+    "stock": 50,
+    "inStock": true
   },
   "VX-SEMA-10": {
     "sku": "VX-SEMA-10",
