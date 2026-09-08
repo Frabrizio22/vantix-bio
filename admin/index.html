@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vantix Admin — Order Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/geist');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg: #050812;
+      --surface: #0a1428;
+      --surface-elevated: #0f1b2d;
+      --border: #1a2942;
+      --text: #e8edf4;
+      --text-dim: #7e8ba3;
+      --text-dimmer: #4a5568;
+      --accent: #60a5fa;
+      --accent-dim: #3973B0;
+      --signal: #7BA88F;
+      --signal-dim: #4A8568;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --grid: #1a2536;
+    }
+    
+    body {
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+      animation: gridPulse 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.4; }
+    }
+    
+    .status-bar {
+      background: var(--surface-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    
+    .status-inner {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--signal);
+      box-shadow: 0 0 0 0 rgba(123, 168, 143, 0.7);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(123, 168, 143, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(123, 168, 143, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(123, 168, 143, 0); }
+    }
+    
+    .header {
+      padding: 48px 32px 32px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-inner {
+      max-width: 1800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    
+    .header-left h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--text-dimmer);
+      text-transform: uppercase;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 0 32px 32px;
+      max-width: 1800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--signal));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .stat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+    
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--text) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .container {
+      padding: 0 32px 80px;
+      max-width: 1800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .filters {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 2fr 1fr auto auto;
+      gap: 12px;
+    }
+    
+    @media (max-width: 1024px) {
+      .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    input, select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Geist', sans-serif;
+      transition: all 0.2s;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+    }
+    
+    input::placeholder {
+      color: var(--text-dimmer);
+    }
+    
+    button {
+      background: var(--accent-dim);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Geist', sans-serif;
+      letter-spacing: 0.02em;
+    }
+    
+    button:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .orders-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    thead {
+      background: var(--surface-elevated);
+      position: sticky;
+      top: 51px;
+      z-index: 10;
+    }
+    
+    th {
+      text-align: left;
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    
+    tr:hover {
+      background: rgba(96, 165, 250, 0.03);
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .order-number {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .order-number:hover {
+      color: var(--signal);
+      text-decoration: underline;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .status-pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .status-paid {
+      background: rgba(123, 168, 143, 0.15);
+      color: #7BA88F;
+      border: 1px solid rgba(123, 168, 143, 0.3);
+    }
+    
+    .status-shipped {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+    
+    .status-refunded {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-dimmer);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-dim);
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 18, 0.9);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      padding: 40px;
+      overflow-y: auto;
+    }
+    
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      margin: 40px 0;
+      position: relative;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .modal-header h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .modal-close {
+      background: transparent;
+      color: var(--text-dim);
+      font-size: 32px;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .modal-close:hover {
+      color: var(--text);
+    }
+    
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .detail-label {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-dim);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    
+    .detail-value {
+      font-weight: 500;
+      text-align: right;
+    }
+    
+    .items-section {
+      margin: 32px 0;
+    }
+    
+    .items-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    
+    .items-list {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .item-row:last-child {
+      border-bottom: none;
+    }
+    
+    .item-name {
+      color: var(--text);
+    }
+    
+    .item-price {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .actions {
+      margin-top: 32px;
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--border);
+    }
+  </style>
+</head>
+<body>
+  <div class="status-bar">
+    <div class="status-inner">
+      <div class="status-item">
+        <div class="pulse"></div>
+        <span>System Online</span>
+      </div>
+      <div class="status-item">
+        <span>Admin Dashboard</span>
+      </div>
+      <div class="status-item">
+        <span id="currentTime"></span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-left">
+        <h1>Order Management</h1>
+        <div class="header-subtitle">Vantix Bio Admin Console</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Orders</div>
+      <div class="stat-value" id="statTotal">-</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Revenue</div>
+      <div class="stat-value" id="statRevenue">-</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">This Month</div>
+      <div class="stat-value" id="statMonth">-</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg Order</div>
+      <div class="stat-value" id="statAvg">-</div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search by order #, email, or name...">
+      <select id="statusFilter">
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="paid">Paid</option>
+        <option value="shipped">Shipped</option>
+        <option value="refunded">Refunded</option>
+      </select>
+      <button onclick="loadOrders()">🔍 Search</button>
+      <button onclick="exportCSV()">📥 Export</button>
+    </div>
+    
+    <div class="orders-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody">
+          <tr>
+            <td colspan="7" class="loading">Loading orders...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Order Detail Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalOrderNumber">Order Details</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Supabase config
+    const SUPABASE_URL = 'https://jbnarypjwtfjbscoqfgh.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibmFyeXBqd3RmamJzY29xZmdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MjE3MzgsImV4cCI6MjEwNDM5NzczOH0.RiPhbiTz9oaIpqHHQvUkN7dLxhjA1_GwqHwIbRPk-to';
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    let allOrders = [];
+    
+    // Update time
+    function updateTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false 
+      });
+      document.getElementById('currentTime').textContent = timeStr;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+    
+    // Load orders on page load
+    window.addEventListener('DOMContentLoaded', loadOrders);
+    
+    async function loadOrders() {
+      const tbody = document.getElementById('ordersBody');
+      tbody.innerHTML = '<tr><td colspan="7" class="loading">Loading orders...</td></tr>';
+      
+      try {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const statusFilter = document.getElementById('statusFilter').value;
+        
+        let query = supabase
+          .from('orders')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (statusFilter) {
+          query = query.eq('status', statusFilter);
+        }
+        
+        const { data, error } = await query;
+        
+        if (error) throw error;
+        
+        allOrders = data;
+        
+        let filtered = data;
+        if (search) {
+          filtered = data.filter(order => 
+            order.order_number.toLowerCase().includes(search) ||
+            order.customer_email.toLowerCase().includes(search) ||
+            order.customer_name.toLowerCase().includes(search)
+          );
+        }
+        
+        updateStats(data);
+        
+        if (filtered.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No orders found</td></tr>';
+          return;
+        }
+        
+        tbody.innerHTML = filtered.map(order => `
+          <tr>
+            <td><span class="order-number" onclick="viewOrder('${order.id}')">${order.order_number}</span></td>
+            <td>${new Date(order.created_at).toLocaleDateString()}</td>
+            <td>${order.customer_name}<br><small style="color: var(--text-dim)">${order.customer_email}</small></td>
+            <td>${order.items ? order.items.length : 0} item(s)</td>
+            <td style="font-family: 'JetBrains Mono', monospace; color: var(--accent)">$${parseFloat(order.total).toFixed(2)}</td>
+            <td>${order.payment_method === 'zelle' ? '💰 Zelle' : '💳 Card'}</td>
+            <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+          </tr>
+        `).join('');
+        
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-state" style="color: var(--danger)">Error: ${err.message}</td></tr>`;
+      }
+    }
+    
+    function updateStats(orders) {
+      const total = orders.length;
+      const revenue = orders.reduce((sum, o) => sum + parseFloat(o.total), 0);
+      
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      const monthOrders = orders.filter(o => new Date(o.created_at) >= monthStart);
+      const monthRevenue = monthOrders.reduce((sum, o) => sum + parseFloat(o.total), 0);
+      
+      const avg = total > 0 ? revenue / total : 0;
+      
+      document.getElementById('statTotal').textContent = total.toLocaleString();
+      document.getElementById('statRevenue').textContent = '$' + revenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('statMonth').textContent = '$' + monthRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('statAvg').textContent = '$' + avg.toFixed(2);
+    }
+    
+    async function viewOrder(orderId) {
+      const order = allOrders.find(o => o.id === orderId);
+      if (!order) return;
+      
+      const modal = document.getElementById('orderModal');
+      const modalBody = document.getElementById('modalBody');
+      
+      document.getElementById('modalOrderNumber').textContent = order.order_number;
+      
+      modalBody.innerHTML = `
+        <div class="detail-row">
+          <span class="detail-label">Customer</span>
+          <span class="detail-value">${order.customer_name}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Email</span>
+          <span class="detail-value">${order.customer_email}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value">${order.customer_phone || 'N/A'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Shipping Address</span>
+          <span class="detail-value">${order.shipping_address}<br>${order.shipping_city}, ${order.shipping_state} ${order.shipping_zip}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Order Date</span>
+          <span class="detail-value">${new Date(order.created_at).toLocaleString()}</span>
+        </div>
+        
+        <div class="items-section">
+          <div class="items-header">Order Items</div>
+          <div class="items-list">
+            ${order.items ? order.items.map(item => `
+              <div class="item-row">
+                <span class="item-name">${item.qty}x ${item.name}</span>
+                <span class="item-price">$${(item.qty * item.price).toFixed(2)}</span>
+              </div>
+            `).join('') : '<em style="color: var(--text-dimmer)">No items data</em>'}
+          </div>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Subtotal</span>
+          <span class="detail-value" style="font-family: 'JetBrains Mono', monospace">$${parseFloat(order.subtotal).toFixed(2)}</span>
+        </div>
+        ${order.discount > 0 ? `
+        <div class="detail-row">
+          <span class="detail-label">Discount (${order.discount_code || ''})</span>
+          <span class="detail-value" style="font-family: 'JetBrains Mono', monospace; color: var(--signal)">-$${parseFloat(order.discount).toFixed(2)}</span>
+        </div>` : ''}
+        <div class="detail-row">
+          <span class="detail-label">Shipping</span>
+          <span class="detail-value" style="font-family: 'JetBrains Mono', monospace">$${parseFloat(order.shipping).toFixed(2)}</span>
+        </div>
+        <div class="detail-row" style="border-bottom: none; font-size: 20px; font-weight: 600; padding-top: 20px;">
+          <span style="color: var(--text-dim)">Total</span>
+          <span style="font-family: 'JetBrains Mono', monospace; color: var(--accent)">$${parseFloat(order.total).toFixed(2)}</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Payment Method</span>
+          <span class="detail-value">${order.payment_method === 'zelle' ? '💰 Zelle' : '💳 Credit Card'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Status</span>
+          <span class="detail-value"><span class="status-badge status-${order.status}">${order.status}</span></span>
+        </div>
+        ${order.tracking_number ? `
+        <div class="detail-row">
+          <span class="detail-label">Tracking Number</span>
+          <span class="detail-value">${order.tracking_number}</span>
+        </div>` : ''}
+        
+        <div class="actions">
+          <button onclick="updateStatus('${order.id}', 'shipped')">✓ Mark Shipped</button>
+          <button class="btn-secondary" onclick="closeModal()">Close</button>
+        </div>
+      `;
+      
+      modal.classList.add('active');
+    }
+    
+    function closeModal() {
+      document.getElementById('orderModal').classList.remove('active');
+    }
+    
+    async function updateStatus(orderId, newStatus) {
+      try {
+        const { error } = await supabase
+          .from('orders')
+          .update({ status: newStatus })
+          .eq('id', orderId);
+        
+        if (error) throw error;
+        
+        alert(`Order status updated to: ${newStatus}`);
+        closeModal();
+        loadOrders();
+      } catch (err) {
+        alert('Error updating status: ' + err.message);
+      }
+    }
+    
+    function exportCSV() {
+      const headers = ['Order#', 'Date', 'Customer', 'Email', 'Total', 'Status'];
+      const rows = allOrders.map(o => [
+        o.order_number,
+        new Date(o.created_at).toLocaleDateString(),
+        o.customer_name,
+        o.customer_email,
+        o.total,
+        o.status
+      ]);
+      
+      const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `vantix-orders-${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
