@@ -1,0 +1,3 @@
+-- Re-enable RLS after import
+ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
+ALTER TABLE customers ENABLE ROW LEVEL SECURITY;

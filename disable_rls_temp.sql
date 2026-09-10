@@ -1,0 +1,3 @@
+-- Temporarily disable RLS for import
+ALTER TABLE orders DISABLE ROW LEVEL SECURITY;
+ALTER TABLE customers DISABLE ROW LEVEL SECURITY;
