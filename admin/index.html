@@ -255,6 +255,9 @@
     // Login
     function login() {
       const password = document.getElementById('passwordInput').value;
+      console.log('Attempting login with:', password);
+      console.log('Expected:', ADMIN_PASSWORD);
+      console.log('Match:', password === ADMIN_PASSWORD);
       if (password === ADMIN_PASSWORD) {
         sessionStorage.setItem('vantix_admin_auth', 'true');
         document.getElementById('loginScreen').style.display = 'none';
