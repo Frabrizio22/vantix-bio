@@ -3,18 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vantix Admin — Dashboard</title>
+  <title>Vantix Admin — Enterprise Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     @import url('https://fonts.cdnfonts.com/css/geist');
     
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
       --bg: #050812;
@@ -27,21 +23,19 @@
       --accent: #60a5fa;
       --accent-dim: #3973B0;
       --signal: #7BA88F;
-      --signal-dim: #4A8568;
       --warning: #f59e0b;
       --danger: #ef4444;
       --grid: #1a2536;
     }
     
     body {
-      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Geist', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
     }
     
-    /* Animated grid background */
     body::before {
       content: '';
       position: fixed;
@@ -86,18 +80,11 @@
       padding: 0 32px;
     }
     
-    .status-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
     .pulse {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: var(--signal);
-      box-shadow: 0 0 0 0 rgba(123, 168, 143, 0.7);
       animation: pulse 2s infinite;
     }
     
@@ -117,6 +104,7 @@
       border-right: 1px solid var(--border);
       padding: 24px 0;
       z-index: 50;
+      overflow-y: auto;
     }
     
     .nav-item {
@@ -158,6 +146,9 @@
     
     .header {
       margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     
     .header h1 {
@@ -165,11 +156,32 @@
       font-size: clamp(32px, 5vw, 48px);
       font-weight: 300;
       letter-spacing: -0.025em;
-      margin-bottom: 8px;
       background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
+    }
+    
+    .date-filter {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .date-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .date-btn:hover, .date-btn.active {
+      background: var(--accent-dim);
+      color: white;
+      border-color: var(--accent);
     }
     
     .stats-grid {
@@ -186,28 +198,12 @@
       padding: 24px;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--signal));
-      opacity: 0;
-      transition: opacity 0.3s;
+      transition: all 0.3s;
     }
     
     .stat-card:hover {
       border-color: var(--accent);
       transform: translateY(-2px);
-    }
-    
-    .stat-card:hover::before {
-      opacity: 1;
     }
     
     .stat-label {
@@ -227,7 +223,6 @@
       background: linear-gradient(135deg, var(--accent) 0%, var(--text) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
     
     .stat-change {
@@ -239,13 +234,8 @@
       gap: 4px;
     }
     
-    .stat-change.positive {
-      color: var(--signal);
-    }
-    
-    .stat-change.negative {
-      color: var(--danger);
-    }
+    .stat-change.positive { color: var(--signal); }
+    .stat-change.negative { color: var(--danger); }
     
     .chart-container {
       background: var(--surface);
@@ -271,14 +261,8 @@
       padding: 24px;
       margin-bottom: 24px;
       display: grid;
-      grid-template-columns: 2fr 1fr auto auto;
+      grid-template-columns: 2fr 1fr 1fr auto auto;
       gap: 12px;
-    }
-    
-    @media (max-width: 1024px) {
-      .filters {
-        grid-template-columns: 1fr;
-      }
     }
     
     input, select {
@@ -298,10 +282,6 @@
       box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
     }
     
-    input::placeholder {
-      color: var(--text-dimmer);
-    }
-    
     button {
       background: var(--accent-dim);
       color: white;
@@ -313,17 +293,12 @@
       cursor: pointer;
       transition: all 0.2s;
       font-family: 'Geist', sans-serif;
-      letter-spacing: 0.02em;
     }
     
     button:hover {
       background: var(--accent);
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
-    }
-    
-    button:active {
-      transform: translateY(0);
     }
     
     .data-table {
@@ -365,10 +340,6 @@
     
     tr:hover {
       background: rgba(96, 165, 250, 0.03);
-    }
-    
-    tr:last-child td {
-      border-bottom: none;
     }
     
     .order-number {
@@ -419,6 +390,110 @@
       border: 1px solid rgba(239, 68, 68, 0.3);
     }
     
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+    
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-title {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 400;
+    }
+    
+    .modal-close {
+      background: transparent;
+      color: var(--text-dim);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+    
+    .modal-close:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+    
+    .modal-body {
+      padding: 24px;
+    }
+    
+    .modal-section {
+      margin-bottom: 24px;
+    }
+    
+    .modal-section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .btn-secondary {
+      background: var(--surface-elevated);
+      color: var(--text);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--border);
+    }
+    
     .empty-state {
       text-align: center;
       padding: 80px 20px;
@@ -431,100 +506,30 @@
       color: var(--text-dim);
     }
     
-    .product-list {
-      display: grid;
-      gap: 16px;
-    }
-    
-    .product-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 20px;
-      align-items: center;
-    }
-    
-    .product-info h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    
-    .product-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-    
-    .stock-indicator {
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    
-    .stock-ok {
-      background: rgba(123, 168, 143, 0.15);
-      color: var(--signal);
-    }
-    
-    .stock-low {
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--warning);
-    }
-    
-    .stock-out {
-      background: rgba(239, 68, 68, 0.15);
-      color: var(--danger);
-    }
-    
     @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
-      
-      .main-content {
-        margin-left: 0;
-      }
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+      .filters { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="status-bar">
     <div class="status-inner">
-      <div class="status-item">
+      <div style="display: flex; align-items: center; gap: 8px;">
         <div class="pulse"></div>
         <span>System Online</span>
       </div>
-      <div class="status-item">
-        <span>Admin Dashboard</span>
-      </div>
-      <div class="status-item">
-        <span id="currentTime"></span>
-      </div>
+      <div><span id="currentTime"></span></div>
     </div>
   </div>
   
   <div class="sidebar">
-    <div class="nav-item active" onclick="showPage('dashboard')">
-      📊 Dashboard
-    </div>
-    <div class="nav-item" onclick="showPage('orders')">
-      📦 Orders
-    </div>
-    <div class="nav-item" onclick="showPage('products')">
-      🏷️ Products
-    </div>
-    <div class="nav-item" onclick="showPage('customers')">
-      👥 Customers
-    </div>
-    <div class="nav-item" onclick="showPage('analytics')">
-      📈 Analytics
-    </div>
+    <div class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</div>
+    <div class="nav-item" onclick="showPage('orders')">📦 Orders</div>
+    <div class="nav-item" onclick="showPage('products')">🏷️ Products</div>
+    <div class="nav-item" onclick="showPage('customers')">👥 Customers</div>
+    <div class="nav-item" onclick="showPage('analytics')">📈 Analytics</div>
   </div>
   
   <div class="main-content">
@@ -532,47 +537,45 @@
     <div id="dashboard" class="page active">
       <div class="header">
         <h1>Dashboard</h1>
+        <div class="date-filter">
+          <button class="date-btn active" onclick="setDateRange('today')">Today</button>
+          <button class="date-btn" onclick="setDateRange('week')">Week</button>
+          <button class="date-btn" onclick="setDateRange('month')">Month</button>
+          <button class="date-btn" onclick="setDateRange('all')">All Time</button>
+        </div>
       </div>
       
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-label">Total Revenue</div>
           <div class="stat-value" id="totalRevenue">$0</div>
-          <div class="stat-change positive" id="revenueChange">
-            ↑ 0% vs last month
-          </div>
+          <div class="stat-change positive" id="revenueChange">↑ 0%</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Total Orders</div>
           <div class="stat-value" id="totalOrders">0</div>
-          <div class="stat-change positive" id="ordersChange">
-            ↑ 0% vs last month
-          </div>
+          <div class="stat-change positive" id="ordersChange">↑ 0%</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Avg Order Value</div>
           <div class="stat-value" id="avgOrder">$0</div>
-          <div class="stat-change positive" id="avgChange">
-            ↑ 0% vs last month
-          </div>
+          <div class="stat-change" id="avgChange">—</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">This Month</div>
-          <div class="stat-value" id="thisMonth">$0</div>
-          <div class="stat-change" id="monthChange">
-            — orders
-          </div>
+          <div class="stat-label">Conversion Rate</div>
+          <div class="stat-value" id="conversionRate">0%</div>
+          <div class="stat-change" id="convChange">—</div>
         </div>
       </div>
       
       <div class="chart-container">
-        <div class="chart-title">Revenue Over Time (Last 30 Days)</div>
+        <div class="chart-title">Revenue Over Time</div>
         <canvas id="revenueChart"></canvas>
       </div>
       
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
         <div class="chart-container">
-          <div class="chart-title">Top Products by Revenue</div>
+          <div class="chart-title">Top Products</div>
           <canvas id="topProductsChart"></canvas>
         </div>
         <div class="chart-container">
@@ -580,21 +583,22 @@
           <canvas id="paymentChart"></canvas>
         </div>
       </div>
-      
-      <div class="chart-container">
-        <div class="chart-title">Recent Orders</div>
-        <div id="recentOrders" class="loading">Loading...</div>
-      </div>
     </div>
     
     <!-- Orders Page -->
     <div id="orders" class="page">
       <div class="header">
         <h1>Orders</h1>
+        <div class="date-filter">
+          <button class="date-btn active" onclick="setOrderDateRange('today')">Today</button>
+          <button class="date-btn" onclick="setOrderDateRange('week')">Week</button>
+          <button class="date-btn" onclick="setOrderDateRange('month')">Month</button>
+          <button class="date-btn" onclick="setOrderDateRange('all')">All Time</button>
+        </div>
       </div>
       
       <div class="filters">
-        <input type="text" id="orderSearch" placeholder="Search by order #, email, or name..." onkeyup="filterOrders()">
+        <input type="text" id="orderSearch" placeholder="Search orders..." onkeyup="filterOrders()">
         <select id="orderStatus" onchange="filterOrders()">
           <option value="">All Statuses</option>
           <option value="pending">Pending</option>
@@ -602,7 +606,12 @@
           <option value="shipped">Shipped</option>
           <option value="refunded">Refunded</option>
         </select>
-        <button onclick="exportOrdersCSV()">📥 Export CSV</button>
+        <select id="paymentFilter" onchange="filterOrders()">
+          <option value="">All Payments</option>
+          <option value="zelle">Zelle</option>
+          <option value="card">Credit Card</option>
+        </select>
+        <button onclick="exportCSV()">📥 Export</button>
         <button onclick="loadOrders()">🔄 Refresh</button>
       </div>
       
@@ -617,10 +626,11 @@
               <th>Total</th>
               <th>Payment</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="ordersTable">
-            <tr><td colspan="7" class="loading">Loading orders...</td></tr>
+            <tr><td colspan="8" class="loading">Loading orders...</td></tr>
           </tbody>
         </table>
       </div>
@@ -631,10 +641,7 @@
       <div class="header">
         <h1>Products & Inventory</h1>
       </div>
-      
-      <div class="product-list" id="productList">
-        <div class="loading">Loading products...</div>
-      </div>
+      <div id="productList" class="loading">Loading products...</div>
     </div>
     
     <!-- Customers Page -->
@@ -642,7 +649,6 @@
       <div class="header">
         <h1>Customers</h1>
       </div>
-      
       <div class="data-table">
         <table>
           <thead>
@@ -666,16 +672,21 @@
     <div id="analytics" class="page">
       <div class="header">
         <h1>Analytics</h1>
+        <div class="date-filter">
+          <button class="date-btn active" onclick="setAnalyticsRange('week')">7 Days</button>
+          <button class="date-btn" onclick="setAnalyticsRange('month')">30 Days</button>
+          <button class="date-btn" onclick="setAnalyticsRange('quarter')">90 Days</button>
+        </div>
       </div>
       
       <div class="chart-container">
-        <div class="chart-title">Daily Revenue Trend (Last 30 Days)</div>
+        <div class="chart-title">Daily Revenue Trend</div>
         <canvas id="dailyRevenueChart"></canvas>
       </div>
       
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
         <div class="chart-container">
-          <div class="chart-title">Top 10 Products by Units Sold</div>
+          <div class="chart-title">Top 10 Products by Units</div>
           <canvas id="unitsSoldChart"></canvas>
         </div>
         <div class="chart-container">
@@ -683,38 +694,44 @@
           <canvas id="statusChart"></canvas>
         </div>
       </div>
-      
-      <div class="chart-container">
-        <div class="chart-title">Average Order Value Trend</div>
-        <canvas id="aovChart"></canvas>
+    </div>
+  </div>
+  
+  <!-- Order Detail Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="modalOrderNumber">Order Details</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        Loading...
+      </div>
+      <div class="form-actions">
+        <button class="btn-secondary" onclick="closeModal()">Close</button>
+        <button onclick="saveOrderChanges()">Save Changes</button>
       </div>
     </div>
   </div>
   
   <script>
-    // Direct REST API approach
     const SUPABASE_URL = 'https://jbnarypjwtfjbscoqfgh.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibmFyeXBqd3RmamJzY29xZmdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MjE3MzgsImV4cCI6MjEwNDM5NzczOH0.RiPhbiTz9oaIpqHHQvUkN7dLxhjA1_GwqHwIbRPk-to';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibmFyeXBqd3RmamJzY29xZmdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MjE3MzgsImV4cCI6MjEwNDM5NzczOH0.RiPhbiTz9oaIpqHHQvUkN7dLxhjA1_GwqHwIbRPk-to';
+    const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibmFyeXBqd3RmamJzY29xZmdoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4ODgyMTczOCwiZXhwIjoyMTA0Mzk3NzM4fQ.vcOv7F7Ti_59lR2yKSdLwUXWP5iBcDJVFzIVGBlhk0s';
     
     let allOrders = [];
-    let allProducts = [];
+    let filteredOrders = [];
     let charts = {};
+    let currentDateRange = 'all';
+    let currentOrder = null;
     
-    // Update time
     function updateTime() {
       const now = new Date();
-      const timeStr = now.toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false 
-      });
-      document.getElementById('currentTime').textContent = timeStr;
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     }
     setInterval(updateTime, 1000);
     updateTime();
     
-    // Show page
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -728,99 +745,77 @@
       if (pageId === 'analytics') initAnalytics();
     }
     
-    // Fetch data
     async function fetchOrders() {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?select=*&order=created_at.desc`, {
         headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
         }
       });
       return await response.json();
     }
     
-    // Initialize dashboard
-    async function initDashboard() {
-      try {
-        allOrders = await fetchOrders();
-        
-        const total = allOrders.length;
-        const revenue = allOrders.reduce((sum, o) => sum + parseFloat(o.total), 0);
-        const avg = total > 0 ? revenue / total : 0;
-        
-        const now = new Date();
-        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-        const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-        const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0);
-        
-        const thisMonthOrders = allOrders.filter(o => new Date(o.created_at) >= monthStart);
-        const lastMonthOrders = allOrders.filter(o => {
-          const date = new Date(o.created_at);
-          return date >= lastMonthStart && date <= lastMonthEnd;
-        });
-        
-        const thisMonthRevenue = thisMonthOrders.reduce((sum, o) => sum + parseFloat(o.total), 0);
-        const lastMonthRevenue = lastMonthOrders.reduce((sum, o) => sum + parseFloat(o.total), 0);
-        
-        const revenueChange = lastMonthRevenue > 0 
-          ? ((thisMonthRevenue - lastMonthRevenue) / lastMonthRevenue * 100).toFixed(1)
-          : 0;
-        const ordersChange = lastMonthOrders.length > 0
-          ? ((thisMonthOrders.length - lastMonthOrders.length) / lastMonthOrders.length * 100).toFixed(1)
-          : 0;
-        
-        document.getElementById('totalRevenue').textContent = '$' + revenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('totalOrders').textContent = total.toLocaleString();
-        document.getElementById('avgOrder').textContent = '$' + avg.toFixed(2);
-        document.getElementById('thisMonth').textContent = '$' + thisMonthRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        
-        document.getElementById('revenueChange').innerHTML = `${revenueChange >= 0 ? '↑' : '↓'} ${Math.abs(revenueChange)}% vs last month`;
-        document.getElementById('revenueChange').className = `stat-change ${revenueChange >= 0 ? 'positive' : 'negative'}`;
-        
-        document.getElementById('ordersChange').innerHTML = `${ordersChange >= 0 ? '↑' : '↓'} ${Math.abs(ordersChange)}% vs last month`;
-        document.getElementById('ordersChange').className = `stat-change ${ordersChange >= 0 ? 'positive' : 'negative'}`;
-        
-        document.getElementById('monthChange').textContent = `${thisMonthOrders.length} orders`;
-        
-        // Charts
-        initRevenueChart();
-        initTopProductsChart();
-        initPaymentChart();
-        
-        // Recent orders
-        const recentHTML = allOrders.slice(0, 5).map(o => `
-          <div style="padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
-            <div>
-              <span class="order-number">${o.order_number}</span>
-              <div style="font-size: 13px; color: var(--text-dim); margin-top: 4px;">${o.customer_name}</div>
-            </div>
-            <div style="text-align: right;">
-              <div style="font-family: 'JetBrains Mono', monospace; color: var(--accent);">$${parseFloat(o.total).toFixed(2)}</div>
-              <div style="margin-top: 4px;"><span class="status-badge status-${o.status}">${o.status}</span></div>
-            </div>
-          </div>
-        `).join('');
-        document.getElementById('recentOrders').innerHTML = recentHTML;
-        
-      } catch (err) {
-        console.error('Dashboard error:', err);
-      }
+    function filterOrdersByDate(orders, range) {
+      const now = new Date();
+      if (range === 'all') return orders;
+      
+      const cutoff = new Date();
+      if (range === 'today') cutoff.setHours(0, 0, 0, 0);
+      if (range === 'week') cutoff.setDate(now.getDate() - 7);
+      if (range === 'month') cutoff.setMonth(now.getMonth() - 1);
+      
+      return orders.filter(o => new Date(o.created_at) >= cutoff);
     }
     
-    function initRevenueChart() {
-      const ctx = document.getElementById('revenueChart').getContext('2d');
+    function setDateRange(range) {
+      currentDateRange = range;
+      document.querySelectorAll('#dashboard .date-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      initDashboard();
+    }
+    
+    function setOrderDateRange(range) {
+      currentDateRange = range;
+      document.querySelectorAll('#orders .date-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      filterOrders();
+    }
+    
+    function setAnalyticsRange(range) {
+      document.querySelectorAll('#analytics .date-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      initAnalytics(range);
+    }
+    
+    async function initDashboard() {
+      allOrders = await fetchOrders();
+      const orders = filterOrdersByDate(allOrders, currentDateRange);
       
-      // Get last 30 days
+      const revenue = orders.reduce((sum, o) => sum + parseFloat(o.total), 0);
+      const avg = orders.length > 0 ? revenue / orders.length : 0;
+      
+      document.getElementById('totalRevenue').textContent = '$' + revenue.toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById('totalOrders').textContent = orders.length;
+      document.getElementById('avgOrder').textContent = '$' + avg.toFixed(2);
+      document.getElementById('conversionRate').textContent = '—';
+      
+      initRevenueChart(orders);
+      initTopProductsChart(orders);
+      initPaymentChart(orders);
+    }
+    
+    function initRevenueChart(orders) {
+      const ctx = document.getElementById('revenueChart').getContext('2d');
       const days = [];
       const revenues = [];
+      
       for (let i = 29; i >= 0; i--) {
         const date = new Date();
         date.setDate(date.getDate() - i);
         const dateStr = date.toISOString().split('T')[0];
         days.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
         
-        const dayRevenue = allOrders
-          .filter(o => o.created_at.startsWith(dateStr))
+        const dayRevenue = orders.filter(o => o.created_at.startsWith(dateStr))
           .reduce((sum, o) => sum + parseFloat(o.total), 0);
         revenues.push(dayRevenue);
       }
@@ -841,32 +836,20 @@
         },
         options: {
           responsive: true,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: (value) => '$' + value.toFixed(0),
-                color: '#7e8ba3'
-              },
-              grid: { color: '#1a2942' }
-            },
-            x: {
-              ticks: { color: '#7e8ba3' },
-              grid: { display: false }
-            }
+            y: { beginAtZero: true, ticks: { callback: v => '$' + v, color: '#7e8ba3' }, grid: { color: '#1a2942' } },
+            x: { ticks: { color: '#7e8ba3' }, grid: { display: false } }
           }
         }
       });
     }
     
-    function initTopProductsChart() {
+    function initTopProductsChart(orders) {
       const ctx = document.getElementById('topProductsChart').getContext('2d');
-      
       const productRevenue = {};
-      allOrders.forEach(order => {
+      
+      orders.forEach(order => {
         if (order.items) {
           order.items.forEach(item => {
             const name = item.name || 'Unknown';
@@ -876,9 +859,7 @@
         }
       });
       
-      const sorted = Object.entries(productRevenue)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
+      const sorted = Object.entries(productRevenue).sort((a, b) => b[1] - a[1]).slice(0, 5);
       
       if (charts.topProducts) charts.topProducts.destroy();
       charts.topProducts = new Chart(ctx, {
@@ -894,108 +875,166 @@
         options: {
           indexAxis: 'y',
           responsive: true,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            x: {
-              ticks: {
-                callback: (value) => '$' + value.toFixed(0),
-                color: '#7e8ba3'
-              },
-              grid: { color: '#1a2942' }
-            },
-            y: {
-              ticks: { color: '#7e8ba3' },
-              grid: { display: false }
-            }
+            x: { ticks: { callback: v => '$' + v, color: '#7e8ba3' }, grid: { color: '#1a2942' } },
+            y: { ticks: { color: '#7e8ba3' }, grid: { display: false } }
           }
         }
       });
     }
     
-    function initPaymentChart() {
+    function initPaymentChart(orders) {
       const ctx = document.getElementById('paymentChart').getContext('2d');
-      
-      const zelleCount = allOrders.filter(o => o.payment_method === 'zelle').length;
-      const cardCount = allOrders.filter(o => o.payment_method !== 'zelle').length;
+      const zelleCount = orders.filter(o => o.payment_method === 'zelle').length;
+      const cardCount = orders.length - zelleCount;
       
       if (charts.payment) charts.payment.destroy();
       charts.payment = new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: ['Credit Card', 'Zelle'],
-          datasets: [{
-            data: [cardCount, zelleCount],
-            backgroundColor: ['#60a5fa', '#7BA88F']
-          }]
+          datasets: [{ data: [cardCount, zelleCount], backgroundColor: ['#60a5fa', '#7BA88F'] }]
         },
         options: {
           responsive: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: { color: '#7e8ba3' }
-            }
-          }
+          plugins: { legend: { position: 'bottom', labels: { color: '#7e8ba3' } } }
         }
       });
     }
     
-    // Load orders
     async function loadOrders() {
-      try {
-        allOrders = await fetchOrders();
-        renderOrders(allOrders);
-      } catch (err) {
-        console.error('Orders error:', err);
-      }
-    }
-    
-    function renderOrders(orders) {
-      const tbody = document.getElementById('ordersTable');
-      if (orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No orders found</td></tr>';
-        return;
-      }
-      
-      tbody.innerHTML = orders.map(order => `
-        <tr>
-          <td><span class="order-number">${order.order_number}</span></td>
-          <td>${new Date(order.created_at).toLocaleDateString()}</td>
-          <td>${order.customer_name}<br><small style="color: var(--text-dim)">${order.customer_email}</small></td>
-          <td>${order.items ? order.items.length : 0} item(s)</td>
-          <td style="font-family: 'JetBrains Mono', monospace; color: var(--accent)">$${parseFloat(order.total).toFixed(2)}</td>
-          <td>${order.payment_method === 'zelle' ? '💰 Zelle' : '💳 Card'}</td>
-          <td><span class="status-badge status-${order.status}">${order.status}</span></td>
-        </tr>
-      `).join('');
+      allOrders = await fetchOrders();
+      filterOrders();
     }
     
     function filterOrders() {
       const search = document.getElementById('orderSearch').value.toLowerCase();
       const status = document.getElementById('orderStatus').value;
+      const payment = document.getElementById('paymentFilter').value;
       
-      let filtered = allOrders;
+      filteredOrders = filterOrdersByDate(allOrders, currentDateRange);
       
       if (search) {
-        filtered = filtered.filter(o => 
+        filteredOrders = filteredOrders.filter(o => 
           o.order_number.toLowerCase().includes(search) ||
           o.customer_email.toLowerCase().includes(search) ||
           o.customer_name.toLowerCase().includes(search)
         );
       }
       
-      if (status) {
-        filtered = filtered.filter(o => o.status === status);
-      }
+      if (status) filteredOrders = filteredOrders.filter(o => o.status === status);
+      if (payment === 'zelle') filteredOrders = filteredOrders.filter(o => o.payment_method === 'zelle');
+      if (payment === 'card') filteredOrders = filteredOrders.filter(o => o.payment_method !== 'zelle');
       
-      renderOrders(filtered);
+      renderOrders(filteredOrders);
     }
     
-    function exportOrdersCSV() {
+    function renderOrders(orders) {
+      const tbody = document.getElementById('ordersTable');
+      if (orders.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No orders found</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = orders.map(o => `
+        <tr>
+          <td><span class="order-number" onclick="openOrderModal('${o.order_number}')">${o.order_number}</span></td>
+          <td>${new Date(o.created_at).toLocaleDateString()}</td>
+          <td>${o.customer_name}<br><small style="color: var(--text-dim)">${o.customer_email}</small></td>
+          <td>${o.items ? o.items.length : 0}</td>
+          <td style="font-family: 'JetBrains Mono', monospace; color: var(--accent)">$${parseFloat(o.total).toFixed(2)}</td>
+          <td>${o.payment_method === 'zelle' ? '💰 Zelle' : '💳 Card'}</td>
+          <td><span class="status-badge status-${o.status}">${o.status}</span></td>
+          <td><button onclick="openOrderModal('${o.order_number}')" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+        </tr>
+      `).join('');
+    }
+    
+    function openOrderModal(orderNumber) {
+      currentOrder = allOrders.find(o => o.order_number === orderNumber);
+      if (!currentOrder) return;
+      
+      document.getElementById('modalOrderNumber').textContent = orderNumber;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Customer Information</div>
+          <p><strong>Name:</strong> ${currentOrder.customer_name}</p>
+          <p><strong>Email:</strong> ${currentOrder.customer_email}</p>
+          <p><strong>Phone:</strong> ${currentOrder.customer_phone || 'N/A'}</p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">Shipping Address</div>
+          <p>${currentOrder.shipping_address || 'N/A'}</p>
+          <p>${currentOrder.shipping_city || ''}, ${currentOrder.shipping_state || ''} ${currentOrder.shipping_zip || ''}</p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">Order Items</div>
+          ${currentOrder.items ? currentOrder.items.map(item => `
+            <p>${item.qty}x ${item.name} - $${(item.qty * item.price).toFixed(2)}</p>
+          `).join('') : 'No items'}
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">Order Status</div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select id="modalStatus" style="width: 100%;">
+              <option value="pending" ${currentOrder.status === 'pending' ? 'selected' : ''}>Pending</option>
+              <option value="paid" ${currentOrder.status === 'paid' ? 'selected' : ''}>Paid</option>
+              <option value="shipped" ${currentOrder.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+              <option value="refunded" ${currentOrder.status === 'refunded' ? 'selected' : ''}>Refunded</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tracking Number</label>
+            <input type="text" id="modalTracking" placeholder="Enter tracking number" style="width: 100%;" value="${currentOrder.tracking_number || ''}">
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('orderModal').classList.add('active');
+    }
+    
+    function closeModal() {
+      document.getElementById('orderModal').classList.remove('active');
+    }
+    
+    async function saveOrderChanges() {
+      if (!currentOrder) return;
+      
+      const newStatus = document.getElementById('modalStatus').value;
+      const tracking = document.getElementById('modalTracking').value;
+      
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?order_number=eq.${currentOrder.order_number}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_SERVICE_KEY,
+            'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            status: newStatus,
+            tracking_number: tracking || null
+          })
+        });
+        
+        if (response.ok) {
+          alert('Order updated successfully!');
+          closeModal();
+          loadOrders();
+        } else {
+          alert('Failed to update order: ' + await response.text());
+        }
+      } catch (err) {
+        alert('Error updating order: ' + err.message);
+      }
+    }
+    
+    function exportCSV() {
       const headers = ['Order#', 'Date', 'Customer', 'Email', 'Total', 'Status'];
-      const rows = allOrders.map(o => [
+      const rows = filteredOrders.map(o => [
         o.order_number,
         new Date(o.created_at).toLocaleDateString(),
         o.customer_name,
@@ -1013,108 +1052,67 @@
       a.click();
     }
     
-    // Load products
     async function loadProducts() {
-      // Mock product data - replace with actual Supabase query when products table is populated
-      const products = [
-        { name: 'Retatrutide 20mg', sku: 'VX-RETA-20', stock: 50, price: 67, inStock: true },
-        { name: 'Tirzepatide 30mg', sku: 'VX-TIRZ-30', stock: 0, price: 59, inStock: false },
-        { name: 'GHK-Cu 100mg', sku: 'VX-GHK-100', stock: 50, price: 34, inStock: true },
-        { name: 'MOTS-c 10mg', sku: 'VX-MOTS-10', stock: 23, price: 32, inStock: true },
-        { name: 'NAD+ 1000mg', sku: 'VX-NAD-1000', stock: 35, price: 67, inStock: true },
-        { name: 'Tesamorelin 10mg', sku: 'VX-TESA-10', stock: 15, price: 52, inStock: true },
-        { name: 'BPC-157 10mg', sku: 'VX-BPC-10', stock: 0, price: 30, inStock: false },
-        { name: 'TB-500 10mg', sku: 'VX-TB-10', stock: 0, price: 38, inStock: false },
-      ];
-      
-      const html = products.map(p => `
-        <div class="product-item">
-          <div class="product-info">
-            <h3>${p.name}</h3>
-            <div class="product-meta">SKU: ${p.sku} | Price: $${p.price}</div>
-          </div>
-          <div class="stock-indicator ${p.stock === 0 ? 'stock-out' : p.stock < 10 ? 'stock-low' : 'stock-ok'}">
-            ${p.stock === 0 ? 'OUT OF STOCK' : p.stock < 10 ? `LOW STOCK: ${p.stock}` : `IN STOCK: ${p.stock}`}
-          </div>
-        </div>
-      `).join('');
-      
-      document.getElementById('productList').innerHTML = html;
+      document.getElementById('productList').innerHTML = '<div class="loading">Products feature coming soon...</div>';
     }
     
-    // Load customers
     async function loadCustomers() {
-      try {
-        const customers = {};
-        allOrders.forEach(order => {
-          const email = order.customer_email;
-          if (!customers[email]) {
-            customers[email] = {
-              name: order.customer_name,
-              email: email,
-              orders: 0,
-              total: 0,
-              firstOrder: order.created_at,
-              lastOrder: order.created_at
-            };
-          }
-          customers[email].orders++;
-          customers[email].total += parseFloat(order.total);
-          if (order.created_at > customers[email].lastOrder) {
-            customers[email].lastOrder = order.created_at;
-          }
-        });
-        
-        const sorted = Object.values(customers).sort((a, b) => b.total - a.total);
-        
-        const tbody = document.getElementById('customersTable');
-        tbody.innerHTML = sorted.map(c => `
-          <tr>
-            <td>${c.name}</td>
-            <td>${c.email}</td>
-            <td>${c.orders}</td>
-            <td style="font-family: 'JetBrains Mono', monospace; color: var(--accent)">$${c.total.toFixed(2)}</td>
-            <td>${new Date(c.firstOrder).toLocaleDateString()}</td>
-            <td>${new Date(c.lastOrder).toLocaleDateString()}</td>
-          </tr>
-        `).join('');
-      } catch (err) {
-        console.error('Customers error:', err);
-      }
-    }
-    
-    // Initialize analytics
-    function initAnalytics() {
-      initDailyRevenueChart();
-      initUnitsSoldChart();
-      initStatusChart();
-      initAOVChart();
-    }
-    
-    function initDailyRevenueChart() {
-      const ctx = document.getElementById('dailyRevenueChart').getContext('2d');
+      const customers = {};
+      allOrders.forEach(order => {
+        const email = order.customer_email;
+        if (!customers[email]) {
+          customers[email] = {
+            name: order.customer_name,
+            email: email,
+            orders: 0,
+            total: 0,
+            firstOrder: order.created_at,
+            lastOrder: order.created_at
+          };
+        }
+        customers[email].orders++;
+        customers[email].total += parseFloat(order.total);
+        if (order.created_at > customers[email].lastOrder) customers[email].lastOrder = order.created_at;
+      });
       
-      const days = [];
+      const sorted = Object.values(customers).sort((a, b) => b.total - a.total);
+      const tbody = document.getElementById('customersTable');
+      tbody.innerHTML = sorted.map(c => `
+        <tr>
+          <td>${c.name}</td>
+          <td>${c.email}</td>
+          <td>${c.orders}</td>
+          <td style="font-family: 'JetBrains Mono', monospace; color: var(--accent)">$${c.total.toFixed(2)}</td>
+          <td>${new Date(c.firstOrder).toLocaleDateString()}</td>
+          <td>${new Date(c.lastOrder).toLocaleDateString()}</td>
+        </tr>
+      `).join('');
+    }
+    
+    function initAnalytics(range = 'month') {
+      const days = range === 'week' ? 7 : range === 'month' ? 30 : 90;
+      const dayLabels = [];
       const revenues = [];
-      for (let i = 29; i >= 0; i--) {
+      
+      for (let i = days - 1; i >= 0; i--) {
         const date = new Date();
         date.setDate(date.getDate() - i);
         const dateStr = date.toISOString().split('T')[0];
-        days.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+        dayLabels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
         
-        const dayRevenue = allOrders
-          .filter(o => o.created_at.startsWith(dateStr))
+        const dayRevenue = allOrders.filter(o => o.created_at.startsWith(dateStr))
           .reduce((sum, o) => sum + parseFloat(o.total), 0);
         revenues.push(dayRevenue);
       }
       
+      const ctx = document.getElementById('dailyRevenueChart').getContext('2d');
       if (charts.dailyRevenue) charts.dailyRevenue.destroy();
       charts.dailyRevenue = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: days,
+          labels: dayLabels,
           datasets: [{
-            label: 'Daily Revenue',
+            label: 'Revenue',
             data: revenues,
             borderColor: '#60a5fa',
             backgroundColor: 'rgba(96, 165, 250, 0.1)',
@@ -1124,30 +1122,15 @@
         },
         options: {
           responsive: true,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: (value) => '$' + value.toFixed(0),
-                color: '#7e8ba3'
-              },
-              grid: { color: '#1a2942' }
-            },
-            x: {
-              ticks: { color: '#7e8ba3' },
-              grid: { display: false }
-            }
+            y: { beginAtZero: true, ticks: { callback: v => '$' + v, color: '#7e8ba3' }, grid: { color: '#1a2942' } },
+            x: { ticks: { color: '#7e8ba3' }, grid: { display: false } }
           }
         }
       });
-    }
-    
-    function initUnitsSoldChart() {
-      const ctx = document.getElementById('unitsSoldChart').getContext('2d');
       
+      // Units sold chart
       const productUnits = {};
       allOrders.forEach(order => {
         if (order.items) {
@@ -1159,17 +1142,15 @@
         }
       });
       
-      const sorted = Object.entries(productUnits)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 10);
-      
+      const sorted = Object.entries(productUnits).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      const ctx2 = document.getElementById('unitsSoldChart').getContext('2d');
       if (charts.unitsSold) charts.unitsSold.destroy();
-      charts.unitsSold = new Chart(ctx, {
+      charts.unitsSold = new Chart(ctx2, {
         type: 'bar',
         data: {
           labels: sorted.map(p => p[0]),
           datasets: [{
-            label: 'Units Sold',
+            label: 'Units',
             data: sorted.map(p => p[1]),
             backgroundColor: '#7BA88F'
           }]
@@ -1177,33 +1158,23 @@
         options: {
           indexAxis: 'y',
           responsive: true,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            x: {
-              ticks: { color: '#7e8ba3' },
-              grid: { color: '#1a2942' }
-            },
-            y: {
-              ticks: { color: '#7e8ba3' },
-              grid: { display: false }
-            }
+            x: { ticks: { color: '#7e8ba3' }, grid: { color: '#1a2942' } },
+            y: { ticks: { color: '#7e8ba3' }, grid: { display: false } }
           }
         }
       });
-    }
-    
-    function initStatusChart() {
-      const ctx = document.getElementById('statusChart').getContext('2d');
       
+      // Status chart
       const statuses = {};
       allOrders.forEach(o => {
         statuses[o.status] = (statuses[o.status] || 0) + 1;
       });
       
+      const ctx3 = document.getElementById('statusChart').getContext('2d');
       if (charts.status) charts.status.destroy();
-      charts.status = new Chart(ctx, {
+      charts.status = new Chart(ctx3, {
         type: 'doughnut',
         data: {
           labels: Object.keys(statuses),
@@ -1214,71 +1185,11 @@
         },
         options: {
           responsive: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: { color: '#7e8ba3' }
-            }
-          }
+          plugins: { legend: { position: 'bottom', labels: { color: '#7e8ba3' } } }
         }
       });
     }
     
-    function initAOVChart() {
-      const ctx = document.getElementById('aovChart').getContext('2d');
-      
-      const days = [];
-      const aovs = [];
-      for (let i = 29; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toISOString().split('T')[0];
-        days.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
-        
-        const dayOrders = allOrders.filter(o => o.created_at.startsWith(dateStr));
-        const dayRevenue = dayOrders.reduce((sum, o) => sum + parseFloat(o.total), 0);
-        const aov = dayOrders.length > 0 ? dayRevenue / dayOrders.length : 0;
-        aovs.push(aov);
-      }
-      
-      if (charts.aov) charts.aov.destroy();
-      charts.aov = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: days,
-          datasets: [{
-            label: 'Avg Order Value',
-            data: aovs,
-            borderColor: '#7BA88F',
-            backgroundColor: 'rgba(123, 168, 143, 0.1)',
-            tension: 0.4,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: (value) => '$' + value.toFixed(0),
-                color: '#7e8ba3'
-              },
-              grid: { color: '#1a2942' }
-            },
-            x: {
-              ticks: { color: '#7e8ba3' },
-              grid: { display: false }
-            }
-          }
-        }
-      });
-    }
-    
-    // Initialize on load
     window.addEventListener('DOMContentLoaded', async () => {
       allOrders = await fetchOrders();
       initDashboard();
