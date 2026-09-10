@@ -41,9 +41,41 @@
     tr:hover { background: #242938; }
     
     @media (max-width: 768px) {
+      header { padding: 12px 16px; }
+      header h1 { font-size: 16px; }
+      
       .container { padding: 16px; }
-      .stats { grid-template-columns: 1fr; }
-      .charts { grid-template-columns: 1fr; }
+      
+      .date-range { gap: 8px; }
+      .date-btn { padding: 8px 12px; font-size: 12px; }
+      
+      .stats { grid-template-columns: 1fr; gap: 12px; }
+      .stat { padding: 16px; }
+      .stat-value { font-size: 24px; }
+      
+      .charts { grid-template-columns: 1fr; gap: 16px; }
+      .chart-card { padding: 16px; }
+      .chart-card h2 { font-size: 14px; margin-bottom: 12px; }
+      
+      .table-card { margin: 0 -16px; border-radius: 0; border-left: none; border-right: none; }
+      .table-header { padding: 16px; }
+      .table-header h2 { font-size: 16px; }
+      
+      table { font-size: 12px; }
+      th { padding: 10px 12px; font-size: 10px; }
+      td { padding: 12px; }
+      
+      /* Hide columns on mobile - keep Order#, Date, Total, Status */
+      th:nth-child(3), td:nth-child(3),
+      th:nth-child(5), td:nth-child(5) { display: none; }
+    }
+    
+    @media (max-width: 480px) {
+      .date-range { display: grid; grid-template-columns: 1fr 1fr; }
+      .stat-value { font-size: 20px; }
+      table { font-size: 11px; }
+      th { padding: 8px; font-size: 9px; }
+      td { padding: 8px; }
     }
   </style>
 </head>
