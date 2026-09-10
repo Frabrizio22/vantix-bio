@@ -324,10 +324,37 @@
       charts.revenue = new Chart(ctx, { type: 'line', data: { labels, datasets: [{ label: 'Revenue', data, borderColor: '#60a5fa', backgroundColor: 'rgba(96,165,250,0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => '$' + v, color: '#7e8ba3' }, grid: { color: '#1a2942' } }, x: { ticks: { color: '#7e8ba3' }, grid: { display: false } } } } });
     }
     
+    function normalizeProductName(name) {
+      if (!name) return 'Unknown';
+      name = name.toLowerCase();
+      
+      // Normalize product names to standard format
+      if (name.includes('reta') || name.includes('retatrutide')) return 'Retatrutide 20mg';
+      if (name.includes('tirz') || name.includes('tirzepatide')) return 'Tirzepatide 30mg';
+      if (name.includes('sema') || name.includes('semaglutide')) return 'Semaglutide 10mg';
+      if (name.includes('bpc')) return 'BPC-157 10mg';
+      if (name.includes('tb-500')) return 'TB-500 10mg';
+      if (name.includes('ghk')) return 'GHK-Cu 100mg';
+      if (name.includes('mots')) return 'MOTS-C 10mg';
+      if (name.includes('nad')) return 'NAD+ 1000mg';
+      if (name.includes('cjc')) return 'CJC-1295 10mg';
+      if (name.includes('ipa') || name.includes('ipamorelin')) return 'Ipamorelin 5mg';
+      if (name.includes('tesa') || name.includes('tesamorelin')) return 'Tesamorelin 10mg';
+      if (name.includes('aod')) return 'AOD-9604 10mg';
+      if (name.includes('bac water')) return 'BAC Water';
+      if (name.includes('next-gen kit')) return 'Next-Gen Kit';
+      if (name.includes('mito kit')) return 'Mito Kit';
+      if (name.includes('tissue repair')) return 'Tissue Repair Kit';
+      if (name.includes('gh axis')) return 'GH Axis Kit';
+      if (name.includes('multi-system')) return 'Multi-System Kit';
+      
+      return name; // Return original if no match
+    }
+    
     function buildTopProductsChart(orders) {
       const ctx = document.getElementById('topProductsChart').getContext('2d');
       const rev = {};
-      orders.forEach(o => { if (o.items) o.items.forEach(i => { const n = i.name || 'Unknown'; rev[n] = (rev[n] || 0) + i.qty * i.price; }); });
+      orders.forEach(o => { if (o.items) o.items.forEach(i => { const n = normalizeProductName(i.name); rev[n] = (rev[n] || 0) + i.qty * i.price; }); });
       const sorted = Object.entries(rev).sort((a, b) => b[1] - a[1]).slice(0, 5);
       if (charts.topProducts) charts.topProducts.destroy();
       charts.topProducts = new Chart(ctx, { type: 'bar', data: { labels: sorted.map(p => p[0]), datasets: [{ label: 'Revenue', data: sorted.map(p => p[1]), backgroundColor: '#60a5fa' }] }, options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => '$' + v, color: '#7e8ba3' }, grid: { color: '#1a2942' } }, y: { ticks: { color: '#7e8ba3' }, grid: { display: false } } } } });
@@ -440,7 +467,7 @@
       charts.dailyRevenue = new Chart(ctx1, { type: 'line', data: { labels, datasets: [{ label: 'Revenue', data, borderColor: '#60a5fa', backgroundColor: 'rgba(96,165,250,0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => '$' + v, color: '#7e8ba3' }, grid: { color: '#1a2942' } }, x: { ticks: { color: '#7e8ba3' }, grid: { display: false } } } } });
       
       const units = {};
-      orders.forEach(o => { if (o.items) o.items.forEach(i => { const n = i.name || 'Unknown'; units[n] = (units[n] || 0) + i.qty; }); });
+      orders.forEach(o => { if (o.items) o.items.forEach(i => { const n = normalizeProductName(i.name); units[n] = (units[n] || 0) + i.qty; }); });
       const sortedUnits = Object.entries(units).sort((a, b) => b[1] - a[1]).slice(0, 10);
       const ctx2 = document.getElementById('unitsSoldChart').getContext('2d');
       if (charts.unitsSold) charts.unitsSold.destroy();
