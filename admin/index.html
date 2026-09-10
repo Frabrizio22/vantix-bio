@@ -252,23 +252,31 @@
     let currentRange = 'today';
     let revenueChart, productsChart;
 
-    // Login
-    async function login() {
+    // Login (global for onclick)
+    window.login = function() {
       const password = document.getElementById('passwordInput').value;
+      const errorEl = document.getElementById('loginError');
+      
+      if (!password) {
+        errorEl.textContent = 'Please enter password';
+        return;
+      }
+      
       if (password === ADMIN_PASSWORD) {
         sessionStorage.setItem('vantix_admin_auth', 'true');
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('app').classList.add('show');
-        try {
-          await init();
-        } catch (err) {
+        
+        init().catch(err => {
           console.error('Init error:', err);
-          document.getElementById('loginError').textContent = 'Error loading dashboard';
-        }
+          errorEl.textContent = 'Error: ' + err.message;
+          document.getElementById('loginScreen').style.display = 'block';
+          document.getElementById('app').classList.remove('show');
+        });
       } else {
-        document.getElementById('loginError').textContent = 'Invalid password';
+        errorEl.textContent = 'Invalid password';
       }
-    }
+    };
 
     function logout() {
       sessionStorage.removeItem('vantix_admin_auth');
@@ -282,9 +290,25 @@
       init().catch(err => console.error('Init failed:', err));
     }
 
-    document.getElementById('passwordInput')?.addEventListener('keypress', async (e) => {
-      if (e.key === 'Enter') await login();
-    });
+    // Setup after DOM loads
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupLogin);
+    } else {
+      setupLogin();
+    }
+    
+    function setupLogin() {
+      const pwdInput = document.getElementById('passwordInput');
+      if (pwdInput) {
+        pwdInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            window.login();
+          }
+        });
+        pwdInput.focus();
+      }
+    }
 
     // Init
     async function init() {
