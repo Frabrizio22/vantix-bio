@@ -253,16 +253,18 @@
     let revenueChart, productsChart;
 
     // Login
-    function login() {
+    async function login() {
       const password = document.getElementById('passwordInput').value;
-      console.log('Attempting login with:', password);
-      console.log('Expected:', ADMIN_PASSWORD);
-      console.log('Match:', password === ADMIN_PASSWORD);
       if (password === ADMIN_PASSWORD) {
         sessionStorage.setItem('vantix_admin_auth', 'true');
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('app').classList.add('show');
-        init();
+        try {
+          await init();
+        } catch (err) {
+          console.error('Init error:', err);
+          document.getElementById('loginError').textContent = 'Error loading dashboard';
+        }
       } else {
         document.getElementById('loginError').textContent = 'Invalid password';
       }
@@ -277,11 +279,11 @@
     if (sessionStorage.getItem('vantix_admin_auth') === 'true') {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('app').classList.add('show');
-      init();
+      init().catch(err => console.error('Init failed:', err));
     }
 
-    document.getElementById('passwordInput')?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') login();
+    document.getElementById('passwordInput')?.addEventListener('keypress', async (e) => {
+      if (e.key === 'Enter') await login();
     });
 
     // Init
