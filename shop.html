@@ -309,7 +309,7 @@ function renderProducts(filter='all'){
       ${!p.inStock ? '<div class="oos-label">COA Pending</div>' : ''}
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
-      <div class="product-meta">${p.dosage} · ${p.purity} PURE</div>
+      <div class="product-meta">${p.dosage}${p.purity ? ' · ' + p.purity + ' PURE' : ''}</div>
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
         ${p.inStock 
