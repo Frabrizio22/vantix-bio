@@ -348,7 +348,7 @@ const VX_PRODUCTS = {
             purity: '',
             price: 12,
             cogs: 3.50,
-            image: 'images/products/bac-water-10ml.svg',
+            image: 'images/products/bac-water-10ml.svg?v=2',
             url: '#',
             inStock: true,
             dualTested: false,
