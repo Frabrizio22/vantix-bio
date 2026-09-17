@@ -66,7 +66,7 @@ const VX_PRODUCTS = {
             cogs: 17.38,
             image: 'images/products/tirzepatide-30mg.jpg',
             url: 'products/tirzepatide.html',
-            inStock: false,  // Default fallback
+            inStock: true,  // Back in stock
             dualTested: true,
             // Dynamic stock getter
             get stock() {
