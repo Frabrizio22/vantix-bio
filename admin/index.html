@@ -186,9 +186,14 @@
     <div id="dashboard" style="display: none;">
       <div class="date-range">
         <button class="date-btn active" data-range="all">All Time</button>
-        <button class="date-btn" data-range="30d">30 Days</button>
-        <button class="date-btn" data-range="7d">7 Days</button>
         <button class="date-btn" data-range="today">Today</button>
+        <button class="date-btn" data-range="yesterday">Yesterday</button>
+        <button class="date-btn" data-range="thisweek">This Week</button>
+        <button class="date-btn" data-range="lastweek">Last Week</button>
+        <button class="date-btn" data-range="thismonth">This Month</button>
+        <button class="date-btn" data-range="lastmonth">Last Month</button>
+        <button class="date-btn" data-range="30d">Last 30 Days</button>
+        <button class="date-btn" data-range="90d">Last 90 Days</button>
       </div>
 
       <div class="stats">
@@ -299,16 +304,64 @@
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       
-      let start;
+      let start, end;
+      
       switch(range) {
-        case 'today': start = today; break;
-        case '7d': start = new Date(today - 7 * 24 * 60 * 60 * 1000); break;
-        case '30d': start = new Date(today - 30 * 24 * 60 * 60 * 1000); break;
-        case 'all': return orders;
-        default: return orders;
+        case 'today':
+          start = today;
+          end = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+          break;
+        
+        case 'yesterday':
+          start = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+          end = today;
+          break;
+        
+        case 'thisweek':
+          const dayOfWeek = now.getDay();
+          const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+          start = new Date(today.getTime() - daysToMonday * 24 * 60 * 60 * 1000);
+          end = new Date();
+          break;
+        
+        case 'lastweek':
+          const lastWeekEnd = new Date(today.getTime() - today.getDay() * 24 * 60 * 60 * 1000);
+          const lastWeekStart = new Date(lastWeekEnd.getTime() - 7 * 24 * 60 * 60 * 1000);
+          start = lastWeekStart;
+          end = lastWeekEnd;
+          break;
+        
+        case 'thismonth':
+          start = new Date(now.getFullYear(), now.getMonth(), 1);
+          end = new Date();
+          break;
+        
+        case 'lastmonth':
+          start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+          end = new Date(now.getFullYear(), now.getMonth(), 1);
+          break;
+        
+        case '30d':
+          start = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+          end = new Date();
+          break;
+        
+        case '90d':
+          start = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000);
+          end = new Date();
+          break;
+        
+        case 'all':
+          return orders;
+        
+        default:
+          return orders;
       }
       
-      return orders.filter(o => new Date(o.timestamp) >= start);
+      return orders.filter(o => {
+        const date = new Date(o.timestamp);
+        return date >= start && date < end;
+      });
     }
 
     function updateDashboard() {
