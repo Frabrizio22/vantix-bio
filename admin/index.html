@@ -170,9 +170,11 @@
         .filter(line => line.trim())
         .map(line => {
           const values = parseCSVLine(line);
+          const timestamp = parseDate(values[1]);
           return {
             order_number: values[0] || '',
-            timestamp: values[1] || '',
+            timestamp: timestamp,
+            timestampMs: timestamp ? timestamp.getTime() : 0,
             email: values[2] || '',
             name: values[3] || '',
             phone: values[4] || '',
@@ -182,7 +184,7 @@
             status: (values[20] || 'pending').toLowerCase()
           };
         })
-        .filter(o => o.order_number && o.total > 0);
+        .filter(o => o.order_number && o.total > 0 && o.timestampMs > 0);
     }
 
     function parseCSVLine(line) {
@@ -203,6 +205,27 @@
       }
       result.push(current.trim());
       return result;
+    }
+
+    function parseDate(dateStr) {
+      if (!dateStr) return null;
+      // Parse "6/4/2026 12:01:31" format
+      const parts = dateStr.split(' ');
+      if (parts.length !== 2) return null;
+      
+      const dateParts = parts[0].split('/');
+      const timeParts = parts[1].split(':');
+      
+      if (dateParts.length !== 3 || timeParts.length !== 3) return null;
+      
+      const month = parseInt(dateParts[0]) - 1; // JS months are 0-indexed
+      const day = parseInt(dateParts[1]);
+      const year = parseInt(dateParts[2]);
+      const hour = parseInt(timeParts[0]);
+      const minute = parseInt(timeParts[1]);
+      const second = parseInt(timeParts[2]);
+      
+      return new Date(year, month, day, hour, minute, second);
     }
 
     function setFilter(range) {
@@ -261,8 +284,7 @@
       }
       
       return allOrders.filter(o => {
-        const date = new Date(o.timestamp);
-        return date >= start && date < end;
+        return o.timestampMs >= start.getTime() && o.timestampMs < end.getTime();
       });
     }
 
