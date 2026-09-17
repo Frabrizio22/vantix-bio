@@ -338,7 +338,7 @@ const VX_PRODUCTS = {
         // SUPPLIES - Bacteriostatic water
         {
             sku: 'VX-BAC-10',
-            name: 'Bacteriostatic Water 10mL', 
+            name: 'Vantix Bio Bacteriostatic Water 0.9% Benzyl Alcohol 10mL', 
             cartName: 'BAC Water 10mL',
             shortName: 'BAC Water',
             slug: 'bac-water',
