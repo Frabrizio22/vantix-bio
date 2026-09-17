@@ -337,18 +337,18 @@ const VX_PRODUCTS = {
 
         // SUPPLIES - Bacteriostatic water
         {
-            sku: 'VX-BAC-30',
-            name: 'Bacteriostatic Water 30mL', 
-            cartName: 'BAC Water 30mL',
+            sku: 'VX-BAC-10',
+            name: 'Bacteriostatic Water 10mL', 
+            cartName: 'BAC Water 10mL',
             shortName: 'BAC Water',
             slug: 'bac-water',
             category: 'supplies',
             categoryLabel: 'Research Supplies',
-            dosage: '30mL',
+            dosage: '10mL',
             purity: 'USP',
             price: 12,
             cogs: 3.50,
-            image: 'images/products/bac-water-30ml.svg',
+            image: 'images/products/bac-water-10ml.svg',
             url: '#',
             inStock: true,
             dualTested: false,
