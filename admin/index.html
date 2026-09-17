@@ -165,13 +165,10 @@
       if (!response.ok) throw new Error('Failed to fetch data');
       
       const text = await response.text();
-      const lines = text.split('\n');
-      const headers = parseCSVLine(lines[0]);
+      const rows = parseCSV(text);
       
-      allOrders = lines.slice(1)
-        .filter(line => line.trim())
-        .map(line => {
-          const values = parseCSVLine(line);
+      allOrders = rows.slice(1) // Skip header
+        .map(values => {
           const timestamp = parseDate(values[1]);
           return {
             order_number: values[0] || '',
@@ -189,24 +186,45 @@
         .filter(o => o.order_number && o.total > 0 && o.timestampMs > 0);
     }
 
-    function parseCSVLine(line) {
-      const result = [];
-      let current = '';
+    function parseCSV(text) {
+      const lines = [];
+      let current = [];
+      let currentField = '';
       let inQuotes = false;
       
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i];
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+        
         if (char === '"') {
-          inQuotes = !inQuotes;
+          if (inQuotes && nextChar === '"') {
+            currentField += '"';
+            i++; // Skip next quote
+          } else {
+            inQuotes = !inQuotes;
+          }
         } else if (char === ',' && !inQuotes) {
-          result.push(current.trim());
-          current = '';
+          current.push(currentField);
+          currentField = '';
+        } else if (char === '\n' && !inQuotes) {
+          current.push(currentField);
+          if (current.length > 0) lines.push(current);
+          current = [];
+          currentField = '';
+        } else if (char === '\r') {
+          // Skip carriage returns
         } else {
-          current += char;
+          currentField += char;
         }
       }
-      result.push(current.trim());
-      return result;
+      
+      // Push final field and line
+      if (currentField || current.length > 0) {
+        current.push(currentField);
+        lines.push(current);
+      }
+      
+      return lines;
     }
 
     function parseDate(dateStr) {
