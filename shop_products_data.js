@@ -345,7 +345,7 @@ const VX_PRODUCTS = {
             category: 'supplies',
             categoryLabel: 'Research Supplies',
             dosage: '10mL',
-            purity: 'USP',
+            purity: '',
             price: 12,
             cogs: 3.50,
             image: 'images/products/bac-water-10ml.svg',
