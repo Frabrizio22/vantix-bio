@@ -485,7 +485,7 @@ function getUrlParam(name){var params=new URLSearchParams(window.location.search
 var currentPrices={
 'VX-TIRZ-30':59,'VX-RETA-20':67,'VX-SEMA-10':42,'VX-BPC-10':30,'VX-TB-10':38,
 'VX-GHK-100':34,'VX-CJC-10':42,'VX-IPA-5':30,'VX-TESA-10':52,'VX-MOTS-10':32,
-'VX-NAD-1000':67,'VX01':10,
+'VX-NAD-1000':59,'VX01':10,
 'VX-KIT-TISSUE':54,'VX-KIT-GH':58,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':89
 };
 
@@ -541,7 +541,7 @@ var kits=[
 {name:'Tissue Repair Kit (BPC-157 10mg + TB-500 10mg)',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
 {name:'GH Axis Kit (CJC-1295 10mg + Ipa 5mg)',price:62,skus:['VX-CJC-10','VX-IPA-5'],newSku:'VX-KIT-GH'},
 {name:'Next-Gen Kit (Tirz 30mg + Reta 20mg)',price:115,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
-{name:'Mito Kit (NAD+ 1000mg + MOTS-C 10mg)',price:90,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
+{name:'Mito Kit (NAD+ 1000mg + MOTS-C 10mg)',price:82,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
 ];
 for(var k=0;k<kits.length;k++){
 var kit=kits[k];
@@ -632,18 +632,7 @@ var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
 
-// AUTO-DISCOUNT: 15% off NAD+ when buying 2+ vials
-var nadCount=0;
-var nadTotal=0;
-cart.forEach(function(item){
-if(item.sku==='VX-NAD-1000'){
-nadCount+=item.quantity;
-nadTotal+=item.price*item.quantity;
-}
-});
-if(nadCount>=2&&!promoCode){
-discount+=nadTotal*0.15;
-}
+// NAD+ auto-discount removed
 if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
@@ -696,15 +685,7 @@ document.getElementById('total').textContent='$'+total.toFixed(2);
 var discountRow=document.getElementById('discountRow');
 if(discount>0){
 document.getElementById('discount').textContent='-$'+discount.toFixed(2);
-// Check if NAD+ multi-vial discount is active
-var nadCount=0;
-cart.forEach(function(item){if(item.sku==='VX-NAD-1000'){nadCount+=item.quantity;}});
-var label;
-if(nadCount>=2&&!promoCode){
-label='Multi-vial discount';
-}else{
-label=promoCode?'Discount ('+promoCode+')':'Zelle Discount (5%)';
-}
+var label=promoCode?'Discount ('+promoCode+')':'Zelle Discount (5%)';
 document.getElementById('discountLabel').textContent=label;
 discountRow.style.display='flex';
 }else{discountRow.style.display='none';}
