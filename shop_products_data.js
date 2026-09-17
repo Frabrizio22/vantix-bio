@@ -348,7 +348,7 @@ const VX_PRODUCTS = {
             purity: 'USP',
             price: 12,
             cogs: 3.50,
-            image: 'images/products/bac-water-30ml.jpg',
+            image: 'images/products/bac-water-30ml.svg',
             url: '#',
             inStock: true,
             dualTested: false,
