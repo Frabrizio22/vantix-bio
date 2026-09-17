@@ -94,13 +94,16 @@
       border: 1px solid rgba(75, 85, 99, 0.2); 
       border-radius: 12px; 
       padding: 16px; 
-      min-height: 280px;
+      height: 240px;
     }
     .chart-card h2 { 
       font-size: 14px; 
       font-weight: 600; 
-      margin-bottom: 16px; 
+      margin-bottom: 12px; 
       color: #e5e7eb;
+    }
+    .chart-card canvas {
+      max-height: 190px;
     }
     
     /* Table */
@@ -161,7 +164,8 @@
       .stat-value { font-size: 24px; }
       
       .charts { grid-template-columns: 1fr; gap: 10px; }
-      .chart-card { padding: 12px; min-height: 240px; }
+      .chart-card { padding: 12px; height: 220px; }
+      .chart-card canvas { max-height: 170px; }
       
       .date-range { gap: 6px; }
       .date-btn { padding: 6px 12px; font-size: 12px; }
@@ -218,11 +222,11 @@
       <div class="charts">
         <div class="chart-card">
           <h2>Revenue</h2>
-          <canvas id="revenueChart" height="200"></canvas>
+          <canvas id="revenueChart"></canvas>
         </div>
         <div class="chart-card">
           <h2>Payment</h2>
-          <canvas id="paymentChart" height="200"></canvas>
+          <canvas id="paymentChart"></canvas>
         </div>
       </div>
 
