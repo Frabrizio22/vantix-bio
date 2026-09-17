@@ -319,7 +319,7 @@ const VX_PRODUCTS = {
             categoryLabel: 'Metabolic Signaling',
             dosage: '1000mg',
             purity: '>99%',
-            price: 67,
+            price: 59,
             cogs: 12.00,
             image: 'images/products/nad-1000mg.jpg',
             url: 'products/nad-1000mg.html',
@@ -411,10 +411,10 @@ const VX_PRODUCTS = {
             description: 'Mitochondrial bioenergetics & NAD+ metabolism research',
             clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
-            regularPrice: 99,
-            stackPrice: 89,
-            discount: 10.1,
-            savings: 10,
+            regularPrice: 91,
+            stackPrice: 82,
+            discount: 9.9,
+            savings: 9,
             category: 'metabolic'
         },
         {
