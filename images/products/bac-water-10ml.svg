@@ -15,22 +15,24 @@
   
   <!-- Simple centered label card -->
   <g transform="translate(640, 500)">
-    <rect x="-300" y="-200" width="600" height="400" rx="16" fill="url(#label)" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="-350" y="-220" width="700" height="440" rx="16" fill="url(#label)" stroke="#cbd5e1" stroke-width="2"/>
     
-    <!-- Vantix branding -->
-    <text x="0" y="-120" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="24" font-weight="700" fill="#64748b" text-anchor="middle" letter-spacing="2">VANTIX BIO</text>
+    <!-- Vantix Bio branding -->
+    <text x="0" y="-140" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="28" font-weight="700" fill="#64748b" text-anchor="middle" letter-spacing="3">VANTIX BIO</text>
     
     <!-- Product name -->
-    <text x="0" y="-40" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="64" font-weight="700" fill="#0f172a" text-anchor="middle">BAC Water</text>
+    <text x="0" y="-70" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="48" font-weight="700" fill="#0f172a" text-anchor="middle">Bacteriostatic Water</text>
+    
+    <!-- Concentration -->
+    <text x="0" y="-20" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="24" font-weight="500" fill="#475569" text-anchor="middle">0.9% Benzyl Alcohol</text>
     
     <!-- Volume -->
-    <text x="0" y="20" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="32" font-weight="500" fill="#475569" text-anchor="middle">10mL</text>
-    
-    <!-- Description -->
-    <text x="0" y="90" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="18" fill="#64748b" text-anchor="middle">Bacteriostatic Water</text>
-    <text x="0" y="120" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">0.9% Benzyl Alcohol</text>
+    <text x="0" y="50" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="64" font-weight="700" fill="#2563eb" text-anchor="middle">10mL</text>
     
     <!-- Divider line -->
-    <line x1="-200" y1="60" x2="200" y2="60" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="-250" y1="90" x2="250" y2="90" stroke="#e2e8f0" stroke-width="2"/>
+    
+    <!-- Bottom text -->
+    <text x="0" y="140" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">For Research Use Only</text>
   </g>
 </svg>
