@@ -148,6 +148,8 @@
     async function init() {
       try {
         await loadData();
+        console.log('Total orders loaded:', allOrders.length);
+        console.log('Sample order:', allOrders[0]);
         document.getElementById('loading').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         updateStats();
