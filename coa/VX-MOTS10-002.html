@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch VX-MOTS10-002 - Testing In Progress | Vantix Bio</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/geist');
+        
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            font-family:'Geist',-apple-system,sans-serif;
+            background:#FAFAF7;
+            color:#0F1B2D;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+        
+        .container{
+            max-width:600px;
+            text-align:center;
+        }
+        
+        .badge{
+            display:inline-block;
+            background:rgba(57,115,176,0.1);
+            color:#3973B0;
+            padding:8px 16px;
+            border-radius:20px;
+            font-size:13px;
+            font-weight:600;
+            letter-spacing:0.05em;
+            text-transform:uppercase;
+            margin-bottom:24px;
+        }
+        
+        h1{
+            font-family:'JetBrains Mono',monospace;
+            font-size:2rem;
+            margin-bottom:16px;
+            color:#0F1B2D;
+        }
+        
+        p{
+            font-size:1.05rem;
+            line-height:1.7;
+            color:rgba(15,27,45,0.7);
+            margin-bottom:16px;
+        }
+        
+        .batch-info{
+            background:#fff;
+            border:1px solid #D8D6CF;
+            border-radius:8px;
+            padding:24px;
+            margin:32px 0;
+        }
+        
+        .batch-info h2{
+            font-size:0.85rem;
+            text-transform:uppercase;
+            letter-spacing:0.05em;
+            color:#3973B0;
+            margin-bottom:12px;
+            font-weight:600;
+        }
+        
+        .batch-id{
+            font-family:'JetBrains Mono',monospace;
+            font-size:1.5rem;
+            font-weight:600;
+            color:#0F1B2D;
+        }
+        
+        .status-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:16px;
+            margin:24px 0;
+        }
+        
+        .status-item{
+            background:#fff;
+            border:1px solid #D8D6CF;
+            border-radius:8px;
+            padding:16px;
+            text-align:left;
+        }
+        
+        .status-label{
+            font-size:0.75rem;
+            text-transform:uppercase;
+            letter-spacing:0.05em;
+            color:rgba(15,27,45,0.6);
+            margin-bottom:8px;
+        }
+        
+        .status-value{
+            font-size:1.1rem;
+            font-weight:600;
+            color:#0F1B2D;
+        }
+        
+        .pending{color:#3973B0}
+        
+        .timeline{
+            text-align:left;
+            background:#fff;
+            border:1px solid #D8D6CF;
+            border-radius:8px;
+            padding:24px;
+            margin:24px 0;
+        }
+        
+        .timeline h3{
+            font-size:0.85rem;
+            text-transform:uppercase;
+            letter-spacing:0.05em;
+            color:#0F1B2D;
+            margin-bottom:16px;
+            font-weight:600;
+        }
+        
+        .timeline-item{
+            display:flex;
+            gap:16px;
+            margin-bottom:16px;
+            padding-bottom:16px;
+            border-bottom:1px solid #D8D6CF;
+        }
+        
+        .timeline-item:last-child{border:none;margin:0;padding:0}
+        
+        .timeline-dot{
+            width:12px;
+            height:12px;
+            border-radius:50%;
+            background:#7BA88F;
+            margin-top:4px;
+            flex-shrink:0;
+        }
+        
+        .timeline-dot.pending{
+            background:#fff;
+            border:2px solid #3973B0;
+        }
+        
+        .timeline-content{flex:1}
+        
+        .timeline-date{
+            font-size:0.85rem;
+            color:rgba(15,27,45,0.6);
+            margin-bottom:4px;
+        }
+        
+        .timeline-text{
+            font-size:0.95rem;
+            color:#0F1B2D;
+        }
+        
+        .btn{
+            display:inline-block;
+            background:#3973B0;
+            color:#fff;
+            padding:12px 28px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+            margin-top:16px;
+        }
+        
+        .btn:hover{opacity:0.9}
+        
+        @media (max-width:600px){
+            .status-grid{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="badge">Testing In Progress</div>
+        
+        <h1>VX-MOTS10-002</h1>
+        
+        <p>This batch is currently undergoing third-party analytical testing. Complete results will be available here once testing is complete.</p>
+        
+        <div class="batch-info">
+            <h2>Batch Information</h2>
+            <div class="batch-id">VX-MOTS10-002</div>
+            <p style="font-size:0.9rem;margin-top:12px;margin-bottom:0">MOTS-C 10mg<br>Synthesized September 2026</p>
+        </div>
+        
+        <div class="status-grid">
+            <div class="status-item">
+                <div class="status-label">Product</div>
+                <div class="status-value">MOTS-C 10mg</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Status</div>
+                <div class="status-value pending">Testing</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Batch Size</div>
+                <div class="status-value">50 vials</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Expected</div>
+                <div class="status-value">Sep 25, 2026</div>
+            </div>
+        </div>
+        
+        <div class="timeline">
+            <h3>Testing Timeline</h3>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Sep 16, 2026</div>
+                    <div class="timeline-text">Batch synthesized and lyophilized</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Sep 18, 2026</div>
+                    <div class="timeline-text">Sample submitted to ISO 17025 lab</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot pending"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">In Progress</div>
+                    <div class="timeline-text">HPLC purity & LC-MS identity testing</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot pending"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Expected Sep 25</div>
+                    <div class="timeline-text">COA published & batch released</div>
+                </div>
+            </div>
+        </div>
+        
+        <p style="font-size:0.9rem;color:rgba(15,27,45,0.6)">
+            <strong>Note:</strong> This batch will not ship until third-party testing is complete and results meet our >99% purity standard.
+        </p>
+        
+        <a href="../verify.html" class="btn">← Back to Verification</a>
+    </div>
+</body>
+</html>
