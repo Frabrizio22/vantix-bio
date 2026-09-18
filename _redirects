@@ -1,0 +1,8 @@
+# 301 Redirects - SEO Consolidation
+
+# Merge overlapping batch verification posts into strongest performer
+/blog/batch-level-coa-verification.html    /blog/batch-level-testing.html    301
+/blog/how-to-verify-peptide-purity.html     /blog/batch-level-testing.html    301
+
+# Legacy Janoshik URL updates (if needed in future)
+# /blog/how-to-verify-janoshik-coa.html    /blog/how-to-read-a-janoshik-coa.html    301
