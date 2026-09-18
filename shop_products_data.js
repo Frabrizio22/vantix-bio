@@ -415,7 +415,8 @@ const VX_PRODUCTS = {
             stackPrice: 82,
             discount: 9.9,
             savings: 9,
-            category: 'metabolic'
+            category: 'metabolic',
+            inStock: false
         },
         {
             id: 'multi-system',
