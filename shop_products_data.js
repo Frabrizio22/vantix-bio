@@ -298,7 +298,7 @@ const VX_PRODUCTS = {
             cogs: 16.65,
             image: 'images/products/mots-c-10mg.jpg',
             url: 'products/mots-c.html',
-            inStock: true,
+            inStock: false,
             dualTested: true,
             get stock() {
                 const status = getStockStatus(this.sku);
