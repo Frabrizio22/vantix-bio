@@ -319,7 +319,7 @@ const VX_PRODUCTS = {
             categoryLabel: 'Metabolic Signaling',
             dosage: '1000mg',
             purity: '>99%',
-            price: 59,
+            price: 50,
             cogs: 12.00,
             image: 'images/products/nad-1000mg.jpg',
             url: 'products/nad-1000mg.html',
