@@ -392,19 +392,6 @@ const VX_PRODUCTS = {
             category: 'gh-peptides'
         },
         {
-            id: 'next-gen',
-            name: 'VX-2T + VX-3R Research Pair',
-            shortName: 'VX-2T + VX-3R',
-            description: 'Dual vs. triple incretin receptor activation comparison',
-            clinicalNote: 'VX-2T (GLP-1/GIP) + VX-3R (GLP-1/GIP/Glucagon) for metabolic pathway investigation',
-            products: ['VX-TIRZ-30', 'VX-RETA-20'],
-            regularPrice: 126,
-            stackPrice: 112,
-            discount: 11.1,
-            savings: 14,
-            category: 'glp1'
-        },
-        {
             id: 'mitochondrial-kit',
             name: 'NAD+ + MOTS-C Research Pair',
             shortName: 'NAD+ + MOTS-C',
