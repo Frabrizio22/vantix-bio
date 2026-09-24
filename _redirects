@@ -11,9 +11,12 @@
 /shipping                                      /shipping.html    301
 /shipping/                                     /shipping.html    301
 
-# Merge overlapping batch verification posts into strongest performer
+# Merge overlapping batch verification posts into strongest performer (52 clicks/month)
 /blog/batch-level-coa-verification.html    /blog/batch-level-testing.html    301
 /blog/how-to-verify-peptide-purity.html     /blog/batch-level-testing.html    301
+/blog/batch-coas.html                       /blog/batch-level-testing.html    301
+/blog/batch-testing.html                    /blog/batch-level-testing.html    301
+/blog/why-batch-level-coas-matter.html      /blog/batch-level-testing.html    301
 
 # Blog post consolidations (old URLs → pillar pages)
 /blog/retatrutide-20mg.html                /blog/retatrutide-20mg-pillar.html    301
