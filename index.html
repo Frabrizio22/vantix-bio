@@ -231,8 +231,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .coa-link{font-size:13px;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:4px;transition:opacity .3s}
 .coa-link:hover{opacity:.7}
 .bestsellers-track .product-card{flex:0 0 165px;scroll-snap-align:start}@media(min-width:768px){.bestsellers-track .product-card{flex:0 0 190px}}
-.verification-system{padding:64px 0 56px;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(min-width:768px){.verification-system{padding:96px 0 88px}}
-.verification-grid{display:grid;grid-template-columns:1fr;gap:56px;max-width:840px;margin:0 auto}@media(min-width:768px){.verification-grid{grid-template-columns:repeat(3,1fr);gap:64px}}
+.verification-system{padding:64px 0 56px;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(min-width:768px){.verification-system{padding:88px 0 80px}}
 .marquee{background:var(--navy);padding:16px 0;overflow:hidden;margin:24px 0 24px;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:48px 0 32px}}
 .marquee-inner{display:flex;white-space:nowrap;animation:marquee 15s linear infinite;width:max-content}
 .marquee-content{display:inline-block;white-space:nowrap;padding:0 32px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.75)}
@@ -520,8 +519,8 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 <h1 class="float-2" style="margin-bottom:16px;line-height:1.1">Research Peptides.<br><em>Independently Verified.</em></h1>
 <p class="float-3" style="font-size:16px;margin-top:0;margin-bottom:32px;line-height:1.7;color:rgba(10,22,40,.68);max-width:540px">Every batch independently tested. Every vial traceable. Every report permanently accessible and linked directly to the independent laboratory's results.</p>
 <div class="float-4" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:8px">
-<a href="shop.html" class="btn btn-dark" style="text-decoration:none;padding:14px 28px;font-size:14px">Browse Catalog</a>
-<a href="verify.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;letter-spacing:.08em;font-weight:500;transition:opacity .3s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Verify a Batch →</a>
+<a href="verify.html" class="btn btn-dark" style="text-decoration:none;padding:14px 28px;font-size:14px">Verify a Batch</a>
+<a href="shop.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;letter-spacing:.08em;font-weight:500;transition:opacity .3s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Browse Catalog →</a>
 </div>
 
 
@@ -617,22 +616,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <!-- Verification System -->
 <section class="verification-system">
 <div class="container">
-<div style="text-align:center;margin-bottom:72px">
-<div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;color:var(--navy);font-weight:600;opacity:0.85">TESTED → VERIFIED → ARCHIVED</div>
-</div>
-<div class="verification-grid">
-<div style="text-align:center">
-<div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,22,40,.6);margin-bottom:14px;font-weight:600">Independent Testing</div>
-<p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.7);margin:0">Each released batch receives independent analytical testing.</p>
-</div>
-<div style="text-align:center">
-<div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,22,40,.6);margin-bottom:14px;font-weight:600">Direct Verification</div>
-<p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.7);margin:0">One click opens the exact corresponding report on the independent laboratory's website.</p>
-</div>
-<div style="text-align:center">
-<div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,22,40,.6);margin-bottom:14px;font-weight:600">Permanent Archive</div>
-<p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.7);margin:0">Previous batches remain accessible after they're no longer sold.</p>
-</div>
+<div style="text-align:center;max-width:800px;margin:0 auto">
+<div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;color:var(--navy);font-weight:600;opacity:0.85;margin-bottom:24px">TESTED → VERIFIED → ARCHIVED</div>
+<p style="font-size:16px;line-height:1.7;color:rgba(10,22,40,.68);margin:0">Independent batch testing. Direct lab verification. Permanent archive.</p>
 </div>
 <div style="text-align:center;margin-top:80px;max-width:660px;margin-left:auto;margin-right:auto">
 <p style="font-family:'Fraunces',serif;font-size:22px;font-weight:300;font-style:italic;color:var(--navy);margin:0 0 28px;line-height:1.3">A COA shouldn't expire when the batch sells out.</p>
