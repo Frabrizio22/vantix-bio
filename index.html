@@ -73,7 +73,7 @@ body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var
 .float-4{animation:floatIn .8s cubic-bezier(.16,1,.3,1) .6s both}
 .float-5{animation:floatIn .8s cubic-bezier(.16,1,.3,1) .75s both}
 h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;text-wrap:balance}
-h1{font-size:2rem;letter-spacing:-.025em;padding-left:0;line-height:1.1}@media(min-width:768px){h1{font-size:3.5rem}}@media(min-width:1200px){h1{font-size:4.5rem}}
+h1{font-size:clamp(2.25rem,6.5vw,6.5rem);letter-spacing:-.025em;padding-left:0}
 h2{font-size:clamp(1.75rem,4vw,3.25rem);letter-spacing:-.02em;padding-left:0}
 h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .label-mono{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
@@ -112,21 +112,9 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
 .nav-dropdown a:hover{background:var(--bg)}
 .nav-dropdown a::after{display:none}
-.btn{padding:14px 28px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);border:none;text-decoration:none;display:inline-block;white-space:nowrap;min-height:48px;display:inline-flex;align-items:center;justify-content:center}@media(max-width:768px){.btn-primary{width:100%;max-width:320px}}@media(max-width:380px){.btn-waitlist{display:none}}.btn-waitlist{letter-spacing:0.03em}
-.bestsellers-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -24px;padding-left:24px;padding-right:24px}@media(min-width:768px){.bestsellers-scroll{margin:0;padding-left:0;padding-right:0}}
-.bestsellers-scroll::-webkit-scrollbar{height:4px}
-.bestsellers-scroll::-webkit-scrollbar-track{background:var(--hairline)}
-.bestsellers-scroll::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.bestseller-card{flex:0 0 240px;background:var(--bg);border:1px solid var(--hairline);border-radius:12px;padding:24px;scroll-snap-align:start;transition:all .3s cubic-bezier(.4,0,.2,1)}@media(min-width:768px){.bestseller-card{flex:0 0 260px;padding:28px}}
-.bestseller-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,27,45,.08);border-color:var(--accent)}
-.bestseller-name{font-family:'Fraunces',serif;font-size:18px;font-weight:400;margin:0 0 8px;color:var(--navy);line-height:1.2}@media(min-width:768px){.bestseller-name{font-size:20px}}
-.bestseller-purity{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--signal-bright);letter-spacing:.05em;margin:0 0 16px;text-transform:uppercase}
-.bestseller-price{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--navy);margin:0 0 20px}
-.bestseller-btn{display:block;width:100%;padding:12px;font-size:14px;font-weight:600;text-align:center;background:var(--navy);color:#fff;border:none;border-radius:6px;text-decoration:none;transition:all .3s;min-height:44px;display:flex;align-items:center;justify-content:center}
-.bestseller-btn:hover{background:var(--accent);transform:translateY(-1px)}
-.btn-dark{background:var(--navy);color:#fff;box-shadow:0 1px 3px rgba(15,27,45,.12)}
-.btn-dark:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,27,45,.2)}
-.btn-dark:active{transform:translateY(0);box-shadow:0 1px 3px rgba(15,27,45,.12)}
+.btn{padding:12px 24px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}@media(min-width:480px){.btn{padding:13px 28px;font-size:14px}}@media(max-width:380px){.btn-waitlist{display:none}}.btn-waitlist{letter-spacing:0.03em}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
 .menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow-y:auto;display:none}
 .menu-overlay.active{opacity:1;pointer-events:auto;display:block}
 .menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
@@ -509,20 +497,14 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 <div class="container">
 <div class="hero">
 <div>
-<h1 class="float-2" style="margin-bottom:16px">Verification-First<br><em>Research</em> Peptides</h1>
-<p class="float-3" style="font-size:18px;margin:0 0 32px;line-height:1.65;color:rgba(10,22,40,.7);max-width:540px">Every batch independently tested. See the lab report. Verify your vial.</p>
-<a href="shop.html" class="btn btn-dark float-4" style="margin-bottom:28px">Shop Verified Peptides</a>
-<div class="float-5" style="font-size:13px;color:rgba(10,22,40,.65);display:flex;gap:20px;flex-wrap:wrap">
-<span style="display:flex;align-items:center;gap:6px"><span style="color:var(--signal-bright);font-weight:700">✓</span> ISO 17025 Tested</span>
-<span style="display:flex;align-items:center;gap:6px"><span style="color:var(--signal-bright);font-weight:700">✓</span> California Synthesis</span>
-<span style="display:flex;align-items:center;gap:6px"><span style="color:var(--signal-bright);font-weight:700">✓</span> 500+ Batches</span>
-</div>
+
+<h1 class="float-2" style="margin-bottom:8px">Third-Party Tested<br><em>Research</em> Peptides.</h1>
+<p class="float-3" style="font-size:18.5px;margin-top:24px;margin-bottom:20px;line-height:1.7;color:rgba(10,22,40,.68);max-width:600px">Every batch independently tested. View the full report here, or verify authenticity with one click — linked directly to the lab's official results page. No fake COAs, no extra steps. Direct lab verification.</p>
+
+
 </div>
 
-<div class="container">
-<div style="padding:48px 0;text-align:center">
-<h2 style="font-family:'Fraunces',serif;font-size:1.75rem;font-weight:300;margin:0 0 48px">How Verification Works</h2>
-<div class="float-5" style="max-width:900px;margin:0 auto">
+<div class="float-5">
 <article class="instrument" aria-label="Live batch readout">
 <header class="inst-header">
 <div class="inst-header-left">
@@ -608,54 +590,6 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 </div>
 </div>
 </div>
-
-<!-- Bestsellers Carousel -->
-<section style="padding:48px 0;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);overflow:hidden">
-<div class="container">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
-<h2 style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300;margin:0">Bestsellers</h2>
-<a href="shop.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);text-decoration:none;font-weight:600">View All →</a>
-</div>
-<div class="bestsellers-scroll">
-<div class="bestseller-card">
-<div class="bestseller-name">Tirzepatide 30mg</div>
-<div class="bestseller-purity">&gt;99% Pure</div>
-<div class="bestseller-price">$59</div>
-<a href="shop.html#VX-TIRZ-30" class="bestseller-btn">Add to Cart</a>
-</div>
-<div class="bestseller-card">
-<div class="bestseller-name">Retatrutide 20mg</div>
-<div class="bestseller-purity">&gt;99% Pure</div>
-<div class="bestseller-price">$67</div>
-<a href="shop.html#VX-RETA-20" class="bestseller-btn">Add to Cart</a>
-</div>
-<div class="bestseller-card">
-<div class="bestseller-name">BPC-157 10mg</div>
-<div class="bestseller-purity">&gt;99% Pure</div>
-<div class="bestseller-price">$30</div>
-<a href="shop.html#VX-BPC-10" class="bestseller-btn">Add to Cart</a>
-</div>
-<div class="bestseller-card">
-<div class="bestseller-name">TB-500 10mg</div>
-<div class="bestseller-purity">&gt;99% Pure</div>
-<div class="bestseller-price">$38</div>
-<a href="shop.html#VX-TB-10" class="bestseller-btn">Add to Cart</a>
-</div>
-<div class="bestseller-card">
-<div class="bestseller-name">Semaglutide 10mg</div>
-<div class="bestseller-purity">&gt;99% Pure</div>
-<div class="bestseller-price">$42</div>
-<a href="shop.html#VX-SEMA-10" class="bestseller-btn">Add to Cart</a>
-</div>
-<div class="bestseller-card">
-<div class="bestseller-name">NAD+ 1000mg</div>
-<div class="bestseller-purity">&gt;99% Pure</div>
-<div class="bestseller-price">$59</div>
-<a href="shop.html#VX-NAD-1000" class="bestseller-btn">Add to Cart</a>
-</div>
-</div>
-</div>
-</section>
 
 <div class="marquee">
 <div class="marquee-inner">
