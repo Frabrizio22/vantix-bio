@@ -219,18 +219,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .bestsellers-track::-webkit-scrollbar{height:3px}
 .bestsellers-track::-webkit-scrollbar-track{background:rgba(217,210,191,.3)}
 .bestsellers-track::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.bestseller{flex:0 0 160px;background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:10px;scroll-snap-align:start;transition:all .3s;position:relative;cursor:pointer}@media(min-width:768px){.bestseller{flex:0 0 200px;padding:20px}}
-.bestseller img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:8px;background:var(--hairline)}
-.bestseller:hover{border-color:var(--accent);transform:translateY(-2px)}
-.bs-category{font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:rgba(57,115,176,.7);margin-bottom:4px}@media(min-width:768px){.bs-category{font-size:9px;margin-bottom:8px}}
-.bestseller h3{font-family:'Fraunces',serif;font-size:16px;font-weight:300;margin-bottom:4px;line-height:1.15}@media(min-width:768px){.bestseller h3{font-size:24px;margin-bottom:6px}}
-.bs-meta{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,22,40,.5);margin-bottom:6px}@media(min-width:768px){.bs-meta{font-size:10px;margin-bottom:10px}}
-.bestseller .price{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--text);margin-bottom:8px}@media(min-width:768px){.bestseller .price{font-size:28px;margin-bottom:12px}}
-.bs-actions{display:flex;gap:6px;align-items:center}
-.bs-btn{flex:1;text-align:center;padding:7px 12px;font-size:11px;background:var(--navy);color:#fff;border:none;border-radius:24px;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;justify-content:center}@media(min-width:768px){.bs-btn{padding:9px 18px;font-size:13px}}
-.bs-btn:hover{background:var(--accent)}
-.bs-coa{font-size:13px;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:4px;transition:opacity .3s}
-.bs-coa:hover{opacity:.7}
+.bestsellers-track .product-card{flex:0 0 160px;scroll-snap-align:start}@media(min-width:768px){.bestsellers-track .product-card{flex:0 0 200px}}
 .marquee{background:var(--navy);padding:16px 0;overflow:hidden;margin:24px 0 24px;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:48px 0 32px}}
 .marquee-inner{display:flex;white-space:nowrap;animation:marquee 15s linear infinite;width:max-content}
 .marquee-content{display:inline-block;white-space:nowrap;padding:0 32px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.75)}
@@ -615,70 +604,64 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <a href="shop.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);text-decoration:none;font-weight:600;transition:color .3s" onmouseover="this.style.color='var(--navy)'" onmouseout="this.style.color='var(--accent)'">View All →</a>
 </div>
 <div class="bestsellers-track">
-<div class="bestseller">
-<img src="images/products/tirzepatide-30mg.jpg" alt="Tirzepatide" onerror="this.style.display='none'">
-<p class="bs-category">GLP-1 / GIP AGONISTS</p>
-<h3>VX-2T 30mg</h3>
-<p class="bs-meta">30MG · &gt;99% PURE</p>
-<p class="price">$59</p>
-<div class="bs-actions">
-<a href="shop.html#VX-TIRZ-30" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-2T30-001" class="bs-coa">View COA →</a>
+<div class="product-card" style="cursor:pointer" onclick="window.location.href='shop.html#VX-TIRZ-30'">
+<img src="images/products/tirzepatide-30mg.jpg" alt="Tirzepatide" class="product-image" loading="lazy" decoding="async">
+<div class="product-category">GLP-1 / GIP AGONISTS</div>
+<h3 class="product-name">VX-2T 30mg</h3>
+<div class="product-meta">30MG · &gt;99% PURE</div>
+<div class="product-price">$59</div>
+<div class="product-cta">
+<button class="btn btn-dark btn-waitlist" onclick="window.location.href='shop.html#VX-TIRZ-30'; event.stopPropagation()">Add to Cart</button><a href="verify.html?batch=VX-2T30-001" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>
 </div>
 </div>
-<div class="bestseller">
-<img src="images/products/retatrutide-20mg.jpg" alt="Retatrutide" onerror="this.style.display='none'">
-<p class="bs-category">GLP-1 / GIP AGONISTS</p>
-<h3>VX-3R 20mg</h3>
-<p class="bs-meta">20MG · &gt;99% PURE</p>
-<p class="price">$67</p>
-<div class="bs-actions">
-<a href="shop.html#VX-RETA-20" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-3R20-001" class="bs-coa">View COA →</a>
+<div class="product-card" style="cursor:pointer" onclick="window.location.href='shop.html#VX-RETA-20'">
+<img src="images/products/retatrutide-20mg.jpg" alt="Retatrutide" class="product-image" loading="lazy" decoding="async">
+<div class="product-category">GLP-1 / GIP AGONISTS</div>
+<h3 class="product-name">VX-3R 20mg</h3>
+<div class="product-meta">20MG · &gt;99% PURE</div>
+<div class="product-price">$67</div>
+<div class="product-cta">
+<button class="btn btn-dark btn-waitlist" onclick="window.location.href='shop.html#VX-RETA-20'; event.stopPropagation()">Add to Cart</button><a href="verify.html?batch=VX-3R20-001" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>
 </div>
 </div>
-<div class="bestseller">
-<img src="images/products/bpc-157-10mg.jpg" alt="BPC-157" onerror="this.style.display='none'">
-<p class="bs-category">TISSUE REPAIR RESEARCH</p>
-<h3>BPC-157 10mg</h3>
-<p class="bs-meta">10MG · &gt;99% PURE</p>
-<p class="price">$30</p>
-<div class="bs-actions">
-<a href="shop.html#VX-BPC-10" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-BPC10-001" class="bs-coa">View COA →</a>
+<div class="product-card" style="cursor:pointer" onclick="window.location.href='shop.html#VX-BPC-10'">
+<img src="images/products/bpc-157-10mg.jpg" alt="BPC-157" class="product-image" loading="lazy" decoding="async">
+<div class="product-category">TISSUE REPAIR RESEARCH</div>
+<h3 class="product-name">BPC-157 10mg</h3>
+<div class="product-meta">10MG · &gt;99% PURE</div>
+<div class="product-price">$30</div>
+<div class="product-cta">
+<button class="btn btn-dark btn-waitlist" onclick="window.location.href='shop.html#VX-BPC-10'; event.stopPropagation()">Add to Cart</button><a href="verify.html?batch=VX-BPC10-001" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>
 </div>
 </div>
-<div class="bestseller">
-<img src="images/products/tb-500-10mg.jpg" alt="TB-500" onerror="this.style.display='none'">
-<p class="bs-category">TISSUE REPAIR RESEARCH</p>
-<h3>TB-500 10mg</h3>
-<p class="bs-meta">10MG · &gt;99% PURE</p>
-<p class="price">$38</p>
-<div class="bs-actions">
-<a href="shop.html#VX-TB-10" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-TB10-001" class="bs-coa">View COA →</a>
+<div class="product-card" style="cursor:pointer" onclick="window.location.href='shop.html#VX-TB-10'">
+<img src="images/products/tb-500-10mg.jpg" alt="TB-500" class="product-image" loading="lazy" decoding="async">
+<div class="product-category">TISSUE REPAIR RESEARCH</div>
+<h3 class="product-name">TB-500 10mg</h3>
+<div class="product-meta">10MG · &gt;99% PURE</div>
+<div class="product-price">$38</div>
+<div class="product-cta">
+<button class="btn btn-dark btn-waitlist" onclick="window.location.href='shop.html#VX-TB-10'; event.stopPropagation()">Add to Cart</button><a href="verify.html?batch=VX-TB10-001" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>
 </div>
 </div>
-<div class="bestseller">
-<img src="images/products/semaglutide-10mg.jpg" alt="Semaglutide" onerror="this.style.display='none'">
-<p class="bs-category">GLP-1 AGONISTS</p>
-<h3>VX-1S 10mg</h3>
-<p class="bs-meta">10MG · &gt;99% PURE</p>
-<p class="price">$42</p>
-<div class="bs-actions">
-<a href="shop.html#VX-SEMA-10" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-1S10-001" class="bs-coa">View COA →</a>
+<div class="product-card" style="cursor:pointer" onclick="window.location.href='shop.html#VX-SEMA-10'">
+<img src="images/products/semaglutide-10mg.jpg" alt="Semaglutide" class="product-image" loading="lazy" decoding="async">
+<div class="product-category">GLP-1 AGONISTS</div>
+<h3 class="product-name">VX-1S 10mg</h3>
+<div class="product-meta">10MG · &gt;99% PURE</div>
+<div class="product-price">$42</div>
+<div class="product-cta">
+<button class="btn btn-dark btn-waitlist" onclick="window.location.href='shop.html#VX-SEMA-10'; event.stopPropagation()">Add to Cart</button><a href="verify.html?batch=VX-1S10-001" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>
 </div>
 </div>
-<div class="bestseller">
-<img src="images/products/nad-1000mg.jpg" alt="NAD+" onerror="this.style.display='none'">
-<p class="bs-category">METABOLIC SIGNALING</p>
-<h3>NAD+ 1000mg</h3>
-<p class="bs-meta">1000MG · &gt;99% PURE</p>
-<p class="price">$59</p>
-<div class="bs-actions">
-<a href="shop.html#VX-NAD-1000" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-NAD1000-001" class="bs-coa">View COA →</a>
+<div class="product-card" style="cursor:pointer" onclick="window.location.href='shop.html#VX-NAD-1000'">
+<img src="images/products/nad-1000mg.jpg" alt="NAD+" class="product-image" loading="lazy" decoding="async">
+<div class="product-category">METABOLIC SIGNALING</div>
+<h3 class="product-name">NAD+ 1000mg</h3>
+<div class="product-meta">1000MG · &gt;99% PURE</div>
+<div class="product-price">$59</div>
+<div class="product-cta">
+<button class="btn btn-dark btn-waitlist" onclick="window.location.href='shop.html#VX-NAD-1000'; event.stopPropagation()">Add to Cart</button><a href="verify.html?batch=VX-NAD1000-001" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>
 </div>
 </div>
 </div>
