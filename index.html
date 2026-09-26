@@ -214,8 +214,8 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .add-btn:hover{background:rgba(15,27,45,.85)}
 .add-btn::after{content:none}
 @media(max-width:480px){.inst-body{padding:18px}.inst-header{padding:10px 12px;font-size:9px;letter-spacing:.1em}}
-.bestsellers-section{padding:40px 0 32px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.bestsellers-section{padding:48px 0 40px}}
-.bestsellers-track{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:12px;margin:0 -24px;padding-left:24px;padding-right:24px}@media(min-width:768px){.bestsellers-track{gap:24px;margin:0;padding-left:0;padding-right:0}}
+.bestsellers-section{padding:56px 0 48px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.bestsellers-section{padding:72px 0 64px}}
+.bestsellers-track{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding-bottom:16px;margin:0 -20px;padding-left:20px;padding-right:20px}@media(min-width:768px){.bestsellers-track{gap:24px;margin:0;padding-left:0;padding-right:0;padding-bottom:12px}}
 .bestsellers-track::-webkit-scrollbar{height:3px}
 .bestsellers-track::-webkit-scrollbar-track{background:rgba(217,210,191,.3)}
 .bestsellers-track::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
@@ -231,8 +231,8 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .coa-link{font-size:13px;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:4px;transition:opacity .3s}
 .coa-link:hover{opacity:.7}
 .bestsellers-track .product-card{flex:0 0 165px;scroll-snap-align:start}@media(min-width:768px){.bestsellers-track .product-card{flex:0 0 190px}}
-.verification-system{padding:48px 0 40px;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(min-width:768px){.verification-system{padding:80px 0 72px}}
-.verification-grid{display:grid;grid-template-columns:1fr;gap:40px;max-width:900px;margin:0 auto}@media(min-width:768px){.verification-grid{grid-template-columns:repeat(3,1fr);gap:48px}}
+.verification-system{padding:64px 0 56px;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(min-width:768px){.verification-system{padding:96px 0 88px}}
+.verification-grid{display:grid;grid-template-columns:1fr;gap:56px;max-width:840px;margin:0 auto}@media(min-width:768px){.verification-grid{grid-template-columns:repeat(3,1fr);gap:64px}}
 .marquee{background:var(--navy);padding:16px 0;overflow:hidden;margin:24px 0 24px;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:48px 0 32px}}
 .marquee-inner{display:flex;white-space:nowrap;animation:marquee 15s linear infinite;width:max-content}
 .marquee-content{display:inline-block;white-space:nowrap;padding:0 32px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.75)}
@@ -519,7 +519,7 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 
 <h1 class="float-2" style="margin-bottom:16px;line-height:1.1">Research Peptides.<br><em>Independently Verified.</em></h1>
 <p class="float-3" style="font-size:16px;margin-top:0;margin-bottom:32px;line-height:1.7;color:rgba(10,22,40,.68);max-width:540px">Every batch independently tested. Every vial traceable. Every report permanently accessible and linked directly to the independent laboratory's results.</p>
-<div class="float-4" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:4px">
+<div class="float-4" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:8px">
 <a href="shop.html" class="btn btn-dark" style="text-decoration:none;padding:14px 28px;font-size:14px">Browse Catalog</a>
 <a href="verify.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;letter-spacing:.08em;font-weight:500;transition:opacity .3s" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Verify a Batch →</a>
 </div>
@@ -617,8 +617,8 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <!-- Verification System -->
 <section class="verification-system">
 <div class="container">
-<div style="text-align:center;margin-bottom:56px">
-<div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.25em;color:var(--navy);font-weight:600;opacity:0.9">TESTED → VERIFIED → ARCHIVED</div>
+<div style="text-align:center;margin-bottom:72px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;color:var(--navy);font-weight:600;opacity:0.85">TESTED → VERIFIED → ARCHIVED</div>
 </div>
 <div class="verification-grid">
 <div style="text-align:center">
@@ -634,8 +634,8 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <p style="font-size:15px;line-height:1.65;color:rgba(10,22,40,.7);margin:0">Previous batches remain accessible after they're no longer sold.</p>
 </div>
 </div>
-<div style="text-align:center;margin-top:64px;max-width:680px;margin-left:auto;margin-right:auto">
-<p style="font-family:'Fraunces',serif;font-size:21px;font-weight:300;font-style:italic;color:var(--navy);margin:0 0 24px;line-height:1.35">A COA shouldn't expire when the batch sells out.</p>
+<div style="text-align:center;margin-top:80px;max-width:660px;margin-left:auto;margin-right:auto">
+<p style="font-family:'Fraunces',serif;font-size:22px;font-weight:300;font-style:italic;color:var(--navy);margin:0 0 28px;line-height:1.3">A COA shouldn't expire when the batch sells out.</p>
 <p style="font-size:15px;line-height:1.7;color:rgba(10,22,40,.65);margin:0">Vantix maintains a permanent archive of every released batch. Retrieve the original analytical record at any time and, where supported by the testing laboratory, open the corresponding report directly on the laboratory's official verification portal.</p>
 </div>
 </div>
