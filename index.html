@@ -113,6 +113,17 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .nav-dropdown a:hover{background:var(--bg)}
 .nav-dropdown a::after{display:none}
 .btn{padding:14px 28px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);border:none;text-decoration:none;display:inline-block;white-space:nowrap;min-height:48px;display:inline-flex;align-items:center;justify-content:center}@media(max-width:768px){.btn-primary{width:100%;max-width:320px}}@media(max-width:380px){.btn-waitlist{display:none}}.btn-waitlist{letter-spacing:0.03em}
+.bestsellers-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -24px;padding-left:24px;padding-right:24px}@media(min-width:768px){.bestsellers-scroll{margin:0;padding-left:0;padding-right:0}}
+.bestsellers-scroll::-webkit-scrollbar{height:4px}
+.bestsellers-scroll::-webkit-scrollbar-track{background:var(--hairline)}
+.bestsellers-scroll::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+.bestseller-card{flex:0 0 240px;background:var(--bg);border:1px solid var(--hairline);border-radius:12px;padding:24px;scroll-snap-align:start;transition:all .3s cubic-bezier(.4,0,.2,1)}@media(min-width:768px){.bestseller-card{flex:0 0 260px;padding:28px}}
+.bestseller-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,27,45,.08);border-color:var(--accent)}
+.bestseller-name{font-family:'Fraunces',serif;font-size:18px;font-weight:400;margin:0 0 8px;color:var(--navy);line-height:1.2}@media(min-width:768px){.bestseller-name{font-size:20px}}
+.bestseller-purity{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--signal-bright);letter-spacing:.05em;margin:0 0 16px;text-transform:uppercase}
+.bestseller-price{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--navy);margin:0 0 20px}
+.bestseller-btn{display:block;width:100%;padding:12px;font-size:14px;font-weight:600;text-align:center;background:var(--navy);color:#fff;border:none;border-radius:6px;text-decoration:none;transition:all .3s;min-height:44px;display:flex;align-items:center;justify-content:center}
+.bestseller-btn:hover{background:var(--accent);transform:translateY(-1px)}
 .btn-dark{background:var(--navy);color:#fff;box-shadow:0 1px 3px rgba(15,27,45,.12)}
 .btn-dark:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,27,45,.2)}
 .btn-dark:active{transform:translateY(0);box-shadow:0 1px 3px rgba(15,27,45,.12)}
@@ -597,6 +608,54 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 </div>
 </div>
 </div>
+
+<!-- Bestsellers Carousel -->
+<section style="padding:48px 0;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);overflow:hidden">
+<div class="container">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+<h2 style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300;margin:0">Bestsellers</h2>
+<a href="shop.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);text-decoration:none;font-weight:600">View All →</a>
+</div>
+<div class="bestsellers-scroll">
+<div class="bestseller-card">
+<div class="bestseller-name">Tirzepatide 30mg</div>
+<div class="bestseller-purity">&gt;99% Pure</div>
+<div class="bestseller-price">$59</div>
+<a href="shop.html#VX-TIRZ-30" class="bestseller-btn">Add to Cart</a>
+</div>
+<div class="bestseller-card">
+<div class="bestseller-name">Retatrutide 20mg</div>
+<div class="bestseller-purity">&gt;99% Pure</div>
+<div class="bestseller-price">$67</div>
+<a href="shop.html#VX-RETA-20" class="bestseller-btn">Add to Cart</a>
+</div>
+<div class="bestseller-card">
+<div class="bestseller-name">BPC-157 10mg</div>
+<div class="bestseller-purity">&gt;99% Pure</div>
+<div class="bestseller-price">$30</div>
+<a href="shop.html#VX-BPC-10" class="bestseller-btn">Add to Cart</a>
+</div>
+<div class="bestseller-card">
+<div class="bestseller-name">TB-500 10mg</div>
+<div class="bestseller-purity">&gt;99% Pure</div>
+<div class="bestseller-price">$38</div>
+<a href="shop.html#VX-TB-10" class="bestseller-btn">Add to Cart</a>
+</div>
+<div class="bestseller-card">
+<div class="bestseller-name">Semaglutide 10mg</div>
+<div class="bestseller-purity">&gt;99% Pure</div>
+<div class="bestseller-price">$42</div>
+<a href="shop.html#VX-SEMA-10" class="bestseller-btn">Add to Cart</a>
+</div>
+<div class="bestseller-card">
+<div class="bestseller-name">NAD+ 1000mg</div>
+<div class="bestseller-purity">&gt;99% Pure</div>
+<div class="bestseller-price">$59</div>
+<a href="shop.html#VX-NAD-1000" class="bestseller-btn">Add to Cart</a>
+</div>
+</div>
+</div>
+</section>
 
 <div class="marquee">
 <div class="marquee-inner">
