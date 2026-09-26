@@ -219,16 +219,19 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .bestsellers-track::-webkit-scrollbar{height:3px}
 .bestsellers-track::-webkit-scrollbar-track{background:rgba(217,210,191,.3)}
 .bestsellers-track::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.bestseller{flex:0 0 240px;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:28px 24px;scroll-snap-align:start;transition:all .35s cubic-bezier(.16,1,.3,1)}@media(min-width:768px){.bestseller{flex:0 0 260px;padding:32px 28px}}
-.bestseller img{width:100%;height:180px;object-fit:contain;margin:0 0 20px;border-radius:4px;background:#fafaf7}@media(min-width:768px){.bestseller img{height:200px}}
+.bestseller{flex:0 0 200px;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:20px 18px;scroll-snap-align:start;transition:all .35s cubic-bezier(.16,1,.3,1)}@media(min-width:640px){.bestseller{flex:0 0 240px;padding:24px 22px}}@media(min-width:1024px){.bestseller{flex:0 0 260px;padding:28px 24px}}
+.bestseller img{width:100%;height:140px;object-fit:contain;margin:0 0 16px;border-radius:4px;background:#fafaf7}@media(min-width:640px){.bestseller img{height:160px}}@media(min-width:1024px){.bestseller img{height:180px}}
 .bestseller:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(15,27,45,.12);border-color:var(--accent)}
 .bs-category{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.5);margin:0 0 8px;font-weight:400}
-.bestseller h3{font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin:0 0 8px;color:var(--navy);line-height:1.2}@media(min-width:768px){.bestseller h3{font-size:22px}}
-.bs-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(15,27,45,.6);letter-spacing:.05em;margin:0 0 16px;text-transform:uppercase;font-weight:400}
-.bestseller .price{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:600;color:var(--navy);margin:0 0 20px;line-height:1}@media(min-width:768px){.bestseller .price{font-size:36px}}
-.bs-btn{padding:13px 20px;font-size:12px;font-weight:600;text-align:center;background:var(--navy);color:#fff;border:none;border-radius:24px;text-decoration:none;transition:all .3s cubic-bezier(.16,1,.3,1);font-family:'JetBrains Mono',monospace;letter-spacing:.05em;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(15,27,45,.08)}@media(min-width:768px){.bs-btn{padding:14px 22px;font-size:13px}}
+.bestseller h3{font-family:'Fraunces',serif;font-size:17px;font-weight:400;margin:0 0 6px;color:var(--navy);line-height:1.2}@media(min-width:640px){.bestseller h3{font-size:19px}}@media(min-width:1024px){.bestseller h3{font-size:21px}}
+.bs-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(15,27,45,.6);letter-spacing:.05em;margin:0 0 14px;text-transform:uppercase;font-weight:400}@media(min-width:640px){.bs-meta{font-size:11px}}
+.bestseller .price{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--navy);margin:0 0 16px;line-height:1}@media(min-width:640px){.bestseller .price{font-size:32px}}@media(min-width:1024px){.bestseller .price{font-size:34px}}
+.bs-actions{display:flex;flex-direction:column;gap:10px;align-items:stretch}@media(min-width:640px){.bs-actions{flex-direction:row;align-items:center;gap:8px}}
+.bs-btn{padding:11px 16px;font-size:11px;font-weight:600;text-align:center;background:var(--navy);color:#fff;border:none;border-radius:20px;text-decoration:none;transition:all .3s cubic-bezier(.16,1,.3,1);font-family:'JetBrains Mono',monospace;letter-spacing:.04em;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(15,27,45,.08);min-height:40px}@media(min-width:640px){.bs-btn{padding:12px 18px;font-size:12px}}@media(min-width:1024px){.bs-btn{padding:13px 20px;font-size:13px;min-height:44px}}
 .bs-btn:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,27,45,.18)}
 .bs-btn:active{transform:translateY(0);box-shadow:0 1px 3px rgba(15,27,45,.08)}
+.bs-coa{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);text-decoration:none;white-space:nowrap;text-align:center;transition:color .3s}@media(min-width:640px){.bs-coa{font-size:11px}}
+.bs-coa:hover{color:var(--navy)}
 .marquee{background:var(--navy);padding:16px 0;overflow:hidden;margin:24px 0 24px;width:100%;max-width:100%}@media(min-width:768px){.marquee{margin:48px 0 32px}}
 .marquee-inner{display:flex;white-space:nowrap;animation:marquee 15s linear infinite;width:max-content}
 .marquee-content{display:inline-block;white-space:nowrap;padding:0 32px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.75)}
@@ -619,9 +622,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <h3>VX-2T 30mg</h3>
 <p class="bs-meta">30MG · &gt;99% PURE</p>
 <p class="price">$59</p>
-<div style="display:flex;align-items:center;gap:12px">
+<div class="bs-actions">
 <a href="shop.html#VX-TIRZ-30" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-2T30-001" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap">View COA →</a>
+<a href="verify.html?batch=VX-2T30-001" class="bs-coa">View COA →</a>
 </div>
 </div>
 <div class="bestseller">
@@ -630,9 +633,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <h3>VX-3R 20mg</h3>
 <p class="bs-meta">20MG · &gt;99% PURE</p>
 <p class="price">$67</p>
-<div style="display:flex;align-items:center;gap:12px">
+<div class="bs-actions">
 <a href="shop.html#VX-RETA-20" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-3R20-001" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap">View COA →</a>
+<a href="verify.html?batch=VX-3R20-001" class="bs-coa">View COA →</a>
 </div>
 </div>
 <div class="bestseller">
@@ -641,9 +644,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <h3>BPC-157 10mg</h3>
 <p class="bs-meta">10MG · &gt;99% PURE</p>
 <p class="price">$30</p>
-<div style="display:flex;align-items:center;gap:12px">
+<div class="bs-actions">
 <a href="shop.html#VX-BPC-10" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-BPC10-001" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap">View COA →</a>
+<a href="verify.html?batch=VX-BPC10-001" class="bs-coa">View COA →</a>
 </div>
 </div>
 <div class="bestseller">
@@ -652,9 +655,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <h3>TB-500 10mg</h3>
 <p class="bs-meta">10MG · &gt;99% PURE</p>
 <p class="price">$38</p>
-<div style="display:flex;align-items:center;gap:12px">
+<div class="bs-actions">
 <a href="shop.html#VX-TB-10" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-TB10-001" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap">View COA →</a>
+<a href="verify.html?batch=VX-TB10-001" class="bs-coa">View COA →</a>
 </div>
 </div>
 <div class="bestseller">
@@ -663,9 +666,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <h3>VX-1S 10mg</h3>
 <p class="bs-meta">10MG · &gt;99% PURE</p>
 <p class="price">$42</p>
-<div style="display:flex;align-items:center;gap:12px">
+<div class="bs-actions">
 <a href="shop.html#VX-SEMA-10" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-1S10-001" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap">View COA →</a>
+<a href="verify.html?batch=VX-1S10-001" class="bs-coa">View COA →</a>
 </div>
 </div>
 <div class="bestseller">
@@ -674,9 +677,9 @@ This is the actual report for batch VX-GHK100-001. Not a product-line sample —
 <h3>NAD+ 1000mg</h3>
 <p class="bs-meta">1000MG · &gt;99% PURE</p>
 <p class="price">$59</p>
-<div style="display:flex;align-items:center;gap:12px">
+<div class="bs-actions">
 <a href="shop.html#VX-NAD-1000" class="bs-btn">Add to Cart</a>
-<a href="verify.html?batch=VX-NAD1000-001" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap">View COA →</a>
+<a href="verify.html?batch=VX-NAD1000-001" class="bs-coa">View COA →</a>
 </div>
 </div>
 </div>
