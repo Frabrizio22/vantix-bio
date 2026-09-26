@@ -73,7 +73,7 @@ body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var
 .float-4{animation:floatIn .8s cubic-bezier(.16,1,.3,1) .6s both}
 .float-5{animation:floatIn .8s cubic-bezier(.16,1,.3,1) .75s both}
 h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;line-height:1.1;text-wrap:balance}
-h1{font-size:2rem;letter-spacing:-.025em;padding-left:0;line-height:1.1}@media(min-width:768px){h1{font-size:3.5rem}}@media(min-width:1200px){h1{font-size:4.5rem}}
+h1{font-size:clamp(2.25rem,6.5vw,6.5rem);letter-spacing:-.025em;padding-left:0}
 h2{font-size:clamp(1.75rem,4vw,3.25rem);letter-spacing:-.02em;padding-left:0}
 h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .label-mono{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5)}
@@ -112,30 +112,9 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
 .nav-dropdown a:hover{background:var(--bg)}
 .nav-dropdown a::after{display:none}
-.btn{padding:14px 28px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);border:none;text-decoration:none;display:inline-block;white-space:nowrap;min-height:48px;display:inline-flex;align-items:center;justify-content:center}@media(max-width:768px){.btn-primary{width:100%;max-width:320px}}@media(max-width:380px){.btn-waitlist{display:none}}.btn-waitlist{letter-spacing:0.03em}
-.featured-products{padding:48px 0;background:#fff;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}@media(min-width:768px){.featured-products{padding:64px 0}}
-.featured-products h2{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:300;text-align:center;margin:0 0 40px}@media(min-width:768px){.featured-products h2{font-size:2.25rem;margin:0 0 56px}}
-.product-grid{display:grid;grid-template-columns:1fr;gap:20px;max-width:400px;margin:0 auto}@media(min-width:640px){.product-grid{grid-template-columns:repeat(2,1fr);max-width:none;gap:24px}}@media(min-width:1024px){.product-grid{grid-template-columns:repeat(4,1fr);gap:28px}}
-.product-card{background:var(--bg);border:1px solid var(--hairline);border-radius:12px;padding:24px;text-align:center;transition:all .3s cubic-bezier(.4,0,.2,1)}@media(min-width:768px){.product-card{padding:28px}}
-.product-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,27,45,.08);border-color:var(--accent)}
-.product-card img{width:100%;max-width:180px;height:auto;margin:0 auto 20px;display:block}
-.product-card h3{font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin:0 0 8px;color:var(--navy)}@media(min-width:768px){.product-card h3{font-size:22px}}
-.product-purity{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--signal-bright);letter-spacing:.05em;margin:0 0 12px}
-.product-price{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--navy);margin:0 0 20px}
-.product-card .btn{width:100%;padding:12px;font-size:14px;min-height:44px}
-.verification-proof{padding:48px 0;text-align:center}@media(min-width:768px){.verification-proof{padding:64px 0}}
-.verification-proof h2{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:300;margin:0 0 32px}@media(min-width:768px){.verification-proof h2{font-size:2.25rem}}
-.batch-card{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:32px;max-width:480px;margin:0 auto;text-align:left}@media(min-width:768px){.batch-card{padding:40px}}
-.batch-header{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin:0 0 16px}
-.batch-id{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:var(--navy);margin:0 0 8px}@media(min-width:768px){.batch-id{font-size:28px}}
-.batch-date{font-size:14px;color:rgba(10,22,40,.6);margin:0 0 24px}
-.batch-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:24px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);margin:0 0 24px}
-.batch-metric-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,22,40,.6);margin:0 0 8px}
-.batch-metric-value{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--signal-bright)}@media(min-width:768px){.batch-metric-value{font-size:28px}}
-.batch-card .btn{display:block;width:100%;text-align:center}
-.btn-dark{background:var(--navy);color:#fff;box-shadow:0 1px 3px rgba(15,27,45,.12)}
-.btn-dark:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,27,45,.2)}
-.btn-dark:active{transform:translateY(0);box-shadow:0 1px 3px rgba(15,27,45,.12)}
+.btn{padding:12px 24px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block;white-space:nowrap}@media(min-width:480px){.btn{padding:13px 28px;font-size:14px}}@media(max-width:380px){.btn-waitlist{display:none}}.btn-waitlist{letter-spacing:0.03em}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
 .menu-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow-y:auto;display:none}
 .menu-overlay.active{opacity:1;pointer-events:auto;display:block}
 .menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
@@ -184,13 +163,7 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 .waitlist-success svg{width:48px;height:48px;color:var(--accent);margin-bottom:16px}
 .btn-outline{background:transparent;border:1.5px solid var(--hairline);color:var(--text);transition:all .25s ease}
 .btn-outline:hover{border-color:var(--accent);background:rgba(57,115,176,.06);transform:translateY(-2px);box-shadow:0 4px 12px rgba(57,115,176,0.08)}
-.hero{padding:56px 0 32px;text-align:center}@media(min-width:768px){.hero{padding:72px 0 48px}}
-.hero-content{max-width:640px;margin:0 auto}
-.hero h1{margin-bottom:16px}
-.hero-subhead{font-size:17px;line-height:1.6;color:rgba(10,22,40,.68);margin:0 0 28px;max-width:520px;margin-left:auto;margin-right:auto}@media(min-width:768px){.hero-subhead{font-size:18px}}
-.trust-bar{display:flex;gap:16px;justify-content:center;align-items:center;margin-top:28px;font-size:12px;color:rgba(10,22,40,.6);flex-wrap:wrap}@media(min-width:768px){.trust-bar{font-size:13px}}
-.trust-bar span{display:flex;align-items:center;gap:6px}
-.trust-bar span::before{content:'✓';color:var(--signal-bright);font-weight:700}
+.hero{padding:56px 0 40px;display:grid;grid-template-columns:1fr;gap:48px;align-items:start}@media(min-width:1024px){.hero{padding:80px 0 60px;grid-template-columns:1.1fr 1fr;gap:64px}}
 .chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;padding-left:12px;display:flex;align-items:center;gap:12px}
 .chapter::before{content:'';width:24px;height:1px;background:var(--accent)}
 .verify-widget{margin-top:48px;background:var(--navy);border-radius:16px;padding:32px;color:#fff}
@@ -523,87 +496,15 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 
 <div class="container">
 <div class="hero">
-<div class="hero-content">
-<h1 class="float-2">Verification-First<br><em>Research</em> Peptides</h1>
-<p class="hero-subhead float-3">Every batch independently tested. Publicly verified. Fully traceable.</p>
-<a href="shop.html" class="btn btn-dark float-4">Shop Verified Peptides</a>
-<div class="trust-bar float-5">
-<span>ISO 17025 Tested</span>
-<span>California Synthesis</span>
-<span>500+ Batches Verified</span>
-</div>
-</div>
-</div>
+<div>
+
+<h1 class="float-2" style="margin-bottom:8px">Third-Party Tested<br><em>Research</em> Peptides.</h1>
+<p class="float-3" style="font-size:18.5px;margin-top:24px;margin-bottom:20px;line-height:1.7;color:rgba(10,22,40,.68);max-width:600px">Every batch independently tested. View the full report here, or verify authenticity with one click — linked directly to the lab's official results page. No fake COAs, no extra steps. Direct lab verification.</p>
+
+
 </div>
 
-<!-- Featured Products -->
-<section class="featured-products">
-<div class="container">
-<h2>Research-Grade Peptides</h2>
-<div class="product-grid">
-<div class="product-card">
-<img src="images/products/tirzepatide-30mg.jpg" alt="Tirzepatide 30mg" onerror="this.style.display='none'">
-<h3>Tirzepatide 30mg</h3>
-<p class="product-purity">&gt;99% PURE</p>
-<p class="product-price">$59</p>
-<a href="shop.html#VX-TIRZ-30" class="btn btn-dark">Add to Cart</a>
-</div>
-<div class="product-card">
-<img src="images/products/retatrutide-20mg.jpg" alt="Retatrutide 20mg" onerror="this.style.display='none'">
-<h3>Retatrutide 20mg</h3>
-<p class="product-purity">&gt;99% PURE</p>
-<p class="product-price">$67</p>
-<a href="shop.html#VX-RETA-20" class="btn btn-dark">Add to Cart</a>
-</div>
-<div class="product-card">
-<img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 10mg" onerror="this.style.display='none'">
-<h3>BPC-157 10mg</h3>
-<p class="product-purity">&gt;99% PURE</p>
-<p class="product-price">$30</p>
-<a href="shop.html#VX-BPC-10" class="btn btn-dark">Add to Cart</a>
-</div>
-<div class="product-card">
-<img src="images/products/tb-500-10mg.jpg" alt="TB-500 10mg" onerror="this.style.display='none'">
-<h3>TB-500 10mg</h3>
-<p class="product-purity">&gt;99% PURE</p>
-<p class="product-price">$38</p>
-<a href="shop.html#VX-TB-10" class="btn btn-dark">Add to Cart</a>
-</div>
-</div>
-</div>
-</section>
-
-<!-- Verification Proof -->
-<section class="verification-proof">
-<div class="container">
-<h2>Real Batches. Real Data.</h2>
-<div class="batch-card">
-<div class="batch-header">Current Batch</div>
-<div class="batch-id">VX-GHK100-001</div>
-<div class="batch-date">Tested: June 1, 2026</div>
-<div class="batch-metrics">
-<div>
-<div class="batch-metric-label">Purity</div>
-<div class="batch-metric-value">99.958%</div>
-</div>
-<div>
-<div class="batch-metric-label">Content</div>
-<div class="batch-metric-value">108.58mg</div>
-</div>
-<div>
-<div class="batch-metric-label">Identity</div>
-<div class="batch-metric-value" style="font-size:16px;padding-top:8px">Confirmed</div>
-</div>
-</div>
-<a href="verify.html?batch=VX-GHK100-001" class="btn btn-dark">View Full Report →</a>
-</div>
-</div>
-</section>
-
-<div class="container">
-<div style="padding:48px 0;text-align:center">
-<h2 style="font-family:'Fraunces',serif;font-size:1.75rem;font-weight:300;margin:0 0 48px">How Verification Works</h2>
-<div class="float-5" style="max-width:900px;margin:0 auto">
+<div class="float-5">
 <article class="instrument" aria-label="Live batch readout">
 <header class="inst-header">
 <div class="inst-header-left">
