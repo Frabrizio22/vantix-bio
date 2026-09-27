@@ -633,12 +633,23 @@ function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
+var productSpecificCodes={'RETA15':{discount:0.15,products:['RETA-20','RETA-10']}};
 
 // NAD+ auto-discount removed
 if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
-if(kitsOnlyCodes.indexOf(promoCode)!==-1){
+// Check if product-specific code
+if(productSpecificCodes[promoCode]){
+var config=productSpecificCodes[promoCode];
+var productTotal=0;
+cart.forEach(function(item){
+if(item.sku&&config.products.indexOf(item.sku)!==-1){
+productTotal+=item.price*item.quantity;
+}
+});
+discount+=productTotal*config.discount;
+}else if(kitsOnlyCodes.indexOf(promoCode)!==-1){
 discount+=subtotal*promoValue;
 }else{
 var singlesTotal=0;
