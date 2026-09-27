@@ -633,29 +633,38 @@ var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
 var productSpecificCodes={'RETA15':{discount:0.15,products:['VX-3R','VX-3R-10']}};
+console.log('=== getDiscount called ===');
+console.log('promoCode:',promoCode);
+console.log('cart:',JSON.stringify(cart));
 
 // NAD+ auto-discount removed
 // Check product-specific codes first
 if(promoCode&&productSpecificCodes[promoCode]){
+console.log('RETA15 detected! Checking products...');
 var config=productSpecificCodes[promoCode];
 var productTotal=0;
 cart.forEach(function(item){
+console.log('Item:',item.sku,item.name);
 // Match by SKU or name
 var matches=false;
 if(item.sku){
 for(var i=0;i<config.products.length;i++){
 if(item.sku.indexOf(config.products[i])!==-1||config.products[i].indexOf(item.sku)!==-1){
+console.log('SKU MATCH!',item.sku,'contains',config.products[i]);
 matches=true;break;
 }
 }
 }
 if(!matches&&item.name&&item.name.toLowerCase().indexOf('retatrutide')!==-1){
+console.log('NAME MATCH!',item.name);
 matches=true;
 }
 if(matches){
+console.log('Adding to productTotal:',item.price,'x',item.quantity);
 productTotal+=item.price*item.quantity;
 }
 });
+console.log('Final productTotal:',productTotal,'discount:',config.discount,'result:',productTotal*config.discount);
 discount+=productTotal*config.discount;
 }else if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
@@ -678,6 +687,7 @@ discount+=singlesTotal*promoValue.discount;
 }
 }
 if(selectedPayment==='zelle'&&promoCode!=='MAHMUD100'&&promoCode!=='TEST1'){discount+=subtotal*0.05;}
+console.log('Final discount returned:',discount);
 return discount;
 }
 
