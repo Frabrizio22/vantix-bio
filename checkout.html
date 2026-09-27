@@ -475,7 +475,7 @@ var promoCodes={
 'FOUNDER10':0.10,
 'WELCOME10':0.10,
 'MURPHY15':0.15,
-'RETA15':{type:'productDiscount',discount:0.15,skus:['VX-3R','VX-3R-10','VX-3R-20']},
+'RETA15':0.15,
 'BREEZY':0.10,
 'DRAGON':0.10
 };
@@ -630,7 +630,6 @@ return subtotal;
 }
 
 function getDiscount(){
-if(promoCode==='RETA15'){alert('getDiscount called with RETA15\nCart: '+JSON.stringify(cart.map(function(i){return {sku:i.sku,name:i.name};})));}
 var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
@@ -651,29 +650,9 @@ discount+=singlesTotal*promoValue;
 discount=subtotal-promoValue.setPrice;
 }else if(promoValue.discount){
 // Handle object format with discount property (e.g., MAHMUD100)
-if(promoValue.type==='productDiscount'&&promoValue.skus){
-// Product-specific discount
-var productTotal=0;
-var debugInfo='RETA15 Debug:\n';
-cart.forEach(function(item){
-debugInfo+='Item: sku='+item.sku+' name='+item.name+' price='+item.price+'\n';
-for(var i=0;i<promoValue.skus.length;i++){
-if(item.sku&&item.sku.indexOf(promoValue.skus[i])!==-1){
-debugInfo+='MATCHED: '+item.sku+' contains '+promoValue.skus[i]+'\n';
-productTotal+=item.price*item.quantity;
-break;
-}
-}
-});
-debugInfo+='ProductTotal: $'+productTotal+'\nDiscount: $'+(productTotal*promoValue.discount);
-alert(debugInfo);
-discount+=productTotal*promoValue.discount;
-}else{
-// Regular discount on all singles
 var singlesTotal=0;
 cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=item.price*item.quantity;}});
 discount+=singlesTotal*promoValue.discount;
-}
 }
 }
 if(selectedPayment==='zelle'&&promoCode!=='MAHMUD100'&&promoCode!=='TEST1'){discount+=subtotal*0.05;}
