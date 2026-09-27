@@ -630,6 +630,7 @@ return subtotal;
 }
 
 function getDiscount(){
+if(promoCode==='RETA15'){alert('getDiscount called with RETA15\nCart: '+JSON.stringify(cart.map(function(i){return {sku:i.sku,name:i.name};})));}
 var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
