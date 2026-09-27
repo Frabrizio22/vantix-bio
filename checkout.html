@@ -633,39 +633,47 @@ var subtotal=getSubtotal();
 var discount=0;
 var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
 var productSpecificCodes={'RETA15':{discount:0.15,products:['VX-3R','VX-3R-10']}};
-console.log('=== getDiscount called ===');
-console.log('promoCode:',promoCode);
-console.log('cart:',JSON.stringify(cart));
+var debugLog=[];
+debugLog.push('PromoCode: '+promoCode);
+debugLog.push('Cart items: '+cart.length);
 
 // NAD+ auto-discount removed
 // Check product-specific codes first
 if(promoCode&&productSpecificCodes[promoCode]){
-console.log('RETA15 detected! Checking products...');
+debugLog.push('RETA15 code detected');
 var config=productSpecificCodes[promoCode];
 var productTotal=0;
 cart.forEach(function(item){
-console.log('Item:',item.sku,item.name);
+debugLog.push('Item: SKU='+item.sku+' Name='+item.name);
 // Match by SKU or name
 var matches=false;
 if(item.sku){
 for(var i=0;i<config.products.length;i++){
 if(item.sku.indexOf(config.products[i])!==-1||config.products[i].indexOf(item.sku)!==-1){
-console.log('SKU MATCH!',item.sku,'contains',config.products[i]);
+debugLog.push('SKU MATCH: '+item.sku+' contains '+config.products[i]);
 matches=true;break;
 }
 }
 }
 if(!matches&&item.name&&item.name.toLowerCase().indexOf('retatrutide')!==-1){
-console.log('NAME MATCH!',item.name);
+debugLog.push('NAME MATCH: '+item.name);
 matches=true;
 }
 if(matches){
-console.log('Adding to productTotal:',item.price,'x',item.quantity);
+debugLog.push('Adding: $'+item.price+' x '+item.quantity+' = $'+(item.price*item.quantity));
 productTotal+=item.price*item.quantity;
+}else{
+debugLog.push('NO MATCH - skipped');
 }
 });
-console.log('Final productTotal:',productTotal,'discount:',config.discount,'result:',productTotal*config.discount);
+debugLog.push('ProductTotal: $'+productTotal);
+debugLog.push('Discount rate: '+config.discount);
+debugLog.push('Calculated discount: $'+(productTotal*config.discount));
 discount+=productTotal*config.discount;
+var debugDiv=document.getElementById('debug-output');
+if(debugDiv){debugDiv.innerHTML='<div style="background:#000;color:#0f0;padding:10px;margin:10px 0;font-family:monospace;font-size:11px;white-space:pre-wrap">'+debugLog.join('\n')+'</div>';}
+}else{
+debugLog.push('Code not in productSpecificCodes');
 }else if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
@@ -687,7 +695,15 @@ discount+=singlesTotal*promoValue.discount;
 }
 }
 if(selectedPayment==='zelle'&&promoCode!=='MAHMUD100'&&promoCode!=='TEST1'){discount+=subtotal*0.05;}
-console.log('Final discount returned:',discount);
+debugLog.push('Final discount: $'+discount);
+var debugDiv=document.getElementById('debug-output');
+if(!debugDiv){
+debugDiv=document.createElement('div');
+debugDiv.id='debug-output';
+var container=document.querySelector('.checkout-summary')||document.body;
+container.appendChild(debugDiv);
+}
+debugDiv.innerHTML='<div style="background:#000;color:#0f0;padding:10px;margin:10px 0;font-family:monospace;font-size:11px;white-space:pre-wrap;border-radius:8px">DEBUG LOG:\n'+debugLog.join('\n')+'</div>';
 return discount;
 }
 
