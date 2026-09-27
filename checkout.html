@@ -653,14 +653,19 @@ discount=subtotal-promoValue.setPrice;
 if(promoValue.type==='productDiscount'&&promoValue.skus){
 // Product-specific discount
 var productTotal=0;
+var debugInfo='RETA15 Debug:\n';
 cart.forEach(function(item){
+debugInfo+='Item: sku='+item.sku+' name='+item.name+' price='+item.price+'\n';
 for(var i=0;i<promoValue.skus.length;i++){
 if(item.sku&&item.sku.indexOf(promoValue.skus[i])!==-1){
+debugInfo+='MATCHED: '+item.sku+' contains '+promoValue.skus[i]+'\n';
 productTotal+=item.price*item.quantity;
 break;
 }
 }
 });
+debugInfo+='ProductTotal: $'+productTotal+'\nDiscount: $'+(productTotal*promoValue.discount);
+alert(debugInfo);
 discount+=productTotal*promoValue.discount;
 }else{
 // Regular discount on all singles
