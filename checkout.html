@@ -644,13 +644,22 @@ if(productSpecificCodes[promoCode]){
 var config=productSpecificCodes[promoCode];
 var productTotal=0;
 cart.forEach(function(item){
-console.log('Checking item:',item.sku,'against',config.products);
-if(item.sku&&config.products.indexOf(item.sku)!==-1){
-console.log('Match found! Adding',item.price*item.quantity);
+// Match by SKU or name
+var matches=false;
+if(item.sku){
+for(var i=0;i<config.products.length;i++){
+if(item.sku.indexOf(config.products[i])!==-1||config.products[i].indexOf(item.sku)!==-1){
+matches=true;break;
+}
+}
+}
+if(!matches&&item.name&&item.name.toLowerCase().indexOf('retatrutide')!==-1){
+matches=true;
+}
+if(matches){
 productTotal+=item.price*item.quantity;
 }
 });
-console.log('Product total:',productTotal,'discount:',config.discount,'final:',productTotal*config.discount);
 discount+=productTotal*config.discount;
 }else if(kitsOnlyCodes.indexOf(promoCode)!==-1){
 discount+=subtotal*promoValue;
