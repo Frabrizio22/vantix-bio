@@ -644,10 +644,13 @@ if(productSpecificCodes[promoCode]){
 var config=productSpecificCodes[promoCode];
 var productTotal=0;
 cart.forEach(function(item){
+console.log('Checking item:',item.sku,'against',config.products);
 if(item.sku&&config.products.indexOf(item.sku)!==-1){
+console.log('Match found! Adding',item.price*item.quantity);
 productTotal+=item.price*item.quantity;
 }
 });
+console.log('Product total:',productTotal,'discount:',config.discount,'final:',productTotal*config.discount);
 discount+=productTotal*config.discount;
 }else if(kitsOnlyCodes.indexOf(promoCode)!==-1){
 discount+=subtotal*promoValue;
