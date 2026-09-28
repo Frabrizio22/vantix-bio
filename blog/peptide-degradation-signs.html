@@ -42,9 +42,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-content">
     <div class="header-left">
       <a href="../index.html" class="logo">
-        <img src="../logo-header.svg" alt="Vantix Bio" style="height:32px">
+        <img src="../logo-header.svg" alt="Vantix Bio" style="height:28px">
       </a>
-      <nav>
+      <nav style="display:none"><!-- Hidden on mobile -->
         <a href="../shop.html">Catalog</a>
         <a href="../verify.html">Verify</a>
         <a href="index.html" class="active">Research</a>
@@ -52,7 +52,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </nav>
     </div>
     <div class="nav-icons">
-      <a href="../shop.html" class="btn btn-dark">Shop Now</a>
+      <a href="../shop.html" class="btn btn-dark" style="font-size:13px;padding:8px 16px">Shop Now</a>
     </div>
   </div>
 </div>
@@ -333,45 +333,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </article>
 
-<div class="footer-divider"></div>
-
-<footer class="footer">
+<footer class="site-footer">
   <div class="footer-content">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="../shop.html">All Products</a></li>
-          <li><a href="../shop.html#glp1">GLP-1 Analogs</a></li>
-          <li><a href="../shop.html#repair">Tissue Repair</a></li>
-          <li><a href="../shop.html#kits">Research Kits</a></li>
+    <div class="footer-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:32px;margin-bottom:32px">
+      <div class="footer-section">
+        <h4 style="font-size:12px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--navy)">Products</h4>
+        <ul style="list-style:none">
+          <li style="margin-bottom:8px"><a href="../shop.html" style="color:#6b7280;text-decoration:none;font-size:14px">All Products</a></li>
+          <li style="margin-bottom:8px"><a href="../shop.html#glp1" style="color:#6b7280;text-decoration:none;font-size:14px">GLP-1 Analogs</a></li>
+          <li style="margin-bottom:8px"><a href="../shop.html#repair" style="color:#6b7280;text-decoration:none;font-size:14px">Tissue Repair</a></li>
+          <li style="margin-bottom:8px"><a href="../shop.html#kits" style="color:#6b7280;text-decoration:none;font-size:14px">Research Kits</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Verification</h4>
-        <ul>
-          <li><a href="../verify.html">Batch Lookup</a></li>
-          <li><a href="../coa-archive.html">COA Archive</a></li>
-          <li><a href="index.html">Research</a></li>
+      <div class="footer-section">
+        <h4 style="font-size:12px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--navy)">Verification</h4>
+        <ul style="list-style:none">
+          <li style="margin-bottom:8px"><a href="../verify.html" style="color:#6b7280;text-decoration:none;font-size:14px">Batch Lookup</a></li>
+          <li style="margin-bottom:8px"><a href="../coa-archive.html" style="color:#6b7280;text-decoration:none;font-size:14px">COA Archive</a></li>
+          <li style="margin-bottom:8px"><a href="index.html" style="color:#6b7280;text-decoration:none;font-size:14px">Research</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="../contact.html">Contact</a></li>
-          <li><a href="../faq.html">FAQ</a></li>
+      <div class="footer-section">
+        <h4 style="font-size:12px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--navy)">Company</h4>
+        <ul style="list-style:none">
+          <li style="margin-bottom:8px"><a href="../about.html" style="color:#6b7280;text-decoration:none;font-size:14px">About</a></li>
+          <li style="margin-bottom:8px"><a href="../contact.html" style="color:#6b7280;text-decoration:none;font-size:14px">Contact</a></li>
+          <li style="margin-bottom:8px"><a href="../faq.html" style="color:#6b7280;text-decoration:none;font-size:14px">FAQ</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="../terms.html">Terms</a></li>
-          <li><a href="../privacy.html">Privacy</a></li>
+      <div class="footer-section">
+        <h4 style="font-size:12px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--navy)">Legal</h4>
+        <ul style="list-style:none">
+          <li style="margin-bottom:8px"><a href="../terms.html" style="color:#6b7280;text-decoration:none;font-size:14px">Terms</a></li>
+          <li style="margin-bottom:8px"><a href="../privacy.html" style="color:#6b7280;text-decoration:none;font-size:14px">Privacy</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-legal" style="text-align:center;padding-top:24px;border-top:1px solid var(--hairline);color:#6b7280;font-size:13px">
       <p>&copy; 2026 Vantix Bio. For research use only.</p>
     </div>
   </div>
