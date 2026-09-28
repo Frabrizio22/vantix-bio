@@ -7,15 +7,16 @@
 <meta name="description" content="Research peptides with batch-level third-party verification. Independent testing, permanent archives, direct lab verification.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --bg: #FFFFFF;
-  --text: #1a1a1a;
+  --bg: #FAFAFA;
+  --text: #0a1628;
   --accent: #2563eb;
-  --border: #e5e7eb;
+  --border: #e1e4e8;
   --signal: #10b981;
+  --mono: 'IBM Plex Mono', monospace;
 }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
@@ -35,8 +36,12 @@ body {
 
 /* Header */
 .header {
+  background: white;
   border-bottom: 1px solid var(--border);
   padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 .header-inner {
   display: flex;
@@ -44,10 +49,11 @@ body {
   align-items: center;
 }
 .logo {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
+  letter-spacing: -0.02em;
 }
 .nav {
   display: flex;
@@ -59,43 +65,48 @@ body {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
+  transition: color 0.2s;
 }
 .nav a:hover {
   color: var(--accent);
 }
 
-/* Hero Section - Peaked Style */
+/* Hero Section - Premium Clinical */
 .hero {
-  padding: 64px 0 48px;
-  text-align: center;
+  padding: 80px 0 64px;
+  background: white;
+  border-bottom: 1px solid var(--border);
 }
-.hero-image {
-  max-width: 400px;
-  margin: 0 auto 32px;
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
 }
-.hero-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
+@media(min-width:1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
 }
-.hero h1 {
-  font-size: clamp(32px, 5vw, 52px);
+.hero-content h1 {
+  font-size: clamp(36px, 5vw, 56px);
   font-weight: 700;
   line-height: 1.1;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   color: var(--text);
+  letter-spacing: -0.02em;
 }
-.hero p {
+.hero-content p {
   font-size: 18px;
-  color: #6b7280;
-  max-width: 600px;
-  margin: 0 auto 32px;
-  line-height: 1.6;
+  color: #4b5563;
+  margin-bottom: 32px;
+  line-height: 1.7;
+  max-width: 540px;
 }
 .hero-ctas {
   display: flex;
   gap: 16px;
-  justify-content: center;
   flex-wrap: wrap;
 }
 .btn {
@@ -106,13 +117,15 @@ body {
   text-decoration: none;
   display: inline-block;
   transition: all 0.2s;
+  border: none;
+  cursor: pointer;
 }
 .btn-primary {
   background: var(--text);
   color: white;
 }
 .btn-primary:hover {
-  background: #2a2a2a;
+  background: #1a2940;
   transform: translateY(-1px);
 }
 .btn-secondary {
@@ -123,124 +136,285 @@ body {
 .btn-secondary:hover {
   border-color: var(--text);
 }
+.hero-image {
+  position: relative;
+}
+.hero-image img {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+}
+.janoshik-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--signal);
+}
 
 /* Trust Badges */
-.trust-badges {
-  padding: 48px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+.trust-section {
+  padding: 56px 0;
+  background: var(--bg);
 }
 .badges-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 32px;
   text-align: center;
 }
 .badge {
-  padding: 16px;
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
 }
 .badge-value {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 700;
   color: var(--text);
   display: block;
   margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 .badge-label {
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: #6b7280;
   font-weight: 600;
 }
 
 /* Verification Section */
 .verification-section {
-  padding: 64px 0;
-  background: #f9fafb;
+  padding: 80px 0;
+  background: white;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
-.verification-content {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
+.verification-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+  align-items: center;
+}
+@media(min-width:1024px) {
+  .verification-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 .verification-content h2 {
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: clamp(32px, 4vw, 44px);
   font-weight: 700;
   margin-bottom: 20px;
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 .verification-content p {
   font-size: 17px;
-  color: #6b7280;
+  color: #4b5563;
   margin-bottom: 16px;
   line-height: 1.7;
+}
+.verification-widget {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+.widget-header {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.widget-input {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.widget-input input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 14px;
+  background: white;
+}
+.widget-input input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.widget-input button {
+  padding: 14px 24px;
+  background: var(--text);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.widget-input button:hover {
+  background: #1a2940;
+}
+.widget-example {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #6b7280;
+}
+.widget-example span {
+  color: var(--accent);
+  cursor: pointer;
+}
+.widget-example span:hover {
+  text-decoration: underline;
+}
+
+/* Data Display */
+.data-section {
+  padding: 64px 0;
+  background: var(--bg);
+}
+.data-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.data-header h3 {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b7280;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.data-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.data-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.data-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+.data-card-header {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.data-card-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.data-card-label {
+  font-size: 14px;
+  color: #6b7280;
 }
 
 /* Products Section */
 .products-section {
-  padding: 64px 0;
+  padding: 80px 0;
+  background: white;
 }
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 .section-header h2 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .section-header a {
   color: var(--accent);
   text-decoration: none;
   font-weight: 600;
   font-size: 15px;
+  transition: opacity 0.2s;
+}
+.section-header a:hover {
+  opacity: 0.7;
 }
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
 .product-card {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
-  background: white;
+  background: var(--bg);
   transition: all 0.2s;
   cursor: pointer;
 }
 .product-card:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
 }
 .product-card img {
   width: 100%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 16px;
+  background: white;
 }
 .product-category {
-  font-size: 11px;
+  font-family: var(--mono);
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--accent);
   margin-bottom: 8px;
   font-weight: 600;
 }
 .product-name {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   margin-bottom: 8px;
+  letter-spacing: -0.01em;
 }
 .product-meta {
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
   color: #6b7280;
   margin-bottom: 12px;
 }
 .product-price {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text);
 }
@@ -248,17 +422,17 @@ body {
 /* Footer */
 .footer {
   border-top: 1px solid var(--border);
-  padding: 48px 0 32px;
-  margin-top: 64px;
+  padding: 56px 0 32px;
+  background: white;
 }
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 32px;
-  margin-bottom: 32px;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 .footer-col h4 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   margin-bottom: 16px;
   text-transform: uppercase;
@@ -272,7 +446,8 @@ body {
   text-decoration: none;
   font-size: 14px;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  transition: color 0.2s;
 }
 .footer-col a:hover {
   color: var(--text);
@@ -284,6 +459,13 @@ body {
   color: #6b7280;
   font-size: 14px;
 }
+.footer-disclaimer {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 12px;
+}
 </style>
 </head>
 <body>
@@ -292,10 +474,10 @@ body {
 <header class="header">
   <div class="container">
     <div class="header-inner">
-      <a href="/" class="logo">Vantix Bio</a>
+      <a href="/" class="logo">VANTIX BIO</a>
       <nav class="nav">
-        <a href="shop.html">Shop</a>
-        <a href="verification.html">Verify Batch</a>
+        <a href="shop.html">Products</a>
+        <a href="verification.html">Verification</a>
         <a href="about.html">About</a>
       </nav>
     </div>
@@ -305,20 +487,25 @@ body {
 <!-- Hero Section -->
 <section class="hero">
   <div class="container">
-    <div class="hero-image">
-      <img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 Research Peptide">
-    </div>
-    <h1>Third-Party Tested<br>Research Peptides</h1>
-    <p>Every batch independently tested and verified. Direct lab verification, permanent archives, no fake COAs.</p>
-    <div class="hero-ctas">
-      <a href="verification.html" class="btn btn-primary">Verify a Batch</a>
-      <a href="shop.html" class="btn btn-secondary">Browse Catalog</a>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1>Third-Party Verified Research Peptides</h1>
+        <p>Every batch independently tested by Janoshik. Direct lab verification, permanent archives, complete traceability. No fake COAs, no workarounds.</p>
+        <div class="hero-ctas">
+          <a href="verification.html" class="btn btn-primary">Verify a Batch</a>
+          <a href="shop.html" class="btn btn-secondary">Browse Catalog</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 Research Peptide - Batch Verified">
+        <div class="janoshik-badge">Janoshik Verified</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Trust Badges -->
-<section class="trust-badges">
+<section class="trust-section">
   <div class="container">
     <div class="badges-grid">
       <div class="badge">
@@ -326,23 +513,63 @@ body {
         <span class="badge-label">HPLC Purity</span>
       </div>
       <div class="badge">
-        <span class="badge-value">LAB</span>
-        <span class="badge-label">Verified</span>
+        <span class="badge-value">Janoshik</span>
+        <span class="badge-label">Lab Verified</span>
       </div>
       <div class="badge">
-        <span class="badge-value">USA</span>
-        <span class="badge-label">Sourced</span>
+        <span class="badge-value">Permanent</span>
+        <span class="badge-label">Archives</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Verification Message -->
+<!-- Verification Section -->
 <section class="verification-section">
   <div class="container">
-    <div class="verification-content">
-      <h2>Quality you can verify, not just trust.</h2>
-      <p>Every batch is independently tested. When inventory is gone, the record stays. You can verify your batch number — and link to the lab's verification portal — even years later.</p>
+    <div class="verification-grid">
+      <div class="verification-content">
+        <h2>Verification shouldn't end when a batch sells out.</h2>
+        <p>Every Vantix batch is independently tested. When inventory is gone, the record stays. You can verify your batch number — and link to the lab's verification portal — even years later.</p>
+        <p>Reports link directly to Janoshik's verification system for independent confirmation.</p>
+      </div>
+      <div class="verification-widget">
+        <div class="widget-header">Batch Verification Portal</div>
+        <div class="widget-input">
+          <input type="text" placeholder="Enter batch number (e.g., VX-BPC-001)" />
+          <button>Verify</button>
+        </div>
+        <div class="widget-example">
+          Try: <span>VX-BPC-001</span> or <span>VX-RETA-001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Data Section -->
+<section class="data-section">
+  <div class="container">
+    <div class="data-header">
+      <h3>Tested → Verified → Archived</h3>
+      <h2>Independent Batch Testing</h2>
+    </div>
+    <div class="data-cards">
+      <div class="data-card">
+        <div class="data-card-header">Third-Party Testing</div>
+        <div class="data-card-value">100%</div>
+        <div class="data-card-label">Every batch independently tested by Janoshik analytical laboratory</div>
+      </div>
+      <div class="data-card">
+        <div class="data-card-header">Public Verification</div>
+        <div class="data-card-value">Direct</div>
+        <div class="data-card-label">QR codes link to batch data on vantixbio.com, then to Janoshik portal</div>
+      </div>
+      <div class="data-card">
+        <div class="data-card-header">Always Accessible</div>
+        <div class="data-card-value">Permanent</div>
+        <div class="data-card-label">Past batch reports remain archived even after inventory sells out</div>
+      </div>
     </div>
   </div>
 </section>
@@ -351,19 +578,34 @@ body {
 <section class="products-section">
   <div class="container">
     <div class="section-header">
-      <h2>Featured Products</h2>
-      <a href="shop.html">View All →</a>
+      <h2>Research Peptides</h2>
+      <a href="shop.html">View All Products →</a>
     </div>
     <div class="products-grid">
-      <!-- Product Card 1 -->
+      <!-- Product Card: BPC-157 -->
       <div class="product-card" onclick="window.location.href='products/bpc-157.html'">
         <img src="images/products/bpc-157-10mg.jpg" alt="BPC-157">
         <div class="product-category">Tissue Repair</div>
         <div class="product-name">BPC-157 10mg</div>
-        <div class="product-meta">&gt;99% Purity</div>
+        <div class="product-meta">>99% Purity · Batch Verified</div>
         <div class="product-price">$30</div>
       </div>
-      <!-- Add more product cards as needed -->
+      <!-- Product Card: Retatrutide -->
+      <div class="product-card" onclick="window.location.href='shop.html#VX-RETA-20'">
+        <img src="images/products/vx-3r-20mg.jpg" alt="VX-3R 20mg">
+        <div class="product-category">GLP-1 Research</div>
+        <div class="product-name">VX-3R 20mg</div>
+        <div class="product-meta">>99% Purity · Batch Verified</div>
+        <div class="product-price">$68</div>
+      </div>
+      <!-- Product Card: Tirzepatide -->
+      <div class="product-card" onclick="window.location.href='shop.html#VX-TIRZ-30'">
+        <img src="images/products/vx-2t-30mg.jpg" alt="VX-2T 30mg">
+        <div class="product-category">GLP-1 Research</div>
+        <div class="product-name">VX-2T 30mg</div>
+        <div class="product-meta">>99% Purity · Batch Verified</div>
+        <div class="product-price">$68</div>
+      </div>
     </div>
   </div>
 </section>
@@ -373,31 +615,41 @@ body {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col">
-        <h4>Shop</h4>
+        <h4>Products</h4>
         <ul>
           <li><a href="shop.html">All Products</a></li>
           <li><a href="shop.html#glp1">GLP-1 Analogs</a></li>
           <li><a href="shop.html#repair">Tissue Repair</a></li>
+          <li><a href="shop.html#kits">Research Kits</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Verification</h4>
+        <ul>
+          <li><a href="verification.html">Batch Lookup</a></li>
+          <li><a href="coa-archive.html">COA Archive</a></li>
+          <li><a href="testing.html">Testing Standards</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="verification.html">Verification</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="faq.html">FAQ</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="terms.html">Terms</a></li>
-          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Vantix Bio. For research use only.</p>
+      <p>&copy; 2026 Vantix Bio. All rights reserved.</p>
+      <p class="footer-disclaimer">For Research Use Only · Not for Human Consumption</p>
     </div>
   </div>
 </footer>
