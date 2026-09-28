@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantix Bio | Third-Party Verified Research Peptides</title>
+<meta name="description" content="Research peptides with batch-level third-party verification. Independent testing, permanent archives, direct lab verification.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #FFFFFF;
+  --text: #1a1a1a;
+  --accent: #2563eb;
+  --border: #e5e7eb;
+  --signal: #10b981;
+}
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 15px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media(min-width:768px) {
+  .container { padding: 0 48px; }
+}
+
+/* Header */
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+.nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav a:hover {
+  color: var(--accent);
+}
+
+/* Hero Section - Peaked Style */
+.hero {
+  padding: 64px 0 48px;
+  text-align: center;
+}
+.hero-image {
+  max-width: 400px;
+  margin: 0 auto 32px;
+}
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.hero p {
+  font-size: 18px;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--text);
+  color: white;
+}
+.btn-primary:hover {
+  background: #2a2a2a;
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background: white;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--text);
+}
+
+/* Trust Badges */
+.trust-badges {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  text-align: center;
+}
+.badge {
+  padding: 16px;
+}
+.badge-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  margin-bottom: 8px;
+}
+.badge-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Verification Section */
+.verification-section {
+  padding: 64px 0;
+  background: #f9fafb;
+}
+.verification-content {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.verification-content h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.verification-content p {
+  font-size: 17px;
+  color: #6b7280;
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+/* Products Section */
+.products-section {
+  padding: 64px 0;
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.section-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+.section-header a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+.product-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: white;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.product-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.product-category {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.product-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.product-meta {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+.product-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 0 32px;
+  margin-top: 64px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.footer-col ul {
+  list-style: none;
+}
+.footer-col a {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+}
+.footer-col a:hover {
+  color: var(--text);
+}
+.footer-bottom {
+  text-align: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  color: #6b7280;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="/" class="logo">Vantix Bio</a>
+      <nav class="nav">
+        <a href="shop.html">Shop</a>
+        <a href="verification.html">Verify Batch</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-image">
+      <img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 Research Peptide">
+    </div>
+    <h1>Third-Party Tested<br>Research Peptides</h1>
+    <p>Every batch independently tested and verified. Direct lab verification, permanent archives, no fake COAs.</p>
+    <div class="hero-ctas">
+      <a href="verification.html" class="btn btn-primary">Verify a Batch</a>
+      <a href="shop.html" class="btn btn-secondary">Browse Catalog</a>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Badges -->
+<section class="trust-badges">
+  <div class="container">
+    <div class="badges-grid">
+      <div class="badge">
+        <span class="badge-value">99%+</span>
+        <span class="badge-label">HPLC Purity</span>
+      </div>
+      <div class="badge">
+        <span class="badge-value">LAB</span>
+        <span class="badge-label">Verified</span>
+      </div>
+      <div class="badge">
+        <span class="badge-value">USA</span>
+        <span class="badge-label">Sourced</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Verification Message -->
+<section class="verification-section">
+  <div class="container">
+    <div class="verification-content">
+      <h2>Quality you can verify, not just trust.</h2>
+      <p>Every batch is independently tested. When inventory is gone, the record stays. You can verify your batch number — and link to the lab's verification portal — even years later.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Products</h2>
+      <a href="shop.html">View All →</a>
+    </div>
+    <div class="products-grid">
+      <!-- Product Card 1 -->
+      <div class="product-card" onclick="window.location.href='products/bpc-157.html'">
+        <img src="images/products/bpc-157-10mg.jpg" alt="BPC-157">
+        <div class="product-category">Tissue Repair</div>
+        <div class="product-name">BPC-157 10mg</div>
+        <div class="product-meta">&gt;99% Purity</div>
+        <div class="product-price">$30</div>
+      </div>
+      <!-- Add more product cards as needed -->
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html#glp1">GLP-1 Analogs</a></li>
+          <li><a href="shop.html#repair">Tissue Repair</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="verification.html">Verification</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Vantix Bio. For research use only.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
