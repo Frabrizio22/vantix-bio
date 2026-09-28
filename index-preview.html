@@ -77,7 +77,7 @@ body {
 /* Hero Section - Premium Clinical */
 .hero {
   padding: 80px 0 64px;
-  background: white;
+  background: linear-gradient(135deg, #FAFAF7 0%, #F5F5F2 100%);
   border-bottom: 1px solid var(--border);
 }
 .hero-grid {
@@ -155,13 +155,16 @@ body {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  background: white;
-  padding: 10px 14px;
+  background: var(--signal);
+  color: white;
+  padding: 10px 16px;
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(123,168,143,0.5);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Trust Badges */
@@ -189,7 +192,7 @@ body {
 .badge-value {
   font-size: 40px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--accent);
   display: block;
   margin-bottom: 8px;
   letter-spacing: -0.02em;
@@ -309,14 +312,14 @@ body {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #6b7280;
+  color: var(--signal);
   margin-bottom: 16px;
   font-weight: 600;
 }
 .data-header h2 {
   font-size: 36px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--navy);
   letter-spacing: -0.02em;
 }
 .data-cards {
@@ -342,7 +345,7 @@ body {
 .data-card-value {
   font-size: 32px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--accent);
   margin-bottom: 8px;
 }
 .data-card-label {
@@ -507,9 +510,7 @@ body {
       </div>
       <div class="hero-image">
         <img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 Research Peptide - Batch Verified">
-        <div class="janoshik-badge">
-          <img src="images/janoshik-logo.jpg" alt="Janoshik Analytical" style="height: 24px; width: auto;">
-        </div>
+        <div class="janoshik-badge">Verified by Janoshik</div>
       </div>
     </div>
   </div>
@@ -524,8 +525,8 @@ body {
         <span class="badge-label">HPLC Purity</span>
       </div>
       <div class="badge">
-        <img src="images/janoshik-logo.jpg" alt="Janoshik" style="height: 32px; width: auto; margin-bottom: 12px;">
-        <span class="badge-label">Independently Verified</span>
+        <span class="badge-value" style="color: var(--signal);">Janoshik</span>
+        <span class="badge-label">Lab Verified</span>
       </div>
       <div class="badge">
         <span class="badge-value">Permanent</span>
