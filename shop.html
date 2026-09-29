@@ -297,13 +297,22 @@ const categoryMap = {
 function renderProducts(filter='all'){
   const allProducts = VX_PRODUCTS.phase1;
   let filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
-  // Sort: In-stock first, BAC Water always last
+  // Sort: In-stock peptides → BAC Water → Out-of-stock
   filtered = [...filtered].sort((a, b) => {
-    // BAC Water always last
-    if (a.sku === 'VX-BAC-10') return 1;
-    if (b.sku === 'VX-BAC-10') return -1;
-    // Then by stock status (in-stock first)
-    return (b.isInStock ? 1 : 0) - (a.isInStock ? 1 : 0);
+    const aInStock = a.isInStock;
+    const bInStock = b.isInStock;
+    const aIsBac = a.sku === 'VX-BAC-10';
+    const bIsBac = b.sku === 'VX-BAC-10';
+    
+    // Both in stock: BAC Water after peptides
+    if (aInStock && bInStock) {
+      if (aIsBac) return 1;
+      if (bIsBac) return -1;
+      return 0;
+    }
+    
+    // Stock status takes priority over BAC Water
+    return (bInStock ? 1 : 0) - (aInStock ? 1 : 0);
   });
   
   document.getElementById('productsGrid').innerHTML = filtered.map(p => {
