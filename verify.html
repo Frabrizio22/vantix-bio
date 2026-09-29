@@ -1104,7 +1104,7 @@ const params = new URLSearchParams(window.location.search);
 let batchParam = params.get('batch') || params.get('id') || params.get('product');
 
 // If product slug, map to batch ID
-if (batchParam && !batchParam.startsWith('VX-') && !batchParam.startsWith('vx-')) {
+if (batchParam) {
 const mapped = productToBatch[batchParam.toLowerCase()];
 if (mapped) batchParam = mapped;
 }
@@ -1120,7 +1120,6 @@ const isProductLink = params.get('product') && !params.get('batch') && !params.g
 
 if (batchParam) {
 let input = batchParam.toUpperCase();
-if (!input.startsWith('VX-')) input = 'VX-' + input;
 // Check aliases
 if (batchAliases[input]) input = batchAliases[input];
 batchInput.value = input;
