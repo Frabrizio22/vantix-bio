@@ -50,8 +50,8 @@
   "VX-TESA-10": {
     "sku": "VX-TESA-10",
     "name": "Tesamorelin 10mg",
-    "stock": 15,
-    "inStock": true
+    "stock": 0,
+    "inStock": false
   },
   "VX-MOTS-10": {
     "sku": "VX-MOTS-10",
