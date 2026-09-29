@@ -536,9 +536,9 @@ const batches = {
     content: '9.9966',
     contentUnit: 'mg/vial',
     purity: '99',
-    endotoxin: 'Not tested',
+    endotoxin: 'Pass',
     endotoxinUnit: '',
-    endotoxinSpec: '',
+    endotoxinSpec: 'Microbials + Heavy Metals + Solvents',
     contentSpec: '≥ 10 mg spec',
     puritySpec: '≥ 99% spec',
     tested: 'September 28, 2026',
@@ -873,9 +873,9 @@ document.getElementById('productName').innerHTML = batch.name.replace(' ', '<br>
 document.getElementById('batchId').textContent = batchId;
 document.getElementById('verifiedDate').textContent = 'Verified ' + batch.tested;
 
-// Build stats (conditionally show endotoxin)
+// Build stats (conditionally show safety/endotoxin)
 const endotoxinHtml = (batch.endotoxin && batch.endotoxin !== 'Not tested' && batch.endotoxin !== 'Not applicable') 
-  ? `<div class="stat"><div class="stat-label">Endotoxin</div><div class="stat-value">${batch.endotoxin}</div><div class="stat-unit">${batch.endotoxinUnit}</div><div class="stat-spec">${batch.endotoxinSpec}</div></div>`
+  ? `<div class="stat"><div class="stat-label">${batch.endotoxinSpec ? 'Safety Panel' : 'Endotoxin'}</div><div class="stat-value">${batch.endotoxin}</div><div class="stat-unit">${batch.endotoxinUnit}</div><div class="stat-spec">${batch.endotoxinSpec}</div></div>`
   : '';
 
 const statsHtml = `
