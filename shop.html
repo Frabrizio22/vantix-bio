@@ -297,8 +297,14 @@ const categoryMap = {
 function renderProducts(filter='all'){
   const allProducts = VX_PRODUCTS.phase1;
   let filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
-  // In-stock products first (use isInStock getter for dynamic inventory)
-  filtered = [...filtered].sort((a, b) => (b.isInStock ? 1 : 0) - (a.isInStock ? 1 : 0));
+  // Sort: In-stock first, BAC Water always last
+  filtered = [...filtered].sort((a, b) => {
+    // BAC Water always last
+    if (a.sku === 'VX-BAC-10') return 1;
+    if (b.sku === 'VX-BAC-10') return -1;
+    // Then by stock status (in-stock first)
+    return (b.isInStock ? 1 : 0) - (a.isInStock ? 1 : 0);
+  });
   
   document.getElementById('productsGrid').innerHTML = filtered.map(p => {
     const inStock = p.isInStock; // Use getter for dynamic inventory
