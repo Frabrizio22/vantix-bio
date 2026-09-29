@@ -56,8 +56,8 @@
   "VX-MOTS-10": {
     "sku": "VX-MOTS-10",
     "name": "MOTS-C 10mg",
-    "stock": 23,
-    "inStock": true
+    "stock": 0,
+    "inStock": false
   },
   "VX-NAD-1000": {
     "sku": "VX-NAD-1000",
