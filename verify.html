@@ -970,26 +970,35 @@ const searchButton = document.getElementById('searchButton');
 batchInput.addEventListener('input', function() {
 const val = this.value.toUpperCase();
 
-// Enable button when reasonable length (min 10 chars)
-if (val.length >= 10) {
-searchButton.classList.add('ready');
-searchButton.disabled = false;
-} else {
-searchButton.classList.remove('ready');
-searchButton.disabled = true;
-}
-
 // Clear error when typing
 const errorMsg = document.getElementById('errorMsg');
 if (errorMsg) errorMsg.style.display = 'none';
 
-// Show suggestions
-if (val.length < 3) {
+// Show suggestions after just 2 characters
+if (val.length < 2) {
 suggestionsDiv.classList.remove('active');
+searchButton.classList.remove('ready');
+searchButton.disabled = true;
 return;
 }
 
-const matches = Object.keys(batches).filter(k => k.toLowerCase().includes(val.toLowerCase()));
+// Filter matches - search anywhere in batch ID or product name
+const matches = Object.keys(batches)
+  .filter(k => {
+    const batch = batches[k];
+    const searchLower = val.toLowerCase();
+    return k.toLowerCase().includes(searchLower) || 
+           (batch.name && batch.name.toLowerCase().includes(searchLower));
+  })
+  .sort((a, b) => {
+    // Prioritize matches at start of string
+    const aStarts = a.toLowerCase().startsWith(val.toLowerCase());
+    const bStarts = b.toLowerCase().startsWith(val.toLowerCase());
+    if (aStarts && !bStarts) return -1;
+    if (!aStarts && bStarts) return 1;
+    return a.localeCompare(b);
+  })
+  .slice(0, 10); // Show max 10 suggestions
 
 if (matches.length > 0) {
 suggestionsDiv.innerHTML = matches.map(k => `
@@ -999,8 +1008,15 @@ suggestionsDiv.innerHTML = matches.map(k => `
 </div>
 `).join('');
 suggestionsDiv.classList.add('active');
+// Enable search if exact match exists
+if (matches.some(k => k === val)) {
+  searchButton.classList.add('ready');
+  searchButton.disabled = false;
+}
 } else {
 suggestionsDiv.classList.remove('active');
+searchButton.classList.remove('ready');
+searchButton.disabled = true;
 }
 });
 
