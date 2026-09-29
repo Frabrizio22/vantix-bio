@@ -404,7 +404,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="error-box" id="errorMsg"></div>
 <div class="input-label">Batch ID</div>
 <div class="input-wrap">
-<input type="text" id="batchInput" class="search-input" placeholder="VBI-BPC10-20260914-01" maxlength="30">
+<input type="text" id="batchInput" class="search-input" placeholder="NHS-BPC10-20260914-01" maxlength="30">
 <div class="suggestions" id="suggestions"></div>
 </div>
 <button class="search-btn" id="searchButton" onclick="searchBatch()" disabled>
@@ -528,6 +528,9 @@ Every Vantix batch is held until independent third-party testing is complete. Ea
 // Batch database with dual-test support
 // Updated: 2026-09-29 10:20 PST - VBI-BPC10-20260914-01 added, auto-prefix removed
 const batches = {
+'NHS-BPC10-20260914-01': {
+    alias: 'VBI-BPC10-20260914-01'
+},
 'VBI-BPC10-20260914-01': {
     name: 'BPC-157 10mg',
     content: '9.9966',
