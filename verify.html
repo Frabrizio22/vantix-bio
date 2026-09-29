@@ -906,18 +906,18 @@ ${test.rows.map(row => `
 </div>
 `).join('')}
 </div>
-<button class="toggle-row" onclick="toggleReport(this)">
+<button class="toggle-row open" onclick="toggleReport(this)">
 <span class="toggle-row-left">
 <span class="toggle-row-icon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
 </span>
-<span class="toggle-row-label">View Lab COA</span>
+<span class="toggle-row-label">Hide Lab COA</span>
 </span>
 <span class="toggle-row-chevron">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
 </span>
 </button>
-<div class="toggle-content">
+<div class="toggle-content open">
 <div class="report-image-wrap">
 <img src="${test.imageUrl}" alt="Lab Test Report #${test.taskId}" class="report-image" onclick="openLightbox('${test.imageUrl}')">
 <div class="report-image-hint">Tap image to zoom</div>
