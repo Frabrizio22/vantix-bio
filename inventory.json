@@ -20,8 +20,8 @@
   "VX-BPC-10": {
     "sku": "VX-BPC-10",
     "name": "BPC-157 10mg",
-    "stock": 0,
-    "inStock": false
+    "stock": 50,
+    "inStock": true
   },
   "VX-TB-10": {
     "sku": "VX-TB-10",

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v2.2 - VX-RETA20-003 added (Sep 6 2026) -->
+<!-- v2.3 - NHS-BPC10-20260914-01 added, auto VX- prefix removed, autocomplete updated (Sep 29 2026) -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -404,7 +404,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="error-box" id="errorMsg"></div>
 <div class="input-label">Batch ID</div>
 <div class="input-wrap">
-<input type="text" id="batchInput" class="search-input" placeholder="VX-TIRZ30-001" maxlength="30">
+<input type="text" id="batchInput" class="search-input" placeholder="NHS-BPC10-20260914-01" maxlength="30">
 <div class="suggestions" id="suggestions"></div>
 </div>
 <button class="search-btn" id="searchButton" onclick="searchBatch()" disabled>
@@ -526,8 +526,37 @@ Every Vantix batch is held until independent third-party testing is complete. Ea
 
 <script>
 // Batch database with dual-test support
-// Updated: 2026-09-06 06:50 PST - VX-RETA20-003 added
+// Updated: 2026-09-29 10:10 PST - NHS-BPC10-20260914-01 added, auto-prefix removed
 const batches = {
+'NHS-BPC10-20260914-01': {
+    name: 'BPC-157 10mg',
+    content: '>99',
+    contentUnit: '% purity',
+    purity: '>99',
+    endotoxin: 'Not tested',
+    endotoxinUnit: '',
+    endotoxinSpec: '',
+    contentSpec: '≥ 99% spec',
+    puritySpec: '≥ 99% spec',
+    tested: 'September 14, 2026',
+    tests: [
+        {
+            title: 'Purity Analysis',
+            taskId: 'PH-BPC157-092026',
+            date: '14 Sep 2026',
+            status: 'Pass',
+            rows: [
+                { key: 'Purity', value: '>99', unit: '%', large: true },
+                { key: 'Method', value: 'HPLC' },
+                { key: 'Lab', value: 'PH Solutions Lab' }
+            ],
+            verifyUrl: '#',
+            verifyKey: 'N/A',
+            downloadUrl: '/coa/NHS-BPC10-20260914-01-purity.pdf',
+            imageUrl: '/coa/NHS-BPC10-20260914-01-purity.jpg'
+        }
+    ]
+},
 'VX-MOTS10-001': {
 name: 'MOTS-c 10mg',
 content: '10.55',
@@ -784,7 +813,6 @@ const terminalSteps = [
 
 function searchBatch() {
 let input = document.getElementById('batchInput').value.trim().toUpperCase();
-if (!input.startsWith('VX-')) input = 'VX-' + input;
 let batch = batches[input];
 
 // Handle aliases (e.g., VX-CJC10-001 -> VX-CJC5-001)
@@ -933,13 +961,9 @@ const searchButton = document.getElementById('searchButton');
 
 batchInput.addEventListener('input', function() {
 const val = this.value.toUpperCase();
-if (!val.startsWith('VX-') && val.length > 0) {
-batchInput.value = 'VX-' + val.replace('VX-', '');
-return;
-}
 
-// Enable button when valid format (VX-XXXXX-XXX, min 13 chars)
-if (val.length >= 13) {
+// Enable button when reasonable length (min 10 chars)
+if (val.length >= 10) {
 searchButton.classList.add('ready');
 searchButton.disabled = false;
 } else {
@@ -952,13 +976,12 @@ const errorMsg = document.getElementById('errorMsg');
 if (errorMsg) errorMsg.style.display = 'none';
 
 // Show suggestions
-if (val.length <= 3) {
+if (val.length < 3) {
 suggestionsDiv.classList.remove('active');
 return;
 }
 
-const query = val.substring(3);
-const matches = Object.keys(batches).filter(k => k.substring(3).toLowerCase().startsWith(query.toLowerCase()));
+const matches = Object.keys(batches).filter(k => k.toLowerCase().includes(val.toLowerCase()));
 
 if (matches.length > 0) {
 suggestionsDiv.innerHTML = matches.map(k => `
@@ -974,9 +997,6 @@ suggestionsDiv.classList.remove('active');
 });
 
 batchInput.addEventListener('focus', function() {
-if (batchInput.value === '') {
-batchInput.value = 'VX-';
-}
 const cursor = batchInput.value.length;
 batchInput.setSelectionRange(cursor, cursor);
 });

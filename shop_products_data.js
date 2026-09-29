@@ -144,7 +144,7 @@ const VX_PRODUCTS = {
             cogs: 15.50,
             image: 'images/products/bpc-157-10mg.jpg',
             url: 'products/bpc-157.html',
-            inStock: false,
+            inStock: true,
             dualTested: true,
             get stock() {
                 const status = getStockStatus(this.sku);
