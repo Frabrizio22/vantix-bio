@@ -297,25 +297,27 @@ const categoryMap = {
 function renderProducts(filter='all'){
   const allProducts = VX_PRODUCTS.phase1;
   let filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.category === filter || categoryMap[p.category] === filter);
-  // In-stock products first
-  filtered = [...filtered].sort((a, b) => (b.inStock ? 1 : 0) - (a.inStock ? 1 : 0));
+  // In-stock products first (use isInStock getter for dynamic inventory)
+  filtered = [...filtered].sort((a, b) => (b.isInStock ? 1 : 0) - (a.isInStock ? 1 : 0));
   
-  document.getElementById('productsGrid').innerHTML = filtered.map(p => `
+  document.getElementById('productsGrid').innerHTML = filtered.map(p => {
+    const inStock = p.isInStock; // Use getter for dynamic inventory
+    return `
     <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">
       ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image" loading="lazy" decoding="async">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
-      ${!p.inStock ? '<div class="oos-label">COA Pending</div>' : ''}
+      ${!inStock ? '<div class="oos-label">COA Pending</div>' : ''}
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
       <div class="product-meta">${p.dosage}${p.purity ? ' · ' + p.purity + ' PURE' : ''}</div>
       <div class="product-price">$${p.price}</div>
       <div class="product-cta">
-        ${p.inStock 
+        ${inStock
           ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
           : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}'); event.stopPropagation()">Notify Me</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
     </div>
-  `).join('');
+  `}).join('');
 }
 
 document.querySelectorAll('.filter-item').forEach(f => {
@@ -327,6 +329,13 @@ document.querySelectorAll('.filter-item').forEach(f => {
   
   f.addEventListener('click', handleFilter);
 });
+
+// Global refresh function for inventory updates
+window.refreshProductGrid = function() {
+  const activeFilter = document.querySelector('.filter-item.active')?.dataset?.category || 'all';
+  renderProducts(activeFilter);
+  console.log('✅ Product grid refreshed after inventory load');
+};
 
 console.log('VX_PRODUCTS check:', typeof VX_PRODUCTS, VX_PRODUCTS?.phase1?.length);
 renderProducts();
