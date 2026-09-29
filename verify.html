@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v2.3 - NHS-BPC10-20260914-01 added, auto VX- prefix removed, autocomplete updated (Sep 29 2026) -->
+<!-- v2.3 - VBI-BPC10-20260914-01 added, auto VX- prefix removed, autocomplete updated (Sep 29 2026) -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -404,7 +404,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="error-box" id="errorMsg"></div>
 <div class="input-label">Batch ID</div>
 <div class="input-wrap">
-<input type="text" id="batchInput" class="search-input" placeholder="NHS-BPC10-20260914-01" maxlength="30">
+<input type="text" id="batchInput" class="search-input" placeholder="VBI-BPC10-20260914-01" maxlength="30">
 <div class="suggestions" id="suggestions"></div>
 </div>
 <button class="search-btn" id="searchButton" onclick="searchBatch()" disabled>
@@ -526,9 +526,9 @@ Every Vantix batch is held until independent third-party testing is complete. Ea
 
 <script>
 // Batch database with dual-test support
-// Updated: 2026-09-29 10:10 PST - NHS-BPC10-20260914-01 added, auto-prefix removed
+// Updated: 2026-09-29 10:20 PST - VBI-BPC10-20260914-01 added, auto-prefix removed
 const batches = {
-'NHS-BPC10-20260914-01': {
+'VBI-BPC10-20260914-01': {
     name: 'BPC-157 10mg',
     content: '>99',
     contentUnit: '% purity',
@@ -542,7 +542,7 @@ const batches = {
     tests: [
         {
             title: 'Purity Analysis',
-            taskId: 'PH-BPC157-092026',
+            taskId: '260922-NHS-1',
             date: '14 Sep 2026',
             status: 'Pass',
             rows: [
@@ -550,10 +550,10 @@ const batches = {
                 { key: 'Method', value: 'HPLC' },
                 { key: 'Lab', value: 'PH Solutions Lab' }
             ],
-            verifyUrl: '#',
-            verifyKey: 'N/A',
-            downloadUrl: '/coa/NHS-BPC10-20260914-01-purity.pdf',
-            imageUrl: '/coa/NHS-BPC10-20260914-01-purity.jpg'
+            verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTIyLU5IUy0xIiwicCI6IlZhbnRpeCBCaW8iLCJsIjoiVkJJLUJQQzEwLTIwMjYwOTE0LTAxIn0.FFd_NpsvKiyW3LgMLmtIYj3WSj_wzzbe',
+            verifyKey: '260922-NHS-1',
+            downloadUrl: '/coa/VBI-BPC10-20260914-01.pdf',
+            imageUrl: '/coa/VBI-BPC10-20260914-01.jpg'
         }
     ]
 },
