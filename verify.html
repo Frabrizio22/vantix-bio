@@ -531,6 +531,43 @@ const batches = {
 'NHS-BPC10-20260914-01': {
     alias: 'VBI-BPC10-20260914-01'
 },
+'NHS-GLT30-20260902-01': {
+    alias: 'VBI-GLT30-20260902-01'
+},
+'VBI-GLT30-20260902-01': {
+    name: 'Tirzepatide 30mg',
+    content: '30.0897',
+    contentUnit: 'mg/vial',
+    purity: '99',
+    endotoxin: 'Pass',
+    endotoxinUnit: '',
+    endotoxinSpec: 'Microbials + Heavy Metals + Solvents',
+    contentSpec: '≥ 30 mg spec',
+    puritySpec: '≥ 99% spec',
+    tested: 'September 28, 2026',
+    tests: [
+        {
+            title: 'Purity & Content Analysis',
+            taskId: '260908-899-NHS-8',
+            date: '28 Sep 2026',
+            status: 'Pass',
+            rows: [
+                { key: 'Content', value: '30.0897', unit: 'mg/vial', large: true },
+                { key: 'Purity', value: '99', unit: '%', large: true },
+                { key: 'Method', value: 'HPLC-UV @ 274 nm' },
+                { key: 'Water Activity', value: '0.1121 aw' },
+                { key: 'Microbials', value: 'Pass' },
+                { key: 'Heavy Metals', value: 'Pass' },
+                { key: 'Residual Solvents', value: 'Pass' },
+                { key: 'Lab', value: 'PH Solutions Lab (ISO/IEC 17025:2017)' }
+            ],
+            verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTA4LTg5OS1OSFMtOCIsInAiOiJWYW50aXggQmlvIiwibCI6IlZCSS1HTFQzMC0yMDI2MDkwMi0wMSJ9.ANRjjpgYF6sBo8aRl6La9m59IH2SFeJP',
+            verifyKey: '260908-899-NHS-8',
+            downloadUrl: '/coa/VBI-GLT30-20260902-01.pdf',
+            imageUrl: '/coa/VBI-GLT30-20260902-01.jpg'
+        }
+    ]
+},
 'VBI-BPC10-20260914-01': {
     name: 'BPC-157 10mg',
     content: '9.9966',
@@ -1054,7 +1091,8 @@ searchButton.disabled = false;
 // Pre-fill batch ID from URL parameter (don't auto-verify)
 // Product slug to batch mapping
 const productToBatch = {
-'tirzepatide': 'VX-TIRZ30-001',
+'tirzepatide': 'NHS-GLT30-20260902-01',
+'vx-2t': 'NHS-GLT30-20260902-01',
 'retatrutide': 'VX-RETA20-003',
 'nad-plus': 'VX-NAD1K-001',
 'mots-c': 'VX-MOTS10-001',
