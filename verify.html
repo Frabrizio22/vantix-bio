@@ -903,7 +903,7 @@ ${test.rows.map(row => `
 <span class="toggle-row-icon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
 </span>
-<span class="toggle-row-label">View Janoshik COA</span>
+<span class="toggle-row-label">View Lab COA</span>
 </span>
 <span class="toggle-row-chevron">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
@@ -911,7 +911,7 @@ ${test.rows.map(row => `
 </button>
 <div class="toggle-content">
 <div class="report-image-wrap">
-<img src="${test.imageUrl}" alt="Janoshik Test Report #${test.taskId}" class="report-image" onclick="openLightbox('${test.imageUrl}')">
+<img src="${test.imageUrl}" alt="Lab Test Report #${test.taskId}" class="report-image" onclick="openLightbox('${test.imageUrl}')">
 <div class="report-image-hint">Tap image to zoom</div>
 </div>
 </div>
@@ -922,7 +922,7 @@ Download
 </a>
 <a class="btn-report btn-secondary" href="${test.verifyUrl}" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-Verify on Janoshik
+Verify Online
 </a>
 </div>
 <div class="verify-key"><span class="verify-key-label">Verification Key</span><span class="verify-key-val">${test.verifyKey}</span></div>
@@ -940,7 +940,7 @@ const content = btn.nextElementSibling;
 const label = btn.querySelector('.toggle-row-label');
 btn.classList.toggle('open');
 content.classList.toggle('open');
-label.textContent = btn.classList.contains('open') ? 'Hide Janoshik COA' : 'View Janoshik COA';
+label.textContent = btn.classList.contains('open') ? 'Hide Lab COA' : 'View Lab COA';
 }
 
 function openLightbox(src) {
