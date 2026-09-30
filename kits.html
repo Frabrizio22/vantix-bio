@@ -286,24 +286,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="kit-savings">−$14</div>
 </div>
 <div class="kit-label">Metabolic Research</div>
-<h2 class="kit-name">Tirzepatide + Retatrutide</h2>
+<h2 class="kit-name">VX-2T + VX-3R</h2>
 <p class="kit-desc">Multi-receptor signaling comparative studies.</p>
 <div class="kit-composition-label">Composition</div>
 <div class="kit-items">
-<div class="kit-item">Tirzepatide · <span class="kit-item-dose">30mg</span></div>
-<div class="kit-item">Retatrutide · <span class="kit-item-dose">20mg</span></div>
+<div class="kit-item">VX-2T · <span class="kit-item-dose">30mg</span></div>
+<div class="kit-item">VX-3R · <span class="kit-item-dose">20mg</span></div>
 </div>
 <div class="kit-pricing">
 <span class="kit-price">$112</span>
 <span class="kit-price-regular">$126</span>
 </div>
-<div style="background:linear-gradient(135deg, rgba(57,115,176,0.04) 0%, rgba(57,115,176,0.08) 100%);border:1px solid rgba(57,115,176,0.2);border-left:3px solid var(--accent);padding:10px 12px;margin-bottom:12px;border-radius:6px">
-<div style="display:flex;align-items:center;gap:6px">
-<span style="font-size:14px">⏳</span>
-<strong style="color:#0A1628;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em">Temporarily Unavailable</strong>
-</div>
-</div>
-<button class="btn" style="background:#9CA3AF;cursor:not-allowed" disabled>Out of Stock</button>
+<button class="btn" onclick="addKitToCart()">Add to Cart — $112</button>
 </div>
 
 <div class="kit-card" style="opacity:0.7">
@@ -370,5 +364,29 @@ const menuClose = document.getElementById('menuClose');
 if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
 if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
-if (cartBtn) cartBtn.onclick = () => alert('Cart available mid-May 2026');
+if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
+
+function addKitToCart() {
+  // Add both products to cart
+  let cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+  
+  // Add VX-2T
+  const tirz = cart.find(item => item.sku === 'VX-TIRZ-30');
+  if (tirz) {
+    tirz.quantity += 1;
+  } else {
+    cart.push({sku: 'VX-TIRZ-30', name: 'VX-2T 30mg', price: 59, quantity: 1});
+  }
+  
+  // Add VX-3R
+  const reta = cart.find(item => item.sku === 'VX-RETA-20');
+  if (reta) {
+    reta.quantity += 1;
+  } else {
+    cart.push({sku: 'VX-RETA-20', name: 'VX-3R 20mg', price: 67, quantity: 1});
+  }
+  
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  window.location.href = 'checkout.html';
+}
 </script>
