@@ -1115,7 +1115,7 @@ const batchAliases = {
 };
 
 // Check if this came from a product link (auto-submit) or QR/batch link (pre-fill only)
-const isProductLink = params.get('product') && !params.get('batch') && !params.get('id');
+const isProductLink = (params.get('product') && !params.get('batch') && !params.get('id')) || params.get('go') === '1';
 
 if (batchParam) {
 let input = batchParam.toUpperCase();
@@ -1125,7 +1125,7 @@ batchInput.value = input;
 searchButton.classList.add('ready');
 searchButton.disabled = false;
 
-if (isProductLink && input.length >= 13) {
+if (isProductLink && (input.length >= 12 || params.get('go') === '1')) {
 // Product links: auto-submit and go straight to results
 document.getElementById('searchCard').style.display = 'none';
 // Trigger search immediately (no delay)
