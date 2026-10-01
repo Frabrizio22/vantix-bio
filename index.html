@@ -976,39 +976,57 @@ View full documentation
 </section>
 
 <!-- Research & Education Section -->
-<section class="research-preview" style="background:#fff;padding:28px 0;border-top:1px solid var(--hairline)">
-  <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
-    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 24px">
-      <h2 style="font-family:Fraunces,serif;font-size:20px;font-weight:400;margin:0;white-space:nowrap">Research & Education</h2>
-      <span style="color:var(--hairline)">|</span>
-      <a href="blog/batch-level-testing.html" style="font-size:14px;color:var(--text);text-decoration:none;font-weight:500">Batch-Level Testing</a>
-      <a href="blog/how-to-verify-third-party-coa.html" style="font-size:14px;color:var(--text);text-decoration:none;font-weight:500">How to Verify COAs</a>
-      <a href="blog/index.html" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:600">View All →</a>
+<style>
+.rs-strip{background:#fff;padding:28px 0;border-top:1px solid var(--hairline)}
+.rs-strip .rs-in{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:6px 16px}
+.rs-strip h2{font-family:Fraunces,serif;font-size:20px;font-weight:400;margin:0}
+.rs-strip .rs-all{font-size:14px;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:44px}
+.rs-strip .rs-links{grid-column:1 / -1;grid-row:2;display:flex;flex-wrap:wrap;gap:0 24px;margin-top:-8px}
+.rs-strip .rs-links a{font-size:14px;color:var(--text);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;min-height:44px}
+@media (min-width:900px){.rs-strip .rs-in{display:flex;align-items:center;gap:0 28px}.rs-strip .rs-links{margin-top:0;order:2}.rs-strip .rs-all{order:3}}
+.ft-main{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:0 12px;font-size:13px;margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ft-main a,.ft-legal a{display:inline-flex;align-items:center;min-height:40px;text-decoration:none}
+.ft-main a{color:#E8EEF5}
+.ft-legal{display:flex;gap:0 20px;font-size:12.5px;margin-bottom:8px}
+.ft-legal a{color:rgba(232,238,245,.6)}
+.ft-ruo{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:rgba(232,238,245,.45);margin:0;line-height:1.7}
+.ft-ruo strong{color:rgba(232,238,245,.6)}
+@media (min-width:900px){.ft-main{display:flex;gap:0 28px;justify-content:flex-start}}
+</style>
+<section class="rs-strip">
+  <div class="rs-in">
+    <h2>Research &amp; Education</h2>
+    <a class="rs-all" href="blog/index.html">View All &rarr;</a>
+    <div class="rs-links">
+      <a href="blog/batch-level-testing.html">Batch-Level Testing</a>
+      <a href="blog/how-to-verify-third-party-coa.html">How to Verify COAs</a>
     </div>
   </div>
 </section>
 
 <footer style="padding:20px 24px 16px">
 <div class="footer-inner">
-<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
 <a href="/" class="footer-logo" style="margin-bottom:0">
-<img src="logo-icon.svg" alt="VX">
+<img src="logo-mark-white.png" alt="VX" style="height:30px;width:auto">
 <span class="footer-wordmark">VANTIX<strong>BIO</strong></span>
 </a>
 </div>
-<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)">
-<a href="shop.html" style="color:#E8EEF5;text-decoration:none">Catalog</a>
-<a href="verify.html" style="color:#E8EEF5;text-decoration:none">Verify</a>
-<a href="about.html" style="color:#E8EEF5;text-decoration:none">About</a>
-<a href="blog/" style="color:#E8EEF5;text-decoration:none">Articles</a>
-<a href="faq.html" style="color:#E8EEF5;text-decoration:none">FAQ</a>
-<a href="wholesale.html" style="color:#E8EEF5;text-decoration:none">Wholesale</a>
-<a href="contact.html" style="color:#E8EEF5;text-decoration:none">Contact</a>
-<a href="terms.html" style="color:rgba(232,238,245,.5);text-decoration:none">Terms</a>
-<a href="privacy.html" style="color:rgba(232,238,245,.5);text-decoration:none">Privacy</a>
-<a href="shipping.html" style="color:rgba(232,238,245,.5);text-decoration:none">Shipping</a>
-</div>
-<p style="font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:rgba(232,238,245,.4);margin:0"><strong style="color:rgba(232,238,245,.55)">RUO</strong> - For research only. Not for human consumption. © 2026 Vantix Bio LLC</p>
+<nav class="ft-main" aria-label="Footer">
+<a href="shop.html">Catalog</a>
+<a href="verify.html">Verify</a>
+<a href="about.html">About</a>
+<a href="blog/">Articles</a>
+<a href="faq.html">FAQ</a>
+<a href="wholesale.html">Wholesale</a>
+<a href="contact.html">Contact</a>
+</nav>
+<nav class="ft-legal" aria-label="Legal">
+<a href="terms.html">Terms</a>
+<a href="privacy.html">Privacy</a>
+<a href="shipping.html">Shipping</a>
+</nav>
+<p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p>
 <!-- Also searched as: Vantix peptides, Vantyx peptides, Vantx peptides, Vantx research -->
 </div>
 </footer>
