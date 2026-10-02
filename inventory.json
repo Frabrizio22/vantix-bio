@@ -35,9 +35,9 @@
     "stock": 50,
     "inStock": true
   },
-  "VX-CJC-10": {
-    "sku": "VX-CJC-10",
-    "name": "CJC-1295 10mg",
+  "VX-CJC-5": {
+    "sku": "VX-CJC-5",
+    "name": "CJC-1295 (No DAC) 5mg",
     "stock": 0,
     "inStock": false
   },

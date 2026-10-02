@@ -81,17 +81,26 @@
             line-height: 1.5;
         }
         .zelle-box {
-            background: #F0FDF4;
-            border: 1px solid #BBF7D0;
-            border-radius: 10px;
-            padding: 16px;
+            background: #FFF8E1;
+            border: 1px solid #F2D675;
+            border-radius: 14px;
+            padding: 22px;
             margin-bottom: 24px;
             font-size: 14px;
-            color: #166534;
+            color: #7A5B00;
             line-height: 1.5;
             text-align: left;
         }
-        .zelle-box strong { display: block; margin-bottom: 8px; }
+        .zelle-box h2 { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: #7A5B00; }
+        .zrow { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #F2E3A8; border-radius: 10px; padding: 10px 14px; margin: 8px 0; }
+        .zl { width: 58px; flex: none; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #92710C; }
+        .zv { flex: 1; font-family: Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: #0F172A; word-break: break-all; }
+        .zcopy { flex: none; border: 1px solid #E5C85C; background: #FFFBEA; color: #7A5B00; border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .zwarn { background: #FDEFB9; border-radius: 8px; padding: 10px 12px; margin: 12px 0; font-size: 13px; }
+        .zsteps { list-style: none; counter-reset: z; margin: 14px 0 6px; padding: 0; color: #0F172A; }
+        .zsteps li { counter-increment: z; display: flex; gap: 12px; align-items: flex-start; padding: 6px 0; font-size: 14px; }
+        .zsteps li::before { content: counter(z); flex: none; width: 24px; height: 24px; border-radius: 12px; background: #E8F0F8; color: #3973B0; font-size: 12px; font-weight: 700; text-align: center; line-height: 24px; }
+        .znote { font-size: 12px; color: #92710C; margin-top: 10px; }
         .btn {
             display: inline-block;
             padding: 14px 32px;
@@ -140,7 +149,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </svg>
         </div>
         
-        <h1>Order Received</h1>
+        <h1 id="pageTitle">Order Received</h1>
         <p class="subtitle" id="subtitleText">Your order has been placed successfully. You'll receive a confirmation email shortly.</p>
         
         <div class="order-details" id="orderDetails" style="display:none">
@@ -158,16 +167,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="order-row">
                 <span class="label">Status</span>
-                <span class="value" id="orderStatus" style="color:#059669">✓ Confirmed</span>
+                <span class="value" id="orderStatus" style="color:#059669">Received</span>
             </div>
         </div>
 
         <div class="zelle-box" id="zelleBox" style="display:none">
-            <strong>💳 Zelle Payment Instructions</strong>
-            Send <strong id="zelleAmount">$0.00</strong> to:<br>
-            <strong>619-587-1812</strong><br><br>
-            Include your order number <strong id="zelleOrderNum">—</strong> in the memo. <strong>Do not mention product names or peptides</strong> — order number only.<br>
-            Your order will ship within 1-2 business days once payment is received. Tracking will be sent to your email.
+            <h2>Next step: send your Zelle payment</h2>
+            <div class="zrow"><span class="zl">Amount</span><span class="zv" id="zelleAmount">$0.00</span><button type="button" class="zcopy" onclick="zCopy(this,'zelleAmount')">Copy</button></div>
+            <div class="zrow"><span class="zl">Send to</span><span class="zv" id="zellePhone">619-587-1812</span><button type="button" class="zcopy" onclick="zCopy(this,'zellePhone')">Copy</button></div>
+            <div class="zrow"><span class="zl">Memo</span><span class="zv" id="zelleOrderNum">—</span><button type="button" class="zcopy" onclick="zCopy(this,'zelleOrderNum')">Copy</button></div>
+            <p class="zwarn">In the memo, please enter just your order number. Leave out any product names.</p>
+            <ol class="zsteps">
+                <li>We confirm your payment and email you a receipt.</li>
+                <li>Your order ships within 1&ndash;2 business days, with tracking by email.</li>
+            </ol>
+            <p class="znote">Orders left unpaid for 72 hours are released. We also emailed you these details.</p>
         </div>
         
         <div class="info-box" id="creditInfo" style="display:none">
@@ -195,17 +209,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 // Payment method display
                 if (order.paymentMethod === 'zelle') {
                     document.getElementById('orderPayment').textContent = 'Zelle';
-                    document.getElementById('orderStatus').textContent = '⏳ Awaiting Payment';
+                    document.getElementById('orderStatus').textContent = 'Awaiting Zelle payment';
+                    document.getElementById('subtitleText').textContent = 'Your order is reserved. Send your Zelle payment below to complete it.';
                     document.getElementById('orderStatus').style.color = '#D97706';
                     document.getElementById('zelleBox').style.display = 'block';
                     document.getElementById('zelleAmount').textContent = '$' + (parseFloat(order.total) || 0).toFixed(2);
                     document.getElementById('zelleOrderNum').textContent = order.orderNumber;
                 } else {
                     document.getElementById('orderPayment').textContent = 'Credit Card';
-                    document.getElementById('orderStatus').textContent = '✓ Paid';
+                    document.getElementById('orderStatus').textContent = 'Payment submitted';
                     document.getElementById('orderStatus').style.color = '#059669';
                 }
                 
+                if (sessionStorage.getItem('vxPurchase_' + order.orderNumber)) { throw 'already-tracked'; }
+                sessionStorage.setItem('vxPurchase_' + order.orderNumber, '1');
                 // Push Purchase event to Data Layer for GTM
                 var purchaseValue = parseFloat(order.total) || 0;
                 console.log('Purchase event:', order.orderNumber, 'Value:', purchaseValue, 'Items:', order.items);
@@ -245,8 +262,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   });
                 }
                 
-                localStorage.removeItem('vantixLastOrder');
+                if (order.paymentMethod !== 'zelle') localStorage.removeItem('vantixLastOrder');
             } catch(e) {}
+        }
+
+        function zCopy(btn, id) {
+            var t = document.getElementById(id).textContent.replace('$', '');
+            try { navigator.clipboard.writeText(t); } catch (e) {}
+            btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
         }
 
         // Clear cart
