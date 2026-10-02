@@ -477,7 +477,8 @@ var promoCodes={
 'BPC10':{discount:0.10,sku:'VX-BPC-10'},
 'JJ10':0.10,
 'TIRZ10':0.10,
-'SAVE10':0.10
+'SAVE10':0.10,
+'TEST':{price:1,sku:'VX-BAC-10'}
 };
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
 
@@ -579,7 +580,7 @@ var item=cart[i];
 var price=item.price;
 var priceLabel='';
 // Show override price
-if(promoCode&&promoCodes[promoCode]&&promoCodes[promoCode].type==='override'&&item.sku===promoCodes[promoCode].sku){
+if(promoCode&&promoCodes[promoCode]&&promoCodes[promoCode].price&&item.sku===promoCodes[promoCode].sku){
 price=promoCodes[promoCode].price;
 priceLabel=' <span style="text-decoration:line-through;opacity:0.5">$'+item.price.toFixed(2)+'</span> $'+price.toFixed(2);
 }else{
@@ -648,6 +649,19 @@ discount+=singlesTotal*promoValue;
 }else if(promoValue.setPrice){
 // TEST1: Set order total to $1 (discount everything except $1)
 discount=subtotal-promoValue.setPrice;
+}else if(promoValue.price){
+// Product-specific price override (e.g., TEST: BAC water to $1)
+if(promoValue.sku){
+var targetTotal=0;
+cart.forEach(function(item){
+if(item.sku===promoValue.sku){
+var originalPrice=item.price*item.quantity;
+var newPrice=promoValue.price*item.quantity;
+targetTotal+=originalPrice-newPrice;
+}
+});
+discount+=targetTotal;
+}
 }else if(promoValue.discount){
 if(promoValue.sku){
 // Product-specific discount (e.g., RETA15)
