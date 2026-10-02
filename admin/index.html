@@ -1,339 +1,531 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vantix Analytics</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-      background: #0a0e1a; 
-      color: #e5e7eb; 
-      padding: 20px;
-    }
-    
-    .header { 
-      background: rgba(17, 24, 39, 0.8); 
-      border: 1px solid rgba(75, 85, 99, 0.3); 
-      border-radius: 8px;
-      padding: 16px; 
-      margin-bottom: 20px;
-    }
-    .header h1 { font-size: 18px; font-weight: 600; }
-    
-    .filters { 
-      display: flex; 
-      gap: 8px; 
-      margin-bottom: 20px; 
-      flex-wrap: wrap;
-    }
-    .filter-btn { 
-      padding: 8px 14px; 
-      background: rgba(31, 41, 55, 0.6); 
-      border: 1px solid rgba(75, 85, 99, 0.3); 
-      color: #9ca3af; 
-      border-radius: 6px; 
-      cursor: pointer; 
-      font-size: 13px;
-    }
-    .filter-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
-    
-    .stats { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-      gap: 12px; 
-      margin-bottom: 20px; 
-    }
-    .stat { 
-      background: rgba(17, 24, 39, 0.6); 
-      border: 1px solid rgba(75, 85, 99, 0.2); 
-      border-radius: 8px; 
-      padding: 16px; 
-    }
-    .stat-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; margin-bottom: 6px; }
-    .stat-value { font-size: 24px; font-weight: 700; }
-    
-    .table-wrapper { 
-      background: rgba(17, 24, 39, 0.6); 
-      border: 1px solid rgba(75, 85, 99, 0.2); 
-      border-radius: 8px; 
-      overflow-x: auto;
-    }
-    table { width: 100%; border-collapse: collapse; }
-    th { 
-      padding: 10px; 
-      text-align: left; 
-      font-size: 11px; 
-      text-transform: uppercase; 
-      color: #9ca3af; 
-      border-bottom: 1px solid rgba(75, 85, 99, 0.2);
-    }
-    td { 
-      padding: 10px; 
-      border-bottom: 1px solid rgba(75, 85, 99, 0.1); 
-      font-size: 13px; 
-    }
-    tr:hover { background: rgba(31, 41, 55, 0.3); }
-    
-    .loading { text-align: center; padding: 60px 20px; color: #6b7280; }
-    .error { color: #ef4444; padding: 20px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vantix Admin</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F3EE;--ink:#0F1B2D;--mut:#5B6676;--line:#D8D6CF;--line2:#ECEAE2;--card:#fff;--blue:#3973B0;--blue-d:#2D5E92;--gold:#C9A24A;--navy:#0F1B2D;--navy-mut:#9FB0C6;--green:#3A6E52;--red:#A5473B}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+a{color:var(--blue)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+/* shell */
+.shell{display:flex;min-height:100vh}
+.side{width:232px;flex-shrink:0;background:var(--navy);color:#FAFAF7;display:flex;flex-direction:column;gap:24px;padding:22px 14px;position:sticky;top:0;height:100vh;align-self:flex-start}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px}
+.brand .mark{width:34px;height:34px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:.5px}
+.brand b{display:block;font-weight:600;font-size:15px;letter-spacing:1.5px;line-height:1.2}
+.brand small{font-size:11px;color:var(--navy-mut)}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{display:flex;justify-content:space-between;align-items:center;text-align:left;border:0;background:transparent;color:#FAFAF7;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500}
+.nav button:hover{background:rgba(255,255,255,.08)}
+.nav button.on{background:rgba(255,255,255,.14)}
+.badge{background:var(--gold);color:var(--navy);border-radius:999px;font-size:11px;font-weight:600;padding:1px 8px}
+.side .foot{margin-top:auto;padding:0 8px;font-size:12px;color:var(--navy-mut);display:flex;flex-direction:column;gap:8px}
+.side .foot button{align-self:flex-start;border:1px solid rgba(255,255,255,.25);background:transparent;color:#FAFAF7;border-radius:8px;padding:6px 12px;font-size:12px}
+.main{flex:1;min-width:0;padding:24px 36px 56px;display:flex;flex-direction:column;gap:20px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+h1{margin:0;font-size:26px;font-weight:600;line-height:1.25}
+.sub{font-size:13px;color:var(--mut);margin-top:2px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+/* controls */
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:500}
+.btn:hover{background:#F8F7F2}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.pri:hover{background:var(--blue-d)}
+.btn.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.danger{color:var(--red);border-color:#E4C2BC}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;background:#fff}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mut);font-weight:500}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:500;display:inline-flex;gap:6px;align-items:center}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip i{font-style:normal;font-size:11px;opacity:.7}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.c-green{background:#DDEEE3;color:#245238}.c-blue{background:#DCE8F5;color:#1F4A7A}.c-gold{background:#F6E7C8;color:#6B4B0A}.c-red{background:#F3D9D4;color:#7D2F25}.c-gray{background:#E4E3DC;color:#4A5160}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:18px 20px}
+.card h2{margin:0 0 2px;font-size:15px;font-weight:600}
+.card .hint{font-size:12px;color:var(--mut);margin-bottom:12px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.todo{display:flex;flex-direction:column;gap:2px;text-align:left;border:1px solid var(--line2);background:#fff;border-radius:14px;padding:14px 18px;border-left:4px solid var(--blue);width:100%}
+.todo b{font-size:28px;font-weight:600;line-height:1.1}
+.todo span{font-size:13px;font-weight:600}
+.todo small{font-size:12px;color:var(--mut)}
+.kpi .lab{font-size:12px;color:var(--mut);font-weight:500}
+.kpi .val{font-size:26px;font-weight:600;line-height:1.2;margin-top:2px}
+.kpi .d{font-size:12px;margin-top:2px;color:var(--mut)}
+.up{color:#245238;font-weight:600}.dn{color:#7D2F25;font-weight:600}
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--line2);border-radius:14px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);font-weight:600;padding:11px 14px;background:#FAFAF7;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer}tr.click:hover td{background:#F8F7F2}
+td.r,th.r{text-align:right}
+.mini{width:100%;font-size:13px}.mini td{padding:7px 0;border-bottom:1px solid var(--line2)}
+.bar{height:8px;background:var(--line2);border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--blue);border-radius:999px}
+.split{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--line2)}
+.empty{padding:28px;text-align:center;color:var(--mut);font-size:13px}
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(15,27,45,.45);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100%;background:#fff;z-index:41;overflow-y:auto;padding:22px 24px 40px;display:flex;flex-direction:column;gap:18px;box-shadow:-12px 0 40px rgba(15,27,45,.2)}
+.drawer h3{margin:0;font-size:20px;font-weight:600}
+.sec{display:flex;flex-direction:column;gap:6px}
+.sec>h4{margin:0;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);font-weight:600}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+.kv span:first-child{color:var(--mut)}
+.kv.tot{border-top:2px solid var(--navy);padding-top:8px;margin-top:4px;font-weight:700;font-size:15px}
+.kv.tot span:first-child{color:var(--ink)}
+.note{background:#FBF4E2;border:1px solid #F0DDA8;border-radius:10px;padding:10px 12px;font-size:12px;color:#6B4B0A}
+.note.red{background:#F8E6E2;border-color:#E4C2BC;color:#7D2F25}
+.tl{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--mut)}
+.tl div{display:flex;justify-content:space-between;gap:10px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw}
+.toast.err{background:var(--red)}
+.banner{background:#F8E6E2;border:1px solid #E4C2BC;color:#7D2F25;border-radius:10px;padding:10px 14px;font-size:13px}
+/* login */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login .box{width:100%;max-width:380px;background:#fff;border:1px solid var(--line2);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:16px}
+.logo{text-align:center;font-size:24px;font-weight:700;letter-spacing:3px;line-height:1}
+.logo span{color:var(--blue)}
+.login p{margin:0;text-align:center;color:var(--mut);font-size:13px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){
+ .shell{flex-direction:column}
+ .side{width:auto;height:auto;position:static;align-self:stretch;min-width:0;flex-direction:column;gap:12px;padding:14px 16px}
+ .nav{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:2px}
+ .nav button{white-space:nowrap;padding:8px 12px}
+ .side .foot{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap}
+ .main{padding:16px 16px 48px}
+ .g2,.g3{grid-template-columns:minmax(0,1fr)}
+ h1{font-size:22px}
+}
+@media (max-width:520px){.g4{grid-template-columns:minmax(0,1fr)}.kpi .val{font-size:24px}}
+</style>
 </head>
 <body>
-  <div class="header">
-    <h1>Vantix Analytics</h1>
-  </div>
+<div id="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+'use strict';
+/* ---------- config ---------- */
+const SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
+const SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';   // public key; every table is locked to signed-in admins by row-level security
+const WORKER = 'https://vantix-checkout.prcpeptides.workers.dev';
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/edit';
+const TZ = 'America/Los_Angeles';
+const sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true } });
 
-  <div class="loading" id="loading">Loading data...</div>
-  
-  <div id="dashboard" style="display: none;">
-    <div class="filters">
-      <button class="filter-btn active" onclick="setFilter('all')">All Time</button>
-      <button class="filter-btn" onclick="setFilter('today')">Today</button>
-      <button class="filter-btn" onclick="setFilter('yesterday')">Yesterday</button>
-      <button class="filter-btn" onclick="setFilter('thisweek')">This Week</button>
-      <button class="filter-btn" onclick="setFilter('lastweek')">Last Week</button>
-      <button class="filter-btn" onclick="setFilter('thismonth')">This Month</button>
-      <button class="filter-btn" onclick="setFilter('lastmonth')">Last Month</button>
-      <button class="filter-btn" onclick="setFilter('30d')">Last 30d</button>
-      <button class="filter-btn" onclick="setFilter('90d')">Last 90d</button>
-    </div>
+/* ---------- helpers ---------- */
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const n0 = (v) => Number(v) || 0;
+const usd = (n, d = 2) => (n < 0 ? '−' : '') + '$' + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+const dkey = (d) => new Date(d).toLocaleDateString('en-CA', { timeZone: TZ });
+const hourOf = (d) => parseInt(new Date(d).toLocaleString('en-US', { timeZone: TZ, hour: 'numeric', hour12: false }), 10) % 24;
+const fdate = (d) => new Date(d).toLocaleString('en-US', { timeZone: TZ, month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+const fday = (k) => new Date(k + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const addDays = (k, n) => { const d = new Date(k + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+const median = (a) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const PAYNAME = { zelle: 'Zelle', credit_card: 'Card' };
 
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-label">Revenue</div>
-        <div class="stat-value" id="revenue">$0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Orders</div>
-        <div class="stat-value" id="orders">0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Avg Order</div>
-        <div class="stat-value" id="avg">$0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Profit</div>
-        <div class="stat-value" id="profit">$0</div>
-      </div>
-    </div>
+/* ---------- state ---------- */
+const S = { session: null, tab: 'home', range: '30', orders: [], products: [], codes: [], settings: [], moves: [], events: {},
+  filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Order</th>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Total</th>
-            <th>Payment</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="ordersTable"></tbody>
-      </table>
-    </div>
-  </div>
+function toast(msg, err) { S.toast = { msg, err }; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, err ? 6000 : 3000); }
 
-  <script>
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1n1YnFDUHyufWPXLAFOxz6RNkPGLr6gajG8JVc00cxTs/gviz/tq?tqx=out:csv&sheet=Orders';
-    
-    let allOrders = [];
-    let currentFilter = 'all';
+/* ---------- derived data ---------- */
+function ostat(o) {
+  const p = o.payment_status, f = o.fulfillment_status;
+  if (p === 'paid') { if (f === 'delivered') return ['Delivered', 'green']; if (f === 'shipped') return ['Shipped', 'blue']; if (f === 'cancelled') return ['Cancelled', 'gray']; return ['Paid · to ship', 'gold']; }
+  if (p === 'pending') return ['Awaiting payment', 'gold'];
+  if (p === 'review') return ['Review card', 'red'];
+  if (p === 'failed') return ['Failed', 'gray'];
+  if (p === 'refunded') return ['Refunded', 'gray'];
+  return [p, 'gray'];
+}
+const isPaid = (o) => o.payment_status === 'paid';
+const profitOf = (o) => n0(o.total) - n0(o.cogs) - n0(o.packaging_cost) - n0(o.processing_fee) - n0(o.commission) - n0(o.label_cost);
+const incomplete = (o) => o.cost_missing || o.cogs == null || o.label_cost == null;
+const itemsText = (o) => (o.order_items || []).map((i) => i.qty + '× ' + i.name).join(', ');
 
-    init();
+function getRange() {
+  const today = dkey(new Date()), r = S.range;
+  if (r === 'today') return { label: 'Today', days: 1, start: today, test: (k) => k === today, prev: (k) => k === addDays(today, -1), prevLabel: 'yesterday' };
+  if (r === '7' || r === '30') { const n = +r, start = addDays(today, -(n - 1)), ps = addDays(start, -n), pe = addDays(start, -1);
+    return { label: 'Last ' + n + ' days', days: n, start, test: (k) => k >= start && k <= today, prev: (k) => k >= ps && k <= pe, prevLabel: 'the previous ' + n + ' days' }; }
+  if (r === 'mtd') { const ms = today.slice(0, 7) + '-01', pm = addDays(ms, -1).slice(0, 7), dd = +today.slice(8);
+    return { label: 'This month', days: dd, start: ms, test: (k) => k >= ms && k <= today, prev: (k) => k.slice(0, 7) === pm && +k.slice(8) <= dd, prevLabel: 'last month so far' }; }
+  return { label: 'All time', days: null, start: null, test: () => true, prev: null, prevLabel: '' };
+}
+function stats(list) {
+  const rev = list.reduce((a, o) => a + n0(o.total), 0), n = list.length;
+  return { rev, n, aov: n ? rev / n : 0, profit: list.reduce((a, o) => a + profitOf(o), 0), partial: list.some(incomplete) };
+}
+function delta(cur, prev, hasPrev) {
+  if (!hasPrev) return '';
+  if (!prev) return cur ? '<span class="up">new</span> vs none before' : '';
+  const p = Math.round(((cur - prev) / Math.abs(prev)) * 100);
+  return '<span class="' + (p >= 0 ? 'up' : 'dn') + '">' + (p >= 0 ? '▲ ' : '▼ ') + Math.abs(p) + '%</span> vs prior';
+}
+function customers() {
+  const m = new Map();
+  S.orders.filter(isPaid).forEach((o) => {
+    const k = String(o.customer_email || '').toLowerCase(); if (!k) return;
+    const c = m.get(k) || { email: k, name: o.customer_name, state: o.state, dates: [], spend: 0 };
+    c.dates.push(new Date(o.created_at).getTime()); c.spend += n0(o.total); c.name = o.customer_name; c.state = o.state; m.set(k, c);
+  });
+  const all = [...m.values()].map((c) => { c.dates.sort((a, b) => a - b); c.n = c.dates.length; c.first = c.dates[0]; c.last = c.dates[c.n - 1]; c.gaps = c.dates.slice(1).map((d, i) => (d - c.dates[i]) / 864e5); return c; });
+  const gaps = all.flatMap((c) => c.gaps), med = gaps.length >= 3 ? median(gaps) : null, now = Date.now();
+  all.forEach((c) => { c.seg = c.n > 1 ? 'Repeat' : 'One-time'; c.due = med != null && c.n > 1 && (now - c.last) / 864e5 > med; if (c.due) c.seg = 'Due to reorder'; });
+  return { list: all.sort((a, b) => b.last - a.last), med };
+}
+const lowStock = () => S.products.filter((p) => p.active && p.stock_tracked && !p.is_kit && p.stock <= p.low_stock_threshold);
 
-    async function init() {
-      try {
-        await loadData();
-        console.log('Total orders loaded:', allOrders.length);
-        console.log('Sample order:', allOrders[0]);
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        updateStats();
-        renderTable();
-      } catch (err) {
-        document.getElementById('loading').innerHTML = `<div class="error">Error loading data: ${err.message}</div>`;
-        console.error('Dashboard error:', err);
-      }
-    }
+/* ---------- data ---------- */
+async function load(silent) {
+  try {
+    const [o, p, c, s, m] = await Promise.all([
+      sb.from('orders').select('*, order_items(*)').order('created_at', { ascending: false }).limit(3000),
+      sb.from('products').select('*').order('name'),
+      sb.from('promo_codes').select('*').order('code'),
+      sb.from('settings').select('*').order('key'),
+      sb.from('inventory_movements').select('*').order('created_at', { ascending: false }).limit(200),
+    ]);
+    const err = [o, p, c, s, m].find((r) => r.error);
+    if (err) throw new Error(err.error.message);
+    S.orders = o.data; S.products = p.data; S.codes = c.data; S.settings = s.data; S.moves = m.data; S.loaded = true; S.error = '';
+  } catch (e) { S.error = 'Could not load data: ' + e.message; if (!silent) S.loaded = true; }
+}
+async function loadEvents(on) {
+  const r = await sb.from('payment_events').select('*').eq('order_number', on).order('created_at');
+  S.events[on] = r.data || []; render();
+}
+async function workerPost(path, body) {
+  const { data } = await sb.auth.getSession();
+  if (!data.session) throw new Error('Signed out. Please sign in again.');
+  const r = await fetch(WORKER + path, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + data.session.access_token }, body: JSON.stringify(body) });
+  const t = await r.text(); let j = null; try { j = JSON.parse(t); } catch (e) { /* not json */ }
+  if (r.status === 401) throw new Error('Not authorized. Is this login added as an admin?');
+  if (!r.ok || !j || !j.ok) throw new Error((j && (j.error || j.message)) || 'Request failed (' + r.status + ')');
+  return j;
+}
 
-    async function loadData() {
-      const response = await fetch(SHEET_URL);
-      if (!response.ok) throw new Error('Failed to fetch data');
-      
-      const text = await response.text();
-      const rows = parseCSV(text);
-      
-      allOrders = rows.slice(1) // Skip header
-        .map(values => {
-          const timestamp = parseDate(values[1]);
-          return {
-            order_number: values[0] || '',
-            timestamp: timestamp,
-            timestampMs: timestamp ? timestamp.getTime() : 0,
-            email: values[2] || '',
-            name: values[3] || '',
-            phone: values[4] || '',
-            total: parseFloat((values[16] || '').replace(/[$,]/g, '')) || 0,
-            payment: (values[11] || '').toLowerCase(),
-            net_profit: parseFloat((values[19] || '').replace(/[$,]/g, '')) || 0,
-            status: (values[20] || 'pending').toLowerCase()
-          };
-        })
-        .filter(o => o.order_number && o.total > 0 && o.timestampMs > 0);
-    }
+/* ---------- actions ---------- */
+const A = {};
+A.tab = (t) => { S.tab = t; S.sel = null; S.selProd = null; S.armed = null; render(); window.scrollTo(0, 0); };
+A.range = (v) => { S.range = v; render(); };
+A.filter = (v) => { S.filter = v; render(); };
+A.cseg = (v) => { S.cseg = v; render(); };
+A.close = () => { S.sel = null; S.selProd = null; S.armed = null; S.form = {}; render(); };
+A.openOrder = (on) => { S.sel = on; S.selProd = null; S.armed = null; const o = S.orders.find((x) => x.order_number === on); S.form = { tracking: (o && o.tracking_number) || '', label: o && o.label_cost != null ? String(o.label_cost) : '' }; render(); loadEvents(on); };
+A.openProd = (sku) => { S.selProd = sku; S.sel = null; S.armed = null; const p = S.products.find((x) => x.sku === sku); S.form = p ? { name: p.name, category: p.category || '', price: String(p.price), unit_cost: p.unit_cost == null ? '' : String(p.unit_cost), testing_cost: String(p.testing_cost), low: String(p.low_stock_threshold), active: p.active, tracked: p.stock_tracked, delta: '', reason: '' } : {}; render(); };
+A.arm = (k) => { S.armed = k; render(); };
+A.disarm = () => { S.armed = null; render(); };
+A.logout = async () => { await sb.auth.signOut(); S.session = null; S.loaded = false; S.orders = []; render(); };
+A.goOrders = (f) => { S.tab = 'orders'; S.filter = f; S.q = ''; S.sel = null; render(); window.scrollTo(0, 0); };
+A.refresh = async () => { await load(); render(); toast('Updated'); };
+A.toggleForm = (k) => { S.form[k] = !S.form[k]; render(); };
+A.newCode = () => { S.newCode = !S.newCode; S.form = S.newCode ? { code: '', pct: '', applies: 'singles', free: false, who: '', comm: '' } : {}; render(); };
+A.csv = () => {
+  const rows = filteredOrders();
+  const cell = (v) => { let s = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
+  const head = ['Order', 'Date', 'Customer', 'Email', 'State', 'Payment', 'Status', 'Items', 'Subtotal', 'Discount', 'Code', 'Shipping', 'Total', 'Tracking'];
+  const body = rows.map((o) => [o.order_number, o.created_at, o.customer_name, o.customer_email, o.state, PAYNAME[o.payment_method] || o.payment_method, ostat(o)[0], itemsText(o), o.subtotal, o.discount, o.discount_code, o.shipping_charged, o.total, o.tracking_number].map(cell).join(','));
+  const blob = new Blob([[head.map(cell).join(',')].concat(body).join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'vantix-orders.csv'; document.body.appendChild(a); a.click(); a.remove();
+};
+async function busy(fn, okMsg) {
+  if (S.busy) return; S.busy = true; render();
+  try { const r = await fn(); await load(true); S.armed = null; S.busy = false; if (okMsg) toast(typeof okMsg === 'function' ? okMsg(r) : okMsg); else render(); }
+  catch (e) { S.busy = false; S.armed = null; toast(e.message || String(e), true); }
+}
+A.confirmPay = (on) => busy(async () => { const r = await workerPost('/admin/confirm-payment', { order_number: on, status: 'paid' }); await loadEvents(on); return r; }, (r) => r.changed ? 'Payment confirmed. Customer emailed, Telegram sent.' : 'No change (already ' + r.status + ')');
+A.markFailed = (on) => busy(async () => { const r = await workerPost('/admin/confirm-payment', { order_number: on, status: 'failed' }); await loadEvents(on); return r; }, (r) => r.changed ? 'Marked failed. Stock released.' : 'No change (already ' + r.status + ')');
+A.markRefunded = (on) => busy(async () => { const r = await workerPost('/admin/confirm-payment', { order_number: on, status: 'refunded' }); await loadEvents(on); return r; }, (r) => r.changed ? 'Marked refunded. Add the stock back on Products if the items return.' : 'No change (already ' + r.status + ')');
+A.ship = (on) => {
+  const t = String(S.form.tracking || '').replace(/[\s-]/g, '');
+  if (!/^[A-Za-z0-9]{8,40}$/.test(t)) return toast('Enter a valid tracking number', true);
+  const label = String(S.form.label || '').trim();
+  if (label && !(Number(label.replace(/[$,\s]/g, '')) >= 0)) return toast('Label cost must be a number', true);
+  busy(async () => workerPost('/admin/ship', { order_number: on, tracking_number: t, label_cost: label }), (r) => r.first_ship ? 'Shipped via ' + r.carrier + '. Customer emailed.' : 'Tracking updated (no second email).');
+};
+A.saveProd = (sku) => {
+  const f = S.form, price = Number(f.price), uc = f.unit_cost === '' ? null : Number(f.unit_cost), tc = Number(f.testing_cost || 0), low = parseInt(f.low, 10);
+  if (!(price >= 0) || (uc != null && !(uc >= 0)) || !(tc >= 0) || !(low >= 0)) return toast('Check the numbers: they must be zero or more', true);
+  busy(async () => { const r = await sb.from('products').update({ name: String(f.name || '').trim(), category: String(f.category || '').trim() || null, price, unit_cost: uc, testing_cost: tc, low_stock_threshold: low, active: !!f.active, stock_tracked: !!f.tracked, updated_at: new Date().toISOString() }).eq('sku', sku); if (r.error) throw new Error(r.error.message); }, 'Product saved');
+};
+A.adjust = (sku, sign) => {
+  const d = parseInt(S.form.delta, 10);
+  if (!d || d < 0) return toast('Enter how many vials (a positive whole number)', true);
+  busy(async () => { const r = await sb.rpc('admin_adjust_stock', { p_sku: sku, p_delta: sign * d, p_reason: S.form.reason || 'manual adjustment' }); if (r.error) throw new Error(r.error.message === 'stock_would_go_negative' ? 'That would take stock below zero' : r.error.message); S.form.delta = ''; S.form.reason = ''; }, 'Stock updated');
+};
+A.toggleCode = (code) => { const c = S.codes.find((x) => x.code === code); busy(async () => { const r = await sb.from('promo_codes').update({ active: !c.active }).eq('code', code); if (r.error) throw new Error(r.error.message); }, c.active ? 'Code turned off' : 'Code turned on'); };
+A.addCode = () => {
+  const f = S.form, code = String(f.code || '').trim().toUpperCase(), p = Number(f.pct), cm = f.comm === '' ? 0 : Number(f.comm);
+  if (!/^[A-Z0-9_-]{2,30}$/.test(code)) return toast('Code: 2–30 letters or numbers', true);
+  if (!(p > 0 && p <= 100)) return toast('Discount must be between 1 and 100%', true);
+  if (!(cm >= 0 && cm <= 100)) return toast('Commission must be between 0 and 100%', true);
+  if (S.codes.some((c) => c.code === code)) return toast('That code already exists', true);
+  busy(async () => { const r = await sb.from('promo_codes').insert({ code, pct: p / 100, applies_to: f.applies, free_shipping: !!f.free, influencer: String(f.who || '').trim() || null, commission_pct: cm / 100, active: true }); if (r.error) throw new Error(r.error.message); S.newCode = false; S.form = {}; }, 'Code ' + code + ' created');
+};
+A.saveSetting = (key) => { const v = Number(S.form['s_' + key]); if (!Number.isFinite(v) || v < 0) return toast('Enter a number', true); busy(async () => { const r = await sb.from('settings').update({ value: v }).eq('key', key); if (r.error) throw new Error(r.error.message); }, 'Saved'); };
 
-    function parseCSV(text) {
-      const lines = [];
-      let current = [];
-      let currentField = '';
-      let inQuotes = false;
-      
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        const nextChar = text[i + 1];
-        
-        if (char === '"') {
-          if (inQuotes && nextChar === '"') {
-            currentField += '"';
-            i++; // Skip next quote
-          } else {
-            inQuotes = !inQuotes;
-          }
-        } else if (char === ',' && !inQuotes) {
-          current.push(currentField);
-          currentField = '';
-        } else if (char === '\n' && !inQuotes) {
-          current.push(currentField);
-          if (current.length > 0) lines.push(current);
-          current = [];
-          currentField = '';
-        } else if (char === '\r') {
-          // Skip carriage returns
-        } else {
-          currentField += char;
-        }
-      }
-      
-      // Push final field and line
-      if (currentField || current.length > 0) {
-        current.push(currentField);
-        lines.push(current);
-      }
-      
-      return lines;
-    }
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const fn = A[el.dataset.act]; if (!fn) return;
+  if (el.dataset.a2 !== undefined) fn(el.dataset.arg, Number(el.dataset.a2)); else fn(el.dataset.arg);
+});
+document.addEventListener('input', (e) => {
+  const t = e.target, k = t.dataset && t.dataset.in; if (!k) return;
+  S.form[k] = t.type === 'checkbox' ? t.checked : t.value;
+  if (k === '_q') { S.q = t.value; return renderKeep(t.id); }
+  if (k === '_cq') { S.cq = t.value; return renderKeep(t.id); }
+  if (k === '_pq') { S.pq = t.value; return renderKeep(t.id); }
+});
+document.addEventListener('change', (e) => { const t = e.target; if (t.dataset && t.dataset.sel === 'range') A.range(t.value); else if (t.dataset && t.dataset.in === 'applies') { S.form.applies = t.value; } });
+document.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (e.target.id !== 'loginForm') return;
+  const fd = new FormData(e.target); S.loginErr = ''; S.busy = true; render();
+  const r = await sb.auth.signInWithPassword({ email: String(fd.get('email')).trim(), password: String(fd.get('password')) });
+  S.busy = false;
+  if (r.error) { S.loginErr = 'Email or password is incorrect.'; return render(); }
+  await start();
+});
+function renderKeep(id) { render(); const el = id && document.getElementById(id); if (el) { el.focus(); const l = el.value.length; try { el.setSelectionRange(l, l); } catch (e) { /* ignore */ } } }
 
-    function parseDate(dateStr) {
-      if (!dateStr) return null;
-      // Parse "6/4/2026 12:01:31" format
-      const parts = dateStr.split(' ');
-      if (parts.length !== 2) return null;
-      
-      const dateParts = parts[0].split('/');
-      const timeParts = parts[1].split(':');
-      
-      if (dateParts.length !== 3 || timeParts.length !== 3) return null;
-      
-      const month = parseInt(dateParts[0]) - 1; // JS months are 0-indexed
-      const day = parseInt(dateParts[1]);
-      const year = parseInt(dateParts[2]);
-      const hour = parseInt(timeParts[0]);
-      const minute = parseInt(timeParts[1]);
-      const second = parseInt(timeParts[2]);
-      
-      return new Date(year, month, day, hour, minute, second);
-    }
+/* ---------- views ---------- */
+function filteredOrders() {
+  const q = S.q.trim().toLowerCase(), f = S.filter;
+  return S.orders.filter((o) => {
+    const p = o.payment_status, ff = o.fulfillment_status;
+    const ok = f === 'All' || (f === 'Awaiting payment' && p === 'pending') || (f === 'Review' && p === 'review') || (f === 'To ship' && p === 'paid' && ff === 'new') ||
+      (f === 'Shipped' && p === 'paid' && (ff === 'shipped' || ff === 'delivered')) || (f === 'Failed / refunded' && (p === 'failed' || p === 'refunded'));
+    return ok && (!q || [o.order_number, o.customer_name, o.customer_email, o.state, o.tracking_number, o.discount_code].some((v) => String(v || '').toLowerCase().includes(q)));
+  });
+}
+const counts = () => ({
+  toShip: S.orders.filter((o) => o.payment_status === 'paid' && o.fulfillment_status === 'new').length,
+  pending: S.orders.filter((o) => o.payment_status === 'pending').length,
+  review: S.orders.filter((o) => o.payment_status === 'review').length,
+});
+function pill(o) { const s = ostat(o); return '<span class="pill c-' + s[1] + '">' + esc(s[0]) + '</span>'; }
+function orderRows(list, withProfit) {
+  if (!list.length) return '<div class="empty">No orders here yet.</div>';
+  return '<div class="tw"><table><thead><tr><th>Order</th><th>Placed</th><th>Customer</th><th>Payment</th><th>Status</th><th class="r">Total</th>' + (withProfit ? '<th class="r">Profit</th>' : '') + '</tr></thead><tbody>' +
+    list.map((o) => '<tr class="click" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td class="mono"><b>' + esc(o.order_number) + '</b></td><td>' + esc(fdate(o.created_at)) + '</td><td>' + esc(o.customer_name) + '<div class="sub">' + esc(o.state || '') + '</div></td><td>' + esc(PAYNAME[o.payment_method] || o.payment_method) + '</td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td>' +
+      (withProfit ? '<td class="r num">' + (isPaid(o) ? usd(profitOf(o)) + (incomplete(o) ? '*' : '') : '—') + '</td>' : '') + '</tr>').join('') + '</tbody></table></div>';
+}
+function rangeSelect() {
+  const o = [['today', 'Today'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['mtd', 'This month'], ['all', 'All time']];
+  return '<label class="f" style="min-width:160px"><span style="position:absolute;left:-9999px">Date range</span><select data-sel="range">' + o.map((x) => '<option value="' + x[0] + '"' + (S.range === x[0] ? ' selected' : '') + '>' + x[1] + '</option>').join('') + '</select></label>';
+}
+function chart(series, fmt) {
+  // series: [{k:'Oct 1', v:12.5}]
+  const W = window.innerWidth < 600 ? 360 : 640, H = window.innerWidth < 600 ? 230 : 220, L = 46, R = 8, T = 10, B = 26, mx0 = Math.max(0, ...series.map((s) => s.v));
+  const step = mx0 <= 0 ? 1 : Math.pow(10, Math.floor(Math.log10(mx0))), nice = [1, 2, 2.5, 5, 10].map((x) => x * step).find((x) => x >= mx0) || mx0, mx = mx0 <= 0 ? 1 : nice;
+  const cw = (W - L - R) / Math.max(1, series.length), bw = Math.max(1, Math.min(28, cw * 0.7));
+  let g = '';
+  for (let i = 0; i <= 4; i++) { const v = (mx / 4) * i, y = T + (H - T - B) * (1 - i / 4); g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" stroke="#ECEAE2"/><text x="' + (L - 6) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5B6676">' + esc(fmt(v)) + '</text>'; }
+  const bars = series.map((s, i) => { const h = (H - T - B) * (s.v / mx), x = L + cw * i + (cw - bw) / 2; return '<rect x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, h).toFixed(1) + '" rx="2" fill="#3973B0"><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
+  const idx = series.length <= 1 ? [0] : [0, Math.floor((series.length - 1) / 2), series.length - 1];
+  const xl = idx.map((i, j) => '<text x="' + (L + cw * i + cw / 2).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="' + (j === 0 && idx.length > 1 ? 'start' : j === idx.length - 1 && idx.length > 1 ? 'end' : 'middle') + '" font-size="11" fill="#5B6676">' + esc(series[i].k) + '</text>').join('');
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Bar chart">' + g + bars + xl + '</svg>';
+}
+function daily(list, rg) {
+  const today = dkey(new Date());
+  let start = rg.start; if (!start) { const ks = list.map((o) => dkey(o.created_at)).sort(); start = ks[0] || today; if (start < addDays(today, -89)) start = addDays(today, -89); }
+  const map = {}; list.forEach((o) => { const k = dkey(o.created_at); map[k] = (map[k] || 0) + n0(o.total); });
+  const out = []; for (let k = start; k <= today; k = addDays(k, 1)) out.push({ k: fday(k), v: map[k] || 0 }); return out;
+}
+function topProducts(list) {
+  const m = {}; list.forEach((o) => (o.order_items || []).forEach((i) => { const x = m[i.name] || (m[i.name] = { name: i.name, qty: 0, rev: 0 }); x.qty += i.qty; x.rev += n0(i.line_total); }));
+  return Object.values(m).sort((a, b) => b.rev - a.rev);
+}
+function mixCard(list) {
+  const z = list.filter((o) => o.payment_method === 'zelle'), c = list.filter((o) => o.payment_method === 'credit_card'), n = list.length;
+  const zr = z.reduce((a, o) => a + n0(o.total), 0), cr = c.reduce((a, o) => a + n0(o.total), 0), tr = zr + cr;
+  return '<div class="split" aria-hidden="true"><i style="width:' + pct(z.length, n) + '%;background:#3973B0"></i><i style="width:' + (n ? 100 - pct(z.length, n) : 0) + '%;background:#C9A24A"></i></div>' +
+    '<table class="mini" style="margin-top:8px"><tr><td><span class="pill c-blue">Zelle</span></td><td class="r num">' + z.length + ' orders</td><td class="r num"><b>' + pct(z.length, n) + '%</b></td><td class="r num">' + usd(zr, 0) + ' · ' + pct(zr, tr) + '%</td></tr>' +
+    '<tr><td><span class="pill c-gold">Card</span></td><td class="r num">' + c.length + ' orders</td><td class="r num"><b>' + (n ? 100 - pct(z.length, n) : 0) + '%</b></td><td class="r num">' + usd(cr, 0) + ' · ' + (tr ? 100 - pct(zr, tr) : 0) + '%</td></tr></table>';
+}
 
-    function setFilter(range) {
-      currentFilter = range;
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      updateStats();
-      renderTable();
-    }
+function viewHome() {
+  const rg = getRange(), paid = S.orders.filter(isPaid), cur = paid.filter((o) => rg.test(dkey(o.created_at))), prv = rg.prev ? paid.filter((o) => rg.prev(dkey(o.created_at))) : [];
+  const a = stats(cur), b = stats(prv), c = counts(), low = lowStock(), cu = customers();
+  const repeat = cu.list.filter((x) => x.n > 1).length;
+  const todo = (n, label, sub, color, tab, filter) => '<button class="todo" style="border-left-color:' + color + '" data-act="' + (filter ? 'goOrders' : 'tab') + '" data-arg="' + esc(filter || tab) + '"><b>' + n + '</b><span>' + label + '</span><small>' + sub + '</small></button>';
+  const kpi = (lab, val, d) => '<div class="card kpi"><div class="lab">' + lab + '</div><div class="val num">' + val + '</div><div class="d">' + d + '</div></div>';
+  const tp = topProducts(cur).slice(0, 5), maxRev = tp[0] ? tp[0].rev : 1;
+  return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#C9A24A', 'orders', 'Awaiting payment') +
+      todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#7BA88F', 'products') + '</div>' +
+    '<div class="row" style="justify-content:space-between"><div class="sub">Showing ' + esc(rg.label.toLowerCase()) + (rg.prev ? ', compared with ' + esc(rg.prevLabel) : '') + '. Paid orders only.</div>' + rangeSelect() + '</div>' +
+    '<div class="grid g4">' + kpi('Revenue', usd(a.rev), delta(a.rev, b.rev, !!rg.prev)) + kpi('Paid orders', a.n, delta(a.n, b.n, !!rg.prev)) + kpi('Average order', usd(a.aov), delta(a.aov, b.aov, !!rg.prev)) +
+      kpi('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), (a.partial ? 'Some labels not entered yet · ' : '') + delta(a.profit, b.profit, !!rg.prev)) + '</div>' +
+    '<div class="card"><h2>Revenue by day</h2><div class="hint">' + esc(rg.label) + '</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
+    '<div class="grid g2"><div class="card"><h2>Zelle vs card</h2><div class="hint">Share of paid orders and of revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div>' +
+      '<div class="card"><h2>Customers</h2><div class="hint">All time</div><table class="mini"><tr><td>Total customers</td><td class="r num"><b>' + cu.list.length + '</b></td><td></td></tr><tr><td>Repeat buyers</td><td class="r num"><b>' + repeat + '</b></td><td class="r num">' + pct(repeat, cu.list.length) + '%</td></tr><tr><td>One-time buyers</td><td class="r num"><b>' + (cu.list.length - repeat) + '</b></td><td class="r num">' + pct(cu.list.length - repeat, cu.list.length) + '%</td></tr><tr><td>Typical reorder gap</td><td class="r num"><b>' + (cu.med == null ? '—' : Math.round(cu.med) + ' days') + '</b></td><td></td></tr></table></div></div>' +
+    '<div class="grid g2"><div class="card"><h2>Top products</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tp.length ? tp.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + usd(p.rev) + ' · ' + p.qty + ' sold</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.rev / maxRev * 100)) + '%"></i></div></div>').join('') : '<div class="empty">Nothing sold in this range.</div>') + '</div>' +
+      '<div class="card"><h2>Recent orders</h2><div class="hint">Latest 6</div>' + (S.orders.length ? '<table class="mini">' + S.orders.slice(0, 6).map((o) => '<tr class="click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td class="mono"><b>' + esc(o.order_number) + '</b></td><td>' + esc(o.customer_name) + '</td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td></tr>').join('') + '</table>' : '<div class="empty">No orders yet.</div>') + '</div></div>';
+}
+function viewOrders() {
+  const list = filteredOrders(), c = counts();
+  const f = [['All', S.orders.length], ['Awaiting payment', c.pending], ['Review', c.review], ['To ship', c.toShip], ['Shipped', S.orders.filter((o) => isPaid(o) && (o.fulfillment_status === 'shipped' || o.fulfillment_status === 'delivered')).length], ['Failed / refunded', S.orders.filter((o) => o.payment_status === 'failed' || o.payment_status === 'refunded').length]];
+  return '<div class="row"><label class="f" style="flex:1;min-width:220px;max-width:460px"><span style="position:absolute;left:-9999px">Search orders</span><input id="qs" type="search" data-in="_q" value="' + esc(S.q) + '" placeholder="Search order, name, email, state, tracking"></label></div>' +
+    '<div class="chips">' + f.map((x) => '<button class="chip' + (S.filter === x[0] ? ' on' : '') + '" data-act="filter" data-arg="' + esc(x[0]) + '">' + esc(x[0]) + ' <i>' + x[1] + '</i></button>').join('') + '</div>' + orderRows(list, true) +
+    '<div class="sub">* Profit is partial until the label cost is entered. Profit = total − product cost − packaging − fees − commission − label.</div>';
+}
+function viewProducts() {
+  const q = S.pq.trim().toLowerCase(), list = S.products.filter((p) => !q || (p.name + p.sku + (p.category || '')).toLowerCase().includes(q));
+  const mg = (p) => (p.unit_cost == null || n0(p.price) <= 0 ? null : (n0(p.price) - n0(p.unit_cost) - n0(p.testing_cost)) / n0(p.price) * 100);
+  return '<label class="f" style="max-width:460px"><span style="position:absolute;left:-9999px">Search products</span><input id="ps" type="search" data-in="_pq" value="' + esc(S.pq) + '" placeholder="Search products"></label>' +
+    '<div class="tw"><table><thead><tr><th>Product</th><th>Category</th><th class="r">Price</th><th class="r">Cost</th><th class="r">Margin</th><th class="r">Stock</th><th>Status</th></tr></thead><tbody>' +
+    list.map((p) => { const m = mg(p), lowp = p.stock_tracked && !p.is_kit && p.stock <= p.low_stock_threshold;
+      return '<tr class="click" data-act="openProd" data-arg="' + esc(p.sku) + '"><td><b>' + esc(p.name) + '</b><div class="sub mono">' + esc(p.sku) + (p.is_kit ? ' · kit' : '') + '</div></td><td>' + esc(p.category || '—') + '</td><td class="r num">' + usd(n0(p.price)) + '</td><td class="r num">' + (p.unit_cost == null ? (p.is_kit ? 'from parts' : '<span class="pill c-gold">not set</span>') : usd(n0(p.unit_cost) + n0(p.testing_cost))) + '</td><td class="r num">' + (m == null ? '—' : m.toFixed(0) + '%') + '</td><td class="r num">' + (p.is_kit ? 'from parts' : p.stock_tracked ? '<span class="pill c-' + (lowp ? 'red' : 'green') + '">' + p.stock + '</span>' : 'not tracked') + '</td><td>' + (p.active ? '<span class="pill c-green">Active</span>' : '<span class="pill c-gray">Hidden</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+    '<div class="sub">Tap a product to change price and cost, or add and remove stock. Stock drops automatically when an order is placed and returns if an unpaid order is cancelled or expires.</div>';
+}
+function viewCustomers() {
+  const cu = customers(), q = S.cq.trim().toLowerCase();
+  const list = cu.list.filter((c) => (S.cseg === 'All' || c.seg === S.cseg) && (!q || (c.name + c.email + c.state).toLowerCase().includes(q)));
+  const rep = cu.list.filter((c) => c.n > 1).length, due = cu.list.filter((c) => c.due).length;
+  const kpi = (l, v, s) => '<div class="card kpi"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
+  return '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Worth a personal email') + '</div>' +
+    '<div class="row"><label class="f" style="flex:1;min-width:220px;max-width:460px"><span style="position:absolute;left:-9999px">Search customers</span><input id="cs" type="search" data-in="_cq" value="' + esc(S.cq) + '" placeholder="Search customers"></label></div>' +
+    '<div class="chips">' + ['All', 'Repeat', 'Due to reorder', 'One-time'].map((n) => '<button class="chip' + (S.cseg === n ? ' on' : '') + '" data-act="cseg" data-arg="' + n + '">' + n + ' <i>' + (n === 'All' ? cu.list.length : cu.list.filter((c) => c.seg === n).length) + '</i></button>').join('') + '</div>' +
+    (list.length ? '<div class="tw"><table><thead><tr><th>Customer</th><th>State</th><th class="r">Orders</th><th class="r">Spent</th><th>Last order</th><th>Customer since</th><th>Segment</th></tr></thead><tbody>' + list.map((c) => '<tr><td><b>' + esc(c.name) + '</b><div class="sub">' + esc(c.email) + '</div></td><td>' + esc(c.state || '') + '</td><td class="r num">' + c.n + '</td><td class="r num">' + usd(c.spend) + '</td><td>' + esc(fday(dkey(c.last))) + '</td><td>' + esc(fday(dkey(c.first))) + '</td><td><span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span></td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No customers match.</div>');
+}
+function viewDiscounts() {
+  const paid = S.orders.filter(isPaid), f = S.form;
+  const rows = S.codes.map((c) => { const os = paid.filter((o) => o.discount_code === c.code); return { c, uses: os.length, rev: os.reduce((a, o) => a + n0(o.total), 0), disc: os.reduce((a, o) => a + n0(o.discount), 0), comm: os.reduce((a, o) => a + n0(o.commission), 0) }; }).sort((a, b) => b.uses - a.uses || a.c.code.localeCompare(b.c.code));
+  const none = paid.filter((o) => !o.discount_code);
+  return '<div class="row" style="justify-content:space-between"><div class="sub">Counts paid orders only. Commission is what you owe the influencer on those orders.</div><button class="btn pri" data-act="newCode">' + (S.newCode ? 'Cancel' : '+ New code') + '</button></div>' +
+    (S.newCode ? '<div class="card"><h2>New discount code</h2><div class="grid g3" style="margin-top:10px"><label class="f">Code<input type="text" data-in="code" value="' + esc(f.code) + '" placeholder="SUMMER10" maxlength="30" autocapitalize="characters"></label><label class="f">Discount %<input type="number" data-in="pct" value="' + esc(f.pct) + '" min="1" max="100" step="0.5" placeholder="10"></label><label class="f">Applies to<select data-in="applies"><option value="singles"' + (f.applies === 'singles' ? ' selected' : '') + '>Single vials</option><option value="all"' + (f.applies === 'all' ? ' selected' : '') + '>Everything</option></select></label><label class="f">Influencer (optional)<input type="text" data-in="who" value="' + esc(f.who) + '"></label><label class="f">Commission %<input type="number" data-in="comm" value="' + esc(f.comm) + '" min="0" max="100" step="0.5" placeholder="0"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="free"' + (f.free ? ' checked' : '') + ' style="width:auto"> Free shipping</label></div><div style="margin-top:14px"><button class="btn pri" data-act="addCode"' + (S.busy ? ' disabled' : '') + '>Create code</button></div></div>' : '') +
+    '<div class="tw"><table><thead><tr><th>Code</th><th>Offer</th><th>Influencer</th><th class="r">Uses</th><th class="r">Revenue</th><th class="r">Discount given</th><th class="r">Commission owed</th><th>Status</th></tr></thead><tbody>' +
+    rows.map((r) => '<tr><td class="mono"><b>' + esc(r.c.code) + '</b></td><td>' + Math.round(n0(r.c.pct) * 100) + '% off' + (r.c.free_shipping ? ' + free shipping' : '') + '<div class="sub">' + (r.c.applies_to === 'all' ? 'Everything' : r.c.applies_to === 'singles' ? 'Single vials' : esc(r.c.applies_to)) + '</div></td><td>' + esc(r.c.influencer || '—') + (n0(r.c.commission_pct) ? '<div class="sub">' + Math.round(n0(r.c.commission_pct) * 100) + '% commission</div>' : '') + '</td><td class="r num">' + r.uses + '</td><td class="r num">' + usd(r.rev) + '</td><td class="r num">' + usd(r.disc) + '</td><td class="r num">' + usd(r.comm) + '</td><td><button class="btn sm" data-act="toggleCode" data-arg="' + esc(r.c.code) + '">' + (r.c.active ? '<span class="up">● On</span>' : '○ Off') + '</button></td></tr>').join('') +
+    '<tr><td><b>No code</b></td><td>—</td><td>—</td><td class="r num">' + none.length + '</td><td class="r num">' + usd(none.reduce((a, o) => a + n0(o.total), 0)) + '</td><td class="r num">—</td><td class="r num">—</td><td></td></tr></tbody></table></div>';
+}
+function viewAnalytics() {
+  const rg = getRange(), paid = S.orders.filter(isPaid), cur = paid.filter((o) => rg.test(dkey(o.created_at)));
+  const hours = Array.from({ length: 24 }, (_, h) => ({ k: (h % 12 || 12) + (h < 12 ? 'a' : 'p'), v: cur.filter((o) => hourOf(o.created_at) === h).length }));
+  const st = {}; cur.forEach((o) => { const k = o.state || '—'; const x = st[k] || (st[k] = { k, n: 0, rev: 0 }); x.n++; x.rev += n0(o.total); });
+  const states = Object.values(st).sort((a, b) => b.rev - a.rev).slice(0, 8), tr = cur.reduce((a, o) => a + n0(o.total), 0);
+  const tp = topProducts(cur).slice(0, 8), a = stats(cur);
+  const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((k, i) => ({ k, v: cur.filter((o) => new Date(dkey(o.created_at) + 'T12:00:00Z').getUTCDay() === i).length }));
+  const cost = cur.reduce((x, o) => ({ cogs: x.cogs + n0(o.cogs), pk: x.pk + n0(o.packaging_cost), fee: x.fee + n0(o.processing_fee), com: x.com + n0(o.commission), lab: x.lab + n0(o.label_cost), ship: x.ship + n0(o.shipping_charged), disc: x.disc + n0(o.discount) }), { cogs: 0, pk: 0, fee: 0, com: 0, lab: 0, ship: 0, disc: 0 });
+  const kv = (l, v, b) => '<div class="kv' + (b ? ' tot' : '') + '"><span>' + l + '</span><span class="num">' + v + '</span></div>';
+  return '<div class="row" style="justify-content:space-between"><div class="sub">' + esc(rg.label) + ' · paid orders only (all times Pacific)</div>' + rangeSelect() + '</div>' +
+    '<div class="card"><h2>Revenue by day</h2><div class="hint">' + usd(a.rev) + ' from ' + a.n + ' orders</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
+    '<div class="grid g2"><div class="card"><h2>Orders by hour</h2><div class="hint">When customers buy</div>' + chart(hours, (v) => String(Math.round(v))) + '</div><div class="card"><h2>Orders by weekday</h2><div class="hint">Busiest days</div>' + chart(wd, (v) => String(Math.round(v))) + '</div></div>' +
+    '<div class="grid g2"><div class="card"><h2>Where the money goes</h2><div class="hint">Per paid order, this range</div><div style="display:flex;flex-direction:column;gap:6px">' + kv('Revenue (incl. shipping charged)', usd(a.rev)) + kv('Product cost', '−' + usd(cost.cogs)) + kv('Packaging', '−' + usd(cost.pk)) + kv('Processing fees', '−' + usd(cost.fee)) + kv('Influencer commission', '−' + usd(cost.com)) + kv('Shipping labels', '−' + usd(cost.lab)) + kv('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), 1) + '</div><div class="sub" style="margin-top:8px">Discounts given: ' + usd(cost.disc) + ' · Margin: ' + (a.rev ? Math.round(a.profit / a.rev * 100) : 0) + '%</div></div>' +
+      '<div class="card"><h2>Zelle vs card</h2><div class="hint">Orders and revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div></div>' +
+    '<div class="grid g2"><div class="card"><h2>Top states</h2><div class="hint">By revenue</div>' + (states.length ? '<table class="mini">' + states.map((s) => '<tr><td>' + esc(s.k) + '</td><td class="r num">' + s.n + ' orders</td><td class="r num">' + usd(s.rev, 0) + '</td><td class="r num">' + pct(s.rev, tr) + '%</td></tr>').join('') + '</table>' : '<div class="empty">No data.</div>') + '</div>' +
+      '<div class="card"><h2>Products</h2><div class="hint">Units and revenue</div>' + (tp.length ? '<table class="mini">' + tp.map((p) => '<tr><td>' + esc(p.name) + '</td><td class="r num">' + p.qty + ' sold</td><td class="r num">' + usd(p.rev, 0) + '</td></tr>').join('') + '</table>' : '<div class="empty">No data.</div>') + '</div></div>';
+}
+function viewSettings() {
+  const f = S.form;
+  return '<div class="grid g2"><div class="card"><h2>Account</h2><div class="hint">Signed in as ' + esc((S.session && S.session.user.email) || '') + '</div><div class="row"><button class="btn" data-act="logout">Sign out</button></div></div>' +
+    '<div class="card"><h2>Your other tools</h2><div class="hint">Day-to-day order desk and reports</div><div class="row"><a class="btn" href="' + SHEET_URL + '" target="_blank" rel="noopener">Open Order Desk sheet</a></div></div></div>' +
+    '<div class="card"><h2>Business numbers</h2><div class="hint">Used when new orders are priced and costed. Changing one affects new orders only.</div><div class="tw" style="border:0"><table class="mini">' +
+    S.settings.map((s) => '<tr><td><b class="mono">' + esc(s.key) + '</b><div class="sub">' + esc(s.note || '') + '</div></td><td style="width:140px"><input type="number" step="0.01" min="0" data-in="s_' + esc(s.key) + '" value="' + esc(f['s_' + s.key] != null ? f['s_' + s.key] : s.value) + '"></td><td class="r" style="width:90px"><button class="btn sm" data-act="saveSetting" data-arg="' + esc(s.key) + '">Save</button></td></tr>').join('') + '</table></div></div>';
+}
 
-    function filterOrders() {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      
-      let start, end;
-      
-      switch(currentFilter) {
-        case 'today':
-          start = today;
-          end = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-          break;
-        case 'yesterday':
-          start = new Date(today.getTime() - 24 * 60 * 60 * 1000);
-          end = today;
-          break;
-        case 'thisweek':
-          const dayOfWeek = now.getDay();
-          const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-          start = new Date(today.getTime() - daysToMonday * 24 * 60 * 60 * 1000);
-          end = new Date();
-          break;
-        case 'lastweek':
-          const lastSunday = new Date(today.getTime() - today.getDay() * 24 * 60 * 60 * 1000);
-          start = new Date(lastSunday.getTime() - 7 * 24 * 60 * 60 * 1000);
-          end = lastSunday;
-          break;
-        case 'thismonth':
-          start = new Date(now.getFullYear(), now.getMonth(), 1);
-          end = new Date();
-          break;
-        case 'lastmonth':
-          start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-          end = new Date(now.getFullYear(), now.getMonth(), 1);
-          break;
-        case '30d':
-          start = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
-          end = new Date();
-          break;
-        case '90d':
-          start = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000);
-          end = new Date();
-          break;
-        case 'all':
-        default:
-          return allOrders;
-      }
-      
-      return allOrders.filter(o => {
-        return o.timestampMs >= start.getTime() && o.timestampMs < end.getTime();
-      });
-    }
+/* drawers */
+function orderDrawer() {
+  const o = S.orders.find((x) => x.order_number === S.sel); if (!o) return '';
+  const on = o.order_number, st = o.payment_status, ff = o.fulfillment_status, ev = S.events[on] || [], f = S.form, arm = S.armed;
+  const confirmBtn = (key, label, cls, act) => arm === key + on
+    ? '<div class="row"><button class="btn ' + cls + '" data-act="' + act + '" data-arg="' + esc(on) + '"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Working…' : 'Yes, ' + label.toLowerCase()) + '</button><button class="btn" data-act="disarm">Cancel</button></div>'
+    : '<button class="btn ' + cls + '" data-act="arm" data-arg="' + key + esc(on) + '">' + label + '</button>';
+  let actions = '';
+  if (st === 'pending' || st === 'review') {
+    actions += '<div class="sec"><h4>Payment</h4><div class="note' + (o.payment_method === 'credit_card' ? ' red' : '') + '">' + (o.payment_method === 'credit_card' ? '<b>Card payment.</b> Open Bankful and check it shows exactly ' + usd(n0(o.total)) + ' for this order before confirming. Never ship from “review”.' : 'Confirm only after the Zelle for <b>' + usd(n0(o.total)) + '</b> with memo <b>' + esc(on) + '</b> shows in your bank.') + '</div>' +
+      '<div class="row" style="margin-top:6px">' + confirmBtn('pay', 'Confirm payment received', 'pri', 'confirmPay') + confirmBtn('fail', 'Mark failed', 'danger', 'markFailed') + '</div><div class="sub">Confirming emails the customer and sends your Telegram alert. Failing releases the stock.</div></div>';
+  }
+  if (st === 'paid') {
+    const shipped = ff === 'shipped' || ff === 'delivered';
+    actions += '<div class="sec"><h4>' + (shipped ? 'Tracking' : 'Ship this order') + '</h4>' + (shipped ? '<div class="kv"><span>Carrier</span><span>' + esc(o.carrier || '—') + '</span></div><div class="kv"><span>Shipped</span><span>' + (o.shipped_at ? esc(fdate(o.shipped_at)) : '—') + '</span></div>' : '') +
+      '<label class="f">Tracking number<input type="text" data-in="tracking" value="' + esc(f.tracking) + '" autocomplete="off" placeholder="9400 1118 …"></label><label class="f">Label cost ($)<input type="text" inputmode="decimal" data-in="label" value="' + esc(f.label) + '" placeholder="4.85"></label>' +
+      '<div class="row"><button class="btn pri" data-act="ship" data-arg="' + esc(on) + '"' + (S.busy ? ' disabled' : '') + '>' + (shipped ? 'Update tracking' : S.busy ? 'Working…' : 'Mark shipped & email customer') + '</button></div><div class="sub">' + (shipped ? 'Fixing a typo does not email the customer again.' : 'The customer gets a “shipped” email with a Track package button.') + '</div></div>';
+    actions += '<div class="sec"><h4>Problem with this order?</h4><div class="row">' + confirmBtn('ref', 'Mark refunded', 'danger', 'markRefunded') + '</div><div class="sub">Refunding does not move money. Refund in Bankful or Zelle yourself. If the items come back, add them on Products.</div></div>';
+  }
+  const money = (l, v, neg) => '<div class="kv"><span>' + l + '</span><span class="num">' + (neg ? '−' : '') + usd(n0(v)) + '</span></div>';
+  return '<div class="scrim" data-act="close"></div><aside class="drawer" role="dialog" aria-label="Order ' + esc(on) + '">' +
+    '<div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3 class="mono">' + esc(on) + '</h3><div class="sub">' + esc(fdate(o.created_at)) + ' · ' + esc(PAYNAME[o.payment_method] || '') + '</div></div><div class="row">' + pill(o) + '<button class="btn sm" data-act="close" aria-label="Close">✕</button></div></div>' + actions +
+    '<div class="sec"><h4>Customer</h4><div><b>' + esc(o.customer_name) + '</b></div><div class="sub">' + esc(o.customer_email) + (o.phone ? ' · ' + esc(o.phone) : '') + '</div><div class="sub">' + esc(o.address) + ', ' + esc(o.city) + ', ' + esc(o.state) + ' ' + esc(o.zip) + '</div></div>' +
+    '<div class="sec"><h4>Items</h4>' + (o.order_items || []).map((i) => '<div class="kv"><span style="color:var(--ink)">' + i.qty + '× ' + esc(i.name) + '</span><span class="num">' + usd(n0(i.line_total)) + '</span></div>').join('') + '</div>' +
+    '<div class="sec"><h4>Totals</h4>' + money('Subtotal', o.subtotal) + (n0(o.discount) ? money('Discount' + (o.discount_code ? ' (' + esc(o.discount_code) + ')' : ''), o.discount, 1) : '') + money('Shipping', o.shipping_charged) + '<div class="kv tot"><span>Total</span><span class="num">' + usd(n0(o.total)) + '</span></div></div>' +
+    '<div class="sec"><h4>Your costs & profit</h4>' + money('Product cost', o.cogs, 1) + money('Packaging', o.packaging_cost, 1) + money('Processing fee', o.processing_fee, 1) + (n0(o.commission) ? money('Commission', o.commission, 1) : '') + (o.label_cost != null ? money('Shipping label', o.label_cost, 1) : '<div class="kv"><span>Shipping label</span><span>not entered</span></div>') +
+      '<div class="kv tot"><span>Profit' + (incomplete(o) ? ' (so far)' : '') + '</span><span class="num">' + usd(profitOf(o)) + '</span></div>' + (o.cost_missing ? '<div class="note">An item has no cost set, so profit is overstated. Set it on Products.</div>' : '') + '</div>' +
+    (ev.length ? '<div class="sec"><h4>History</h4><div class="tl">' + ev.map((e) => '<div><span>' + esc(e.source) + ': ' + esc(e.old_status || '—') + ' → ' + esc(e.new_status || '—') + '</span><span>' + esc(fdate(e.created_at)) + '</span></div>').join('') + '</div></div>' : '') + '</aside>';
+}
+function prodDrawer() {
+  const p = S.products.find((x) => x.sku === S.selProd); if (!p) return '';
+  const f = S.form, mv = S.moves.filter((m) => m.sku === p.sku).slice(0, 6), price = Number(f.price), uc = f.unit_cost === '' ? NaN : Number(f.unit_cost), tc = Number(f.testing_cost || 0);
+  const margin = price > 0 && Number.isFinite(uc) ? ((price - uc - tc) / price * 100).toFixed(1) + '%  (' + usd(price - uc - tc) + ' per unit)' : '—';
+  const field = (k, l, t, extra) => '<label class="f">' + l + '<input type="' + (t || 'text') + '" data-in="' + k + '" value="' + esc(f[k]) + '" ' + (extra || '') + '></label>';
+  return '<div class="scrim" data-act="close"></div><aside class="drawer" role="dialog" aria-label="' + esc(p.name) + '">' +
+    '<div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3>' + esc(p.name) + '</h3><div class="sub mono">' + esc(p.sku) + (p.is_kit ? ' · kit (stock comes from its parts)' : '') + '</div></div><button class="btn sm" data-act="close" aria-label="Close">✕</button></div>' +
+    '<div class="sec"><h4>Details</h4>' + field('name', 'Name') + field('category', 'Category') + '<div class="grid g2">' + field('price', 'Price ($)', 'number', 'step="0.01" min="0"') + field('unit_cost', 'Unit cost ($)', 'number', 'step="0.01" min="0"') + '</div>' + field('testing_cost', 'Testing cost per unit ($)', 'number', 'step="0.01" min="0"') +
+      '<div class="kv"><span>Margin</span><span class="num">' + margin + '</span></div>' +
+      '<label class="f" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" data-in="active"' + (f.active ? ' checked' : '') + ' style="width:auto"> Active (visible and sellable)</label>' +
+      '<label class="f" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" data-in="tracked"' + (f.tracked ? ' checked' : '') + ' style="width:auto"> Track stock</label>' + field('low', 'Low-stock alert at (vials)', 'number', 'min="0" step="1"') +
+      '<div class="row"><button class="btn pri" data-act="saveProd" data-arg="' + esc(p.sku) + '"' + (S.busy ? ' disabled' : '') + '>Save changes</button></div><div class="sub">Price changes here update the database. Make sure the site’s displayed price matches.</div></div>' +
+    (p.is_kit ? '' : '<div class="sec"><h4>Stock · ' + (p.stock_tracked ? p.stock + ' on hand' : 'not tracked') + '</h4><div class="grid g2">' + field('delta', 'Vials', 'number', 'min="1" step="1" placeholder="e.g. 20"') + field('reason', 'Reason', 'text', 'placeholder="New batch received"') + '</div><div class="row"><button class="btn pri" data-act="adjust" data-arg="' + esc(p.sku) + '" data-a2="1"' + (S.busy ? ' disabled' : '') + '>+ Add</button><button class="btn danger" data-act="adjust" data-arg="' + esc(p.sku) + '" data-a2="-1"' + (S.busy ? ' disabled' : '') + '>− Remove</button></div>' +
+      (mv.length ? '<div class="tl" style="margin-top:6px">' + mv.map((m) => '<div><span>' + (m.delta > 0 ? '+' : '') + m.delta + ' · ' + esc(m.reason) + '</span><span>' + esc(fdate(m.created_at)) + '</span></div>').join('') + '</div>' : '') + '</div>') + '</aside>';
+}
 
-    function updateStats() {
-      const filtered = filterOrders();
-      const revenue = filtered.reduce((sum, o) => sum + o.total, 0);
-      const profit = filtered.reduce((sum, o) => sum + o.net_profit, 0);
-      const avg = filtered.length > 0 ? revenue / filtered.length : 0;
+/* ---------- shell ---------- */
+const TABS = [['home', 'Home', 'Today at a glance'], ['orders', 'Orders', 'Confirm payments and ship'], ['products', 'Products', 'Prices, costs and stock'], ['customers', 'Customers', 'Who buys and who is due'], ['discounts', 'Discounts', 'Codes and influencer commissions'], ['analytics', 'Analytics', 'Trends and where the money goes'], ['settings', 'Settings', 'Account and business numbers']];
+function render() {
+  const app = document.getElementById('app'), ae = document.activeElement, aid = ae && ae.id, pos = ae && ae.selectionStart;
+  if (!S.session) {
+    app.innerHTML = '<div class="login"><form class="box" id="loginForm"><div class="logo">VANTIX <span>BIO</span></div><p>Admin sign in</p>' + (S.loginErr ? '<div class="banner" role="alert">' + esc(S.loginErr) + '</div>' : '') +
+      '<label class="f">Email<input type="email" name="email" required autocomplete="username"></label><label class="f">Password<input type="password" name="password" required autocomplete="current-password"></label><button class="btn pri" type="submit"' + (S.busy ? ' disabled' : '') + '>' + (S.busy ? 'Signing in…' : 'Sign in') + '</button></form></div>';
+    return;
+  }
+  const c = counts(), badge = { orders: c.toShip + c.pending + c.review, products: lowStock().length }, t = TABS.find((x) => x[0] === S.tab);
+  const body = !S.loaded ? '<div class="empty">Loading…</div>' : { home: viewHome, orders: viewOrders, products: viewProducts, customers: viewCustomers, discounts: viewDiscounts, analytics: viewAnalytics, settings: viewSettings }[S.tab]();
+  app.innerHTML = '<div class="shell"><aside class="side"><div class="brand"><div class="mark">VX</div><div><b>VANTIX</b><small>Admin</small></div></div><nav class="nav" aria-label="Sections">' +
+    TABS.map((x) => '<button class="' + (S.tab === x[0] ? 'on' : '') + '" data-act="tab" data-arg="' + x[0] + '"' + (S.tab === x[0] ? ' aria-current="page"' : '') + '><span>' + x[1] + '</span>' + (badge[x[0]] ? '<span class="badge">' + badge[x[0]] + '</span>' : '') + '</button>').join('') +
+    '</nav><div class="foot"><span>vantixbio.com</span><button data-act="logout">Sign out</button></div></aside><main class="main"><div class="top"><div><h1>' + t[1] + '</h1><div class="sub">' + t[2] + '</div></div><div class="row">' +
+    (S.tab === 'orders' ? '<button class="btn" data-act="csv">Export CSV</button>' : '') + '<button class="btn" data-act="refresh">Refresh</button></div></div>' + (S.error ? '<div class="banner" role="alert">' + esc(S.error) + '</div>' : '') + body + '</main></div>' +
+    (S.sel ? orderDrawer() : '') + (S.selProd ? prodDrawer() : '') + (S.toast ? '<div class="toast' + (S.toast.err ? ' err' : '') + '" role="status">' + esc(S.toast.msg) + '</div>' : '');
+  if (aid) { const el = document.getElementById(aid); if (el && el !== document.activeElement) { el.focus(); try { if (pos != null) el.setSelectionRange(pos, pos); } catch (e) { /* ignore */ } } }
+}
 
-      document.getElementById('revenue').textContent = '$' + revenue.toFixed(2);
-      document.getElementById('orders').textContent = filtered.length;
-      document.getElementById('avg').textContent = '$' + avg.toFixed(2);
-      document.getElementById('profit').textContent = '$' + profit.toFixed(2);
-    }
-
-    function renderTable() {
-      const filtered = filterOrders();
-      const html = filtered.slice(0, 100).map(o => `
-        <tr>
-          <td style="font-family: monospace; color: #60a5fa;">${o.order_number}</td>
-          <td>${new Date(o.timestamp).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</td>
-          <td>${o.name}</td>
-          <td style="font-weight: 600;">$${o.total.toFixed(2)}</td>
-          <td>${o.payment.charAt(0).toUpperCase() + o.payment.slice(1).replace('_', ' ')}</td>
-          <td>${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</td>
-        </tr>
-      `).join('');
-      document.getElementById('ordersTable').innerHTML = html || '<tr><td colspan="6" style="text-align: center; padding: 40px; color: #6b7280;">No orders</td></tr>';
-    }
-  </script>
+/* ---------- start ---------- */
+async function start() {
+  const { data } = await sb.auth.getSession();
+  S.session = data.session;
+  if (!S.session) { S.loaded = false; return render(); }
+  const adm = await sb.rpc('is_admin');
+  if (adm.error || adm.data !== true) { await sb.auth.signOut(); S.session = null; S.loginErr = 'This login is not set up as an admin.'; return render(); }
+  S.loaded = false; render(); await load(); render();
+}
+sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_OUT') { S.session = null; render(); } });
+setInterval(async () => { if (!S.session || document.hidden || S.sel || S.selProd || S.newCode || S.busy) return; const a = document.activeElement; if (a && /INPUT|SELECT|TEXTAREA/.test(a.tagName)) return; await load(true); render(); }, 60000);
+start();
+</script>
 </body>
 </html>
