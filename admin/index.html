@@ -360,7 +360,7 @@ function daily(list, rg) {
   const out = []; for (let k = start; k <= today; k = addDays(k, 1)) out.push({ k: fday(k), v: map[k] || 0 }); return out;
 }
 function topProducts(list) {
-  const m = {}; list.forEach((o) => (o.order_items || []).forEach((i) => { const x = m[i.name] || (m[i.name] = { name: i.name, qty: 0, rev: 0 }); x.qty += i.qty; x.rev += n0(i.line_total); }));
+  const m = {}; list.forEach((o) => (o.order_items || []).forEach((i) => { const k = i.sku || i.name, pr = S.products.find((x) => x.sku === k); const x = m[k] || (m[k] = { name: pr ? pr.name : i.name, qty: 0, rev: 0 }); x.qty += i.qty; x.rev += n0(i.line_total); }));
   return Object.values(m).sort((a, b) => b.rev - a.rev);
 }
 function mixCard(list) {
