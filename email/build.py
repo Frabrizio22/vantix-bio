@@ -30,7 +30,7 @@ def p(t): return f'<p style="margin:0 0 16px;font:16px/1.7 {SANS};color:{INK}">{
 
 def wrap(preheader, eyebrow, headline, body):
     return f'''<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Vantix</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Vantix Bio</title>
 <style>@media (max-width:620px){{.shell{{width:100%!important}}.pad{{padding-left:22px!important;padding-right:22px!important}}.h1{{font-size:28px!important}}}}</style></head>
 <body style="margin:0;padding:0;background:{CREAM}">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:{CREAM}">{preheader}</div>
@@ -52,20 +52,20 @@ E['1-post-purchase'] = dict(day='Day 3 after delivery', subject='Your order, ver
  + steps([('Scan the label', 'The QR code on each vial opens the record for that batch.'), ('Match the batch ID', 'Check that the ID on your vial matches the ID on the page.'), ('Review the results', 'Purity and endotoxin results are published for every batch.')])
  + button('Verify your batch', VERIFY)
  + p(f'<span style="color:{MUT};font-size:14px">Keep sealed vials as directed on your product sheet. Questions about a result? Reply to this email and we will go through it with you.</span>')))
-E['2-reorder'] = dict(day='Day 28 after last order', subject='Your next order, whenever you are ready', pre='Your product is in stock and ships in 1-2 business days.', html=wrap(
- 'Your product is in stock and ships in 1-2 business days.', 'When you are ready', 'Ready when you are, {{first_name}}.',
+E['2-reorder'] = dict(day='Day 28 after last order', subject='Your next order, whenever you are ready', pre='Your product is in stock and ready to order.', html=wrap(
+ 'Your product is in stock and ready to order.', 'When you are ready', 'Ready when you are, {{first_name}}.',
  p('It has been about {{weeks}} weeks since your last Vantix order. {{product}} is in stock, and every lot has published batch-level testing results.')
- + card([('Product', '{{product}}'), ('Availability', 'In stock'), ('Dispatch', '1-2 business days after payment'), ('Shipping', 'Free over $150')])
+ + card([('Product', '{{product}}'), ('Availability', 'In stock'), ('Dispatch', 'Tracking emailed when it ships'), ('Shipping', 'Free over $150')])
  + button('View {{product}}', SHOP) + '{{offer_block}}'))
 E['3-second-nudge'] = dict(day='Day 42 if no reorder', subject='A note on shipping', pre='Free shipping starts at $150.', html=wrap(
  'Free shipping starts at $150.', 'Worth knowing', 'Free shipping starts at $150.',
- p('Hi {{first_name}}, a short note in case it is useful. Orders over $150 after any discounts ship free, and most orders leave within 1-2 business days of payment.')
+ p('Hi {{first_name}}, a short note in case it is useful. Orders over $150 after any discounts ship free, and you get a tracking email as soon as your order leaves us.')
  + p('Every Vantix batch is independently tested, and you can look up the results for any batch at any time.')
  + button('Browse the catalog', SHOP) + '{{offer_block}}'))
-E['4-winback'] = dict(day='Day 75 if no reorder', subject='What is new at Vantix', pre='Batch-level verification, published for every lot.', html=wrap(
+E['4-winback'] = dict(day='Day 75 if no reorder', subject='What is new at Vantix Bio', pre='Batch-level verification, published for every lot.', html=wrap(
  'Batch-level verification, published for every lot.', 'What is new', 'It has been a while, {{first_name}}.',
  p('Since your last order we have kept one thing constant: you can check the testing results for any batch before you rely on it.')
- + steps([('Independent testing', 'Purity and endotoxin results for each batch are published.'), ('Verification portal', 'Look up any batch by its ID or the QR code on the label.'), ('Fast dispatch', 'Orders ship within 1-2 business days of payment, free over $150.')])
+ + steps([('Independent testing', 'Purity and endotoxin results for each batch are published.'), ('Verification portal', 'Look up any batch by its ID or the QR code on the label.'), ('Tracked shipping', 'Every order comes with tracking, and shipping is free over $150.')])
  + button('See what is in stock', SHOP) + '{{offer_block}}'))
 E['5-back-in-stock'] = dict(day='Triggered when a waitlisted item restocks', subject='You asked us to let you know', pre='It is available again.', html=wrap(
  'It is available again.', 'Back in stock', '{{product}} is available again.',
