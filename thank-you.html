@@ -4,99 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Order Confirmed - Vantix Bio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #F8FAFC;
-            color: #0F172A;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 520px;
-            width: 100%;
-            text-align: center;
-        }
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 40px;
-            color: #0F172A;
-        }
-        .logo span { color: #5B8DBE; }
-        .checkmark {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #059669, #10B981);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.25);
-        }
-        .checkmark svg { width: 40px; height: 40px; }
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #0F172A;
-        }
-        .subtitle {
-            font-size: 16px;
-            color: #64748B;
-            margin-bottom: 32px;
-            line-height: 1.5;
-        }
-        .order-details {
-            background: white;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            text-align: left;
-        }
-        .order-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            font-size: 14px;
-        }
-        .order-row .label { color: #64748B; }
-        .order-row .value { font-weight: 600; color: #0F172A; }
-        .info-box {
-            background: #EFF6FF;
-            border: 1px solid #DBEAFE;
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 24px;
-            font-size: 14px;
-            color: #1E40AF;
-            line-height: 1.5;
-        }
-        .btn {
-            display: inline-block;
-            padding: 14px 32px;
-            background: #0F172A;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-        .btn:hover { background: #1E293B; }
-        .footer-note {
-            margin-top: 32px;
-            font-size: 12px;
-            color: #94A3B8;
-        }
+        :root{--navy:#0F1B2D;--blue:#3973B0;--bg:#F4F3EE;--card:#FFFFFF;--line:#D8D6CF;--muted:#5C6675;--sage:#4A8568;--sage-soft:#E6F0EA}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{-webkit-text-size-adjust:100%}
+        body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;display:flex;justify-content:center;padding:40px 16px 32px}
+        .container{width:100%;max-width:460px;display:flex;flex-direction:column;gap:28px}
+        .logo{text-align:center;font-size:22px;font-weight:700;letter-spacing:3px;line-height:1}
+        .logo span{color:var(--blue)}
+        .hero{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+        .checkmark{width:64px;height:64px;border-radius:50%;background:var(--sage-soft);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+        .checkmark svg{width:30px;height:30px}
+        .eyebrow{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue)}
+        h1{font-size:26px;font-weight:600;line-height:1.25;text-wrap:balance}
+        .subtitle{font-size:15px;line-height:1.6;color:var(--muted);max-width:380px;text-wrap:balance}
+        .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+        .card h2{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+        .order-row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;font-size:14px;border-top:1px solid var(--line)}
+        .order-row:first-of-type{border-top:0}
+        .order-row .label{color:var(--muted)}
+        .order-row .value{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+        .pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--sage-soft);color:var(--sage)}
+        .items{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+        .steps{list-style:none;display:flex;flex-direction:column;gap:16px}
+        .steps li{display:flex;gap:14px;align-items:flex-start;font-size:14px;line-height:1.55}
+        .steps b{display:block;font-weight:600;margin-bottom:2px}
+        .steps span.t{color:var(--muted)}
+        .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px}
+        .btn{display:block;text-align:center;padding:15px 24px;background:var(--navy);color:#fff;text-decoration:none;border-radius:10px;font-weight:600;font-size:14px;letter-spacing:.3px}
+        .btn:hover{background:#1c2c45}
+        .foot{text-align:center;display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--muted);line-height:1.6}
+        .foot a{color:inherit}
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
@@ -139,45 +78,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- VANTIX AGE GATE -->
 <div class="container">
         <div class="logo">VANTIX <span>BIO</span></div>
-        
-        <div class="checkmark">
-            <svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-            </svg>
-        </div>
-        
-        <h1>Order Confirmed</h1>
-        <p class="subtitle">Your payment has been processed successfully. You'll receive a confirmation email shortly.</p>
-        
-        <div class="order-details" id="orderDetails" style="display:none">
-            <div class="order-row">
-                <span class="label">Order Number</span>
-                <span class="value" id="orderNumber">—</span>
+
+        <div class="hero">
+            <div class="checkmark">
+                <svg fill="none" viewBox="0 0 24 24" stroke="#4A8568" stroke-width="2.6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
             </div>
-            <div class="order-row">
-                <span class="label">Total</span>
-                <span class="value" id="orderTotal">—</span>
-            </div>
-            <div class="order-row">
-                <span class="label">Payment</span>
-                <span class="value">Credit Card</span>
-            </div>
-            <div class="order-row">
-                <span class="label">Status</span>
-                <span class="value" style="color:#059669">✓ Paid</span>
-            </div>
+            <div class="eyebrow">Order received</div>
+            <h1>Thank you for your order</h1>
+            <p class="subtitle">Your card payment was submitted successfully. We&rsquo;re confirming it now and will get your order ready to ship.</p>
         </div>
-        
-        <div class="info-box">
-            📦 Your order will ship within 1 business day. Tracking will be sent to your email.
+
+        <div class="card" id="orderDetails" style="display:none">
+            <h2>Order summary</h2>
+            <div class="order-row"><span class="label">Order number</span><span class="value" id="orderNumber">&mdash;</span></div>
+            <div class="order-row"><span class="label">Total</span><span class="value" id="orderTotal">&mdash;</span></div>
+            <div class="order-row"><span class="label">Payment</span><span class="value">Credit card</span></div>
+            <div class="order-row"><span class="label">Status</span><span class="value"><span class="pill">Confirming payment</span></span></div>
+            <div class="items" id="orderItems"></div>
         </div>
-        
-        <a href="shop.html" class="btn">Continue Shopping</a>
-        
-        <div class="footer-note">
-            Questions? Email <a href="mailto:vantixbio@gmail.com" style="color:#64748B">vantixbio@gmail.com</a>
+
+        <div class="card">
+            <h2>What happens next</h2>
+            <ol class="steps">
+                <li><span class="num">1</span><div><b>We confirm your payment</b><span class="t">This usually takes a few hours.</span></div></li>
+                <li><span class="num">2</span><div><b>We pack and ship your order</b><span class="t">Orders ship by USPS within 1&ndash;2 business days of confirmation.</span></div></li>
+                <li><span class="num">3</span><div><b>You get your tracking number</b><span class="t">We&rsquo;ll email it to the address you used at checkout.</span></div></li>
+            </ol>
         </div>
-        <p style="margin-top:8px;font-size:11px;text-align:center;color:#94a3b8"><a href="terms.html" style="color:inherit;text-decoration:underline">Terms</a> &middot; <a href="privacy.html" style="color:inherit;text-decoration:underline">Privacy</a> &middot; <a href="shipping.html" style="color:inherit;text-decoration:underline">Shipping &amp; Refund</a></p>
+
+        <a href="shop.html" class="btn">Continue shopping</a>
+
+        <div class="foot">
+            <div>Questions? Email <a href="mailto:vantixbio@gmail.com">vantixbio@gmail.com</a></div>
+            <div><a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="shipping.html">Shipping &amp; Refund</a></div>
+            <div>For research use only. Not for human consumption.</div>
+        </div>
     </div>
 
     <script>
@@ -191,6 +128,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 var order = JSON.parse(lastOrder);
                 document.getElementById('orderNumber').textContent = order.orderNumber || '—';
                 document.getElementById('orderTotal').textContent = '$' + (parseFloat(order.total) || 0).toFixed(2);
+                var itemsEl = document.getElementById('orderItems');
+                (order.items || []).forEach(function(it) { var d = document.createElement('div'); d.textContent = (it.quantity || 1) + ' \u00d7 ' + (it.name || it.sku); itemsEl.appendChild(d); });
+                if (!(order.items || []).length) itemsEl.style.display = 'none';
                 document.getElementById('orderDetails').style.display = 'block';
                 
                 // Push Purchase event to Data Layer for GTM
