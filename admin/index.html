@@ -61,7 +61,7 @@ label.f{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--mu
 .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
 .chip i{font-style:normal;font-size:11px;opacity:.65}
 .pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;white-space:nowrap}
-.c-green{background:#DDEEE3;color:#245238}.c-blue{background:#DCE8F5;color:#1F4A7A}.c-gold{background:#F6E7C8;color:#6B4B0A}.c-red{background:#F3D9D4;color:#7D2F25}.c-gray{background:#E8E6DE;color:#4A5160}
+.c-green{background:#DDEEE3;color:#245238}.c-blue{background:#DCE8F5;color:#1F4A7A}.c-gold{background:#F6E7C8;color:#6B4B0A}.c-red{background:#F3D9D4;color:#7D2F25}.c-gray{background:#E8E6DE;color:#4A5160}.c-navy{background:#DFE4EC;color:#0F1B2D}
 /* cards */
 .card{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);padding:22px 24px;box-shadow:var(--sh)}
 .card h2{margin:0 0 2px;font-size:15px;font-weight:600;letter-spacing:-.005em}
@@ -481,9 +481,9 @@ function topProducts(list) {
 function mixCard(list) {
   const z = list.filter((o) => o.payment_method === 'zelle'), c = list.filter((o) => o.payment_method === 'credit_card'), n = list.length;
   const zr = z.reduce((a, o) => a + n0(o.total), 0), cr = c.reduce((a, o) => a + n0(o.total), 0), tr = zr + cr;
-  return '<div class="split" aria-hidden="true"><i style="width:' + pct(z.length, n) + '%;background:#3973B0"></i><i style="width:' + (n ? 100 - pct(z.length, n) : 0) + '%;background:#C9A24A"></i></div>' +
+  return '<div class="split" aria-hidden="true"><i style="width:' + pct(z.length, n) + '%;background:#3973B0"></i><i style="width:' + (n ? 100 - pct(z.length, n) : 0) + '%;background:#0F1B2D"></i></div>' +
     '<table class="mini" style="margin-top:8px"><tr><td><span class="pill c-blue">Zelle</span></td><td class="r num">' + z.length + ' orders</td><td class="r num"><b>' + pct(z.length, n) + '%</b></td><td class="r num">' + usd(zr, 0) + ' · ' + pct(zr, tr) + '%</td></tr>' +
-    '<tr><td><span class="pill c-gold">Card</span></td><td class="r num">' + c.length + ' orders</td><td class="r num"><b>' + (n ? 100 - pct(z.length, n) : 0) + '%</b></td><td class="r num">' + usd(cr, 0) + ' · ' + (tr ? 100 - pct(zr, tr) : 0) + '%</td></tr></table>';
+    '<tr><td><span class="pill c-navy">Card</span></td><td class="r num">' + c.length + ' orders</td><td class="r num"><b>' + (n ? 100 - pct(z.length, n) : 0) + '%</b></td><td class="r num">' + usd(cr, 0) + ' · ' + (tr ? 100 - pct(zr, tr) : 0) + '%</td></tr></table>';
 }
 
 function viewHome() {
@@ -493,8 +493,8 @@ function viewHome() {
   const todo = (n, label, sub, color, tab, filter) => '<button class="todo" style="--ac:' + color + '" data-act="' + (filter ? 'goOrders' : 'tab') + '" data-arg="' + esc(filter || tab) + '"><b>' + n + '</b><span>' + label + '</span><small>' + sub + '</small></button>';
   const kpi = (lab, val, d, hero) => '<div class="card kpi' + (hero ? ' hero' : '') + '"><div class="lab">' + lab + '</div><div class="val num">' + val + '</div><div class="d">' + d + '</div></div>';
   const tp = topProducts(cur).slice(0, 5), maxRev = tp[0] ? tp[0].rev : 1;
-  return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#C9A24A', 'orders', 'Awaiting payment') +
-      todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#7BA88F', 'products') + '</div>' +
+  return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#D08A1E', 'orders', 'Awaiting payment') +
+      todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#5E6877', 'products') + '</div>' +
     '<div class="row" style="justify-content:space-between"><div class="sub">Showing ' + esc(rg.label.toLowerCase()) + (rg.prev ? ', compared with ' + esc(rg.prevLabel) : '') + '. Paid orders only.</div>' + rangeSelect() + '</div>' +
     '<div class="grid g4">' + kpi('Revenue', usd(a.rev), delta(a.rev, b.rev, !!rg.prev), true) + kpi('Paid orders', a.n, delta(a.n, b.n, !!rg.prev)) + kpi('Average order', usd(a.aov), delta(a.aov, b.aov, !!rg.prev)) +
       kpi('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), (a.partial ? 'Some labels not entered yet · ' : '') + delta(a.profit, b.profit, !!rg.prev)) + '</div>' +
