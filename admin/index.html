@@ -55,6 +55,10 @@ h1{margin:0;font-size:28px;font-weight:600;line-height:1.2;letter-spacing:-.02em
 input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-size:13px;background:#fff;transition:border-color .15s,box-shadow .15s}
 input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(57,115,176,.14);outline:0}
 label.f{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--mut);font-weight:500}
+input[type=date]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-size:13px;background:#fff;min-width:0}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;background:#fff;border:1px solid var(--line2);border-radius:12px;padding:14px}
+.cmp h4{grid-column:1/-1;margin:0;font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.cmp .full{grid-column:1/-1}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 15px;font-size:13px;font-weight:500;display:inline-flex;gap:7px;align-items:center;white-space:nowrap;transition:background .15s}
 .chip:hover{background:#F8F7F2}
@@ -205,7 +209,7 @@ const median = (a) => { if (!a.length) return null; const s = [...a].sort((x, y)
 const PAYNAME = { zelle: 'Zelle', credit_card: 'Card' };
 
 /* ---------- state ---------- */
-const S = { session: null, tab: 'home', range: '30', orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
+const S = { session: null, tab: 'home', range: '30', cA: { from: '', to: '' }, cB: { from: '', to: '' }, cBOn: true, cBTouched: false, orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
   filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
 
 function toast(msg, err) { S.toast = { msg, err }; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, err ? 6000 : 3000); }
@@ -232,6 +236,16 @@ function getRange() {
     return { label: 'Last ' + n + ' days', days: n, start, test: (k) => k >= start && k <= today, prev: (k) => k >= ps && k <= pe, prevLabel: 'the previous ' + n + ' days' }; }
   if (r === 'mtd') { const ms = today.slice(0, 7) + '-01', pm = addDays(ms, -1).slice(0, 7), dd = +today.slice(8);
     return { label: 'This month', days: dd, start: ms, test: (k) => k >= ms && k <= today, prev: (k) => k.slice(0, 7) === pm && +k.slice(8) <= dd, prevLabel: 'last month so far' }; }
+  if (r === 'custom') {
+    const today = dkey(new Date());
+    let f = S.cA.from || addDays(today, -29), t = S.cA.to || today; if (f > t) { const x = f; f = t; t = x; }
+    const n = Math.round((new Date(t + 'T12:00:00Z') - new Date(f + 'T12:00:00Z')) / 864e5) + 1;
+    let pf = S.cB.from, pt = S.cB.to;
+    if (!S.cBTouched || !pf || !pt) { pt = addDays(f, -1); pf = addDays(pt, -(n - 1)); }
+    if (pf > pt) { const x = pf; pf = pt; pt = x; }
+    const lab = (a, b) => a === b ? fday(a) + ', ' + a.slice(0, 4) : fday(a) + ' – ' + fday(b) + ', ' + b.slice(0, 4);
+    return { label: lab(f, t), days: n, start: f, end: t, test: (k) => k >= f && k <= t, prev: S.cBOn ? ((k) => k >= pf && k <= pt) : null, prevLabel: lab(pf, pt), pStart: pf, pEnd: pt };
+  }
   return { label: 'All time', days: null, start: null, test: () => true, prev: null, prevLabel: '' };
 }
 function stats(list) {
@@ -333,7 +347,17 @@ async function workerPost(path, body) {
 const A = {};
 A.more = () => { S.more = !S.more; render(); };
 A.tab = (t) => { S.tab = t; S.more = false; S.sel = null; S.selProd = null; S.armed = null; render(); window.scrollTo(0, 0); };
-A.range = (v) => { S.range = v; render(); };
+A.range = (v) => { if (v === 'custom' && !S.cA.from) { const t = dkey(new Date()); S.cA = { from: addDays(t, -29), to: t }; S.cBTouched = false; S.cBOn = true; } S.range = v; render(); };
+A.cset = (id, v) => { const [g, k] = id.split('_'); if (!v) return; S[g][k] = v; if (g === 'cB') S.cBTouched = true; if (g === 'cA' && !S.cBTouched) S.cB = { from: '', to: '' }; render(); };
+A.cmpPreset = (m) => {
+  const rg = getRange(), f = rg.start, t = rg.end;
+  if (m === 'off') { S.cBOn = !S.cBOn; return render(); }
+  S.cBOn = true; S.cBTouched = true;
+  if (m === 'prev') { S.cBTouched = false; S.cB = { from: '', to: '' }; }
+  else if (m === 'year') { const y = (k) => (+k.slice(0, 4) - 1) + k.slice(4); S.cB = { from: y(f), to: y(t) }; }
+  else if (m === 'month') { const sm = (k) => { const d = new Date(k + 'T12:00:00Z'); d.setUTCMonth(d.getUTCMonth() - 1); return d.toISOString().slice(0, 10); }; S.cB = { from: sm(f), to: sm(t) }; }
+  render();
+};
 A.filter = (v) => { S.filter = v; render(); };
 A.cseg = (v) => { S.cseg = v; render(); };
 A.close = () => { S.sel = null; S.selProd = null; S.armed = null; S.form = {}; render(); };
@@ -402,7 +426,7 @@ document.addEventListener('input', (e) => {
   if (k === '_cq') { S.cq = t.value; return renderKeep(t.id); }
   if (k === '_pq') { S.pq = t.value; return renderKeep(t.id); }
 });
-document.addEventListener('change', (e) => { const t = e.target; if (t.dataset && t.dataset.sel === 'range') A.range(t.value); else if (t.dataset && t.dataset.in === 'applies') { S.form.applies = t.value; } });
+document.addEventListener('change', (e) => { const t = e.target; if (t.dataset && t.dataset.sel === 'range') A.range(t.value); else if (t.dataset && /^c[AB]_(from|to)$/.test(t.dataset.sel || '')) A.cset(t.dataset.sel, t.value); else if (t.dataset && t.dataset.in === 'applies') { S.form.applies = t.value; } });
 document.addEventListener('submit', async (e) => {
   e.preventDefault();
   if (e.target.id !== 'loginForm') return;
@@ -437,8 +461,13 @@ function orderRows(list, withProfit) {
       (withProfit ? '<td class="r num">' + (isPaid(o) ? usd(profitOf(o)) + (incomplete(o) ? '*' : '') : '—') + '</td>' : '') + '</tr>').join('') + '</tbody></table></div>';
 }
 function rangeSelect() {
-  const o = [['today', 'Today'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['mtd', 'This month'], ['all', 'All time']];
-  return '<label class="f" style="min-width:160px"><span style="position:absolute;left:-9999px">Date range</span><select data-sel="range">' + o.map((x) => '<option value="' + x[0] + '"' + (S.range === x[0] ? ' selected' : '') + '>' + x[1] + '</option>').join('') + '</select></label>';
+  const o = [['today', 'Today'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['mtd', 'This month'], ['all', 'All time'], ['custom', 'Custom…']];
+  const sel = '<label class="f" style="min-width:160px"><span style="position:absolute;left:-9999px">Date range</span><select data-sel="range">' + o.map((x) => '<option value="' + x[0] + '"' + (S.range === x[0] ? ' selected' : '') + '>' + x[1] + '</option>').join('') + '</select></label>';
+  if (S.range !== 'custom') return sel;
+  const rg = getRange(), d = (id, v, lab) => '<label class="f"><span>' + lab + '</span><input type="date" data-sel="' + id + '" value="' + esc(v || '') + '"></label>';
+  return sel + '<div class="cmp"><h4>Range</h4>' + d('cA_from', rg.start, 'From') + d('cA_to', rg.end, 'To') +
+    '<h4>Compare to</h4>' + (S.cBOn ? d('cB_from', rg.pStart, 'From') + d('cB_to', rg.pEnd, 'To') : '<div class="sub full">No comparison.</div>') +
+    '<div class="chips full"><button class="chip" data-act="cmpPreset" data-arg="prev">Previous period</button><button class="chip" data-act="cmpPreset" data-arg="year">Same dates last year</button><button class="chip" data-act="cmpPreset" data-arg="month">Previous month</button><button class="chip" data-act="cmpPreset" data-arg="off">' + (S.cBOn ? 'No comparison' : 'Compare') + '</button></div></div>';
 }
 const CHARTS = [];
 function chart(series, fmt) {
@@ -469,7 +498,7 @@ function stackTables() {
   });
 }
 function daily(list, rg) {
-  const today = dkey(new Date());
+  const today = rg.end || dkey(new Date());
   let start = rg.start; if (!start) { const ks = list.map((o) => dkey(o.created_at)).sort(); start = ks[0] || today; if (start < addDays(today, -89)) start = addDays(today, -89); }
   const map = {}; list.forEach((o) => { const k = dkey(o.created_at); map[k] = (map[k] || 0) + n0(o.total); });
   const out = []; for (let k = start; k <= today; k = addDays(k, 1)) out.push({ k: fday(k), v: map[k] || 0 }); return out;
