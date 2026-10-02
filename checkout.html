@@ -486,9 +486,9 @@ function getUrlParam(name){var params=new URLSearchParams(window.location.search
 // Current prices - validates cart against stale/cached prices
 var currentPrices={
 'VX-TIRZ-30':59,'VX-RETA-20':67,'VX-SEMA-10':42,'VX-BPC-10':30,'VX-TB-10':38,
-'VX-GHK-100':34,'VX-CJC-10':42,'VX-IPA-5':30,'VX-TESA-10':52,'VX-MOTS-10':32,
+'VX-GHK-100':34,'VX-CJC-5':29,'VX-IPA-5':28,'VX-TESA-10':52,'VX-MOTS-10':32,
 'VX-NAD-1000':59,'VX01':10,
-'VX-KIT-TISSUE':54,'VX-KIT-GH':58,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':89
+'VX-KIT-TISSUE':54,'VX-KIT-GH':48,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':89
 };
 
 // Out of stock products - prevents checkout
@@ -541,7 +541,7 @@ function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
 function autoBundleKits(){
 var kits=[
 {name:'Tissue Repair Kit (BPC-157 10mg + TB-500 10mg)',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
-{name:'GH Axis Kit (CJC-1295 10mg + Ipa 5mg)',price:62,skus:['VX-CJC-10','VX-IPA-5'],newSku:'VX-KIT-GH'},
+{name:'GH Axis Kit (CJC-1295 5mg + Ipa 5mg)',price:48,skus:['VX-CJC-5','VX-IPA-5'],newSku:'VX-KIT-GH'},
 {name:'Next-Gen Kit (VX-2T 30mg + VX-3R 20mg)',price:112,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
 {name:'Mito Kit (NAD+ 1000mg + MOTS-C 10mg)',price:82,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
 ];
@@ -675,8 +675,9 @@ if(promoCode&&promoCodes[promoCode]){
 var promo=promoCodes[promoCode];
 if(typeof promo==='object'&&promo.freeShipping===true){return 0;}
 }
-var subtotal=getSubtotal();
-return subtotal>=150?0:9.99;
+// Free shipping applies when the order is $150+ AFTER discounts (matches the server rule)
+var afterDiscount=getSubtotal()-getDiscount();
+return afterDiscount>=150?0:9.99;
 }
 
 function getTotal(){
