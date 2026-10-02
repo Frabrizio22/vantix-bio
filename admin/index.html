@@ -10,10 +10,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F4F3EE;--ink:#0F1B2D;--mut:#5B6676;--line:#D8D6CF;--line2:#ECEAE2;--card:#fff;--blue:#3973B0;--blue-d:#2D5E92;--gold:#C9A24A;--navy:#0F1B2D;--navy-mut:#9FB0C6;--green:#3A6E52;--red:#A5473B}
+:root{--bg:#F5F4EF;--ink:#0F1B2D;--mut:#5E6877;--line:#E1DED4;--line2:#ECEAE2;--card:#fff;--blue:#3973B0;--blue-d:#2D5E92;--blue-t:#E7EEF7;--gold:#C9A24A;--navy:#0F1B2D;--navy-mut:#9FB0C6;--green:#2F6B4F;--red:#A5473B;--r:16px;--sh:0 1px 2px rgba(15,27,45,.05),0 8px 24px -12px rgba(15,27,45,.10)}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
@@ -22,104 +22,160 @@ a{color:var(--blue)}
 .num{font-variant-numeric:tabular-nums}
 /* shell */
 .shell{display:flex;min-height:100vh}
-.side{width:232px;flex-shrink:0;background:var(--navy);color:#FAFAF7;display:flex;flex-direction:column;gap:24px;padding:22px 14px;position:sticky;top:0;height:100vh;align-self:flex-start}
-.brand{display:flex;align-items:center;gap:10px;padding:0 8px}
-.brand .mark{width:34px;height:34px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:.5px}
-.brand b{display:block;font-weight:600;font-size:15px;letter-spacing:1.5px;line-height:1.2}
+.side{width:244px;flex-shrink:0;background:var(--navy);color:#FAFAF7;display:flex;flex-direction:column;gap:28px;padding:26px 16px 22px;position:sticky;top:0;height:100vh;align-self:flex-start}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px}
+.brand .mark{width:36px;height:36px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:.5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.brand b{display:block;font-weight:600;font-size:15px;letter-spacing:2px;line-height:1.2}
 .brand small{font-size:11px;color:var(--navy-mut)}
-.nav{display:flex;flex-direction:column;gap:3px}
-.nav button{display:flex;justify-content:space-between;align-items:center;text-align:left;border:0;background:transparent;color:#FAFAF7;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500}
-.nav button:hover{background:rgba(255,255,255,.08)}
-.nav button.on{background:rgba(255,255,255,.14)}
-.badge{background:var(--gold);color:var(--navy);border-radius:999px;font-size:11px;font-weight:600;padding:1px 8px}
-.side .foot{margin-top:auto;padding:0 8px;font-size:12px;color:var(--navy-mut);display:flex;flex-direction:column;gap:8px}
-.side .foot button{align-self:flex-start;border:1px solid rgba(255,255,255,.25);background:transparent;color:#FAFAF7;border-radius:8px;padding:6px 12px;font-size:12px}
-.main{flex:1;min-width:0;padding:24px 36px 56px;display:flex;flex-direction:column;gap:20px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{position:relative;display:flex;align-items:center;gap:12px;text-align:left;border:0;background:transparent;color:#C9D4E3;padding:10px 12px;border-radius:10px;font-size:14px;font-weight:500;transition:background .15s,color .15s}
+.nav button svg{width:19px;height:19px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nav button .lab{flex:1}
+.nav button:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav button.on{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 3px 0 0 var(--gold)}
+.nav .moreBtn{display:none}
+.badge{background:var(--gold);color:var(--navy);border-radius:999px;font-size:11px;font-weight:600;padding:1px 8px;line-height:1.5}
+.side .foot{margin-top:auto;padding:0 8px;font-size:12px;color:var(--navy-mut);display:flex;flex-direction:column;gap:10px}
+.side .foot button{align-self:flex-start;border:1px solid rgba(255,255,255,.22);background:transparent;color:#FAFAF7;border-radius:10px;padding:7px 14px;font-size:12px}
+.side .foot button:hover{background:rgba(255,255,255,.08)}
+.main{flex:1;min-width:0;width:100%;max-width:1380px;margin:0 auto;padding:34px 44px 72px;display:flex;flex-direction:column;gap:22px}
 .top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
-h1{margin:0;font-size:26px;font-weight:600;line-height:1.25}
+h1{margin:0;font-size:28px;font-weight:600;line-height:1.2;letter-spacing:-.02em}
 .sub{font-size:13px;color:var(--mut);margin-top:2px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 /* controls */
-.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:500}
-.btn:hover{background:#F8F7F2}
+.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:500;transition:background .15s,border-color .15s}
+.btn:hover{background:#F8F7F2;border-color:#D3CFC3}
 .btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
-.btn.pri:hover{background:var(--blue-d)}
+.btn.pri:hover{background:var(--blue-d);border-color:var(--blue-d)}
 .btn.dark{background:var(--navy);border-color:var(--navy);color:#fff}
 .btn.danger{color:var(--red);border-color:#E4C2BC}
-.btn.sm{padding:5px 10px;font-size:12px}
+.btn.sm{padding:5px 11px;font-size:12px}
 .btn[disabled]{opacity:.5;cursor:not-allowed}
-input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;background:#fff}
-label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mut);font-weight:500}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-size:13px;background:#fff;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(57,115,176,.14);outline:0}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--mut);font-weight:500}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:500;display:inline-flex;gap:6px;align-items:center}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 15px;font-size:13px;font-weight:500;display:inline-flex;gap:7px;align-items:center;white-space:nowrap;transition:background .15s}
+.chip:hover{background:#F8F7F2}
 .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
-.chip i{font-style:normal;font-size:11px;opacity:.7}
+.chip i{font-style:normal;font-size:11px;opacity:.65}
 .pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;white-space:nowrap}
-.c-green{background:#DDEEE3;color:#245238}.c-blue{background:#DCE8F5;color:#1F4A7A}.c-gold{background:#F6E7C8;color:#6B4B0A}.c-red{background:#F3D9D4;color:#7D2F25}.c-gray{background:#E4E3DC;color:#4A5160}
+.c-green{background:#DDEEE3;color:#245238}.c-blue{background:#DCE8F5;color:#1F4A7A}.c-gold{background:#F6E7C8;color:#6B4B0A}.c-red{background:#F3D9D4;color:#7D2F25}.c-gray{background:#E8E6DE;color:#4A5160}.c-navy{background:#DFE4EC;color:#0F1B2D}
 /* cards */
-.card{background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:18px 20px}
-.card h2{margin:0 0 2px;font-size:15px;font-weight:600}
-.card .hint{font-size:12px;color:var(--mut);margin-bottom:12px}
-.grid{display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);padding:22px 24px;box-shadow:var(--sh)}
+.card h2{margin:0 0 2px;font-size:15px;font-weight:600;letter-spacing:-.005em}
+.card .hint{font-size:12px;color:var(--mut);margin-bottom:14px}
+.grid{display:grid;gap:18px}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.todo{display:flex;flex-direction:column;gap:2px;text-align:left;border:1px solid var(--line2);background:#fff;border-radius:14px;padding:14px 18px;border-left:4px solid var(--blue);width:100%}
-.todo b{font-size:28px;font-weight:600;line-height:1.1}
+.todo{position:relative;display:flex;flex-direction:column;gap:1px;text-align:left;border:1px solid var(--line2);background:#fff;border-radius:var(--r);padding:16px 20px 16px 24px;width:100%;box-shadow:inset 4px 0 0 var(--ac,var(--blue)),var(--sh);transition:transform .15s,border-color .15s}
+.todo:hover{border-color:#D3CFC3}
+.todo b{font-size:30px;font-weight:600;line-height:1.1;letter-spacing:-.02em}
 .todo span{font-size:13px;font-weight:600}
-.todo small{font-size:12px;color:var(--mut)}
-.kpi .lab{font-size:12px;color:var(--mut);font-weight:500}
-.kpi .val{font-size:26px;font-weight:600;line-height:1.2;margin-top:2px}
-.kpi .d{font-size:12px;margin-top:2px;color:var(--mut)}
+.todo small{font-size:12px;color:var(--mut);line-height:1.4}
+.kpi .lab{font-size:12.5px;color:var(--mut);font-weight:500}
+.kpi .val{font-size:28px;font-weight:600;line-height:1.2;margin-top:4px;letter-spacing:-.02em}
+.kpi .d{font-size:12px;margin-top:4px;color:var(--mut)}
+.kpi.hero{background:var(--navy);border-color:var(--navy);color:#fff}
+.kpi.hero .lab,.kpi.hero .d{color:var(--navy-mut)}
+.kpi.hero .val{font-size:34px}
+.kpi.hero .up{color:#8FD3AC}.kpi.hero .dn{color:#F2AEA3}
 .up{color:#245238;font-weight:600}.dn{color:#7D2F25;font-weight:600}
 /* tables */
-.tw{overflow-x:auto;border:1px solid var(--line2);border-radius:14px;background:#fff}
+.tw{overflow-x:auto;border:1px solid var(--line2);border-radius:var(--r);background:#fff;box-shadow:var(--sh)}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);font-weight:600;padding:11px 14px;background:#FAFAF7;border-bottom:1px solid var(--line2);white-space:nowrap}
-td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:middle}
+th{text-align:left;font-size:12px;color:var(--mut);font-weight:500;padding:12px 16px;background:#FBFAF6;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:13px 16px;border-bottom:1px solid var(--line2);vertical-align:middle}
 tr:last-child td{border-bottom:0}
-tr.click{cursor:pointer}tr.click:hover td{background:#F8F7F2}
+tr.click{cursor:pointer;transition:background .12s}tr.click:hover td{background:#F8F7F2}
 td.r,th.r{text-align:right}
-.mini{width:100%;font-size:13px}.mini td{padding:7px 0;border-bottom:1px solid var(--line2)}
-.bar{height:8px;background:var(--line2);border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--blue);border-radius:999px}
-.split{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--line2)}
-.empty{padding:28px;text-align:center;color:var(--mut);font-size:13px}
+.mini{width:100%;font-size:13px}.mini td{padding:9px 0;border-bottom:1px solid var(--line2)}.mini th{padding:8px 0;background:transparent}
+.tw>.mini td,.tw>.mini th{padding-left:12px;padding-right:12px}
+.bar{height:6px;background:var(--line2);border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--blue);border-radius:999px}
+.split{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line2);gap:2px}
+.split i{border-radius:999px}
+.empty{padding:32px;text-align:center;color:var(--mut);font-size:13px}
+/* charts */
+.chartbox{width:100%;min-height:200px}
+.chartbox svg{display:block;width:100%;height:auto;overflow:visible}
+.chartbox rect.b{fill:var(--blue);transition:opacity .12s}
+.chartbox rect.b:hover{opacity:.78}
 /* drawer */
-.scrim{position:fixed;inset:0;background:rgba(15,27,45,.45);z-index:40}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100%;background:#fff;z-index:41;overflow-y:auto;padding:22px 24px 40px;display:flex;flex-direction:column;gap:18px;box-shadow:-12px 0 40px rgba(15,27,45,.2)}
-.drawer h3{margin:0;font-size:20px;font-weight:600}
-.sec{display:flex;flex-direction:column;gap:6px}
-.sec>h4{margin:0;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);font-weight:600}
+.scrim{position:fixed;inset:0;background:rgba(15,27,45,.42);z-index:40;animation:fade .2s ease}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:520px;max-width:100%;background:#fff;z-index:41;overflow-y:auto;padding:24px 26px 44px;display:flex;flex-direction:column;gap:20px;box-shadow:-16px 0 48px rgba(15,27,45,.22);animation:slide .24s cubic-bezier(.2,.8,.2,1)}
+.drawer h3{margin:0;font-size:21px;font-weight:600;letter-spacing:-.01em}
+.sec{display:flex;flex-direction:column;gap:7px}
+.sec>h4{margin:0 0 2px;font-size:12px;color:var(--mut);font-weight:600}
 .kv{display:flex;justify-content:space-between;gap:12px;font-size:13px}
 .kv span:first-child{color:var(--mut)}
-.kv.tot{border-top:2px solid var(--navy);padding-top:8px;margin-top:4px;font-weight:700;font-size:15px}
+.kv.tot{border-top:2px solid var(--navy);padding-top:9px;margin-top:5px;font-weight:700;font-size:15px}
 .kv.tot span:first-child{color:var(--ink)}
-.note{background:#FBF4E2;border:1px solid #F0DDA8;border-radius:10px;padding:10px 12px;font-size:12px;color:#6B4B0A}
+.note{background:#FBF4E2;border:1px solid #F0DDA8;border-radius:12px;padding:11px 14px;font-size:12px;color:#6B4B0A}
 .note.red{background:#F8E6E2;border-color:#E4C2BC;color:#7D2F25}
 .tl{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--mut)}
 .tl div{display:flex;justify-content:space-between;gap:10px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 20px;border-radius:12px;font-size:13px;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;animation:fade .2s ease}
 .toast.err{background:var(--red)}
-.banner{background:#F8E6E2;border:1px solid #E4C2BC;color:#7D2F25;border-radius:10px;padding:10px 14px;font-size:13px}
+.banner{background:#F8E6E2;border:1px solid #E4C2BC;color:#7D2F25;border-radius:12px;padding:11px 15px;font-size:13px}
+.moresheet{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));background:#fff;border-radius:18px;padding:8px;z-index:52;box-shadow:0 16px 48px rgba(15,27,45,.3);animation:rise .2s ease}
+.moresheet button{display:flex;align-items:center;gap:14px;width:100%;border:0;background:transparent;text-align:left;padding:14px 14px;border-radius:12px;font-size:15px;font-weight:500;min-height:48px}
+.moresheet button:active{background:#F3F1EA}
+.moresheet svg{width:20px;height:20px;stroke:var(--mut);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.moresheet hr{border:0;border-top:1px solid var(--line2);margin:4px 8px}
+@keyframes slide{from{transform:translateX(28px);opacity:0}to{transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 /* login */
 .login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.login .box{width:100%;max-width:380px;background:#fff;border:1px solid var(--line2);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:16px}
+.login .box{width:100%;max-width:392px;background:#fff;border:1px solid var(--line2);border-radius:20px;padding:36px 30px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--sh)}
 .logo{text-align:center;font-size:24px;font-weight:700;letter-spacing:3px;line-height:1}
 .logo span{color:var(--blue)}
 .login p{margin:0;text-align:center;color:var(--mut);font-size:13px}
 .seg{display:flex;gap:6px;flex-wrap:wrap}
-@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1180px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.main{padding:30px 28px 64px}}
 @media (max-width:860px){
  .shell{flex-direction:column}
- .side{width:auto;height:auto;position:static;align-self:stretch;min-width:0;flex-direction:column;gap:12px;padding:14px 16px}
- .nav{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:2px}
- .nav button{white-space:nowrap;padding:8px 12px}
- .side .foot{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap}
- .main{padding:16px 16px 48px}
+ .side{width:auto;height:auto;position:sticky;top:0;z-index:30;align-self:stretch;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+ .brand .mark{width:32px;height:32px}
+ .brand small{display:none}
+ .side .foot{display:none}
+ .nav{position:fixed;left:0;right:0;bottom:0;z-index:50;flex-direction:row;justify-content:space-around;gap:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:rgba(15,27,45,.97);border-top:1px solid rgba(255,255,255,.08);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+ .nav button{flex:1;min-width:0;flex-direction:column;gap:3px;padding:7px 2px;border-radius:12px;font-size:10.5px;justify-content:center;text-align:center;box-shadow:none!important}
+ .nav button.on{background:rgba(255,255,255,.1);color:#fff}
+ .nav button.on svg{stroke:var(--gold)}
+ .nav button .lab{flex:none}
+ .nav button.extra{display:none}
+ .nav .moreBtn{display:flex}
+ .nav button .badge{position:absolute;top:2px;left:calc(50% + 6px);font-size:10px;padding:0 6px}
+ .main{padding:20px 16px calc(104px + env(safe-area-inset-bottom,0px));gap:18px}
  .g2,.g3{grid-template-columns:minmax(0,1fr)}
- h1{font-size:22px}
+ h1{font-size:23px}
+ .card{padding:18px 18px}
+ .kpi .val{font-size:24px}.kpi.hero .val{font-size:28px}
+ .drawer{top:auto;left:0;right:0;width:100%;max-height:92%;border-radius:22px 22px 0 0;padding:20px 20px 40px;box-shadow:0 -12px 40px rgba(15,27,45,.25);animation:rise .26s cubic-bezier(.2,.8,.2,1)}
+ .drawer::before{content:"";align-self:center;width:42px;height:4px;border-radius:99px;background:#D9D6CB;margin-bottom:-6px}
+ .chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:2px 16px;scrollbar-width:none}
+ .chips::-webkit-scrollbar{display:none}
+ .btn,.chip{min-height:42px}.btn.sm{min-height:34px}
+ input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{font-size:16px;padding:12px 14px}
+ .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+ /* tables become cards */
+ .tw{background:transparent;border:0;box-shadow:none;overflow:visible}
+ table.stack,table.stack tbody{display:block}
+ table.stack thead{display:none}
+ table.stack tr{display:block;background:#fff;border:1px solid var(--line2);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:var(--sh)}
+ table.stack td{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:4px 0;border:0;text-align:right}
+ table.stack td::before{content:attr(data-label);color:var(--mut);font-size:12px;text-align:left;flex-shrink:0}
+ table.stack td:first-child{justify-content:flex-start;font-size:15px;padding-bottom:6px}
+ table.stack td:first-child::before{display:none}
+ table.stack td[data-label=""]::before{display:none}
+ table.stack tr.click:hover td{background:transparent}
+ table.stack tr.click:active{background:#F8F7F2}
 }
-@media (max-width:520px){.g4{grid-template-columns:minmax(0,1fr)}.kpi .val{font-size:24px}}
+@media (max-width:520px){.g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.todo{padding:13px 14px 13px 18px}.todo b{font-size:25px}.todo small{display:none}.kpi.hero{grid-column:1/-1}.g4>.kpi:last-child{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -275,7 +331,8 @@ async function workerPost(path, body) {
 
 /* ---------- actions ---------- */
 const A = {};
-A.tab = (t) => { S.tab = t; S.sel = null; S.selProd = null; S.armed = null; render(); window.scrollTo(0, 0); };
+A.more = () => { S.more = !S.more; render(); };
+A.tab = (t) => { S.tab = t; S.more = false; S.sel = null; S.selProd = null; S.armed = null; render(); window.scrollTo(0, 0); };
 A.range = (v) => { S.range = v; render(); };
 A.filter = (v) => { S.filter = v; render(); };
 A.cseg = (v) => { S.cseg = v; render(); };
@@ -383,17 +440,33 @@ function rangeSelect() {
   const o = [['today', 'Today'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['mtd', 'This month'], ['all', 'All time']];
   return '<label class="f" style="min-width:160px"><span style="position:absolute;left:-9999px">Date range</span><select data-sel="range">' + o.map((x) => '<option value="' + x[0] + '"' + (S.range === x[0] ? ' selected' : '') + '>' + x[1] + '</option>').join('') + '</select></label>';
 }
+const CHARTS = [];
 function chart(series, fmt) {
-  // series: [{k:'Oct 1', v:12.5}]
-  const W = window.innerWidth < 600 ? 360 : 640, H = window.innerWidth < 600 ? 230 : 220, L = 46, R = 8, T = 10, B = 26, mx0 = Math.max(0, ...series.map((s) => s.v));
+  const id = 'ch' + CHARTS.length; CHARTS.push({ id, series, fmt });
+  return '<div class="chartbox" id="' + id + '"></div>';
+}
+function drawChart(c) {
+  const el = document.getElementById(c.id); if (!el) return;
+  const series = c.series, fmt = c.fmt, W = Math.max(280, el.clientWidth || 600), narrow = W < 520, H = narrow ? 190 : 230, L = narrow ? 42 : 52, R = 6, T = 10, B = 26;
+  const mx0 = Math.max(0, ...series.map((s) => s.v));
   const step = mx0 <= 0 ? 1 : Math.pow(10, Math.floor(Math.log10(mx0))), nice = [1, 2, 2.5, 5, 10].map((x) => x * step).find((x) => x >= mx0) || mx0, mx = mx0 <= 0 ? 1 : nice;
-  const cw = (W - L - R) / Math.max(1, series.length), bw = Math.max(1, Math.min(28, cw * 0.7));
+  const cw = (W - L - R) / Math.max(1, series.length), bw = Math.max(2, Math.min(26, cw * 0.62));
   let g = '';
-  for (let i = 0; i <= 4; i++) { const v = (mx / 4) * i, y = T + (H - T - B) * (1 - i / 4); g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" stroke="#ECEAE2"/><text x="' + (L - 6) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5B6676">' + esc(fmt(v)) + '</text>'; }
-  const bars = series.map((s, i) => { const h = (H - T - B) * (s.v / mx), x = L + cw * i + (cw - bw) / 2; return '<rect x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, h).toFixed(1) + '" rx="2" fill="#3973B0"><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
+  for (let i = 0; i <= 4; i++) { const v = (mx / 4) * i, y = T + (H - T - B) * (1 - i / 4); g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" stroke="#ECEAE2"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5E6877">' + esc(fmt(v)) + '</text>'; }
+  const bars = series.map((s, i) => { const h = Math.max(0, (H - T - B) * (s.v / mx)), x = L + cw * i + (cw - bw) / 2; return '<rect class="b" x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="' + Math.min(4, bw / 2).toFixed(1) + '"><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
   const idx = series.length <= 1 ? [0] : [0, Math.floor((series.length - 1) / 2), series.length - 1];
-  const xl = idx.map((i, j) => '<text x="' + (L + cw * i + cw / 2).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="' + (j === 0 && idx.length > 1 ? 'start' : j === idx.length - 1 && idx.length > 1 ? 'end' : 'middle') + '" font-size="11" fill="#5B6676">' + esc(series[i].k) + '</text>').join('');
-  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Bar chart">' + g + bars + xl + '</svg>';
+  const xl = idx.map((i, j) => '<text x="' + (L + cw * i + cw / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="' + (j === 0 && idx.length > 1 ? 'start' : j === idx.length - 1 && idx.length > 1 ? 'end' : 'middle') + '" font-size="11" fill="#5E6877">' + esc(series[i].k) + '</text>').join('');
+  el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Bar chart">' + g + bars + xl + '</svg>';
+  el.dataset.w = W;
+}
+function drawCharts() { CHARTS.forEach(drawChart); }
+let _rz; window.addEventListener('resize', () => { clearTimeout(_rz); _rz = setTimeout(() => { if (CHARTS.some((c) => { const e = document.getElementById(c.id); return e && Math.abs((e.clientWidth || 0) - Number(e.dataset.w || 0)) > 2; })) drawCharts(); }, 120); });
+function stackTables() {
+  document.querySelectorAll('.tw > table:not(.mini)').forEach((t) => {
+    const hs = Array.from(t.querySelectorAll('thead th')).map((h) => h.textContent.trim());
+    if (!hs.length) return; t.classList.add('stack');
+    t.querySelectorAll('tbody tr').forEach((r) => Array.from(r.children).forEach((td, k) => { if (hs[k] !== undefined) td.setAttribute('data-label', hs[k]); }));
+  });
 }
 function daily(list, rg) {
   const today = dkey(new Date());
@@ -408,28 +481,28 @@ function topProducts(list) {
 function mixCard(list) {
   const z = list.filter((o) => o.payment_method === 'zelle'), c = list.filter((o) => o.payment_method === 'credit_card'), n = list.length;
   const zr = z.reduce((a, o) => a + n0(o.total), 0), cr = c.reduce((a, o) => a + n0(o.total), 0), tr = zr + cr;
-  return '<div class="split" aria-hidden="true"><i style="width:' + pct(z.length, n) + '%;background:#3973B0"></i><i style="width:' + (n ? 100 - pct(z.length, n) : 0) + '%;background:#C9A24A"></i></div>' +
+  return '<div class="split" aria-hidden="true"><i style="width:' + pct(z.length, n) + '%;background:#3973B0"></i><i style="width:' + (n ? 100 - pct(z.length, n) : 0) + '%;background:#0F1B2D"></i></div>' +
     '<table class="mini" style="margin-top:8px"><tr><td><span class="pill c-blue">Zelle</span></td><td class="r num">' + z.length + ' orders</td><td class="r num"><b>' + pct(z.length, n) + '%</b></td><td class="r num">' + usd(zr, 0) + ' · ' + pct(zr, tr) + '%</td></tr>' +
-    '<tr><td><span class="pill c-gold">Card</span></td><td class="r num">' + c.length + ' orders</td><td class="r num"><b>' + (n ? 100 - pct(z.length, n) : 0) + '%</b></td><td class="r num">' + usd(cr, 0) + ' · ' + (tr ? 100 - pct(zr, tr) : 0) + '%</td></tr></table>';
+    '<tr><td><span class="pill c-navy">Card</span></td><td class="r num">' + c.length + ' orders</td><td class="r num"><b>' + (n ? 100 - pct(z.length, n) : 0) + '%</b></td><td class="r num">' + usd(cr, 0) + ' · ' + (tr ? 100 - pct(zr, tr) : 0) + '%</td></tr></table>';
 }
 
 function viewHome() {
   const rg = getRange(), paid = S.orders.filter(isPaid), cur = paid.filter((o) => rg.test(dkey(o.created_at))), prv = rg.prev ? paid.filter((o) => rg.prev(dkey(o.created_at))) : [];
   const a = stats(cur), b = stats(prv), c = counts(), low = lowStock(), cu = customers();
   const repeat = cu.list.filter((x) => x.n > 1).length;
-  const todo = (n, label, sub, color, tab, filter) => '<button class="todo" style="border-left-color:' + color + '" data-act="' + (filter ? 'goOrders' : 'tab') + '" data-arg="' + esc(filter || tab) + '"><b>' + n + '</b><span>' + label + '</span><small>' + sub + '</small></button>';
-  const kpi = (lab, val, d) => '<div class="card kpi"><div class="lab">' + lab + '</div><div class="val num">' + val + '</div><div class="d">' + d + '</div></div>';
+  const todo = (n, label, sub, color, tab, filter) => '<button class="todo" style="--ac:' + color + '" data-act="' + (filter ? 'goOrders' : 'tab') + '" data-arg="' + esc(filter || tab) + '"><b>' + n + '</b><span>' + label + '</span><small>' + sub + '</small></button>';
+  const kpi = (lab, val, d, hero) => '<div class="card kpi' + (hero ? ' hero' : '') + '"><div class="lab">' + lab + '</div><div class="val num">' + val + '</div><div class="d">' + d + '</div></div>';
   const tp = topProducts(cur).slice(0, 5), maxRev = tp[0] ? tp[0].rev : 1;
-  return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#C9A24A', 'orders', 'Awaiting payment') +
-      todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#7BA88F', 'products') + '</div>' +
+  return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#D08A1E', 'orders', 'Awaiting payment') +
+      todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#5E6877', 'products') + '</div>' +
     '<div class="row" style="justify-content:space-between"><div class="sub">Showing ' + esc(rg.label.toLowerCase()) + (rg.prev ? ', compared with ' + esc(rg.prevLabel) : '') + '. Paid orders only.</div>' + rangeSelect() + '</div>' +
-    '<div class="grid g4">' + kpi('Revenue', usd(a.rev), delta(a.rev, b.rev, !!rg.prev)) + kpi('Paid orders', a.n, delta(a.n, b.n, !!rg.prev)) + kpi('Average order', usd(a.aov), delta(a.aov, b.aov, !!rg.prev)) +
+    '<div class="grid g4">' + kpi('Revenue', usd(a.rev), delta(a.rev, b.rev, !!rg.prev), true) + kpi('Paid orders', a.n, delta(a.n, b.n, !!rg.prev)) + kpi('Average order', usd(a.aov), delta(a.aov, b.aov, !!rg.prev)) +
       kpi('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), (a.partial ? 'Some labels not entered yet · ' : '') + delta(a.profit, b.profit, !!rg.prev)) + '</div>' +
     '<div class="card"><h2>Revenue by day</h2><div class="hint">' + esc(rg.label) + '</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
     '<div class="grid g2"><div class="card"><h2>Zelle vs card</h2><div class="hint">Share of paid orders and of revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div>' +
       '<div class="card"><h2>Customers</h2><div class="hint">All time</div><table class="mini"><tr><td>Total customers</td><td class="r num"><b>' + cu.list.length + '</b></td><td></td></tr><tr><td>Repeat buyers</td><td class="r num"><b>' + repeat + '</b></td><td class="r num">' + pct(repeat, cu.list.length) + '%</td></tr><tr><td>One-time buyers</td><td class="r num"><b>' + (cu.list.length - repeat) + '</b></td><td class="r num">' + pct(cu.list.length - repeat, cu.list.length) + '%</td></tr><tr><td>Typical reorder gap</td><td class="r num"><b>' + (cu.med == null ? '—' : Math.round(cu.med) + ' days') + '</b></td><td></td></tr></table></div></div>' +
     '<div class="grid g2"><div class="card"><h2>Top products</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tp.length ? tp.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + usd(p.rev) + ' · ' + p.qty + ' sold</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.rev / maxRev * 100)) + '%"></i></div></div>').join('') : '<div class="empty">Nothing sold in this range.</div>') + '</div>' +
-      '<div class="card"><h2>Recent orders</h2><div class="hint">Latest 6</div>' + (S.orders.length ? '<table class="mini">' + S.orders.slice(0, 6).map((o) => '<tr class="click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td class="mono"><b>' + esc(o.order_number) + '</b></td><td>' + esc(o.customer_name) + '</td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td></tr>').join('') + '</table>' : '<div class="empty">No orders yet.</div>') + '</div></div>';
+      '<div class="card"><h2>Recent orders</h2><div class="hint">Latest 6</div>' + (S.orders.length ? '<table class="mini">' + S.orders.slice(0, 6).map((o) => '<tr class="click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td><b class="mono">' + esc(o.order_number) + '</b><br><small style="color:var(--mut)">' + esc(o.customer_name) + '</small></td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td></tr>').join('') + '</table>' : '<div class="empty">No orders yet.</div>') + '</div></div>';
 }
 function viewOrders() {
   const list = filteredOrders(), c = counts();
@@ -550,8 +623,22 @@ function prodDrawer() {
 }
 
 /* ---------- shell ---------- */
+const ICONS = {
+  home: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  orders: '<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  products: '<path d="M9 3h6v4l4 11a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-11z"/><path d="M8 3h8"/><path d="M7.5 14h9"/>',
+  customers: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/>',
+  discounts: '<path d="M20 12l-8 8-9-9V3h8z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
+  analytics: '<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
+  settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  more: '<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',
+  out: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>'
+};
+const ico = (k) => '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[k] + '</svg>';
+const EXTRA = ['discounts', 'analytics', 'settings'];
 const TABS = [['home', 'Home', 'Today at a glance'], ['orders', 'Orders', 'Confirm payments and ship'], ['products', 'Products', 'Prices, costs and stock'], ['customers', 'Customers', 'Who buys and who is due'], ['discounts', 'Discounts', 'Codes and influencer commissions'], ['analytics', 'Analytics', 'Trends and where the money goes'], ['settings', 'Settings', 'Account and business numbers']];
 function render() {
+  CHARTS.length = 0;
   const app = document.getElementById('app'), ae = document.activeElement, aid = ae && ae.id, pos = ae && ae.selectionStart;
   if (!S.session) {
     app.innerHTML = '<div class="login"><form class="box" id="loginForm"><div class="logo">VANTIX <span>BIO</span></div><p>Admin sign in</p>' + (S.loginErr ? '<div class="banner" role="alert">' + esc(S.loginErr) + '</div>' : '') +
@@ -561,10 +648,11 @@ function render() {
   const c = counts(), badge = { orders: c.toShip + c.pending + c.review, products: lowStock().length }, t = TABS.find((x) => x[0] === S.tab);
   const body = !S.loaded ? '<div class="empty">Loading…</div>' : { home: viewHome, orders: viewOrders, products: viewProducts, customers: viewCustomers, discounts: viewDiscounts, analytics: viewAnalytics, settings: viewSettings }[S.tab]();
   app.innerHTML = '<div class="shell"><aside class="side"><div class="brand"><div class="mark">VX</div><div><b>VANTIX</b><small>Admin</small></div></div><nav class="nav" aria-label="Sections">' +
-    TABS.map((x) => '<button class="' + (S.tab === x[0] ? 'on' : '') + '" data-act="tab" data-arg="' + x[0] + '"' + (S.tab === x[0] ? ' aria-current="page"' : '') + '><span>' + x[1] + '</span>' + (badge[x[0]] ? '<span class="badge">' + badge[x[0]] + '</span>' : '') + '</button>').join('') +
-    '</nav><div class="foot"><span>vantixbio.com</span><button data-act="logout">Sign out</button></div></aside><main class="main"><div class="top"><div><h1>' + t[1] + '</h1><div class="sub">' + t[2] + '</div></div><div class="row">' +
+    TABS.map((x) => '<button class="' + (S.tab === x[0] ? 'on' : '') + (EXTRA.includes(x[0]) ? ' extra' : '') + '" data-act="tab" data-arg="' + x[0] + '"' + (S.tab === x[0] ? ' aria-current="page"' : '') + '>' + ico(x[0]) + '<span class="lab">' + x[1] + '</span>' + (badge[x[0]] ? '<span class="badge">' + badge[x[0]] + '</span>' : '') + '</button>').join('') +
+    '<button class="moreBtn' + (S.more || EXTRA.includes(S.tab) ? ' on' : '') + '" data-act="more" aria-expanded="' + !!S.more + '">' + ico('more') + '<span class="lab">More</span></button></nav><div class="foot"><span>vantixbio.com</span><button data-act="logout">Sign out</button></div></aside><main class="main"><div class="top"><div><h1>' + t[1] + '</h1><div class="sub">' + t[2] + '</div></div><div class="row">' +
     (S.tab === 'orders' ? '<button class="btn" data-act="csv">Export CSV</button>' : '') + '<button class="btn" data-act="refresh">Refresh</button></div></div>' + (S.error ? '<div class="banner" role="alert">' + esc(S.error) + '</div>' : '') + body + '</main></div>' +
-    (S.sel ? orderDrawer() : '') + (S.selProd ? prodDrawer() : '') + (S.toast ? '<div class="toast' + (S.toast.err ? ' err' : '') + '" role="status">' + esc(S.toast.msg) + '</div>' : '');
+    (S.more ? '<div class="scrim" data-act="more"></div><div class="moresheet">' + EXTRA.map((k) => '<button data-act="tab" data-arg="' + k + '">' + ico(k) + TABS.find((x) => x[0] === k)[1] + '</button>').join('') + '<hr><button data-act="logout">' + ico('out') + 'Sign out</button></div>' : '') + (S.sel ? orderDrawer() : '') + (S.selProd ? prodDrawer() : '') + (S.toast ? '<div class="toast' + (S.toast.err ? ' err' : '') + '" role="status">' + esc(S.toast.msg) + '</div>' : '');
+  drawCharts(); stackTables();
   if (aid) { const el = document.getElementById(aid); if (el && el !== document.activeElement) { el.focus(); try { if (pos != null) el.setSelectionRange(pos, pos); } catch (e) { /* ignore */ } } }
 }
 
