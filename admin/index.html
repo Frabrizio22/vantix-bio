@@ -149,7 +149,7 @@ const median = (a) => { if (!a.length) return null; const s = [...a].sort((x, y)
 const PAYNAME = { zelle: 'Zelle', credit_card: 'Card' };
 
 /* ---------- state ---------- */
-const S = { session: null, tab: 'home', range: '30', orders: [], products: [], codes: [], settings: [], moves: [], events: {},
+const S = { session: null, tab: 'home', range: '30', orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
   filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
 
 function toast(msg, err) { S.toast = { msg, err }; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, err ? 6000 : 3000); }
@@ -202,19 +202,61 @@ function customers() {
 }
 const lowStock = () => S.products.filter((p) => p.active && p.stock_tracked && !p.is_kit && p.stock <= p.low_stock_threshold);
 
+/* profit by month (paid orders, Pacific time) */
+function monthly(list) {
+  const m = {};
+  list.forEach((o) => {
+    const k = dkey(o.created_at).slice(0, 7), x = m[k] || (m[k] = { k, n: 0, rev: 0, cogs: 0, other: 0, profit: 0, partial: false });
+    x.n++; x.rev += n0(o.total); x.cogs += n0(o.cogs); x.other += n0(o.packaging_cost) + n0(o.processing_fee) + n0(o.commission) + n0(o.label_cost); x.profit += profitOf(o); if (incomplete(o)) x.partial = true;
+  });
+  return Object.values(m).sort((a, b) => a.k.localeCompare(b.k));
+}
+const fmonth = (k) => new Date(k + '-15T12:00:00Z').toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+/* profit by product: order discounts are spread across the items in proportion to what each item cost the customer */
+function productProfit(list) {
+  const m = {};
+  list.forEach((o) => {
+    const sub = n0(o.subtotal), keep = sub > 0 ? Math.max(0, sub - n0(o.discount)) / sub : 1;
+    (o.order_items || []).forEach((i) => {
+      const k = i.sku || i.name, pr = S.products.find((x) => x.sku === k), x = m[k] || (m[k] = { name: pr ? pr.name : i.name, qty: 0, rev: 0, cost: 0 });
+      x.qty += i.qty; x.rev += n0(i.line_total) * keep; x.cost += i.qty * n0(i.unit_cost);
+    });
+  });
+  return Object.values(m).map((x) => Object.assign(x, { profit: x.rev - x.cost })).sort((a, b) => b.profit - a.profit);
+}
+
+/* stock pace: vials used per day over the last 30 days; kits use up their parts */
+function stockPace() {
+  const since = Date.now() - 30 * 864e5, used = {};
+  S.orders.filter((o) => isPaid(o) && new Date(o.created_at).getTime() >= since).forEach((o) => (o.order_items || []).forEach((i) => {
+    const parts = S.kits.filter((k) => k.kit_sku === i.sku);
+    if (parts.length) parts.forEach((k) => { used[k.component_sku] = (used[k.component_sku] || 0) + i.qty * n0(k.qty); });
+    else used[i.sku] = (used[i.sku] || 0) + i.qty;
+  }));
+  const out = {};
+  S.products.forEach((p) => {
+    if (p.is_kit) return;
+    const u = used[p.sku] || 0, perDay = u / 30, days = perDay > 0 ? p.stock / perDay : null;
+    out[p.sku] = { u, days, flag: !p.stock_tracked ? '' : u === 0 ? (p.stock <= 0 ? 'out' : 'none') : p.stock <= 0 ? 'out' : days < 14 ? 'soon' : days < 30 ? 'watch' : 'ok' };
+  });
+  return out;
+}
+
 /* ---------- data ---------- */
 async function load(silent) {
   try {
-    const [o, p, c, s, m] = await Promise.all([
+    const [o, p, c, s, m, k] = await Promise.all([
       sb.from('orders').select('*, order_items(*)').order('created_at', { ascending: false }).limit(3000),
       sb.from('products').select('*').order('name'),
       sb.from('promo_codes').select('*').order('code'),
       sb.from('settings').select('*').order('key'),
       sb.from('inventory_movements').select('*').order('created_at', { ascending: false }).limit(200),
+      sb.from('kit_components').select('*'),
     ]);
-    const err = [o, p, c, s, m].find((r) => r.error);
+    const err = [o, p, c, s, m, k].find((r) => r.error);
     if (err) throw new Error(err.error.message);
-    S.orders = o.data; S.products = p.data; S.codes = c.data; S.settings = s.data; S.moves = m.data; S.loaded = true; S.error = '';
+    S.orders = o.data; S.products = p.data; S.codes = c.data; S.settings = s.data; S.moves = m.data; S.kits = k.data; S.loaded = true; S.error = '';
   } catch (e) { S.error = 'Could not load data: ' + e.message; if (!silent) S.loaded = true; }
 }
 async function loadEvents(on) {
@@ -399,11 +441,17 @@ function viewOrders() {
 function viewProducts() {
   const q = S.pq.trim().toLowerCase(), list = S.products.filter((p) => !q || (p.name + p.sku + (p.category || '')).toLowerCase().includes(q));
   const mg = (p) => (p.unit_cost == null || n0(p.price) <= 0 ? null : (n0(p.price) - n0(p.unit_cost) - n0(p.testing_cost)) / n0(p.price) * 100);
+  const pace = stockPace();
+  const lasts = (p) => { const z = pace[p.sku]; if (!z || !p.stock_tracked) return '—';
+    if (z.flag === 'out') return '<span class="pill c-red">Out of stock</span>';
+    if (z.flag === 'none') return '<span class="sub">No recent sales</span>';
+    const d = Math.round(z.days), pl = z.flag === 'soon' ? 'red' : z.flag === 'watch' ? 'gold' : 'green';
+    return '<span class="pill c-' + pl + '">' + (d > 365 ? '1 yr+' : d + ' days') + '</span>' + (z.flag === 'soon' ? '<div class="sub">Reorder now</div>' : z.flag === 'watch' ? '<div class="sub">Reorder soon</div>' : ''); };
   return '<label class="f" style="max-width:460px"><span style="position:absolute;left:-9999px">Search products</span><input id="ps" type="search" data-in="_pq" value="' + esc(S.pq) + '" placeholder="Search products"></label>' +
-    '<div class="tw"><table><thead><tr><th>Product</th><th>Category</th><th class="r">Price</th><th class="r">Cost</th><th class="r">Margin</th><th class="r">Stock</th><th>Status</th></tr></thead><tbody>' +
+    '<div class="tw"><table><thead><tr><th>Product</th><th>Category</th><th class="r">Price</th><th class="r">Cost</th><th class="r">Margin</th><th class="r">Stock</th><th class="r">Sold (30d)</th><th>Stock lasts</th><th>Status</th></tr></thead><tbody>' +
     list.map((p) => { const m = mg(p), lowp = p.stock_tracked && !p.is_kit && p.stock <= p.low_stock_threshold;
-      return '<tr class="click" data-act="openProd" data-arg="' + esc(p.sku) + '"><td><b>' + esc(p.name) + '</b><div class="sub mono">' + esc(p.sku) + (p.is_kit ? ' · kit' : '') + '</div></td><td>' + esc(p.category || '—') + '</td><td class="r num">' + usd(n0(p.price)) + '</td><td class="r num">' + (p.unit_cost == null ? (p.is_kit ? 'from parts' : '<span class="pill c-gold">not set</span>') : usd(n0(p.unit_cost) + n0(p.testing_cost))) + '</td><td class="r num">' + (m == null ? '—' : m.toFixed(0) + '%') + '</td><td class="r num">' + (p.is_kit ? 'from parts' : p.stock_tracked ? '<span class="pill c-' + (lowp ? 'red' : 'green') + '">' + p.stock + '</span>' : 'not tracked') + '</td><td>' + (p.active ? '<span class="pill c-green">Active</span>' : '<span class="pill c-gray">Hidden</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>' +
-    '<div class="sub">Tap a product to change price and cost, or add and remove stock. Stock drops automatically when an order is placed and returns if an unpaid order is cancelled or expires.</div>';
+      return '<tr class="click" data-act="openProd" data-arg="' + esc(p.sku) + '"><td><b>' + esc(p.name) + '</b><div class="sub mono">' + esc(p.sku) + (p.is_kit ? ' · kit' : '') + '</div></td><td>' + esc(p.category || '—') + '</td><td class="r num">' + usd(n0(p.price)) + '</td><td class="r num">' + (p.unit_cost == null ? (p.is_kit ? 'from parts' : '<span class="pill c-gold">not set</span>') : usd(n0(p.unit_cost) + n0(p.testing_cost))) + '</td><td class="r num">' + (m == null ? '—' : m.toFixed(0) + '%') + '</td><td class="r num">' + (p.is_kit ? 'from parts' : p.stock_tracked ? '<span class="pill c-' + (lowp ? 'red' : 'green') + '">' + p.stock + '</span>' : 'not tracked') + '</td><td class="r num">' + (p.is_kit ? '—' : (pace[p.sku] ? pace[p.sku].u : 0)) + '</td><td>' + (p.is_kit ? '—' : lasts(p)) + '</td><td>' + (p.active ? '<span class="pill c-green">Active</span>' : '<span class="pill c-gray">Hidden</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+    '<div class="sub">“Stock lasts” = stock on hand ÷ vials sold per day over the last 30 days (kits use up their parts). Tap a product to change price and cost, or add and remove stock. Stock drops automatically when an order is placed and returns if an unpaid order is cancelled or expires.</div>';
 }
 function viewCustomers() {
   const cu = customers(), q = S.cq.trim().toLowerCase();
@@ -417,30 +465,36 @@ function viewCustomers() {
 }
 function viewDiscounts() {
   const paid = S.orders.filter(isPaid), f = S.form;
-  const rows = S.codes.map((c) => { const os = paid.filter((o) => o.discount_code === c.code); return { c, uses: os.length, rev: os.reduce((a, o) => a + n0(o.total), 0), disc: os.reduce((a, o) => a + n0(o.discount), 0), comm: os.reduce((a, o) => a + n0(o.commission), 0) }; }).sort((a, b) => b.uses - a.uses || a.c.code.localeCompare(b.c.code));
+  const rows = S.codes.map((c) => { const os = paid.filter((o) => o.discount_code === c.code); return { c, uses: os.length, rev: os.reduce((a, o) => a + n0(o.total), 0), disc: os.reduce((a, o) => a + n0(o.discount), 0), comm: os.reduce((a, o) => a + n0(o.commission), 0), profit: os.reduce((a, o) => a + profitOf(o), 0) }; }).sort((a, b) => b.uses - a.uses || a.c.code.localeCompare(b.c.code));
   const none = paid.filter((o) => !o.discount_code);
   return '<div class="row" style="justify-content:space-between"><div class="sub">Counts paid orders only. Commission is what you owe the influencer on those orders.</div><button class="btn pri" data-act="newCode">' + (S.newCode ? 'Cancel' : '+ New code') + '</button></div>' +
     (S.newCode ? '<div class="card"><h2>New discount code</h2><div class="grid g3" style="margin-top:10px"><label class="f">Code<input type="text" data-in="code" value="' + esc(f.code) + '" placeholder="SUMMER10" maxlength="30" autocapitalize="characters"></label><label class="f">Discount %<input type="number" data-in="pct" value="' + esc(f.pct) + '" min="1" max="100" step="0.5" placeholder="10"></label><label class="f">Applies to<select data-in="applies"><option value="singles"' + (f.applies === 'singles' ? ' selected' : '') + '>Single vials</option><option value="all"' + (f.applies === 'all' ? ' selected' : '') + '>Everything</option></select></label><label class="f">Influencer (optional)<input type="text" data-in="who" value="' + esc(f.who) + '"></label><label class="f">Commission %<input type="number" data-in="comm" value="' + esc(f.comm) + '" min="0" max="100" step="0.5" placeholder="0"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="free"' + (f.free ? ' checked' : '') + ' style="width:auto"> Free shipping</label></div><div style="margin-top:14px"><button class="btn pri" data-act="addCode"' + (S.busy ? ' disabled' : '') + '>Create code</button></div></div>' : '') +
-    '<div class="tw"><table><thead><tr><th>Code</th><th>Offer</th><th>Influencer</th><th class="r">Uses</th><th class="r">Revenue</th><th class="r">Discount given</th><th class="r">Commission owed</th><th>Status</th></tr></thead><tbody>' +
-    rows.map((r) => '<tr><td class="mono"><b>' + esc(r.c.code) + '</b></td><td>' + Math.round(n0(r.c.pct) * 100) + '% off' + (r.c.free_shipping ? ' + free shipping' : '') + '<div class="sub">' + (r.c.applies_to === 'all' ? 'Everything' : r.c.applies_to === 'singles' ? 'Single vials' : esc(r.c.applies_to)) + '</div></td><td>' + esc(r.c.influencer || '—') + (n0(r.c.commission_pct) ? '<div class="sub">' + Math.round(n0(r.c.commission_pct) * 100) + '% commission</div>' : '') + '</td><td class="r num">' + r.uses + '</td><td class="r num">' + usd(r.rev) + '</td><td class="r num">' + usd(r.disc) + '</td><td class="r num">' + usd(r.comm) + '</td><td><button class="btn sm" data-act="toggleCode" data-arg="' + esc(r.c.code) + '">' + (r.c.active ? '<span class="up">● On</span>' : '○ Off') + '</button></td></tr>').join('') +
-    '<tr><td><b>No code</b></td><td>—</td><td>—</td><td class="r num">' + none.length + '</td><td class="r num">' + usd(none.reduce((a, o) => a + n0(o.total), 0)) + '</td><td class="r num">—</td><td class="r num">—</td><td></td></tr></tbody></table></div>';
+    '<div class="tw"><table><thead><tr><th>Code</th><th>Offer</th><th>Influencer</th><th class="r">Uses</th><th class="r">Revenue</th><th class="r">Avg order</th><th class="r">Discount given</th><th class="r">Commission owed</th><th class="r">Profit</th><th>Status</th></tr></thead><tbody>' +
+    rows.map((r) => '<tr><td class="mono"><b>' + esc(r.c.code) + '</b></td><td>' + Math.round(n0(r.c.pct) * 100) + '% off' + (r.c.free_shipping ? ' + free shipping' : '') + '<div class="sub">' + (r.c.applies_to === 'all' ? 'Everything' : r.c.applies_to === 'singles' ? 'Single vials' : esc(r.c.applies_to)) + '</div></td><td>' + esc(r.c.influencer || '—') + (n0(r.c.commission_pct) ? '<div class="sub">' + Math.round(n0(r.c.commission_pct) * 100) + '% commission</div>' : '') + '</td><td class="r num">' + r.uses + '</td><td class="r num">' + usd(r.rev) + '</td><td class="r num">' + (r.uses ? usd(r.rev / r.uses) : '—') + '</td><td class="r num">' + usd(r.disc) + '</td><td class="r num">' + usd(r.comm) + '</td><td class="r num">' + (r.uses ? usd(r.profit) : '—') + '</td><td><button class="btn sm" data-act="toggleCode" data-arg="' + esc(r.c.code) + '">' + (r.c.active ? '<span class="up">● On</span>' : '○ Off') + '</button></td></tr>').join('') +
+    '<tr><td><b>No code</b></td><td>—</td><td>—</td><td class="r num">' + none.length + '</td><td class="r num">' + usd(none.reduce((a, o) => a + n0(o.total), 0)) + '</td><td class="r num">' + (none.length ? usd(none.reduce((a, o) => a + n0(o.total), 0) / none.length) : '—') + '</td><td class="r num">—</td><td class="r num">—</td><td class="r num">' + (none.length ? usd(none.reduce((a, o) => a + profitOf(o), 0)) : '—') + '</td><td></td></tr></tbody></table></div>' +
+    '<div class="sub">Profit = what is left on those orders after product cost, packaging, card fees, commission and labels entered so far.</div>';
 }
 function viewAnalytics() {
   const rg = getRange(), paid = S.orders.filter(isPaid), cur = paid.filter((o) => rg.test(dkey(o.created_at)));
   const hours = Array.from({ length: 24 }, (_, h) => ({ k: (h % 12 || 12) + (h < 12 ? 'a' : 'p'), v: cur.filter((o) => hourOf(o.created_at) === h).length }));
   const st = {}; cur.forEach((o) => { const k = o.state || '—'; const x = st[k] || (st[k] = { k, n: 0, rev: 0 }); x.n++; x.rev += n0(o.total); });
   const states = Object.values(st).sort((a, b) => b.rev - a.rev).slice(0, 8), tr = cur.reduce((a, o) => a + n0(o.total), 0);
-  const tp = topProducts(cur).slice(0, 8), a = stats(cur);
+  const pp = productProfit(cur), a = stats(cur), mo = monthly(paid), mt = mo.reduce((x, r) => ({ n: x.n + r.n, rev: x.rev + r.rev, cogs: x.cogs + r.cogs, other: x.other + r.other, profit: x.profit + r.profit }), { n: 0, rev: 0, cogs: 0, other: 0, profit: 0 });
+  const mrow = (l, r, b) => '<tr' + (b ? ' style="font-weight:700"' : '') + '><td>' + l + '</td><td class="r num">' + r.n + '</td><td class="r num">' + usd(r.rev, 0) + '</td><td class="r num">' + usd(r.cogs, 0) + '</td><td class="r num">' + usd(r.other, 0) + '</td><td class="r num">' + usd(r.profit, 0) + (r.partial ? '*' : '') + '</td><td class="r num">' + (r.rev ? Math.round(r.profit / r.rev * 100) : 0) + '%</td></tr>';
   const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((k, i) => ({ k, v: cur.filter((o) => new Date(dkey(o.created_at) + 'T12:00:00Z').getUTCDay() === i).length }));
   const cost = cur.reduce((x, o) => ({ cogs: x.cogs + n0(o.cogs), pk: x.pk + n0(o.packaging_cost), fee: x.fee + n0(o.processing_fee), com: x.com + n0(o.commission), lab: x.lab + n0(o.label_cost), ship: x.ship + n0(o.shipping_charged), disc: x.disc + n0(o.discount) }), { cogs: 0, pk: 0, fee: 0, com: 0, lab: 0, ship: 0, disc: 0 });
   const kv = (l, v, b) => '<div class="kv' + (b ? ' tot' : '') + '"><span>' + l + '</span><span class="num">' + v + '</span></div>';
   return '<div class="row" style="justify-content:space-between"><div class="sub">' + esc(rg.label) + ' · paid orders only (all times Pacific)</div>' + rangeSelect() + '</div>' +
+    '<div class="card"><h2>Profit by month</h2><div class="hint">All time, regardless of the range above. Profit = revenue − product cost − packaging − fees − commission − labels.</div>' +
+      (mo.length ? '<div class="tw" style="border:0"><table class="mini"><thead><tr><th>Month</th><th class="r">Orders</th><th class="r">Revenue</th><th class="r">Product cost</th><th class="r">Packaging, fees, labels</th><th class="r">Profit</th><th class="r">Margin</th></tr></thead><tbody>' + mo.slice().reverse().map((r) => mrow(esc(fmonth(r.k)), r)).join('') + mrow('All time', mt, 1) + '</tbody></table></div><div class="sub" style="margin-top:6px">* Some shipping labels not entered yet, so profit is a little high.</div>' : '<div class="empty">No paid orders yet.</div>') + '</div>' +
     '<div class="card"><h2>Revenue by day</h2><div class="hint">' + usd(a.rev) + ' from ' + a.n + ' orders</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
     '<div class="grid g2"><div class="card"><h2>Orders by hour</h2><div class="hint">When customers buy</div>' + chart(hours, (v) => String(Math.round(v))) + '</div><div class="card"><h2>Orders by weekday</h2><div class="hint">Busiest days</div>' + chart(wd, (v) => String(Math.round(v))) + '</div></div>' +
     '<div class="grid g2"><div class="card"><h2>Where the money goes</h2><div class="hint">Per paid order, this range</div><div style="display:flex;flex-direction:column;gap:6px">' + kv('Revenue (incl. shipping charged)', usd(a.rev)) + kv('Product cost', '−' + usd(cost.cogs)) + kv('Packaging', '−' + usd(cost.pk)) + kv('Processing fees', '−' + usd(cost.fee)) + kv('Influencer commission', '−' + usd(cost.com)) + kv('Shipping labels', '−' + usd(cost.lab)) + kv('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), 1) + '</div><div class="sub" style="margin-top:8px">Discounts given: ' + usd(cost.disc) + ' · Margin: ' + (a.rev ? Math.round(a.profit / a.rev * 100) : 0) + '%</div></div>' +
       '<div class="card"><h2>Zelle vs card</h2><div class="hint">Orders and revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div></div>' +
     '<div class="grid g2"><div class="card"><h2>Top states</h2><div class="hint">By revenue</div>' + (states.length ? '<table class="mini">' + states.map((s) => '<tr><td>' + esc(s.k) + '</td><td class="r num">' + s.n + ' orders</td><td class="r num">' + usd(s.rev, 0) + '</td><td class="r num">' + pct(s.rev, tr) + '%</td></tr>').join('') + '</table>' : '<div class="empty">No data.</div>') + '</div>' +
-      '<div class="card"><h2>Products</h2><div class="hint">Units and revenue</div>' + (tp.length ? '<table class="mini">' + tp.map((p) => '<tr><td>' + esc(p.name) + '</td><td class="r num">' + p.qty + ' sold</td><td class="r num">' + usd(p.rev, 0) + '</td></tr>').join('') + '</table>' : '<div class="empty">No data.</div>') + '</div></div>';
+      '<div class="card"><h2>Zelle vs card profit</h2><div class="hint">What you keep after fees</div>' + (cur.length ? '<table class="mini">' + ['zelle', 'credit_card'].map((m) => { const l = cur.filter((o) => o.payment_method === m), rv = l.reduce((x, o) => x + n0(o.total), 0), pf = l.reduce((x, o) => x + profitOf(o), 0), fe = l.reduce((x, o) => x + n0(o.processing_fee), 0); return '<tr><td>' + PAYNAME[m] + '</td><td class="r num">' + l.length + ' orders</td><td class="r num">' + usd(pf, 0) + ' profit</td><td class="r num">' + (rv ? Math.round(pf / rv * 100) : 0) + '% · fees ' + usd(fe, 0) + '</td></tr>'; }).join('') + '</table>' : '<div class="empty">No data.</div>') + '</div></div>' +
+    '<div class="card"><h2>Profit by product</h2><div class="hint">' + esc(rg.label) + ' · revenue after discounts, minus product cost (packaging, fees and labels not split by product)</div>' +
+      (pp.length ? '<div class="tw" style="border:0"><table class="mini"><thead><tr><th>Product</th><th class="r">Sold</th><th class="r">Revenue</th><th class="r">Product cost</th><th class="r">Profit</th><th class="r">Margin</th></tr></thead><tbody>' + pp.map((p) => '<tr><td>' + esc(p.name) + '</td><td class="r num">' + p.qty + '</td><td class="r num">' + usd(p.rev, 0) + '</td><td class="r num">' + usd(p.cost, 0) + '</td><td class="r num"><b>' + usd(p.profit, 0) + '</b></td><td class="r num">' + (p.rev ? Math.round(p.profit / p.rev * 100) : 0) + '%</td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No data in this range.</div>') + '</div>';
 }
 function viewSettings() {
   const f = S.form;
