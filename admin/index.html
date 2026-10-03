@@ -593,38 +593,41 @@ function viewCustomers() {
 }
 
 /* ---------- creators ---------- */
-const CREATOR_HI = 0.25, CREATOR_AT = 10000;
+const TEAM_BASE = 0.20, TEAM_HI = 0.25, TEAM_AT = 10000;
 function creatorCards() {
   const paid = S.orders.filter(isPaid), firstOf = {};
   paid.slice().sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).forEach((o) => { const k = String(o.customer_email || '').toLowerCase(); if (k && !firstOf[k]) firstOf[k] = o.id; });
   const codes = {}; S.codes.filter((c) => c.influencer).forEach((c) => { codes[c.code] = c; });
-  const by = {}, thisM = dkey(new Date()).slice(0, 7);
+  const by = {}, thisM = dkey(new Date()).slice(0, 7), team = {};
+  const blank = () => ({ newN: 0, newRev: 0, oldN: 0, oldRev: 0, rec: 0, profit: 0 });
   paid.filter((o) => codes[o.discount_code]).forEach((o) => {
     const c = codes[o.discount_code], x = by[c.influencer] || (by[c.influencer] = { name: c.influencer, rate: 0, codes: [], m: {} });
     x.rate = Math.max(x.rate, n0(c.commission_pct)); if (!x.codes.includes(c.code)) x.codes.push(c.code);
-    const mk = dkey(o.created_at).slice(0, 7), b = x.m[mk] || (x.m[mk] = { newN: 0, newRev: 0, oldN: 0, oldRev: 0, rec: 0, profit: 0 });
+    const mk = dkey(o.created_at).slice(0, 7), b = x.m[mk] || (x.m[mk] = blank()), t = team[mk] || (team[mk] = blank());
     const isNew = firstOf[String(o.customer_email || '').toLowerCase()] === o.id;
-    if (isNew) { b.newN++; b.newRev += n0(o.total); } else { b.oldN++; b.oldRev += n0(o.total); }
-    b.rec += n0(o.commission); b.profit += profitOf(o);
+    [b, t].forEach((z) => { if (isNew) { z.newN++; z.newRev += n0(o.total); } else { z.oldN++; z.oldRev += n0(o.total); } z.rec += n0(o.commission); z.profit += profitOf(o); });
   });
   const list = Object.values(by).sort((a, b) => a.name.localeCompare(b.name));
   if (!list.length) return '';
-  const rateFor = (x, b) => (b && b.newRev >= CREATOR_AT ? CREATOR_HI : x.rate);
+  const kv = (l, v) => '<div class="kv"><span>' + l + '</span><span class="num">' + v + '</span></div>';
   const card = (x) => {
-    const cur = x.m[thisM] || { newN: 0, newRev: 0, oldN: 0, oldRev: 0, rec: 0, profit: 0 }, r = rateFor(x, cur), owed = cur.newRev * r;
-    let aOwed = 0, aRec = 0, aNew = 0, aOld = 0, aRev = 0, aProfit = 0; Object.values(x.m).forEach((b) => { aOwed += b.newRev * rateFor(x, b); aRec += b.rec; aNew += b.newN; aOld += b.oldN; aRev += b.newRev; aProfit += b.profit; });
-    const left = Math.max(0, CREATOR_AT - cur.newRev), prog = Math.min(100, Math.round(cur.newRev / CREATOR_AT * 100));
-    const kv = (l, v) => '<div class="kv"><span>' + l + '</span><span class="num">' + v + '</span></div>';
-    return '<div class="card"><h2>' + esc(x.name) + '</h2><div class="hint">Code' + (x.codes.length > 1 ? 's' : '') + ': ' + x.codes.map(esc).join(', ') + ' · ' + Math.round(x.rate * 100) + '% commission, ' + Math.round(CREATOR_HI * 100) + '% once new-customer sales pass ' + usd(CREATOR_AT, 0) + ' in a month</div>' +
-      '<div style="margin:12px 0 4px;display:flex;justify-content:space-between;font-size:13px"><b>This month</b><span class="num">' + usd(cur.newRev, 0) + ' of ' + usd(CREATOR_AT, 0) + '</span></div><div class="bar"><i style="width:' + Math.max(cur.newRev ? 2 : 0, prog) + '%"></i></div>' +
-      '<div class="sub" style="margin:6px 0 10px">' + (left > 0 ? usd(left, 0) + ' more to reach the ' + Math.round(CREATOR_HI * 100) + '% rate' : 'Top rate reached, ' + Math.round(CREATOR_HI * 100) + '% on all new-customer sales this month') + '</div>' +
-      kv('New customers', cur.newN) + kv('New-customer sales', usd(cur.newRev)) + kv('Commission owed (' + Math.round(r * 100) + '%)', '<b>' + usd(owed) + '</b>') +
+    const cur = x.m[thisM] || blank(); let aOwed = 0, aRec = 0, aNew = 0, aRev = 0, aProfit = 0;
+    Object.values(x.m).forEach((b) => { aOwed += b.newRev * x.rate; aRec += b.rec; aNew += b.newN; aRev += b.newRev; aProfit += b.profit; });
+    const owed = cur.newRev * x.rate;
+    return '<div class="card"><h2>' + esc(x.name) + '</h2><div class="hint">Code' + (x.codes.length > 1 ? 's' : '') + ': ' + x.codes.map(esc).join(', ') + ' · ' + Math.round(x.rate * 1000) / 10 + '% commission</div>' +
+      '<div style="margin-top:10px"><b style="font-size:13px">This month</b></div>' + kv('New customers', cur.newN) + kv('New-customer sales', usd(cur.newRev)) + kv('Commission owed', '<b>' + usd(owed) + '</b>') +
       (cur.oldN ? kv('Existing customers used the code', cur.oldN + ' orders · ' + usd(cur.oldRev) + ' (not counted)') : '') +
       kv('Recorded on orders so far', usd(cur.rec)) + kv('Adjust when paying', (owed - cur.rec >= 0 ? '+' : '−') + usd(Math.abs(owed - cur.rec))) +
       '<div style="border-top:1px solid var(--line2);margin:10px 0 6px"></div><b style="font-size:13px">All time</b>' +
-      kv('New customers', aNew + ' · ' + usd(aRev)) + kv('Commission owed', usd(aOwed)) + kv('Recorded on orders', usd(aRec)) + kv('Profit on all their code orders', usd(aProfit)) + '</div>';
+      kv('New customers', aNew + ' · ' + usd(aRev)) + kv('Commission owed', usd(aOwed)) + kv('Recorded on orders', usd(aRec)) + kv('Profit on their code orders', usd(aProfit)) + '</div>';
   };
-  return '<div class="grid g2">' + list.map(card).join('') + '</div><div class="sub">Commission counts a customer’s first paid order only, so repeat buyers who use a creator code are not counted. The higher rate applies to all of that month’s new-customer sales once they pass ' + usd(CREATOR_AT, 0) + '. Orders record commission at the base rate, so “Adjust when paying” is the difference to settle.</div>';
+  const tc = team[thisM] || blank(), tr = tc.newRev >= TEAM_AT ? TEAM_HI : TEAM_BASE, left = Math.max(0, TEAM_AT - tc.newRev), prog = Math.min(100, Math.round(tc.newRev / TEAM_AT * 100));
+  let tAll = 0; Object.values(team).forEach((b) => { tAll += b.newRev * (b.newRev >= TEAM_AT ? TEAM_HI : TEAM_BASE); });
+  const teamCard = '<div class="card"><h2>Creator team</h2><div class="hint">' + Math.round(TEAM_BASE * 100) + '% of new-customer sales from creator codes, ' + Math.round(TEAM_HI * 100) + '% on all of them once the month passes ' + usd(TEAM_AT, 0) + '</div>' +
+    '<div style="margin:12px 0 4px;display:flex;justify-content:space-between;font-size:13px"><b>This month</b><span class="num">' + usd(tc.newRev, 0) + ' of ' + usd(TEAM_AT, 0) + '</span></div><div class="bar"><i style="width:' + Math.max(tc.newRev ? 2 : 0, prog) + '%"></i></div>' +
+    '<div class="sub" style="margin:6px 0 10px">' + (left > 0 ? usd(left, 0) + ' more to reach the ' + Math.round(TEAM_HI * 100) + '% rate' : 'Top rate reached') + '</div>' +
+    kv('New customers', tc.newN) + kv('New-customer sales', usd(tc.newRev)) + kv('Team owed (' + Math.round(tr * 100) + '%)', '<b>' + usd(tc.newRev * tr) + '</b>') + kv('All time owed', usd(tAll)) + '</div>';
+  return '<div class="grid g2">' + teamCard + list.map(card).join('') + '</div><div class="sub">Only a customer’s first paid order counts, so repeat buyers who use a creator code are not counted. Creator commission and the team’s share are shown separately. Orders record the creator’s commission at checkout, so “Adjust when paying” is the difference to settle.</div>';
 }
 function viewDiscounts() {
   const paid = S.orders.filter(isPaid), f = S.form;
