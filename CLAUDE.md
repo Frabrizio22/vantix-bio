@@ -37,6 +37,12 @@ Wholesale clients: Ryan Garrett, Darren Duso, Michael Murphy. 9 offline orders l
 - Google Analytics: no connector in the directory; Supermetrics is paid and a third party; Google's official MCP is local only. Decision: export GA4 CSVs (funnel, traffic by campaign) next week. GA4 cannot see abandoned carts before "Place Order" (no email); a server-side capture at checkout would, but check compliance first.
 - Wholesale is kept in totals but tagged so retail metrics stay honest.
 
+## Shipping and delivery times
+- Shipped emails go out when the owner enters a tracking number (dashboard ship action / sheet). Labels are bought on usps.com Click-N-Ship (no order integration). Decision Oct 3: owner keeps entering tracking numbers by hand and will send the Click-N-Ship history export (xlsx) about monthly; no daily import, no label-software change for now.
+- To compute delivery times from a history export: take the last 22 digits of "Label / Tracking Number", look each up at https://tools.usps.com/go/TrackConfirmAction?tLabels=<up to 30 comma-separated> using the built-in browser (needs request_access for tools.usps.com; the sandbox itself gets 403), read "Latest Update" delivery dates, match labels to paid orders by name + state + nearest earlier order date, then report calendar and business days (skip weekends and US holidays).
+- Result Oct 3 (72 retail orders, Jun-Sep 2026): order to delivery averages 5.9 calendar days (median 6), 4.1 business days (median 4); order to ship 1.2 days, ship to delivered 4.6 days; 86% delivered within 7 days; Ground Advantage and Priority were the same. Delivery dates are not stored in the database.
+- USPS says direct shippers with their own Mailer ID get no-cost Tracking API access (third-party providers pay); not pursued.
+
 ## To do
 1. Owner: send a test email to mail-tester.com to check SPF/DKIM/DMARC.
 2. Tue Oct 6 8:30 AM PT: send runs automatically. Calendar reminders Oct 12, 13, 16.
