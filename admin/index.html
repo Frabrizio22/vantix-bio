@@ -209,7 +209,7 @@ const median = (a) => { if (!a.length) return null; const s = [...a].sort((x, y)
 const PAYNAME = { zelle: 'Zelle', credit_card: 'Card' };
 
 /* ---------- state ---------- */
-const S = { session: null, tab: 'home', range: '30', cA: { from: '', to: '' }, cB: { from: '', to: '' }, cBOn: true, cBTouched: false, orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
+const S = { session: null, tab: 'home', channel: 'all', range: '30', cA: { from: '', to: '' }, cB: { from: '', to: '' }, cBOn: true, cBTouched: false, orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
   filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
 
 function toast(msg, err) { S.toast = { msg, err }; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, err ? 6000 : 3000); }
@@ -225,6 +225,10 @@ function ostat(o) {
   return [p, 'gray'];
 }
 const isPaid = (o) => o.payment_status === 'paid';
+const chanOf = (o) => o.channel === 'wholesale' ? 'wholesale' : 'retail';
+const chanOk = (o) => S.channel === 'all' || chanOf(o) === S.channel;
+const CHANNELS = [['all', 'All sales'], ['retail', 'Retail'], ['wholesale', 'Wholesale']];
+function chanChips() { return '<div class="chips">' + CHANNELS.map((x) => '<button class="chip' + (S.channel === x[0] ? ' on' : '') + '" data-act="chan" data-arg="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>'; }
 const profitOf = (o) => n0(o.total) - n0(o.cogs) - n0(o.packaging_cost) - n0(o.processing_fee) - n0(o.commission) - n0(o.label_cost);
 const incomplete = (o) => o.cost_missing || o.cogs == null || o.label_cost == null;
 const itemsText = (o) => (o.order_items || []).map((i) => i.qty + '× ' + i.name).join(', ');
@@ -359,6 +363,7 @@ A.cmpPreset = (m) => {
   render();
 };
 A.filter = (v) => { S.filter = v; render(); };
+A.chan = (v) => { S.channel = v; render(); };
 A.cseg = (v) => { S.cseg = v; render(); };
 A.close = () => { S.sel = null; S.selProd = null; S.armed = null; S.form = {}; render(); };
 A.openOrder = (on) => { S.sel = on; S.selProd = null; S.armed = null; const o = S.orders.find((x) => x.order_number === on); S.form = { tracking: (o && o.tracking_number) || '', label: o && o.label_cost != null ? String(o.label_cost) : '' }; render(); loadEvents(on); };
@@ -515,8 +520,20 @@ function mixCard(list) {
     '<tr><td><span class="pill c-navy">Card</span></td><td class="r num">' + c.length + ' orders</td><td class="r num"><b>' + (n ? 100 - pct(z.length, n) : 0) + '%</b></td><td class="r num">' + usd(cr, 0) + ' · ' + (tr ? 100 - pct(zr, tr) : 0) + '%</td></tr></table>';
 }
 
+/* month-over-month revenue and the best seller of each month */
+function monthlyCards(paid) {
+  const mo = monthly(paid); if (!mo.length) return '';
+  const rows = mo.slice(-6).reverse().map((r, i, arr) => {
+    const prev = mo[mo.findIndex((x) => x.k === r.k) - 1], tp = topProducts(paid.filter((o) => dkey(o.created_at).slice(0, 7) === r.k))[0];
+    const d = prev && prev.rev ? Math.round((r.rev - prev.rev) / prev.rev * 100) : null;
+    return '<tr><td><b>' + esc(fmonth(r.k)) + '</b></td><td class="r num">' + usd(r.rev, 0) + '</td><td class="r num">' + (d == null ? '—' : '<span class="' + (d >= 0 ? 'up' : 'dn') + '">' + (d >= 0 ? '▲ ' : '▼ ') + Math.abs(d) + '%</span>') + '</td><td class="r num">' + r.n + '</td><td>' + (tp ? esc(tp.name) + ' <span class="sub">' + tp.qty + ' sold · ' + usd(tp.rev, 0) + '</span>' : '—') + '</td></tr>';
+  }).join('');
+  return '<div class="card"><h2>Revenue by month</h2><div class="hint">All time, last 6 months · paid orders · ' + esc(CHANNELS.find((x) => x[0] === S.channel)[1].toLowerCase()) + '</div>' + chart(mo.slice(-12).map((r) => ({ k: fmonth(r.k), v: r.rev })), (v) => usd(v, 0)) + '</div>' +
+    '<div class="card"><h2>Month over month</h2><div class="hint">Best seller = top product by revenue that month</div><div class="tw"><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">vs prior</th><th class="r">Orders</th><th>Best seller</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+}
+
 function viewHome() {
-  const rg = getRange(), paid = S.orders.filter(isPaid), cur = paid.filter((o) => rg.test(dkey(o.created_at))), prv = rg.prev ? paid.filter((o) => rg.prev(dkey(o.created_at))) : [];
+  const rg = getRange(), paid = S.orders.filter(isPaid).filter(chanOk), cur = paid.filter((o) => rg.test(dkey(o.created_at))), prv = rg.prev ? paid.filter((o) => rg.prev(dkey(o.created_at))) : [];
   const a = stats(cur), b = stats(prv), c = counts(), low = lowStock(), cu = customers();
   const repeat = cu.list.filter((x) => x.n > 1).length;
   const todo = (n, label, sub, color, tab, filter) => '<button class="todo" style="--ac:' + color + '" data-act="' + (filter ? 'goOrders' : 'tab') + '" data-arg="' + esc(filter || tab) + '"><b>' + n + '</b><span>' + label + '</span><small>' + sub + '</small></button>';
@@ -524,10 +541,10 @@ function viewHome() {
   const tp = topProducts(cur).slice(0, 5), maxRev = tp[0] ? tp[0].rev : 1;
   return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#D08A1E', 'orders', 'Awaiting payment') +
       todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#5E6877', 'products') + '</div>' +
-    '<div class="row" style="justify-content:space-between"><div class="sub">Showing ' + esc(rg.label.toLowerCase()) + (rg.prev ? ', compared with ' + esc(rg.prevLabel) : '') + '. Paid orders only.</div>' + rangeSelect() + '</div>' +
+    chanChips() + '<div class="row" style="justify-content:space-between"><div class="sub">Showing ' + esc(rg.label.toLowerCase()) + (rg.prev ? ', compared with ' + esc(rg.prevLabel) : '') + '. Paid orders only.</div>' + rangeSelect() + '</div>' +
     '<div class="grid g4">' + kpi('Revenue', usd(a.rev), delta(a.rev, b.rev, !!rg.prev), true) + kpi('Paid orders', a.n, delta(a.n, b.n, !!rg.prev)) + kpi('Average order', usd(a.aov), delta(a.aov, b.aov, !!rg.prev)) +
       kpi('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), (a.partial ? 'Some labels not entered yet · ' : '') + delta(a.profit, b.profit, !!rg.prev)) + '</div>' +
-    '<div class="card"><h2>Revenue by day</h2><div class="hint">' + esc(rg.label) + '</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
+    '<div class="card"><h2>Revenue by day</h2><div class="hint">' + esc(rg.label) + '</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' + monthlyCards(paid) +
     '<div class="grid g2"><div class="card"><h2>Zelle vs card</h2><div class="hint">Share of paid orders and of revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div>' +
       '<div class="card"><h2>Customers</h2><div class="hint">All time</div><table class="mini"><tr><td>Total customers</td><td class="r num"><b>' + cu.list.length + '</b></td><td></td></tr><tr><td>Repeat buyers</td><td class="r num"><b>' + repeat + '</b></td><td class="r num">' + pct(repeat, cu.list.length) + '%</td></tr><tr><td>One-time buyers</td><td class="r num"><b>' + (cu.list.length - repeat) + '</b></td><td class="r num">' + pct(cu.list.length - repeat, cu.list.length) + '%</td></tr><tr><td>Typical reorder gap</td><td class="r num"><b>' + (cu.med == null ? '—' : Math.round(cu.med) + ' days') + '</b></td><td></td></tr></table></div></div>' +
     '<div class="grid g2"><div class="card"><h2>Top products</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tp.length ? tp.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + usd(p.rev) + ' · ' + p.qty + ' sold</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.rev / maxRev * 100)) + '%"></i></div></div>').join('') : '<div class="empty">Nothing sold in this range.</div>') + '</div>' +
@@ -577,7 +594,7 @@ function viewDiscounts() {
     '<div class="sub">Profit = what is left on those orders after product cost, packaging, card fees, commission and labels entered so far.</div>';
 }
 function viewAnalytics() {
-  const rg = getRange(), paid = S.orders.filter(isPaid), cur = paid.filter((o) => rg.test(dkey(o.created_at)));
+  const rg = getRange(), paid = S.orders.filter(isPaid).filter(chanOk), cur = paid.filter((o) => rg.test(dkey(o.created_at)));
   const hours = Array.from({ length: 24 }, (_, h) => ({ k: (h % 12 || 12) + (h < 12 ? 'a' : 'p'), v: cur.filter((o) => hourOf(o.created_at) === h).length }));
   const st = {}; cur.forEach((o) => { const k = o.state || '—'; const x = st[k] || (st[k] = { k, n: 0, rev: 0 }); x.n++; x.rev += n0(o.total); });
   const states = Object.values(st).sort((a, b) => b.rev - a.rev).slice(0, 8), tr = cur.reduce((a, o) => a + n0(o.total), 0);
@@ -586,7 +603,7 @@ function viewAnalytics() {
   const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((k, i) => ({ k, v: cur.filter((o) => new Date(dkey(o.created_at) + 'T12:00:00Z').getUTCDay() === i).length }));
   const cost = cur.reduce((x, o) => ({ cogs: x.cogs + n0(o.cogs), pk: x.pk + n0(o.packaging_cost), fee: x.fee + n0(o.processing_fee), com: x.com + n0(o.commission), lab: x.lab + n0(o.label_cost), ship: x.ship + n0(o.shipping_charged), disc: x.disc + n0(o.discount) }), { cogs: 0, pk: 0, fee: 0, com: 0, lab: 0, ship: 0, disc: 0 });
   const kv = (l, v, b) => '<div class="kv' + (b ? ' tot' : '') + '"><span>' + l + '</span><span class="num">' + v + '</span></div>';
-  return '<div class="row" style="justify-content:space-between"><div class="sub">' + esc(rg.label) + ' · paid orders only (all times Pacific)</div>' + rangeSelect() + '</div>' +
+  return chanChips() + '<div class="row" style="justify-content:space-between"><div class="sub">' + esc(rg.label) + ' · paid orders only (all times Pacific)</div>' + rangeSelect() + '</div>' +
     '<div class="card"><h2>Profit by month</h2><div class="hint">All time, regardless of the range above. Profit = revenue − product cost − packaging − fees − commission − labels.</div>' +
       (mo.length ? '<div class="tw" style="border:0"><table class="mini"><thead><tr><th>Month</th><th class="r">Orders</th><th class="r">Revenue</th><th class="r">Product cost</th><th class="r">Packaging, fees, labels</th><th class="r">Profit</th><th class="r">Margin</th></tr></thead><tbody>' + mo.slice().reverse().map((r) => mrow(esc(fmonth(r.k)), r)).join('') + mrow('All time', mt, 1) + '</tbody></table></div><div class="sub" style="margin-top:6px">* Some shipping labels not entered yet, so profit is a little high.</div>' : '<div class="empty">No paid orders yet.</div>') + '</div>' +
     '<div class="card"><h2>Revenue by day</h2><div class="hint">' + usd(a.rev) + ' from ' + a.n + ' orders</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
