@@ -7,8 +7,9 @@ NAVY, CREAM, PAPER, BLUE, SAGE, HAIR, INK, MUT = '#0F1B2D', '#F1EFE8', '#FAFAF7'
 SERIF = "Georgia,'Times New Roman',serif"
 SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif"
 MONO = "'SFMono-Regular',Menlo,Consolas,monospace"
-SHOP = 'https://vantixbio.com/shop.html'
-VERIFY = 'https://vantixbio.com/verify.html'
+UTM = 'utm_source=email&utm_medium=retention&utm_campaign={{flow}}'
+SHOP = 'https://vantixbio.com/shop.html?' + UTM
+VERIFY = 'https://vantixbio.com/verify.html?' + UTM
 UNSUB = 'https://vantixbio.com/unsubscribe.html#e={{email}}'
 RUO = 'For laboratory research use only. Not for human consumption.'
 ADDR = 'Vantix Bio, PO Box 389, Santa Cruz, CA 95061'
@@ -102,6 +103,7 @@ SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@ex
   batch_rows=card([('VX-2T 30mg', 'Batch VX-2T-1001'), ('Purity', '99.1%'), ('Endotoxin', 'Within spec'), ('Tested', 'Independent lab')]))
 
 def fill(s, d):
+    s = s.replace('{{flow}}', d.get('flow', ''))
     for k, v in d.items(): s = s.replace('{{' + k + '}}', v)
     return s
 
@@ -109,8 +111,8 @@ if __name__ == '__main__':
     here = os.path.dirname(os.path.abspath(__file__))
     meta = []
     for k, v in E.items():
-        open(os.path.join(here, k + '.html'), 'w', encoding='utf-8').write(v['html'])
-        meta.append(dict(id=k, day=v['day'], subject=fill(v['subject'], SAMPLE), html=fill(v['html'], SAMPLE)))
+        open(os.path.join(here, k + '.html'), 'w', encoding='utf-8').write(v['html'].replace('{{flow}}', k))
+        meta.append(dict(id=k, day=v['day'], subject=fill(v['subject'], SAMPLE), html=fill(v['html'].replace('{{flow}}', k), SAMPLE)))
     out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(here, 'preview.json')
     json.dump(meta, open(out, 'w'))
     print('built', len(E), 'emails')
