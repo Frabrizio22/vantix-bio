@@ -36,7 +36,7 @@ def wrap(preheader, eyebrow, headline, body):
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:{CREAM}">{preheader}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{CREAM}"><tr><td align="center" style="padding:28px 12px">
 <table role="presentation" class="shell" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:{PAPER};border-radius:6px;overflow:hidden">
-<tr><td class="pad" style="background:{NAVY};padding:24px 40px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td valign="middle" style="padding-right:12px"><img src="https://vantixbio.com/logo-mark-white.png" width="26" alt="" style="display:block;border:0"></td><td valign="middle" style="font:600 15px {SANS};letter-spacing:.34em;color:#ffffff">VANTIX</td></tr></table></td></tr>
+<tr><td class="pad" style="background:{NAVY};padding:24px 40px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td valign="middle" style="font:600 15px {SANS};letter-spacing:.34em;color:#ffffff">VANTIX BIO</td></tr></table></td></tr>
 <tr><td class="pad" style="padding:44px 40px 12px">
 <div style="font:11px {MONO};letter-spacing:.16em;text-transform:uppercase;color:{SAGE};padding-bottom:14px">{eyebrow}</div>
 <h1 class="h1" style="margin:0 0 22px;font:400 34px/1.15 {SERIF};letter-spacing:-.01em;color:{NAVY}">{headline}</h1>
@@ -78,6 +78,25 @@ E['6-batch-report'] = dict(day='Monthly newsletter', subject='Batch Report: {{mo
  + '{{batch_rows}}'
  + button('Open the verification portal', VERIFY)
  + p(f'<span style="font-size:14px;color:{MUT}">New to reading a certificate of analysis? Our <a href="https://vantixbio.com/blog/how-to-verify-third-party-coa.html" style="color:{BLUE}">short guide</a> walks through it.</span>')))
+
+E['7-winback'] = dict(day='One-time buyers, about 4+ weeks after order', subject='Checking in from Vantix Bio', pre='A thank-you for your first order.', html=wrap(
+ 'A thank-you for your first order.', 'A note from Vantix Bio', 'Thank you, {{first_name}}.',
+ p('Hi {{first_name}}, it has been a little while since your first order from Vantix Bio, and we wanted to say thank you. Every lot we release has published batch-level testing results you can check any time on our verification page.')
+ + p('If you are planning another order, here is 10% off your next one as a thank-you for being one of our founding customers. It is valid on one order, and orders typically ship within one business day.')
+ + card([('Your code', 'FOUNDING10'), ('Applies to', 'Your whole order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">Need anything? Just reply to this email.</span>')))
+E['8-reorder-personal'] = dict(day='Repeat customers, about 3+ weeks after last order', subject='Checking in from Vantix Bio', pre='Thank you for ordering again.', html=wrap(
+ 'Thank you for ordering again.', 'A note from Vantix Bio', 'Thank you, {{first_name}}.',
+ p('Hi {{first_name}}, thank you for ordering from Vantix Bio more than once. It means a lot to a small team. Everything we release has published batch-level testing results, and orders typically ship within one business day.')
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will get back to you.</span>')))
+E['9-prc-intro'] = dict(day='Past PRC customers, one time', subject='PRC is now Vantix Bio', pre='Same people, new name.', html=wrap(
+ 'Same people, new name.', 'A note from Vantix Bio', 'Hi {{first_name}}, we are now Vantix Bio.',
+ p('Hi {{first_name}}, you ordered from PRC earlier this year. As we mentioned, PRC is now Vantix Bio, and everything is run by the same person who handled your order. Each lot now has published batch-level testing results you can look up by batch ID.')
+ + p('If you need anything again, orders typically ship within one business day, and shipping is free over $150.')
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">Need anything? Just reply to this email.</span>')))
 
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',
   batch_rows=card([('VX-2T 30mg', 'Batch VX-2T-1001'), ('Purity', '99.1%'), ('Endotoxin', 'Within spec'), ('Tested', 'Independent lab')]))
