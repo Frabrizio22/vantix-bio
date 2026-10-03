@@ -481,6 +481,8 @@ var promoCodes={
 'VB10':0.10,
 'TEST':{price:1,sku:'VX-BAC-10',freeShipping:true}
 };
+// VB10 (early-customer email offer) is valid through Oct 16, 2026, end of day Pacific
+if(new Date()>=new Date('2026-10-17T07:00:00Z')){delete promoCodes['VB10'];}
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
 
 function getUrlParam(name){var params=new URLSearchParams(window.location.search);return params.get(name);}
