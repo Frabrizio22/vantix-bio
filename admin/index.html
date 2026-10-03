@@ -622,11 +622,16 @@ function creatorCards() {
       kv('New customers', aNew + ' · ' + usd(aRev)) + kv('Commission owed', usd(aOwed)) + kv('Recorded on orders', usd(aRec)) + kv('Profit on their code orders', usd(aProfit)) + '</div>';
   };
   const tc = team[thisM] || blank(), tr = tc.newRev >= TEAM_AT ? TEAM_HI : TEAM_BASE, left = Math.max(0, TEAM_AT - tc.newRev), prog = Math.min(100, Math.round(tc.newRev / TEAM_AT * 100));
+  const nowK = dkey(new Date()), pad = (n) => String(n).padStart(2, '0'), ym = (k, d) => { let y = Number(k.slice(0, 4)), m = Number(k.slice(5, 7)) + d; while (m > 12) { m -= 12; y++; } while (m < 1) { m += 12; y--; } return y + '-' + pad(m); };
+  const prevM = ym(thisM, -1), pm = team[prevM] || blank(), pr = pm.newRev >= TEAM_AT ? TEAM_HI : TEAM_BASE;
+  const payDay = (k) => fday(ym(thisM, k) + '-05');
   let tAll = 0; Object.values(team).forEach((b) => { tAll += b.newRev * (b.newRev >= TEAM_AT ? TEAM_HI : TEAM_BASE); });
   const teamCard = '<div class="card"><h2>Creator team</h2><div class="hint">' + Math.round(TEAM_BASE * 100) + '% of new-customer sales from creator codes, ' + Math.round(TEAM_HI * 100) + '% on all of them once the month passes ' + usd(TEAM_AT, 0) + '</div>' +
     '<div style="margin:12px 0 4px;display:flex;justify-content:space-between;font-size:13px"><b>This month</b><span class="num">' + usd(tc.newRev, 0) + ' of ' + usd(TEAM_AT, 0) + '</span></div><div class="bar"><i style="width:' + Math.max(tc.newRev ? 2 : 0, prog) + '%"></i></div>' +
     '<div class="sub" style="margin:6px 0 10px">' + (left > 0 ? usd(left, 0) + ' more to reach the ' + Math.round(TEAM_HI * 100) + '% rate' : 'Top rate reached') + '</div>' +
-    kv('New customers', tc.newN) + kv('New-customer sales', usd(tc.newRev)) + kv('Team owed (' + Math.round(tr * 100) + '%)', '<b>' + usd(tc.newRev * tr) + '</b>') + kv('All time owed', usd(tAll)) + '</div>';
+    kv('New customers', tc.newN) + kv('New-customer sales', usd(tc.newRev)) + kv('Team owed (' + Math.round(tr * 100) + '%)', '<b>' + usd(tc.newRev * tr) + '</b>') + kv('Pay on', payDay(1)) +
+    '<div style="border-top:1px solid var(--line2);margin:10px 0 6px"></div><b style="font-size:13px">Last month</b>' + kv('New-customer sales', usd(pm.newRev)) + kv('Team owed (' + Math.round(pr * 100) + '%)', '<b>' + usd(pm.newRev * pr) + '</b>') + kv(dkey(new Date()).slice(8) <= '05' ? 'Due' : 'Was due', payDay(0)) +
+    '<div style="border-top:1px solid var(--line2);margin:10px 0 6px"></div>' + kv('All time owed', usd(tAll)) + '</div>';
   return '<div class="grid g2">' + (list.some((x) => x.team) ? teamCard : '') + list.map(card).join('') + '</div><div class="sub">Only a customer’s first paid order counts, so repeat buyers who use a creator code are not counted. Creator commission and the team’s share are shown separately. Orders record the creator’s commission at checkout, so “Adjust when paying” is the difference to settle.</div>';
 }
 function viewDiscounts() {
