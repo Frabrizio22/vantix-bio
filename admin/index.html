@@ -528,8 +528,10 @@ function monthlyCards(paid) {
     const d = prev && prev.rev ? Math.round((r.rev - prev.rev) / prev.rev * 100) : null;
     return '<tr><td><b>' + esc(fmonth(r.k)) + '</b></td><td class="r num">' + usd(r.rev, 0) + '</td><td class="r num">' + (d == null ? '—' : '<span class="' + (d >= 0 ? 'up' : 'dn') + '">' + (d >= 0 ? '▲ ' : '▼ ') + Math.abs(d) + '%</span>') + '</td><td class="r num">' + r.n + '</td><td>' + (tp ? esc(tp.name) + ' <span class="sub">' + tp.qty + ' sold · ' + usd(tp.rev, 0) + '</span>' : '—') + '</td></tr>';
   }).join('');
+  const cm = dkey(new Date()).slice(0, 7), full = mo.filter((r) => r.k !== cm), avg = full.length ? { rev: full.reduce((x, r) => x + r.rev, 0) / full.length, profit: full.reduce((x, r) => x + r.profit, 0) / full.length } : null;
+  const avgLine = avg ? '<div class="kv tot" style="margin-top:8px"><span>Average full month (' + full.length + ', excludes this month so far)</span><span class="num">' + usd(avg.rev, 0) + ' revenue · ' + usd(avg.profit, 0) + ' profit</span></div>' : '';
   return '<div class="card"><h2>Revenue by month</h2><div class="hint">All time, last 6 months · paid orders · ' + esc(CHANNELS.find((x) => x[0] === S.channel)[1].toLowerCase()) + '</div>' + chart(mo.slice(-12).map((r) => ({ k: fmonth(r.k), v: r.rev })), (v) => usd(v, 0)) + '</div>' +
-    '<div class="card"><h2>Month over month</h2><div class="hint">Best seller = top product by revenue that month</div><div class="tw"><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">vs prior</th><th class="r">Orders</th><th>Best seller</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+    '<div class="card"><h2>Month over month</h2><div class="hint">Best seller = top product by revenue that month</div><div class="tw"><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">vs prior</th><th class="r">Orders</th><th>Best seller</th></tr></thead><tbody>' + rows + '</tbody></table></div>' + avgLine + '</div>';
 }
 
 function topCustomers(list) {
