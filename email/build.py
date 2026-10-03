@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds the Vantix retention email templates (table-based, inline CSS) into this folder.
+"""Builds the Vantix Bio retention email templates (table-based, inline CSS) into this folder.
 Merge tags: {{first_name}} {{product}} {{weeks}} {{email}} {{month}} {{batch_rows}} {{offer_block}}"""
 import html, json, os, sys
 
@@ -54,13 +54,13 @@ E['1-post-purchase'] = dict(day='Day 3 after delivery', subject='Your order, ver
  + p(f'<span style="color:{MUT};font-size:14px">Keep sealed vials as directed on your product sheet. Questions about a result? Reply to this email and we will go through it with you.</span>')))
 E['2-reorder'] = dict(day='Day 28 after last order', subject='Your next order, whenever you are ready', pre='Your product is in stock. Orders typically ship within one business day.', html=wrap(
  'Your product is in stock. Orders typically ship within one business day.', 'When you are ready', 'Ready when you are, {{first_name}}.',
- p('It has been about {{weeks}} weeks since your last Vantix order. {{product}} is in stock, and every lot has published batch-level testing results.')
+ p('It has been about {{weeks}} weeks since your last Vantix Bio order. {{product}} is in stock, and every lot has published batch-level testing results.')
  + card([('Product', '{{product}}'), ('Availability', 'In stock'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
  + button('View {{product}}', SHOP) + '{{offer_block}}'))
 E['3-second-nudge'] = dict(day='Day 42 if no reorder', subject='A note on shipping', pre='Free shipping starts at $150.', html=wrap(
  'Free shipping starts at $150.', 'Worth knowing', 'Free shipping starts at $150.',
  p('Hi {{first_name}}, a short note in case it is useful. Orders over $150 after any discounts ship free, and orders typically ship within one business day, with a tracking email when they leave us.')
- + p('Every Vantix batch is independently tested, and you can look up the results for any batch at any time.')
+ + p('Every Vantix Bio batch is independently tested, and you can look up the results for any batch at any time.')
  + button('Browse the catalog', SHOP) + '{{offer_block}}'))
 E['4-winback'] = dict(day='Day 75 if no reorder', subject='What is new at Vantix Bio', pre='Batch-level verification, published for every lot.', html=wrap(
  'Batch-level verification, published for every lot.', 'What is new', 'It has been a while, {{first_name}}.',
@@ -82,8 +82,8 @@ E['6-batch-report'] = dict(day='Monthly newsletter', subject='Batch Report: {{mo
 E['7-winback'] = dict(day='One-time buyers, about 4+ weeks after order', subject='Checking in from Vantix Bio', pre='A thank-you for your first order.', html=wrap(
  'A thank-you for your first order.', 'A note from Vantix Bio', 'Thank you, {{first_name}}.',
  p('Hi {{first_name}}, it has been a little while since your first order from Vantix Bio, and we wanted to say thank you. Every lot we release has published batch-level testing results you can check any time on our verification page.')
- + p('If you are planning another order, here is 10% off your next one as a thank-you for being one of our founding customers. It is valid on one order, and orders typically ship within one business day.')
- + card([('Your code', 'FOUNDING10'), ('Applies to', 'Your whole order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
+ + p('If you are planning another order, here is 10% off your next one as a thank-you for being one of our early customers. It is valid on one order, and orders typically ship within one business day.')
+ + card([('Your code', 'VB10'), ('Applies to', 'Your whole order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
  + button('Visit the shop', SHOP)
  + p(f'<span style="color:{MUT};font-size:14px">Need anything? Just reply to this email.</span>')))
 E['8-reorder-personal'] = dict(day='Repeat customers, about 3+ weeks after last order', subject='Checking in from Vantix Bio', pre='Thank you for ordering again.', html=wrap(
