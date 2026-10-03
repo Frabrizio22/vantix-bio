@@ -264,7 +264,7 @@ function delta(cur, prev, hasPrev) {
 }
 function customers() {
   const m = new Map();
-  S.orders.filter(isPaid).forEach((o) => {
+  S.orders.filter(isPaid).filter(chanOk).forEach((o) => {
     const k = String(o.customer_email || '').toLowerCase(); if (!k) return;
     const c = m.get(k) || { email: k, name: o.customer_name, state: o.state, dates: [], spend: 0 };
     c.dates.push(new Date(o.created_at).getTime()); c.spend += n0(o.total); c.name = o.customer_name; c.state = o.state; m.set(k, c);
@@ -532,13 +532,19 @@ function monthlyCards(paid) {
     '<div class="card"><h2>Month over month</h2><div class="hint">Best seller = top product by revenue that month</div><div class="tw"><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">vs prior</th><th class="r">Orders</th><th>Best seller</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
 }
 
+function topCustomers(list) {
+  const m = {};
+  list.forEach((o) => { const k = String(o.customer_email || o.customer_name).toLowerCase(), x = m[k] || (m[k] = { name: o.customer_name, n: 0, rev: 0, profit: 0, last: 0 }); x.n++; x.rev += n0(o.total); x.profit += profitOf(o); x.last = Math.max(x.last, new Date(o.created_at).getTime()); });
+  return Object.values(m).sort((a, b) => b.rev - a.rev);
+}
+
 function viewHome() {
   const rg = getRange(), paid = S.orders.filter(isPaid).filter(chanOk), cur = paid.filter((o) => rg.test(dkey(o.created_at))), prv = rg.prev ? paid.filter((o) => rg.prev(dkey(o.created_at))) : [];
   const a = stats(cur), b = stats(prv), c = counts(), low = lowStock(), cu = customers();
   const repeat = cu.list.filter((x) => x.n > 1).length;
   const todo = (n, label, sub, color, tab, filter) => '<button class="todo" style="--ac:' + color + '" data-act="' + (filter ? 'goOrders' : 'tab') + '" data-arg="' + esc(filter || tab) + '"><b>' + n + '</b><span>' + label + '</span><small>' + sub + '</small></button>';
   const kpi = (lab, val, d, hero) => '<div class="card kpi' + (hero ? ' hero' : '') + '"><div class="lab">' + lab + '</div><div class="val num">' + val + '</div><div class="d">' + d + '</div></div>';
-  const tp = topProducts(cur).slice(0, 5), maxRev = tp[0] ? tp[0].rev : 1;
+  const tp = topProducts(cur).slice(0, 5), maxRev = tp[0] ? tp[0].rev : 1, tcu = topCustomers(cur).slice(0, 5), recent = S.orders.filter(chanOk);
   return '<div class="grid g4">' + todo(c.toShip, 'Orders to ship', 'Paid, not yet shipped', '#3973B0', 'orders', 'To ship') + todo(c.pending, 'Awaiting payment', 'Zelle not received yet', '#D08A1E', 'orders', 'Awaiting payment') +
       todo(c.review, 'Card to review', 'Check Bankful, then confirm', '#A5473B', 'orders', 'Review') + todo(low.length, 'Low stock', low.length ? esc(low.slice(0, 2).map((p) => p.name).join(', ')) : 'All good', '#5E6877', 'products') + '</div>' +
     chanChips() + '<div class="row" style="justify-content:space-between"><div class="sub">Showing ' + esc(rg.label.toLowerCase()) + (rg.prev ? ', compared with ' + esc(rg.prevLabel) : '') + '. Paid orders only.</div>' + rangeSelect() + '</div>' +
@@ -548,7 +554,8 @@ function viewHome() {
     '<div class="grid g2"><div class="card"><h2>Zelle vs card</h2><div class="hint">Share of paid orders and of revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div>' +
       '<div class="card"><h2>Customers</h2><div class="hint">All time</div><table class="mini"><tr><td>Total customers</td><td class="r num"><b>' + cu.list.length + '</b></td><td></td></tr><tr><td>Repeat buyers</td><td class="r num"><b>' + repeat + '</b></td><td class="r num">' + pct(repeat, cu.list.length) + '%</td></tr><tr><td>One-time buyers</td><td class="r num"><b>' + (cu.list.length - repeat) + '</b></td><td class="r num">' + pct(cu.list.length - repeat, cu.list.length) + '%</td></tr><tr><td>Typical reorder gap</td><td class="r num"><b>' + (cu.med == null ? '—' : Math.round(cu.med) + ' days') + '</b></td><td></td></tr></table></div></div>' +
     '<div class="grid g2"><div class="card"><h2>Top products</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tp.length ? tp.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + usd(p.rev) + ' · ' + p.qty + ' sold</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.rev / maxRev * 100)) + '%"></i></div></div>').join('') : '<div class="empty">Nothing sold in this range.</div>') + '</div>' +
-      '<div class="card"><h2>Recent orders</h2><div class="hint">Latest 6</div>' + (S.orders.length ? '<table class="mini">' + S.orders.slice(0, 6).map((o) => '<tr class="click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td><b class="mono">' + esc(o.order_number) + '</b><br><small style="color:var(--mut)">' + esc(o.customer_name) + '</small></td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td></tr>').join('') + '</table>' : '<div class="empty">No orders yet.</div>') + '</div></div>';
+      '<div class="card"><h2>Top customers</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tcu.length ? '<table class="mini">' + tcu.map((c) => '<tr><td><b>' + esc(c.name) + '</b><br><small style="color:var(--mut)">' + c.n + (c.n === 1 ? ' order' : ' orders') + ' · last ' + esc(fday(dkey(c.last))) + '</small></td><td class="r num">' + usd(c.rev, 0) + '<br><small style="color:var(--mut)">' + usd(c.profit, 0) + ' profit</small></td></tr>').join('') + '</table>' : '<div class="empty">No paid orders in this range.</div>') + '</div></div>' +
+    '<div class="card"><h2>Recent orders</h2><div class="hint">Latest 6</div>' + (recent.length ? '<table class="mini">' + recent.slice(0, 6).map((o) => '<tr class="click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td><b class="mono">' + esc(o.order_number) + '</b><br><small style="color:var(--mut)">' + esc(o.customer_name) + '</small></td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td></tr>').join('') + '</table>' : '<div class="empty">No orders yet.</div>') + '</div>';
 }
 function viewOrders() {
   const list = filteredOrders(), c = counts();
@@ -577,7 +584,7 @@ function viewCustomers() {
   const list = cu.list.filter((c) => (S.cseg === 'All' || c.seg === S.cseg) && (!q || (c.name + c.email + c.state).toLowerCase().includes(q)));
   const rep = cu.list.filter((c) => c.n > 1).length, due = cu.list.filter((c) => c.due).length;
   const kpi = (l, v, s) => '<div class="card kpi"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
-  return '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Worth a personal email') + '</div>' +
+  return chanChips() + '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Worth a personal email') + '</div>' +
     '<div class="row"><label class="f" style="flex:1;min-width:220px;max-width:460px"><span style="position:absolute;left:-9999px">Search customers</span><input id="cs" type="search" data-in="_cq" value="' + esc(S.cq) + '" placeholder="Search customers"></label></div>' +
     '<div class="chips">' + ['All', 'Repeat', 'Due to reorder', 'One-time'].map((n) => '<button class="chip' + (S.cseg === n ? ' on' : '') + '" data-act="cseg" data-arg="' + n + '">' + n + ' <i>' + (n === 'All' ? cu.list.length : cu.list.filter((c) => c.seg === n).length) + '</i></button>').join('') + '</div>' +
     (list.length ? '<div class="tw"><table><thead><tr><th>Customer</th><th>State</th><th class="r">Orders</th><th class="r">Spent</th><th>Last order</th><th>Customer since</th><th>Segment</th></tr></thead><tbody>' + list.map((c) => '<tr><td><b>' + esc(c.name) + '</b><div class="sub">' + esc(c.email) + '</div></td><td>' + esc(c.state || '') + '</td><td class="r num">' + c.n + '</td><td class="r num">' + usd(c.spend) + '</td><td>' + esc(fday(dkey(c.last))) + '</td><td>' + esc(fday(dkey(c.first))) + '</td><td><span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span></td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No customers match.</div>');
