@@ -58,6 +58,16 @@ E['2-reorder'] = dict(day='Day 28 after last order', subject='Your next order, w
  p('It has been about {{weeks}} weeks since your last Vantix Bio order. {{product}} is in stock, and every lot has published batch-level testing results.')
  + card([('Product', '{{product}}'), ('Availability', 'In stock'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
  + button('View {{product}}', SHOP) + '{{offer_block}}'))
+E['2b-reorder-portal'] = dict(day='Day 28 after last order (variant B)', subject='Your next order, whenever you are ready', pre='Check any batch before you reorder.', html=wrap(
+ 'Check any batch before you reorder.', 'When you are ready', 'Check the batch, then reorder.',
+ p('Hi {{first_name}}, it has been about {{weeks}} weeks since your last order. Before you reorder, you can look up any batch on our verification portal: scan the QR code on the vial or type in the batch number.')
+ + p('You will see the data, the PDF, and a direct link to the original report on the third-party lab website. {{product}} is in stock, and orders typically ship within one business day.')
+ + button('Open the verification portal', VERIFY) + '{{offer_block}}'))
+E['2c-reorder-plain'] = dict(day='Day 28 after last order (variant C)', subject='Checking in from Vantix Bio', pre='A short note from Vantix Bio.', html=wrap(
+ 'A short note from Vantix Bio.', 'A note from Vantix Bio', 'Checking in, {{first_name}}.',
+ p('Hi {{first_name}}, it has been about {{weeks}} weeks since your last order, so I wanted to check in. {{product}} is in stock if you need it, and orders typically ship within one business day.')
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will get back to you.</span>') + '{{offer_block}}'))
 E['3-second-nudge'] = dict(day='Day 42 if no reorder', subject='A note on shipping', pre='Free shipping starts at $150.', html=wrap(
  'Free shipping starts at $150.', 'Worth knowing', 'Free shipping starts at $150.',
  p('Hi {{first_name}}, a short note in case it is useful. Orders over $150 after any discounts ship free, and orders typically ship within one business day, with a tracking email when they leave us.')
@@ -73,7 +83,7 @@ E['5-back-in-stock'] = dict(day='Triggered when a waitlisted item restocks', sub
  p('You asked us to let you know, {{first_name}}. This lot has been tested, and the results are published on the verification page.')
  + card([('Product', '{{product}}'), ('Status', 'In stock'), ('Batch results', 'Published')])
  + button('View {{product}}', SHOP)))
-E['6-batch-report'] = dict(day='Monthly newsletter', subject='Batch Report: {{month}}', pre='What we tested this month.', html=wrap(
+E['6-batch-report'] = dict(day='Only when a new lot is published', subject='New lot published: {{month}}', pre='What we tested this month.', html=wrap(
  'What we tested this month.', 'Batch Report / {{month}}', 'What we tested this month.',
  p('Every month we publish the results for the batches released, so you can see the numbers behind each lot.')
  + '{{batch_rows}}'
