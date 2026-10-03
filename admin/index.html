@@ -348,7 +348,19 @@ const A = {};
 A.more = () => { S.more = !S.more; render(); };
 A.tab = (t) => { S.tab = t; S.more = false; S.sel = null; S.selProd = null; S.armed = null; render(); window.scrollTo(0, 0); };
 A.range = (v) => { if (v === 'custom' && !S.cA.from) { const t = dkey(new Date()); S.cA = { from: addDays(t, -29), to: t }; S.cBTouched = false; S.cBOn = true; } S.range = v; render(); };
-A.cset = (id, v) => { const [g, k] = id.split('_'); if (!v) return; S[g][k] = v; if (g === 'cB') S.cBTouched = true; if (g === 'cA' && !S.cBTouched) S.cB = { from: '', to: '' }; render(); };
+A.cset = (id, v) => {
+  const [g, k] = id.split('_');
+  // ignore blanks and half-typed years (typing "2026" passes through 0002, 0020, 0202 first)
+  if (!v || v.length !== 10 || v < '2000-01-01') return;
+  // the compare dates shown are auto-derived until touched; seed them so one edit doesn't fall back to the derived values
+  if (g === 'cB' && !S.cBTouched) { const rg = getRange(); S.cB = { from: rg.pStart, to: rg.pEnd }; }
+  S[g][k] = v;
+  // keep from <= to by moving the other end, instead of letting getRange swap the two and undo the pick
+  if (S[g].from && S[g].to && S[g].from > S[g].to) { if (k === 'from') S[g].to = v; else S[g].from = v; }
+  if (g === 'cB') S.cBTouched = true;
+  if (g === 'cA' && !S.cBTouched) S.cB = { from: '', to: '' };
+  render();
+};
 A.cmpPreset = (m) => {
   const rg = getRange(), f = rg.start, t = rg.end;
   if (m === 'off') { S.cBOn = !S.cBOn; return render(); }
