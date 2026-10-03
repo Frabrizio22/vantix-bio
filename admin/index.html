@@ -374,7 +374,7 @@ A.logout = async () => { await sb.auth.signOut(); S.session = null; S.loaded = f
 A.goOrders = (f) => { S.tab = 'orders'; S.filter = f; S.q = ''; S.sel = null; render(); window.scrollTo(0, 0); };
 A.refresh = async () => { await load(); render(); toast('Updated'); };
 A.toggleForm = (k) => { S.form[k] = !S.form[k]; render(); };
-A.newCode = () => { S.newCode = !S.newCode; S.form = S.newCode ? { code: '', pct: '', applies: 'singles', free: false, who: '', comm: '' } : {}; render(); };
+A.newCode = () => { S.newCode = !S.newCode; S.form = S.newCode ? { code: '', pct: '', applies: 'singles', free: false, who: '', comm: '', team: false } : {}; render(); };
 A.csv = () => {
   const rows = filteredOrders();
   const cell = (v) => { let s = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
@@ -415,7 +415,7 @@ A.addCode = () => {
   if (!(p > 0 && p <= 100)) return toast('Discount must be between 1 and 100%', true);
   if (!(cm >= 0 && cm <= 100)) return toast('Commission must be between 0 and 100%', true);
   if (S.codes.some((c) => c.code === code)) return toast('That code already exists', true);
-  busy(async () => { const r = await sb.from('promo_codes').insert({ code, pct: p / 100, applies_to: f.applies, free_shipping: !!f.free, influencer: String(f.who || '').trim() || null, commission_pct: cm / 100, active: true }); if (r.error) throw new Error(r.error.message); S.newCode = false; S.form = {}; }, 'Code ' + code + ' created');
+  busy(async () => { const r = await sb.from('promo_codes').insert({ code, pct: p / 100, applies_to: f.applies, free_shipping: !!f.free, influencer: String(f.who || '').trim() || null, commission_pct: cm / 100, team: !!f.team, active: true }); if (r.error) throw new Error(r.error.message); S.newCode = false; S.form = {}; }, 'Code ' + code + ' created');
 };
 A.saveSetting = (key) => { const v = Number(S.form['s_' + key]); if (!Number.isFinite(v) || v < 0) return toast('Enter a number', true); busy(async () => { const r = await sb.from('settings').update({ value: v }).eq('key', key); if (r.error) throw new Error(r.error.message); }, 'Saved'); };
 
@@ -603,9 +603,9 @@ function creatorCards() {
   paid.filter((o) => codes[o.discount_code]).forEach((o) => {
     const c = codes[o.discount_code], x = by[c.influencer] || (by[c.influencer] = { name: c.influencer, rate: 0, codes: [], m: {} });
     x.rate = Math.max(x.rate, n0(c.commission_pct)); if (!x.codes.includes(c.code)) x.codes.push(c.code);
-    const mk = dkey(o.created_at).slice(0, 7), b = x.m[mk] || (x.m[mk] = blank()), t = team[mk] || (team[mk] = blank());
+    const mk = dkey(o.created_at).slice(0, 7), b = x.m[mk] || (x.m[mk] = blank()), t = team[mk] || (team[mk] = blank()); if (c.team) x.team = true;
     const isNew = firstOf[String(o.customer_email || '').toLowerCase()] === o.id;
-    [b, t].forEach((z) => { if (isNew) { z.newN++; z.newRev += n0(o.total); } else { z.oldN++; z.oldRev += n0(o.total); } z.rec += n0(o.commission); z.profit += profitOf(o); });
+    (c.team ? [b, t] : [b]).forEach((z) => { if (isNew) { z.newN++; z.newRev += n0(o.total); } else { z.oldN++; z.oldRev += n0(o.total); } z.rec += n0(o.commission); z.profit += profitOf(o); });
   });
   const list = Object.values(by).sort((a, b) => a.name.localeCompare(b.name));
   if (!list.length) return '';
@@ -614,7 +614,7 @@ function creatorCards() {
     const cur = x.m[thisM] || blank(); let aOwed = 0, aRec = 0, aNew = 0, aRev = 0, aProfit = 0;
     Object.values(x.m).forEach((b) => { aOwed += b.newRev * x.rate; aRec += b.rec; aNew += b.newN; aRev += b.newRev; aProfit += b.profit; });
     const owed = cur.newRev * x.rate;
-    return '<div class="card"><h2>' + esc(x.name) + '</h2><div class="hint">Code' + (x.codes.length > 1 ? 's' : '') + ': ' + x.codes.map(esc).join(', ') + ' · ' + Math.round(x.rate * 1000) / 10 + '% commission</div>' +
+    return '<div class="card"><h2>' + esc(x.name) + '</h2><div class="hint">Code' + (x.codes.length > 1 ? 's' : '') + ': ' + x.codes.map(esc).join(', ') + (x.team ? ' · creator team' : '') + ' · ' + Math.round(x.rate * 1000) / 10 + '% commission</div>' +
       '<div style="margin-top:10px"><b style="font-size:13px">This month</b></div>' + kv('New customers', cur.newN) + kv('New-customer sales', usd(cur.newRev)) + kv('Commission owed', '<b>' + usd(owed) + '</b>') +
       (cur.oldN ? kv('Existing customers used the code', cur.oldN + ' orders · ' + usd(cur.oldRev) + ' (not counted)') : '') +
       kv('Recorded on orders so far', usd(cur.rec)) + kv('Adjust when paying', (owed - cur.rec >= 0 ? '+' : '−') + usd(Math.abs(owed - cur.rec))) +
@@ -627,14 +627,14 @@ function creatorCards() {
     '<div style="margin:12px 0 4px;display:flex;justify-content:space-between;font-size:13px"><b>This month</b><span class="num">' + usd(tc.newRev, 0) + ' of ' + usd(TEAM_AT, 0) + '</span></div><div class="bar"><i style="width:' + Math.max(tc.newRev ? 2 : 0, prog) + '%"></i></div>' +
     '<div class="sub" style="margin:6px 0 10px">' + (left > 0 ? usd(left, 0) + ' more to reach the ' + Math.round(TEAM_HI * 100) + '% rate' : 'Top rate reached') + '</div>' +
     kv('New customers', tc.newN) + kv('New-customer sales', usd(tc.newRev)) + kv('Team owed (' + Math.round(tr * 100) + '%)', '<b>' + usd(tc.newRev * tr) + '</b>') + kv('All time owed', usd(tAll)) + '</div>';
-  return '<div class="grid g2">' + teamCard + list.map(card).join('') + '</div><div class="sub">Only a customer’s first paid order counts, so repeat buyers who use a creator code are not counted. Creator commission and the team’s share are shown separately. Orders record the creator’s commission at checkout, so “Adjust when paying” is the difference to settle.</div>';
+  return '<div class="grid g2">' + (list.some((x) => x.team) ? teamCard : '') + list.map(card).join('') + '</div><div class="sub">Only a customer’s first paid order counts, so repeat buyers who use a creator code are not counted. Creator commission and the team’s share are shown separately. Orders record the creator’s commission at checkout, so “Adjust when paying” is the difference to settle.</div>';
 }
 function viewDiscounts() {
   const paid = S.orders.filter(isPaid), f = S.form;
   const rows = S.codes.map((c) => { const os = paid.filter((o) => o.discount_code === c.code); return { c, uses: os.length, rev: os.reduce((a, o) => a + n0(o.total), 0), disc: os.reduce((a, o) => a + n0(o.discount), 0), comm: os.reduce((a, o) => a + n0(o.commission), 0), profit: os.reduce((a, o) => a + profitOf(o), 0) }; }).sort((a, b) => b.uses - a.uses || a.c.code.localeCompare(b.c.code));
   const none = paid.filter((o) => !o.discount_code);
   return '<div class="row" style="justify-content:space-between"><div class="sub">Counts paid orders only. Commission is what you owe the influencer on those orders.</div><button class="btn pri" data-act="newCode">' + (S.newCode ? 'Cancel' : '+ New code') + '</button></div>' +
-    (S.newCode ? '<div class="card"><h2>New discount code</h2><div class="grid g3" style="margin-top:10px"><label class="f">Code<input type="text" data-in="code" value="' + esc(f.code) + '" placeholder="SUMMER10" maxlength="30" autocapitalize="characters"></label><label class="f">Discount %<input type="number" data-in="pct" value="' + esc(f.pct) + '" min="1" max="100" step="0.5" placeholder="10"></label><label class="f">Applies to<select data-in="applies"><option value="singles"' + (f.applies === 'singles' ? ' selected' : '') + '>Single vials</option><option value="all"' + (f.applies === 'all' ? ' selected' : '') + '>Everything</option></select></label><label class="f">Influencer (optional)<input type="text" data-in="who" value="' + esc(f.who) + '"></label><label class="f">Commission %<input type="number" data-in="comm" value="' + esc(f.comm) + '" min="0" max="100" step="0.5" placeholder="0"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="free"' + (f.free ? ' checked' : '') + ' style="width:auto"> Free shipping</label></div><div style="margin-top:14px"><button class="btn pri" data-act="addCode"' + (S.busy ? ' disabled' : '') + '>Create code</button></div></div>' : '') +
+    (S.newCode ? '<div class="card"><h2>New discount code</h2><div class="grid g3" style="margin-top:10px"><label class="f">Code<input type="text" data-in="code" value="' + esc(f.code) + '" placeholder="SUMMER10" maxlength="30" autocapitalize="characters"></label><label class="f">Discount %<input type="number" data-in="pct" value="' + esc(f.pct) + '" min="1" max="100" step="0.5" placeholder="10"></label><label class="f">Applies to<select data-in="applies"><option value="singles"' + (f.applies === 'singles' ? ' selected' : '') + '>Single vials</option><option value="all"' + (f.applies === 'all' ? ' selected' : '') + '>Everything</option></select></label><label class="f">Influencer (optional)<input type="text" data-in="who" value="' + esc(f.who) + '"></label><label class="f">Commission %<input type="number" data-in="comm" value="' + esc(f.comm) + '" min="0" max="100" step="0.5" placeholder="0"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="free"' + (f.free ? ' checked' : '') + ' style="width:auto"> Free shipping</label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="team"' + (f.team ? ' checked' : '') + ' style="width:auto"> Found by the creator team</label></div><div style="margin-top:14px"><button class="btn pri" data-act="addCode"' + (S.busy ? ' disabled' : '') + '>Create code</button></div></div>' : '') +
     creatorCards() +
     '<div class="tw"><table><thead><tr><th>Code</th><th>Offer</th><th>Influencer</th><th class="r">Uses</th><th class="r">Revenue</th><th class="r">Avg order</th><th class="r">Discount given</th><th class="r">Commission owed</th><th class="r">Profit</th><th>Status</th></tr></thead><tbody>' +
     rows.map((r) => '<tr><td class="mono"><b>' + esc(r.c.code) + '</b></td><td>' + Math.round(n0(r.c.pct) * 100) + '% off' + (r.c.free_shipping ? ' + free shipping' : '') + '<div class="sub">' + (r.c.applies_to === 'all' ? 'Everything' : r.c.applies_to === 'singles' ? 'Single vials' : esc(r.c.applies_to)) + '</div></td><td>' + esc(r.c.influencer || '—') + (n0(r.c.commission_pct) ? '<div class="sub">' + Math.round(n0(r.c.commission_pct) * 100) + '% commission</div>' : '') + '</td><td class="r num">' + r.uses + '</td><td class="r num">' + usd(r.rev) + '</td><td class="r num">' + (r.uses ? usd(r.rev / r.uses) : '—') + '</td><td class="r num">' + usd(r.disc) + '</td><td class="r num">' + usd(r.comm) + '</td><td class="r num">' + (r.uses ? usd(r.profit) : '—') + '</td><td><button class="btn sm" data-act="toggleCode" data-arg="' + esc(r.c.code) + '">' + (r.c.active ? '<span class="up">● On</span>' : '○ Off') + '</button></td></tr>').join('') +
