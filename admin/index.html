@@ -591,12 +591,48 @@ function viewCustomers() {
     '<div class="chips">' + ['All', 'Repeat', 'Due to reorder', 'One-time'].map((n) => '<button class="chip' + (S.cseg === n ? ' on' : '') + '" data-act="cseg" data-arg="' + n + '">' + n + ' <i>' + (n === 'All' ? cu.list.length : cu.list.filter((c) => c.seg === n).length) + '</i></button>').join('') + '</div>' +
     (list.length ? '<div class="tw"><table><thead><tr><th>Customer</th><th>State</th><th class="r">Orders</th><th class="r">Spent</th><th>Last order</th><th>Customer since</th><th>Segment</th></tr></thead><tbody>' + list.map((c) => '<tr><td><b>' + esc(c.name) + '</b><div class="sub">' + esc(c.email) + '</div></td><td>' + esc(c.state || '') + '</td><td class="r num">' + c.n + '</td><td class="r num">' + usd(c.spend) + '</td><td>' + esc(fday(dkey(c.last))) + '</td><td>' + esc(fday(dkey(c.first))) + '</td><td><span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span></td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No customers match.</div>');
 }
+
+/* ---------- creators ---------- */
+const CREATOR_HI = 0.25, CREATOR_AT = 10000;
+function creatorCards() {
+  const paid = S.orders.filter(isPaid), firstOf = {};
+  paid.slice().sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).forEach((o) => { const k = String(o.customer_email || '').toLowerCase(); if (k && !firstOf[k]) firstOf[k] = o.id; });
+  const codes = {}; S.codes.filter((c) => c.influencer).forEach((c) => { codes[c.code] = c; });
+  const by = {}, thisM = dkey(new Date()).slice(0, 7);
+  paid.filter((o) => codes[o.discount_code]).forEach((o) => {
+    const c = codes[o.discount_code], x = by[c.influencer] || (by[c.influencer] = { name: c.influencer, rate: 0, codes: [], m: {} });
+    x.rate = Math.max(x.rate, n0(c.commission_pct)); if (!x.codes.includes(c.code)) x.codes.push(c.code);
+    const mk = dkey(o.created_at).slice(0, 7), b = x.m[mk] || (x.m[mk] = { newN: 0, newRev: 0, oldN: 0, oldRev: 0, rec: 0, profit: 0 });
+    const isNew = firstOf[String(o.customer_email || '').toLowerCase()] === o.id;
+    if (isNew) { b.newN++; b.newRev += n0(o.total); } else { b.oldN++; b.oldRev += n0(o.total); }
+    b.rec += n0(o.commission); b.profit += profitOf(o);
+  });
+  const list = Object.values(by).sort((a, b) => a.name.localeCompare(b.name));
+  if (!list.length) return '';
+  const rateFor = (x, b) => (b && b.newRev >= CREATOR_AT ? CREATOR_HI : x.rate);
+  const card = (x) => {
+    const cur = x.m[thisM] || { newN: 0, newRev: 0, oldN: 0, oldRev: 0, rec: 0, profit: 0 }, r = rateFor(x, cur), owed = cur.newRev * r;
+    let aOwed = 0, aRec = 0, aNew = 0, aOld = 0, aRev = 0, aProfit = 0; Object.values(x.m).forEach((b) => { aOwed += b.newRev * rateFor(x, b); aRec += b.rec; aNew += b.newN; aOld += b.oldN; aRev += b.newRev; aProfit += b.profit; });
+    const left = Math.max(0, CREATOR_AT - cur.newRev), prog = Math.min(100, Math.round(cur.newRev / CREATOR_AT * 100));
+    const kv = (l, v) => '<div class="kv"><span>' + l + '</span><span class="num">' + v + '</span></div>';
+    return '<div class="card"><h2>' + esc(x.name) + '</h2><div class="hint">Code' + (x.codes.length > 1 ? 's' : '') + ': ' + x.codes.map(esc).join(', ') + ' · ' + Math.round(x.rate * 100) + '% commission, ' + Math.round(CREATOR_HI * 100) + '% once new-customer sales pass ' + usd(CREATOR_AT, 0) + ' in a month</div>' +
+      '<div style="margin:12px 0 4px;display:flex;justify-content:space-between;font-size:13px"><b>This month</b><span class="num">' + usd(cur.newRev, 0) + ' of ' + usd(CREATOR_AT, 0) + '</span></div><div class="bar"><i style="width:' + Math.max(cur.newRev ? 2 : 0, prog) + '%"></i></div>' +
+      '<div class="sub" style="margin:6px 0 10px">' + (left > 0 ? usd(left, 0) + ' more to reach the ' + Math.round(CREATOR_HI * 100) + '% rate' : 'Top rate reached, ' + Math.round(CREATOR_HI * 100) + '% on all new-customer sales this month') + '</div>' +
+      kv('New customers', cur.newN) + kv('New-customer sales', usd(cur.newRev)) + kv('Commission owed (' + Math.round(r * 100) + '%)', '<b>' + usd(owed) + '</b>') +
+      (cur.oldN ? kv('Existing customers used the code', cur.oldN + ' orders · ' + usd(cur.oldRev) + ' (not counted)') : '') +
+      kv('Recorded on orders so far', usd(cur.rec)) + kv('Adjust when paying', (owed - cur.rec >= 0 ? '+' : '−') + usd(Math.abs(owed - cur.rec))) +
+      '<div style="border-top:1px solid var(--line2);margin:10px 0 6px"></div><b style="font-size:13px">All time</b>' +
+      kv('New customers', aNew + ' · ' + usd(aRev)) + kv('Commission owed', usd(aOwed)) + kv('Recorded on orders', usd(aRec)) + kv('Profit on all their code orders', usd(aProfit)) + '</div>';
+  };
+  return '<div class="grid g2">' + list.map(card).join('') + '</div><div class="sub">Commission counts a customer’s first paid order only, so repeat buyers who use a creator code are not counted. The higher rate applies to all of that month’s new-customer sales once they pass ' + usd(CREATOR_AT, 0) + '. Orders record commission at the base rate, so “Adjust when paying” is the difference to settle.</div>';
+}
 function viewDiscounts() {
   const paid = S.orders.filter(isPaid), f = S.form;
   const rows = S.codes.map((c) => { const os = paid.filter((o) => o.discount_code === c.code); return { c, uses: os.length, rev: os.reduce((a, o) => a + n0(o.total), 0), disc: os.reduce((a, o) => a + n0(o.discount), 0), comm: os.reduce((a, o) => a + n0(o.commission), 0), profit: os.reduce((a, o) => a + profitOf(o), 0) }; }).sort((a, b) => b.uses - a.uses || a.c.code.localeCompare(b.c.code));
   const none = paid.filter((o) => !o.discount_code);
   return '<div class="row" style="justify-content:space-between"><div class="sub">Counts paid orders only. Commission is what you owe the influencer on those orders.</div><button class="btn pri" data-act="newCode">' + (S.newCode ? 'Cancel' : '+ New code') + '</button></div>' +
     (S.newCode ? '<div class="card"><h2>New discount code</h2><div class="grid g3" style="margin-top:10px"><label class="f">Code<input type="text" data-in="code" value="' + esc(f.code) + '" placeholder="SUMMER10" maxlength="30" autocapitalize="characters"></label><label class="f">Discount %<input type="number" data-in="pct" value="' + esc(f.pct) + '" min="1" max="100" step="0.5" placeholder="10"></label><label class="f">Applies to<select data-in="applies"><option value="singles"' + (f.applies === 'singles' ? ' selected' : '') + '>Single vials</option><option value="all"' + (f.applies === 'all' ? ' selected' : '') + '>Everything</option></select></label><label class="f">Influencer (optional)<input type="text" data-in="who" value="' + esc(f.who) + '"></label><label class="f">Commission %<input type="number" data-in="comm" value="' + esc(f.comm) + '" min="0" max="100" step="0.5" placeholder="0"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="free"' + (f.free ? ' checked' : '') + ' style="width:auto"> Free shipping</label></div><div style="margin-top:14px"><button class="btn pri" data-act="addCode"' + (S.busy ? ' disabled' : '') + '>Create code</button></div></div>' : '') +
+    creatorCards() +
     '<div class="tw"><table><thead><tr><th>Code</th><th>Offer</th><th>Influencer</th><th class="r">Uses</th><th class="r">Revenue</th><th class="r">Avg order</th><th class="r">Discount given</th><th class="r">Commission owed</th><th class="r">Profit</th><th>Status</th></tr></thead><tbody>' +
     rows.map((r) => '<tr><td class="mono"><b>' + esc(r.c.code) + '</b></td><td>' + Math.round(n0(r.c.pct) * 100) + '% off' + (r.c.free_shipping ? ' + free shipping' : '') + '<div class="sub">' + (r.c.applies_to === 'all' ? 'Everything' : r.c.applies_to === 'singles' ? 'Single vials' : esc(r.c.applies_to)) + '</div></td><td>' + esc(r.c.influencer || '—') + (n0(r.c.commission_pct) ? '<div class="sub">' + Math.round(n0(r.c.commission_pct) * 100) + '% commission</div>' : '') + '</td><td class="r num">' + r.uses + '</td><td class="r num">' + usd(r.rev) + '</td><td class="r num">' + (r.uses ? usd(r.rev / r.uses) : '—') + '</td><td class="r num">' + usd(r.disc) + '</td><td class="r num">' + usd(r.comm) + '</td><td class="r num">' + (r.uses ? usd(r.profit) : '—') + '</td><td><button class="btn sm" data-act="toggleCode" data-arg="' + esc(r.c.code) + '">' + (r.c.active ? '<span class="up">● On</span>' : '○ Off') + '</button></td></tr>').join('') +
     '<tr><td><b>No code</b></td><td>—</td><td>—</td><td class="r num">' + none.length + '</td><td class="r num">' + usd(none.reduce((a, o) => a + n0(o.total), 0)) + '</td><td class="r num">' + (none.length ? usd(none.reduce((a, o) => a + n0(o.total), 0) / none.length) : '—') + '</td><td class="r num">—</td><td class="r num">—</td><td class="r num">' + (none.length ? usd(none.reduce((a, o) => a + profitOf(o), 0)) : '—') + '</td><td></td></tr></tbody></table></div>' +
