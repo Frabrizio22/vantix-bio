@@ -50,7 +50,7 @@ E = {}
 E['1-post-purchase'] = dict(day='Day 3 after delivery', subject='Your order, verified', pre='How to check the testing results for your batch.', html=wrap(
  'How to check the testing results for your batch.', 'Your order, verified', 'Every vial has a paper trail.',
  p('Hi {{first_name}}, thank you for your order. Each vial ships with a QR code that links to the independent testing results for its batch, so you can confirm what you received.')
- + steps([('Scan the label', 'The QR code on each vial opens the record for that batch.'), ('Match the batch ID', 'Check that the ID on your vial matches the ID on the page.'), ('Review the results', 'Purity and endotoxin results are published for every batch.')])
+ + steps([('Scan the label', 'The QR code on each vial opens our verification portal.'), ('Enter your batch number', 'Type the batch number from your vial and the results come up.'), ('Review the report', 'View the data and PDF, or open the original report on the third-party lab website.')])
  + button('Verify your batch', VERIFY)
  + p(f'<span style="color:{MUT};font-size:14px">Keep sealed vials as directed on your product sheet. Questions about a result? Reply to this email and we will go through it with you.</span>')))
 E['2-reorder'] = dict(day='Day 28 after last order', subject='Your next order, whenever you are ready', pre='Your product is in stock. Orders typically ship within one business day.', html=wrap(
@@ -66,7 +66,7 @@ E['3-second-nudge'] = dict(day='Day 42 if no reorder', subject='A note on shippi
 E['4-winback'] = dict(day='Day 75 if no reorder', subject='What is new at Vantix Bio', pre='Batch-level verification, published for every lot.', html=wrap(
  'Batch-level verification, published for every lot.', 'What is new', 'It has been a while, {{first_name}}.',
  p('Since your last order we have kept one thing constant: you can check the testing results for any batch before you rely on it.')
- + steps([('Independent testing', 'Purity and endotoxin results for each batch are published.'), ('Verification portal', 'Look up any batch by its ID or the QR code on the label.'), ('Fast dispatch', 'Orders typically ship within one business day, free over $150.')])
+ + steps([('Independent testing', 'Purity and endotoxin results for each batch are published.'), ('Verification portal', 'Scan the QR code, enter your batch number, and view the data, the PDF, or the original lab report.'), ('Fast dispatch', 'Orders typically ship within one business day, free over $150.')])
  + button('See what is in stock', SHOP) + '{{offer_block}}'))
 E['5-back-in-stock'] = dict(day='Triggered when a waitlisted item restocks', subject='You asked us to let you know', pre='It is available again.', html=wrap(
  'It is available again.', 'Back in stock', '{{product}} is available again.',
@@ -92,12 +92,6 @@ E['8-reorder-personal'] = dict(day='Repeat customers, about 3+ weeks after last 
  p('Hi {{first_name}}, thank you for ordering from Vantix Bio more than once. It means a lot to a small team. Everything we release has published batch-level testing results, and orders typically ship within one business day.')
  + button('Visit the shop', SHOP)
  + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will get back to you.</span>')))
-E['9-prc-intro'] = dict(day='Past PRC customers, one time', subject='PRC is now Vantix Bio', pre='Same people, new name.', html=wrap(
- 'Same people, new name.', 'A note from Vantix Bio', 'Hi {{first_name}}, we are now Vantix Bio.',
- p('Hi {{first_name}}, you ordered from PRC earlier this year. As we mentioned, PRC is now Vantix Bio, and everything is run by the same person who handled your order. Each lot now has published batch-level testing results you can look up by batch ID.')
- + p('If you need anything again, orders typically ship within one business day, and shipping is free over $150.')
- + button('Visit the shop', SHOP)
- + p(f'<span style="color:{MUT};font-size:14px">Need anything? Just reply to this email.</span>')))
 
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',
   batch_rows=card([('VX-2T 30mg', 'Batch VX-2T-1001'), ('Purity', '99.1%'), ('Endotoxin', 'Within spec'), ('Tested', 'Independent lab')]))
