@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Unsubscribe — Vantix</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--navy:#0F1B2D;--accent:#3973B0;--line:#D8D6CF;--mut:#5E6877}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--navy);line-height:1.6;min-height:100vh}
+header{background:var(--navy);color:#fff;padding:18px 20px;letter-spacing:.28em;font-weight:600}
+main{max-width:460px;margin:0 auto;padding:40px 20px}
+h1{font-size:1.7rem;font-weight:600;margin-bottom:10px}
+p{color:var(--mut);margin-bottom:22px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+input{width:100%;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:16px;background:#fff;margin-bottom:16px}
+button{width:100%;border:0;border-radius:999px;background:var(--navy);color:#fff;padding:15px;font-size:16px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.6}
+.msg{margin-top:18px;font-size:15px}
+.ok{color:#245238}.err{color:#7D2F25}
+</style>
+</head>
+<body>
+<header>VANTIX</header>
+<main>
+  <h1>Unsubscribe</h1>
+  <p>Confirm your email address and we will stop sending you marketing emails. You will still receive emails about orders you place.</p>
+  <form id="f">
+    <label for="e">Email address</label>
+    <input id="e" type="email" autocomplete="email" required placeholder="you@example.com">
+    <button id="b" type="submit">Unsubscribe</button>
+  </form>
+  <div id="m" class="msg" role="status"></div>
+</main>
+<script>
+const SB_URL='https://mxhtxcpqgjmgwnurxguv.supabase.co';
+const SB_KEY='sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
+const f=document.getElementById('f'),e=document.getElementById('e'),b=document.getElementById('b'),m=document.getElementById('m');
+// Email can arrive in the URL fragment (#e=...), which browsers never send to the server.
+try{const h=new URLSearchParams(location.hash.slice(1)).get('e');if(h)e.value=decodeURIComponent(h);}catch(_){}
+f.addEventListener('submit',async(ev)=>{
+  ev.preventDefault();b.disabled=true;m.className='msg';m.textContent='Working…';
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/rpc/opt_out_email',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_email:e.value})});
+    if(!r.ok)throw new Error();
+    f.style.display='none';m.className='msg ok';m.textContent='You have been unsubscribed. You will not receive further marketing emails from Vantix.';
+  }catch(_){b.disabled=false;m.className='msg err';m.textContent='Something went wrong. Please check the address and try again, or email support@vantixbio.com.';}
+});
+</script>
+</body>
+</html>
