@@ -20,7 +20,8 @@
 
 # Blog post consolidations (old URLs → pillar pages)
 /blog/retatrutide-20mg.html                /blog/retatrutide-20mg-pillar.html    301
-/blog/bpc-157-10mg-pillar.html             /blog/bpc-157.html    301
+/blog/bpc-157-10mg-pillar.html             /blog/batch-level-testing.html    301
+/blog/bpc-157.html                         /blog/batch-level-testing.html    301
 
 # Deleted/never-existed pages (redirect to relevant pages)
 /blog/peptide-identity-vs-purity.html                    /blog/how-to-verify-peptide-purity.html    301
