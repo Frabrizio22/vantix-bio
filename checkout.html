@@ -825,6 +825,21 @@ document.getElementById('creditInstructions').style.display='block';
 window.scrollTo(0,0);
 }
 
+// GA4 ids sent with the order so the Worker can report the purchase server-side to the visitor's original session.
+function getGaIds(cb){
+var done=false,out={},t=setTimeout(finish,800);
+function finish(){if(done)return;done=true;clearTimeout(t);
+if(!out.client_id){try{var m=document.cookie.match(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);if(m)out.client_id=m[1];}catch(e){}}
+cb(out);}
+try{
+if(typeof gtag!=='function'){finish();return;}
+var pending=2;
+var one=function(){if(--pending===0)finish();};
+gtag('get','G-BBBNSQT84M','client_id',function(v){if(v)out.client_id=String(v);one();});
+gtag('get','G-BBBNSQT84M','session_id',function(v){if(v)out.session_id=String(v);one();});
+}catch(e){finish();}
+}
+
 function placeOrder(){
 console.log('Place order clicked');
 window.dataLayer=window.dataLayer||[];
@@ -893,6 +908,8 @@ affirmation:window.vxAffirmation||{}
 var submitBtn=document.getElementById('submitBtn');
 submitBtn.disabled=true;
 submitBtn.textContent='Processing...';
+getGaIds(function(ga){
+orderData.ga=ga;
 if(selectedPayment==='zelle'){
 fetch('https://vantix-checkout.prcpeptides.workers.dev',{
 method:'POST',
@@ -949,6 +966,7 @@ submitBtn.disabled=false;
 submitBtn.textContent='Place Order';
 });
 }
+});
 }
 
 loadCart();
