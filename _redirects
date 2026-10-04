@@ -19,12 +19,12 @@
 /blog/why-batch-level-coas-matter.html      /blog/batch-level-testing.html    301
 
 # Blog post consolidations (old URLs → pillar pages)
-/blog/retatrutide-20mg.html                /blog/retatrutide-20mg-pillar.html    301
+/blog/retatrutide-20mg.html                /blog/index.html    301
 /blog/bpc-157-10mg-pillar.html             /blog/batch-level-testing.html    301
 /blog/bpc-157.html                         /blog/batch-level-testing.html    301
 
 # Deleted/never-existed pages (redirect to relevant pages)
 /blog/peptide-identity-vs-purity.html                    /blog/how-to-verify-peptide-purity.html    301
 /blog/batch-testing-why-every-batch-matters.html         /blog/batch-level-testing.html    301
-/blog/glp1-agonist-comparison-research.html              /blog/retatrutide-20mg-pillar.html    301
+/blog/glp1-agonist-comparison-research.html              /blog/index.html    301
 /products/cjc-ipamorelin.html                            /shop.html#cjc    301
