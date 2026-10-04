@@ -636,15 +636,17 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var kitsOnlyCodes=['FOUNDER10','MURPHY15'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','MURPHY15'];
 
 // NAD+ auto-discount removed
 if(promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
-if(kitsOnlyCodes.indexOf(promoCode)!==-1){
+if(wholeOrderCodes.indexOf(promoCode)!==-1){
+// Whole order: kits + singles
 discount+=subtotal*promoValue;
 }else{
+// Singles only (exclude kits)
 var singlesTotal=0;
 cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=item.price*item.quantity;}});
 discount+=singlesTotal*promoValue;
