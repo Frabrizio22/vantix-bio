@@ -733,6 +733,49 @@ imageUrl: '/coa/VX-RETA20-002-endotoxin.jpg'
 }
 ]
 },
+'NHS-GLR20-20260823-01': {
+name: 'VX-3R 20mg',
+content: '19.7452',
+contentUnit: 'mg/vial',
+purity: '99',
+endotoxin: 'Pass',
+endotoxinUnit: '',
+endotoxinSpec: '',
+contentSpec: '≥ 20 mg spec',
+puritySpec: '≥ 99% spec',
+tested: 'September 1, 2026',
+tests: [
+{
+title: 'Complete Analysis (10 Panels)',
+taskId: '260901-899-NHS-9',
+date: '01 Sep 2026',
+status: 'Pass',
+rows: [
+{ key: 'Content', value: '19.7452', unit: 'mg/vial', large: true },
+{ key: 'Purity', value: '99', unit: '%', large: true },
+{ key: 'Recovery', value: '98.726', unit: '% nominal' },
+{ key: 'Identity', value: 'Match (MW 2619.1 g/mol)' },
+{ key: 'Water Activity', value: '0.2051 aw' },
+{ key: 'Water Content (KF)', value: '0.779%' },
+{ key: 'pH', value: '7.0' },
+{ key: 'Microbials', value: 'Pass (10 tests)' },
+{ key: 'Heavy Metals', value: 'Pass (0.000 ppm all)' },
+{ key: 'Residual Solvents', value: 'Pass (0.000 ppm all 12)' },
+{ key: 'Sterility', value: 'Pass' },
+{ key: 'Mycotoxins', value: 'Pass' },
+{ key: 'Lab', value: 'PH Solutions Lab (ISO/IEC 17025:2017)' }
+],
+verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTAxLTg5OS1OSFMtOSIsInAiOiJWYW50aXggQmlvIiwibCI6IlZCSS1HTFIyMC0yMDI2MDgyMy0wMSJ9.ioiEV19MRJUvNH5NP4W4VDQPg0eXDQ5L',
+downloadUrl: '/coa/VBI-GLR20-20260823-01.jpg',
+imageUrl: '/coa/VBI-GLR20-20260823-01.jpg'
+}
+]
+},
+'VBI-GLR20-20260823-01': {
+name: 'VX-3R 20mg',
+alias: true,
+redirect: 'NHS-GLR20-20260823-01'
+},
 'VX-RETA20-003': {
 name: 'Retatrutide 20mg',
 content: '22.88',
@@ -1092,7 +1135,8 @@ searchButton.disabled = false;
 const productToBatch = {
 'tirzepatide': 'NHS-GLT30-20260902-01',
 'vx-2t': 'NHS-GLT30-20260902-01',
-'retatrutide': 'VX-RETA20-003',
+'retatrutide': 'NHS-GLR20-20260823-01',
+'vx-3r': 'NHS-GLR20-20260823-01',
 'nad-plus': 'VX-NAD1K-001',
 'mots-c': 'VX-MOTS10-001',
 'ghk-cu': 'VX-GHK100-001',
