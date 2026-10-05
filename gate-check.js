@@ -4,6 +4,9 @@
 (function() {
     'use strict';
 
+    // Keep ?code= / ?ref= from links (creator codes) before any gate redirect
+    (function(){try{var p=new URLSearchParams(location.search),c=p.get('code'),r=p.get('ref');if(c)sessionStorage.setItem('vantixPromoCode',c.toUpperCase());if(r)sessionStorage.setItem('vantixReferral',r.toLowerCase());}catch(e){}})();
+
     // Exempt pages (don't enforce gate on these)
     const EXEMPT_PAGES = ['gate.html', 'terms.html', 'privacy.html', 'faq.html', 'contact.html'];
     
