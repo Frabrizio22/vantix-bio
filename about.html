@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Vantix Bio — Batch-Level Verification for Research Peptides</title>
-<meta name="description" content="Vantix Bio provides research peptides with batch-level third-party verification. Every batch independently tested before release.">
+<title>About Vantix Bio — Know the Batch. See the Data.</title>
+<meta name="description" content="Vantix Bio research peptides: every batch independently tested before release, 99% purity minimum, with public lab reports linked batch by batch.">
 <link rel="canonical" href="https://vantixbio.com/about.html">
 
 <!-- Open Graph -->
@@ -76,6 +76,134 @@ h2{font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-.015em;margin-bottom:14px;
 .content strong{color:var(--navy);font-weight:600}
 footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
 .footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+:root{--card:#FFFFFF;--sage:#7BA88F;--mark:#D3E4F5;--footer:#0B2545;--font-body:'Geist',-apple-system,'Helvetica Neue',Arial,sans-serif;--font-display:'Fraunces',Georgia,serif;--font-data:'JetBrains Mono',ui-monospace,Menlo,monospace}
+h1,h2,h3{font-family:var(--font-display);font-weight:300;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2.25rem,6vw,4rem);letter-spacing:-.02em;line-height:1.2;padding:0 20px;margin-bottom:16px}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-.015em;margin-bottom:14px;color:var(--navy)}
+.container{padding:0 24px}@media(min-width:640px){.container{padding:0 48px}}@media(min-width:768px){.container{padding:0 80px}}
+/* Hero */
+.hero{padding:60px 0 44px;text-align:center;background:linear-gradient(180deg,rgba(57,115,176,.03) 0%,var(--bg) 100%);border-bottom:1px solid var(--hairline)}
+@media(max-width:640px){.hero{padding:40px 0 32px}}
+.hero p{text-wrap:pretty;margin:20px auto 0;color:rgba(10,22,40,.65);font-size:17px;line-height:1.65;max-width:560px}
+.hero p.tie{text-wrap:balance;font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.25rem;color:var(--navy);margin-top:16px}
+@media(max-width:640px){.hero p{font-size:16px;line-height:1.6;padding:0 8px}}
+.cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px;padding:0 8px}
+.btn{display:inline-block;font-family:var(--font-body);font-weight:600;font-size:15px;line-height:1;text-decoration:none;padding:15px 26px;border-radius:8px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .2s,transform .2s}
+.btn:hover{background:var(--navy);border-color:var(--navy);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn:focus-visible,.icon-btn:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.vials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:600px;margin:36px auto 0;padding:0 8px}
+.vials img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--hairline);background:#f6f6f4}
+@media(max-width:640px){.vials{gap:8px;margin-top:28px;padding:0}.cta-row{flex-direction:column;align-items:stretch;max-width:300px;margin-inline:auto;padding:0}.btn{text-align:center}}
+
+/* Stat cards */
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:720px;margin:40px auto;padding:0 20px}
+@media(max-width:640px){.stats-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin:28px auto;padding:0}}
+.stat-card{text-align:center;padding:28px 20px;background:var(--card);border:1px solid var(--hairline);border-radius:10px;transition:transform .2s,box-shadow .2s}
+@media(max-width:640px){.stat-card{padding:20px}}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(57,115,176,.12)}
+.stat-value{font-family:var(--font-data);font-size:36px;font-weight:600;color:var(--accent);margin-bottom:8px;line-height:1;white-space:nowrap}
+.stat-label{font-family:var(--font-data);font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);font-weight:600}
+
+/* Content */
+.content{padding:40px 0 56px}
+.content p{text-wrap:pretty;font-size:17px;line-height:1.7;color:rgba(10,22,40,.75);margin-bottom:20px}
+@media(max-width:640px){.content p{font-size:16px;line-height:1.65;margin-bottom:18px}}
+.content h2{margin:48px 0 16px;padding-top:48px;border-top:1px solid var(--hairline)}
+@media(max-width:640px){.content h2{margin:40px 0 14px;padding-top:40px}}
+.content h2:first-child{border-top:none;padding-top:0;margin-top:0}
+.content strong{color:var(--navy);font-weight:600}
+.content a.inline{color:var(--accent);text-decoration:none;font-weight:600}
+.content p.pull{font-size:1.4rem;text-wrap:balance;font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.4rem;line-height:1.3;color:var(--navy)!important;margin:28px 0 8px!important}
+.lede-in{font-size:17px}
+
+/* Vial figure */
+.figure{background:var(--card);border:1px solid var(--hairline);border-radius:10px;padding:28px 20px 20px;margin:8px 0 20px}
+.figure svg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto}
+.fig-note{text-wrap:balance;font-family:var(--font-data);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(10,22,40,.5);text-align:center;margin-top:12px}
+
+.photo{position:relative;max-width:440px;margin:0 auto}
+.photo img{width:100%;height:auto;display:block;border-radius:6px}
+.hl{position:absolute;border:2px solid var(--accent);background:rgba(111,165,217,.16);border-radius:4px}
+.hl-batch{left:29.1%;top:70.3%;width:22.5%;height:5.1%}
+.hl-qr{left:64.3%;top:63.2%;width:6.7%;height:12.7%}
+.ln{position:absolute;height:2px;background:var(--accent)}
+.ln-batch{left:26%;width:3.1%;top:72.8%}
+.ln-qr{left:71%;width:3%;top:69.5%}
+.pill{position:absolute;font-family:var(--font-data);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--navy);padding:4px 7px;border-radius:999px;white-space:nowrap;transform:translateY(-50%)}
+.pill-batch{right:74%;top:72.9%}
+.pill-qr{left:74%;top:69.6%}
+.figure.coa{padding:16px}
+.figure.coa img{width:100%;max-width:640px;height:auto;display:block;margin:0 auto;border:1px solid var(--hairline)}
+
+/* Chain */
+.chain{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 12px}
+@media(max-width:640px){.chain{grid-template-columns:minmax(0,1fr)}}
+.step{background:var(--card);border:1px solid var(--hairline);border-radius:10px;padding:22px 22px 8px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.step .n{font-family:var(--font-data);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.step svg{width:100%;height:auto;display:block;max-height:120px}
+.step h3{font-size:1.3rem;color:var(--navy);font-weight:400}
+.step p{font-size:15px!important;line-height:1.6!important;margin-bottom:14px!important}
+
+/* Expectations */
+.expect{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:12px}
+@media(max-width:768px){.expect{grid-template-columns:minmax(0,1fr)}}
+.expect > div{background:var(--card);border:1px solid var(--hairline);border-radius:10px;padding:22px 22px 6px;min-width:0}
+.expect h3{font-size:1.2rem;color:var(--navy);font-weight:400;margin-bottom:10px}
+.expect p{font-size:15px!important;line-height:1.6!important;margin-bottom:14px!important}
+
+/* RUO panel */
+.ruo{background:linear-gradient(135deg,#f0f6fc 0%,#e4eef8 100%);border:1px solid #c9dcef;border-radius:12px;padding:28px 24px 10px;margin:8px 0 24px}
+.ruo p:last-child{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.1rem;color:var(--navy)}
+
+
+/* Rules band */
+.rules{background:var(--footer);color:#E8EEF5;border-radius:14px;padding:34px 28px 28px;margin:28px 0 8px;position:relative;overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px}
+.rules .eyebrow{font-family:var(--font-data);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600}
+.rules h3{font-size:clamp(1.7rem,5vw,2.4rem);color:#fff;font-weight:300;line-height:1.15;margin:12px 0 6px;letter-spacing:-.015em}
+.rules .sub{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.15rem;color:var(--accent-light);margin-bottom:26px}
+.rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:700px){.rule-grid{grid-template-columns:minmax(0,1fr)}.rules{padding:28px 20px 22px}}
+.rule{border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:18px 18px 6px;background:rgba(11,37,69,.78);min-width:0}
+.rule b{display:block;font-family:var(--font-data);font-size:30px;font-weight:600;color:#fff;line-height:1;margin-bottom:10px}
+.rule b i{font-style:normal;color:var(--accent-light)}
+.content .rule p{font-size:15px;line-height:1.55;color:rgba(232,238,245,.82);margin-bottom:14px}
+.content .rule p strong{color:#fff}
+
+/* Don't list */
+.nots{list-style:none;margin:6px 0 4px;border-top:1px solid var(--hairline)}
+.nots li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:16px 0;border-bottom:1px solid var(--hairline);font-size:16.5px;line-height:1.55;color:rgba(10,22,40,.75);text-wrap:pretty}
+.nots li::before{content:"\00D7";font-family:var(--font-data);font-weight:600;font-size:22px;line-height:1.2;color:var(--accent)}
+.nots li strong{color:var(--navy);font-weight:600}
+
+/* Ledger */
+.ledger{background:var(--card);border:1px solid var(--hairline);border-radius:12px;overflow:hidden;margin:10px 0 10px;box-shadow:0 2px 0 var(--navy)}
+.lhead,.lrow{display:grid;grid-template-columns:minmax(0,2.1fr) .8fr .9fr .95fr 1.05fr .9fr;gap:12px;align-items:center;padding:14px 18px}
+.lhead{background:var(--navy);color:rgba(255,255,255,.75);font-family:var(--font-data);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.lrow{border-top:1px solid var(--hairline);font-size:14px}
+.lrow:first-of-type{border-top:none}
+.lprod b{display:block;font-weight:600;color:var(--navy);font-size:15px}
+.lprod span{display:block;font-family:var(--font-data);font-size:10.5px;color:rgba(10,22,40,.5);margin-top:2px;letter-spacing:.02em}
+.lrow .m{font-family:var(--font-data);font-size:13px;color:var(--text)}
+.lrow .pur{font-family:var(--font-data);font-size:15px;font-weight:600;color:var(--accent)}
+.pass{display:inline-block;font-family:var(--font-data);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#2F6B4B;background:#E3F1E9;border:1px solid #BFDCCB;border-radius:999px;padding:2px 7px;margin-right:6px;vertical-align:1px}
+.lrow a.rep{font-weight:600;font-size:13.5px;color:var(--accent);text-decoration:none;white-space:nowrap}
+.lrow a.rep:hover{text-decoration:underline}
+.lrow .k{display:none}
+@media(max-width:700px){
+  .lhead{display:none}
+  .lrow{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 10px;padding:16px 16px}
+  .lprod{grid-column:1/-1}
+  .lrow .k{display:block;font-family:var(--font-data);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,22,40,.45);font-weight:600;margin-bottom:3px}
+  .lrow .rcell{grid-column:1/-1}
+}
+.content p.lnote{font-family:var(--font-data);font-size:10.5px;line-height:1.6;letter-spacing:.03em;color:rgba(10,22,40,.5);margin:12px 2px 0;text-wrap:pretty}
+
+.closer{text-align:center;border-top:1px solid var(--hairline);margin-top:40px;padding-top:40px}
+.closer h3{font-size:clamp(1.5rem,4vw,1.9rem);color:var(--navy);margin-bottom:8px}
+.content .closer p{margin-bottom:20px}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
@@ -186,77 +314,177 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 
-<div class="container">
-<div class="hero">
-<h1>Batch-Level Verification.<br>Every Time.</h1>
-<p style="font-size:17px;max-width:520px;margin:0 auto;line-height:1.55;color:rgba(10,22,40,.65)">If you can't verify it, you shouldn't sell it.<br>That's the entire philosophy.</p>
-</div>
+<div class="container about">
+  <div class="hero">
+    <h1>Know the Batch.<br>See the Data.</h1>
+    <p>Vantix Bio was built around a simple principle: researchers should be able to connect the vial in their hands directly to the independent laboratory results behind it, and verify those results at the source.</p>
+    <p class="tie">The vial, the batch, and the data stay connected.</p>
+    <div class="cta-row">
+      <a class="btn" href="verify.html">Verify a Batch &rarr;</a>
+      <a class="btn ghost" href="shop.html">Shop the Catalog</a>
+    </div>
+    <div class="vials">
+      <img src="images/about/vial-bpc157.jpg" alt="BPC-157 10mg research vial with Vantix Bio label" width="360" height="521">
+      <img src="images/about/vial-ghk-cu.jpg" alt="GHK-Cu 100mg research vial with Vantix Bio label" width="360" height="521">
+      <img src="images/about/vial-mots-c.jpg" alt="MOTS-c 10mg research vial with Vantix Bio label" width="360" height="521">
+    </div>
+  </div>
 
-<div class="stats-grid">
-<div class="stat-card">
-<div class="stat-value">12</div>
-<div class="stat-label">Products</div>
-</div>
-<div class="stat-card">
-<div class="stat-value">>99%</div>
-<div class="stat-label">Purity</div>
-</div>
-<div class="stat-card">
-<div class="stat-value">3</div>
-<div class="stat-label">Test Methods</div>
-</div>
-</div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">1:1</div><div class="stat-label">Batch to report</div></div>
+    <div class="stat-card"><div class="stat-value">Public</div><div class="stat-label">COAs, no login</div></div>
+    <div class="stat-card"><div class="stat-value">&ge;99%</div><div class="stat-label">Purity to release</div></div>
+  </div>
 
-<div class="content">
-<h2>Who We Are</h2>
-<p>Vantix Bio is a research peptide supplier built on one non-negotiable principle: <strong>test every batch before it ships.</strong></p>
+  <div class="content">
+    <h2>From Vial to Report</h2>
+    <p>Every Vantix Bio vial carries a batch identifier linked to the analytical documentation for that production batch. Four steps connect the vial in your hand to the laboratory record behind it.</p>
 
-<p>Not one "representative" test per product line. Not an old certificate reused across batches. Every batch gets independent verification before release.</p>
+    <div class="figure">
+      <div class="photo">
+        <img src="images/about/vial-label-closeup.jpg" alt="Vantix Bio research vial. The batch number and QR code on the label are highlighted." width="760" height="734">
+        <span class="hl hl-batch"></span><span class="hl hl-qr"></span>
+        <span class="ln ln-batch"></span><span class="ln ln-qr"></span>
+        <span class="pill pill-batch">Batch no.</span><span class="pill pill-qr">QR code</span>
+      </div>
+      <p class="fig-note">Batch number and QR code on every vial.</p>
+    </div>
 
-<h2>Our Standards</h2>
-<p>Every batch we sell is independently tested by an <strong>ISO 17025 accredited laboratory</strong> — third-party verification with no financial incentive to inflate our numbers.</p>
+    <ol class="chain">
+      <li class="step">
+        <span class="n">Step 1</span>
+        <svg viewBox="0 0 200 110" role="img" aria-label="Label with highlighted batch number">
+          <rect x="8" y="8" width="184" height="94" rx="3" style="fill:#F2F6FA;stroke:var(--navy);stroke-width:1.5"/>
+          <rect x="20" y="20" width="60" height="6" rx="2" style="fill:var(--hairline)"/>
+          <rect x="20" y="34" width="96" height="6" rx="2" style="fill:var(--hairline)"/>
+          <rect x="16" y="54" width="124" height="28" rx="3" style="fill:var(--mark);stroke:var(--accent);stroke-width:1.5"/>
+          <text x="78" y="73" text-anchor="middle" style="font-family:var(--font-data);font-weight:600;font-size:14px;fill:var(--navy)">VX-BPC10-001</text>
+        </svg>
+        <h3>Identify the Batch</h3>
+        <p>Every Vantix Bio vial carries a batch number identifying the production batch it came from.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 2</span>
+        <svg viewBox="0 0 200 110" role="img" aria-label="Report sheet with the same batch number highlighted">
+          <rect x="54" y="6" width="92" height="100" rx="3" style="fill:var(--card);stroke:var(--navy);stroke-width:1.5"/>
+          <rect x="64" y="16" width="44" height="5" rx="2" style="fill:var(--navy)"/>
+          <rect x="64" y="30" width="72" height="15" rx="2" style="fill:var(--mark);stroke:var(--accent);stroke-width:1"/>
+          <text x="100" y="41" text-anchor="middle" style="font-family:var(--font-data);font-weight:600;font-size:8.5px;fill:var(--navy)">VX-BPC10-001</text>
+          <rect x="64" y="55" width="72" height="4" rx="2" style="fill:var(--hairline)"/>
+          <rect x="64" y="65" width="58" height="4" rx="2" style="fill:var(--hairline)"/>
+          <rect x="64" y="75" width="66" height="4" rx="2" style="fill:var(--hairline)"/>
+          <rect x="64" y="92" width="34" height="4" rx="2" style="fill:var(--accent-light)"/>
+        </svg>
+        <h3>Review the Testing</h3>
+        <p>Each production batch is tested by an independent laboratory before release. Reports show the tests run on that batch, such as HPLC purity and net peptide content. The laboratory, methods, and results are named on the report.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 3</span>
+        <svg viewBox="0 0 200 110" role="img" aria-label="Lookup field with a batch number typed in">
+          <rect x="12" y="22" width="176" height="38" rx="6" style="fill:var(--card);stroke:var(--navy);stroke-width:1.5"/>
+          <text x="26" y="46" style="font-family:var(--font-data);font-size:13px;fill:var(--navy)">VX-BPC10-001</text>
+          <rect x="12" y="72" width="88" height="26" rx="6" style="fill:var(--accent)"/>
+          <text x="56" y="89" text-anchor="middle" style="font-family:var(--font-body);font-weight:600;font-size:11px;fill:#fff">Verify</text>
+        </svg>
+        <h3>Verify the Connection</h3>
+        <p>Scan the QR code on the vial or enter the batch number on our verify page to open the report for that batch.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 4</span>
+        <svg viewBox="0 0 200 110" role="img" aria-label="Stack of archived reports">
+          <rect x="62" y="22" width="92" height="76" rx="3" style="fill:var(--bg);stroke:var(--hairline);stroke-width:1.5"/>
+          <rect x="54" y="14" width="92" height="76" rx="3" style="fill:var(--bg);stroke:var(--accent-light);stroke-width:1.5"/>
+          <rect x="46" y="6" width="92" height="76" rx="3" style="fill:var(--card);stroke:var(--navy);stroke-width:1.5"/>
+          <rect x="56" y="18" width="40" height="5" rx="2" style="fill:var(--navy)"/>
+          <rect x="56" y="32" width="70" height="4" rx="2" style="fill:var(--hairline)"/>
+          <rect x="56" y="42" width="56" height="4" rx="2" style="fill:var(--hairline)"/>
+          <rect x="56" y="52" width="64" height="4" rx="2" style="fill:var(--hairline)"/>
+        </svg>
+        <h3>Access the Record</h3>
+        <p>Reports for released batches stay in the archive, so documentation remains available after a batch is no longer current inventory.</p>
+      </li>
+    </ol>
 
-<p><strong>>99% purity</strong> verified by HPLC-PDA<br>
-<strong>LC-MS/MS identity confirmation</strong> (molecular weight + fragmentation)<br>
-<strong>Public COAs</strong> — complete analytical reports with batch-specific results. No login required.</p>
+    <h2>Why Vantix Bio Exists</h2>
+    <p>Third-party testing has become common in the research peptide market. But a certificate for a whole product line, or for an earlier batch, can't tell you what's in the vial you received. You shouldn't have to take it on faith that the label matches the report.</p>
+    <p>We wanted to make that connection clearer. Each Vantix Bio production batch receives its own batch identity. A sample from each sealed production batch goes to an independent third-party laboratory, and the results are tied to that specific batch.</p>
+    <p>When your order arrives, the batch number on the vial gives you a direct path back to those results.</p>
 
-<h2>Why Third-Party Testing?</h2>
-<p>Because independent verification removes conflicts of interest.</p>
+    <h2>Independent Testing, Batch by Batch</h2>
+    <p>We don't rely on a supplier's certificate alone. <strong>Every production batch is tested by an independent third-party laboratory before release.</strong> Each report names the laboratory, the analytical results and the method. One batch, one report, never one certificate reused across batches.</p>
+    <p class="pull">If you can't verify it, you shouldn't sell it. That's the entire philosophy.</p>
 
-<p>ISO 17025 accreditation means the laboratory meets international standards for testing competence. They're audited by external bodies, their methods are validated, and they have no financial relationship with us beyond performing the analysis.</p>
+    <div class="rules">
+      <div class="eyebrow">The Vantix Bio release rules</div>
+      <h3>A batch doesn't ship until the lab says it can.</h3>
+      <div class="sub">No exceptions, no &ldquo;we'll test the next one.&rdquo;</div>
+      <div class="rule-grid">
+        <div class="rule"><b>Pass<i>.</i></b><p><strong>Nothing is sold until it passes</strong> independent third-party testing.</p></div>
+        <div class="rule"><b>99<i>%</i></b><p><strong>Our purity floor.</strong> A batch below 99% purity isn't released.</p></div>
+        <div class="rule"><b>1<i>:</i>1</b><p><strong>One report per batch.</strong> Its own results, tied to its own lot number.</p></div>
+      </div>
+    </div>
 
-<p>When you need data you can stake your research on, you choose a lab that has nothing to gain from telling you what you want to hear.</p>
+    <h2>What We Don't Do</h2>
+    <ul class="nots">
+      <li><span><strong>We don't sell on a manufacturer's word.</strong> A supplier's certificate is a claim. A third-party result on our own batch is evidence.</span></li>
+      <li><span><strong>We don't cherry-pick batches.</strong> Every batch gets tested, not just the ones that look good.</span></li>
+      <li><span><strong>We don't ask you to trust our PDFs.</strong> Each report links straight to the lab's own page for that batch, so you can check it at the source. No report number to copy over and type in.</span></li>
+      <li><span><strong>We don't hide results.</strong> Reports are public, with no login and no request form.</span></li>
+      <li><span><strong>We don't call it &ldquo;representative testing.&rdquo;</strong> One test per product line says nothing about the next batch. Batch-to-batch variability is real, so every batch is tested.</span></li>
+    </ul>
+    <p class="pull">Batch-level testing shouldn't be a premium feature.</p>
 
-<div style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border:2px solid #bae6fd;border-radius:12px;padding:32px 28px;margin:48px 0">
-<h2 style="margin-bottom:20px">What We Don't Do</h2>
+    <h2>The Batch Ledger</h2>
+    <p>Recent batches, straight from the lab: the amount on the label, the amount the lab found, and the purity. Each link goes straight to the report on the lab's own website.</p>
+    <div class="ledger">
+      <div class="lhead"><div>Batch</div><div>Label</div><div>Found</div><div>Purity</div><div>Tested</div><div>Report</div></div>
+      <div class="lrow"><div class="lprod"><b>VX-3R 20 mg</b><span><em class="pass" style="font-style:normal">Passed</em>Lot …-003</span></div><div><div class="k">Label</div><div class="m">20 mg</div></div><div><div class="k">Found</div><div class="m">22.88 mg</div></div><div><div class="k">Purity</div><div class="pur">99.823%</div></div><div><div class="k">Tested</div><div class="m">Sep 4, 2026</div></div><div class="rcell"><a class="rep" href="https://verify.janoshik.com/tests/228666-Retatrutide_20mg_AJRU2PQVJRR3" target="_blank" rel="noopener">Lab report &#8599;</a></div></div>
+      <div class="lrow"><div class="lprod"><b>VX-3R 20 mg</b><span><em class="pass" style="font-style:normal">Passed</em>Lot …-002</span></div><div><div class="k">Label</div><div class="m">20 mg</div></div><div><div class="k">Found</div><div class="m">21.95 mg</div></div><div><div class="k">Purity</div><div class="pur">99.440%</div></div><div><div class="k">Tested</div><div class="m">Jun 1, 2026</div></div><div class="rcell"><a class="rep" href="https://janoshik.com/tests/165868-Retatrutide_20mg_JQQ8BZLM8YKS" target="_blank" rel="noopener">Lab report &#8599;</a></div></div>
+      <div class="lrow"><div class="lprod"><b>VX-2T 30 mg</b><span><em class="pass" style="font-style:normal">Passed</em>Lot …-001</span></div><div><div class="k">Label</div><div class="m">30 mg</div></div><div><div class="k">Found</div><div class="m">32.35 mg</div></div><div><div class="k">Purity</div><div class="pur">99.891%</div></div><div><div class="k">Tested</div><div class="m">Jun 1, 2026</div></div><div class="rcell"><a class="rep" href="https://verify.janoshik.com/tests/165870-Tirzepatide_30mg_P13VV4QMNVV7" target="_blank" rel="noopener">Lab report &#8599;</a></div></div>
+      <div class="lrow"><div class="lprod"><b>GHK-Cu 100 mg</b><span><em class="pass" style="font-style:normal">Passed</em>Lot VX-GHK100-001</span></div><div><div class="k">Label</div><div class="m">100 mg</div></div><div><div class="k">Found</div><div class="m">108.58 mg</div></div><div><div class="k">Purity</div><div class="pur">99.958%</div></div><div><div class="k">Tested</div><div class="m">Jun 1, 2026</div></div><div class="rcell"><a class="rep" href="https://verify.janoshik.com/tests/165872-GHKCu_100mg_UW7KTUA5BDFS" target="_blank" rel="noopener">Lab report &#8599;</a></div></div>
+      <div class="lrow"><div class="lprod"><b>MOTS-c 10 mg</b><span><em class="pass" style="font-style:normal">Passed</em>Lot VX-MOTS10-001</span></div><div><div class="k">Label</div><div class="m">10 mg</div></div><div><div class="k">Found</div><div class="m">10.55 mg</div></div><div><div class="k">Purity</div><div class="pur">99.402%</div></div><div><div class="k">Tested</div><div class="m">May 29, 2026</div></div><div class="rcell"><a class="rep" href="https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC" target="_blank" rel="noopener">Lab report &#8599;</a></div></div>
+      <div class="lrow"><div class="lprod"><b>NAD+ 1000 mg</b><span><em class="pass" style="font-style:normal">Passed</em>Lot VX-NAD1K-001</span></div><div><div class="k">Label</div><div class="m">1000 mg</div></div><div><div class="k">Found</div><div class="m">1042.81 mg</div></div><div><div class="k">Purity</div><div class="pur">Content</div></div><div><div class="k">Tested</div><div class="m">May 28, 2026</div></div><div class="rcell"><a class="rep" href="https://verify.janoshik.com/tests/165876-NAD_1000mg_B9A5W5KYHMGU" target="_blank" rel="noopener">Lab report &#8599;</a></div></div>
+    </div>
+    <p class="lnote">Reports shown are from Janoshik. Purity by HPLC. &ldquo;Found&rdquo; is the lab-measured peptide content per vial. NAD+ is a content-only analysis, so no purity figure applies.</p>
 
-<p style="margin-bottom:18px;line-height:1.7"><strong style="color:var(--navy)">We don't sell manufacturer claims.</strong><br>Every product enters our system with zero assumptions. No COAs, no purity data, no "trust us." We verify first, label second.</p>
+    <h2>See the Evidence</h2>
+    <p>We think analytical data is more useful than broad quality claims. That's why we make batch documentation accessible rather than asking researchers to rely on the specifications displayed on a product page.</p>
+    <p>You can review current COAs, identify the testing laboratory and methods reported, and use the batch number on your vial to find its corresponding record. Each one links straight to the report on the laboratory's own website, so you're not relying on a PDF we host. <span style="white-space:nowrap">No login required.</span></p>
+    <div class="figure coa">
+      <a href="coa/VBI-BPC10-20260914-01-page1.jpg" target="_blank" rel="noopener"><img src="images/about/coa-sample.jpg" alt="Certificate of analysis for a BPC-157 10mg batch showing the laboratory, lot number, purity and net peptide content results" width="1000" height="895"></a>
+      <p class="fig-note">Batch report for a BPC-157 10mg lot. Tap to enlarge.</p>
+    </div>
+    <p><a class="btn" href="verify.html">Browse Batch Reports &rarr;</a></p>
 
-<p style="margin-bottom:18px;line-height:1.7"><strong style="color:var(--navy)">We don't cherry-pick batches.</strong><br>Samples are randomly selected from sealed production runs. What we test is what you receive.</p>
+    <h2>What to Expect From Us</h2>
+    <div class="expect">
+      <div>
+        <h3>Consistency you can check</h3>
+        <p>Every batch has its own report, so you can compare one batch to the next yourself.</p>
+      </div>
+      <div>
+        <h3>Fast shipping</h3>
+        <p>Orders typically ship within one business day. Orders over $150 ship free.</p>
+      </div>
+      <div>
+        <h3>Answers from a person</h3>
+        <p>Questions about a batch, a report, or an order go to <a class="inline" href="contact.html">support@vantixbio.com</a> and get a direct reply from a member of our team.</p>
+      </div>
+    </div>
 
-<p style="margin-bottom:18px;line-height:1.7"><strong style="color:var(--navy)">We don't hide results.</strong><br>Complete COAs are published to our verification portal before batch release. Full analytical data — all public, all traceable.</p>
+    <h2>Research Use Only</h2>
+    <div class="ruo">
+      <p>Vantix Bio supplies research materials strictly for laboratory research and analytical purposes. Our products are not FDA-approved drugs and are not intended for human or veterinary consumption, or for any diagnostic or therapeutic use. We don't give medical advice, dosing guidance, or recommendations for personal use.</p>
+      <p>"For research purposes only" isn't just a legal disclaimer. It's our lane, and we stay in it.</p>
+    </div>
 
-<p style="margin-bottom:0;line-height:1.7"><strong style="color:var(--navy)">We don't do "representative testing."</strong><br>One test per product line is meaningless. Batch variability is real. We test every batch independently.</p>
-</div>
-
-<h2>Shipping</h2>
-<p>Orders ship next business day. Period.</p>
-
-<p><strong>Standard Shipping:</strong> $9.99 (3–5 business days)<br>
-<strong>Free Shipping:</strong> Orders over $150</p>
-
-<p>We currently ship within the United States only.</p>
-
-<h2>Research Use Only</h2>
-<p>All products are sold for <strong>research purposes only</strong> (RUO). They are not FDA-approved, not for human consumption, and not intended to diagnose, treat, cure, or prevent any disease.</p>
-
-<p>Vantix Bio does not provide medical advice, dosing guidance, or recommendations for use. We are not a compounding pharmacy, clinic, or healthcare provider.</p>
-
-<p>"For research purposes only" isn't just a legal disclaimer — it's our lane, and we stay in it.</p>
-
-<h2>Contact</h2>
-<p>Questions about verification, orders, or testing protocols? Email <a href="mailto:support@vantixbio.com" style="color:var(--accent);text-decoration:none;font-weight:600">support@vantixbio.com</a></p>
-</div>
+    <div class="closer">
+      <h3>Have a vial? Check its batch.</h3>
+      <p>Scan the QR code or enter the batch number on the label.</p>
+      <a class="btn" href="verify.html">Verify a Batch &rarr;</a>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -280,7 +508,7 @@ const menuClose = document.getElementById('menuClose');
 if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
 if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
-if (cartBtn) cartBtn.onclick = () => alert('Cart available mid-May 2026');
+if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 </script>
 /* v1778455127 */
 
