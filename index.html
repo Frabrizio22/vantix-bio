@@ -87,6 +87,13 @@ h1 em,h2 em{font-style:italic;font-weight:300;color:var(--signal-bright)}
 
 
 .header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}@media(min-width:768px){.header-nav{padding:20px 0}}
+/* Sticky-on-scroll-up header. Fixed (not sticky) because html+body both set overflow-x:hidden, which breaks position:sticky. #hdrSpace holds the header's height so content doesn't jump; JS sets the exact height. */
+.hdr-space{height:64px}@media(min-width:768px){.hdr-space{height:82px}}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);transition:transform .3s ease,box-shadow .2s ease}
+.site-header.is-hidden{transform:translateY(-100%)}
+.site-header.is-stuck{box-shadow:0 2px 12px rgba(15,27,45,.10)}
+#hdrShop.is-quiet{display:none}
+@media(prefers-reduced-motion:reduce){.site-header{transition:none}}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
 .logo-text{font-weight:600;font-size:17px;letter-spacing:-.01em}
 .logo-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.3em;color:rgba(10,22,40,.5);margin-top:2px}
@@ -424,6 +431,8 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 
 </div>
 
+<div id="hdrSpace" class="hdr-space">
+<header id="siteHeader" class="site-header">
 <div class="container">
 <nav class="header-nav">
 <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
@@ -457,12 +466,14 @@ ageBtn.addEventListener('click', function() { if (ageBox.checked) acceptAgeGate(
 <button class="icon-btn" id="searchBtn" aria-label="Search">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
 </button>
-<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026" style="position:relative">
+<button class="icon-btn" id="cartBtn" aria-label="Cart" style="position:relative">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
 </button>
-<a href="shop.html" class="btn btn-dark">Shop Now</a>
+<a href="shop.html" class="btn btn-dark" id="hdrShop">Shop Now</a>
 </div>
 </nav>
+</div>
+</header>
 </div>
 
 <!-- NAD+ Promo Banner removed -->
@@ -1104,6 +1115,24 @@ menuClose.onclick=(e)=>{e.stopPropagation();menuOverlay.classList.remove('active
 menuOverlay.onclick=(e)=>{if(e.target===menuOverlay)menuOverlay.classList.remove('active')};
 searchBtn.onclick=()=>{menuOverlay.classList.add('active');setTimeout(()=>searchInput.focus(),100)};
 cartBtn.onclick=()=>window.location.href='checkout.html';
+
+/* Header: slides away on scroll down, back on scroll up. Header "Shop Now" is hidden while the hero "Shop catalog" button is on screen. */
+(function(){
+const h=document.getElementById('siteHeader'),sp=document.getElementById('hdrSpace'),shop=document.getElementById('hdrShop');
+if(!h||!sp)return;
+const size=()=>{sp.style.height=h.offsetHeight+'px'};
+size();window.addEventListener('resize',size);window.addEventListener('load',size);
+let last=Math.max(0,window.pageYOffset),ticking=false;
+const update=()=>{
+const y=Math.max(0,window.pageYOffset),d=y-last;
+h.classList.toggle('is-stuck',y>8);
+if(menuOverlay.classList.contains('active')||y<=8){h.classList.remove('is-hidden');last=y}
+else if(Math.abs(d)>6){h.classList.toggle('is-hidden',d>0&&y>h.offsetHeight);last=y}
+ticking=false};
+window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
+const heroBtn=document.querySelector('.hp-cta .hp-btn');
+if(shop&&heroBtn&&'IntersectionObserver' in window){new IntersectionObserver(es=>{shop.classList.toggle('is-quiet',es[0].isIntersecting)}).observe(heroBtn)}
+})();
 
 const waitlistBtn=document.getElementById('waitlistBtn'),waitlistModal=document.getElementById('waitlistModal'),waitlistModalClose=document.getElementById('waitlistModalClose'),waitlistForm=document.getElementById('waitlistForm'),waitlistFormContainer=document.getElementById('waitlistFormContainer'),waitlistSuccess=document.getElementById('waitlistSuccess');
 
