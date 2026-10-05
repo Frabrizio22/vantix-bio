@@ -1,0 +1,52 @@
+name: Deploy site
+
+# Publishes only the public website files to GitHub Pages.
+# Docs, SQL, scripts, worker and email source stay in the repo but are not served.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble public site
+        run: |
+          mkdir _site
+          # Only tracked files, minus private folders, scripts, docs, SQL and backups.
+          git ls-files -z \
+            | grep -z -P -v '^(\.github/|\.wrangler/|node_modules/|supabase/|worker/|email/|email_templates/|sheet_tabs/|preview/|components/)|^(?!shop_products_data\.js$)[^/]+\.js$|\.(md|sql|py|sh|csv|patch|before_banner_revert)$|(^|/)package(-lock)?\.json$|^\.deploy-trigger$|^\.gitignore$' \
+            | xargs -0 cp --parents -t _site
+
+      - name: Guard - fail if anything private slipped in
+        run: |
+          bad=$(find _site -type f \( -name '*.md' -o -name '*.sql' -o -name '*.py' -o -name '*.sh' -o -name '*.csv' -o -name '*.patch' -o -name '*.before_banner_revert' -o -name 'package*.json' \))
+          if [ -n "$bad" ]; then echo "Private files in site output:"; echo "$bad"; exit 1; fi
+          if grep -rIl 'service_role' _site; then echo "service_role found in site output"; exit 1; fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
