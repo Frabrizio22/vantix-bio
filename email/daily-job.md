@@ -1,8 +1,8 @@
 # Daily email job (draft-only)
 
-Runs weekdays 8:07 AM Pacific as a scheduled task. It never sends. It creates Gmail drafts in support@vantixbio.com for Frabrizio to review, and records each draft in `email_log` so the 14-day cap and "do not repeat" rules hold.
+Runs weekdays 8:07 AM Pacific as a scheduled task. It never sends. It writes each email to the Supabase `email_queue` table; the Apps Script `email/queue_to_drafts.gs` turns each row into a Gmail draft in support@vantixbio.com (clean links, within 10 minutes) for Frabrizio to review. Do not use the Gmail connector create_draft: it rewrites links into Google redirect pages. The job records each queued email in `email_log` so the 14-day cap and "do not repeat" rules hold.
 
-Needs: `supabase/email_automation.sql` applied (tables `email_log`, `email_exclusions`, view `customer_segments`) and `supabase/email_optouts.sql`.
+Needs: `supabase/email_queue.sql`, `supabase/email_automation.sql` applied (tables `email_log`, `email_exclusions`, view `customer_segments`) and `supabase/email_optouts.sql`.
 
 ## Who enters flows
 Only customers whose latest order is on or after 2026-10-03 (new orders from now on). Earlier customers are handled by one-time campaigns.
