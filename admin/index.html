@@ -271,7 +271,7 @@ function customers() {
   });
   const all = [...m.values()].map((c) => { c.dates.sort((a, b) => a - b); c.n = c.dates.length; c.first = c.dates[0]; c.last = c.dates[c.n - 1]; c.gaps = c.dates.slice(1).map((d, i) => (d - c.dates[i]) / 864e5); return c; });
   const gaps = all.flatMap((c) => c.gaps), med = gaps.length >= 3 ? median(gaps) : null, now = Date.now();
-  all.forEach((c) => { c.seg = c.n > 1 ? 'Repeat' : 'One-time'; c.due = med != null && c.n > 1 && (now - c.last) / 864e5 > med; if (c.due) c.seg = 'Due to reorder'; });
+  all.forEach((c) => { c.seg = c.n > 1 ? 'Repeat' : 'One-time'; c.own = c.n > 1 ? median(c.gaps) : null; c.due = c.own != null && (now - c.last) / 864e5 > c.own; if (c.due) c.seg = 'Due to reorder'; });
   return { list: all.sort((a, b) => b.last - a.last), med };
 }
 const lowStock = () => S.products.filter((p) => p.active && p.stock_tracked && !p.is_kit && p.stock <= p.low_stock_threshold);
@@ -586,7 +586,7 @@ function viewCustomers() {
   const list = cu.list.filter((c) => (S.cseg === 'All' || c.seg === S.cseg) && (!q || (c.name + c.email + c.state).toLowerCase().includes(q)));
   const rep = cu.list.filter((c) => c.n > 1).length, due = cu.list.filter((c) => c.due).length;
   const kpi = (l, v, s) => '<div class="card kpi"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
-  return chanChips() + '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Worth a personal email') + '</div>' +
+  return chanChips() + '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Past their own usual gap') + '</div>' +
     '<div class="row"><label class="f" style="flex:1;min-width:220px;max-width:460px"><span style="position:absolute;left:-9999px">Search customers</span><input id="cs" type="search" data-in="_cq" value="' + esc(S.cq) + '" placeholder="Search customers"></label></div>' +
     '<div class="chips">' + ['All', 'Repeat', 'Due to reorder', 'One-time'].map((n) => '<button class="chip' + (S.cseg === n ? ' on' : '') + '" data-act="cseg" data-arg="' + n + '">' + n + ' <i>' + (n === 'All' ? cu.list.length : cu.list.filter((c) => c.seg === n).length) + '</i></button>').join('') + '</div>' +
     (list.length ? '<div class="tw"><table><thead><tr><th>Customer</th><th>State</th><th class="r">Orders</th><th class="r">Spent</th><th>Last order</th><th>Customer since</th><th>Segment</th></tr></thead><tbody>' + list.map((c) => '<tr><td><b>' + esc(c.name) + '</b><div class="sub">' + esc(c.email) + '</div></td><td>' + esc(c.state || '') + '</td><td class="r num">' + c.n + '</td><td class="r num">' + usd(c.spend) + '</td><td>' + esc(fday(dkey(c.last))) + '</td><td>' + esc(fday(dkey(c.first))) + '</td><td><span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span></td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No customers match.</div>');
