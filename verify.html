@@ -1080,12 +1080,16 @@ const matches = Object.keys(batches)
   .slice(0, 10); // Show max 10 suggestions
 
 if (matches.length > 0) {
-suggestionsDiv.innerHTML = matches.map(k => `
+suggestionsDiv.innerHTML = matches.map(k => {
+const batch = batches[k];
+const displayName = batch.name || (batch.alias && batches[batch.alias] ? batches[batch.alias].name : '');
+return `
 <div class="suggestion-item" onclick="selectBatch('${k}')">
 <div class="suggestion-batch">${k}</div>
-<div class="suggestion-name">${batches[k].name}</div>
+${displayName ? `<div class="suggestion-name">${displayName}</div>` : ''}
 </div>
-`).join('');
+`;
+}).join('');
 suggestionsDiv.classList.add('active');
 // Enable search if exact match exists
 if (matches.some(k => k === val)) {
