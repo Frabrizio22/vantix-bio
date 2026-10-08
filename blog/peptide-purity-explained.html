@@ -30,41 +30,7 @@
 <!-- Structured Data / JSON-LD -->
 <!-- Breadcrumb Schema -->
 <!-- FAQ Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "What does >99% peptide purity mean?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Peptide purity is the percentage of the target peptide relative to everything else in the vial. A 99% pure peptide contains 1% impurities (related sequences, truncated chains, aggregates, counter-ions, and water content). It's measured using HPLC (High-Performance Liquid Chromatography)."
-    }
-  },{
-    "@type": "Question",
-    "name": "How is peptide purity measured?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Peptide purity is measured using HPLC (High-Performance Liquid Chromatography). The sample is dissolved in solvent, passed through a column under high pressure, and components are separated and detected with UV light. Purity = (Target peptide peak area / Total peak areas) × 100."
-    }
-  },{
-    "@type": "Question",
-    "name": "Why does third-party testing matter for peptide purity?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Third-party testing removes the conflict of interest. An independent laboratory has no financial incentive to inflate results—their reputation depends on accuracy. Manufacturer testing creates a conflict because they profit from passing results."
-    }
-  },{
-    "@type": "Question",
-    "name": "What's the difference between purity and content?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Purity measures what percentage of the peptide material is the correct sequence (99% = very pure). Content measures how many milligrams of peptide material are in the vial (30.09mg vs 30mg labeled). You can have high purity but low content, or vice versa."
-    }
-  }]
-}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does >99% peptide purity mean?", "acceptedAnswer": {"@type": "Answer", "text": "Purity is the percentage of the target peptide relative to the other peptide-related material HPLC detects. At 99%, about 1% of the detected peak area is other peptide-related species such as truncated sequences or by-products. Counter-ions and water are not counted; they affect net peptide content instead."}}, {"@type": "Question", "name": "How is peptide purity measured?", "acceptedAnswer": {"@type": "Answer", "text": "By HPLC (High-Performance Liquid Chromatography). The sample is dissolved in solvent, passed through a column under high pressure, and components are separated and detected with UV light. Purity = (target peptide peak area / total peak areas) x 100."}}, {"@type": "Question", "name": "Why does third-party testing matter for peptide purity?", "acceptedAnswer": {"@type": "Answer", "text": "Independent testing reduces the conflict of interest, because the lab is not the party selling the product and its credibility depends on accurate reports. Manufacturer-only testing creates a conflict because the producer profits from passing results. Since vendors usually pay the lab, check that a report can be verified with the lab itself."}}, {"@type": "Question", "name": "What's the difference between purity and content?", "acceptedAnswer": {"@type": "Answer", "text": "Purity is what percentage of the peptide material is the correct sequence (99% is very pure). Content is how many milligrams of peptide material are in the vial (30.09 mg versus 30 mg labeled). A vial can have high purity but low content, or the reverse."}}]}</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
 <link href="../favicon.svg" rel="icon" type="image/svg+xml"/>
@@ -94,20 +60,20 @@
 <div class="eyebrow"><span>Research Guide</span><span class="dot"></span><span class="quiet">5 min read</span></div>
 <h1>Peptide Purity Explained: What &gt;99% Actually Means</h1>
 <p class="lede">Understanding purity measurements, testing methods, and why third-party verification matters for research peptide quality.</p>
-<div class="byline"><div class="mark">VB</div><div><strong><a href="../about.html#editorial-standards">Vantix Bio Research Team</a></strong><time datetime="2026-10-08">Published Oct 6, 2026 · Updated Oct 8, 2026</time></div></div><section aria-label="Key takeaways" class="takeaways"><p class="takeaways-title">Key takeaways</p><ul><li>Purity is the share of the target peptide relative to other peptide-related species in the sample, measured by HPLC peak area.</li><li>Purity is not net content: a vial can be highly pure and still hold less peptide by weight than its label states.</li><li>A purity number only means something if an independent lab tested the specific batch and you can verify the report yourself.</li><li>For most in vitro work, &gt;98% is sufficient; &gt;99% matters most for concentration-sensitive assays.</li></ul></section><details class="toc"><summary>On this page</summary><ol><li><a href="#what-purity-measures">What Purity Measures</a></li><li><a href="#how-purity-is-measured-hplc">How Purity Is Measured: HPLC</a></li><li><a href="#different-purity-thresholds">Different Purity Thresholds</a></li><li><a href="#why-third-party-testing-matters">Why Third-Party Testing Matters</a></li><li><a href="#what-high-purity-tells-you-and-what-it-doesn-t">What High Purity Tells You (And What It Doesn't)</a></li><li><a href="#practical-implications-for-research">Practical Implications for Research</a></li><li><a href="#how-to-verify-purity-claims">How to Verify Purity Claims</a></li><li><a href="#bottom-line">Bottom Line</a></li></ol></details>
+<div class="byline"><div class="mark">VB</div><div><strong><a href="../about.html#editorial-standards">Vantix Bio Research Team</a></strong><time datetime="2026-10-08">Published Oct 6, 2026 · Updated Oct 8, 2026</time></div></div><section aria-label="Key takeaways" class="takeaways"><p class="takeaways-title">Key takeaways</p><ul><li>Purity is the share of the target peptide relative to other peptide-related species in the sample, measured by HPLC peak area.</li><li>Purity is not net content: a vial can be highly pure and still hold less peptide by weight than its label states.</li><li>A purity number only means something if an independent lab tested the specific batch and you can verify the report yourself.</li><li>For most in vitro work, &gt;98% is sufficient; &gt;99% matters most for concentration-sensitive assays.</li></ul></section><details class="toc"><summary>On this page</summary><ol><li><a href="#what-purity-measures">What Purity Measures</a></li><li><a href="#how-purity-is-measured-hplc">How Purity Is Measured: HPLC</a></li><li><a href="#different-purity-thresholds">Different Purity Thresholds</a></li><li><a href="#why-third-party-testing-matters">Why Third-Party Testing Matters</a></li><li><a href="#what-high-purity-tells-you-and-what-it-doesn-t">What High Purity Tells You (And What It Doesn't)</a></li><li><a href="#practical-implications-for-research">Practical Implications for Research</a></li><li><a href="#how-to-verify-purity-claims">How to Verify Purity Claims</a></li><li><a href="#bottom-line">Bottom Line</a></li><li><a href="#faq">Frequently Asked Questions</a></li></ol></details>
 <div class="article-body">
 <p>When you see "<strong>&gt;99% pure</strong>" on a peptide COA, what does that actually mean? And more importantly—how do you know it's true?</p>
 <p>Purity is the most critical specification for research peptides. But the number alone tells you nothing without understanding <em>how</em> it was measured, <em>what</em> was measured, and <em>who</em> did the testing.</p>
 <h2 id="what-purity-measures">What Purity Measures</h2>
-<p>Peptide purity is the <strong>percentage of the target peptide</strong> relative to everything else in the vial. The remaining percentage consists of:</p>
+<p>Peptide purity is the <strong>percentage of the target peptide</strong> relative to the other peptide-related material that HPLC detects in the sample. The remainder consists of:</p>
 <ul>
 <li><strong>Related peptide sequences</strong> — synthesis by-products with similar structures</li>
 <li><strong>Truncated sequences</strong> — incomplete peptide chains</li>
 <li><strong>Aggregates</strong> — multiple peptide molecules bound together</li>
-<li><strong>Counter-ions</strong> — salts from synthesis (acetate, TFA)</li>
-<li><strong>Water content</strong> — residual moisture in lyophilized powder</li>
+
+
 </ul>
-<p>A 99% pure peptide contains 1% of these impurities. A 95% pure peptide contains 5%.</p>
+<p>A 99% pure peptide has 1% other peptide-related species by HPLC area. A 95% pure peptide has 5%. Counter-ions (acetate, TFA) and water are not counted in this number because they are largely invisible to UV detection; they reduce <em>net peptide content</em> instead, which is covered below.</p>
 <div class="callout">
 <h3>Purity ≠ Content</h3>
 <p>Purity and content are different measurements:</p>
@@ -149,15 +115,15 @@
 <div class="comparison-card">
 <h4>High Purity</h4>
 <div class="value">&gt;99%</div>
-<p class="note">Required for concentration-dependent assays, receptor binding studies, and work where impurities could confound results. Standard for commercial research peptides.</p>
+<p class="note">Often preferred for concentration-dependent assays, receptor-binding studies, and work where impurities could confound results.</p>
 </div>
 </div>
 <p>For most research applications, <strong>&gt;98% purity is sufficient</strong>. The jump from 98% to 99%+ requires additional purification steps that increase cost but may not meaningfully improve experimental outcomes—unless your protocol is sensitive to trace impurities.</p>
 <h2 id="why-third-party-testing-matters">Why Third-Party Testing Matters</h2>
 <p>Anyone can generate a COA. The critical question is: <em>who tested it?</em></p>
 <p><strong>Manufacturer testing:</strong> The company that synthesized the peptide tests it themselves. Conflict of interest—they profit from passing results.</p>
-<p><strong>Third-party testing:</strong> An independent laboratory with established track records tests the peptide. No financial incentive to inflate results. Lab credibility depends on accuracy.</p>
-<p>Third-party verification removes the incentive to manipulate data. Established labs with 10-15+ year track records stake their reputation on honest reporting. If they're caught falsifying results, they lose client trust and business.</p>
+<p><strong>Third-party testing:</strong> An independent laboratory with established track records tests the peptide. The lab has no stake in the product's sales, and its credibility depends on accurate reports.</p>
+<p>Independent testing reduces the incentive to manipulate data, because the lab is not the party selling the product. It is not a guarantee: the vendor usually pays the lab, which is why a report you can verify with the lab itself matters more than the logo on it.</p>
 <p><a href="batch-level-testing.html">Learn how to verify peptide purity claims</a>.</p>
 <div class="callout warning">
 <h3>Verification Theater</h3>
@@ -167,7 +133,7 @@
 <h2 id="what-high-purity-tells-you-and-what-it-doesn-t">What High Purity Tells You (And What It Doesn't)</h2>
 <p><strong>What &gt;99% purity confirms:</strong></p>
 <ul>
-<li>The peptide was synthesized correctly</li>
+<li>Most of the detected peptide material is a single species</li>
 <li>Purification removed most by-products</li>
 <li>The sample is clean enough for research use</li>
 </ul>
@@ -198,7 +164,7 @@
 <ul>
 <li><strong>Batch ID on every vial label:</strong> ties that vial to one specific batch record</li>
 <li><strong>Independent third-party COA:</strong> issued for that batch by an outside laboratory</li>
-<li><strong>Public verification:</strong> QR code links to lab's direct verification portal</li>
+<li><strong>Public verification:</strong> scan the QR code to open the batch report, with a link to the original third-party report</li>
 <li><strong>Full test data:</strong> HPLC purity, LC-MS identity, net peptide content and LAL endotoxin, published per batch</li>
 </ul>
 <p><a href="../verify.html">Verify a batch →</a></p>
@@ -217,7 +183,13 @@
 <div class="related-links">
 </div>
 </div>
-<div class="cta-box"><strong>Every Batch Tested. Every Result Verifiable.</strong><p>Every Vantix Bio batch is independently tested for HPLC purity, LC-MS identity, net peptide content and LAL endotoxin, and the report is tied to the batch ID printed on your vial.</p><div class="cta-buttons"><a class="btn-primary" href="../verify.html">Verify a Batch</a><a class="btn-secondary" href="../shop.html">View Catalog</a></div></div><aside aria-label="Keep reading" class="related"><h3>Keep reading</h3>
+<h2 id="faq">Frequently Asked Questions</h2>
+<div class="faq-section">
+<details><summary>What does &gt;99% peptide purity mean?</summary><p>Purity is the percentage of the target peptide relative to the other peptide-related material HPLC detects. At 99%, about 1% of the detected peak area is other peptide-related species such as truncated sequences or by-products. Counter-ions and water are not counted; they affect net peptide content instead.</p></details>
+<details><summary>How is peptide purity measured?</summary><p>By HPLC (High-Performance Liquid Chromatography). The sample is dissolved in solvent, passed through a column under high pressure, and components are separated and detected with UV light. Purity = (target peptide peak area / total peak areas) x 100.</p></details>
+<details><summary>Why does third-party testing matter for peptide purity?</summary><p>Independent testing reduces the conflict of interest, because the lab is not the party selling the product and its credibility depends on accurate reports. Manufacturer-only testing creates a conflict because the producer profits from passing results. Since vendors usually pay the lab, check that a report can be verified with the lab itself.</p></details>
+<details><summary>What's the difference between purity and content?</summary><p>Purity is what percentage of the peptide material is the correct sequence (99% is very pure). Content is how many milligrams of peptide material are in the vial (30.09 mg versus 30 mg labeled). A vial can have high purity but low content, or the reverse.</p></details>
+</div><div class="cta-box"><strong>Every Batch Tested. Every Result Verifiable.</strong><p>Every Vantix Bio batch is independently tested for HPLC purity, LC-MS identity, net peptide content and LAL endotoxin, and the report is tied to the batch ID printed on your vial.</p><div class="cta-buttons"><a class="btn-primary" href="../verify.html">Verify a Batch</a><a class="btn-secondary" href="../shop.html">View Catalog</a></div></div><aside aria-label="Keep reading" class="related"><h3>Keep reading</h3>
 <div class="related-grid">
 <a class="related-card" href="how-to-read-hplc-chromatogram.html"><span class="related-category">Analytical Methods</span><h3>How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification</h3></a>
 <a class="related-card" href="batch-level-testing.html"><span class="related-category">Verification Standards</span><h3>Why Most Peptide COAs Don't Mean What You Think</h3></a>

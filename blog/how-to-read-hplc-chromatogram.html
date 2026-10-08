@@ -33,54 +33,7 @@
 <!-- Open Graph -->
 <!-- Structured Data -->
 <!-- FAQPage Schema -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What's a good purity for research peptides?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "≥98% is the standard target for high-quality research peptides; ≥99% is preferred for sensitive analytical work. A common industry benchmark for research-grade peptides is ≥95% purity, with no single impurity above 1-2%."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why does retention time change between labs?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Retention time depends on the column type, mobile phase composition, gradient profile, and temperature. A peptide might elute at 12 minutes in one lab's method and 18 minutes in another's. Retention time is reproducible within a method, but not universal across labs."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can HPLC detect endotoxins?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Endotoxins (bacterial lipopolysaccharides) don't absorb at 214 nm and typically don't resolve well on reversed-phase HPLC columns. Endotoxin detection requires a separate LAL (Limulus Amebocyte Lysate) assay."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What if a COA shows purity by HPLC but no chromatogram?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Without the chromatogram, you can't verify how purity was calculated or check for red flags. Legitimate third-party labs always include the raw trace. If it's missing, the claim is unverifiable."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does high HPLC purity mean the peptide is correct?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Not necessarily. HPLC confirms purity (% target compound) but doesn't confirm identity (whether it's the right compound). For that, you need mass spectrometry. A sample can be 99% pure and still be the wrong peptide."
-          }
-        }
-      ]
-    }
-    </script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's a good purity for research peptides?", "acceptedAnswer": {"@type": "Answer", "text": "≥98% is the standard target for high-quality research peptides; ≥99% is preferred for sensitive analytical work. A common industry benchmark for research-grade peptides is ≥95% purity, with no single impurity above 1-2%. Purity below 95% may indicate synthesis issues or degradation."}}, {"@type": "Question", "name": "Why does retention time change between labs?", "acceptedAnswer": {"@type": "Answer", "text": "Retention time depends on the column type, mobile phase composition, gradient profile, and temperature. A peptide might elute at 12 minutes in one lab's method and 18 minutes in another's. Retention time is reproducible within a method, but not universal across labs."}}, {"@type": "Question", "name": "Can HPLC detect endotoxins?", "acceptedAnswer": {"@type": "Answer", "text": "No. Endotoxins (bacterial lipopolysaccharides) don't absorb at 214 nm and typically don't resolve well on reversed-phase HPLC columns. Endotoxin detection requires a separate LAL (Limulus Amebocyte Lysate) assay."}}, {"@type": "Question", "name": "What if a COA shows purity \"by HPLC\" but no chromatogram?", "acceptedAnswer": {"@type": "Answer", "text": "Without the chromatogram, you can't verify how purity was calculated or check for red flags. A third-party HPLC report normally includes the trace. If it's missing, ask for it; without it the claim is unverifiable."}}, {"@type": "Question", "name": "Does high HPLC purity mean the peptide is correct?", "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily. HPLC confirms purity (% target compound) but doesn't confirm identity (whether it's the right compound). For that, you need mass spectrometry. A sample can be 99% pure and still be the wrong peptide."}}]}</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -115,7 +68,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="eyebrow"><span>Analytical Methods</span><span class="dot"></span><span class="quiet">9 min read</span></div>
 <h1>How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification</h1>
 <p class="lede">When you receive a Certificate of Analysis (COA) for a research peptide, the HPLC chromatogram is the visual proof of purity. But if you've never interpreted one, the graph can look cryptic — a series of peaks that seem to require a chemistry degree to decode.</p>
-<div class="byline"><div class="mark">VB</div><div><strong><a href="../about.html#editorial-standards">Vantix Bio Research Team</a></strong><time datetime="2026-10-08">Published May 23, 2026 · Updated Oct 8, 2026</time></div></div><section aria-label="Key takeaways" class="takeaways"><p class="takeaways-title">Key takeaways</p><ul><li>Purity comes from the area under the main peak relative to the total area of all peaks.</li><li>Small side peaks (under about 1% each) are normal; several large peaks are a red flag.</li><li>HPLC measures purity only. It does not confirm identity or detect endotoxin.</li><li>Retention time depends on the method, so compare traces only within the same method.</li></ul></section><details class="toc"><summary>On this page</summary><ol><li><a href="#what-is-hplc-and-why-does-it-matter">What Is HPLC and Why Does It Matter?</a></li><li><a href="#anatomy-of-an-hplc-chromatogram">Anatomy of an HPLC Chromatogram</a></li><li><a href="#reading-a-real-chromatogram-what-to-check">Reading a Real Chromatogram: What to Check</a></li><li><a href="#worked-example-reading-a-real-coa">Worked Example: Reading a Real COA</a></li><li><a href="#red-flags-when-a-chromatogram-looks-wrong">Red Flags: When a Chromatogram Looks Wrong</a></li><li><a href="#why-214nm-wavelength-matters">Why 214nm Wavelength Matters</a></li><li><a href="#what-hplc-can-t-tell-you">What HPLC Can't Tell You</a></li><li><a href="#what-janoshik-coas-show">What Janoshik COAs Show</a></li><li><a href="#summary-the-checklist">Summary: The Checklist</a></li><li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li></ol></details>
+<div class="byline"><div class="mark">VB</div><div><strong><a href="../about.html#editorial-standards">Vantix Bio Research Team</a></strong><time datetime="2026-10-08">Published May 23, 2026 · Updated Oct 8, 2026</time></div></div><section aria-label="Key takeaways" class="takeaways"><p class="takeaways-title">Key takeaways</p><ul><li>Purity comes from the area under the main peak relative to the total area of all peaks.</li><li>Small side peaks (under about 1% each) are normal; several large peaks are a red flag.</li><li>HPLC measures purity only. It does not confirm identity or detect endotoxin.</li><li>Retention time depends on the method, so compare traces only within the same method.</li></ul></section><details class="toc"><summary>On this page</summary><ol><li><a href="#what-is-hplc-and-why-does-it-matter">What Is HPLC and Why Does It Matter?</a></li><li><a href="#anatomy-of-an-hplc-chromatogram">Anatomy of an HPLC Chromatogram</a></li><li><a href="#reading-a-real-chromatogram-what-to-check">Reading a Real Chromatogram: What to Check</a></li><li><a href="#worked-example-reading-a-real-coa">Worked Example: Reading a Real COA</a></li><li><a href="#red-flags-when-a-chromatogram-looks-wrong">Red Flags: When a Chromatogram Looks Wrong</a></li><li><a href="#why-214nm-wavelength-matters">Why 214nm Wavelength Matters</a></li><li><a href="#what-hplc-can-t-tell-you">What HPLC Can't Tell You</a></li><li><a href="#what-janoshik-coas-show">What a Third-Party HPLC Report Typically Shows</a></li><li><a href="#summary-the-checklist">Summary: The Checklist</a></li><li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li></ol></details>
 <div class="article-body">
 <!-- 60-Second Visual Callout -->
 <figure>
@@ -146,7 +99,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>The <strong>main peak</strong> (target peptide) appears at a consistent retention time for that specific compound and method. Retention time varies by column type, mobile phase, and gradient — it's not universal across labs, but it should be reproducible within the same method.</p>
 <h3>Y-Axis: Absorbance (mAU)</h3>
 <p>The vertical axis measures absorbance — how much light the detector absorbed as each molecule passed through. Taller peaks mean higher concentrations of that molecule.</p>
-<p>Most peptide HPLC tests use <strong>214 nm wavelength</strong>, where the amide bond in the peptide backbone absorbs strongly due to π→π* electronic transitions. This makes the method highly sensitive to peptides and peptide-related impurities.</p>
+<p>Most peptide HPLC tests use <strong>214 nm wavelength</strong>, where the amide bond in the peptide backbone absorbs strongly. This makes the method highly sensitive to peptides and peptide-related impurities.</p>
 <h3>The Main Peak</h3>
 <p>This is the tall, sharp peak that represents your target peptide. In a high-purity sample (&gt;99%), this peak dominates the chromatogram.</p>
 <p><strong>What to look for:</strong></p>
@@ -190,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3>5. Compare Purity % to Peak Visuals</h3>
 <p>If the COA reports 99.5% purity, you should see one dominant peak that clearly accounts for nearly all the area. If multiple peaks look similar in size, either the purity calculation is incorrect or the wrong peak was integrated as the main compound.</p>
 <h3>6. Check for Void Volume Peaks</h3>
-<p>A peak appearing in the first 1-2 minutes (the "void volume") often represents unretained material — salts, polar impurities, or the solvent front. These aren't included in purity calculations, but their presence can indicate formulation or sample prep issues.</p>
+<p>A peak appearing in the first 1-2 minutes (the "void volume") often represents unretained material — salts, polar impurities, or the solvent front. These are usually excluded from the purity calculation, but their presence can indicate formulation or sample prep issues.</p>
 <hr/>
 <h2 id="worked-example-reading-a-real-coa">Worked Example: Reading a Real COA</h2>
 <div>
@@ -233,14 +186,14 @@ Indicates degradation, poor synthesis, or the presence of diastereomers. This re
 <p><strong>🚩 Baseline drift or noise</strong><br/>
 A noisy baseline makes accurate integration difficult. If the baseline isn't stable, the purity calculation may be unreliable.</p>
 <p><strong>🚩 Peak at the void volume (very early, &lt;2 min)</strong><br/>
-Represents unretained material — salts, polar impurities, or solvent front. Not counted in purity, but suggests formulation issues.</p>
+Represents unretained material — salts, polar impurities, or solvent front. Usually excluded from purity, but suggests formulation issues.</p>
 <p><strong>🚩 No chromatogram provided</strong><br/>
-If a COA reports HPLC purity but doesn't include the actual chromatogram, you're taking the vendor's word. Legitimate third-party labs (like Janoshik) always include the raw trace.</p>
+If a COA reports HPLC purity but doesn't include the actual chromatogram, you can't check how the number was calculated. A third-party HPLC report normally includes the trace, so ask for it.</p>
 <hr/>
 <h2 id="why-214nm-wavelength-matters">Why 214nm Wavelength Matters</h2>
 <p>Most peptide HPLC methods use <strong>UV detection at 214 nm</strong> because the amide bond in the peptide backbone absorbs strongly at this wavelength. This makes 214 nm universally sensitive to peptides regardless of sequence.</p>
-<p>Some methods also scan at <strong>280 nm</strong>, which detects aromatic amino acids (tryptophan, tyrosine, phenylalanine). If your peptide contains these residues, a 280 nm trace can provide additional confirmation.</p>
-<p>If a COA lists detection at a non-standard wavelength (say, 254 nm or 220 nm), it's not necessarily wrong — but 214 nm is the peptide-specific standard. Deviating from it without explanation can be a yellow flag.</p>
+<p>Some methods also scan at <strong>280 nm</strong>, which detects aromatic amino acids (tryptophan and tyrosine). If your peptide contains these residues, a 280 nm trace can provide additional confirmation.</p>
+<p>Most methods detect between 210 and 220 nm; 214 and 220 nm are both common. If a COA lists detection at 254 nm alone, it isn't necessarily wrong, but peptides without aromatic residues absorb weakly there, so ask what was measured.</p>
 <hr/>
 <h2 id="what-hplc-can-t-tell-you">What HPLC Can't Tell You</h2>
 <p>HPLC tells you <strong>purity</strong> — what percentage of the detected signal is the target peptide. But it doesn't tell you:</p>
@@ -257,18 +210,18 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 <li><strong>LAL endotoxin test</strong> → Safety (is it contaminated?)</li>
 </ul>
 <p>For a full breakdown of how to read a Janoshik COA, including quantitative mass measurement and endotoxin sections, see our guide on <a href="how-to-read-a-janoshik-coa.html">How to Read a Janoshik Certificate of Analysis</a>.</p>
-<p>We'll cover <strong>how to read mass spectrometry data</strong> in the next post in this series.</p>
+
 <hr/>
-<h2 id="what-janoshik-coas-show">What Janoshik COAs Show</h2>
-<p>Janoshik Analytical is a widely used third-party lab in the research peptide space. Their HPLC reports include:</p>
+<h2 id="what-janoshik-coas-show">What a Third-Party HPLC Report Typically Shows</h2>
+<p>Labs format reports differently, but an HPLC report typically includes:</p>
 <ol>
 <li><strong>Chromatogram image</strong> – The full HPLC trace</li>
 <li><strong>Purity by HPLC (%)</strong> – Calculated from peak area integration</li>
 <li><strong>Retention time</strong> – When the main peak eluted</li>
 <li><strong>Method details</strong> – Column type, mobile phase, detection wavelength</li>
 </ol>
-<p>When reading a Janoshik COA, focus on the chromatogram first. If it shows a single dominant peak with minimal background noise and no significant impurity peaks, the reported purity is credible. If you see multiple large peaks or irregular shapes, treat the purity number with skepticism — even if it says "&gt;98%."</p>
-<p>Janoshik provides all four verification tests. A full COA includes the HPLC chromatogram, mass spec data, quantitative content, and endotoxin results. If you're only getting one or two of these tests, you're not getting full verification.</p>
+<p>When reading a COA, focus on the chromatogram first. If it shows a single dominant peak with minimal background noise and no significant impurity peaks, the reported purity is credible. If you see multiple large peaks or irregular shapes, treat the purity number with skepticism — even if it says "&gt;98%."</p>
+<p>A complete COA includes the HPLC chromatogram, mass spec data, quantitative content, and endotoxin results. If you're only getting one or two of these tests, you're not getting full verification.</p>
 <hr/>
 <h2 id="summary-the-checklist">Summary: The Checklist</h2>
 <p>When reviewing an HPLC chromatogram on a COA:</p>
@@ -277,7 +230,7 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 ✅ <strong>Stable baseline</strong> – Flat, minimal noise<br/>
 ✅ <strong>Few or no impurity peaks</strong> – Small peaks (&lt;1%) are normal; larger ones warrant scrutiny<br/>
 ✅ <strong>Chromatogram included</strong> – If it's not shown, the purity claim is unverifiable</p>
-<p>If the chromatogram looks clean and the purity number is high, you have credible evidence that your peptide is what it claims to be. If the trace shows multiple peaks, irregular shapes, or baseline issues, proceed with caution — even if the reported purity looks acceptable.</p>
+<p>If the chromatogram looks clean and the purity number is high, you have credible evidence of purity. Identity still needs mass spectrometry. If the trace shows multiple peaks, irregular shapes, or baseline issues, proceed with caution — even if the reported purity looks acceptable.</p>
 <p>HPLC isn't perfect. But combined with mass spectrometry and endotoxin testing, it's the best tool we have for verifying peptide purity in a research context. Learn to read it, and you'll never rely on a vendor's word alone.</p>
 <hr/>
 <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
@@ -289,7 +242,7 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 <dt>Can HPLC detect endotoxins?</dt>
 <dd>No. Endotoxins (bacterial lipopolysaccharides) don't absorb at 214 nm and typically don't resolve well on reversed-phase HPLC columns. Endotoxin detection requires a separate LAL (Limulus Amebocyte Lysate) assay.</dd>
 <dt>What if a COA shows purity "by HPLC" but no chromatogram?</dt>
-<dd>Without the chromatogram, you can't verify how purity was calculated or check for red flags. Legitimate third-party labs always include the raw trace. If it's missing, the claim is unverifiable.</dd>
+<dd>Without the chromatogram, you can't verify how purity was calculated or check for red flags. A third-party HPLC report normally includes the trace. If it's missing, ask for it; without it the claim is unverifiable.</dd>
 <dt>Does high HPLC purity mean the peptide is correct?</dt>
 <dd>Not necessarily. HPLC confirms purity (% target compound) but doesn't confirm identity (whether it's the right compound). For that, you need mass spectrometry. A sample can be 99% pure and still be the wrong peptide.</dd>
 </dl>
