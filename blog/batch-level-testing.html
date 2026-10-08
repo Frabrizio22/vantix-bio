@@ -27,13 +27,10 @@
 <meta content="https://vantixbio.com/og-image-logo.jpg" name="twitter:image"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Why Most Peptide COAs Don't Mean What You Think", "description": "A COA proves what was in the vial that was tested. Learn what batch-level testing means, why batches vary, and how to match a COA to the vial you hold.", "image": ["https://vantixbio.com/og-image-logo.jpg"], "author": {"@type": "Organization", "name": "Vantix Bio", "url": "https://vantixbio.com"}, "publisher": {"@type": "Organization", "name": "Vantix Bio", "logo": {"@type": "ImageObject", "url": "https://vantixbio.com/favicon-192.png"}}, "datePublished": "2026-05-02", "dateModified": "2026-10-08", "articleSection": "Verification Standards", "inLanguage": "en-US", "wordCount": 1525, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://vantixbio.com/blog/batch-level-testing.html"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vantixbio.com"}, {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://vantixbio.com/blog/index.html"}, {"@type": "ListItem", "position": 3, "name": "Why Most Peptide COAs Don't Mean What You Think"}]}</script>
-
 <!-- Canonical URL -->
-
 <!-- Favicon -->
 <!-- Fonts -->
 <!-- Structured Data -->
-
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is batch-level peptide testing?", "acceptedAnswer": {"@type": "Answer", "text": "Batch-level testing means every production batch is tested independently and gets its own Certificate of Analysis (COA) tied to a batch ID printed on the vial, instead of one COA being reused across many batches."}}, {"@type": "Question", "name": "Why can't one COA cover multiple batches?", "acceptedAnswer": {"@type": "Answer", "text": "Each batch is a separate production run. Purity, impurity profile and endotoxin level can differ between runs even from the same supplier, so a COA from one batch does not verify material from another."}}, {"@type": "Question", "name": "How do I verify the batch I received?", "acceptedAnswer": {"@type": "Answer", "text": "Match the batch ID on your vial to the batch ID on the COA, check that the COA lists HPLC purity, LC-MS identity, net peptide content and endotoxin results, and where the testing lab offers a public lookup, confirm the report ID there."}}, {"@type": "Question", "name": "Does Vantix Bio test every batch?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Each batch is held until a sample has been tested by an independent third-party laboratory. The batch ID on the vial and the QR code link to that batch's COA on the Vantix Bio verification page. A batch that fails specification is pulled from sale."}}]}</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -42,13 +39,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM5J7G2C');</script>
 <!-- End Google Tag Manager -->
-
-
-
-
-
-
-
 <link href="../favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="../favicon.png" rel="icon" type="image/png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -63,7 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="site-header-inner">
 <a aria-label="Vantix Bio home" class="site-logo" href="../index.html"><img alt="Vantix Bio" src="../logo-header.svg"/></a>
 <nav aria-label="Primary" class="site-nav">
-<a href="../shop.html">Catalog</a>
+<a class="nav-cta" href="../shop.html">Catalog</a>
 <a href="../verify.html">Verify</a>
 <a class="active" href="index.html">Research</a>
 <a class="nav-optional" href="../about.html">About</a>
@@ -181,7 +171,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div></aside>
 </article>
 </main>
-<footer class="site-footer">
+<div class="sticky-cta" hidden="" id="stickyCta"><span>Research-use-only materials with a verifiable COA for every batch</span><a class="sticky-go" href="../shop.html">View catalog</a><button aria-label="Dismiss" id="stickyClose" type="button">×</button></div><footer class="site-footer">
 <div class="site-footer-inner">
 <div class="footer-links">
 <a href="../shop.html">Catalog</a><a href="../verify.html">Verify a batch</a><a href="index.html">Research</a><a href="../faq.html">FAQ</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../shipping.html">Shipping &amp; Refund</a>
@@ -195,5 +185,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 function u(){var h=document.documentElement,t=h.scrollHeight-h.clientHeight;b.style.width=(t>0?Math.min(100,h.scrollTop/t*100):0)+'%'}
 window.addEventListener('scroll',u,{passive:true});u()})();
 </script>
-</body>
+<script>
+(function(){var b=document.getElementById('stickyCta');if(!b)return;
+try{if(sessionStorage.getItem('vbStickyOff')==='1')return}catch(e){}
+function u(){var h=document.documentElement,t=h.scrollHeight-h.clientHeight,p=t>0?h.scrollTop/t:0;b.hidden=!(p>.3&&p<.92)}
+window.addEventListener('scroll',u,{passive:true});u();
+document.getElementById('stickyClose').addEventListener('click',function(){b.hidden=true;window.removeEventListener('scroll',u);try{sessionStorage.setItem('vbStickyOff','1')}catch(e){}});})();
+</script></body>
 </html>
