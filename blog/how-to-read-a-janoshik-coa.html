@@ -33,62 +33,7 @@
 <!-- Open Graph -->
 <!-- Structured Data -->
 <!-- FAQPage Schema -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a Janoshik Task Number and how do I verify it?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A Janoshik Task Number is a unique identifier assigned to each testing submission (e.g., #79605). At the bottom of every Janoshik report, you'll find a verification key (an alphanumeric string like L1SUYDCMGJU5). Enter this key at janoshik.com/verify to confirm the report is authentic. If the key doesn't verify, the document may not be genuine."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What does HPLC purity mean on a Janoshik COA?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "HPLC purity represents the percentage of the target peptide relative to all detected impurities in the chromatogram. For single peptides, Janoshik reports this as a percentage (e.g., 99.022%). For blends containing multiple peptides, purity percentages are not reported because the method cannot distinguish between the intended compounds. A result above 98% is generally considered acceptable for research-grade peptides."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What's the difference between quantitative and purity testing?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Quantitative testing measures the total mass of peptide in the vial (e.g., 10.11 mg). Purity testing measures what percentage of that mass is the target compound versus impurities. A vial can contain the correct mass but low purity if synthesis byproducts are present. Both measurements are important — mass tells you how much material you have, purity tells you how clean it is."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does every Janoshik COA include mass spectrometry and endotoxin testing?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Standard Janoshik testing includes quantitative mass measurement and, for single peptides, HPLC purity. Mass spectrometry (for molecular identity confirmation) and LAL endotoxin testing are add-on services that must be specifically requested and paid for by the vendor. If these sections are absent from a COA, the tests were not ordered."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can a Janoshik COA be faked or altered?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Any PDF can be edited. Janoshik's defense against this is the verification key system — every legitimate report includes a unique alphanumeric key at the bottom that can be checked on janoshik.com/verify. If a vendor provides a Janoshik-branded COA but the verification key does not return matching data, the document has been altered or fabricated. Always verify before trusting the report."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What should I look for first when evaluating a Janoshik COA?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Check four things in order: (1) Does the verification key work on janoshik.com/verify? (2) Does the sample name match what you ordered? (3) Is the test date recent enough to correspond to your batch? (4) For single peptides, is the purity >99%? If any of these fail, request clarification from the vendor before proceeding."
-          }
-        }
-      ]
-    }
-    </script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a Janoshik Task Number and how do I verify it?", "acceptedAnswer": {"@type": "Answer", "text": "The Task Number is a unique identifier at the top of every Janoshik report (e.g., #79605). The verification key is an alphanumeric string at the bottom (e.g., L1SUYDCMGJU5). Enter this key at janoshik.com/verify to confirm the report is authentic. If the key doesn't return matching data, the document may not be genuine."}}, {"@type": "Question", "name": "What's a good HPLC purity for research peptides?", "acceptedAnswer": {"@type": "Answer", "text": "For research-grade synthetic peptides, purity above 95% is generally acceptable, with most reputable vendors targeting 98% or higher. Purity below 95% may indicate incomplete synthesis, inadequate purification, or degradation. Always evaluate purity alongside identity confirmation (mass spectrometry) — a high purity number only matters if the compound is the right molecule."}}, {"@type": "Question", "name": "Does every Janoshik COA include mass spectrometry and endotoxin testing?", "acceptedAnswer": {"@type": "Answer", "text": "No. Standard Janoshik testing covers quantitative mass and HPLC purity (for single peptides). Mass spectrometry and LAL endotoxin testing are add-ons that vendors must specifically request and pay for. If those sections are absent, the tests were not ordered — not that the product passed or failed."}}, {"@type": "Question", "name": "Why don't peptide blends show a purity percentage?", "acceptedAnswer": {"@type": "Answer", "text": "HPLC purity measures the target compound relative to impurities. In a blend containing two intentional peptides (for example, two intentional peptides combined), the method cannot distinguish between the two target compounds — both appear as \"correct\" peaks in the chromatogram. Janoshik reports the mass of each component instead of an overall purity percentage."}}, {"@type": "Question", "name": "Can I verify a COA if I'm not the one who submitted the sample?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Janoshik's verification portal is public — anyone with the verification key can check whether a report is authentic. This is by design: it allows end customers to independently verify vendor claims without relying on the vendor's word."}}, {"@type": "Question", "name": "Should I be concerned if a vendor reuses the same COA for multiple orders?", "acceptedAnswer": {"@type": "Answer", "text": "It depends. If the vendor is selling from one batch and the COA corresponds to that batch, reuse is legitimate. The concern arises when a vendor uses the same COA across batches synthesized at different times — the report no longer reflects the specific product you received. Ask whether the COA matches your batch, and verify the Task Number."}}]}</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -171,7 +116,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <ul>
 <li><strong>Task Number is present</strong> — This is your verification key. Without it, the report cannot be authenticated.</li>
 <li><strong>Sample name matches what you ordered</strong> — If you purchased BPC-157 5mg and the COA says "BPC-157 10mg," it may not correspond to your product.</li>
-<li><strong>Test date is recent</strong> — A COA from 12+ months ago may not reflect the current batch. Peptides degrade over time, and a fresh test is more relevant than an archived one.</li>
+<li><strong>Test date fits the batch</strong> — A report dated well before your batch was produced doesn't describe it. An older report is fine for the batch it covers; the concern is a report that is many months old and still attached to newly arriving stock, which may be covering several batches.</li>
 <li><strong>Client name matches the vendor</strong> — If the vendor claims they submitted the sample, their name should appear here. If it shows a different client, the vendor may be republishing someone else's test.</li>
 <li><strong>Batch number is provided</strong> — This ties the report to a specific production lot. Without it, the COA could apply to any batch of that compound.</li>
 </ul>
@@ -179,12 +124,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>Below the header, the report shows a results table. This is where the actual analytical data appears.</p>
 <p>Janoshik's standard testing includes <strong>quantitative mass measurement</strong> for all submissions. This tells you how much peptide material (in milligrams) is in the vial.</p>
 <p>For <strong>single peptides</strong>, the results table also includes a <strong>purity percentage</strong>. This is derived from HPLC analysis and represents the proportion of the target compound relative to detected impurities <a href="#ref-1">[1]</a>.</p>
-<p>For <strong>peptide blends</strong> (e.g., CJC-1295 + Ipamorelin in the same vial), purity percentages are not reported. The method cannot distinguish between two intentional compounds, so only the mass of each component is measured.</p>
+<p>For <strong>peptide blends</strong> (e.g., two intentional peptides in the same vial), purity percentages are not reported. The method cannot distinguish between two intentional compounds, so only the mass of each component is measured.</p>
 <h3>Example Results Table:</h3>
 <div class="spec-box">
-<h3>Single Peptide (Tesamorelin)</h3>
+<h3>Single Peptide (example)</h3>
 <div class="spec-row">
-<span class="spec-label">Tesamorelin</span>
+<span class="spec-label">Peptide A</span>
 <span class="spec-value">10.11 mg</span>
 </div>
 <div class="spec-row">
@@ -193,13 +138,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div class="spec-box">
-<h3>Peptide Blend (CJC-1295 + Ipamorelin)</h3>
+<h3>Peptide Blend (example)</h3>
 <div class="spec-row">
-<span class="spec-label">CJC-1295 (mod GRF 1-29)</span>
+<span class="spec-label">Peptide A</span>
 <span class="spec-value">5.07 mg</span>
 </div>
 <div class="spec-row">
-<span class="spec-label">Ipamorelin</span>
+<span class="spec-label">Peptide B</span>
 <span class="spec-value">5.47 mg</span>
 </div>
 </div>
@@ -224,7 +169,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>A <strong>QR code</strong> that links directly to the verification portal</li>
 <li>An <strong>alphanumeric verification key</strong> (e.g., MI47PQERQEGG or L1SUYDCMGJU5)</li>
 </ul>
-<p>This key is the only defense against COA forgery. A PDF can be edited in minutes. A Janoshik-branded header can be pasted onto any document. The verification key creates a link between the physical PDF and Janoshik's internal records that cannot be forged without compromising Janoshik's own systems.</p>
+<p>This key is the main defense against COA forgery. A PDF can be edited in minutes. A Janoshik-branded header can be pasted onto any document. The verification key creates a link between the physical PDF and Janoshik's internal records that cannot be altered in the PDF without failing the lookup. A genuine key can still be attached to the wrong product, so always compare the returned data with the report.</p>
 <h3>How to verify a Janoshik COA:</h3>
 <ol>
 <li><strong>Locate the verification key</strong> at the bottom of the report (below "Verify this test at www.janoshik.com/verify/ with the following unique key").</li>
@@ -235,7 +180,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>If the key doesn't return a result, or the returned data doesn't match the PDF, the document has been altered,  fabricated, or recycled from a different submission.</p>
 <div>
 <h3>Without Verification, a COA Is Just a PDF</h3>
-<p>Anyone with basic software can edit text, change purity numbers, swap compound names, or paste a Janoshik logo onto a manufacturer's in-house report. The verification key is your only proof the data is real. If a vendor's COA does not verify, you know nothing about the product's actual quality.</p>
+<p>Anyone with basic software can edit text, change purity numbers, swap compound names, or paste a Janoshik logo onto a manufacturer's in-house report. The verification key is your best proof the data is real, provided the returned data matches the report. If a vendor's COA does not verify, you know nothing about the product's actual quality.</p>
 </div>
 <h2 id="quick-judgment-guide-is-this-coa-trustworthy">Quick Judgment Guide: Is This COA Trustworthy?</h2>
 <p>When evaluating a vendor's Janoshik COA, run through this checklist in order:</p>
@@ -250,8 +195,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span class="spec-value">COA compound = what you ordered</span>
 </div>
 <div class="spec-row">
-<span class="spec-label">✅ Test date recent</span>
-<span class="spec-value">Within 6-12 months for current batch</span>
+<span class="spec-label">✅ Test date fits the batch</span>
+<span class="spec-value">Date is consistent with when your batch was produced</span>
 </div>
 <div class="spec-row">
 <span class="spec-label">✅ Purity &gt;99%</span>
@@ -271,7 +216,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li><strong>If the verification key fails</strong> — stop. The document is not trustworthy. Request a verifiable COA from the vendor.</li>
 <li><strong>If purity is &lt;95%</strong> — the peptide may be under-purified, degraded, or synthesized with significant byproducts. Request clarification before use.</li>
 <li><strong>If no MS data</strong> — purity is confirmed, but identity is not. For critical applications, request MS confirmation or choose a vendor who includes it by default.</li>
-<li><strong>If the test date is old</strong> — peptides degrade over time. A 2-year-old COA may not reflect the current product. Ask whether the batch matches the report date.</li>
+<li><strong>If the test date is old</strong> — ask whether the batch on your vial matches the report. An old report is fine for an old batch; it's a problem when it's attached to newly received stock.</li>
 </ul>
 <h2 id="red-flags-when-to-question-a-janoshik-coa">Red Flags: When to Question a Janoshik COA</h2>
 <p>Not every issue is disqualifying, but certain patterns warrant additional scrutiny:</p>
@@ -290,8 +235,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span class="spec-value">Not batch-specific → one test used for all inventory</span>
 </div>
 <div class="spec-row">
-<span class="spec-label">Test Date &gt;12 Months Old</span>
-<span class="spec-value">May not reflect current product quality</span>
+<span class="spec-label">Old Report, New Stock</span>
+<span class="spec-value">Same report on newly arriving stock may cover several batches</span>
 </div>
 <div class="spec-row">
 <span class="spec-label">No Batch Number</span>
@@ -342,7 +287,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </details>
 <details>
 <summary>Why don't peptide blends show a purity percentage?</summary>
-<p>HPLC purity measures the target compound relative to impurities. In a blend containing two intentional peptides (e.g., CJC-1295 + Ipamorelin), the method cannot distinguish between the two target compounds — both appear as "correct" peaks in the chromatogram. Janoshik reports the mass of each component instead of an overall purity percentage.</p>
+<p>HPLC purity measures the target compound relative to impurities. In a blend containing two intentional peptides (for example, two intentional peptides combined), the method cannot distinguish between the two target compounds — both appear as "correct" peaks in the chromatogram. Janoshik reports the mass of each component instead of an overall purity percentage.</p>
 </details>
 <details>
 <summary>Can I verify a COA if I'm not the one who submitted the sample?</summary>
