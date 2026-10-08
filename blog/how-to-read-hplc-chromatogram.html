@@ -1,45 +1,44 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
-<title>How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification</title>
-<meta content="Learn to read HPLC chromatograms on peptide COAs. Understand retention time, peak integration, impurity detection, and red flags that indicate poor synthesis quality." name="description"/>
-<!-- Canonical URL -->
+<title>How to Read an HPLC Chromatogram (Peptide Purity) | Vantix Bio</title><meta content="Learn to read an HPLC chromatogram on a peptide COA: retention time, peak area, impurity peaks, and the red flags that signal poor synthesis quality." name="description"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1" name="robots"/>
 <link href="https://vantixbio.com/blog/how-to-read-hplc-chromatogram.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="Vantix Bio" property="og:site_name"/>
+<meta content="How to Read an HPLC Chromatogram (Peptide Purity)" property="og:title"/>
+<meta content="Learn to read an HPLC chromatogram on a peptide COA: retention time, peak area, impurity peaks, and the red flags that signal poor synthesis quality." property="og:description"/>
+<meta content="https://vantixbio.com/blog/how-to-read-hplc-chromatogram.html" property="og:url"/>
+<meta content="https://vantixbio.com/og-image-logo.jpg" property="og:image"/>
+<meta content="Vantix Bio: batch-level verified research peptides" property="og:image:alt"/>
+<meta content="2026-05-23" property="article:published_time"/>
+<meta content="2026-10-08" property="article:modified_time"/>
+<meta content="Vantix Bio" property="article:author"/>
+<meta content="Analytical Methods" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="How to Read an HPLC Chromatogram (Peptide Purity)" name="twitter:title"/>
+<meta content="Learn to read an HPLC chromatogram on a peptide COA: retention time, peak area, impurity peaks, and the red flags that signal poor synthesis quality." name="twitter:description"/>
+<meta content="https://vantixbio.com/og-image-logo.jpg" name="twitter:image"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification", "description": "Learn to read an HPLC chromatogram on a peptide COA: retention time, peak area, impurity peaks, and the red flags that signal poor synthesis quality.", "image": ["https://vantixbio.com/og-image-logo.jpg"], "author": {"@type": "Organization", "name": "Vantix Bio", "url": "https://vantixbio.com"}, "publisher": {"@type": "Organization", "name": "Vantix Bio", "logo": {"@type": "ImageObject", "url": "https://vantixbio.com/favicon-192.png"}}, "datePublished": "2026-05-23", "dateModified": "2026-10-08", "articleSection": "Analytical Methods", "inLanguage": "en-US", "wordCount": 1978, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://vantixbio.com/blog/how-to-read-hplc-chromatogram.html"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vantixbio.com"}, {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://vantixbio.com/blog/index.html"}, {"@type": "ListItem", "position": 3, "name": "How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification"}]}</script>
+
+<!-- Canonical URL -->
+
 <!-- Favicon -->
 <!-- Premium Blog Stylesheet -->
 <!-- Open Graph -->
-<meta content="How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity" property="og:title"/>
-<meta content="Step-by-step guide to interpreting HPLC chromatograms on peptide COAs. Learn peak analysis, area integration, and how to spot contamination." property="og:description"/>
-<meta content="article" property="og:type"/>
-<meta content="https://vantixbio.com/blog/how-to-read-hplc-chromatogram.html" property="og:url"/>
+
+
+
+
 <!-- Structured Data -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification",
-      "description": "Learn to interpret HPLC chromatograms on peptide Certificates of Analysis. Understand retention time, peak integration, baseline stability, and red flags.",
-      "author": {
-        "@type": "Organization",
-        "name": "Vantix Bio"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Vantix Bio",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://vantixbio.com/logo.jpg"
-        }
-      },
-      "datePublished": "2026-05-23",
-      "dateModified": "2026-05-23"
-    }
-    </script>
+
 <!-- FAQPage Schema -->
 <script type="application/ld+json">
     {
@@ -51,7 +50,7 @@
           "name": "What's a good purity for research peptides?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "≥98% is the standard target for high-quality research peptides; ≥99% is preferred for sensitive analytical work. Pharmacopeial standards typically require ≥95% purity for research-grade peptides, with no single impurity exceeding 1-2%."
+            "text": "≥98% is the standard target for high-quality research peptides; ≥99% is preferred for sensitive analytical work. A common industry benchmark for research-grade peptides is ≥95% purity, with no single impurity above 1-2%."
           }
         },
         {
@@ -96,36 +95,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM5J7G2C');</script>
 <!-- End Google Tag Manager -->
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="icon" type="image/png" href="../favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="article.css">
+<link href="../favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../favicon.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="article.css" rel="stylesheet"/>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM5J7G2C" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-PM5J7G2C" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <div class="read-progress" id="readProgress"></div>
 <header class="site-header">
 <div class="site-header-inner">
-<a href="../index.html" class="site-logo" aria-label="Vantix Bio home"><img src="../logo-header.svg" alt="Vantix Bio"></a>
-<nav class="site-nav" aria-label="Primary">
+<a aria-label="Vantix Bio home" class="site-logo" href="../index.html"><img alt="Vantix Bio" src="../logo-header.svg"/></a>
+<nav aria-label="Primary" class="site-nav">
 <a href="../shop.html">Catalog</a>
 <a href="../verify.html">Verify</a>
-<a href="index.html" class="active">Research</a>
-<a href="../about.html" class="nav-optional">About</a>
+<a class="active" href="index.html">Research</a>
+<a class="nav-optional" href="../about.html">About</a>
 </nav>
 </div>
 </header>
-
 <main class="container">
 <article>
-<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="index.html">Research</a><span>/</span>Analytical Methods</nav>
-<div class="eyebrow"><span>Analytical Methods</span><span class="dot"></span><span class="quiet">8 min read</span></div>
+<nav aria-label="Breadcrumb" class="crumbs"><a href="../index.html">Home</a><span>/</span><a href="index.html">Research</a><span>/</span>Analytical Methods</nav>
+<div class="eyebrow"><span>Analytical Methods</span><span class="dot"></span><span class="quiet">9 min read</span></div>
 <h1>How to Read an HPLC Chromatogram: Peak Analysis for Peptide Purity Verification</h1>
 <p class="lede">When you receive a Certificate of Analysis (COA) for a research peptide, the HPLC chromatogram is the visual proof of purity. But if you've never interpreted one, the graph can look cryptic — a series of peaks that seem to require a chemistry degree to decode.</p>
-<div class="byline"><div class="mark">VB</div><div><strong>Vantix Bio Research</strong><time datetime="2026-05-23">Published May 23, 2026</time></div></div>
-
+<div class="byline"><div class="mark">VB</div><div><strong>Vantix Bio Research</strong><time datetime="2026-10-08">Published May 23, 2026 · Updated Oct 8, 2026</time></div></div><section aria-label="Key takeaways" class="takeaways"><p class="takeaways-title">Key takeaways</p><ul><li>Purity comes from the area under the main peak relative to the total area of all peaks.</li><li>Small side peaks (under about 1% each) are normal; several large peaks are a red flag.</li><li>HPLC measures purity only. It does not confirm identity or detect endotoxin.</li><li>Retention time depends on the method, so compare traces only within the same method.</li></ul></section><details class="toc"><summary>On this page</summary><ol><li><a href="#what-is-hplc-and-why-does-it-matter">What Is HPLC and Why Does It Matter?</a></li><li><a href="#anatomy-of-an-hplc-chromatogram">Anatomy of an HPLC Chromatogram</a></li><li><a href="#reading-a-real-chromatogram-what-to-check">Reading a Real Chromatogram: What to Check</a></li><li><a href="#worked-example-reading-a-real-coa">Worked Example: Reading a Real COA</a></li><li><a href="#red-flags-when-a-chromatogram-looks-wrong">Red Flags: When a Chromatogram Looks Wrong</a></li><li><a href="#why-214nm-wavelength-matters">Why 214nm Wavelength Matters</a></li><li><a href="#what-hplc-can-t-tell-you">What HPLC Can't Tell You</a></li><li><a href="#what-janoshik-coas-show">What Janoshik COAs Show</a></li><li><a href="#summary-the-checklist">Summary: The Checklist</a></li><li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li></ol></details>
 <div class="article-body">
 <!-- 60-Second Visual Callout -->
 <figure>
@@ -145,12 +142,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>It doesn't. Once you understand what you're looking at, reading an HPLC chromatogram becomes straightforward. This guide breaks down the anatomy of an HPLC trace, explains what each element means, and shows you how to spot red flags that indicate poor synthesis quality or contamination.</p>
 <p>If you're evaluating research peptides for laboratory use, this is the skill that separates verification from blind trust.</p>
 <hr/>
-<h2>What Is HPLC and Why Does It Matter?</h2>
+<h2 id="what-is-hplc-and-why-does-it-matter">What Is HPLC and Why Does It Matter?</h2>
 <p><strong>High-Performance Liquid Chromatography (HPLC)</strong> is the analytical gold standard for measuring peptide purity. It works by passing a dissolved sample through a column that separates molecules based on their chemical properties. Pure peptides exit the column at a specific time (called <strong>retention time</strong>), while synthesis byproducts and related impurities exit at different times.</p>
 <p>The result is a <strong>chromatogram</strong>: a graph that plots time (x-axis) against absorbance (y-axis). Each peak represents a different molecule detected as it exits the column.</p>
 <p>For peptide verification, HPLC answers one critical question: <strong>What percentage of the sample is the target peptide, and what percentage is something else?</strong></p>
 <hr/>
-<h2>Anatomy of an HPLC Chromatogram</h2>
+<h2 id="anatomy-of-an-hplc-chromatogram">Anatomy of an HPLC Chromatogram</h2>
 <h3>X-Axis: Retention Time (Minutes)</h3>
 <p>The horizontal axis shows time elapsed since the sample was injected. Most peptide analyses run 10-30 minutes depending on the method.</p>
 <p>The <strong>main peak</strong> (target peptide) appears at a consistent retention time for that specific compound and method. Retention time varies by column type, mobile phase, and gradient — it's not universal across labs, but it should be reproducible within the same method.</p>
@@ -181,9 +178,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li><strong>Deamidation or oxidation products</strong> (degradation from storage or handling)</li>
 <li><strong>Starting materials or reagents</strong> (residues from the synthesis process)</li>
 </ul>
-<p>Small impurity peaks (&lt;1% each) are normal even in high-purity samples. Peaks above ~1-2% indicate lower synthesis quality or significant contamination. Pharmacopeial standards for research-grade peptides typically require ≥95% purity with no single impurity exceeding 1-2%.</p>
+<p>Small impurity peaks (&lt;1% each) are normal even in high-purity samples. Peaks above ~1-2% indicate lower synthesis quality or significant contamination. A common industry benchmark for research-grade peptides is ≥95% purity, with no single impurity above 1-2%.</p>
 <hr/>
-<h2>Reading a Real Chromatogram: What to Check</h2>
+<h2 id="reading-a-real-chromatogram-what-to-check">Reading a Real Chromatogram: What to Check</h2>
 <p>When you review an HPLC chromatogram on a COA, follow this checklist:</p>
 <h3>1. Identify the Main Peak</h3>
 <p>Look for the tallest, sharpest peak. This should be your target peptide. If multiple peaks have similar heights, something is wrong — either the purity calculation is incorrect or the sample contains significant impurities.</p>
@@ -202,7 +199,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3>6. Check for Void Volume Peaks</h3>
 <p>A peak appearing in the first 1-2 minutes (the "void volume") often represents unretained material — salts, polar impurities, or the solvent front. These aren't included in purity calculations, but their presence can indicate formulation or sample prep issues.</p>
 <hr/>
-<h2>Worked Example: Reading a Real COA</h2>
+<h2 id="worked-example-reading-a-real-coa">Worked Example: Reading a Real COA</h2>
 <div>
 <p><strong>Sample COA excerpt:</strong></p>
 <ul>
@@ -235,7 +232,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>If two peaks have similar areas, the "purity" number is ambiguous — which peak is the target compound? The broad tailing suggests poor separation or degradation. Even if the math says 97.5%, this chromatogram indicates a problem with synthesis or method development.</p>
 </div>
 <hr/>
-<h2>Red Flags: When a Chromatogram Looks Wrong</h2>
+<h2 id="red-flags-when-a-chromatogram-looks-wrong">Red Flags: When a Chromatogram Looks Wrong</h2>
 <p><strong>🚩 Multiple peaks of similar height</strong><br/>
 High-purity peptides should have one dominant peak. Multiple peaks of similar area suggest significant impurities or ambiguous integration.</p>
 <p><strong>🚩 Broad or split main peak</strong><br/>
@@ -247,12 +244,12 @@ Represents unretained material — salts, polar impurities, or solvent front. No
 <p><strong>🚩 No chromatogram provided</strong><br/>
 If a COA reports HPLC purity but doesn't include the actual chromatogram, you're taking the vendor's word. Legitimate third-party labs (like Janoshik) always include the raw trace.</p>
 <hr/>
-<h2>Why 214nm Wavelength Matters</h2>
+<h2 id="why-214nm-wavelength-matters">Why 214nm Wavelength Matters</h2>
 <p>Most peptide HPLC methods use <strong>UV detection at 214 nm</strong> because the amide bond in the peptide backbone absorbs strongly at this wavelength. This makes 214 nm universally sensitive to peptides regardless of sequence.</p>
 <p>Some methods also scan at <strong>280 nm</strong>, which detects aromatic amino acids (tryptophan, tyrosine, phenylalanine). If your peptide contains these residues, a 280 nm trace can provide additional confirmation.</p>
 <p>If a COA lists detection at a non-standard wavelength (say, 254 nm or 220 nm), it's not necessarily wrong — but 214 nm is the peptide-specific standard. Deviating from it without explanation can be a yellow flag.</p>
 <hr/>
-<h2>What HPLC Can't Tell You</h2>
+<h2 id="what-hplc-can-t-tell-you">What HPLC Can't Tell You</h2>
 <p>HPLC tells you <strong>purity</strong> — what percentage of the detected signal is the target peptide. But it doesn't tell you:</p>
 <ul>
 <li><strong>Identity</strong> (whether that peak is actually the peptide you ordered)</li>
@@ -269,7 +266,7 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 <p>For a full breakdown of how to read a Janoshik COA, including quantitative mass measurement and endotoxin sections, see our guide on <a href="how-to-read-a-janoshik-coa.html">How to Read a Janoshik Certificate of Analysis</a>.</p>
 <p>We'll cover <strong>how to read mass spectrometry data</strong> in the next post in this series.</p>
 <hr/>
-<h2>What Janoshik COAs Show</h2>
+<h2 id="what-janoshik-coas-show">What Janoshik COAs Show</h2>
 <p>Janoshik Analytical is a widely used third-party lab in the research peptide space. Their HPLC reports include:</p>
 <ol>
 <li><strong>Chromatogram image</strong> – The full HPLC trace</li>
@@ -280,7 +277,7 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 <p>When reading a Janoshik COA, focus on the chromatogram first. If it shows a single dominant peak with minimal background noise and no significant impurity peaks, the reported purity is credible. If you see multiple large peaks or irregular shapes, treat the purity number with skepticism — even if it says "&gt;98%."</p>
 <p>Janoshik provides all four verification tests. A full COA includes the HPLC chromatogram, mass spec data, quantitative content, and endotoxin results. If you're only getting one or two of these tests, you're not getting full verification.</p>
 <hr/>
-<h2>Summary: The Checklist</h2>
+<h2 id="summary-the-checklist">Summary: The Checklist</h2>
 <p>When reviewing an HPLC chromatogram on a COA:</p>
 <p>✅ <strong>One dominant peak</strong> – Sharp, symmetrical, and much taller than any other peaks<br/>
 ✅ <strong>Purity ≥98-99%</strong> – Reported purity should match the visual dominance of the main peak<br/>
@@ -290,10 +287,10 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 <p>If the chromatogram looks clean and the purity number is high, you have credible evidence that your peptide is what it claims to be. If the trace shows multiple peaks, irregular shapes, or baseline issues, proceed with caution — even if the reported purity looks acceptable.</p>
 <p>HPLC isn't perfect. But combined with mass spectrometry and endotoxin testing, it's the best tool we have for verifying peptide purity in a research context. Learn to read it, and you'll never rely on a vendor's word alone.</p>
 <hr/>
-<h2>Frequently Asked Questions</h2>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
 <dl>
 <dt>What's a good purity for research peptides?</dt>
-<dd>≥98% is the standard target for high-quality research peptides; ≥99% is preferred for sensitive analytical work. Pharmacopeial standards typically require ≥95% purity for research-grade peptides, with no single impurity exceeding 1-2%. Purity below 95% may indicate synthesis issues or degradation.</dd>
+<dd>≥98% is the standard target for high-quality research peptides; ≥99% is preferred for sensitive analytical work. A common industry benchmark for research-grade peptides is ≥95% purity, with no single impurity above 1-2%. Purity below 95% may indicate synthesis issues or degradation.</dd>
 <dt>Why does retention time change between labs?</dt>
 <dd>Retention time depends on the column type, mobile phase composition, gradient profile, and temperature. A peptide might elute at 12 minutes in one lab's method and 18 minutes in another's. Retention time is reproducible within a method, but not universal across labs.</dd>
 <dt>Can HPLC detect endotoxins?</dt>
@@ -304,22 +301,21 @@ If a COA reports HPLC purity but doesn't include the actual chromatogram, you're
 <dd>Not necessarily. HPLC confirms purity (% target compound) but doesn't confirm identity (whether it's the right compound). For that, you need mass spectrometry. A sample can be 99% pure and still be the wrong peptide.</dd>
 </dl>
 </div>
-<aside class="related" aria-label="Keep reading"><h3>Keep reading</h3>
+<aside aria-label="Keep reading" class="related"><h3>Keep reading</h3>
 <div class="related-grid">
-<a href="peptide-purity-explained.html" class="related-card"><span class="related-category">Research Guide</span><h3>Peptide Purity Explained: What &gt;99% Actually Means</h3></a>
-<a href="how-to-read-a-janoshik-coa.html" class="related-card"><span class="related-category">Guides</span><h3>How to Read a Janoshik COA: A Section-by-Section Breakdown</h3></a>
-<a href="what-your-coa-isnt-telling-you.html" class="related-card"><span class="related-category">Research</span><h3>What Your COA Isn't Telling You: 5 Gaps in Standard Peptide Testing Reports</h3></a>
+<a class="related-card" href="peptide-purity-explained.html"><span class="related-category">Research Guide</span><h3>Peptide Purity Explained: What &gt;99% Actually Means</h3></a>
+<a class="related-card" href="how-to-read-a-janoshik-coa.html"><span class="related-category">COA Verification</span><h3>How to Read and Verify a Janoshik COA: A Section-by-Section Breakdown</h3></a>
+<a class="related-card" href="what-your-coa-isnt-telling-you.html"><span class="related-category">Research</span><h3>What Your COA Isn't Telling You: 5 Gaps in Standard Peptide Testing Reports</h3></a>
 </div></aside>
 </article>
 </main>
-
 <footer class="site-footer">
 <div class="site-footer-inner">
 <div class="footer-links">
 <a href="../shop.html">Catalog</a><a href="../verify.html">Verify a batch</a><a href="index.html">Research</a><a href="../faq.html">FAQ</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../shipping.html">Shipping &amp; Refund</a>
 </div>
 <p class="footer-ruo"><strong>Research use only.</strong> All Vantix Bio products are analytical reference materials intended for in vitro laboratory research only. Not for human or veterinary consumption, diagnostic use, or therapeutic application. These materials have not been evaluated or approved by the FDA. Purchasers must be 21 years of age or older and agree to research-use-only terms at checkout.</p>
-<p class="footer-copy">&copy; 2026 Vantix Bio LLC</p>
+<p class="footer-copy">© 2026 Vantix Bio LLC</p>
 </div>
 </footer>
 <script>

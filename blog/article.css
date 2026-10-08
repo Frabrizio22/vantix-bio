@@ -140,6 +140,30 @@ figcaption.takeaway li{margin-bottom:6px}
 figcaption.takeaway li::marker{color:var(--signal)}
 figcaption.takeaway strong{color:#FAFAF7}
 
+/* ───────── Key takeaways + table of contents ───────── */
+.takeaways{
+  background:var(--paper);border:1px solid var(--hairline);border-top:3px solid var(--signal);
+  border-radius:12px;padding:22px 26px 12px;margin:0 0 24px;
+}
+.takeaways-title{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;
+  color:var(--signal-deep);margin:0 0 12px;
+}
+.takeaways ul{margin:0 0 8px 20px}
+.takeaways li{font-size:16px;line-height:1.65;margin-bottom:8px}
+.toc{margin:0 0 40px;border:1px solid var(--hairline);border-radius:12px;background:var(--paper)}
+.toc summary{
+  list-style:none;cursor:pointer;padding:14px 20px;position:relative;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);
+}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary::after{content:'+';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:18px;font-weight:300;color:var(--accent)}
+.toc[open] summary::after{content:'–'}
+.toc ol{margin:0;padding:4px 20px 16px 44px;font-size:15px;line-height:1.5}
+.toc li{margin-bottom:8px}
+.toc a{color:var(--text);font-weight:500}
+.toc a:hover{color:var(--accent)}
+
 /* ───────── Callouts ───────── */
 .callout,.info-box{
   background:var(--wash-blue);border-left:4px solid var(--accent);
