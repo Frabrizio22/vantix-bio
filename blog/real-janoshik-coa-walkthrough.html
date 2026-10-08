@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Primary Meta Tags -->
+<title>Read a Real Janoshik COA Line by Line (Annotated) | Vantix Bio</title><meta content="A line-by-line walkthrough of a real Janoshik test report and HPLC chromatogram: what each field means, how purity is calculated, and why 105% of label is not alarming." name="description"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1" name="robots"/>
+<link href="https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="Vantix Bio" property="og:site_name"/>
+<meta content="Read a Real Janoshik COA Line by Line (Annotated)" property="og:title"/>
+<meta content="A line-by-line walkthrough of a real Janoshik test report and HPLC chromatogram: what each field means, how purity is calculated, and why 105% of label is not alarming." property="og:description"/>
+<meta content="https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html" property="og:url"/>
+<meta content="https://vantixbio.com/og-image-logo.jpg" property="og:image"/>
+<meta content="Vantix Bio: batch-level verified research peptides" property="og:image:alt"/>
+<meta content="2026-10-08" property="article:published_time"/>
+<meta content="2026-10-08" property="article:modified_time"/>
+<meta content="Vantix Bio" property="article:author"/>
+<meta content="Research Guide" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Read a Real Janoshik COA Line by Line (Annotated)" name="twitter:title"/>
+<meta content="A line-by-line walkthrough of a real Janoshik test report and HPLC chromatogram: what each field means, how purity is calculated, and why 105% of label is not alarming." name="twitter:description"/>
+<meta content="https://vantixbio.com/og-image-logo.jpg" name="twitter:image"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Read a Real Janoshik COA, Line by Line", "description": "A line-by-line walkthrough of a real Janoshik test report and HPLC chromatogram: what each field means, how purity is calculated, and why 105% of label is not alarming.", "image": ["https://vantixbio.com/og-image-logo.jpg"], "author": {"@type": "Organization", "name": "Vantix Bio Research Team", "url": "https://vantixbio.com/about.html#editorial-standards"}, "publisher": {"@type": "Organization", "name": "Vantix Bio", "logo": {"@type": "ImageObject", "url": "https://vantixbio.com/favicon-192.png"}}, "datePublished": "2026-10-08", "dateModified": "2026-10-08", "articleSection": "Research Guide", "inLanguage": "en-US", "wordCount": 1966, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vantixbio.com"}, {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://vantixbio.com/blog/index.html"}, {"@type": "ListItem", "position": 3, "name": "How to Read a Real Janoshik COA, Line by Line"}]}</script>
+<!-- Open Graph / Facebook -->
+<!-- Twitter -->
+<!-- Structured Data / JSON-LD -->
+<!-- Breadcrumb Schema -->
+<!-- FAQ Schema -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does 99.402% purity mean on this report?", "acceptedAnswer": {"@type": "Answer", "text": "It is the main peak's share of all detected peak area in the UV trace at 280 nm: 387,596 out of 389,929 area units. It is not a percentage of the vial's weight, and it says nothing about water, salts or endotoxin."}}, {"@type": "Question", "name": "Why does the report say 10.55 mg when the vial is labeled 10 mg?", "acceptedAnswer": {"@type": "Answer", "text": "The quantity is an HPLC estimate, and estimates carry uncertainty, so a small deviation above or below the label is normal. It is also a different measurement from net peptide content. We found no published standard for how close it should be to the label."}}, {"@type": "Question", "name": "Does this COA prove the vial contains MOTS-c?", "acceptedAnswer": {"@type": "Answer", "text": "Not by itself. HPLC shows one dominant peak and its purity. Confirming identity needs mass spectrometry, which was not part of this order."}}, {"@type": "Question", "name": "What does \"Manufacturer: Undisclosed\" mean?", "acceptedAnswer": {"@type": "Answer", "text": "The lab records who made the material only if the client tells it. Undisclosed means the report speaks to the sample as received, and does not name a producer."}}, {"@type": "Question", "name": "How can I tell this report is genuine?", "acceptedAnswer": {"@type": "Answer", "text": "Enter the verification key at janoshik.com/verify, or scan the QR code, and compare what the lab returns with the document. Then match the batch number to your vial and check that the raw data adds up."}}, {"@type": "Question", "name": "Why is the sample name on the raw data page different?", "acceptedAnswer": {"@type": "Answer", "text": "The raw data names a 100 mg sample, while the report names 10 mg. The quantity, batch and task number agree with the 10 mg product, which suggests an internal shorthand, but the page does not explain it. Ask the lab if a mismatch like this matters for your decision."}}]}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
+<link href="../favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../favicon.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="article.css" rel="stylesheet"/>
+</head>
+<body>
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-PM5J7G2C" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<div class="read-progress" id="readProgress"></div>
+<header class="site-header">
+<div class="site-header-inner">
+<a aria-label="Vantix Bio home" class="site-logo" href="../index.html"><img alt="Vantix Bio" src="../logo-header.svg"/></a>
+<nav aria-label="Primary" class="site-nav">
+<a class="nav-cta" href="../shop.html">Catalog</a>
+<a href="../verify.html">Verify</a>
+<a class="active" href="index.html">Research</a>
+<a class="nav-optional" href="../about.html">About</a>
+</nav>
+</div>
+</header>
+<main class="container">
+<article>
+<nav aria-label="Breadcrumb" class="crumbs"><a href="../index.html">Home</a><span>/</span><a href="index.html">Research</a><span>/</span>Verification Standards</nav>
+<div class="eyebrow"><span>Research Guide</span><span class="dot"></span><span class="quiet">9 min read</span></div>
+<h1>How to Read a Real Janoshik COA, Line by Line</h1>
+<p class="lede">Most COA guides describe a certificate. This one walks through an actual report, field by field, including the awkward parts: a quantity above the label amount and a sample name that does not match.</p>
+<div class="byline"><div class="mark">VB</div><div><strong><a href="../about.html#editorial-standards">Vantix Bio Research Team</a></strong><time datetime="2026-10-08">Published Oct 8, 2026 · Updated Oct 8, 2026</time></div></div><section aria-label="Key takeaways" class="takeaways"><p class="takeaways-title">Key takeaways</p><ul><li>Check the identity fields first: task number, batch, dates and the verification key. Then check the raw data page behind the summary.</li><li>The purity figure is a peak-area share. In this report, 387,596 of 389,929 total area units is 99.402%.</li><li>The 10.55 mg result is an HPLC quantity estimate, not a net peptide content assay. A small deviation either side of the label is normal for an estimate.</li><li>This report covers purity and quantity only. It does not show identity by mass spectrometry, endotoxin, water or counter-ion content.</li></ul></section><details class="toc"><summary>On this page</summary><ol><li><a href="#the-short-answer">The Short Answer</a></li><li><a href="#page-1-the-test-report">Page 1: The Test Report</a></li><li><a href="#the-sample-photo">The Sample Photo</a></li><li><a href="#page-2-the-raw-data">Page 2: The Raw Data</a></li><li><a href="#check-the-math">Check the Math</a></li><li><a href="#why-10-55-mg">Why 10.55 mg on a 10 mg Vial?</a></li><li><a href="#the-sample-name-mismatch">The Sample Name Mismatch</a></li><li><a href="#what-this-report-does-not-show">What This Report Does Not Show</a></li><li><a href="#your-checklist">Your Checklist</a></li><li><a href="#faq">Frequently Asked Questions</a></li><li><a href="#references">References</a></li></ol></details>
+<div class="article-body">
+<div class="callout tip" id="the-short-answer">
+<h3>The short answer</h3>
+<p>This is a real third-party report for a Vantix Bio MOTS-c 10 mg batch (VX-MOTS10-001), tested by Janoshik in May 2026. It reports <strong>99.402% purity</strong> and a quantity of <strong>10.55 mg</strong>. Both numbers come from one HPLC run, and both can be checked against the raw data page, which is why that page matters more than the summary.</p>
+</div>
+<p>A certificate is a summary of a measurement. To judge it, you need to know what each field means and which numbers can be checked against the data behind them. Below, the report is annotated field by field. The numbered markers on each image match the numbered lists beneath it. Tap an image to open it full size.</p>
+<h2 id="page-1-the-test-report">Page 1: The Test Report</h2>
+<figure class="coa-fig">
+<div class="coa-wrap">
+<a href="coa-example-report.jpg" rel="noopener" target="_blank"><img alt="Janoshik test report for MOTS-c 10 mg, batch VX-MOTS10-001, showing task number 165874, results of 10.55 mg and 99.402 percent purity, a QR code and a verification key" height="1446" loading="lazy" src="coa-example-report.jpg" width="900"/></a>
+<span class="mk" style="left:44.6%;top:11.8%">1</span>
+<span class="mk" style="left:94.6%;top:22.8%">2</span>
+<span class="mk" style="left:94.6%;top:28.1%">3</span>
+<span class="mk" style="left:94.6%;top:53.3%">4</span>
+<span class="mk" style="left:92.9%;top:64.6%">5</span>
+<span class="mk" style="left:57.1%;top:59.3%">6</span>
+<span class="mk" style="left:93.8%;top:97.8%">7</span>
+</div>
+<ol class="coa-key">
+<li><strong>Task number and dates.</strong> #165874 is the lab's record number. Testing was ordered 19 May 2026, the sample arrived 25 May, and analysis was conducted 29 May. A report that predates the sample's arrival, or has no dates, deserves questions.</li>
+<li><strong>Client, sample and batch.</strong> The client is Vantix Bio, the sample is "MOTS-c 10mg" and the batch is VX-MOTS10-001. The batch number is the link between this paper and a physical vial, so it should match the label you hold.</li>
+<li><strong>Manufacturer: Undisclosed.</strong> This field is filled in from what the client tells the lab. "Undisclosed" means the lab did not record who made the material, so the report speaks only to the sample it received.</li>
+<li><strong>Tests requested.</strong> "MOTS-c analysis" is the whole order. That is why the results table has two lines and no others. Anything not requested does not appear.</li>
+<li><strong>Results.</strong> Quantity (10.55 mg) and purity (99.402%). The third row is empty. Both values appear again on the raw data page, where you can check them.</li>
+<li><strong>QR code.</strong> It opens the lab's own record of this task. Scanning it, rather than trusting the PDF in front of you, is the point.</li>
+<li><strong>Verification key.</strong> SSELJFCHMJCC, entered at <a href="https://janoshik.com/verify/" rel="noopener" target="_blank">janoshik.com/verify</a>, returns the lab's copy of the report. If the key returns nothing or different values, do not rely on the document.</li>
+</ol>
+</figure>
+<h2 id="the-sample-photo">The Sample Photo</h2>
+<p>The "Sample description" field on page 1 reads "See picture or pictures attached". The next page of the report carries the photograph below. It ties the report to a physical object: the vial the lab received, with the product name, the batch number and the research-use-only statement visible on its label.</p>
+<figure class="coa-fig">
+<div class="coa-wrap"><img alt="Photo from the lab report showing a labeled vial with a green cap, MOTS-c 10 mg, batch VX-MOTS10-001, research use only" height="720" loading="lazy" src="coa-example-vial.jpg" width="720"/></div>
+<figcaption>The sample photo included in the lab's report. Check that the batch number on the vial in the photo matches the batch on the report and on the product you hold.</figcaption>
+</figure>
+<h2 id="page-2-the-raw-data">Page 2: The Raw Data</h2>
+<p>The second document is the instrument's own output. This is the page that lets you check the summary. It comes from Shimadzu LabSolutions software, which is a common chromatography data system.</p>
+<figure class="coa-fig">
+<div class="coa-wrap wide">
+<a href="coa-example-chromatogram.jpg" rel="noopener" target="_blank"><img alt="HPLC chromatogram and peak table for the MOTS-c sample: one tall peak at 3.286 minutes, two very small peaks at 3.097 and 3.473 minutes, and a peak table with areas of 1497, 387596 and 836" height="1171" loading="lazy" src="coa-example-chromatogram.jpg" width="1100"/></a>
+<span class="mk" style="left:82%;top:15.2%">1</span>
+<span class="mk" style="left:82%;top:20.8%">2</span>
+<span class="mk" style="left:72.5%;top:41.9%">3</span>
+<span class="mk" style="left:62.9%;top:43%">4</span>
+<span class="mk" style="left:51.4%;top:69.8%">5</span>
+<span class="mk" style="left:88%;top:79%">6</span>
+<span class="mk" style="left:92.9%;top:89.3%">7</span>
+</div>
+<ol class="coa-key">
+<li><strong>Sample information.</strong> Date acquired 29.05.2026, 0.5 µL injected. This should agree with "analysis conducted" on page 1. It does. The sample name on this page is discussed <a href="#the-sample-name-mismatch">below</a>.</li>
+<li><strong>Method file.</strong> The method filename points to an acetonitrile and water method. The page does not print the gradient, so you cannot judge the separation from this page alone.</li>
+<li><strong>Detection wavelength.</strong> The chromatogram is a UV trace at 280 nm. That wavelength is absorbed by tryptophan and tyrosine, and the MOTS-c sequence contains both, so the peptide gives a strong signal here.</li>
+<li><strong>The main peak.</strong> One tall, narrow peak at 3.286 minutes. This is the compound the lab labels MOTS-C in the peak table.</li>
+<li><strong>The minor peaks.</strong> Two tiny peaks at 3.097 and 3.473 minutes, either side of the main peak. They are the only other signals above the baseline, and they are what the purity figure subtracts.</li>
+<li><strong>Time axis.</strong> Retention time in minutes, 0 to 6. A peak that elutes at 3.3 minutes in a 6-minute window leaves limited room to separate closely related impurities.</li>
+<li><strong>Peak table.</strong> Area for each peak, the area percentage, and, for the main peak, a concentration of 10.55 mg. This table is where the report's two headline numbers come from.</li>
+</ol>
+<figcaption>Raw data page for task #165874, cropped to the sample information, chromatogram and peak table.</figcaption>
+</figure>
+<h2 id="check-the-math">Check the Math</h2>
+<p>Area purity is the main peak's area divided by the total area of all peaks. You can reproduce it from the table with a calculator:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Peak</th><th>Retention time (min)</th><th>Area</th><th>Share of total</th></tr></thead>
+<tbody>
+<tr><td>1 (minor)</td><td>3.097</td><td>1,497</td><td>0.384%</td></tr>
+<tr><td><strong>2 (MOTS-c)</strong></td><td><strong>3.286</strong></td><td><strong>387,596</strong></td><td><strong>99.402%</strong></td></tr>
+<tr><td>3 (minor)</td><td>3.473</td><td>836</td><td>0.214%</td></tr>
+<tr><td>Total</td><td></td><td>389,929</td><td>100.000%</td></tr>
+</tbody></table></div>
+<p>387,596 ÷ 389,929 = 0.99402, which matches the reported 99.402%. The three areas add up to the stated total. That is a useful consistency check, and a report whose table does not add up should not be trusted.</p>
+<p>What this number is not: it is the share of <em>detected UV signal</em> at one wavelength, not the share of the powder's weight. Purity percentages do not account for water, salts, endotoxins or heavy metals, and the graph itself is a visual aid, with the results calculated from peak areas [1]. HPLC can also miss impurities that elute together with the main peak or that do not absorb at the detection wavelength [2].</p>
+<h2 id="why-10-55-mg">Why 10.55 mg on a 10 mg Vial?</h2>
+<p>The report gives a quantity of 10.55 mg for a vial labeled 10 mg, which is 105.5% of the label. A quantity above the label can look like an error. It is not, for three reasons.</p>
+<ul>
+<li><strong>It is an estimate with uncertainty.</strong> The quantity comes from the same HPLC run as the purity. Quantitative HPLC works by comparing the sample's signal with a reference standard [3]. The result inherits the uncertainty of that comparison, and it can land a little above or a little below the true amount. The report does not say how the concentration was calibrated.</li>
+<li><strong>Fill amounts vary.</strong> Lyophilized vials are never filled to exactly the label figure, so a small spread either side of the label is expected.</li>
+<li><strong>It is a different measurement from net peptide content.</strong> Net peptide content is the percentage of the powder that is peptide, measured with methods such as amino acid analysis or elemental analysis [4]. This report does not measure it. A quantity above 100% of the label cannot be a net-content percentage of a 10 mg powder fill, so treat it as an HPLC quantity.</li>
+</ul>
+<p>We found no published standard for how close a reported quantity should be to the label for research peptides, and we do not invent one here. What matters is that the number is traceable: it is on the lab's own record, it is reproducible from the raw data, and it comes from a lab that is not the seller. For the difference between purity, quantity and net content, see <a href="net-peptide-content-explained.html">Net Peptide Content Explained</a>.</p>
+<h2 id="the-sample-name-mismatch">The Sample Name Mismatch</h2>
+<p>This report has one detail that does not line up on the page. The raw data identifies the sample as "22009-4 MOTS-c 100mg, obyc. t. + endotoxin", while page 1 says "MOTS-c 10mg". The raw data also mentions endotoxin, but the results table has no endotoxin line.</p>
+<p>The reported quantity of 10.55 mg is consistent with a 10 mg sample, not a 100 mg one, and the batch and task number match on both pages. That points to a shorthand in the lab's internal run sheet, not a different sample. But the page itself does not explain it, and this is exactly the kind of mismatch worth raising with the lab. Our <a href="5-red-flags-fake-peptide-coas.html">fake-COA red flags</a> include inconsistent sample details between pages. The difference here is that a lab-issued report with a matching task number, batch, quantity and a working verification key can be checked at the source, and a forged one cannot.</p>
+<h2 id="what-this-report-does-not-show">What This Report Does Not Show</h2>
+<p>A report only covers what was ordered. This one covers two things, and it is open about that in the "Tests requested" field. It does not show:</p>
+<ul>
+<li><strong>Identity by mass spectrometry.</strong> HPLC answers how pure a sample is, and mass spectrometry answers what it is [2]. A retention time alone does not confirm the sequence.</li>
+<li><strong>Endotoxin.</strong> There is no result line for it.</li>
+<li><strong>Water and counter-ion content.</strong> These make up the gap between the powder's weight and the peptide's weight, as explained in our <a href="net-peptide-content-explained.html">net content guide</a>.</li>
+<li><strong>Anything about other batches.</strong> A report describes one batch. The reason every batch needs its own is covered in <a href="batch-level-testing.html">Why a COA Isn't Enough</a>.</li>
+</ul>
+<p>None of this makes the report less useful. It makes it a specific, checkable statement about purity and quantity, and a reader can see exactly where its limits are.</p>
+<h2 id="your-checklist">Your Checklist</h2>
+<p>You can apply these steps to any COA, from any vendor:</p>
+<ol>
+<li>Match the <strong>batch number</strong> on the report to the label on your vial.</li>
+<li>Check that the <strong>dates make sense</strong>: ordered, received, analyzed.</li>
+<li>Look at <strong>who requested the tests</strong> and what was requested. Missing tests are not hidden, they are just absent.</li>
+<li>Verify the report at the <strong>lab's own site</strong> with the key or QR code, not from the PDF alone.</li>
+<li>Open the <strong>raw data page</strong>. Check that the peak areas add up and that the area share equals the reported purity.</li>
+<li>Compare <strong>sample names and amounts</strong> across every page, and ask the lab about anything that does not match.</li>
+<li>Ask whether <strong>identity, endotoxin and net content</strong> were tested, and by what method, if they matter for your work.</li>
+</ol>
+<p>Vantix Bio batches carry the same kind of record. On the <a href="../verify.html">verification page</a>, scan the QR code or enter a batch number to see the data, the PDF and a link to the original third-party lab report.</p>
+<div class="faq-section" id="faq">
+<h2>Frequently Asked Questions</h2>
+<details><summary>What does 99.402% purity mean on this report?</summary><p>It is the main peak's share of all detected peak area in the UV trace at 280 nm: 387,596 out of 389,929 area units. It is not a percentage of the vial's weight, and it says nothing about water, salts or endotoxin.</p></details>
+<details><summary>Why does the report say 10.55 mg when the vial is labeled 10 mg?</summary><p>The quantity is an HPLC estimate, and estimates carry uncertainty, so a small deviation above or below the label is normal. It is also a different measurement from net peptide content. We found no published standard for how close it should be to the label.</p></details>
+<details><summary>Does this COA prove the vial contains MOTS-c?</summary><p>Not by itself. HPLC shows one dominant peak and its purity. Confirming identity needs mass spectrometry, which was not part of this order.</p></details>
+<details><summary>What does "Manufacturer: Undisclosed" mean?</summary><p>The lab records who made the material only if the client tells it. Undisclosed means the report speaks to the sample as received, and does not name a producer.</p></details>
+<details><summary>How can I tell this report is genuine?</summary><p>Enter the verification key at janoshik.com/verify, or scan the QR code, and compare what the lab returns with the document. Then match the batch number to your vial and check that the raw data adds up.</p></details>
+<details><summary>Why is the sample name on the raw data page different?</summary><p>The raw data names a 100 mg sample, while the report names 10 mg. The quantity, batch and task number agree with the 10 mg product, which suggests an internal shorthand, but the page does not explain it. Ask the lab if a mismatch like this matters for your decision.</p></details>
+</div>
+<h2 id="references">References</h2>
+<div class="references"><ol>
+<li id="ref-1">Finnrick. <strong>How to read a Certificate of Analysis (COA).</strong> <a href="https://www.finnrick.com/blog/how-to-read-a-certificate-of-analysis-coa" rel="noopener" target="_blank">finnrick.com</a></li>
+<li id="ref-2">PeptideJournal. <strong>Understanding peptide purity: HPLC &amp; mass spec.</strong> <a href="https://peptidejournal.org/reference/understanding-peptide-purity-hplc-mass-spec" rel="noopener" target="_blank">peptidejournal.org</a></li>
+<li id="ref-3">BioPharm International. <strong>Control strategies for synthetic therapeutic peptide APIs, part I: analytical considerations.</strong> <a href="https://biopharminternational.com/view/control-strategies-synthetic-therapeutic-peptide-apis-part-i-analytical-consideration" rel="noopener" target="_blank">biopharminternational.com</a></li>
+<li id="ref-4">Bio-Synthesis. <strong>Peptide purity, peptide content and absolute amount of desired peptide.</strong> <a href="https://www.biosyn.com/faq/explanation-of-peptide-purity-peptide-content-and-absolute-amount-of-desired-peptide.aspx" rel="noopener" target="_blank">biosyn.com</a></li>
+</ol></div>
+<div class="highlight"><strong>Research Use Only:</strong> This article is educational and describes analytical reports on research materials. Vantix Bio products are for in vitro laboratory research only, not for human or animal consumption.</div>
+</div><div class="cta-box"><strong>Check a Vantix Bio Batch Yourself</strong><p>Enter a batch number on the verification page to see the measured results and the original third-party lab report for that batch.</p><div class="cta-buttons"><a class="btn-primary" href="../verify.html">Verify a Batch</a><a class="btn-secondary" href="../shop.html">View Catalog</a></div></div><aside aria-label="Keep reading" class="related"><h3>Keep reading</h3>
+<div class="related-grid"><a class="related-card" href="how-to-read-a-janoshik-coa.html"><span class="related-category">Verification Standards</span><h3>How to Read and Verify a Janoshik COA</h3></a><a class="related-card" href="net-peptide-content-explained.html"><span class="related-category">Research Guide</span><h3>Net Peptide Content: Why a 10 mg Vial Can Hold Only 8 mg of Peptide</h3></a><a class="related-card" href="5-red-flags-fake-peptide-coas.html"><span class="related-category">Verification Standards</span><h3>Fake Peptide COA: 5 Red Flags to Spot</h3></a></div></aside>
+</article>
+</main>
+<div class="sticky-cta" hidden="" id="stickyCta"><span>Research-use-only materials with a verifiable COA for every batch</span><a class="sticky-go" href="../shop.html">View catalog</a><button aria-label="Dismiss" id="stickyClose" type="button">×</button></div><footer class="site-footer">
+<div class="site-footer-inner">
+<div class="footer-links">
+<a href="../shop.html">Catalog</a><a href="../verify.html">Verify a batch</a><a href="index.html">Research</a><a href="../faq.html">FAQ</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a><a href="../shipping.html">Shipping &amp; Refund</a>
+</div>
+<p class="footer-ruo"><strong>Research use only.</strong> All Vantix Bio products are analytical reference materials intended for in vitro laboratory research only. Not for human or veterinary consumption, diagnostic use, or therapeutic application. These materials have not been evaluated or approved by the FDA. Purchasers must be 21 years of age or older and agree to research-use-only terms at checkout.</p>
+<p class="footer-copy">© 2026 Vantix Bio LLC</p>
+</div>
+</footer>
+<script>
+(function(){var b=document.getElementById('readProgress');if(!b)return;
+function u(){var h=document.documentElement,t=h.scrollHeight-h.clientHeight;b.style.width=(t>0?Math.min(100,h.scrollTop/t*100):0)+'%'}
+window.addEventListener('scroll',u,{passive:true});u()})();
+</script>
+<script>
+(function(){var b=document.getElementById('stickyCta');if(!b)return;
+try{if(sessionStorage.getItem('vbStickyOff')==='1')return}catch(e){}
+function u(){var h=document.documentElement,t=h.scrollHeight-h.clientHeight,p=t>0?h.scrollTop/t:0;b.hidden=!(p>.3&&p<.92)}
+window.addEventListener('scroll',u,{passive:true});u();
+document.getElementById('stickyClose').addEventListener('click',function(){b.hidden=true;window.removeEventListener('scroll',u);try{sessionStorage.setItem('vbStickyOff','1')}catch(e){}});})();
+</script></body>
+</html>
