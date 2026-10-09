@@ -488,13 +488,20 @@ function drawChart(c) {
   const cw = (W - L - R) / Math.max(1, series.length), bw = Math.max(2, Math.min(26, cw * 0.62));
   let g = '';
   for (let i = 0; i <= 4; i++) { const v = (mx / 4) * i, y = T + (H - T - B) * (1 - i / 4); g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" stroke="#ECEAE2"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5E6877">' + esc(fmt(v)) + '</text>'; }
-  const bars = series.map((s, i) => { const h = Math.max(0, (H - T - B) * (s.v / mx)), x = L + cw * i + (cw - bw) / 2; return '<rect class="b" x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="' + Math.min(4, bw / 2).toFixed(1) + '"><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
+  const bars = series.map((s, i) => { const h = Math.max(0, (H - T - B) * (s.v / mx)), x = L + cw * i + (cw - bw) / 2; return '<rect class="b" x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="' + Math.min(4, bw / 2).toFixed(1) + '"' + (c.sel === i ? ' style="fill:#E0B04A"' : '') + '><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
+  const hits = series.map((s, i) => '<rect class="hit" data-ch="' + c.id + '" data-i="' + i + '" x="' + (L + cw * i).toFixed(1) + '" y="' + T + '" width="' + cw.toFixed(1) + '" height="' + (H - T - B) + '" fill="transparent" style="cursor:pointer"/>').join('');
+  let tip = '';
+  if (c.sel != null && series[c.sel]) {
+    const s = series[c.sel], txt = s.k + ': ' + fmt(s.v), tw = txt.length * 6.6 + 16, cx = L + cw * c.sel + cw / 2, tx = Math.min(Math.max(cx - tw / 2, L), W - R - tw), top = H - B - (H - T - B) * (s.v / mx), ty = Math.max(2, top - 30);
+    tip = '<g pointer-events="none"><rect x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" width="' + tw.toFixed(1) + '" height="22" rx="6" fill="#0F1B2D"/><text x="' + (tx + tw / 2).toFixed(1) + '" y="' + (ty + 15).toFixed(1) + '" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">' + esc(txt) + '</text></g>';
+  }
   const idx = series.length <= 1 ? [0] : [0, Math.floor((series.length - 1) / 2), series.length - 1];
   const xl = idx.map((i, j) => '<text x="' + (L + cw * i + cw / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="' + (j === 0 && idx.length > 1 ? 'start' : j === idx.length - 1 && idx.length > 1 ? 'end' : 'middle') + '" font-size="11" fill="#5E6877">' + esc(series[i].k) + '</text>').join('');
-  el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Bar chart">' + g + bars + xl + '</svg>';
+  el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Bar chart">' + g + bars + xl + hits + tip + '</svg>';
   el.dataset.w = W;
 }
 function drawCharts() { CHARTS.forEach(drawChart); }
+document.addEventListener('click', (e) => { const t = e.target; if (!t || !t.classList || !t.classList.contains('hit')) return; const c = CHARTS.find((x) => x.id === t.dataset.ch); if (!c) return; const i = Number(t.dataset.i); c.sel = c.sel === i ? null : i; drawChart(c); });
 let _rz; window.addEventListener('resize', () => { clearTimeout(_rz); _rz = setTimeout(() => { if (CHARTS.some((c) => { const e = document.getElementById(c.id); return e && Math.abs((e.clientWidth || 0) - Number(e.dataset.w || 0)) > 2; })) drawCharts(); }, 120); });
 function stackTables() {
   document.querySelectorAll('.tw > table:not(.mini)').forEach((t) => {
