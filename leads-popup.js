@@ -180,10 +180,11 @@
     });
   }
 
-  var visibleMs = 0;
+  var visibleMs = 0, wasBlocked = false;
   var timer = setInterval(function () {
     if (shown) { clearInterval(timer); return; }
-    if (!blocked()) visibleMs += 1000;
+    // The clock restarts every time the age gate or menu closes, so the offer never lands right after them.
+    if (blocked()) { visibleMs = 0; wasBlocked = true; } else { visibleMs += 1000; }
     if (visibleMs >= DELAY_MS) show();
   }, 1000);
   document.addEventListener('mouseout', function (e) {
