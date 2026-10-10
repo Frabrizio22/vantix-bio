@@ -122,13 +122,14 @@ def plain(preheader, body):
 
 def pp(t): return f'<p style="margin:0 0 16px;font:16px/1.65 {SANS};color:#1a1a1a">{t}</p>'
 
-E['welcome-d0'] = dict(day='Day 0: signup (drafted by the daily job)', subject='Welcome to Vantix Bio', pre='Your 15% code, and how to check any batch.', html=wrap(
- 'Your 15% code, and how to check any batch.', 'Welcome', 'Welcome to Vantix Bio.',
- p('Hello, thank you for signing up. Your code for 15% off your first order is below.')
- + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
- + p('Every lot we release has published batch-level testing results. Scan the QR code on a vial, or enter a batch number on our verification page, to see the data, the PDF, and a link to the original lab report.')
+E['welcome-d0'] = dict(day='Day 0: signup (drafted by the daily job)', subject='Welcome to Vantix Bio: your 15% is ready', pre='Your welcome code, and how to check any batch.', html=wrap(
+ 'Your welcome code, and how to check any batch.', 'Welcome', 'Welcome to Vantix Bio.',
+ p('Thanks for joining us. Your 15% first-order discount is ready below.')
+ + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Shipping', 'Free on orders of $150+ after discounts')])
+ + p('Every lot we release is independently tested, and the results are published for you to review. Scan the QR code on a vial, or enter a batch number on our verification page, to see the data, the PDF, and a link to the original lab report.')
+ + p('We believe you should be able to see the testing behind what you are ordering.')
  + button('Shop with 15% off', SHOPCODE)
- + p(f'<span style="color:{MUT};font-size:14px">Questions? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
+ + p(f'<span style="color:{MUT};font-size:14px">Questions about a product, a batch report or an order? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
 
 WALK = 'https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html?' + UTM
 FLAGS = 'https://vantixbio.com/blog/5-red-flags-fake-peptide-coas.html?' + UTM
@@ -140,21 +141,20 @@ def readcard(kicker, title, desc, url, label):
             f'<div style="font:14px/1.65 {SANS};color:{MUT};padding-bottom:12px">{desc}</div>'
             f'<a href="{url}" style="font:600 14px {SANS};color:{BLUE};text-decoration:none">{label} &rarr;</a></td></tr></table>')
 
-E['welcome-d3'] = dict(day='Day 3: only if they have not ordered', subject='Your 15% off is still waiting', pre='Your first-order code, and what to expect when you order.', html=wrap(
- 'Your first-order code, and what to expect when you order.', 'Your first order', 'Your 15% is still waiting.',
- p('Hello, a quick note in case this got buried. Your first-order code is still good, and it takes 15% off your whole order.')
- + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
+E['welcome-d2'] = dict(day='Day 2: only if they have not ordered', subject='See the testing behind every batch', pre='Your 15% code is still good.', html=wrap(
+ 'Your 15% code is still good.', 'Before you order', 'See the testing behind every batch.',
+ p('Hello, before you place an order, you should be able to see exactly what was tested.')
+ + steps([('Independent testing', 'Every lot we release has a report from a third-party lab.'), ('Batch-level verification', 'Match the batch number on your vial to its own report. Scan the QR code, or enter the number on our verification page.'), ('Original reports', 'See the data, the PDF, and a link to the original lab report, so you do not have to take our word for it.')])
  + button('Shop with 15% off', SHOPCODE)
- + p(f'<span style="color:{MUT};font-size:14px">The code is applied for you when you use the button above.</span>')
- + steps([('Tested, and you can check it', 'Every lot has published batch-level results from an independent lab. Scan the QR code or enter a batch number to see them.'), ('Ships fast', 'Orders typically ship within one business day with a tracking email, and most arrive within about a week.'), ('Simple checkout', 'Pay by card or Zelle. Orders over $150 ship free.')])
- + p(f'<span style="color:{MUT};font-size:14px">Want to see what a real report looks like first? <a href="{WALK}" style="color:{BLUE}">Read one line by line</a>. Any question about a batch or an order, just reply and I will answer it myself.</span>'), why=SIGNUP_WHY))
+ + p(f'<span style="color:{MUT};font-size:14px">Your first-order code <strong>WELCOME15</strong> is still good, and it is applied for you when you use the button above. Orders typically ship within one business day.</span>')
+ + p(f'<span style="color:{MUT};font-size:14px">New to reading a certificate of analysis? <a href="{WALK}" style="color:{BLUE}">Read a real one, line by line</a>.</span>'), why=SIGNUP_WHY))
 
-E['welcome-d7'] = dict(day='Day 7: only if they have not ordered', subject='A note from Vantix Bio', pre='A short note, and your code is still good.', html=plain(
- 'A short note, and your code is still good.',
+E['welcome-d5'] = dict(day='Day 5: only if they have not ordered', subject='A quick note from Frabrizio', pre='Questions about a product, a report or an order? Reply here.', html=plain(
+ 'Questions about a product, a report or an order? Reply here.',
  pp('Hello,')
- + pp('I am Frabrizio, and I run Vantix Bio. You signed up a little while ago, so I wanted to check in and make sure you have what you need.')
- + pp('If you would like me to walk you through a batch report, or you have a question about ordering or shipping, just reply to this email and I will get back to you myself.')
- + pp(f'Your code <strong>WELCOME15</strong> is still good for 15% off your first order whenever you are ready: <a href="{SHOPCODE}" style="color:{BLUE}">vantixbio.com</a>.')
+ + pp('I am Frabrizio, and I run Vantix Bio. Thanks again for joining us.')
+ + pp('If you have a question about a product, want help reading a batch report, or need anything on ordering or shipping, just reply to this email and I will answer it myself.')
+ + pp(f'Your first-order code <strong>WELCOME15</strong> is still good whenever you are ready: <a href="{SHOPCODE}" style="color:{BLUE}">vantixbio.com</a>.')
  + pp('Frabrizio<br>Vantix Bio')))
 
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',
@@ -173,7 +173,7 @@ def to_text(h):
     h = re.sub(r' ?\n ?', '\n', h)
     return re.sub(r'\n{3,}', '\n\n', h).strip() + '\n'
 
-WELCOME = ('welcome-d0', 'welcome-d3', 'welcome-d7')
+WELCOME = ('welcome-d0', 'welcome-d2', 'welcome-d5')
 
 def fill(s, d):
     s = s.replace('{{flow}}', d.get('flow', ''))
