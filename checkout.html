@@ -482,7 +482,7 @@ var promoCodes={
 'SAVE10':0.10,
 'VB10':0.10,
 'WELCOME15':0.15,
-'WINBACK15':0.15,
+'WELCOMEBACK15':0.15,
 'THANKS10':0.10,
 'TEST':{price:1,sku:'VX-BAC-10',freeShipping:true}
 };
@@ -641,7 +641,7 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WINBACK15','THANKS10','MURPHY15','JO10','KITZEL10'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10'];
 
 // NAD+ auto-discount removed
 if(promoCode&&promoCodes[promoCode]){
