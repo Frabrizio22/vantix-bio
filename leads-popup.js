@@ -1,5 +1,6 @@
 /* Vantix Bio: homepage signup popup. 15% off the first order for an email address.
- * Shows once per visitor: after 10 seconds, or when a desktop visitor moves to leave (after 8 seconds).
+ * Runs on the browsing pages (home, shop, product, about, FAQ, shipping, kits, explainers), never on checkout or order pages.
+ * Shows once per visitor: after 15 seconds of browsing in total (the clock carries across pages in the visit), or when a desktop visitor moves to leave (after 8 seconds).
  * Needs supabase/email_leads.sql (capture_lead function and the WELCOME15 promo code).
  * Not shown to people who already signed up, or who closed it in the last 30 days. */
 (function () {
@@ -8,7 +9,7 @@
   var SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
   var SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
   var CODE = 'WELCOME15';
-  var DELAY_MS = 10000;
+  var DELAY_MS = 15000;
   var EXIT_MIN_MS = 8000;
   var QUIET_DAYS = 30;
   var CONSENT = 'By signing up you agree to receive marketing emails from Vantix Bio. Unsubscribe anytime.';
@@ -90,7 +91,7 @@
             '<p class="vxp-err" id="vxpM" role="alert"></p>' +
             '<button type="submit" class="vxp-go">Get my 15% off</button>' +
           '</form>' +
-          '<p class="vxp-fine">' + CONSENT + ' <a href="privacy.html">Privacy Policy</a></p>' +
+          '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html">Privacy Policy</a></p>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
         '<div id="vxpOk" class="vxp-ok" style="display:none">' +
@@ -100,7 +101,7 @@
           '<div class="vxp-code">' + CODE + '</div>' +
           '<p>Your 15% welcome discount is ready.<br>Saved on this device and applied at checkout.</p>' +
           '<button type="button" class="vxp-copy">Copy code</button>' +
-          '<a class="vxp-go" href="shop.html">Browse the catalog</a>' +
+          '<a class="vxp-go" href="/shop.html">Browse the catalog</a>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
       '</div>';
@@ -180,11 +181,14 @@
     });
   }
 
+  // The clock counts visible browsing time across pages in this visit and restarts whenever the age gate or menu closes.
   var visibleMs = 0, wasBlocked = false;
+  try { visibleMs = parseInt(sessionStorage.getItem('vxLeadMs') || '0', 10) || 0; } catch (e) {}
   var timer = setInterval(function () {
     if (shown) { clearInterval(timer); return; }
-    // The clock restarts every time the age gate or menu closes, so the offer never lands right after them.
-    if (blocked()) { visibleMs = 0; wasBlocked = true; } else { visibleMs += 1000; }
+    if (blocked()) { visibleMs = 0; wasBlocked = true; }
+    else if (!document.hidden) { visibleMs += 1000; }
+    try { sessionStorage.setItem('vxLeadMs', String(visibleMs)); } catch (e) {}
     if (visibleMs >= DELAY_MS) show();
   }, 1000);
   document.addEventListener('mouseout', function (e) {
