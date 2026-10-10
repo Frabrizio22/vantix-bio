@@ -104,6 +104,7 @@ E['8-reorder-personal'] = dict(day='Repeat customers, about 3+ weeks after last 
  + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will get back to you.</span>')))
 
 # ---- Welcome flow for homepage-popup signups (no name collected, so greeting is "Hello,") ----
+SHOPCODE = SHOP + '&code=WELCOME15'   # shop.html keeps ?code= and checkout applies it
 SIGNUP_WHY = 'You are receiving this because you signed up at vantixbio.com.'
 GUIDE = 'https://vantixbio.com/blog/how-to-verify-third-party-coa.html?' + UTM
 
@@ -126,7 +127,7 @@ E['welcome-d0'] = dict(day='Day 0: signup (drafted by the daily job)', subject='
  p('Hello, thank you for signing up. Your code for 15% off your first order is below.')
  + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
  + p('Every lot we release has published batch-level testing results. Scan the QR code on a vial, or enter a batch number on our verification page, to see the data, the PDF, and a link to the original lab report.')
- + button('Visit the shop', SHOP)
+ + button('Shop with 15% off', SHOPCODE)
  + p(f'<span style="color:{MUT};font-size:14px">Questions? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
 
 WALK = 'https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html?' + UTM
@@ -139,21 +140,21 @@ def readcard(kicker, title, desc, url, label):
             f'<div style="font:14px/1.65 {SANS};color:{MUT};padding-bottom:12px">{desc}</div>'
             f'<a href="{url}" style="font:600 14px {SANS};color:{BLUE};text-decoration:none">{label} &rarr;</a></td></tr></table>')
 
-E['welcome-d3'] = dict(day='Day 3: only if they have not ordered', subject='How to tell a real COA from a fake one', pre='Most certificates cannot be checked. Here is how to check one.', html=wrap(
- 'Most certificates cannot be checked. Here is how to check one.', 'Before you trust any COA', 'A certificate is easy to fake. A batch you can check is not.',
- p('Hello, almost every peptide site says &ldquo;tested.&rdquo; What matters is whether you can confirm it yourself, without taking the seller&rsquo;s word for it.')
- + p('So instead of telling you our results are good, here are two short reads that show you how to judge any report, ours included.')
- + readcard('Read this first', 'A real report, line by line', 'An actual third-party lab report, annotated field by field, including the awkward parts: a quantity above the label amount, and a sample name that did not match.', WALK, 'Read the walkthrough')
- + readcard('Then keep this', 'Five red flags in any peptide COA', 'What to look for on reports from any seller, and the five-minute check to run before you buy.', FLAGS, 'See the red flags')
- + p(f'<span style="color:{MUT};font-size:14px">When you are ready to order: orders typically ship within one business day, most arrive within about a week, and your first-order code <strong>WELCOME15</strong> takes 15% off. Questions about a report? Reply and ask.</span>')
- + f'<table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 6px"><tr><td style="font:14px {SANS}"><a href="{VERIFY}" style="color:{BLUE}">Open the verification portal</a> &nbsp;&middot;&nbsp; <a href="{SHOP}" style="color:{BLUE}">Visit the shop</a></td></tr></table>', why=SIGNUP_WHY))
+E['welcome-d3'] = dict(day='Day 3: only if they have not ordered', subject='Your 15% off is still waiting', pre='Your first-order code, and what to expect when you order.', html=wrap(
+ 'Your first-order code, and what to expect when you order.', 'Your first order', 'Your 15% is still waiting.',
+ p('Hello, a quick note in case this got buried. Your first-order code is still good, and it takes 15% off your whole order.')
+ + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
+ + button('Shop with 15% off', SHOPCODE)
+ + p(f'<span style="color:{MUT};font-size:14px">The code is applied for you when you use the button above.</span>')
+ + steps([('Tested, and you can check it', 'Every lot has published batch-level results from an independent lab. Scan the QR code or enter a batch number to see them.'), ('Ships fast', 'Orders typically ship within one business day with a tracking email, and most arrive within about a week.'), ('Simple checkout', 'Pay by card or Zelle. Orders over $150 ship free.')])
+ + p(f'<span style="color:{MUT};font-size:14px">Want to see what a real report looks like first? <a href="{WALK}" style="color:{BLUE}">Read one line by line</a>. Any question about a batch or an order, just reply and I will answer it myself.</span>'), why=SIGNUP_WHY))
 
 E['welcome-d7'] = dict(day='Day 7: only if they have not ordered', subject='A note from Vantix Bio', pre='A short note, and your code is still good.', html=plain(
  'A short note, and your code is still good.',
  pp('Hello,')
  + pp('I am Frabrizio, and I run Vantix Bio. You signed up a little while ago, so I wanted to check in and make sure you have what you need.')
  + pp('If you would like me to walk you through a batch report, or you have a question about ordering or shipping, just reply to this email and I will get back to you myself.')
- + pp(f'Your code <strong>WELCOME15</strong> is still good for 15% off your first order whenever you are ready: <a href="{SHOP}" style="color:{BLUE}">vantixbio.com</a>.')
+ + pp(f'Your code <strong>WELCOME15</strong> is still good for 15% off your first order whenever you are ready: <a href="{SHOPCODE}" style="color:{BLUE}">vantixbio.com</a>.')
  + pp('Frabrizio<br>Vantix Bio')))
 
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',

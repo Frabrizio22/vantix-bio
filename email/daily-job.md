@@ -15,7 +15,7 @@ Only customers whose latest order is on or after 2026-10-03 (new orders from now
 | nudge-d42 | segment = nudge_d42 and eligible | A note on shipping |
 | winback-d75 | segment = winback_d75 and eligible and orders = 1 | What is new at Vantix Bio |
 | welcome-d0 | (queued from the stored template when present) in view `lead_welcome_due` (homepage popup signup in the last 3 days, never ordered, not opted out or excluded, no welcome logged). Exempt from the 14-day cap. Skipped quietly if `supabase/email_leads.sql` has not been run | Welcome to Vantix Bio |
-| welcome-d3 | in view `lead_nurture_due`: welcome-d0 logged 3+ days ago, no order, not opted out or excluded. Queued from the stored template. Exempt from the 14-day cap | How to tell a real COA from a fake one |
+| welcome-d3 | in view `lead_nurture_due`: welcome-d0 logged 3+ days ago, no order, not opted out or excluded. Queued from the stored template. Exempt from the 14-day cap | Your 15% off is still waiting |
 | welcome-d7 | in view `lead_nurture_due`: welcome-d3 logged 4+ days ago, same rules. Near plain-text personal note from Frabrizio | A note from Vantix Bio |
 
 No discount codes in any flow (the welcome flow names WELCOME15 only). Never name products or prices in subject lines. Shipping wording: "typically ships within one business day".
