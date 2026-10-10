@@ -54,8 +54,8 @@
       '.vxp button.vxp-go{padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(15,27,45,.08);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp button.vxp-go:hover{background:var(--accent,#3973B0)}' +
       '.vxp button.vxp-go:disabled{opacity:.6;cursor:default}' +
-      '.vxp p.vxp-fine{font-size:11.5px;line-height:1.6;color:rgba(15,27,45,.5);margin:20px 0 0;text-align:center}' +
-      '.vxp p.vxp-ruo{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.4);margin:14px 0 0}' +
+      '.vxp p.vxp-fine{font-size:12.5px;line-height:1.6;color:rgba(15,27,45,.58);margin:20px 0 0;text-align:center}' +
+      '.vxp p.vxp-ruo{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.5);margin:14px 0 0}' +
       '.vxp-fine a{color:inherit;text-decoration:underline;text-underline-offset:2px}' +
       '.vxp p.vxp-err{color:#B3261E;font-size:13px;min-height:0;margin:0;text-align:center}' +
       '.vxp-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
@@ -83,22 +83,22 @@
           '<p class="vxp-k">The Vantix Bio list</p>' +
           '<h3 id="vxpT"><span class="vxp-big">15<span>%</span></span>off <em>your first order.</em></h3>' +
           '<hr class="vxp-rule">' +
-          '<p>Join for new batch reports and<br>restock notices. Your code appears<br>the moment you sign up.</p>' +
+          '<p>Independently tested batch reports,<br>restock notices and new arrivals.<br>Your code appears the moment you sign up.</p>' +
           '<form novalidate>' +
             '<input type="email" id="vxpE" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
             '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
             '<p class="vxp-err" id="vxpM" role="alert"></p>' +
-            '<button type="submit" class="vxp-go">Reveal my code</button>' +
+            '<button type="submit" class="vxp-go">Get my 15% off</button>' +
           '</form>' +
           '<p class="vxp-fine">' + CONSENT + ' <a href="privacy.html">Privacy Policy</a></p>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
         '<div id="vxpOk" class="vxp-ok" style="display:none">' +
-          '<p class="vxp-k">Welcome to the list</p>' +
-          '<h3>Your <em>code.</em></h3>' +
+          '<p class="vxp-k">Your welcome code</p>' +
+          '<h3>You&rsquo;re on <em>the list.</em></h3>' +
           '<hr class="vxp-rule">' +
           '<div class="vxp-code">' + CODE + '</div>' +
-          '<p>Saved on this device and applied at checkout.<br>Valid on first orders only.</p>' +
+          '<p>Your 15% welcome discount is ready.<br>Saved on this device and applied at checkout.</p>' +
           '<button type="button" class="vxp-copy">Copy code</button>' +
           '<a class="vxp-go" href="shop.html">Browse the catalog</a>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
@@ -175,7 +175,7 @@
       root.querySelector('#vxpOk').style.display = 'block';
       var c2 = root.querySelector('.vxp-copy'); if (c2) c2.focus();
     }).catch(function () {
-      btn.disabled = false; btn.textContent = 'Reveal my code';
+      btn.disabled = false; btn.textContent = 'Get my 15% off';
       msg.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
     });
   }
