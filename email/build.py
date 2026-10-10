@@ -152,7 +152,7 @@ E['welcome-d5'] = dict(day='Day 5: only if they have not ordered', subject='A qu
  'Have a question about a COA? Reply here.',
  pp('Hello,')
  + pp('I\'m Frabrizio, the founder of Vantix Bio. Thanks again for joining us.')
- + pp('If you have a question about a COA or a product, or need anything on ordering or shipping, just reply to this email and I will answer it myself.')
+ + pp('If you have any questions about our products, COAs, ordering, or shipping, just reply to this email. I\'ll answer you myself, and I\'m happy to help.')
  + pp(f'Your first-order code <strong>WELCOME15</strong> is still good whenever you are ready: <a href="{SHOPCODE}" style="color:{BLUE}">vantixbio.com</a>.')
  + pp('Frabrizio<br>Vantix Bio')))
 
