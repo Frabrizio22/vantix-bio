@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the Vantix Bio retention email templates (table-based, inline CSS) into this folder.
 Merge tags: {{first_name}} {{product}} {{weeks}} {{email}} {{month}} {{batch_rows}} {{offer_block}}"""
-import html, json, os, sys
+import html, json, os, re, sys
 
 NAVY, CREAM, PAPER, BLUE, SAGE, HAIR, INK, MUT = '#0F1B2D', '#F1EFE8', '#FAFAF7', '#3973B0', '#4A8568', '#D9D2BF', '#243247', '#5E6877'
 SERIF = "Georgia,'Times New Roman',serif"
@@ -29,7 +29,7 @@ def steps(items):
 
 def p(t): return f'<p style="margin:0 0 16px;font:16px/1.7 {SANS};color:{INK}">{t}</p>'
 
-def wrap(preheader, eyebrow, headline, body):
+def wrap(preheader, eyebrow, headline, body, why='You are receiving this because you ordered from vantixbio.com or asked to be notified.'):
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Vantix Bio</title>
 <style>@media (max-width:620px){{.shell{{width:100%!important}}.pad{{padding-left:22px!important;padding-right:22px!important}}.h1{{font-size:28px!important}}}}</style></head>
@@ -43,7 +43,7 @@ def wrap(preheader, eyebrow, headline, body):
 <h1 class="h1" style="margin:0 0 22px;font:400 34px/1.15 {SERIF};letter-spacing:-.01em;color:{NAVY}">{headline}</h1>
 {body}
 </td></tr>
-<tr><td class="pad" style="padding:20px 40px 40px"><div style="border-top:1px solid {HAIR};padding-top:20px;font:12px/1.7 {SANS};color:{MUT}">{RUO}<br>{ADDR}<br>You are receiving this because you ordered from vantixbio.com or asked to be notified. <a href="{UNSUB}" style="color:{MUT};text-decoration:underline">Unsubscribe</a></div></td></tr>
+<tr><td class="pad" style="padding:20px 40px 40px"><div style="border-top:1px solid {HAIR};padding-top:20px;font:12px/1.7 {SANS};color:{MUT}">{RUO}<br>{ADDR}<br>{why} <a href="{UNSUB}" style="color:{MUT};text-decoration:underline">Unsubscribe</a></div></td></tr>
 </table></td></tr></table></body></html>'''
 
 E = {}
@@ -103,8 +103,76 @@ E['8-reorder-personal'] = dict(day='Repeat customers, about 3+ weeks after last 
  + button('Visit the shop', SHOP)
  + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will get back to you.</span>')))
 
+# ---- Welcome flow for homepage-popup signups (no name collected, so greeting is "Hello,") ----
+SHOPCODE = SHOP + '&code=WELCOME15'   # shop.html keeps ?code= and checkout applies it
+SIGNUP_WHY = 'You are receiving this because you signed up at vantixbio.com.'
+GUIDE = 'https://vantixbio.com/blog/how-to-verify-third-party-coa.html?' + UTM
+
+def plain(preheader, body):
+    """Near plain-text layout for the personal note: no header band, no headline, same footer."""
+    return f'''<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Vantix Bio</title></head>
+<body style="margin:0;padding:0;background:#ffffff">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#ffffff">{preheader}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:28px 16px">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:560px;max-width:100%"><tr><td>
+{body}
+<div style="border-top:1px solid {HAIR};margin-top:28px;padding-top:16px;font:12px/1.7 {SANS};color:{MUT}">{RUO}<br>{ADDR}<br>You are receiving this because you signed up at vantixbio.com. <a href="{UNSUB}" style="color:{MUT};text-decoration:underline">Unsubscribe</a></div>
+</td></tr></table></td></tr></table></body></html>'''
+
+def pp(t): return f'<p style="margin:0 0 16px;font:16px/1.65 {SANS};color:#1a1a1a">{t}</p>'
+
+E['welcome-d0'] = dict(day='Day 0: signup (drafted by the daily job)', subject='Welcome to Vantix Bio: your 15% is ready', pre='Your welcome code, and how to check any batch.', html=wrap(
+ 'Your welcome code, and how to check any batch.', 'Welcome', 'Welcome to Vantix Bio.',
+ p('Thanks for joining us. Your 15% first-order discount is ready below.')
+ + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Shipping', 'Free on orders of $150+ after discounts')])
+ + p('Every batch we release is independently tested, and the results are published. Every vial is labeled with a batch number and a QR code that opens that batch\'s own report: the data, the PDF and the original lab report.')
+ + button('Shop with 15% off', SHOPCODE)
+ + p(f'<span style="color:{MUT};font-size:14px">Any questions about our products, COAs, ordering, or shipping? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
+
+WALK = 'https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html?' + UTM
+FLAGS = 'https://vantixbio.com/blog/5-red-flags-fake-peptide-coas.html?' + UTM
+
+def readcard(kicker, title, desc, url, label):
+    return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 14px;background:#fff;border:1px solid {HAIR};border-radius:6px"><tr><td style="padding:20px 22px">'
+            f'<div style="font:11px {MONO};letter-spacing:.14em;text-transform:uppercase;color:{BLUE};padding-bottom:8px">{kicker}</div>'
+            f'<div style="font:400 21px/1.25 {SERIF};color:{NAVY};padding-bottom:8px">{title}</div>'
+            f'<div style="font:14px/1.65 {SANS};color:{MUT};padding-bottom:12px">{desc}</div>'
+            f'<a href="{url}" style="font:600 14px {SANS};color:{BLUE};text-decoration:none">{label} &rarr;</a></td></tr></table>')
+
+E['welcome-d2'] = dict(day='Day 2: only if they have not ordered', subject='See the testing behind every batch', pre='Your 15% code is still good.', html=wrap(
+ 'Your 15% code is still good.', 'Before you order', 'See the testing behind every batch.',
+ p('Before you place an order, you should be able to see exactly what was tested.')
+ + steps([('Independently tested', 'Every batch we release has a report from a third-party lab.'), ('Batch-specific verification', 'Every vial is labeled with a batch number and a QR code that opens that batch\'s own report on our verification page.'), ('Results you can verify', 'See the data, the PDF, and a link to the original lab report, so you do not have to take our word for it.')])
+ + button('Shop with 15% off', SHOPCODE)
+ + p(f'<span style="color:{MUT};font-size:14px">Your first-order code <strong>WELCOME15</strong> is still good, and it is applied for you when you use the button above. Orders typically ship within one business day.</span>')
+ + p(f'<span style="color:{MUT};font-size:14px">New to reading a certificate of analysis? <a href="{WALK}" style="color:{BLUE}">Read a real one, line by line</a>.</span>'), why=SIGNUP_WHY))
+
+E['welcome-d5'] = dict(day='Day 5: only if they have not ordered', subject='A quick note from Frabrizio', pre='Have a question about a COA? Reply here.', html=plain(
+ 'Have a question about a COA? Reply here.',
+ pp('Hello,')
+ + pp('I\'m Frabrizio, the founder of Vantix Bio. Thanks again for joining us.')
+ + pp('If you have any questions about our products, COAs, ordering, or shipping, just reply to this email. I\'ll answer you myself, and I\'m happy to help.')
+ + pp(f'Your first-order code <strong>WELCOME15</strong> is still good whenever you are ready: <a href="{SHOPCODE}" style="color:{BLUE}">vantixbio.com</a>.')
+ + pp('Frabrizio<br>Vantix Bio')))
+
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',
   batch_rows=card([('VX-2T 30mg', 'Batch VX-2T-1001'), ('Purity', '99.1%'), ('Endotoxin', 'Within spec'), ('Tested', 'Independent lab')]))
+
+def to_text(h):
+    """Plain-text twin of an email (used as the text part of the message)."""
+    h = re.sub(r'(?is)<(style|title)[^>]*>.*?</\1>', '', h)
+    h = re.sub(r'(?is)<div style="display:none[^>]*>.*?</div>', '', h)
+    h = re.sub(r'(?is)<a [^>]*href="([^"]+)"[^>]*>(.*?)</a>', lambda m: re.sub(r'<[^>]+>', '', m.group(2)) + ' (' + m.group(1) + ')', h)
+    h = re.sub(r'(?i)<br\s*/?>', '\n', h)
+    h = re.sub(r'(?i)</(p|div|tr|h1)>', '\n', h)
+    h = re.sub(r'(?i)</td>', ' ', h)
+    h = html.unescape(re.sub(r'<[^>]+>', '', h))
+    h = re.sub(r'[ \t]+', ' ', h)
+    h = re.sub(r' ?\n ?', '\n', h)
+    return re.sub(r'\n{3,}', '\n\n', h).strip() + '\n'
+
+WELCOME = ('welcome-d0', 'welcome-d2', 'welcome-d5')
 
 def fill(s, d):
     s = s.replace('{{flow}}', d.get('flow', ''))
@@ -119,4 +187,13 @@ if __name__ == '__main__':
         meta.append(dict(id=k, day=v['day'], subject=fill(v['subject'], SAMPLE), html=fill(v['html'].replace('{{flow}}', k), SAMPLE)))
     out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(here, 'preview.json')
     json.dump(meta, open(out, 'w'))
+    # SQL that loads the welcome templates into public.email_templates (run after supabase/email_welcome_flow.sql).
+    rows = []
+    for k in WELCOME:
+        v = E[k]; h = v['html'].replace('{{flow}}', k)
+        rows.append("(" + "'" + k + "', $s$" + v['subject'] + "$s$, $h$" + h + "$h$, $t$" + to_text(h) + "$t$)")
+    open(os.path.join(here, '..', 'supabase', 'email_welcome_templates.sql'), 'w', encoding='utf-8').write(
+        "-- Generated by email/build.py. Loads the welcome-flow templates ({{email}} is filled in when queued).\n"
+        "insert into public.email_templates (flow, subject, html_body, text_body) values\n" + ",\n".join(rows) +
+        "\non conflict (flow) do update set subject = excluded.subject, html_body = excluded.html_body, text_body = excluded.text_body, updated_at = now();\n")
     print('built', len(E), 'emails')
