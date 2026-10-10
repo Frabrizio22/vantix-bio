@@ -477,6 +477,7 @@ var promoCodes={
 'BPC10':{discount:0.10,sku:'VX-BPC-10'},
 'JJ10':0.10,
 'JO10':0.10,
+'KITZEL10':0.10,
 'TIRZ10':{discount:0.10,sku:'VX-TIRZ'},
 'SAVE10':0.10,
 'VB10':0.10,
@@ -638,7 +639,7 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','MURPHY15','JO10'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','MURPHY15','JO10','KITZEL10'];
 
 // NAD+ auto-discount removed
 if(promoCode&&promoCodes[promoCode]){

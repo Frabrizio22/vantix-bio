@@ -210,7 +210,7 @@ const PAYNAME = { zelle: 'Zelle', credit_card: 'Card' };
 
 /* ---------- state ---------- */
 const S = { session: null, tab: 'home', channel: 'all', range: '30', cA: { from: '', to: '' }, cB: { from: '', to: '' }, cBOn: true, cBTouched: false, orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
-  filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
+  filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, selCust: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
 
 function toast(msg, err) { S.toast = { msg, err }; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, err ? 6000 : 3000); }
 
@@ -271,7 +271,7 @@ function customers() {
   });
   const all = [...m.values()].map((c) => { c.dates.sort((a, b) => a - b); c.n = c.dates.length; c.first = c.dates[0]; c.last = c.dates[c.n - 1]; c.gaps = c.dates.slice(1).map((d, i) => (d - c.dates[i]) / 864e5); return c; });
   const gaps = all.flatMap((c) => c.gaps), med = gaps.length >= 3 ? median(gaps) : null, now = Date.now();
-  all.forEach((c) => { c.seg = c.n > 1 ? 'Repeat' : 'One-time'; c.due = med != null && c.n > 1 && (now - c.last) / 864e5 > med; if (c.due) c.seg = 'Due to reorder'; });
+  all.forEach((c) => { c.seg = c.n > 1 ? 'Repeat' : 'One-time'; c.own = c.n > 1 ? median(c.gaps) : null; c.due = c.own != null && (now - c.last) / 864e5 > c.own; if (c.due) c.seg = 'Due to reorder'; });
   return { list: all.sort((a, b) => b.last - a.last), med };
 }
 const lowStock = () => S.products.filter((p) => p.active && p.stock_tracked && !p.is_kit && p.stock <= p.low_stock_threshold);
@@ -365,8 +365,9 @@ A.cmpPreset = (m) => {
 A.filter = (v) => { S.filter = v; render(); };
 A.chan = (v) => { S.channel = v; render(); };
 A.cseg = (v) => { S.cseg = v; render(); };
-A.close = () => { S.sel = null; S.selProd = null; S.armed = null; S.form = {}; render(); };
-A.openOrder = (on) => { S.sel = on; S.selProd = null; S.armed = null; const o = S.orders.find((x) => x.order_number === on); S.form = { tracking: (o && o.tracking_number) || '', label: o && o.label_cost != null ? String(o.label_cost) : '' }; render(); loadEvents(on); };
+A.close = () => { S.selCust = null; S.sel = null; S.selProd = null; S.armed = null; S.form = {}; render(); };
+A.openCust = (e) => { S.selCust = e; S.sel = null; S.selProd = null; S.armed = null; render(); };
+A.openOrder = (on) => { S.selCust = null; S.sel = on; S.selProd = null; S.armed = null; const o = S.orders.find((x) => x.order_number === on); S.form = { tracking: (o && o.tracking_number) || '', label: o && o.label_cost != null ? String(o.label_cost) : '' }; render(); loadEvents(on); };
 A.openProd = (sku) => { S.selProd = sku; S.sel = null; S.armed = null; const p = S.products.find((x) => x.sku === sku); S.form = p ? { name: p.name, category: p.category || '', price: String(p.price), unit_cost: p.unit_cost == null ? '' : String(p.unit_cost), testing_cost: String(p.testing_cost), low: String(p.low_stock_threshold), active: p.active, tracked: p.stock_tracked, delta: '', reason: '' } : {}; render(); };
 A.arm = (k) => { S.armed = k; render(); };
 A.disarm = () => { S.armed = null; render(); };
@@ -487,13 +488,20 @@ function drawChart(c) {
   const cw = (W - L - R) / Math.max(1, series.length), bw = Math.max(2, Math.min(26, cw * 0.62));
   let g = '';
   for (let i = 0; i <= 4; i++) { const v = (mx / 4) * i, y = T + (H - T - B) * (1 - i / 4); g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" stroke="#ECEAE2"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#5E6877">' + esc(fmt(v)) + '</text>'; }
-  const bars = series.map((s, i) => { const h = Math.max(0, (H - T - B) * (s.v / mx)), x = L + cw * i + (cw - bw) / 2; return '<rect class="b" x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="' + Math.min(4, bw / 2).toFixed(1) + '"><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
+  const bars = series.map((s, i) => { const h = Math.max(0, (H - T - B) * (s.v / mx)), x = L + cw * i + (cw - bw) / 2; return '<rect class="b" x="' + x.toFixed(1) + '" y="' + (H - B - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="' + Math.min(4, bw / 2).toFixed(1) + '"' + (c.sel === i ? ' style="fill:#E0B04A"' : '') + '><title>' + esc(s.k + ': ' + fmt(s.v)) + '</title></rect>'; }).join('');
+  const hits = series.map((s, i) => '<rect class="hit" data-ch="' + c.id + '" data-i="' + i + '" x="' + (L + cw * i).toFixed(1) + '" y="' + T + '" width="' + cw.toFixed(1) + '" height="' + (H - T - B) + '" fill="transparent" style="cursor:pointer"/>').join('');
+  let tip = '';
+  if (c.sel != null && series[c.sel]) {
+    const s = series[c.sel], txt = s.k + ': ' + fmt(s.v), tw = txt.length * 6.6 + 16, cx = L + cw * c.sel + cw / 2, tx = Math.min(Math.max(cx - tw / 2, L), W - R - tw), top = H - B - (H - T - B) * (s.v / mx), ty = Math.max(2, top - 30);
+    tip = '<g pointer-events="none"><rect x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" width="' + tw.toFixed(1) + '" height="22" rx="6" fill="#0F1B2D"/><text x="' + (tx + tw / 2).toFixed(1) + '" y="' + (ty + 15).toFixed(1) + '" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">' + esc(txt) + '</text></g>';
+  }
   const idx = series.length <= 1 ? [0] : [0, Math.floor((series.length - 1) / 2), series.length - 1];
   const xl = idx.map((i, j) => '<text x="' + (L + cw * i + cw / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="' + (j === 0 && idx.length > 1 ? 'start' : j === idx.length - 1 && idx.length > 1 ? 'end' : 'middle') + '" font-size="11" fill="#5E6877">' + esc(series[i].k) + '</text>').join('');
-  el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Bar chart">' + g + bars + xl + '</svg>';
+  el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Bar chart">' + g + bars + xl + hits + tip + '</svg>';
   el.dataset.w = W;
 }
 function drawCharts() { CHARTS.forEach(drawChart); }
+document.addEventListener('click', (e) => { const t = e.target; if (!t || !t.classList || !t.classList.contains('hit')) return; const c = CHARTS.find((x) => x.id === t.dataset.ch); if (!c) return; const i = Number(t.dataset.i); c.sel = c.sel === i ? null : i; drawChart(c); });
 let _rz; window.addEventListener('resize', () => { clearTimeout(_rz); _rz = setTimeout(() => { if (CHARTS.some((c) => { const e = document.getElementById(c.id); return e && Math.abs((e.clientWidth || 0) - Number(e.dataset.w || 0)) > 2; })) drawCharts(); }, 120); });
 function stackTables() {
   document.querySelectorAll('.tw > table:not(.mini)').forEach((t) => {
@@ -524,14 +532,14 @@ function mixCard(list) {
 function monthlyCards(paid) {
   const mo = monthly(paid); if (!mo.length) return '';
   const rows = mo.slice(-6).reverse().map((r, i, arr) => {
-    const prev = mo[mo.findIndex((x) => x.k === r.k) - 1], tp = topProducts(paid.filter((o) => dkey(o.created_at).slice(0, 7) === r.k))[0];
+    const prev = mo[mo.findIndex((x) => x.k === r.k) - 1], mp = paid.filter((o) => dkey(o.created_at).slice(0, 7) === r.k), tp = topProducts(mp)[0], tv = topProducts(mp).slice().sort((a, b) => b.qty - a.qty)[0];
     const d = prev && prev.rev ? Math.round((r.rev - prev.rev) / prev.rev * 100) : null;
-    return '<tr><td><b>' + esc(fmonth(r.k)) + '</b></td><td class="r num">' + usd(r.rev, 0) + '</td><td class="r num">' + (d == null ? '—' : '<span class="' + (d >= 0 ? 'up' : 'dn') + '">' + (d >= 0 ? '▲ ' : '▼ ') + Math.abs(d) + '%</span>') + '</td><td class="r num">' + r.n + '</td><td>' + (tp ? esc(tp.name) + ' <span class="sub">' + tp.qty + ' sold · ' + usd(tp.rev, 0) + '</span>' : '—') + '</td></tr>';
+    return '<tr><td><b>' + esc(fmonth(r.k)) + '</b></td><td class="r num">' + usd(r.rev, 0) + '</td><td class="r num">' + (d == null ? '—' : '<span class="' + (d >= 0 ? 'up' : 'dn') + '">' + (d >= 0 ? '▲ ' : '▼ ') + Math.abs(d) + '%</span>') + '</td><td class="r num">' + r.n + '</td><td>' + (tp ? esc(tp.name) + ' <span class="sub">' + tp.qty + ' sold · ' + usd(tp.rev, 0) + '</span>' : '—') + '</td><td>' + (tv ? esc(tv.name) + ' <span class="sub">' + tv.qty + ' vials</span>' : '—') + '</td></tr>';
   }).join('');
   const cm = dkey(new Date()).slice(0, 7), full = mo.filter((r) => r.k !== cm), avg = full.length ? { rev: full.reduce((x, r) => x + r.rev, 0) / full.length, profit: full.reduce((x, r) => x + r.profit, 0) / full.length } : null;
   const avgLine = avg ? '<div class="kv tot" style="margin-top:8px"><span>Average full month (' + full.length + ', excludes this month so far)</span><span class="num">' + usd(avg.rev, 0) + ' revenue · ' + usd(avg.profit, 0) + ' profit</span></div>' : '';
   return '<div class="card"><h2>Revenue by month</h2><div class="hint">All time, last 6 months · paid orders · ' + esc(CHANNELS.find((x) => x[0] === S.channel)[1].toLowerCase()) + '</div>' + chart(mo.slice(-12).map((r) => ({ k: fmonth(r.k), v: r.rev })), (v) => usd(v, 0)) + '</div>' +
-    '<div class="card"><h2>Month over month</h2><div class="hint">Best seller = top product by revenue that month</div><div class="tw"><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">vs prior</th><th class="r">Orders</th><th>Best seller</th></tr></thead><tbody>' + rows + '</tbody></table></div>' + avgLine + '</div>';
+    '<div class="card"><h2>Month over month</h2><div class="hint">Top by revenue and top by vials sold, per month</div><div class="tw"><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">vs prior</th><th class="r">Orders</th><th>Top by revenue</th><th>Top by vials</th></tr></thead><tbody>' + rows + '</tbody></table></div>' + avgLine + '</div>';
 }
 
 function topCustomers(list) {
@@ -555,7 +563,7 @@ function viewHome() {
     '<div class="card"><h2>Revenue by day</h2><div class="hint">' + esc(rg.label) + '</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' + monthlyCards(paid) +
     '<div class="grid g2"><div class="card"><h2>Zelle vs card</h2><div class="hint">Share of paid orders and of revenue</div>' + (cur.length ? mixCard(cur) : '<div class="empty">No paid orders in this range.</div>') + '</div>' +
       '<div class="card"><h2>Customers</h2><div class="hint">All time</div><table class="mini"><tr><td>Total customers</td><td class="r num"><b>' + cu.list.length + '</b></td><td></td></tr><tr><td>Repeat buyers</td><td class="r num"><b>' + repeat + '</b></td><td class="r num">' + pct(repeat, cu.list.length) + '%</td></tr><tr><td>One-time buyers</td><td class="r num"><b>' + (cu.list.length - repeat) + '</b></td><td class="r num">' + pct(cu.list.length - repeat, cu.list.length) + '%</td></tr><tr><td>Typical reorder gap</td><td class="r num"><b>' + (cu.med == null ? '—' : Math.round(cu.med) + ' days') + '</b></td><td></td></tr></table></div></div>' +
-    '<div class="grid g2"><div class="card"><h2>Top products</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tp.length ? tp.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + usd(p.rev) + ' · ' + p.qty + ' sold</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.rev / maxRev * 100)) + '%"></i></div></div>').join('') : '<div class="empty">Nothing sold in this range.</div>') + '</div>' +
+    '<div class="grid g2"><div class="card"><h2>Top products</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tp.length ? tp.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + usd(p.rev) + ' · ' + p.qty + ' sold</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.rev / maxRev * 100)) + '%"></i></div></div>').join('') : '<div class="empty">Nothing sold in this range.</div>') + (tp.length ? '<h2 style="margin-top:18px">Most vials sold</h2><div class="hint">By quantity, ' + esc(rg.label.toLowerCase()) + '</div>' + (() => { const tv = topProducts(cur).slice().sort((x, y) => y.qty - x.qty).slice(0, 5), mq = tv[0] ? tv[0].qty : 1; return tv.map((p) => '<div style="margin-bottom:10px"><div class="kv"><span style="color:var(--ink);font-weight:500">' + esc(p.name) + '</span><span class="num">' + p.qty + ' vials · ' + usd(p.rev) + '</span></div><div class="bar"><i style="width:' + Math.max(3, Math.round(p.qty / mq * 100)) + '%"></i></div></div>').join(''); })() : '') + '</div>' +
       '<div class="card"><h2>Top customers</h2><div class="hint">By revenue, ' + esc(rg.label.toLowerCase()) + '</div>' + (tcu.length ? '<table class="mini">' + tcu.map((c) => '<tr><td><b>' + esc(c.name) + '</b><br><small style="color:var(--mut)">' + c.n + (c.n === 1 ? ' order' : ' orders') + ' · last ' + esc(fday(dkey(c.last))) + '</small></td><td class="r num">' + usd(c.rev, 0) + '<br><small style="color:var(--mut)">' + usd(c.profit, 0) + ' profit</small></td></tr>').join('') + '</table>' : '<div class="empty">No paid orders in this range.</div>') + '</div></div>' +
     '<div class="card"><h2>Recent orders</h2><div class="hint">Latest 6</div>' + (recent.length ? '<table class="mini">' + recent.slice(0, 6).map((o) => '<tr class="click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><td><b class="mono">' + esc(o.order_number) + '</b><br><small style="color:var(--mut)">' + esc(o.customer_name) + '</small></td><td>' + pill(o) + '</td><td class="r num">' + usd(n0(o.total)) + '</td></tr>').join('') + '</table>' : '<div class="empty">No orders yet.</div>') + '</div>';
 }
@@ -586,10 +594,10 @@ function viewCustomers() {
   const list = cu.list.filter((c) => (S.cseg === 'All' || c.seg === S.cseg) && (!q || (c.name + c.email + c.state).toLowerCase().includes(q)));
   const rep = cu.list.filter((c) => c.n > 1).length, due = cu.list.filter((c) => c.due).length;
   const kpi = (l, v, s) => '<div class="card kpi"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
-  return chanChips() + '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Worth a personal email') + '</div>' +
+  return chanChips() + '<div class="grid g4">' + kpi('Customers', cu.list.length, 'Paid at least once') + kpi('Repeat buyers', rep, pct(rep, cu.list.length) + '% of customers') + kpi('Typical reorder gap', cu.med == null ? '—' : Math.round(cu.med) + ' days', cu.med == null ? 'Needs a few repeat orders' : 'Median across repeat buyers') + kpi('Due to reorder', due, 'Past their own usual gap') + '</div>' +
     '<div class="row"><label class="f" style="flex:1;min-width:220px;max-width:460px"><span style="position:absolute;left:-9999px">Search customers</span><input id="cs" type="search" data-in="_cq" value="' + esc(S.cq) + '" placeholder="Search customers"></label></div>' +
     '<div class="chips">' + ['All', 'Repeat', 'Due to reorder', 'One-time'].map((n) => '<button class="chip' + (S.cseg === n ? ' on' : '') + '" data-act="cseg" data-arg="' + n + '">' + n + ' <i>' + (n === 'All' ? cu.list.length : cu.list.filter((c) => c.seg === n).length) + '</i></button>').join('') + '</div>' +
-    (list.length ? '<div class="tw"><table><thead><tr><th>Customer</th><th>State</th><th class="r">Orders</th><th class="r">Spent</th><th>Last order</th><th>Customer since</th><th>Segment</th></tr></thead><tbody>' + list.map((c) => '<tr><td><b>' + esc(c.name) + '</b><div class="sub">' + esc(c.email) + '</div></td><td>' + esc(c.state || '') + '</td><td class="r num">' + c.n + '</td><td class="r num">' + usd(c.spend) + '</td><td>' + esc(fday(dkey(c.last))) + '</td><td>' + esc(fday(dkey(c.first))) + '</td><td><span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span></td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No customers match.</div>');
+    (list.length ? '<div class="tw"><table><thead><tr><th>Customer</th><th>State</th><th class="r">Orders</th><th class="r">Spent</th><th>Last order</th><th>Customer since</th><th>Segment</th></tr></thead><tbody>' + list.map((c) => '<tr class="click" data-act="openCust" data-arg="' + esc(c.email) + '"><td><b>' + esc(c.name) + '</b><div class="sub">' + esc(c.email) + '</div></td><td>' + esc(c.state || '') + '</td><td class="r num">' + c.n + '</td><td class="r num">' + usd(c.spend) + '</td><td>' + esc(fday(dkey(c.last))) + '</td><td>' + esc(fday(dkey(c.first))) + '</td><td><span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span></td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No customers match.</div>');
 }
 
 /* ---------- creators ---------- */
@@ -705,6 +713,32 @@ function orderDrawer() {
       '<div class="kv tot"><span>Profit' + (incomplete(o) ? ' (so far)' : '') + '</span><span class="num">' + usd(profitOf(o)) + '</span></div>' + (o.cost_missing ? '<div class="note">An item has no cost set, so profit is overstated. Set it on Products.</div>' : '') + '</div>' +
     (ev.length ? '<div class="sec"><h4>History</h4><div class="tl">' + ev.map((e) => '<div><span>' + esc(e.source) + ': ' + esc(e.old_status || '—') + ' → ' + esc(e.new_status || '—') + '</span><span>' + esc(fdate(e.created_at)) + '</span></div>').join('') + '</div></div>' : '') + '</aside>';
 }
+function custDrawer() {
+  const c = customers().list.find((x) => x.email === S.selCust);
+  const mine = S.orders.filter((o) => String(o.customer_email || '').toLowerCase() === S.selCust).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  if (!mine.length) return '';
+  const paid = mine.filter(isPaid), last = mine[0];
+  const rev = paid.reduce((t, o) => t + n0(o.total), 0), prof = paid.reduce((t, o) => t + profitOf(o), 0), partial = paid.some(incomplete);
+  const avg = paid.length ? rev / paid.length : 0;
+  const prod = {}; paid.forEach((o) => (o.order_items || []).forEach((i) => { const k = i.sku || i.name, x = prod[k] || (prod[k] = { name: i.name, qty: 0, rev: 0, n: 0 }); x.qty += n0(i.qty); x.rev += n0(i.line_total); x.n++; }));
+  const top = Object.values(prod).sort((a, b) => b.qty - a.qty);
+  const codes = {}; paid.forEach((o) => { if (o.discount_code) codes[o.discount_code] = (codes[o.discount_code] || 0) + 1; });
+  const wholesale = paid.some((o) => chanOf(o) === 'wholesale'), retail = paid.some((o) => chanOf(o) === 'retail');
+  const own = c && c.own != null ? c.own : null, daysSince = c ? Math.floor((Date.now() - c.last) / 864e5) : null;
+  const nextDue = own != null ? new Date(c.last + own * 864e5) : null;
+  const kv = (l, v) => '<div class="kv"><span>' + l + '</span><span class="num">' + v + '</span></div>';
+  const seg = c ? '<span class="pill c-' + (c.seg === 'Due to reorder' ? 'red' : c.seg === 'Repeat' ? 'green' : 'gray') + '">' + c.seg + '</span>' : '';
+  return '<div class="scrim" data-act="close"></div><aside class="drawer" role="dialog" aria-label="Customer ' + esc(last.customer_name) + '">' +
+    '<div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3>' + esc(last.customer_name) + '</h3><div class="sub">' + esc(S.selCust) + (last.phone ? ' · ' + esc(last.phone) : '') + '</div></div><div class="row">' + seg + '<button class="btn sm" data-act="close" aria-label="Close">✕</button></div></div>' +
+    '<div class="sec"><h4>Summary</h4>' + kv('Orders (paid)', paid.length + (mine.length > paid.length ? ' <span class="sub">+ ' + (mine.length - paid.length) + ' unpaid/failed</span>' : '')) + kv('Total spent', usd(rev)) + kv('Average order', usd(avg)) + kv('Profit from them' + (partial ? ' (so far)' : ''), usd(prof)) +
+      kv('Customer since', c ? esc(fday(dkey(c.first))) : '—') + kv('Last order', c ? esc(fday(dkey(c.last))) + ' · ' + daysSince + ' days ago' : '—') +
+      kv('Usual gap between orders', own != null ? Math.round(own) + ' days' : 'Needs a 2nd order') + (nextDue ? kv('Expected next order', esc(fday(dkey(nextDue))) + (c.due ? ' <span class="sub">(overdue)</span>' : '')) : '') +
+      kv('Type', wholesale && retail ? 'Retail + wholesale' : wholesale ? 'Wholesale' : 'Retail') + '</div>' +
+    '<div class="sec"><h4>Ships to</h4><div class="sub">' + esc(last.address) + ', ' + esc(last.city) + ', ' + esc(last.state) + ' ' + esc(last.zip) + '</div></div>' +
+    '<div class="sec"><h4>What they buy</h4>' + (top.length ? top.map((x) => kv(esc(x.name), x.qty + ' vials · ' + usd(x.rev))).join('') : '<div class="sub">Nothing yet.</div>') + '</div>' +
+    (Object.keys(codes).length ? '<div class="sec"><h4>Codes used</h4>' + Object.keys(codes).map((k) => kv(esc(k), codes[k] + '×')).join('') + '</div>' : '') +
+    '<div class="sec"><h4>Order history</h4><div class="sub">Tap an order to open it.</div>' + mine.map((o) => '<div class="kv click" style="cursor:pointer" data-act="openOrder" data-arg="' + esc(o.order_number) + '"><span><b class="mono">' + esc(o.order_number) + '</b> <span class="sub">' + esc(fday(dkey(o.created_at))) + ' · ' + esc(itemsText(o)) + '</span></span><span class="num">' + pill(o) + ' ' + usd(n0(o.total)) + '</span></div>').join('') + '</div></aside>';
+}
 function prodDrawer() {
   const p = S.products.find((x) => x.sku === S.selProd); if (!p) return '';
   const f = S.form, mv = S.moves.filter((m) => m.sku === p.sku).slice(0, 6), price = Number(f.price), uc = f.unit_cost === '' ? NaN : Number(f.unit_cost), tc = Number(f.testing_cost || 0);
@@ -750,7 +784,7 @@ function render() {
     TABS.map((x) => '<button class="' + (S.tab === x[0] ? 'on' : '') + (EXTRA.includes(x[0]) ? ' extra' : '') + '" data-act="tab" data-arg="' + x[0] + '"' + (S.tab === x[0] ? ' aria-current="page"' : '') + '>' + ico(x[0]) + '<span class="lab">' + x[1] + '</span>' + (badge[x[0]] ? '<span class="badge">' + badge[x[0]] + '</span>' : '') + '</button>').join('') +
     '<button class="moreBtn' + (S.more || EXTRA.includes(S.tab) ? ' on' : '') + '" data-act="more" aria-expanded="' + !!S.more + '">' + ico('more') + '<span class="lab">More</span></button></nav><div class="foot"><span>vantixbio.com</span><button data-act="logout">Sign out</button></div></aside><main class="main"><div class="top"><div><h1>' + t[1] + '</h1><div class="sub">' + t[2] + '</div></div><div class="row">' +
     (S.tab === 'orders' ? '<button class="btn" data-act="csv">Export CSV</button>' : '') + '<button class="btn" data-act="refresh">Refresh</button></div></div>' + (S.error ? '<div class="banner" role="alert">' + esc(S.error) + '</div>' : '') + body + '</main></div>' +
-    (S.more ? '<div class="scrim" data-act="more"></div><div class="moresheet">' + EXTRA.map((k) => '<button data-act="tab" data-arg="' + k + '">' + ico(k) + TABS.find((x) => x[0] === k)[1] + '</button>').join('') + '<hr><button data-act="logout">' + ico('out') + 'Sign out</button></div>' : '') + (S.sel ? orderDrawer() : '') + (S.selProd ? prodDrawer() : '') + (S.toast ? '<div class="toast' + (S.toast.err ? ' err' : '') + '" role="status">' + esc(S.toast.msg) + '</div>' : '');
+    (S.more ? '<div class="scrim" data-act="more"></div><div class="moresheet">' + EXTRA.map((k) => '<button data-act="tab" data-arg="' + k + '">' + ico(k) + TABS.find((x) => x[0] === k)[1] + '</button>').join('') + '<hr><button data-act="logout">' + ico('out') + 'Sign out</button></div>' : '') + (S.selCust ? custDrawer() : '') + (S.sel ? orderDrawer() : '') + (S.selProd ? prodDrawer() : '') + (S.toast ? '<div class="toast' + (S.toast.err ? ' err' : '') + '" role="status">' + esc(S.toast.msg) + '</div>' : '');
   drawCharts(); stackTables();
   if (aid) { const el = document.getElementById(aid); if (el && el !== document.activeElement) { el.focus(); try { if (pos != null) el.setSelectionRange(pos, pos); } catch (e) { /* ignore */ } } }
 }
@@ -765,7 +799,7 @@ async function start() {
   S.loaded = false; render(); await load(); render();
 }
 sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_OUT') { S.session = null; render(); } });
-setInterval(async () => { if (!S.session || document.hidden || S.sel || S.selProd || S.newCode || S.busy) return; const a = document.activeElement; if (a && /INPUT|SELECT|TEXTAREA/.test(a.tagName)) return; await load(true); render(); }, 60000);
+setInterval(async () => { if (!S.session || document.hidden || S.sel || S.selCust || S.selProd || S.newCode || S.busy) return; const a = document.activeElement; if (a && /INPUT|SELECT|TEXTAREA/.test(a.tagName)) return; await load(true); render(); }, 60000);
 start();
 </script>
 </body>

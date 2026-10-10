@@ -557,8 +557,8 @@ const batches = {
             ],
             verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTA4LTg5OS1OSFMtOCIsInAiOiJWYW50aXggQmlvIiwibCI6IlZCSS1HTFQzMC0yMDI2MDkwMi0wMSJ9.ANRjjpgYF6sBo8aRl6La9m59IH2SFeJP',
             verifyKey: '260908-899-NHS-8',
-            downloadUrl: '/coa/VBI-GLT30-20260902-01.pdf',
-            imageUrl: '/coa/VBI-GLT30-20260902-01.jpg'
+            downloadUrl: '/coa/NHS-GLT30-20260902-01.pdf',
+            imageUrl: '/coa/NHS-GLT30-20260902-01-full.jpg'
         }
     ]
 },
@@ -596,8 +596,8 @@ const batches = {
             ],
             verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTIyLU5IUy0xIiwicCI6IlZhbnRpeCBCaW8iLCJsIjoiVkJJLUJQQzEwLTIwMjYwOTE0LTAxIn0.FFd_NpsvKiyW3LgMLmtIYj3WSj_wzzbe',
             verifyKey: '260922-NHS-1',
-            downloadUrl: '/coa/VBI-BPC10-20260914-01.pdf',
-            imageUrl: '/coa/VBI-BPC10-20260914-01.jpg'
+            downloadUrl: '/coa/NHS-BPC10-20260914-01.pdf',
+            imageUrl: '/coa/NHS-BPC10-20260914-01-full.jpg'
         }
     ]
 },
@@ -1080,12 +1080,16 @@ const matches = Object.keys(batches)
   .slice(0, 10); // Show max 10 suggestions
 
 if (matches.length > 0) {
-suggestionsDiv.innerHTML = matches.map(k => `
+suggestionsDiv.innerHTML = matches.map(k => {
+const batch = batches[k];
+const displayName = batch.name || (batch.alias && batches[batch.alias] ? batches[batch.alias].name : '');
+return `
 <div class="suggestion-item" onclick="selectBatch('${k}')">
 <div class="suggestion-batch">${k}</div>
-<div class="suggestion-name">${batches[k].name}</div>
+${displayName ? `<div class="suggestion-name">${displayName}</div>` : ''}
 </div>
-`).join('');
+`;
+}).join('');
 suggestionsDiv.classList.add('active');
 // Enable search if exact match exists
 if (matches.some(k => k === val)) {

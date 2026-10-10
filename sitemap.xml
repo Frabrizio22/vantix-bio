@@ -41,201 +41,164 @@
   <!-- Blog Index -->
   <url>
     <loc>https://vantixbio.com/blog/index.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Blog Articles (Live Only) -->
+
+  <!-- Blog Articles (redirect stubs excluded) -->
+  <url>
+    <loc>https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vantixbio.com/blog/net-peptide-content-explained.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://vantixbio.com/blog/peptide-purity-explained.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/endotoxin-testing.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/batch-level-testing.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/peptide-degradation-signs.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/how-to-read-hplc-chromatogram.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/how-to-read-a-janoshik-coa.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/how-to-verify-peptide-purity.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/batch-coas.html</loc>
-    <lastmod>2026-09-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/batch-level-coa-verification.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vantixbio.com/blog/what-your-coa-isnt-telling-you.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
+
   <url>
     <loc>https://vantixbio.com/blog/5-red-flags-fake-peptide-coas.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://vantixbio.com/blog/janoshik-verification.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <loc>https://vantixbio.com/blog/how-to-read-hplc-chromatogram.html</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://vantixbio.com/blog/peptide-storage-guide.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://vantixbio.com/blog/batch-level-testing.html</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://vantixbio.com/blog/batch-testing.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://vantixbio.com/blog/peptide-degradation-signs.html</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://vantixbio.com/blog/why-batch-level-coas-matter.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <loc>https://vantixbio.com/blog/how-to-read-a-janoshik-coa.html</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
-  
-  <!-- Product Pages (In Stock) -->
+
+  <url>
+    <loc>https://vantixbio.com/blog/what-your-coa-isnt-telling-you.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vantixbio.com/blog/endotoxin-testing.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <url>
     <loc>https://vantixbio.com/products/tirzepatide.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/retatrutide.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/bpc-157.html</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/ghk-cu.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/nad-1000mg.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Product Pages (Out of Stock) -->
+
   <url>
     <loc>https://vantixbio.com/products/semaglutide.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/tb-500.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/cjc-1295.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/ipamorelin.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/mots-c.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/tesamorelin.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <url>
     <loc>https://vantixbio.com/products/aod-9604.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
 </urlset>

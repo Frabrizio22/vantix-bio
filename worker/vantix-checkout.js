@@ -108,7 +108,12 @@ async function handleOrder(body, method, request, env, ctx, cors) {
 
   const res = await rpc(env, 'create_order', { p: payload });
   if (!res.ok) {
-    const friendly = friendlyError(res.message);
+    let friendly = friendlyError(res.message);
+    // An item we switched to inactive because it is at 0 stock should read "out of stock", not "no longer available".
+    if (String(res.message || '').startsWith('unknown_or_inactive_sku')) {
+      const names = await soldOutNames(env, v.items);
+      if (names.length) friendly = { expected: true, http: 409, text: `Sorry, ${names.join(', ')} ${names.length > 1 ? 'are' : 'is'} out of stock. Please remove ${names.length > 1 ? 'them' : 'it'} from your cart to continue.` };
+    }
     if (!friendly.expected) await telegram(env, `⚠️ Order ${v.orderNumber} failed: ${res.message}`);
     else if (res.message.startsWith('invalid_discount_code') || res.message.startsWith('unknown_or_inactive_sku'))
       await telegram(env, `⚠️ Checkout rejected ${v.orderNumber}: ${res.message} (a code/SKU on the site may be missing from the database)`);
@@ -230,6 +235,16 @@ function cleanGa(g) {
     if (typeof g.session_id === 'string' && /^\d{8,12}$/.test(g.session_id)) out.session_id = g.session_id;
   }
   return out;
+}
+
+// Names of cart items that are tracked and at zero stock (active or not), so checkout can say "out of stock".
+async function soldOutNames(env, items) {
+  try {
+    const skus = [...new Set((items || []).map((i) => String(i.sku || '')).filter((s) => /^[A-Za-z0-9._-]+$/.test(s)))];
+    if (!skus.length) return [];
+    const r = await db(env, `products?sku=in.(${skus.join(',')})&stock_tracked=eq.true&stock=lte.0&select=name`);
+    return r.ok ? r.data.map((p) => p.name) : [];
+  } catch { return []; }
 }
 
 function friendlyError(msg) {
