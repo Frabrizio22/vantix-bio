@@ -1,5 +1,5 @@
 /* Vantix Bio: homepage signup popup. 15% off the first order for an email address.
- * Shows once per visitor: after 20 seconds, or when a desktop visitor moves to leave (after 8 seconds).
+ * Shows once per visitor: after 10 seconds, or when a desktop visitor moves to leave (after 8 seconds).
  * Needs supabase/email_leads.sql (capture_lead function and the WELCOME15 promo code).
  * Not shown to people who already signed up, or who closed it in the last 30 days. */
 (function () {
@@ -8,7 +8,7 @@
   var SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
   var SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
   var CODE = 'WELCOME15';
-  var DELAY_MS = 20000;
+  var DELAY_MS = 10000;
   var EXIT_MIN_MS = 8000;
   var QUIET_DAYS = 30;
   var CONSENT = 'By signing up you agree to receive marketing emails from Vantix Bio. Unsubscribe anytime.';
