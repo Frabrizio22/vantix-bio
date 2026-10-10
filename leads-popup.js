@@ -17,6 +17,16 @@
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
   if (get('vxLeadDone')) return;
+  // Skip people who are already on the list or already shopping: email and creator-link visitors,
+  // and anyone with items in their cart.
+  try {
+    var q = new URLSearchParams(location.search), m = (q.get('utm_medium') || '').toLowerCase();
+    if (m === 'outreach' || m === 'retention' || q.get('code') || q.get('ref')) return;
+  } catch (e) {}
+  try {
+    var cart = JSON.parse(get('vantixCart') || '[]');
+    if (cart && cart.length) return;
+  } catch (e) {}
   var closedAt = parseInt(get('vxLeadClosed') || '0', 10);
   if (closedAt && Date.now() - closedAt < QUIET_DAYS * 86400000) return;
 
