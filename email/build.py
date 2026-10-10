@@ -165,10 +165,10 @@ def plain_c(preheader, body):
 E['reorder-d28'] = dict(day='First-time buyer, in their reorder window (about 5 weeks by default)', subject='Checking in on your order from {{month}}', pre='A quick note from Frabrizio.', html=plain_c(
  'A quick note from Frabrizio.',
  pp('Hi {{first_name}},')
- + pp('It has been about {{weeks}} weeks since your order from {{month}}, so I wanted to check in and make sure everything arrived as expected.')
+ + pp('It has been about {{weeks}} weeks since your order from {{month}}, so I wanted to say thank you and check in.')
  + pp('If you are thinking about ordering again, the testing results for every batch are still published, and you can look up any batch on our <a href="' + VERIFY + '" style="color:' + BLUE + '">verification page</a> first. Orders typically ship within one business day, and shipping is free on orders of $150 or more.')
  + pp('<a href="' + SHOP + '" style="color:' + BLUE + '">Visit the shop</a>')
- + pp('If anything about your last order was not right, or there is something you would like us to carry, just reply to this email. I will answer it myself.')
+ + pp('If you have a question about a COA or an order, or there is something you would like us to carry, just reply to this email. I will answer it myself.')
  + pp('Frabrizio<br>Vantix Bio')))
 
 E['reorder-repeat'] = dict(day='Repeat customer, in their own reorder window', subject='Ready when you are, {{first_name}}', pre='Thank you for ordering again.', html=wrap(
@@ -190,7 +190,7 @@ E['winback-d75'] = dict(day='One-time buyer, 75+ days since order', subject='Wha
  p('Since your last order we have kept one thing constant: you can check the testing results for any batch before you rely on it.')
  + steps([('Independent testing', 'Every batch we release has a report from a third-party lab.'), ('Batch-specific verification', 'Scan the QR code or enter a batch number to see the data, the PDF and the original report.'), ('Fast dispatch', 'Orders typically ship within one business day, free on orders of $150+.')])
  + button('Visit the shop', SHOP)
- + p(f'<span style="color:{MUT};font-size:14px">Anything we could do better, or something you would like us to carry? Reply to this email and I will answer it myself.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
+ + p(f'<span style="color:{MUT};font-size:14px">Questions about a COA or an order, or something you would like us to carry? Reply to this email and I will answer it myself.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
 
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',
   batch_rows=card([('VX-2T 30mg', 'Batch VX-2T-1001'), ('Purity', '99.1%'), ('Endotoxin', 'Within spec'), ('Tested', 'Independent lab')]))
