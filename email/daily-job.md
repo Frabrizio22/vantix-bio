@@ -14,6 +14,7 @@ Only customers whose latest order is on or after 2026-10-03 (new orders from now
 | reorder-d28 | segment = reorder_d28 and eligible | Checking in from Vantix Bio |
 | nudge-d42 | segment = nudge_d42 and eligible | A note on shipping |
 | winback-d75 | segment = winback_d75 and eligible and orders = 1 | What is new at Vantix Bio |
+| welcome-d0 | in view `lead_welcome_due` (homepage popup signup in the last 3 days, never ordered, not opted out or excluded, no welcome logged). Exempt from the 14-day cap. Skipped quietly if `supabase/email_leads.sql` has not been run | Welcome to Vantix Bio |
 
 No discount codes in any flow. Never name products or prices in subject lines. Shipping wording: "typically ships within one business day".
 
@@ -22,3 +23,6 @@ No discount codes in any flow. Never name products or prices in subject lines. S
 - Max 10 drafts per run. If more are due, draft the oldest first and note the rest.
 - Every draft ends with the RUO line, the PO Box address and an unsubscribe link `https://vantixbio.com/unsubscribe.html#e=<email>`.
 - Links to the shop and verify pages carry `?utm_source=email&utm_medium=retention&utm_campaign=<flow>`.
+
+## Welcome email (popup signups)
+Greeting is "Hello," (the popup collects no name). Thank them for signing up; their code is WELCOME15 (bold) for 15% off the first order; every lot has published testing results, scan the QR code or enter a batch number on the verification page (utm_campaign=welcome-d0); orders typically ship within one business day and ship free over $150; link 'Visit the shop' (utm_campaign=welcome-d0); signed 'Frabrizio / Vantix Bio'. Same footer and unsubscribe link as every flow. Purity, testing and handling only: no effect, dosing or product-use language.
