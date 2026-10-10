@@ -98,7 +98,7 @@
       '<div class="vxp-box">' +
         '<button type="button" class="vxp-x" aria-label="Close">&times;</button>' +
         '<div id="vxpForm">' +
-          '<p class="vxp-k">The Vantix Bio list</p>' +
+          '<p class="vxp-k">Vantix Bio</p>' +
           '<h3 id="vxpT"><span class="vxp-big">15<span>%</span></span>off <em>your first order.</em></h3>' +
           '<hr class="vxp-rule">' +
           '<p>Independently tested batch reports,<br>restock notices and new arrivals.<br>Your code appears the moment you sign up.</p>' +
@@ -238,7 +238,7 @@
     var box = document.createElement('div');
     box.className = 'vxp-foot';
     box.innerHTML =
-      '<p class="vxp-k">The Vantix Bio list</p>' +
+      '<p class="vxp-k">Vantix Bio</p>' +
       '<h4>Batch reports and restock notices.<br>15% off your first order.</h4>' +
       '<form novalidate>' +
         '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
