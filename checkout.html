@@ -481,6 +481,7 @@ var promoCodes={
 'TIRZ10':{discount:0.10,sku:'VX-TIRZ'},
 'SAVE10':0.10,
 'VB10':0.10,
+'WELCOME15':0.15,
 'TEST':{price:1,sku:'VX-BAC-10',freeShipping:true}
 };
 // VB10 (early-customer email offer) is valid through Oct 16, 2026, end of day Pacific
@@ -537,7 +538,7 @@ var ref=getUrlParam('ref');
 if(ref){referralSource=ref.toLowerCase();sessionStorage.setItem('vantixReferral',referralSource);}else{referralSource=sessionStorage.getItem('vantixReferral');}
 var now=new Date();
 
-var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');
+var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');if(!code){try{code=localStorage.getItem('vxLeadCode');}catch(e){}}
 if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
 }
 
@@ -638,7 +639,7 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','MURPHY15','JO10','KITZEL10'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','MURPHY15','JO10','KITZEL10'];
 
 // NAD+ auto-discount removed
 if(promoCode&&promoCodes[promoCode]){
