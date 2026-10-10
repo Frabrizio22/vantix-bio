@@ -5,7 +5,7 @@ Runs weekdays 8:07 AM Pacific as a scheduled task. It never sends. It writes eac
 Needs: `supabase/email_queue.sql`, `supabase/email_automation.sql` applied (tables `email_log`, `email_exclusions`, view `customer_segments`) and `supabase/email_optouts.sql`.
 
 ## Who enters flows
-Only customers whose latest order is on or after 2026-10-03 (new orders from now on). Earlier customers are handled by one-time campaigns.
+Reorder and nudge emails go to any eligible customer, including those who ordered before Oct 3 (the 14-day cap and the opt-out and exclusion lists still apply). Post-purchase and winback only apply to orders on or after 2026-10-03; older customers get one-time campaigns for those.
 
 ## Flows
 | Flow | Rule | Subject |
@@ -13,7 +13,7 @@ Only customers whose latest order is on or after 2026-10-03 (new orders from now
 | post-purchase | order shipped 3 to 4 days ago, has tracking, no prior post-purchase log for that order number | Your order, verified |
 | reorder-d28 | segment = reorder_d28 and eligible. The window is per customer (needs `supabase/email_reorder_timing.sql`): opens at 85% of their own typical gap between orders after their last order (21 to 60 days; 35 days for first-time buyers), closes 14 days later. See `typical_gap_days` and `reorder_due_at` in `customer_segments`. Wholesale clients are never eligible | Checking in from Vantix Bio |
 | nudge-d42 | segment = nudge_d42 and eligible | A note on shipping |
-| winback-d75 | segment = winback_d75 and eligible and orders = 1 | What is new at Vantix Bio |
+| winback-d75 | segment = winback_d75 and eligible and orders = 1 and last order on or after 2026-10-03 | What is new at Vantix Bio |
 | welcome-d0 | (queued from the stored template when present) in view `lead_welcome_due` (homepage popup signup in the last 3 days, never ordered, not opted out or excluded, no welcome logged). Exempt from the 14-day cap. Skipped quietly if `supabase/email_leads.sql` has not been run | Welcome to Vantix Bio |
 | welcome-d2 | in view `lead_nurture_due`: welcome-d0 logged 2+ days ago, no order, not opted out or excluded. Queued from the stored template. Exempt from the 14-day cap | See the testing behind every batch |
 | welcome-d5 | in view `lead_nurture_due`: welcome-d2 logged 3+ days ago, same rules. Near plain-text personal note from Frabrizio | A quick note from Frabrizio |
