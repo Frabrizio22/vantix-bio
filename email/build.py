@@ -128,7 +128,7 @@ E['welcome-d0'] = dict(day='Day 0: signup (drafted by the daily job)', subject='
  + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Shipping', 'Free on orders of $150+ after discounts')])
  + p('Every batch we release is independently tested, and the results are published. Every vial is labeled with a batch number and a QR code that opens that batch\'s own report: the data, the PDF and the original lab report.')
  + button('Shop with 15% off', SHOPCODE)
- + p(f'<span style="color:{MUT};font-size:14px">Have a question about a COA, a product or an order? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
+ + p(f'<span style="color:{MUT};font-size:14px">Any questions about our products, COAs, ordering, or shipping? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
 
 WALK = 'https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html?' + UTM
 FLAGS = 'https://vantixbio.com/blog/5-red-flags-fake-peptide-coas.html?' + UTM
