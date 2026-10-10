@@ -35,13 +35,15 @@
   function css() {
     var s = document.createElement('style');
     s.textContent =
-      '.vxp{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}' +
-      '.vxp.on{display:flex}' +
-      '.vxp-box{position:relative;width:100%;max-width:420px;background:var(--bg,#FAFAF7);color:var(--text,#0F1B2D);border-radius:18px;padding:48px 36px 30px;box-shadow:0 28px 70px rgba(10,22,40,.38);font-family:"Geist",system-ui,sans-serif;text-align:center}' +
-      '.vxp-x{position:absolute;top:8px;right:8px;width:44px;height:44px;background:none;border:none;cursor:pointer;color:inherit;opacity:.45;font-size:24px;line-height:1;transition:opacity .25s}' +
+      '.vxp{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .35s ease}' +
+      '.vxp.on{display:flex}.vxp.in{opacity:1}.vxp.in .vxp-box{transform:none;opacity:1}' +
+      '.vxp-box{position:relative;width:100%;max-width:420px;background:var(--bg,#FAFAF7);color:var(--text,#0F1B2D);border-radius:18px;padding:48px 36px 30px;box-shadow:0 28px 70px rgba(10,22,40,.38);font-family:"Geist",system-ui,sans-serif;text-align:center;transform:translateY(14px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s ease}' +
+      '.vxp-x{position:absolute;top:8px;right:8px;width:44px;height:44px;background:none;border:none;cursor:pointer;color:inherit;opacity:.62;font-size:24px;line-height:1;transition:opacity .25s}' +
       '.vxp-x:hover{opacity:1}' +
       '.vxp-k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#3973B0);margin:0 0 22px}' +
       '.vxp h3{font-family:"Fraunces",serif;font-size:34px;font-weight:300;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}' +
+      '.vxp h3 .vxp-big{display:block;font-size:68px;line-height:1;letter-spacing:-.03em;margin-bottom:6px}' +
+      '.vxp h3 .vxp-big span{font-size:.5em;letter-spacing:0;margin-left:.08em;font-style:italic}' +
       '.vxp h3 em{font-style:italic;font-weight:300}' +
       '.vxp-rule{width:36px;height:1px;background:var(--hairline,#D9D2BF);margin:0 auto 18px;border:0}' +
       '.vxp p{margin:0 0 26px;line-height:1.65;color:rgba(15,27,45,.68);font-size:14.5px}' +
@@ -58,9 +60,12 @@
       '.vxp p.vxp-err{color:#B3261E;font-size:13px;min-height:0;margin:0;text-align:center}' +
       '.vxp-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
       '.vxp-code{font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:.14em;text-align:center;border:1px dashed var(--accent,#3973B0);border-radius:12px;padding:18px 14px;margin:0 0 18px;background:#fff;color:var(--navy,#0F1B2D)}' +
+      '.vxp button.vxp-copy{display:block;width:100%;margin:0 0 14px;padding:13px 24px;background:transparent;color:var(--navy,#0F1B2D);border:1.5px solid var(--hairline,#D9D2BF);border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;cursor:pointer;font-family:inherit;transition:all .25s ease}' +
+      '.vxp button.vxp-copy:hover{border-color:var(--navy,#0F1B2D)}' +
       '.vxp-ok a.vxp-go{display:block;text-align:center;text-decoration:none;padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp-ok a.vxp-go:hover{background:var(--accent,#3973B0)}' +
-      '@media(max-width:480px){.vxp-box{padding:42px 24px 24px}.vxp h3{font-size:30px}}';
+      '@media(max-width:480px){.vxp-box{padding:40px 24px 22px}.vxp h3{font-size:28px}.vxp h3 .vxp-big{font-size:58px}}' +
+      '@media(prefers-reduced-motion:reduce){.vxp,.vxp-box{transition:none}}';
     document.head.appendChild(s);
   }
 
@@ -76,7 +81,7 @@
         '<button type="button" class="vxp-x" aria-label="Close">&times;</button>' +
         '<div id="vxpForm">' +
           '<p class="vxp-k">The Vantix Bio list</p>' +
-          '<h3 id="vxpT">15% off<br><em>your first order.</em></h3>' +
+          '<h3 id="vxpT"><span class="vxp-big">15<span>%</span></span>off <em>your first order.</em></h3>' +
           '<hr class="vxp-rule">' +
           '<p>Join for new batch reports and<br>restock notices. Your code appears<br>the moment you sign up.</p>' +
           '<form novalidate>' +
@@ -85,7 +90,7 @@
             '<p class="vxp-err" id="vxpM" role="alert"></p>' +
             '<button type="submit" class="vxp-go">Reveal my code</button>' +
           '</form>' +
-          '<p class="vxp-fine">' + CONSENT + '<br>See our <a href="privacy.html">Privacy Policy</a>.</p>' +
+          '<p class="vxp-fine">' + CONSENT + ' <a href="privacy.html">Privacy Policy</a></p>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
         '<div id="vxpOk" class="vxp-ok" style="display:none">' +
@@ -93,7 +98,8 @@
           '<h3>Your <em>code.</em></h3>' +
           '<hr class="vxp-rule">' +
           '<div class="vxp-code">' + CODE + '</div>' +
-          '<p>Enter it at checkout.<br>Valid on first orders only.</p>' +
+          '<p>Saved on this device and applied at checkout.<br>Valid on first orders only.</p>' +
+          '<button type="button" class="vxp-copy">Copy code</button>' +
           '<a class="vxp-go" href="shop.html">Browse the catalog</a>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
@@ -104,6 +110,20 @@
     root.addEventListener('click', function (e) { if (e.target === root) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('on')) close(); });
     root.querySelector('form').addEventListener('submit', submit);
+    var cp = root.querySelector('.vxp-copy');
+    cp.addEventListener('click', function () {
+      var done = function () { cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy code'; }, 2000); };
+      try { navigator.clipboard.writeText(CODE).then(done, function () { cp.textContent = CODE; }); } catch (e) { cp.textContent = CODE; }
+    });
+    // Keep keyboard focus inside the dialog while it is open.
+    root.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var f = Array.prototype.filter.call(root.querySelectorAll('button,a[href],input[type=email]'), function (n) { return n.offsetParent !== null && !n.disabled; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
   }
 
   // The age gate and the menu take priority; the clock only runs while neither is open.
@@ -118,13 +138,17 @@
     lastFocus = document.activeElement;
     if (!root) build();
     root.classList.add('on');
+    requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.add('in'); }); });
+    // Phones: do not pop the keyboard over the offer before it has been read.
     var inp = root.querySelector('#vxpE');
-    if (inp) setTimeout(function () { inp.focus(); }, 50);
+    var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+    if (inp && !touch) setTimeout(function () { inp.focus(); }, 350);
+    else root.querySelector('.vxp-box').setAttribute('tabindex', '-1');
     try { (window.dataLayer = window.dataLayer || []).push({ event: 'signup_popup_shown' }); } catch (e) {}
   }
 
   function close() {
-    root.classList.remove('on');
+    root.classList.remove('in'); root.classList.remove('on');
     if (!get('vxLeadDone')) set('vxLeadClosed', String(Date.now()));
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
   }
@@ -144,10 +168,12 @@
     }).then(function (r) {
       if (!r.ok) throw new Error('bad');
       set('vxLeadDone', '1');
+      set('vxLeadCode', CODE);
       try { if (!sessionStorage.getItem('vantixPromoCode')) sessionStorage.setItem('vantixPromoCode', CODE); } catch (e) {}
       try { (window.dataLayer = window.dataLayer || []).push({ event: 'email_signup', signup_source: 'popup' }); } catch (e) {}
       root.querySelector('#vxpForm').style.display = 'none';
       root.querySelector('#vxpOk').style.display = 'block';
+      var c2 = root.querySelector('.vxp-copy'); if (c2) c2.focus();
     }).catch(function () {
       btn.disabled = false; btn.textContent = 'Reveal my code';
       msg.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';

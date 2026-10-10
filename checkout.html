@@ -537,7 +537,7 @@ var ref=getUrlParam('ref');
 if(ref){referralSource=ref.toLowerCase();sessionStorage.setItem('vantixReferral',referralSource);}else{referralSource=sessionStorage.getItem('vantixReferral');}
 var now=new Date();
 
-var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');
+var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');if(!code){try{code=localStorage.getItem('vxLeadCode');}catch(e){}}
 if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
 }
 
