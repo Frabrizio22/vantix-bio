@@ -143,7 +143,7 @@ def readcard(kicker, title, desc, url, label):
 E['welcome-d2'] = dict(day='Day 2: only if they have not ordered', subject='See the testing behind every batch', pre='Your 15% code is still good.', html=wrap(
  'Your 15% code is still good.', 'Before you order', 'See the testing behind every batch.',
  p('Before you place an order, you should be able to see exactly what was tested.')
- + steps([('Independently tested', 'Every batch we release has a report from a third-party lab.'), ('Batch-specific verification', 'Every vial is labeled with a batch number and a QR code that open that batch\'s own report on our verification page.'), ('Results you can verify', 'See the data, the PDF, and a link to the original lab report, so you do not have to take our word for it.')])
+ + steps([('Independently tested', 'Every batch we release has a report from a third-party lab.'), ('Batch-specific verification', 'Every vial is labeled with a batch number and a QR code that opens that batch\'s own report on our verification page.'), ('Results you can verify', 'See the data, the PDF, and a link to the original lab report, so you do not have to take our word for it.')])
  + button('Shop with 15% off', SHOPCODE)
  + p(f'<span style="color:{MUT};font-size:14px">Your first-order code <strong>WELCOME15</strong> is still good, and it is applied for you when you use the button above. Orders typically ship within one business day.</span>')
  + p(f'<span style="color:{MUT};font-size:14px">New to reading a certificate of analysis? <a href="{WALK}" style="color:{BLUE}">Read a real one, line by line</a>.</span>'), why=SIGNUP_WHY))
