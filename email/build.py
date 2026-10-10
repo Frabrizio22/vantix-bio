@@ -187,8 +187,8 @@ E['nudge-d42'] = dict(day='In the window after the reorder email, before day 75'
 
 E['winback-d75'] = dict(day='One-time buyer, 75+ days since order', subject='15% off your next order, {{first_name}}', pre='Your code is good through {{expires}}.', html=wrap(
  'Your code is good through {{expires}}.', 'A thank-you', 'It has been a while, {{first_name}}.',
- p('Thank you for ordering from Vantix Bio. As a thank-you, here is <b>15% off</b> your next order with code <b>WINBACK15</b>. It is good through {{expires}} and works once. It is applied for you when you use the button below.')
- + button('Shop with 15% off', SHOP + '&code=WINBACK15')
+ p('Thank you for ordering from Vantix Bio. As a thank-you, here is <b>15% off</b> your next order with code <b>WELCOMEBACK15</b>. It is good through {{expires}} and works once. It is applied for you when you use the button below.')
+ + button('Shop with 15% off', SHOP + '&code=WELCOMEBACK15')
  + p('Since your last order we have kept one thing constant: you can check the testing results for any batch before you rely on it. Scan the QR code or enter a batch number on the verification page to see the data, the PDF and the original report. Orders typically ship within one business day, and shipping is free on orders of $150 or more after discounts.')
  + p(f'<span style="color:{MUT};font-size:14px">Questions about a COA or an order, or something you would like us to carry? Reply to this email and I will answer it myself.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
 
