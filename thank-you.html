@@ -119,7 +119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script>
         // Clear cart on successful payment
-        localStorage.removeItem('vantixCart');localStorage.removeItem('vxLeadCode');
+        localStorage.removeItem('vantixCart');localStorage.removeItem('vxLeadCode');localStorage.setItem('vxLeadDone','1');
         
         // Show order details if available
         var lastOrder = localStorage.getItem('vantixLastOrder');
