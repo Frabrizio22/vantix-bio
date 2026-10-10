@@ -125,20 +125,28 @@ E['welcome-d0'] = dict(day='Day 0: signup (drafted by the daily job)', subject='
  'Your 15% code, and how to check any batch.', 'Welcome', 'Welcome to Vantix Bio.',
  p('Hello, thank you for signing up. Your code for 15% off your first order is below.')
  + card([('Your code', '<strong style="letter-spacing:.08em">WELCOME15</strong>'), ('Applies to', 'Your whole first order'), ('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free over $150')])
- + p('Every lot we release has published batch-level testing results. You can check yours any time:')
- + steps([('Scan the QR code', 'Each vial label links to our verification portal.'), ('Or enter a batch number', 'Type it into the portal and the results come up.'), ('Read the report', 'View the data and PDF, or open the original report on the third-party lab website.')])
+ + p('Every lot we release has published batch-level testing results. Scan the QR code on a vial, or enter a batch number on our verification page, to see the data, the PDF, and a link to the original lab report.')
  + button('Visit the shop', SHOP)
  + p(f'<span style="color:{MUT};font-size:14px">Questions? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=SIGNUP_WHY))
 
-E['welcome-d3'] = dict(day='Day 3: only if they have not ordered', subject='How to check a batch before you order', pre='What to look for in a batch report, and how ordering works.', html=wrap(
- 'What to look for in a batch report, and how ordering works.', 'Before you order', 'Do not take our word. Check the batch.',
- p('Hello, a quick guide to what is worth checking on any batch report, ours or anyone else\'s.')
- + steps([('The batch number matches', 'The number on the report should be the number printed on your vial.'), ('The lab is independent', 'The report should come from a third-party lab, with a link to the original on the lab\'s own website.'), ('The purity result is stated', 'Look for a clear purity percentage and the test date.')])
- + button('Open the verification portal', VERIFY)
- + p(f'<span style="color:{MUT};font-size:14px">Want the longer version? Read our <a href="{GUIDE}" style="color:{BLUE}">short guide to reading a certificate of analysis</a>.</span>')
- + p('<strong>How ordering works.</strong> Orders typically ship within one business day with a tracking email, and most arrive within about a week. Shipping is free over $150. You can pay by card or Zelle.')
- + p('Your first-order code, <strong>WELCOME15</strong>, is good for 15% off your whole order.')
- + p(f'<span style="color:{MUT};font-size:14px"><a href="{SHOP}" style="color:{BLUE}">Visit the shop</a></span>'), why=SIGNUP_WHY))
+WALK = 'https://vantixbio.com/blog/real-janoshik-coa-walkthrough.html?' + UTM
+FLAGS = 'https://vantixbio.com/blog/5-red-flags-fake-peptide-coas.html?' + UTM
+
+def readcard(kicker, title, desc, url, label):
+    return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 14px;background:#fff;border:1px solid {HAIR};border-radius:6px"><tr><td style="padding:20px 22px">'
+            f'<div style="font:11px {MONO};letter-spacing:.14em;text-transform:uppercase;color:{BLUE};padding-bottom:8px">{kicker}</div>'
+            f'<div style="font:400 21px/1.25 {SERIF};color:{NAVY};padding-bottom:8px">{title}</div>'
+            f'<div style="font:14px/1.65 {SANS};color:{MUT};padding-bottom:12px">{desc}</div>'
+            f'<a href="{url}" style="font:600 14px {SANS};color:{BLUE};text-decoration:none">{label} &rarr;</a></td></tr></table>')
+
+E['welcome-d3'] = dict(day='Day 3: only if they have not ordered', subject='How to tell a real COA from a fake one', pre='Most certificates cannot be checked. Here is how to check one.', html=wrap(
+ 'Most certificates cannot be checked. Here is how to check one.', 'Before you trust any COA', 'A certificate is easy to fake. A batch you can check is not.',
+ p('Hello, almost every peptide site says &ldquo;tested.&rdquo; What matters is whether you can confirm it yourself, without taking the seller&rsquo;s word for it.')
+ + p('So instead of telling you our results are good, here are two short reads that show you how to judge any report, ours included.')
+ + readcard('Read this first', 'A real report, line by line', 'An actual third-party lab report, annotated field by field, including the awkward parts: a quantity above the label amount, and a sample name that did not match.', WALK, 'Read the walkthrough')
+ + readcard('Then keep this', 'Five red flags in any peptide COA', 'What to look for on reports from any seller, and the five-minute check to run before you buy.', FLAGS, 'See the red flags')
+ + p(f'<span style="color:{MUT};font-size:14px">When you are ready to order: orders typically ship within one business day, most arrive within about a week, and your first-order code <strong>WELCOME15</strong> takes 15% off. Questions about a report? Reply and ask.</span>')
+ + f'<table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 6px"><tr><td style="font:14px {SANS}"><a href="{VERIFY}" style="color:{BLUE}">Open the verification portal</a> &nbsp;&middot;&nbsp; <a href="{SHOP}" style="color:{BLUE}">Visit the shop</a></td></tr></table>', why=SIGNUP_WHY))
 
 E['welcome-d7'] = dict(day='Day 7: only if they have not ordered', subject='A note from Vantix Bio', pre='A short note, and your code is still good.', html=plain(
  'A short note, and your code is still good.',
