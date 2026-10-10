@@ -35,27 +35,32 @@
   function css() {
     var s = document.createElement('style');
     s.textContent =
-      '.vxp{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.72)}' +
+      '.vxp{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}' +
       '.vxp.on{display:flex}' +
-      '.vxp-box{position:relative;width:100%;max-width:440px;background:var(--bg,#FAFAF7);color:var(--text,#0F1B2D);border-radius:16px;padding:40px 32px 28px;box-shadow:0 24px 60px rgba(10,22,40,.35);font-family:"Geist",system-ui,sans-serif}' +
-      '.vxp-x{position:absolute;top:10px;right:10px;width:44px;height:44px;background:none;border:none;cursor:pointer;color:inherit;opacity:.6;font-size:26px;line-height:1}' +
+      '.vxp-box{position:relative;width:100%;max-width:420px;background:var(--bg,#FAFAF7);color:var(--text,#0F1B2D);border-radius:18px;padding:48px 36px 30px;box-shadow:0 28px 70px rgba(10,22,40,.38);font-family:"Geist",system-ui,sans-serif;text-align:center}' +
+      '.vxp-x{position:absolute;top:8px;right:8px;width:44px;height:44px;background:none;border:none;cursor:pointer;color:inherit;opacity:.45;font-size:24px;line-height:1;transition:opacity .25s}' +
       '.vxp-x:hover{opacity:1}' +
-      '.vxp-k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent,#3973B0);margin:0 0 10px}' +
-      '.vxp h3{font-family:"Fraunces",serif;font-size:30px;font-weight:300;line-height:1.15;margin:0 0 12px}' +
-      '.vxp p{margin:0 0 20px;line-height:1.55;color:rgba(10,22,40,.72);font-size:15px}' +
-      '.vxp form{display:flex;flex-direction:column;gap:12px}' +
-      '.vxp input[type=email]{padding:14px 16px;border:1px solid var(--hairline,#D9D2BF);border-radius:10px;font-size:16px;font-family:inherit;background:#fff;color:inherit}' +
+      '.vxp-k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#3973B0);margin:0 0 22px}' +
+      '.vxp h3{font-family:"Fraunces",serif;font-size:34px;font-weight:300;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}' +
+      '.vxp h3 em{font-style:italic;font-weight:300}' +
+      '.vxp-rule{width:36px;height:1px;background:var(--hairline,#D9D2BF);margin:0 auto 18px;border:0}' +
+      '.vxp p{margin:0 0 26px;line-height:1.65;color:rgba(15,27,45,.68);font-size:14.5px}' +
+      '.vxp form{display:flex;flex-direction:column;gap:12px;text-align:left}' +
+      '.vxp input[type=email]{padding:15px 18px;border:1px solid var(--hairline,#D9D2BF);border-radius:24px;font-size:16px;font-family:inherit;background:#fff;color:inherit;text-align:center;transition:border-color .25s}' +
+      '.vxp input[type=email]::placeholder{color:rgba(15,27,45,.38)}' +
       '.vxp input[type=email]:focus{outline:none;border-color:var(--accent,#3973B0)}' +
-      '.vxp button.vxp-go{padding:14px 24px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}' +
+      '.vxp button.vxp-go{padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(15,27,45,.08);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp button.vxp-go:hover{background:var(--accent,#3973B0)}' +
       '.vxp button.vxp-go:disabled{opacity:.6;cursor:default}' +
-      '.vxp p.vxp-fine{font-size:12px;line-height:1.5;color:rgba(10,22,40,.55);margin:14px 0 0}' +
-      '.vxp-fine a{color:inherit}' +
-      '.vxp p.vxp-err{color:#B3261E;font-size:13px;min-height:0;margin:0}' +
+      '.vxp p.vxp-fine{font-size:11.5px;line-height:1.6;color:rgba(15,27,45,.5);margin:20px 0 0;text-align:center}' +
+      '.vxp p.vxp-ruo{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.4);margin:14px 0 0}' +
+      '.vxp-fine a{color:inherit;text-decoration:underline;text-underline-offset:2px}' +
+      '.vxp p.vxp-err{color:#B3261E;font-size:13px;min-height:0;margin:0;text-align:center}' +
       '.vxp-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
-      '.vxp-code{font-family:"JetBrains Mono",monospace;font-size:22px;letter-spacing:.08em;text-align:center;border:1px dashed var(--accent,#3973B0);border-radius:10px;padding:14px;margin:0 0 16px;background:#fff}' +
-      '.vxp-ok a.vxp-go{display:block;text-align:center;text-decoration:none;padding:14px 24px;background:var(--navy,#0F1B2D);color:#fff;border-radius:10px;font-size:15px;font-weight:600}' +
-      '@media(max-width:480px){.vxp-box{padding:36px 22px 22px}.vxp h3{font-size:26px}}';
+      '.vxp-code{font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:.14em;text-align:center;border:1px dashed var(--accent,#3973B0);border-radius:12px;padding:18px 14px;margin:0 0 18px;background:#fff;color:var(--navy,#0F1B2D)}' +
+      '.vxp-ok a.vxp-go{display:block;text-align:center;text-decoration:none;padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;transition:background .35s cubic-bezier(.16,1,.3,1)}' +
+      '.vxp-ok a.vxp-go:hover{background:var(--accent,#3973B0)}' +
+      '@media(max-width:480px){.vxp-box{padding:42px 24px 24px}.vxp h3{font-size:30px}}';
     document.head.appendChild(s);
   }
 
@@ -70,23 +75,27 @@
       '<div class="vxp-box">' +
         '<button type="button" class="vxp-x" aria-label="Close">&times;</button>' +
         '<div id="vxpForm">' +
-          '<p class="vxp-k">Vantix Bio</p>' +
-          '<h3 id="vxpT">15% off your first order</h3>' +
-          '<p>Join our email list for batch testing updates and offers. Enter your email and your code appears right away.</p>' +
+          '<p class="vxp-k">The Vantix Bio list</p>' +
+          '<h3 id="vxpT">15% off<br><em>your first order.</em></h3>' +
+          '<hr class="vxp-rule">' +
+          '<p>Join for new batch reports and<br>restock notices. Your code appears<br>the moment you sign up.</p>' +
           '<form novalidate>' +
-            '<input type="email" id="vxpE" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-label="Email address" required>' +
+            '<input type="email" id="vxpE" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
             '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
             '<p class="vxp-err" id="vxpM" role="alert"></p>' +
-            '<button type="submit" class="vxp-go">Get my 15% off</button>' +
+            '<button type="submit" class="vxp-go">Reveal my code</button>' +
           '</form>' +
-          '<p class="vxp-fine">' + CONSENT + ' <a href="privacy.html">Privacy</a>. For laboratory research use only.</p>' +
+          '<p class="vxp-fine">' + CONSENT + '<br>See our <a href="privacy.html">Privacy Policy</a>.</p>' +
+          '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
         '<div id="vxpOk" class="vxp-ok" style="display:none">' +
-          '<p class="vxp-k">You are on the list</p>' +
-          '<h3>Your code</h3>' +
+          '<p class="vxp-k">Welcome to the list</p>' +
+          '<h3>Your <em>code.</em></h3>' +
+          '<hr class="vxp-rule">' +
           '<div class="vxp-code">' + CODE + '</div>' +
-          '<p>Enter it at checkout for 15% off your order.</p>' +
-          '<a class="vxp-go" href="shop.html">Shop the catalog</a>' +
+          '<p>Enter it at checkout.<br>Valid on first orders only.</p>' +
+          '<a class="vxp-go" href="shop.html">Browse the catalog</a>' +
+          '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
       '</div>';
     document.body.appendChild(root);
@@ -140,7 +149,7 @@
       root.querySelector('#vxpForm').style.display = 'none';
       root.querySelector('#vxpOk').style.display = 'block';
     }).catch(function () {
-      btn.disabled = false; btn.textContent = 'Get my 15% off';
+      btn.disabled = false; btn.textContent = 'Reveal my code';
       msg.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
     });
   }
