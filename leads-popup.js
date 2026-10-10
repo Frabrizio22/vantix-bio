@@ -17,6 +17,11 @@
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
+  // Anyone arriving from one of our emails is already a customer or on the list: remember that and stay quiet.
+  try {
+    var qq = new URLSearchParams(location.search), mm = (qq.get('utm_medium') || '').toLowerCase();
+    if (mm === 'outreach' || mm === 'retention') set('vxLeadDone', '1');
+  } catch (e) {}
   if (get('vxLeadDone')) return;
   // The big popup stays off for people who are already on the list or already shopping: email and
   // creator-link visitors, anyone with items in their cart, and anyone who closed it in the last 30 days.
