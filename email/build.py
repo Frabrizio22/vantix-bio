@@ -165,17 +165,17 @@ def plain_c(preheader, body):
 E['reorder-d28'] = dict(day='First-time buyer, in their reorder window (about 5 weeks by default)', subject='Checking in on your order from {{month}}', pre='A quick note from Frabrizio.', html=plain_c(
  'A quick note from Frabrizio.',
  pp('Hi {{first_name}},')
- + pp('It has been about {{weeks}} weeks since your order from {{month}}, so I wanted to say thank you and check in.')
+ + pp('It has been about {{weeks}} weeks since your order from {{month}}, so I wanted to check in.')
  + pp('If you are thinking about ordering again, the testing results for every batch are still published, and you can look up any batch on our <a href="' + VERIFY + '" style="color:' + BLUE + '">verification page</a> first. Orders typically ship within one business day, and shipping is free on orders of $150 or more.')
  + pp('<a href="' + SHOP + '" style="color:' + BLUE + '">Visit the shop</a>')
  + pp('If you have a question about a COA or an order, or there is something you would like us to carry, just reply to this email. I will answer it myself.')
  + pp('Frabrizio<br>Vantix Bio')))
 
-E['reorder-repeat'] = dict(day='Repeat customer, in their own reorder window', subject='Ready when you are, {{first_name}}', pre='Thank you for ordering again.', html=wrap(
- 'Thank you for ordering again.', 'Thank you', 'Ready when you are.',
- p('Hi {{first_name}}, thank you for ordering from Vantix Bio more than once. It means a lot to a small team. It has been about {{weeks}} weeks since your last order.')
- + card([('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free on orders of $150+'), ('Batch results', 'Published for every lot')])
- + button('Visit the shop', SHOP)
+E['reorder-repeat'] = dict(day='Repeat customer, in their own reorder window', subject='A thank-you for ordering again, {{first_name}}', pre='10% off your next order, good through {{expires}}.', html=wrap(
+ '10% off your next order, good through {{expires}}.', 'Thank you', 'Ready when you are.',
+ p('Hi {{first_name}}, thank you for ordering from Vantix Bio more than once. It means a lot to a small team. It has been about {{weeks}} weeks since your last order, so here is <b>10% off</b> your next one with code <b>THANKS10</b>. It is good through {{expires}} and works once. It is applied for you when you use the button below.')
+ + button('Shop with 10% off', SHOP + '&code=THANKS10')
+ + card([('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free on orders of $150+ after discounts'), ('Batch results', 'Published for every lot')])
  + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will answer it myself.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
 
 E['nudge-d42'] = dict(day='In the window after the reorder email, before day 75', subject='A note on shipping', pre='Free shipping starts at $150.', html=wrap(

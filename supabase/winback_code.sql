@@ -56,3 +56,8 @@ $$;
 insert into public.promo_codes (code, pct, applies_to, sku_match, free_shipping, active, influencer, commission_pct, note, team, new_customers_only, returning_customers_only)
 values ('WINBACK15', 0.15, 'all', null, false, true, null, 0, 'Winback email: 15% off whole order, returning customers with an offer in winback_offers, once, 7-day window', false, false, true)
 on conflict (code) do update set returning_customers_only = true, pct = 0.15;
+
+-- THANKS10: 10% off, same mechanism (an unexpired offer in winback_offers, one use). Sent in the repeat-customer reorder email.
+insert into public.promo_codes (code, pct, applies_to, sku_match, free_shipping, active, influencer, commission_pct, note, team, new_customers_only, returning_customers_only)
+values ('THANKS10', 0.10, 'all', null, false, true, null, 0, 'Repeat-customer reorder email: 10% off whole order, one use, 7-day window via winback_offers', false, false, true)
+on conflict (code) do update set returning_customers_only = true, pct = 0.10;
