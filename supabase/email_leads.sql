@@ -54,7 +54,46 @@ where l.signup_at > now() - interval '3 days'
   and not exists (select 1 from public.email_exclusions x where lower(x.email) = l.email)
   and not exists (select 1 from public.email_log g where lower(g.email) = l.email and g.flow = 'welcome-d0');
 
--- 4) The code the popup hands out: 15% off the whole order.
-insert into public.promo_codes (code, pct, applies_to, sku_match, free_shipping, active, influencer, commission_pct, note, team)
-values ('WELCOME15', 0.15, 'all', null, false, true, null, 0, 'Homepage signup popup: 15% off first order, whole order', false)
-on conflict (code) do nothing;
+-- 4) "New customers only" codes. A code flagged here is refused when the same email address
+--    or phone number already has a paid order. Runs as a trigger on orders, so create_order is untouched.
+alter table public.promo_codes add column if not exists new_customers_only boolean not null default false;
+
+create or replace function public.enforce_new_customer_code()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_digits text := regexp_replace(coalesce(new.phone, ''), '\D', '', 'g');
+begin
+  if new.discount_code is null then
+    return new;
+  end if;
+  if not exists (select 1 from public.promo_codes c where c.code = new.discount_code and c.new_customers_only) then
+    return new;
+  end if;
+  if exists (
+    select 1 from public.orders o
+    where o.id <> new.id
+      and o.payment_status in ('paid', 'completed', 'succeeded')
+      and (
+        lower(btrim(o.customer_email)) = lower(btrim(new.customer_email))
+        or (length(v_digits) >= 10 and regexp_replace(coalesce(o.phone, ''), '\D', '', 'g') = v_digits)
+      )
+  ) then
+    raise exception 'invalid_discount_code:first_order_only';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists orders_new_customer_code on public.orders;
+create trigger orders_new_customer_code
+  before insert on public.orders
+  for each row execute function public.enforce_new_customer_code();
+
+-- 5) The code the popup hands out: 15% off the whole order, new customers only.
+insert into public.promo_codes (code, pct, applies_to, sku_match, free_shipping, active, influencer, commission_pct, note, team, new_customers_only)
+values ('WELCOME15', 0.15, 'all', null, false, true, null, 0, 'Homepage signup popup: 15% off first order, whole order, new customers only', false, true)
+on conflict (code) do update set new_customers_only = true;
