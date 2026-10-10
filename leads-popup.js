@@ -18,22 +18,24 @@
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
   if (get('vxLeadDone')) return;
-  // Skip people who are already on the list or already shopping: email and creator-link visitors,
-  // and anyone with items in their cart.
+  // The big popup stays off for people who are already on the list or already shopping: email and
+  // creator-link visitors, anyone with items in their cart, and anyone who closed it in the last 30 days.
+  var popupOff = false, closedRecently = false;
   try {
     var q = new URLSearchParams(location.search), m = (q.get('utm_medium') || '').toLowerCase();
-    if (m === 'outreach' || m === 'retention' || q.get('code') || q.get('ref')) return;
+    if (m === 'outreach' || m === 'retention' || q.get('code') || q.get('ref')) popupOff = true;
   } catch (e) {}
   try {
     var cart = JSON.parse(get('vantixCart') || '[]');
-    if (cart && cart.length) return;
+    if (cart && cart.length) popupOff = true;
   } catch (e) {}
   var closedAt = parseInt(get('vxLeadClosed') || '0', 10);
-  if (closedAt && Date.now() - closedAt < QUIET_DAYS * 86400000) return;
+  if (closedAt && Date.now() - closedAt < QUIET_DAYS * 86400000) { popupOff = true; closedRecently = true; }
 
-  var shown = false, root, lastFocus;
+  var shown = false, root, lastFocus, tab, via = 'popup', cssDone = false;
 
   function css() {
+    if (cssDone) return; cssDone = true;
     var s = document.createElement('style');
     s.textContent =
       '.vxp{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .35s ease}' +
@@ -66,6 +68,21 @@
       '.vxp-ok a.vxp-go{display:block;text-align:center;text-decoration:none;padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp-ok a.vxp-go:hover{background:var(--accent,#3973B0)}' +
       '@media(max-width:480px){.vxp-box{padding:40px 24px 22px}.vxp h3{font-size:28px}.vxp h3 .vxp-big{font-size:58px}}' +
+      '.vxp-tab{position:fixed;left:16px;bottom:16px;z-index:350;display:none;padding:11px 18px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-family:"Geist",system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.03em;cursor:pointer;box-shadow:0 6px 20px rgba(10,22,40,.28);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
+      '.vxp-tab.on{display:block}.vxp-tab:hover{background:var(--accent,#3973B0)}' +
+      '.vxp-foot{max-width:520px;margin:0 auto 24px;padding:0 0 24px;border-bottom:1px solid rgba(255,255,255,.14);text-align:center;font-family:"Geist",system-ui,sans-serif;color:#E8EEF5}' +
+      '.vxp-foot .vxp-k{color:rgba(232,238,245,.6);margin:0 0 10px}' +
+      '.vxp-foot h4{font-family:"Fraunces",serif;font-weight:300;font-size:22px;line-height:1.25;margin:0 0 16px;color:#fff}' +
+      '.vxp-foot form{display:flex;gap:8px;text-align:left}' +
+      '.vxp-foot input[type=email]{flex:1;min-width:0;padding:12px 16px;border:1px solid rgba(255,255,255,.28);border-radius:24px;background:transparent;color:#fff;font-size:16px;font-family:inherit}' +
+      '.vxp-foot input[type=email]::placeholder{color:rgba(232,238,245,.5)}' +
+      '.vxp-foot input[type=email]:focus{outline:none;border-color:#fff}' +
+      '.vxp-foot button{padding:12px 22px;border:none;border-radius:24px;background:#fff;color:#0B2545;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}' +
+      '.vxp-foot button:disabled{opacity:.6;cursor:default}' +
+      '.vxp-foot p.vxp-fine{font-size:11.5px;line-height:1.6;color:rgba(232,238,245,.6);margin:12px 0 0}' +
+      '.vxp-foot p.vxp-err{color:#FFB4AB;margin:8px 0 0;font-size:13px;line-height:1.4}' +
+      '.vxp-foot .vxp-code{background:transparent;border-color:rgba(255,255,255,.4);color:#fff;font-size:20px;padding:12px;margin:0 0 10px}' +
+      '@media(max-width:480px){.vxp-foot form{flex-direction:column}.vxp-tab{left:12px;bottom:12px}}' +
       '@media(prefers-reduced-motion:reduce){.vxp,.vxp-box{transition:none}}';
     document.head.appendChild(s);
   }
@@ -133,8 +150,10 @@
     return !!((gate && gate.classList.contains('active')) || (menu && menu.classList.contains('active')));
   }
 
-  function show() {
+  function show(how) {
     if (shown || blocked()) return;
+    via = how || 'popup';
+    if (tab) tab.classList.remove('on');
     shown = true;
     lastFocus = document.activeElement;
     if (!root) build();
@@ -150,7 +169,7 @@
 
   function close() {
     root.classList.remove('in'); root.classList.remove('on');
-    if (!get('vxLeadDone')) set('vxLeadClosed', String(Date.now()));
+    if (!get('vxLeadDone')) { set('vxLeadClosed', String(Date.now())); popupOff = true; shown = false; showTab(); }
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
   }
 
@@ -162,29 +181,93 @@
     if (f.querySelector('input[name=website]').value) return;            // bots fill the hidden field
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) { msg.textContent = 'Please enter a valid email address.'; em.focus(); return; }
     btn.disabled = true; btn.textContent = 'One moment…';
-    fetch(SB_URL + '/rest/v1/rpc/capture_lead', {
-      method: 'POST',
-      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ p_email: val, p_source: 'popup', p_consent: CONSENT, p_page: location.pathname })
-    }).then(function (r) {
-      if (!r.ok) throw new Error('bad');
-      set('vxLeadDone', '1');
-      set('vxLeadCode', CODE);
-      try { if (!sessionStorage.getItem('vantixPromoCode')) sessionStorage.setItem('vantixPromoCode', CODE); } catch (e) {}
-      try { (window.dataLayer = window.dataLayer || []).push({ event: 'email_signup', signup_source: 'popup' }); } catch (e) {}
+    capture(val, via === 'tab' ? 'popup-tab' : 'popup', function () {
+      onSuccess();
       root.querySelector('#vxpForm').style.display = 'none';
       root.querySelector('#vxpOk').style.display = 'block';
       var c2 = root.querySelector('.vxp-copy'); if (c2) c2.focus();
-    }).catch(function () {
+    }, function () {
       btn.disabled = false; btn.textContent = 'Get my 15% off';
       msg.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
+    });
+  }
+
+  function capture(email, source, ok, fail) {
+    fetch(SB_URL + '/rest/v1/rpc/capture_lead', {
+      method: 'POST',
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_email: email, p_source: source, p_consent: CONSENT, p_page: location.pathname })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('bad');
+      ok();
+    }).catch(fail);
+  }
+
+  function onSuccess() {
+    set('vxLeadDone', '1');
+    set('vxLeadCode', CODE);
+    shown = true;                                  // no more popups this visit
+    try { if (!sessionStorage.getItem('vantixPromoCode')) sessionStorage.setItem('vantixPromoCode', CODE); } catch (e) {}
+    try { (window.dataLayer = window.dataLayer || []).push({ event: 'email_signup', signup_source: via }); } catch (e) {}
+    if (tab) tab.classList.remove('on');
+    var ft = document.querySelector('.vxp-foot');
+    if (ft) ft.innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your 15% welcome discount is saved on this device and applied at checkout.</p>';
+  }
+
+  // Quiet ways back in for someone who closed the popup and changed their mind.
+  function showTab() {
+    if (get('vxLeadDone')) return;
+    css();
+    if (!tab) {
+      tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'vxp-tab';
+      tab.textContent = '15% off';
+      tab.setAttribute('aria-label', 'Get 15% off your first order');
+      tab.addEventListener('click', function () { lastFocus = tab; show('tab'); });
+      document.body.appendChild(tab);
+    }
+    tab.classList.add('on');
+  }
+
+  function initFooter() {
+    var fs = document.querySelectorAll('footer');
+    var ft = fs.length ? fs[fs.length - 1] : null;
+    if (!ft || ft.querySelector('.vxp-foot')) return;
+    css();
+    var box = document.createElement('div');
+    box.className = 'vxp-foot';
+    box.innerHTML =
+      '<p class="vxp-k">The Vantix Bio list</p>' +
+      '<h4>Batch reports and restock notices.<br>15% off your first order.</h4>' +
+      '<form novalidate>' +
+        '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
+        '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+        '<button type="submit">Join the list</button>' +
+      '</form>' +
+      '<p class="vxp-err" role="alert"></p>' +
+      '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html" style="color:inherit;text-decoration:underline">Privacy Policy</a></p>';
+    ft.insertBefore(box, ft.firstChild);
+    var form = box.querySelector('form'), em = form.querySelector('input[type=email]'), err = box.querySelector('.vxp-err'), btn = form.querySelector('button');
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      err.textContent = '';
+      if (form.querySelector('input[name=website]').value) return;
+      var val = (em.value || '').trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) { err.textContent = 'Please enter a valid email address.'; em.focus(); return; }
+      btn.disabled = true; btn.textContent = 'One moment…';
+      via = 'footer';
+      capture(val, 'footer', onSuccess, function () {
+        btn.disabled = false; btn.textContent = 'Join the list';
+        err.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
+      });
     });
   }
 
   // The clock counts visible browsing time across pages in this visit and restarts whenever the age gate or menu closes.
   var visibleMs = 0, wasBlocked = false;
   try { visibleMs = parseInt(sessionStorage.getItem('vxLeadMs') || '0', 10) || 0; } catch (e) {}
-  var timer = setInterval(function () {
+  var timer = popupOff ? null : setInterval(function () {
     if (shown) { clearInterval(timer); return; }
     if (blocked()) { visibleMs = 0; wasBlocked = true; }
     else if (!document.hidden) { visibleMs += 1000; }
@@ -192,6 +275,9 @@
     if (visibleMs >= DELAY_MS) show();
   }, 1000);
   document.addEventListener('mouseout', function (e) {
-    if (!e.relatedTarget && e.clientY <= 0 && visibleMs >= EXIT_MIN_MS) show();
+    if (!popupOff && !e.relatedTarget && e.clientY <= 0 && visibleMs >= EXIT_MIN_MS) show();
   });
+
+  initFooter();
+  if (closedRecently) showTab();
 })();
