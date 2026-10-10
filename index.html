@@ -9,7 +9,7 @@
 <meta name="color-scheme" content="light only">
 <meta name="supported-color-schemes" content="light">
 <title>Vantix Bio | Batch-Level Third-Party Verification for Research Peptides</title>
-<meta name="description" content="12 research peptides with batch-level verification. Independent third-party testing for every batch.">
+<meta name="description" content="11 research peptides with batch-level verification. Independent third-party testing for every batch.">
 <meta name="keywords" content="vantix peptides, vantyx peptides, vantx peptides, vantix bio, research peptides, third-party verified peptides, batch tested peptides, peptide COAs">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
@@ -45,7 +45,7 @@ gtag('config','G-BBBNSQT84M',{
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://vantixbio.com">
 <meta name="twitter:title" content="Vantix Bio | Batch-Level Third-Party COAs">
-<meta name="twitter:description" content="12 research peptides with batch-specific verification. Not one sample per product-every batch tested independently.">
+<meta name="twitter:description" content="11 research peptides with batch-specific verification. Not one sample per product-every batch tested independently.">
 <meta name="twitter:image" content="https://vantixbio.com/og-image-logo.jpg">
 <link rel="preload" href="logo-header.svg" as="image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1100,7 +1100,7 @@ View full documentation
 <script>
 const menuBtn=document.getElementById('menuBtn'),menuOverlay=document.getElementById('menuOverlay'),menuClose=document.getElementById('menuClose'),searchBtn=document.getElementById('searchBtn'),cartBtn=document.getElementById('cartBtn'),searchInput=document.getElementById('menuSearchInput'),searchResults=document.getElementById('searchResults');
 
-const peptides=[{name:'VX-2T 30mg',desc:'GIP/GLP-1 dual agonist',price:'$59',url:'shop.html#vx-2t'},{name:'VX-3R 20mg',desc:'GIP/GLP-1/glucagon triple agonist',price:'$67',url:'shop.html#vx-3r'},{name:'VX-1S 10mg',desc:'GLP-1 receptor agonist',price:'$42',url:'shop.html#vx-1s'},{name:'BPC-157 10mg',desc:'Cytoprotective peptide',price:'$30',url:'shop.html#bpc'},{name:'TB-500 10mg',desc:'Thymosin beta-4 fragment',price:'$38',url:'shop.html#tb500'},{name:'GHK-Cu 100mg',desc:'Copper peptide',price:'$34',url:'shop.html#ghk'},{name:'CJC-1295 5mg',desc:'GHRH analog',price:'$29',url:'shop.html#cjc'},{name:'Ipamorelin 5mg',desc:'Growth hormone secretagogue',price:'$30',url:'shop.html#ipa'},{name:'MOTS-c 10mg',desc:'Mitochondrial peptide',price:'$32',url:'shop.html#mots'},{name:'NAD+ 1000mg',desc:'Nicotinamide adenine dinucleotide',price:'$59',url:'shop.html#nad'},{name:'Tesamorelin 10mg',desc:'GHRH analog',price:'$52',url:'shop.html#tesa'},{name:'AOD-9604 10mg',desc:'Growth hormone fragment',price:'$52',url:'shop.html#aod'},{name:'Tissue Repair Kit',desc:'BPC-157 + TB-500',price:'$62',url:'kits.html#tissue'},{name:'GH Axis Kit',desc:'CJC-1295 + Ipamorelin',price:'$48',url:'kits.html#gh'},{name:'Mito Kit',desc:'NAD+ + MOTS-c',price:'$82',url:'kits.html#mito'},{name:'Multi-System Kit',desc:'GHK-Cu + BPC-157 + NAD+',price:'$120',url:'kits.html#multi'}];
+const peptides=[{name:'VX-2T 30mg',desc:'GIP/GLP-1 dual agonist',price:'$59',url:'shop.html#vx-2t'},{name:'VX-3R 20mg',desc:'GIP/GLP-1/glucagon triple agonist',price:'$67',url:'shop.html#vx-3r'},{name:'BPC-157 10mg',desc:'Cytoprotective peptide',price:'$30',url:'shop.html#bpc'},{name:'TB-500 10mg',desc:'Thymosin beta-4 fragment',price:'$38',url:'shop.html#tb500'},{name:'GHK-Cu 100mg',desc:'Copper peptide',price:'$34',url:'shop.html#ghk'},{name:'CJC-1295 5mg',desc:'GHRH analog',price:'$29',url:'shop.html#cjc'},{name:'Ipamorelin 5mg',desc:'Growth hormone secretagogue',price:'$30',url:'shop.html#ipa'},{name:'MOTS-c 10mg',desc:'Mitochondrial peptide',price:'$32',url:'shop.html#mots'},{name:'NAD+ 1000mg',desc:'Nicotinamide adenine dinucleotide',price:'$59',url:'shop.html#nad'},{name:'Tesamorelin 10mg',desc:'GHRH analog',price:'$52',url:'shop.html#tesa'},{name:'AOD-9604 10mg',desc:'Growth hormone fragment',price:'$52',url:'shop.html#aod'},{name:'Cytoprotective Pathways Pair',desc:'BPC-157 + TB-500',price:'$62',url:'kits.html#tissue'},{name:'GH Axis Kit',desc:'CJC-1295 + Ipamorelin',price:'$48',url:'kits.html#gh'},{name:'Mito Kit',desc:'NAD+ + MOTS-c',price:'$82',url:'kits.html#mito'},{name:'Multi-System Kit',desc:'GHK-Cu + BPC-157 + NAD+',price:'$120',url:'kits.html#multi'}];
 
 function searchPeptides(query){if(!query||query.length<2){searchResults.classList.remove('active');return}const q=query.toLowerCase();const matches=peptides.filter(p=>p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q));if(matches.length===0){searchResults.innerHTML='<div class="search-no-results">No peptides found matching "'+query+'"</div>';searchResults.classList.add('active');return}searchResults.innerHTML=matches.map(p=>`<div class="search-result-item" onclick="window.location.href='${p.url}'"><div class="search-result-name">${p.name}</div><div class="search-result-desc">${p.desc}</div><div class="search-result-price">${p.price}</div></div>`).join('');searchResults.classList.add('active')}
 

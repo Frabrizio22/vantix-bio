@@ -59,7 +59,7 @@ const VX_PRODUCTS = {
             shortName: 'VX-2T',
             slug: 'vx-2t',
             category: 'glp1-gip',
-            categoryLabel: 'GLP-1 / GIP Agonists',
+            categoryLabel: 'Receptor Pharmacology',
             size: '30mg',
             purity: '>99%',
             price: 59,
@@ -85,7 +85,7 @@ const VX_PRODUCTS = {
             shortName: 'VX-3R',
             slug: 'vx-3r',
             category: 'glp1-gip',
-            categoryLabel: 'GLP-1 / GIP Agonists',
+            categoryLabel: 'Receptor Pharmacology',
             size: '20mg',
             purity: '>99%',
             price: 67,
@@ -93,31 +93,6 @@ const VX_PRODUCTS = {
             image: 'images/products/vx-3r-20mg.jpg',
             url: 'products/retatrutide.html',
             inStock: true,
-            dualTested: true,
-            get stock() {
-                const status = getStockStatus(this.sku);
-                return status ? status.stock : null;
-            },
-            get isInStock() {
-                const status = getStockStatus(this.sku);
-                return status !== null ? status.inStock : this.inStock;
-            }
-        },
-        {
-            sku: 'VX-SEMA-10',
-            name: 'VX-1S 10mg', 
-            cartName: 'VX-1S 10mg',
-            shortName: 'VX-1S',
-            slug: 'vx-1s',
-            category: 'glp1-gip',
-            categoryLabel: 'GLP-1 / GIP Agonists',
-            size: '10mg',
-            purity: '>99%',
-            price: 42,
-            cogs: 13.87,
-            image: 'images/products/vx-1s-10mg.jpg',
-            url: 'products/semaglutide.html',
-            inStock: false,
             dualTested: true,
             get stock() {
                 const status = getStockStatus(this.sku);
@@ -137,7 +112,7 @@ const VX_PRODUCTS = {
             shortName: 'BPC-157',
             slug: 'bpc-157',
             category: 'tissue-repair',
-            categoryLabel: 'Tissue Repair Research',
+            categoryLabel: 'Cytoprotective Signaling',
             size: '10mg',
             purity: '>99%',
             price: 30,
@@ -162,7 +137,7 @@ const VX_PRODUCTS = {
             shortName: 'TB-500',
             slug: 'tb-500',
             category: 'tissue-repair',
-            categoryLabel: 'Tissue Repair Research',
+            categoryLabel: 'Cytoprotective Signaling',
             size: '10mg',
             purity: '>99%',
             price: 38,
@@ -187,7 +162,7 @@ const VX_PRODUCTS = {
             shortName: 'GHK-Cu',
             slug: 'ghk-cu',
             category: 'tissue-repair',
-            categoryLabel: 'Tissue Repair Research',
+            categoryLabel: 'Cytoprotective Signaling',
             size: '100mg',
             purity: '>99%',
             price: 34,
@@ -367,10 +342,10 @@ const VX_PRODUCTS = {
     kits: [
         {
             id: 'tissue-repair',
-            name: 'Tissue Repair Research Pair',
+            name: 'Cytoprotective Pathways Research Pair',
             shortName: 'BPC-157 + TB-500',
             description: 'VEGFR2 + G-actin pathway investigation',
-            clinicalNote: 'BPC-157 (VEGFR2) + TB-500 (actin dynamics) for dual-pathway tissue repair research',
+            clinicalNote: 'BPC-157 (VEGFR2) + TB-500 (actin dynamics) for dual-pathway cytoprotective signaling research',
             products: ['VX-BPC-10', 'VX-TB-10'],
             regularPrice: 68,
             stackPrice: 62,
@@ -396,7 +371,7 @@ const VX_PRODUCTS = {
             name: 'NAD+ + MOTS-C Research Pair',
             shortName: 'NAD+ + MOTS-C',
             description: 'Mitochondrial bioenergetics & NAD+ metabolism research',
-            clinicalNote: 'NAD+ + MOTS-C combination for ATP production and insulin sensitivity research',
+            clinicalNote: 'NAD+ + MOTS-C combination for mitochondrial bioenergetics research',
             products: ['VX-NAD-1000', 'VX-MOTS-10'],
             regularPrice: 91,
             stackPrice: 82,
@@ -409,7 +384,7 @@ const VX_PRODUCTS = {
             id: 'multi-system',
             name: 'Multi-System Research Kit',
             shortName: 'GHK-Cu + BPC-157 + NAD+',
-            description: 'Tissue repair + mitochondrial function investigation',
+            description: 'Cytoprotective signaling + mitochondrial function investigation',
             clinicalNote: 'GHK-Cu (collagen synthesis) + BPC-157 (VEGFR2) + NAD+ (mitochondrial function)',
             products: ['VX-GHK-100', 'VX-BPC-10', 'VX-NAD-1000'],
             regularPrice: 131,
