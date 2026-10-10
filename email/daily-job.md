@@ -11,7 +11,7 @@ Reorder and nudge emails go to any eligible customer, including those who ordere
 | Flow | Rule | Subject |
 |---|---|---|
 | post-purchase | order shipped 3 to 4 days ago, has tracking, no prior post-purchase log for that order number | Your order, verified |
-| reorder-d28 | segment = reorder_d28 and eligible. The window is per customer (needs `supabase/email_reorder_timing.sql`): opens at 85% of their own typical gap between orders after their last order (21 to 60 days; 35 days for first-time buyers), closes 14 days later. See `typical_gap_days` and `reorder_due_at` in `customer_segments`. Wholesale clients are never eligible | Checking in from Vantix Bio |
+| reorder-d28 / reorder-repeat | segment = reorder_d28 and eligible; orders = 1 gets reorder-d28 (plain note), orders > 1 gets reorder-repeat (designed). Queued from the stored templates (`supabase/email_customer_templates.sql`) in one SQL statement, filling first_name, weeks, month, email. The window is per customer (needs `supabase/email_reorder_timing.sql`): opens at 85% of their own typical gap between orders after their last order (21 to 60 days; 35 days for first-time buyers), closes 14 days later. See `typical_gap_days` and `reorder_due_at` in `customer_segments`. Wholesale clients are never eligible | Checking in from Vantix Bio |
 | nudge-d42 | segment = nudge_d42 and eligible | A note on shipping |
 | winback-d75 | segment = winback_d75 and eligible and orders = 1 and last order on or after 2026-10-03 | What is new at Vantix Bio |
 | welcome-d0 | (queued from the stored template when present) in view `lead_welcome_due` (homepage popup signup in the last 3 days, never ordered, not opted out or excluded, no welcome logged). Exempt from the 14-day cap. Skipped quietly if `supabase/email_leads.sql` has not been run | Welcome to Vantix Bio |
@@ -25,6 +25,9 @@ No discount codes in any flow (the welcome flow names WELCOME15 only). Never nam
 - Max 10 drafts per run. If more are due, draft the oldest first and note the rest.
 - Every draft ends with the RUO line, the PO Box address and an unsubscribe link `https://vantixbio.com/unsubscribe.html#e=<email>`.
 - Links to the shop and verify pages carry `?utm_source=email&utm_medium=retention&utm_campaign=<flow>`.
+
+## Customer flow templates
+reorder-d28, reorder-repeat, nudge-d42 and winback-d75 live in `public.email_templates` (built by `email/build.py`, loaded from `supabase/email_customer_templates.sql`). The job queues them with one statement and never rewrites the copy. Subjects: reorder-d28 'Checking in on your order from {{month}}', reorder-repeat 'Ready when you are, {{first_name}}'.
 
 ## Welcome flow templates (popup signups)
 Three emails built by `email/build.py` (welcome-d0 designed, welcome-d2 designed-light, welcome-d5 near plain text) and stored in table `public.email_templates` (created by `supabase/email_welcome_flow.sql`; loaded from `supabase/email_welcome_templates.sql`, which build.py regenerates). The job queues them with one SQL statement that fills `{{email}}`; it never rewrites the copy. After editing a template: run `python3 email/build.py`, then reload the generated SQL into `email_templates`. The job runs weekdays only, so a weekend signup gets welcome-d0 on Monday.
