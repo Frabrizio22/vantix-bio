@@ -156,6 +156,42 @@ E['welcome-d5'] = dict(day='Day 5: only if they have not ordered', subject='A qu
  + pp(f'Your first-order code <strong>WELCOME15</strong> is still good whenever you are ready: <a href="{SHOPCODE}" style="color:{BLUE}">vantixbio.com</a>.')
  + pp('Frabrizio<br>Vantix Bio')))
 
+
+# ---- Customer flows used by the daily job (stored in email_templates; job fills first_name, weeks, month, email) ----
+CUST_WHY = 'You are receiving this because you ordered from vantixbio.com.'
+def plain_c(preheader, body):
+    return plain(preheader, body).replace('You are receiving this because you signed up at vantixbio.com.', CUST_WHY)
+
+E['reorder-d28'] = dict(day='First-time buyer, in their reorder window (about 5 weeks by default)', subject='Checking in on your order from {{month}}', pre='A quick note from Frabrizio.', html=plain_c(
+ 'A quick note from Frabrizio.',
+ pp('Hi {{first_name}},')
+ + pp('It has been about {{weeks}} weeks since your order from {{month}}, so I wanted to check in and make sure everything arrived as expected.')
+ + pp('If you are thinking about ordering again, the testing results for every batch are still published, and you can look up any batch on our <a href="' + VERIFY + '" style="color:' + BLUE + '">verification page</a> first. Orders typically ship within one business day, and shipping is free on orders of $150 or more.')
+ + pp('<a href="' + SHOP + '" style="color:' + BLUE + '">Visit the shop</a>')
+ + pp('If anything about your last order was not right, or there is something you would like us to carry, just reply to this email. I will answer it myself.')
+ + pp('Frabrizio<br>Vantix Bio')))
+
+E['reorder-repeat'] = dict(day='Repeat customer, in their own reorder window', subject='Ready when you are, {{first_name}}', pre='Thank you for ordering again.', html=wrap(
+ 'Thank you for ordering again.', 'Thank you', 'Ready when you are.',
+ p('Hi {{first_name}}, thank you for ordering from Vantix Bio more than once. It means a lot to a small team. It has been about {{weeks}} weeks since your last order.')
+ + card([('Dispatch', 'Typically within 1 business day'), ('Shipping', 'Free on orders of $150+'), ('Batch results', 'Published for every lot')])
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">If there is something you would like us to carry, or a question about a past order, reply to this email and I will answer it myself.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
+
+E['nudge-d42'] = dict(day='In the window after the reorder email, before day 75', subject='A note on shipping', pre='Free shipping starts at $150.', html=wrap(
+ 'Free shipping starts at $150.', 'Worth knowing', 'Free shipping starts at $150.',
+ p('Hi {{first_name}}, a short note in case it is useful. Orders of $150 or more, after any discounts, ship free. Orders typically ship within one business day, and you get a tracking email when yours leaves us.')
+ + p('Every batch is independently tested, and you can check the results for any batch on our verification page whenever you like.')
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">Questions about a COA or an order? Just reply to this email.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
+
+E['winback-d75'] = dict(day='One-time buyer, 75+ days since order', subject='What is new at Vantix Bio', pre='Batch-level testing, published for every lot.', html=wrap(
+ 'Batch-level testing, published for every lot.', 'What is new', 'It has been a while, {{first_name}}.',
+ p('Since your last order we have kept one thing constant: you can check the testing results for any batch before you rely on it.')
+ + steps([('Independent testing', 'Every batch we release has a report from a third-party lab.'), ('Batch-specific verification', 'Scan the QR code or enter a batch number to see the data, the PDF and the original report.'), ('Fast dispatch', 'Orders typically ship within one business day, free on orders of $150+.')])
+ + button('Visit the shop', SHOP)
+ + p(f'<span style="color:{MUT};font-size:14px">Anything we could do better, or something you would like us to carry? Reply to this email and I will answer it myself.<br><br>Frabrizio<br>Vantix Bio</span>'), why=CUST_WHY))
+
 SAMPLE = dict(first_name='Alex', product='VX-2T 30mg', weeks='4', email='alex@example.com', month='October 2026', offer_block='',
   batch_rows=card([('VX-2T 30mg', 'Batch VX-2T-1001'), ('Purity', '99.1%'), ('Endotoxin', 'Within spec'), ('Tested', 'Independent lab')]))
 
@@ -173,6 +209,7 @@ def to_text(h):
     return re.sub(r'\n{3,}', '\n\n', h).strip() + '\n'
 
 WELCOME = ('welcome-d0', 'welcome-d2', 'welcome-d5')
+CUSTOMER = ('reorder-d28', 'reorder-repeat', 'nudge-d42', 'winback-d75')
 
 def fill(s, d):
     s = s.replace('{{flow}}', d.get('flow', ''))
@@ -194,6 +231,15 @@ if __name__ == '__main__':
         rows.append("(" + "'" + k + "', $s$" + v['subject'] + "$s$, $h$" + h + "$h$, $t$" + to_text(h) + "$t$)")
     open(os.path.join(here, '..', 'supabase', 'email_welcome_templates.sql'), 'w', encoding='utf-8').write(
         "-- Generated by email/build.py. Loads the welcome-flow templates ({{email}} is filled in when queued).\n"
+        "insert into public.email_templates (flow, subject, html_body, text_body) values\n" + ",\n".join(rows) +
+        "\non conflict (flow) do update set subject = excluded.subject, html_body = excluded.html_body, text_body = excluded.text_body, updated_at = now();\n")
+
+    rows = []
+    for k in CUSTOMER:
+        v = E[k]; h = v['html'].replace('{{flow}}', k)
+        rows.append("(" + "'" + k + "', $s$" + v['subject'] + "$s$, $h$" + h + "$h$, $t$" + to_text(h) + "$t$)")
+    open(os.path.join(here, '..', 'supabase', 'email_customer_templates.sql'), 'w', encoding='utf-8').write(
+        "-- Generated by email/build.py. Loads the customer-flow templates. Merge tags filled when queued: {{first_name}} {{weeks}} {{month}} {{email}}.\n"
         "insert into public.email_templates (flow, subject, html_body, text_body) values\n" + ",\n".join(rows) +
         "\non conflict (flow) do update set subject = excluded.subject, html_body = excluded.html_body, text_body = excluded.text_body, updated_at = now();\n")
     print('built', len(E), 'emails')
