@@ -373,7 +373,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <input type="checkbox" class="vx-gate__cb" id="ageCheckbox" style="width:20px;height:20px;min-width:20px;accent-color:#3973B0">
       <span>I am at least 21 years of age and am acquiring these materials for lawful laboratory research use only.</span>
     </label>
-    <div style="margin:0 0 14px"><label for="gateResearcherType" style="display:block;font-family:'Geist',system-ui,sans-serif;font-size:13px;margin-bottom:6px">Researcher type</label><select id="gateResearcherType" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Government or institutional researcher">Government or institutional researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Student researcher (supervised)">Student researcher (supervised)</option><option value="Other research professional">Other research professional</option></select></div>
     <label class="vx-gate__check">
       <input type="checkbox" class="vx-gate__cb" id="gateResearcher" style="width:20px;height:20px;min-width:20px;accent-color:#3973B0">
       <span>I am a qualified researcher.</span>
@@ -446,10 +445,9 @@ function acceptAgeGate() {
 checkAgeGate();
 var gateBoxes = document.querySelectorAll('#ageGate .vx-gate__cb');
 var ageBtn = document.getElementById('ageEnter');
-function gateAllChecked() { var rt = document.getElementById('gateResearcherType'); if (!rt || !rt.value) return false; for (var i = 0; i < gateBoxes.length; i++) { if (!gateBoxes[i].checked) return false; } return true; }
+function gateAllChecked() { for (var i = 0; i < gateBoxes.length; i++) { if (!gateBoxes[i].checked) return false; } return true; }
 for (var gi = 0; gi < gateBoxes.length; gi++) { gateBoxes[gi].addEventListener('change', function() { ageBtn.disabled = !gateAllChecked(); }); }
-document.getElementById('gateResearcherType').addEventListener('change', function() { ageBtn.disabled = !gateAllChecked(); });
-ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { localStorage.setItem('researcherType', document.getElementById('gateResearcherType').value); } catch(e) {} acceptAgeGate(); } });
+ageBtn.addEventListener('click', function() { if (gateAllChecked()) acceptAgeGate(); });
 </script>
 <!-- /VANTIX AGE GATE -->
 
