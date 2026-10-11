@@ -242,7 +242,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="checkbox-group">
-            <div style="margin-bottom:12px"><label for="researcherType" style="font-size:13px;color:#64748B;display:block;margin-bottom:6px">Researcher type</label><select id="researcherType" autocomplete="off" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Other research professional">Other research professional</option></select><input type="text" id="researcherOther" placeholder="Please describe your research role" maxlength="120" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box;margin-top:8px;display:none"></div>
+            <div style="margin-bottom:12px"><label for="researcherType" style="font-size:13px;color:#64748B;display:block;margin-bottom:6px">Researcher type</label><select id="researcherType" autocomplete="off" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Other research professional">Other research professional</option></select></div>
 
             <div class="checkbox-item">
                 <input type="checkbox" id="ageCheck" autocomplete="off" />
@@ -284,8 +284,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const ageCheck = document.getElementById('ageCheck');
             const termsCheck = document.getElementById('termsCheck');
             const researcherType = document.getElementById('researcherType');
-            const researcherOther = document.getElementById('researcherOther');
-            const typeOk = () => researcherType.value && (researcherType.value.indexOf('Other') !== 0 || researcherOther.value.trim().length > 1);
+            const typeOk = () => !!researcherType.value;
             const rememberCheck = document.getElementById('rememberCheck');
             const enterBtn = document.getElementById('enterBtn');
             const exitBtn = document.getElementById('exitBtn');
@@ -297,8 +296,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             ageCheck.addEventListener('change', updateButtonState);
             termsCheck.addEventListener('change', updateButtonState);
-            researcherType.addEventListener('change', function() { researcherOther.style.display = researcherType.value.indexOf('Other') === 0 ? 'block' : 'none'; updateButtonState(); });
-            researcherOther.addEventListener('input', updateButtonState);
+            researcherType.addEventListener('change', updateButtonState);
 
             // Enter site
             enterBtn.addEventListener('click', function() {
@@ -306,7 +304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 const timestamp = Date.now();
                 const data = JSON.stringify({ accepted: true, timestamp: timestamp });
-                try { localStorage.setItem('researcherType', researcherType.value.indexOf('Other') === 0 ? 'Other: ' + researcherOther.value.trim() : researcherType.value); } catch (e) {}
+                try { localStorage.setItem('researcherType', researcherType.value); } catch (e) {}
 
                 if (rememberCheck.checked) {
                     // Persist across sessions
