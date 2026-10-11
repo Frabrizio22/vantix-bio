@@ -242,36 +242,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="checkbox-group">
+            <div style="margin-bottom:12px"><label for="researcherType" style="font-size:13px;color:#64748B;display:block;margin-bottom:6px">Researcher type</label><select id="researcherType" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Other research professional">Other research professional</option></select><input type="text" id="researcherOther" placeholder="Please describe your research role" maxlength="120" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box;margin-top:8px;display:none"></div>
+
             <div class="checkbox-item">
                 <input type="checkbox" id="ageCheck" />
-                <label for="ageCheck">I confirm I am <strong>21 years of age or older</strong></label>
+                <label for="ageCheck">I am <strong>at least 21 years of age and a qualified researcher</strong>, acquiring these materials for lawful laboratory research use only. I understand they are <strong>not for human consumption or for medical or animal use</strong>.</label>
             </div>
 
             <div class="checkbox-item">
                 <input type="checkbox" id="termsCheck" />
-                <label for="termsCheck">I agree to the <a href="terms.html" target="_blank">Terms of Sale &amp; Research Use Only Policy</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
-            </div>
-
-            <div class="checkbox-item">
-                <input type="checkbox" id="noHumanCheck" />
-                <label for="noHumanCheck">I understand these products are <strong>not for human consumption</strong></label>
-            </div>
-
-            <div class="checkbox-item">
-                <input type="checkbox" id="noMedicalCheck" />
-                <label for="noMedicalCheck">I understand these products are <strong>not for medical or animal use</strong></label>
-            </div>
-
-            <div class="checkbox-item">
-                <input type="checkbox" id="responsibleCheck" />
-                <label for="responsibleCheck">I assume <strong>full responsibility for complying with all applicable laws</strong></label>
-            </div>
-
-            <div style="margin-bottom:12px"><label for="researcherType" style="font-size:13px;color:#64748B;display:block;margin-bottom:6px">Researcher type</label><select id="researcherType" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Other research professional">Other research professional</option></select><input type="text" id="researcherOther" placeholder="Please describe your research role" maxlength="120" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box;margin-top:8px;display:none"></div>
-
-            <div class="checkbox-item">
-                <input type="checkbox" id="researcherCheck" />
-                <label for="researcherCheck">I confirm I am a <strong>qualified researcher or affiliated with a research organization</strong>, and will use these materials exclusively for in vitro laboratory research</label>
+                <label for="termsCheck">I assume <strong>full responsibility for complying with all applicable laws</strong>, and I agree to the <a href="terms.html" target="_blank">Terms of Sale &amp; Research Use Only Policy</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.</label>
             </div>
         </div>
 
@@ -303,8 +283,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         (function() {
             const ageCheck = document.getElementById('ageCheck');
             const termsCheck = document.getElementById('termsCheck');
-            const researcherCheck = document.getElementById('researcherCheck');
-            const extraChecks = ['noHumanCheck','noMedicalCheck','responsibleCheck'].map(id => document.getElementById(id));
             const researcherType = document.getElementById('researcherType');
             const researcherOther = document.getElementById('researcherOther');
             const typeOk = () => researcherType.value && (researcherType.value.indexOf('Other') !== 0 || researcherOther.value.trim().length > 1);
@@ -314,19 +292,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             // Update button state
             function updateButtonState() {
-                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked && researcherCheck.checked && typeOk() && extraChecks.every(c => c.checked));
+                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked && typeOk());
             }
 
             ageCheck.addEventListener('change', updateButtonState);
             termsCheck.addEventListener('change', updateButtonState);
-            researcherCheck.addEventListener('change', updateButtonState);
             researcherType.addEventListener('change', function() { researcherOther.style.display = researcherType.value.indexOf('Other') === 0 ? 'block' : 'none'; updateButtonState(); });
             researcherOther.addEventListener('input', updateButtonState);
-            extraChecks.forEach(c => c.addEventListener('change', updateButtonState));
 
             // Enter site
             enterBtn.addEventListener('click', function() {
-                if (!ageCheck.checked || !termsCheck.checked || !researcherCheck.checked || !typeOk() || !extraChecks.every(c => c.checked)) return;
+                if (!ageCheck.checked || !termsCheck.checked || !typeOk()) return;
 
                 const timestamp = Date.now();
                 const data = JSON.stringify({ accepted: true, timestamp: timestamp });
