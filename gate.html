@@ -249,7 +249,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="checkbox-item">
                 <input type="checkbox" id="termsCheck" />
-                <label for="termsCheck">I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+                <label for="termsCheck">I agree to the <a href="terms.html" target="_blank">Terms of Sale &amp; Research Use Only Policy</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="noHumanCheck" />
+                <label for="noHumanCheck">I understand these products are <strong>not for human consumption</strong></label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="noMedicalCheck" />
+                <label for="noMedicalCheck">I understand these products are <strong>not for medical or animal use</strong></label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="responsibleCheck" />
+                <label for="responsibleCheck">I assume <strong>full responsibility for complying with all applicable laws</strong></label>
             </div>
 
             <div class="checkbox-item">
@@ -287,22 +302,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const ageCheck = document.getElementById('ageCheck');
             const termsCheck = document.getElementById('termsCheck');
             const researcherCheck = document.getElementById('researcherCheck');
+            const extraChecks = ['noHumanCheck','noMedicalCheck','responsibleCheck'].map(id => document.getElementById(id));
             const rememberCheck = document.getElementById('rememberCheck');
             const enterBtn = document.getElementById('enterBtn');
             const exitBtn = document.getElementById('exitBtn');
 
             // Update button state
             function updateButtonState() {
-                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked && researcherCheck.checked);
+                enterBtn.disabled = !(ageCheck.checked && termsCheck.checked && researcherCheck.checked && extraChecks.every(c => c.checked));
             }
 
             ageCheck.addEventListener('change', updateButtonState);
             termsCheck.addEventListener('change', updateButtonState);
             researcherCheck.addEventListener('change', updateButtonState);
+            extraChecks.forEach(c => c.addEventListener('change', updateButtonState));
 
             // Enter site
             enterBtn.addEventListener('click', function() {
-                if (!ageCheck.checked || !termsCheck.checked || !researcherCheck.checked) return;
+                if (!ageCheck.checked || !termsCheck.checked || !researcherCheck.checked || !extraChecks.every(c => c.checked)) return;
 
                 const timestamp = Date.now();
                 const data = JSON.stringify({ accepted: true, timestamp: timestamp });

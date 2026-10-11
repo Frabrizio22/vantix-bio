@@ -51,21 +51,21 @@ function getStockStatus(sku) {
 
 const VX_PRODUCTS = {
     phase1: [
-        // METABOLIC SIGNALING - GLP-1, GIP & glucagon pathway peptides
+        // METABOLIC SIGNALING research peptides
         {
             sku: 'VX-TIRZ-30',
             name: 'VX-2T 30mg', 
             cartName: 'VX-2T 30mg',
             shortName: 'VX-2T',
             slug: 'vx-2t',
-            category: 'glp1-gip',
+            category: 'metabolic-research',
             categoryLabel: 'Receptor Pharmacology',
             size: '30mg',
             purity: '>99%',
             price: 59,
             cogs: 17.38,
             image: 'images/products/vx-2t-30mg.jpg',
-            url: 'products/tirzepatide.html',
+            url: 'products/vx-2t.html',
             inStock: true,  // Back in stock
             dualTested: true,
             // Dynamic stock getter
@@ -84,14 +84,14 @@ const VX_PRODUCTS = {
             cartName: 'VX-3R 20mg',
             shortName: 'VX-3R',
             slug: 'vx-3r',
-            category: 'glp1-gip',
+            category: 'metabolic-research',
             categoryLabel: 'Receptor Pharmacology',
             size: '20mg',
             purity: '>99%',
             price: 67,
             cogs: 19.98,
             image: 'images/products/vx-3r-20mg.jpg',
-            url: 'products/retatrutide.html',
+            url: 'products/vx-3r.html',
             inStock: true,
             dualTested: true,
             get stock() {
