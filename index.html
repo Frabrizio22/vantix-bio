@@ -360,16 +360,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- VANTIX AGE GATE -->
 <div id="ageGate" class="vx-gate" role="dialog" aria-modal="true" aria-labelledby="vx-gate-title">
   <div class="vx-gate__panel">
-    <div class="vx-gate__mark">VANTIX&nbsp;BIO</div>
+    <div class="vx-gate__mark"><img src="logo-header.svg" alt="Vantix Bio" width="132" height="46"></div>
     <p class="vx-gate__eyebrow">Research-Use-Only Materials</p>
     <h1 id="vx-gate-title" class="vx-gate__title">Confirm before entering</h1>
     <p class="vx-gate__body">
-      The materials on this site are sold strictly as laboratory reference
-      compounds for in-vitro research and analytical use. They are
-      <strong>not for human or veterinary use</strong>, and not for any
-      diagnostic, therapeutic, or consumptive purpose.
+      Laboratory reference compounds for in-vitro research and analytical use only.
+      <strong>Not for human or veterinary use</strong>, or for any diagnostic,
+      therapeutic, or consumptive purpose.
     </p>
-    <div style="margin:0 0 14px"><label for="gateResearcherType" style="display:block;font-family:'Geist',system-ui,sans-serif;font-size:13px;margin-bottom:6px">Researcher type</label><select id="gateResearcherType" autocomplete="off" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Other research professional">Other research professional</option></select></div>
+    <div style="margin:0 0 12px"><label for="gateResearcherType" style="display:block;font-family:'Geist',system-ui,sans-serif;font-size:12px;margin-bottom:4px">Researcher type</label><select id="gateResearcherType" autocomplete="off" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1e293b;box-sizing:border-box"><option value="">Select your researcher type…</option><option value="Academic / university researcher">Academic / university researcher</option><option value="Biotech or pharmaceutical R&amp;D">Biotech or pharmaceutical R&amp;D</option><option value="Contract research or testing laboratory">Contract research or testing laboratory</option><option value="Independent or private laboratory">Independent or private laboratory</option><option value="Other research professional">Other research professional</option></select></div>
     <label class="vx-gate__check">
       <input type="checkbox" class="vx-gate__cb" id="ageCheckbox" autocomplete="off" style="width:20px;height:20px;min-width:20px;accent-color:#3973B0">
       <span>I am at least 21 years old and a qualified researcher, purchasing solely for lawful laboratory research. These products are not for human consumption or for medical or animal use.</span>
@@ -393,15 +392,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .vx-gate{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(15,27,45,0.86);backdrop-filter:blur(6px);padding:24px;animation:vxFade .35s ease}
   .vx-gate.active{display:flex}
   @keyframes vxFade{from{opacity:0}to{opacity:1}}
-  .vx-gate__panel{width:100%;max-width:440px;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--vx-cream);border:1px solid var(--vx-hair);border-radius:4px;padding:40px 36px;box-shadow:0 24px 60px rgba(15,27,45,0.4);animation:vxRise .4s cubic-bezier(.2,.7,.3,1)}
+  .vx-gate__panel{width:100%;max-width:440px;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--vx-cream);border:1px solid var(--vx-hair);border-radius:4px;padding:24px 28px;box-shadow:0 24px 60px rgba(15,27,45,0.4);animation:vxRise .4s cubic-bezier(.2,.7,.3,1)}
   @keyframes vxRise{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
-  .vx-gate__mark{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;color:var(--vx-navy);margin-bottom:28px}
+  .vx-gate__mark{margin:0 0 14px;line-height:0}.vx-gate__mark img{height:46px;width:auto;display:block}
   .vx-gate__eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--vx-blue);margin:0 0 8px}
-  .vx-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:28px;line-height:1.15;color:var(--vx-navy);margin:0 0 16px}
-  .vx-gate__body{font-family:'Geist',system-ui,sans-serif;font-size:14px;line-height:1.6;color:#3a4555;margin:0 0 24px}
+  .vx-gate__title{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:24px;line-height:1.15;color:var(--vx-navy);margin:0 0 10px}
+  .vx-gate__body{font-family:'Geist',system-ui,sans-serif;font-size:13px;line-height:1.5;color:#3a4555;margin:0 0 16px}
   .vx-gate__body strong{color:var(--vx-navy)}
-  .vx-gate__check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-family:'Geist',system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--vx-navy);margin-bottom:14px;-webkit-tap-highlight-color:transparent}
-  .vx-gate__actions{display:flex;gap:12px;margin:14px 0 20px}
+  .vx-gate__check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-family:'Geist',system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--vx-navy);margin-bottom:10px;-webkit-tap-highlight-color:transparent}
+  .vx-gate__actions{display:flex;gap:12px;margin:14px 0 12px}
   .vx-gate__btn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:13px 20px;border-radius:3px;cursor:pointer;border:1px solid var(--vx-navy);transition:all .18s ease}
   .vx-gate__btn--primary{background:var(--vx-navy);color:var(--vx-cream);flex:1}
   .vx-gate__btn--primary:disabled{opacity:.35;cursor:not-allowed}.vx-gate__btn--primary:not(:disabled){opacity:1;background:var(--vx-navy)}
