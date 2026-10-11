@@ -964,7 +964,7 @@ form.appendChild(input);
 document.body.appendChild(form);
 form.submit();
 }else{
-alert('Payment gateway error. Please try Zelle or contact support.');
+alert((data&&data.status==='error'&&data.message)?data.message:'Payment gateway error. Please try Zelle or contact support.');
 submitBtn.disabled=false;
 submitBtn.textContent='Place Order';
 }

@@ -251,7 +251,7 @@ function friendlyError(msg) {
   msg = String(msg || '');
   if (msg.startsWith('out_of_stock')) return { expected: true, http: 409, text: 'Sorry, one of the items in your cart just went out of stock. Please review your cart.' };
   if (msg.startsWith('invalid_discount_code:first_order_only')) return { expected: true, http: 400, text: 'That code is for first orders only. Please remove it to continue.' };
-  if (msg.startsWith('invalid_discount_code')) return { expected: true, http: 400, text: 'That discount code is not valid.' };
+  if (msg.startsWith('invalid_discount_code')) return { expected: true, http: 400, text: "That code isn't active right now. Please remove it and try again, or email support@vantixbio.com." };
   if (msg.startsWith('unknown_or_inactive_sku')) return { expected: true, http: 400, text: 'An item in your cart is no longer available. Please refresh and try again.' };
   if (msg.startsWith('order_number_in_use')) return { expected: true, http: 409, text: 'Please try placing your order again.' };
   return { expected: false, http: 500, text: 'We could not place your order. Please try again or contact support.' };
