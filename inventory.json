@@ -64,11 +64,5 @@
     "name": "NAD+ 1000mg",
     "stock": 35,
     "inStock": true
-  },
-  "VX-AOD-10": {
-    "sku": "VX-AOD-10",
-    "name": "AOD-9604 10mg",
-    "stock": 0,
-    "inStock": false
   }
 }
