@@ -104,7 +104,7 @@ const VX_PRODUCTS = {
             }
         },
 
-        // TISSUE REPAIR - Growth factor & ECM signaling peptides
+        // Research peptides (internal slug: tissue-repair)
         {
             sku: 'VX-BPC-10',
             name: 'BPC-157 10mg', 
@@ -112,7 +112,7 @@ const VX_PRODUCTS = {
             shortName: 'BPC-157',
             slug: 'bpc-157',
             category: 'tissue-repair',
-            categoryLabel: 'Cytoprotective Signaling',
+            categoryLabel: 'Research Peptides',
             size: '10mg',
             purity: '>99%',
             price: 30,
@@ -137,7 +137,7 @@ const VX_PRODUCTS = {
             shortName: 'TB-500',
             slug: 'tb-500',
             category: 'tissue-repair',
-            categoryLabel: 'Cytoprotective Signaling',
+            categoryLabel: 'Research Peptides',
             size: '10mg',
             purity: '>99%',
             price: 38,
@@ -162,7 +162,7 @@ const VX_PRODUCTS = {
             shortName: 'GHK-Cu',
             slug: 'ghk-cu',
             category: 'tissue-repair',
-            categoryLabel: 'Cytoprotective Signaling',
+            categoryLabel: 'Research Peptides',
             size: '100mg',
             purity: '>99%',
             price: 34,
@@ -342,10 +342,10 @@ const VX_PRODUCTS = {
     kits: [
         {
             id: 'tissue-repair',
-            name: 'Cytoprotective Pathways Research Pair',
+            name: 'BPC-157 + TB-500 Research Pair',
             shortName: 'BPC-157 + TB-500',
-            description: 'VEGFR2 + G-actin pathway investigation',
-            clinicalNote: 'BPC-157 (VEGFR2) + TB-500 (actin dynamics) for dual-pathway cytoprotective signaling research',
+            description: 'Two-compound research pair',
+            clinicalNote: 'BPC-157 10mg + TB-500 10mg research pair for in-vitro analysis',
             products: ['VX-BPC-10', 'VX-TB-10'],
             regularPrice: 68,
             stackPrice: 62,
@@ -384,8 +384,8 @@ const VX_PRODUCTS = {
             id: 'multi-system',
             name: 'Multi-System Research Kit',
             shortName: 'GHK-Cu + BPC-157 + NAD+',
-            description: 'Cytoprotective signaling + mitochondrial function investigation',
-            clinicalNote: 'GHK-Cu (collagen synthesis) + BPC-157 (VEGFR2) + NAD+ (mitochondrial function)',
+            description: 'Three-compound research kit',
+            clinicalNote: 'GHK-Cu + BPC-157 + NAD+ research kit for in-vitro analysis',
             products: ['VX-GHK-100', 'VX-BPC-10', 'VX-NAD-1000'],
             regularPrice: 131,
             stackPrice: 118,
