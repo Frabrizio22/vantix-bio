@@ -29,6 +29,12 @@
   try {
     var q = new URLSearchParams(location.search), m = (q.get('utm_medium') || '').toLowerCase();
     if (m === 'outreach' || m === 'retention' || q.get('code') || q.get('ref')) popupOff = true;
+    // A creator link (?code=JO10 and the like) is remembered for 30 days so the welcome offer does not
+    // compete with the creator's code on later pages. Checkout reads the same key (vxCreator) to credit the creator.
+    var cc = (q.get('code') || '').toUpperCase();
+    if (/^[A-Z0-9]{2,20}$/.test(cc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10'].indexOf(cc) < 0) set('vxCreator', JSON.stringify({ c: cc, t: Date.now() }));
+    var cr = JSON.parse(get('vxCreator') || 'null');
+    if (cr && cr.c && Date.now() - cr.t < 30 * 86400000) popupOff = true;
   } catch (e) {}
   try {
     var cart = JSON.parse(get('vantixCart') || '[]');

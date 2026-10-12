@@ -608,8 +608,8 @@ function creatorCards() {
   const codes = {}; S.codes.filter((c) => c.influencer).forEach((c) => { codes[c.code] = c; });
   const by = {}, thisM = dkey(new Date()).slice(0, 7), team = {};
   const blank = () => ({ newN: 0, newRev: 0, oldN: 0, oldRev: 0, rec: 0, profit: 0 });
-  paid.filter((o) => codes[o.discount_code]).forEach((o) => {
-    const c = codes[o.discount_code], x = by[c.influencer] || (by[c.influencer] = { name: c.influencer, rate: 0, codes: [], m: {} });
+  paid.filter((o) => codes[o.creator_code || o.discount_code]).forEach((o) => {
+    const c = codes[o.creator_code || o.discount_code], x = by[c.influencer] || (by[c.influencer] = { name: c.influencer, rate: 0, codes: [], m: {} });
     x.rate = Math.max(x.rate, n0(c.commission_pct)); if (!x.codes.includes(c.code)) x.codes.push(c.code);
     const mk = dkey(o.created_at).slice(0, 7), b = x.m[mk] || (x.m[mk] = blank()), t = team[mk] || (team[mk] = blank()); if (c.team) x.team = true;
     const isNew = firstOf[String(o.customer_email || '').toLowerCase()] === o.id;
