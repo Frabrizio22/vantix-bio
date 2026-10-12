@@ -96,7 +96,7 @@ async function handleOrder(body, method, request, env, ctx, cors) {
     payment_method: method,
     customer_name: v.name, customer_email: v.email, phone: v.phone,
     address: v.address, city: v.city, state: v.state, zip: v.zip,
-    discount_code: v.code, referral_source: v.referral,
+    discount_code: v.code, referral_source: v.referral, creator_code: v.creator,
     items: v.items,
     affirmation: body.affirmation && typeof body.affirmation === 'object' ? body.affirmation : null,
     client_meta: {
@@ -224,7 +224,7 @@ function validateOrder(b) {
     items.push({ sku: SKU_ALIASES[sku] || sku, qty });
   }
   const code = s(b.discount_code, 40).toUpperCase() || null;
-  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, ga: cleanGa(b.ga) };
+  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, ga: cleanGa(b.ga) };
 }
 
 // GA4: accept only values shaped like real GA ids (client_id "1234567890.1234567890", session_id = 10-digit unix time).
@@ -410,8 +410,8 @@ async function afterPaid(env, orderNumber) {
   await sendGa4Purchase(env, o);
 
   let influencer = '';
-  if (o.discount_code && Number(o.commission) > 0) {
-    const p = await db(env, `promo_codes?code=eq.${encodeURIComponent(o.discount_code)}&select=influencer`);
+  if ((o.creator_code || o.discount_code) && Number(o.commission) > 0) {
+    const p = await db(env, `promo_codes?code=eq.${encodeURIComponent(o.creator_code || o.discount_code)}&select=influencer`);
     influencer = (p.ok && p.data[0] && p.data[0].influencer) || '';
   }
   const lowRes = await db(env, 'products?stock_tracked=eq.true&select=sku,name,stock,low_stock_threshold');

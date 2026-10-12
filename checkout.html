@@ -490,6 +490,7 @@ var promoCodes={
 };
 // VB10 (early-customer email offer) is valid through Oct 16, 2026, end of day Pacific
 if(new Date()>=new Date('2026-10-17T07:00:00Z')){delete promoCodes['VB10'];}
+function vxCreatorCode(){try{var c=JSON.parse(localStorage.getItem('vxCreator')||'null');if(c&&c.c&&Date.now()-c.t<30*86400000)return c.c;}catch(e){}return '';}
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
 
 function getUrlParam(name){var params=new URLSearchParams(window.location.search);return params.get(name);}
@@ -894,7 +895,8 @@ discount_code:promoCode||'',
 referral_source:referralSource||'',
 shipping:getShipping(),
 total:getTotal(),
-affirmation:window.vxAffirmation||{}
+affirmation:window.vxAffirmation||{},
+creator_code:vxCreatorCode()
 };
 var submitBtn=document.getElementById('submitBtn');
 submitBtn.disabled=true;
