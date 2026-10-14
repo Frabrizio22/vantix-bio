@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Vantix Bio Creator Portal</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F4EF;--ink:#0F1B2D;--mut:#5E6877;--line:#E1DED4;--line2:#ECEAE2;--card:#fff;--blue:#3973B0;--blue-d:#2D5E92;--blue-t:#E7EEF7;--gold:#C9A24A;--navy:#0F1B2D;--green:#2F6B4F;--green-t:#E4F0E9;--red:#A5473B;--red-t:#F6E6E3;--amber-t:#F7EFD8;--amber:#7A5C12;--r:16px;--sh:0 1px 2px rgba(15,27,45,.05),0 8px 24px -12px rgba(15,27,45,.10)}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 16px 64px;display:flex;flex-direction:column;gap:20px}
+header.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .mark{width:36px;height:36px;border-radius:10px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:.5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.brand b{display:block;font-weight:600;font-size:15px;letter-spacing:2px;line-height:1.2}
+.brand small{font-size:12px;color:var(--mut)}
+h1{margin:0;font-size:26px;font-weight:600;line-height:1.2;letter-spacing:-.02em}
+h2{margin:0 0 10px;font-size:16px;font-weight:600}
+.sub{font-size:13px;color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);box-shadow:var(--sh);padding:20px;min-width:0}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:720px){.g3{grid-template-columns:1fr}h1{font-size:22px}}
+.kpi .lab{font-size:12px;color:var(--mut);font-weight:500}
+.kpi .val{font-size:28px;font-weight:600;letter-spacing:-.02em;margin:2px 0}
+.kpi .d{font-size:12px;color:var(--mut)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:500}
+.btn:hover{background:#F8F7F2}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.pri:hover{background:var(--blue-d)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn.link{border:0;background:transparent;color:var(--blue);padding:4px 0;text-decoration:underline}
+input[type=email],input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:14px;background:#fff}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(57,115,176,.14);outline:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--mut);font-weight:500}
+.login{max-width:420px;margin:8vh auto 0;display:flex;flex-direction:column;gap:14px}
+.msg{font-size:13px;border-radius:10px;padding:10px 12px}
+.msg.err{background:var(--red-t);color:var(--red)}
+.msg.ok{background:var(--green-t);color:var(--green)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:12px;color:var(--mut);font-weight:500;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th.r,td.r{text-align:right}
+.pill{display:inline-block;border-radius:999px;font-size:12px;font-weight:500;padding:2px 10px}
+.pill.green{background:var(--green-t);color:var(--green)}
+.pill.amber{background:var(--amber-t);color:var(--amber)}
+.pill.gray{background:#EEEDE7;color:var(--mut)}
+.pill.blue{background:var(--blue-t);color:var(--blue-d)}
+.terms{display:flex;flex-direction:column;gap:6px;margin:0;padding-left:18px;color:var(--ink)}
+.empty{padding:18px 4px;color:var(--mut);font-size:13px}
+.foot{font-size:12px;color:var(--mut)}
+a{color:var(--blue)}
+@media(max-width:640px){
+table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+table.stack thead{position:absolute;left:-9999px}
+table.stack tr{padding:12px 0;border-bottom:1px solid var(--line2)}
+table.stack tr:last-child{border-bottom:0}
+table.stack td{display:flex;justify-content:space-between;gap:16px;border:0;padding:3px 0;white-space:normal;text-align:right}
+table.stack td::before{content:attr(data-l);color:var(--mut);font-weight:500;text-align:left;flex-shrink:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="sub" style="padding:40px 0;text-align:center">Loading…</div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+'use strict';
+const SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
+const SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';   // public key; creators can only call creator_portal(), which returns their own rows
+const TZ = 'America/Los_Angeles';
+const sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+const app = document.getElementById('app');
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const usd = (v) => (Number(v) || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+const monthName = (ym) => new Date(Date.UTC(+ym.slice(0, 4), +ym.slice(5, 7) - 1, 15)).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const dayFmt = (s) => { if (!s) return ''; const d = /^\d{4}-\d{2}-\d{2}$/.test(s) ? new Date(s + 'T12:00:00Z') : new Date(s); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: /^\d{4}-\d{2}-\d{2}$/.test(s) ? 'UTC' : TZ }); };
+const pctFmt = (p) => (Math.round(Number(p) * 1000) / 10) + '%';
+
+const S = { stage: 'boot', email: '', msg: '', err: '', busy: false, data: null };
+
+function header(signedIn) {
+  return '<header class="bar"><div class="brand"><div class="mark">VB</div><div><b>VANTIX BIO</b><small>Creator portal</small></div></div>' +
+    (signedIn ? '<button class="btn" data-act="out">Sign out</button>' : '') + '</header>';
+}
+
+function loginView() {
+  const codeStage = S.stage === 'code';
+  return header(false) + '<div class="card login"><h1>' + (codeStage ? 'Enter your code' : 'Sign in') + '</h1>' +
+    '<div class="sub">' + (codeStage ? 'We emailed a sign-in code to <b>' + esc(S.email) + '</b>. Enter it below, or open the link in that email.' : 'Use the email address Vantix Bio has on file for you. We will email you a one-time code. There is no password to remember.') + '</div>' +
+    (S.err ? '<div class="msg err" role="alert">' + esc(S.err) + '</div>' : '') + (S.msg ? '<div class="msg ok">' + esc(S.msg) + '</div>' : '') +
+    (codeStage
+      ? '<form data-form="verify"><label class="f">Sign-in code<input type="text" name="token" inputmode="numeric" autocomplete="one-time-code" maxlength="10" required autofocus></label><div style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap"><button class="btn pri" type="submit"' + (S.busy ? ' disabled' : '') + '>Sign in</button><button class="btn link" type="button" data-act="back">Use a different email</button></div></form>'
+      : '<form data-form="send"><label class="f">Email<input type="email" name="email" autocomplete="email" value="' + esc(S.email) + '" required autofocus></label><div style="margin-top:14px"><button class="btn pri" type="submit"' + (S.busy ? ' disabled' : '') + '>Email me a code</button></div></form>') +
+    '<div class="foot">Need help? Email support@vantixbio.com.</div></div>';
+}
+
+function dashView() {
+  const d = S.data, codes = d.codes || [], months = d.months || [], orders = d.orders || [], adj = d.adjustments || [];
+  const rate = codes.length ? pctFmt(Math.max.apply(null, codes.map((c) => c.commission_pct))) : '';
+  const nowYm = new Date().toLocaleDateString('en-CA', { timeZone: TZ }).slice(0, 7);
+  const open = months.find((m) => m.month === nowYm && m.status === 'open');
+  const nextDue = months.filter((m) => m.status === 'due').sort((a, b) => a.month.localeCompare(b.month))[0];
+  const kpi = (l, v, s) => '<div class="card kpi"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
+  const pill = (m) => m.status === 'paid' ? '<span class="pill green">Paid ' + esc(dayFmt(m.paid_on)) + '</span>' : m.status === 'due' ? '<span class="pill amber">Due by ' + esc(dayFmt(m.due_by)) + '</span>' : '<span class="pill gray">In progress</span>';
+  return header(true) +
+    '<div><h1>' + esc(d.creator) + '</h1><div class="sub">Code' + (codes.length > 1 ? 's' : '') + ': <b>' + (codes.map((c) => esc(c.code)).join(', ') || 'none active') + '</b>' + (rate ? ' · ' + rate + ' commission' : '') + '</div></div>' +
+    '<div class="grid g3">' +
+      kpi('Ready to be paid', usd(d.owed_closed_months), nextDue ? monthName(nextDue.month) + ' payout, due by ' + esc(dayFmt(nextDue.due_by)) : 'Nothing due right now') +
+      kpi('This month so far', usd(open ? open.net : 0), 'Orders shipped in ' + monthName(nowYm) + ', paid at the start of next month') +
+      kpi('Waiting to ship', usd(d.pending_commission), 'Paid orders that have not shipped yet') +
+    '</div>' +
+    '<div class="card"><h2>Monthly payouts</h2>' + (months.length ? '<div class="tw"><table class="stack"><thead><tr><th>Month</th><th class="r">Commission earned</th><th class="r">Refunds and chargebacks</th><th class="r">Net</th><th class="r">Paid</th><th>Status</th></tr></thead><tbody>' +
+      months.map((m) => '<tr><td data-l="Month">' + esc(monthName(m.month)) + '</td><td class="r num" data-l="Commission earned">' + usd(m.earned) + '</td><td class="r num" data-l="Refunds and chargebacks">' + (Number(m.deducted) ? '−' + usd(m.deducted) : '—') + '</td><td class="r num" data-l="Net"><b>' + usd(m.net) + '</b></td><td class="r num" data-l="Paid">' + (m.paid == null ? '—' : usd(m.paid)) + '</td><td data-l="Status">' + pill(m) + '</td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No commission yet. Orders that use your code will appear here once they ship.</div>') + '</div>' +
+    '<div class="card"><h2>Orders with your code</h2>' + (orders.length ? '<div class="tw"><table class="stack"><thead><tr><th>Order</th><th>Date</th><th>Code</th><th class="r">Product total after discounts</th><th class="r">Commission</th><th>Status</th></tr></thead><tbody>' +
+      orders.map((o) => '<tr><td class="num" data-l="Order">' + esc(o.order) + '</td><td data-l="Date">' + esc(dayFmt(o.date)) + '</td><td data-l="Code">' + esc(o.code) + '</td><td class="r num" data-l="Product total after discounts">' + usd(o.product_total_after_discount) + '</td><td class="r num" data-l="Commission"><b>' + usd(o.commission) + '</b></td><td data-l="Status">' + (o.status === 'approved' ? '<span class="pill blue">Counts in ' + esc(monthName(o.month)) + '</span>' : '<span class="pill amber">Waiting to ship</span>') + '</td></tr>').join('') + '</tbody></table></div>' : '<div class="empty">No orders with your code yet. When a customer pays with it, the order shows up here. Customer names and emails are never shown.</div>') + '</div>' +
+    (adj.length ? '<div class="card"><h2>Refunds and chargebacks</h2><div class="tw"><table class="stack"><thead><tr><th>Date</th><th>Order</th><th>Type</th><th class="r">Commission taken back</th><th>Deducted from</th></tr></thead><tbody>' +
+      adj.map((a) => '<tr><td data-l="Date">' + esc(dayFmt(a.date)) + '</td><td class="num" data-l="Order">' + esc(a.order || '') + '</td><td data-l="Type">' + esc(a.kind) + '</td><td class="r num" data-l="Commission taken back">−' + usd(a.amount) + '</td><td data-l="Deducted from">' + esc(monthName(a.deducted_in)) + ' payout</td></tr>').join('') + '</tbody></table></div></div>' : '') +
+    '<div class="card"><h2>How commission works</h2><ul class="terms">' +
+      '<li>Commission is ' + (rate || 'your agreed rate') + ' of the product total after discounts, before shipping and taxes.</li>' +
+      '<li>Every paid order that uses your code counts. An order becomes payable once it has shipped, in the month it shipped.</li>' +
+      '<li>Each month is paid in the first week of the following month, by the 7th.</li>' +
+      '<li>If an order is refunded or charged back, the commission on it is deducted. If that happens before the payout it comes out of that payout, and if it happens after, it comes out of the next one.</li>' +
+      '<li>You only see order numbers, dates and amounts. Customer names and emails stay private.</li></ul>' +
+      '<div class="foot" style="margin-top:12px">Questions about a number? Email support@vantixbio.com with the order number.</div></div>';
+}
+
+function render() {
+  app.innerHTML = S.stage === 'boot' ? '<div class="sub" style="padding:40px 0;text-align:center">Loading…</div>' : (S.stage === 'dash' ? dashView() : loginView());
+}
+
+async function loadData() {
+  const r = await sb.rpc('creator_portal');
+  if (r.error) {
+    await sb.auth.signOut();
+    S.stage = 'email'; S.data = null;
+    S.err = /not_a_creator/.test(r.error.message) ? 'This email is not set up for the creator portal. Email support@vantixbio.com and we will sort it out.' : 'Could not load your portal. Please try again in a moment.';
+    return render();
+  }
+  S.data = r.data; S.stage = 'dash'; S.err = ''; S.msg = ''; render();
+}
+
+async function start() {
+  const { data } = await sb.auth.getSession();
+  if (data.session) { if (location.hash) history.replaceState(null, '', location.pathname); return loadData(); }
+  S.stage = 'email'; render();
+}
+sb.auth.onAuthStateChange((ev, session) => { if (ev === 'SIGNED_IN' && S.stage !== 'dash' && session) { if (location.hash) history.replaceState(null, '', location.pathname); loadData(); } if (ev === 'SIGNED_OUT') { S.stage = 'email'; S.data = null; render(); } });
+
+app.addEventListener('submit', async (e) => {
+  const f = e.target.closest('form'); if (!f) return; e.preventDefault(); if (S.busy) return;
+  const fd = new FormData(f); S.err = ''; S.msg = '';
+  if (f.dataset.form === 'send') {
+    S.email = String(fd.get('email')).trim().toLowerCase(); S.busy = true; render();
+    const r = await sb.auth.signInWithOtp({ email: S.email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + '/creator-portal/' } });
+    S.busy = false;
+    if (r.error) { S.err = /rate|seconds|limit/i.test(r.error.message) ? 'Please wait a minute before asking for another code.' : 'We could not send a code to that email. Check the address, or email support@vantixbio.com if you are new here.'; return render(); }
+    S.stage = 'code'; S.msg = 'Code sent. It can take a minute to arrive; check your spam folder too.'; render();
+  } else if (f.dataset.form === 'verify') {
+    S.busy = true; render();
+    const r = await sb.auth.verifyOtp({ email: S.email, token: String(fd.get('token')).replace(/\s+/g, ''), type: 'email' });
+    S.busy = false;
+    if (r.error) { S.err = 'That code did not work. It may have expired, so request a new one.'; return render(); }
+  }
+});
+app.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  if (b.dataset.act === 'out') { await sb.auth.signOut(); }
+  if (b.dataset.act === 'back') { S.stage = 'email'; S.err = ''; S.msg = ''; render(); }
+});
+start();
+</script>
+</body>
+</html>
