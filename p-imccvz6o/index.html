@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>Vantix Bio Creator Portal</title>
+<title>Vantix Bio Partner Portal</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,7 +78,7 @@ table.stack td::before{content:attr(data-l);color:var(--mut);font-weight:500;tex
 <script>
 'use strict';
 const SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
-const SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';   // public key; creators can only call creator_portal(), which returns their own rows
+const SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';   // public key; partners can only call creator_portal(), which returns their own rows
 const TZ = 'America/Los_Angeles';
 const sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
 const app = document.getElementById('app');
@@ -91,7 +91,7 @@ const pctFmt = (p) => (Math.round(Number(p) * 1000) / 10) + '%';
 const S = { stage: 'boot', email: '', msg: '', err: '', busy: false, data: null };
 
 function header(signedIn) {
-  return '<header class="bar"><div class="brand"><div class="mark">VB</div><div><b>VANTIX BIO</b><small>Creator portal</small></div></div>' +
+  return '<header class="bar"><div class="brand"><div class="mark">VB</div><div><b>VANTIX BIO</b><small>Partner portal</small></div></div>' +
     (signedIn ? '<button class="btn" data-act="out">Sign out</button>' : '') + '</header>';
 }
 
@@ -145,7 +145,7 @@ async function loadData() {
   if (r.error) {
     await sb.auth.signOut();
     S.stage = 'email'; S.data = null;
-    S.err = /not_a_creator/.test(r.error.message) ? 'This email is not set up for the creator portal. Email support@vantixbio.com and we will sort it out.' : 'Could not load your portal. Please try again in a moment.';
+    S.err = /not_a_creator/.test(r.error.message) ? 'This email is not set up for the partner portal. Email support@vantixbio.com and we will sort it out.' : 'Could not load your portal. Please try again in a moment.';
     return render();
   }
   S.data = r.data; S.stage = 'dash'; S.err = ''; S.msg = ''; render();
@@ -163,7 +163,7 @@ app.addEventListener('submit', async (e) => {
   const fd = new FormData(f); S.err = ''; S.msg = '';
   if (f.dataset.form === 'send') {
     S.email = String(fd.get('email')).trim().toLowerCase(); S.busy = true; render();
-    const r = await sb.auth.signInWithOtp({ email: S.email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + '/creator-portal/' } });
+    const r = await sb.auth.signInWithOtp({ email: S.email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
     S.busy = false;
     if (r.error) { S.err = /rate|seconds|limit/i.test(r.error.message) ? 'Please wait a minute before asking for another code.' : 'We could not send a code to that email. Check the address, or email support@vantixbio.com if you are new here.'; return render(); }
     S.stage = 'code'; S.msg = 'Code sent. It can take a minute to arrive; check your spam folder too.'; render();
