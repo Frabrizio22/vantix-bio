@@ -245,22 +245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   }
                 });
                 
-                // Also send directly via gtag as fallback
-                if (typeof gtag === 'function') {
-                  gtag('event', 'purchase', {
-                    transaction_id: order.orderNumber,
-                    value: purchaseValue,
-                    currency: 'USD',
-                    items: (order.items || []).map(function(item) {
-                      return {
-                        item_id: item.sku,
-                        item_name: item.name,
-                        price: item.price,
-                        quantity: item.quantity
-                      };
-                    })
-                  });
-                }
+                // GA4 purchase is sent server-side by the checkout worker once payment is confirmed (no page-side gtag purchase: Zelle orders here are unpaid).
                 
                 if (order.paymentMethod !== 'zelle') localStorage.removeItem('vantixLastOrder');
             } catch(e) {}
