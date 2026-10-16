@@ -6,23 +6,7 @@
 <title>Checkout - Vantix Bio</title>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M',{'linker':{'domains':['api.paybybankful.com']}});</script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1020767607129004');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1020767607129004&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+<script src="/vx-analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -732,7 +716,8 @@ document.getElementById('promoBtn').textContent='✓ Applied';
 document.getElementById('promoBtn').classList.add('applied');
 input.disabled=true;
 updateSummary();
-}else{alert('Invalid promo code');}
+try{window.vxTrack&&window.vxTrack('apply_promo',{promo_code:code,valid:true});}catch(e){}
+}else{try{window.vxTrack&&window.vxTrack('apply_promo',{promo_code:code.slice(0,20),valid:false});}catch(e){}alert('Invalid promo code');}
 }
 
 function toggleBillingAddress(){
@@ -774,6 +759,7 @@ document.getElementById('cardholderName').value=this.value;
 
 function selectPayment(method){
 selectedPayment=method;
+try{if(window.vxTrack&&cart&&cart.length){window.vxTrack('add_payment_info',{payment_type:method==='zelle'?'zelle':'card',ecommerce:{currency:'USD',value:getTotal(),items:cart.map(function(i){return {item_id:i.sku,item_name:i.name,price:i.price,quantity:i.quantity};})}});}}catch(e){}
 document.getElementById('zelleOption').classList.remove('selected');
 document.getElementById('creditOption').classList.remove('selected');
 var cardholderFields=document.getElementById('cardholderFields');
@@ -899,7 +885,8 @@ referral_source:referralSource||'',
 shipping:getShipping(),
 total:getTotal(),
 affirmation:window.vxAffirmation||{},
-creator_code:vxCreatorCode()
+creator_code:vxCreatorCode(),
+first_touch:(function(){try{return window.vxTouches?window.vxTouches():null;}catch(e){return null;}})()
 };
 var submitBtn=document.getElementById('submitBtn');
 submitBtn.disabled=true;
@@ -918,12 +905,14 @@ if(data.status==='success'){
 localStorage.removeItem('vantixCart');
 showConfirmation('zelle');
 }else{
+try{window.vxTrack&&window.vxTrack('checkout_error',{payment_type:'zelle',error_type:'order_rejected'});}catch(e){}
 alert('Error: '+(data.message||'Unknown error'));
 submitBtn.disabled=false;
 submitBtn.textContent='Place Order';
 }
 })
 .catch(function(){
+try{window.vxTrack&&window.vxTrack('checkout_error',{payment_type:'zelle',error_type:'network'});}catch(e){}
 alert('Error submitting order. Please try again.');
 submitBtn.disabled=false;
 submitBtn.textContent='Place Order';
@@ -951,12 +940,14 @@ form.appendChild(input);
 document.body.appendChild(form);
 form.submit();
 }else{
+try{window.vxTrack&&window.vxTrack('checkout_error',{payment_type:'card',error_type:'gateway'});}catch(e){}
 alert((data&&data.status==='error'&&data.message)?data.message:'Payment gateway error. Please try Zelle or contact support.');
 submitBtn.disabled=false;
 submitBtn.textContent='Place Order';
 }
 })
 .catch(function(){
+try{window.vxTrack&&window.vxTrack('checkout_error',{payment_type:'card',error_type:'network'});}catch(e){}
 alert('Error connecting to payment gateway. Please try again.');
 submitBtn.disabled=false;
 submitBtn.textContent='Place Order';
