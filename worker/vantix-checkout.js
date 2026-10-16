@@ -134,6 +134,8 @@ async function handleOrder(body, method, request, env, ctx, cors) {
     }));
     // GA4: remember which GA visitor/session placed this order, so the purchase can be reported to it once paid.
     ctx.waitUntil(saveGaIds(env, o.order_number, v.ga));
+    // Marketing source: first and last touch (utm/referrer/in-app browser), saved best-effort. No personal data.
+    ctx.waitUntil(saveFirstTouch(env, o.order_number, v.touch));
   }
 
   if (method === 'zelle') {
@@ -224,7 +226,7 @@ function validateOrder(b) {
     items.push({ sku: SKU_ALIASES[sku] || sku, qty });
   }
   const code = s(b.discount_code, 40).toUpperCase() || null;
-  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, ga: cleanGa(b.ga) };
+  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, ga: cleanGa(b.ga), touch: cleanTouch(b.first_touch) };
 }
 
 // GA4: accept only values shaped like real GA ids (client_id "1234567890.1234567890", session_id = 10-digit unix time).
@@ -235,6 +237,31 @@ function cleanGa(g) {
     if (typeof g.session_id === 'string' && /^\d{8,12}$/.test(g.session_id)) out.session_id = g.session_id;
   }
   return out;
+}
+
+// Allowed keys only, short strings: marketing source of the visit(s) that led to the order.
+function cleanTouch(t) {
+  const one = (x) => {
+    if (!x || typeof x !== 'object') return null;
+    const out = {};
+    for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'code', 'ref', 'referrer', 'landing', 'in_app']) {
+      if (typeof x[k] === 'string' && x[k].trim()) out[k] = x[k].trim().slice(0, 80);
+    }
+    for (const k of ['gclid', 'fbclid', 'ttclid']) if (x[k]) out[k] = true;
+    if (Number.isFinite(x.ts)) out.ts = x.ts;
+    return Object.keys(out).length ? out : null;
+  };
+  const first = one(t && t.first), last = one(t && t.last);
+  if (!first && !last) return null;
+  return { first, last };
+}
+
+async function saveFirstTouch(env, orderNumber, touch) {
+  try {
+    if (!touch) return;
+    const r = await dbPatch(env, `orders?order_number=eq.${encodeURIComponent(orderNumber)}`, { first_touch: touch });
+    if (!r.ok) console.log('saveFirstTouch failed (run supabase/orders_first_touch.sql?)', r.status);
+  } catch (e) { console.log('saveFirstTouch error', e.message); }
 }
 
 // Names of cart items that are tracked and at zero stock (active or not), so checkout can say "out of stock".
