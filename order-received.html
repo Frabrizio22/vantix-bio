@@ -229,8 +229,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 console.log('Purchase event:', order.orderNumber, 'Value:', purchaseValue, 'Items:', order.items);
                 
                 window.dataLayer = window.dataLayer || [];
+                // Zelle orders are unpaid at this point, so they must not fire the ad-platform Purchase (Meta). Event is not forwarded to GA4 or used by any GTM tag.
                 window.dataLayer.push({
-                  event: 'purchase',
+                  event: order.paymentMethod === 'zelle' ? 'zelle_order_placed' : 'purchase',
                   ecommerce: {
                     currency: 'USD',
                     transaction_id: order.orderNumber,
