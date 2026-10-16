@@ -426,15 +426,15 @@ async function afterPaid(env, orderNumber) {
   const o = r.ok && r.data[0];
   if (!o) return;
   const items_detail = o.order_items.map((i) => `${i.qty}x ${i.name} ($${trimNum(i.unit_price)})`).join('\n');
+  // GA4 first: report the purchase now that the money is confirmed. It is fast and never throws; it runs BEFORE the slow Sheet/Apps Script call
+  // so a slow mirror (which Cloudflare can cut off ~30s after the response) can no longer prevent it, as happened with VX45692 and VX74172.
+  await sendGa4Purchase(env, o);
   await mirror(env, 'mirror_status', {
     order_number: o.order_number, payment_status: 'Paid', send_confirmation: true,
     customer_name: o.customer_name, customer_email: o.customer_email, items_detail,
     address: o.address, city: o.city, state: o.state, zip: o.zip, discount_code: o.discount_code || '',
     subtotal: o.subtotal, discount: o.discount, shipping: o.shipping_charged, total: o.total, payment_method: o.payment_method,
   });
-
-  // GA4: report the purchase now that the money is confirmed (never throws, never blocks the alert below).
-  await sendGa4Purchase(env, o);
 
   let influencer = '';
   if ((o.creator_code || o.discount_code) && Number(o.commission) > 0) {
@@ -563,7 +563,7 @@ async function mirror(env, action, data) {
   if (!env.SHEET_WEBHOOK_URL) return;
   try {
     const r = await fetch(env.SHEET_WEBHOOK_URL, {
-      method: 'POST', headers: JSON_HEADERS, redirect: 'follow',
+      method: 'POST', headers: JSON_HEADERS, redirect: 'follow', signal: AbortSignal.timeout(20000),
       body: JSON.stringify({ action, mirror_token: env.SHEET_WEBHOOK_TOKEN, ...data }),
     });
     const t = await r.text();
