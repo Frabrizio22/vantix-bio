@@ -26,8 +26,8 @@
   "VX-TB-10": {
     "sku": "VX-TB-10",
     "name": "TB-500 10mg",
-    "stock": 0,
-    "inStock": false
+    "stock": 50,
+    "inStock": true
   },
   "VX-GHK-100": {
     "sku": "VX-GHK-100",
@@ -50,8 +50,8 @@
   "VX-TESA-10": {
     "sku": "VX-TESA-10",
     "name": "Tesamorelin 10mg",
-    "stock": 0,
-    "inStock": false
+    "stock": 50,
+    "inStock": true
   },
   "VX-MOTS-10": {
     "sku": "VX-MOTS-10",

@@ -144,7 +144,7 @@ const VX_PRODUCTS = {
             cogs: 21.24,
             image: 'images/products/tb-500-10mg.jpg',
             url: 'products/tb-500.html',
-            inStock: false,
+            inStock: true,
             dualTested: true,
             get stock() {
                 const status = getStockStatus(this.sku);
@@ -246,7 +246,7 @@ const VX_PRODUCTS = {
             cogs: 20.03,
             image: 'images/products/coming-soon.svg',
             url: 'products/tesamorelin.html',
-            inStock: false,
+            inStock: true,
             dualTested: false,
             get stock() {
                 const status = getStockStatus(this.sku);
