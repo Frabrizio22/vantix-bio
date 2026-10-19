@@ -516,6 +516,7 @@ const batches = {
     endotoxinUnit: '',
     endotoxinSpec: 'Microbials + Heavy Metals + Solvents',
     contentSpec: 'Label: 10 mg',
+    purityMethod: 'Per lab report',
     puritySpec: '≥ 99% spec',
     tested: 'October 14, 2026',
     tests: [
@@ -549,6 +550,7 @@ const batches = {
     endotoxinUnit: '',
     endotoxinSpec: 'Microbials + Heavy Metals + Solvents',
     contentSpec: 'Label: 10 mg',
+    purityMethod: 'Per lab report',
     puritySpec: '≥ 99% spec',
     tested: 'October 14, 2026',
     tests: [
@@ -1004,7 +1006,7 @@ const endotoxinHtml = (batch.endotoxin && batch.endotoxin !== 'Not tested' && ba
 
 const statsHtml = `
 <div class="stat"><div class="stat-label">Content</div><div class="stat-value">${batch.content}</div><div class="stat-unit">${batch.contentUnit}</div><div class="stat-spec">${batch.contentSpec}</div></div>
-<div class="stat"><div class="stat-label">Purity</div><div class="stat-value">${batch.purity}<span style="font-size:14px;">%</span></div><div class="stat-unit">HPLC</div><div class="stat-spec">${batch.puritySpec}</div></div>
+<div class="stat"><div class="stat-label">Purity</div><div class="stat-value">${batch.purity}<span style="font-size:14px;">%</span></div><div class="stat-unit">${batch.purityMethod || 'HPLC'}</div><div class="stat-spec">${batch.puritySpec}</div></div>
 ${endotoxinHtml}
 `;
 document.getElementById('statsSection').innerHTML = statsHtml;
