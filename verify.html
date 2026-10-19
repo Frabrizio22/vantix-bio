@@ -507,6 +507,68 @@ const batches = {
 'NHS-GLT30-20260902-01': {
     alias: 'VBI-GLT30-20260902-01'
 },
+'NHS-TB510-20260921-01': {
+    name: 'TB-500 10mg',
+    content: '9.54',
+    contentUnit: 'mg/vial',
+    purity: '99',
+    endotoxin: 'Pass',
+    endotoxinUnit: '',
+    endotoxinSpec: 'Microbials + Heavy Metals + Solvents',
+    contentSpec: 'Label: 10 mg',
+    puritySpec: '≥ 99% spec',
+    tested: 'October 14, 2026',
+    tests: [
+        {
+            title: 'Purity, Content, Microbials, Heavy Metals &amp; Solvents',
+            taskId: '260930-786-NHS-9',
+            date: '14 Oct 2026',
+            status: 'Pass',
+            rows: [
+                { key: 'Content', value: '9.54', unit: 'mg/vial', large: true },
+                { key: 'Purity', value: '99', unit: '%', large: true },
+                { key: 'Water Activity', value: '0.23 aw' },
+                { key: 'Microbials', value: 'Pass (E. coli, Salmonella, Aspergillus spp. not detected)' },
+                { key: 'Heavy Metals', value: 'Pass (As, Cd, Pb, Hg not detected; API lot)' },
+                { key: 'Residual Solvents', value: 'Pass (21 analytes; API lot)' },
+                { key: 'Lab', value: 'PH Solutions Lab (ISO/IEC 17025:2017)' }
+            ],
+            verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTMwLTc4Ni1OSFMtOSIsInAiOiJWYW50aXggQmlvIiwibCI6Ik5IUy1UQjUxMC0yMDI2MDkyMS0wMSJ9.yjB_9_BmwyhZWCvBCFRXz2ImVnXLhkoM',
+            verifyKey: '260930-786-NHS-9'
+        }
+    ]
+},
+'NHS-TSM10-20260921-01': {
+    name: 'Tesamorelin 10mg',
+    content: '10.28',
+    contentUnit: 'mg/vial',
+    purity: '99',
+    endotoxin: 'Pass',
+    endotoxinUnit: '',
+    endotoxinSpec: 'Microbials + Heavy Metals + Solvents',
+    contentSpec: 'Label: 10 mg',
+    puritySpec: '≥ 99% spec',
+    tested: 'October 14, 2026',
+    tests: [
+        {
+            title: 'Purity, Content, Microbials, Heavy Metals &amp; Solvents',
+            taskId: '260930-786-NHS-8',
+            date: '14 Oct 2026',
+            status: 'Pass',
+            rows: [
+                { key: 'Content', value: '10.28', unit: 'mg/vial', large: true },
+                { key: 'Purity', value: '99', unit: '%', large: true },
+                { key: 'Water Activity', value: '0.26 aw' },
+                { key: 'Microbials', value: 'Pass (E. coli, Salmonella, Aspergillus spp. not detected)' },
+                { key: 'Heavy Metals', value: 'Pass (As, Cd, Pb, Hg not detected; API lot)' },
+                { key: 'Residual Solvents', value: 'Pass (API lot)' },
+                { key: 'Lab', value: 'PH Solutions Lab (ISO/IEC 17025:2017)' }
+            ],
+            verifyUrl: 'https://www.phsolutionslab.com/c/eyJjIjoiMjYwOTMwLTc4Ni1OSFMtOCIsInAiOiJWYW50aXggQmlvIiwibCI6Ik5IUy1UU00xMC0yMDI2MDkyMS0wMSJ9.6ykYjQpTvXvs_9zoqP0JeKUOPkAuXBG8',
+            verifyKey: '260930-786-NHS-8'
+        }
+    ]
+},
 'VBI-GLT30-20260902-01': {
     name: 'VX-2T 30mg',
     content: '30.0897',
@@ -970,7 +1032,7 @@ ${test.rows.map(row => `
 </div>
 `).join('')}
 </div>
-<button class="toggle-row open" onclick="toggleReport(this)">
+${test.imageUrl ? `<button class="toggle-row open" onclick="toggleReport(this)">
 <span class="toggle-row-left">
 <span class="toggle-row-icon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -987,11 +1049,12 @@ ${test.rows.map(row => `
 <div class="report-image-hint">Tap image to zoom</div>
 </div>
 </div>
+` : ''}
 <div class="report-actions">
-<a class="btn-report btn-primary" href="${test.downloadUrl}" download>
+${test.downloadUrl ? `<a class="btn-report btn-primary" href="${test.downloadUrl}" download>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
 Download
-</a>
+</a>` : ''}
 <a class="btn-report btn-secondary" href="${test.verifyUrl}" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
 Verify Online
@@ -1129,7 +1192,9 @@ const productToBatch = {
 'nad-plus': 'VX-NAD1K-001',
 'mots-c': 'VX-MOTS10-001',
 'ghk-cu': 'VX-GHK100-001',
-'bpc-157': 'NHS-BPC10-20260914-01'
+'bpc-157': 'NHS-BPC10-20260914-01',
+'tb-500': 'NHS-TB510-20260921-01',
+'tesamorelin': 'NHS-TSM10-20260921-01'
 };
 
 const params = new URLSearchParams(window.location.search);
