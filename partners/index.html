@@ -107,7 +107,7 @@ const monthName = (ym) => new Date(Date.UTC(+ym.slice(0, 4), +ym.slice(5, 7) - 1
 const dayFmt = (s) => { if (!s) return ''; const d = /^\d{4}-\d{2}-\d{2}$/.test(s) ? new Date(s + 'T12:00:00Z') : new Date(s); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: /^\d{4}-\d{2}-\d{2}$/.test(s) ? 'UTC' : TZ }); };
 const pctFmt = (p) => (Math.round(Number(p) * 1000) / 10) + '%';
 
-const S = { stage: 'boot', email: '', msg: '', err: '', busy: false, data: null };
+const S = { stage: 'boot', email: '', msg: '', err: '', busy: false, data: null, admin: false, creators: [], viewing: '' };
 
 function header(signedIn) {
   return '<header class="bar"><div class="brand"><div class="mark">VB</div><div><b>VANTIX BIO</b><small>Partner portal</small></div></div>' +
@@ -158,11 +158,29 @@ function dashView() {
       '<div class="foot" style="margin-top:12px">Questions about a number? Email support@vantixbio.com with the order number.</div></div>';
 }
 
+function adminBar() {
+  return '<div class="card" style="border-color:#c9a227;background:#fff9e6"><div class="sub" style="margin:0 0 8px"><b>Admin view.</b> You are looking at a partner\u2019s portal exactly as they see it. This is read-only and only visible to the Vantix Bio admin login.</div>' +
+    '<label class="f">View as<select id="viewAs"><option value="">Choose a partner…</option>' +
+    S.creators.map((n) => '<option value="' + esc(n) + '"' + (n === S.viewing ? ' selected' : '') + '>' + esc(n) + '</option>').join('') + '</select></label></div>';
+}
+
 function render() {
+  if (S.stage === 'dash' && S.admin) {
+    const body = S.data ? dashView() : header(true) + '<div class="sub" style="padding:20px 0">Pick a partner above to see their portal.</div>';
+    app.innerHTML = body.replace('</header>', () => '</header>' + adminBar());
+    return;
+  }
   app.innerHTML = S.stage === 'boot' ? '<div class="sub" style="padding:40px 0;text-align:center">Loading…</div>' : (S.stage === 'dash' ? dashView() : loginView());
 }
 
 async function loadData() {
+  const a = await sb.rpc('creator_portal_admin_list');
+  if (!a.error && Array.isArray(a.data)) {
+    S.admin = true; S.creators = a.data; S.stage = 'dash'; S.err = ''; S.msg = '';
+    if (!S.viewing) { S.data = null; } else { const v = await sb.rpc('creator_portal_admin', { p_influencer: S.viewing }); S.data = v.error ? null : v.data; }
+    return render();
+  }
+  S.admin = false;
   const r = await sb.rpc('creator_portal');
   if (r.error) {
     await sb.auth.signOut();
@@ -206,6 +224,13 @@ app.addEventListener('click', async (e) => {
     setTimeout(() => { b.textContent = 'Copy'; }, 1800);
   }
   if (b.dataset.act === 'back') { S.stage = 'email'; S.err = ''; S.msg = ''; render(); }
+});
+app.addEventListener('change', async (e) => {
+  if (e.target.id !== 'viewAs') return;
+  S.viewing = e.target.value; S.data = null; render();
+  if (!S.viewing) return;
+  const v = await sb.rpc('creator_portal_admin', { p_influencer: S.viewing });
+  S.data = v.error ? null : v.data; render();
 });
 start();
 </script>
