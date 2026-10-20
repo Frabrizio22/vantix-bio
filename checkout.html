@@ -531,6 +531,8 @@ if(ref){referralSource=ref.toLowerCase();sessionStorage.setItem('vantixReferral'
 var now=new Date();
 
 var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');if(!code){try{code=localStorage.getItem('vxLeadCode');}catch(e){}}
+// Creator link remembered for 30 days (vxCreator): applies only when no other code is present, so a browser that dropped the tab copy still gets the creator's offer.
+if(!code){code=vxCreatorCode();}
 if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
 }
 
