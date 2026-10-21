@@ -52,25 +52,27 @@
     s.textContent =
       '.vxp{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .35s ease}' +
       '.vxp.on{display:flex}.vxp.in{opacity:1}.vxp.in .vxp-box{transform:none;opacity:1}' +
-      '.vxp-box{position:relative;width:100%;max-width:420px;background:var(--bg,#FAFAF7);color:var(--text,#0F1B2D);border-radius:18px;padding:48px 36px 30px;box-shadow:0 28px 70px rgba(10,22,40,.38);font-family:"Geist",system-ui,sans-serif;text-align:center;transform:translateY(14px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s ease}' +
+      '.vxp-box{position:relative;width:100%;max-width:420px;background:var(--bg,#FAFAF7);color:var(--text,#0F1B2D);border-radius:18px;padding:44px 36px 26px;box-shadow:0 28px 70px rgba(10,22,40,.38);font-family:"Geist",system-ui,sans-serif;text-align:center;transform:translateY(14px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s ease}' +
       '.vxp-x{position:absolute;top:8px;right:8px;width:44px;height:44px;background:none;border:none;cursor:pointer;color:inherit;opacity:.62;font-size:24px;line-height:1;transition:opacity .25s}' +
       '.vxp-x:hover{opacity:1}' +
-      '.vxp-k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#3973B0);margin:0 0 22px}' +
-      '.vxp h3{font-family:"Fraunces",serif;font-size:34px;font-weight:300;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}' +
+      '.vxp-k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#3973B0);margin:0 0 20px}' +
+      '.vxp p.vxp-k{margin:0 0 20px}' +
+      '.vxp h3{font-family:"Fraunces",serif;font-size:34px;font-weight:300;line-height:1.12;letter-spacing:-.01em;margin:0 0 16px}' +
       '.vxp h3 .vxp-big{display:block;font-size:68px;line-height:1;letter-spacing:-.03em;margin-bottom:6px}' +
       '.vxp h3 .vxp-big span{font-size:.5em;letter-spacing:0;margin-left:.08em;font-style:italic}' +
       '.vxp h3 em{font-style:italic;font-weight:300}' +
-      '.vxp-rule{width:36px;height:1px;background:var(--hairline,#D9D2BF);margin:0 auto 18px;border:0}' +
+      '.vxp-rule{width:36px;height:1px;background:var(--hairline,#D9D2BF);margin:0 auto 16px;border:0}' +
       '.vxp p{margin:0 0 26px;line-height:1.65;color:rgba(15,27,45,.68);font-size:14.5px}' +
-      '.vxp form{display:flex;flex-direction:column;gap:12px;text-align:left}' +
-      '.vxp input[type=email]{padding:15px 18px;border:1px solid var(--hairline,#D9D2BF);border-radius:24px;font-size:16px;font-family:inherit;background:#fff;color:inherit;text-align:center;transition:border-color .25s}' +
+      '.vxp p:not([class]){max-width:290px;margin:0 auto 22px;text-wrap:balance}' +
+      '.vxp form{display:flex;flex-direction:column;gap:10px;text-align:left}' +
+      '.vxp input[type=email]{min-height:52px;box-sizing:border-box;padding:0 18px;border:1px solid rgba(15,27,45,.24);border-radius:24px;font-size:16px;font-family:inherit;background:#fff;color:inherit;text-align:center;transition:border-color .25s}' +
       '.vxp input[type=email]::placeholder{color:rgba(15,27,45,.38)}' +
       '.vxp input[type=email]:focus{outline:none;border-color:var(--accent,#3973B0)}' +
-      '.vxp button.vxp-go{padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(15,27,45,.08);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
+      '.vxp button.vxp-go{min-height:52px;padding:0 24px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(15,27,45,.08);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp button.vxp-go:hover{background:var(--accent,#3973B0)}' +
       '.vxp button.vxp-go:disabled{opacity:.6;cursor:default}' +
-      '.vxp p.vxp-fine{font-size:12.5px;line-height:1.6;color:rgba(15,27,45,.58);margin:20px 0 0;text-align:center}' +
-      '.vxp p.vxp-ruo{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.5);margin:14px 0 0}' +
+      '.vxp p.vxp-fine{font-size:12px;line-height:1.55;color:rgba(15,27,45,.56);max-width:280px;margin:16px auto 0;text-align:center;text-wrap:balance}' +
+      '.vxp p.vxp-ruo{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(15,27,45,.5);margin:12px 0 0}' +
       '.vxp-fine a{color:inherit;text-decoration:underline;text-underline-offset:2px}' +
       '.vxp p.vxp-err{color:#B3261E;font-size:13px;min-height:0;margin:0;text-align:center}' +
       '.vxp-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
@@ -79,7 +81,7 @@
       '.vxp button.vxp-copy:hover{border-color:var(--navy,#0F1B2D)}' +
       '.vxp-ok a.vxp-go{display:block;text-align:center;text-decoration:none;padding:15px 24px;background:var(--navy,#0F1B2D);color:#fff;border-radius:24px;font-size:14px;font-weight:600;letter-spacing:.03em;transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp-ok a.vxp-go:hover{background:var(--accent,#3973B0)}' +
-      '@media(max-width:480px){.vxp-box{padding:40px 24px 22px}.vxp h3{font-size:28px}.vxp h3 .vxp-big{font-size:58px}}' +
+      '@media(max-width:480px){.vxp-box{padding:36px 24px 20px}.vxp h3{font-size:26px}.vxp h3 .vxp-big{font-size:56px}}' +
       '.vxp-tab{position:fixed;left:16px;bottom:16px;z-index:350;display:none;padding:11px 18px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-family:"Geist",system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.03em;cursor:pointer;box-shadow:0 6px 20px rgba(10,22,40,.28);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp-tab.on{display:block}.vxp-tab:hover{background:var(--accent,#3973B0)}' +
       '.vxp-foot{max-width:520px;margin:0 auto 24px;padding:0 0 24px;border-bottom:1px solid rgba(255,255,255,.14);text-align:center;font-family:"Geist",system-ui,sans-serif;color:#E8EEF5}' +
@@ -141,16 +143,16 @@
         '<button type="button" class="vxp-x" aria-label="Close">&times;</button>' +
         '<div id="vxpForm">' +
           '<p class="vxp-k">Vantix Bio</p>' +
-          '<h3 id="vxpT"><span class="vxp-big">15<span>%</span></span>off <em>your first order.</em></h3>' +
+          '<h3 id="vxpT"><span class="vxp-big">15<span>%</span></span>off your <em>first order.</em></h3>' +
           '<hr class="vxp-rule">' +
-          '<p>Independently tested batch reports,<br>restock notices and new arrivals.<br>Your code appears the moment you sign up.</p>' +
+          '<p>Independently tested batch reports, restock notices and new arrivals. Your code appears instantly.</p>' +
           '<form novalidate>' +
             '<input type="email" id="vxpE" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
             '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
             '<p class="vxp-err" id="vxpM" role="alert"></p>' +
             '<button type="submit" class="vxp-go">Get my 15% off</button>' +
           '</form>' +
-          '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html">Privacy Policy</a></p>' +
+          '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html">Privacy&nbsp;Policy</a></p>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
         '</div>' +
         '<div id="vxpOk" class="vxp-ok" style="display:none">' +
@@ -158,7 +160,7 @@
           '<h3>You&rsquo;re on <em>the list.</em></h3>' +
           '<hr class="vxp-rule">' +
           '<div class="vxp-code">' + CODE + '</div>' +
-          '<p>Your 15% welcome discount is ready.<br>Saved on this device and applied at checkout.</p>' +
+          '<p>Your 15% welcome discount is ready. Saved on this device and applied at checkout.</p>' +
           '<button type="button" class="vxp-copy">Copy code</button>' +
           '<a class="vxp-go" href="/shop.html">Browse the catalog</a>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
