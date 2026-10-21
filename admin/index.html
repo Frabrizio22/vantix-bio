@@ -209,7 +209,7 @@ const median = (a) => { if (!a.length) return null; const s = [...a].sort((x, y)
 const PAYNAME = { zelle: 'Zelle', credit_card: 'Card' };
 
 /* ---------- state ---------- */
-const S = { session: null, tab: 'home', channel: 'all', range: '30', cA: { from: '', to: '' }, cB: { from: '', to: '' }, cBOn: true, cBTouched: false, orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
+const S = { pay: { names: [], data: {} }, payFor: '', session: null, tab: 'home', channel: 'all', range: '30', cA: { from: '', to: '' }, cB: { from: '', to: '' }, cBOn: true, cBTouched: false, orders: [], products: [], codes: [], settings: [], moves: [], kits: [], events: {},
   filter: 'All', q: '', cq: '', cseg: 'All', pq: '', sel: null, selProd: null, selCust: null, form: {}, armed: null, busy: false, toast: null, loaded: false, error: '', newCode: false, loginErr: '' };
 
 function toast(msg, err) { S.toast = { msg, err }; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = null; render(); }, err ? 6000 : 3000); }
@@ -318,6 +318,14 @@ function stockPace() {
 }
 
 /* ---------- data ---------- */
+async function loadPartners() {
+  try {
+    const l = await sb.rpc('creator_portal_admin_list'); if (l.error) throw new Error(l.error.message);
+    const names = l.data || [], data = {};
+    await Promise.all(names.map(async (n) => { const r = await sb.rpc('creator_portal_admin', { p_influencer: n }); if (!r.error && r.data) data[n] = r.data; }));
+    S.pay = { names: names.filter((n) => data[n]), data };
+  } catch (e) { /* payouts card is optional; the rest of the dashboard still loads */ }
+}
 async function load(silent) {
   try {
     const [o, p, c, s, m, k] = await Promise.all([
@@ -331,6 +339,7 @@ async function load(silent) {
     const err = [o, p, c, s, m, k].find((r) => r.error);
     if (err) throw new Error(err.error.message);
     S.orders = o.data; S.products = p.data; S.codes = c.data; S.settings = s.data; S.moves = m.data; S.kits = k.data; S.loaded = true; S.error = '';
+    await loadPartners();
   } catch (e) { S.error = 'Could not load data: ' + e.message; if (!silent) S.loaded = true; }
 }
 async function loadEvents(on) {
@@ -399,6 +408,19 @@ A.ship = (on) => {
   const label = String(S.form.label || '').trim();
   if (label && !(Number(label.replace(/[$,\s]/g, '')) >= 0)) return toast('Label cost must be a number', true);
   busy(async () => workerPost('/admin/ship', { order_number: on, tracking_number: t, label_cost: label }), (r) => r.first_ship ? 'Shipped via ' + r.carrier + '. Customer emailed.' : 'Tracking updated (no second email).');
+};
+const PAY_METHODS = ['Apple Pay', 'Zelle', 'Store credit', 'PayPal'];
+A.payOpen = (arg) => {
+  if (S.payFor === arg) { S.payFor = ''; return render(); }
+  const i = arg.indexOf('|'), n = arg.slice(0, i), per = arg.slice(i + 1), m = ((S.pay.data[n] || {}).months || []).find((x) => x.month === per);
+  S.payFor = arg; S.form = { pay_method: 'Zelle', pay_amount: m ? Number(m.net - (m.paid || 0)).toFixed(2) : '', pay_date: dkey(new Date()), pay_note: '' }; render();
+};
+A.paySave = (arg) => {
+  const i = arg.indexOf('|'), n = arg.slice(0, i), per = arg.slice(i + 1), f = S.form, amt = Number(f.pay_amount);
+  if (!(amt > 0)) return toast('Enter the amount you paid', true);
+  if (!PAY_METHODS.includes(f.pay_method)) return toast('Pick how you paid', true);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(f.pay_date || '')) return toast('Pick the date you paid', true);
+  busy(async () => { const r = await sb.rpc('admin_record_creator_payout', { p_influencer: n, p_period: per, p_amount: amt, p_paid_on: f.pay_date, p_note: String(f.pay_note || '').trim() || null, p_method: f.pay_method }); if (r.error) throw new Error(r.error.message); S.payFor = ''; }, 'Payout recorded');
 };
 A.saveProd = (sku) => {
   const f = S.form, price = Number(f.price), uc = f.unit_cost === '' ? null : Number(f.unit_cost), tc = Number(f.testing_cost || 0), low = parseInt(f.low, 10);
@@ -603,6 +625,20 @@ function viewCustomers() {
 
 /* ---------- creators ---------- */
 const TEAM_BASE = 0.20, TEAM_HI = 0.25, TEAM_AT = 10000;
+function partnerPayouts() {
+  const names = S.pay.names; if (!names.length) return '';
+  const yr = dkey(new Date()).slice(0, 4), mn = (k) => new Date(k + '-15T12:00:00Z').toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const rows = names.map((n) => {
+    const d = S.pay.data[n], months = d.months || [];
+    const due = months.filter((m) => m.status === 'due'), ytd = months.filter((m) => m.month.slice(0, 4) === yr).reduce((t, m) => t + Number(m.net || 0), 0);
+    const w9 = ytd >= 2000 ? ' <span class="pill c-red">W-9 needed</span>' : ytd >= 1500 ? ' <span class="pill c-gold">W-9 soon</span>' : '';
+    const form = (arg) => S.payFor !== arg ? '' : '<div class="card" style="margin:6px 0 10px"><div class="grid g3"><label class="f">Paid with<select data-in="pay_method">' + PAY_METHODS.map((x) => '<option' + (S.form.pay_method === x ? ' selected' : '') + '>' + x + '</option>').join('') + '</select></label><label class="f">Amount<input type="number" step="0.01" min="0" data-in="pay_amount" value="' + esc(S.form.pay_amount) + '"></label><label class="f">Date<input type="date" data-in="pay_date" value="' + esc(S.form.pay_date) + '"></label></div><label class="f">Note (optional)<input type="text" data-in="pay_note" value="' + esc(S.form.pay_note) + '" placeholder="Zelle confirmation, order number for store credit"></label><div class="row"><button class="btn pri" data-act="paySave" data-arg="' + esc(arg) + '"' + (S.busy ? ' disabled' : '') + '>Save payout</button><button class="btn" data-act="payOpen" data-arg="' + esc(arg) + '">Cancel</button></div></div>';
+    const dueHtml = due.length ? due.map((m) => { const arg = n + '|' + m.month; return '<div class="kv"><span>' + esc(mn(m.month)) + ' · due by ' + esc(fday(m.due_by)) + '</span><span class="num"><b>' + usd(Number(m.net)) + '</b> <button class="btn pri" data-act="payOpen" data-arg="' + esc(arg) + '">' + (S.payFor === arg ? 'Close' : 'Mark paid') + '</button></span></div>' + form(arg); }).join('') : '<div class="sub">Nothing due right now.</div>';
+    const paidTxt = months.filter((m) => m.status === 'paid').map((m) => mn(m.month) + ' ' + usd(Number(m.paid)) + ' (' + esc(fday(String(m.paid_on).slice(0, 10))) + ')').join(' · ');
+    return '<div class="card"><h2>' + esc(n) + w9 + '</h2><div class="hint">' + yr + ' commission so far: ' + usd(ytd) + (d.pending_commission ? ' · waiting to ship: ' + usd(Number(d.pending_commission)) : '') + '</div><div style="margin-top:8px">' + dueHtml + '</div>' + (paidTxt ? '<div class="sub" style="margin-top:6px">Paid: ' + paidTxt + '</div>' : '') + '</div>';
+  }).join('');
+  return '<h2 style="margin:14px 0 4px">Partner payouts</h2><div class="sub" style="margin-bottom:8px">Matches what each partner sees in their portal. Mark a month paid after you send the money; they see it as paid right away. W-9 is needed once a partner passes $2,000 in a calendar year.</div><div class="grid g2">' + rows + '</div>';
+}
 function creatorCards() {
   const paid = S.orders.filter(isPaid), firstOf = {};
   paid.slice().sort((a, b) => new Date(a.created_at) - new Date(b.created_at)).forEach((o) => { const k = String(o.customer_email || '').toLowerCase(); if (k && !firstOf[k]) firstOf[k] = o.id; });
@@ -649,6 +685,7 @@ function viewDiscounts() {
   const none = paid.filter((o) => !o.discount_code);
   return '<div class="row" style="justify-content:space-between"><div class="sub">Counts paid orders only. Commission is what you owe the influencer on those orders.</div><button class="btn pri" data-act="newCode">' + (S.newCode ? 'Cancel' : '+ New code') + '</button></div>' +
     (S.newCode ? '<div class="card"><h2>New discount code</h2><div class="grid g3" style="margin-top:10px"><label class="f">Code<input type="text" data-in="code" value="' + esc(f.code) + '" placeholder="SUMMER10" maxlength="30" autocapitalize="characters"></label><label class="f">Discount %<input type="number" data-in="pct" value="' + esc(f.pct) + '" min="1" max="100" step="0.5" placeholder="10"></label><label class="f">Applies to<select data-in="applies"><option value="singles"' + (f.applies === 'singles' ? ' selected' : '') + '>Single vials</option><option value="all"' + (f.applies === 'all' ? ' selected' : '') + '>Everything</option></select></label><label class="f">Influencer (optional)<input type="text" data-in="who" value="' + esc(f.who) + '"></label><label class="f">Commission %<input type="number" data-in="comm" value="' + esc(f.comm) + '" min="0" max="100" step="0.5" placeholder="0"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="free"' + (f.free ? ' checked' : '') + ' style="width:auto"> Free shipping</label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-top:18px"><input type="checkbox" data-in="team"' + (f.team ? ' checked' : '') + ' style="width:auto"> Found by the creator team</label></div><div style="margin-top:14px"><button class="btn pri" data-act="addCode"' + (S.busy ? ' disabled' : '') + '>Create code</button></div></div>' : '') +
+    partnerPayouts() +
     creatorCards() +
     '<div class="tw"><table><thead><tr><th>Code</th><th>Offer</th><th>Influencer</th><th class="r">Uses</th><th class="r">Revenue</th><th class="r">Avg order</th><th class="r">Discount given</th><th class="r">Commission owed</th><th class="r">Profit</th><th>Status</th></tr></thead><tbody>' +
     rows.map((r) => '<tr><td class="mono"><b>' + esc(r.c.code) + '</b></td><td>' + Math.round(n0(r.c.pct) * 100) + '% off' + (r.c.free_shipping ? ' + free shipping' : '') + '<div class="sub">' + (r.c.applies_to === 'all' ? 'Everything' : r.c.applies_to === 'singles' ? 'Single vials' : esc(r.c.applies_to)) + '</div></td><td>' + esc(r.c.influencer || '—') + (n0(r.c.commission_pct) ? '<div class="sub">' + Math.round(n0(r.c.commission_pct) * 100) + '% commission</div>' : '') + '</td><td class="r num">' + r.uses + '</td><td class="r num">' + usd(r.rev) + '</td><td class="r num">' + (r.uses ? usd(r.rev / r.uses) : '—') + '</td><td class="r num">' + usd(r.disc) + '</td><td class="r num">' + usd(r.comm) + '</td><td class="r num">' + (r.uses ? usd(r.profit) : '—') + '</td><td><button class="btn sm" data-act="toggleCode" data-arg="' + esc(r.c.code) + '">' + (r.c.active ? '<span class="up">● On</span>' : '○ Off') + '</button></td></tr>').join('') +
