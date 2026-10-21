@@ -1,5 +1,6 @@
 /* Vantix Bio: homepage signup popup. 15% off the first order for an email address.
  * Runs on the browsing pages (home, shop, product, about, FAQ, shipping, kits, explainers, blog posts), never on checkout or order pages.
+ * On blog posts (phones) the popup is a short bottom sheet; every other page keeps the full card.
  * Shows once per visitor: after 10 seconds of browsing in total (the clock carries across pages in the visit), or when a desktop visitor moves to leave (after 8 seconds).
  * Needs supabase/email_leads.sql (capture_lead function and the WELCOME15 promo code).
  * Not shown to people who already signed up, or who closed it in the last 30 days. */
@@ -95,23 +96,23 @@
       '.vxp-foot p.vxp-err{color:#FFB4AB;margin:8px 0 0;font-size:13px;line-height:1.4}' +
       '.vxp-foot .vxp-code{background:transparent;border-color:rgba(255,255,255,.4);color:#fff;font-size:20px;padding:12px;margin:0 0 10px}' +
       '@media(max-width:480px){.vxp-foot form{flex-direction:column}.vxp-tab{left:12px;bottom:12px}}' +
-      /* Phones: the popup becomes a short bottom sheet (offer, one field, button) instead of a full-screen card. */
+      /* Blog posts on phones: the popup is a short bottom sheet (offer, one field, button) so it does not cover the article. Other pages keep the full card. */
       '@media(max-width:600px){' +
-        '.vxp{align-items:flex-end;padding:0;background:rgba(10,22,40,.32);-webkit-backdrop-filter:none;backdrop-filter:none}' +
-        '.vxp-box{max-width:none;border-radius:16px 16px 0 0;padding:16px 16px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(10,22,40,.22)}' +
-        '.vxp-x{top:0;right:0;width:40px;height:40px;font-size:22px}' +
-        '.vxp-box .vxp-k,.vxp-box .vxp-rule,.vxp p.vxp-ruo,#vxpForm>p:not([class]),.vxp-ok>p:not([class]){display:none}' +
-        '.vxp h3{font-size:22px;line-height:1.2;margin:0 28px 12px;text-align:center}' +
-        '.vxp h3 .vxp-big,.vxp h3 .vxp-big span{display:inline;font-size:1em;margin:0;letter-spacing:inherit;font-style:normal}' +
-        '.vxp h3 .vxp-big{margin-right:.25em}' +
-        '.vxp form{flex-direction:row;flex-wrap:wrap;gap:8px}' +
-        '.vxp input[type=email]{flex:1;min-width:0;padding:12px 14px;text-align:left}' +
-        '.vxp button.vxp-go{flex:none;padding:12px 16px}' +
-        '.vxp p.vxp-err{flex-basis:100%;text-align:left}.vxp p.vxp-err:empty{display:none}' +
-        '.vxp p.vxp-fine{font-size:11px;line-height:1.45;margin:10px 0 0}' +
-        '.vxp-code{font-size:18px;padding:10px;margin:0 0 10px}' +
-        '.vxp button.vxp-copy{padding:10px 20px;margin:0 0 8px}' +
-        '.vxp-ok a.vxp-go{padding:12px 20px}' +
+        '.vxp.vxp-blog{align-items:flex-end;padding:0;background:rgba(10,22,40,.32);-webkit-backdrop-filter:none;backdrop-filter:none}' +
+        '.vxp-blog .vxp-box{max-width:none;border-radius:16px 16px 0 0;padding:16px 16px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(10,22,40,.22)}' +
+        '.vxp-blog .vxp-x{top:0;right:0;width:40px;height:40px;font-size:22px}' +
+        '.vxp-blog .vxp-k,.vxp-blog .vxp-rule,.vxp-blog p.vxp-ruo,.vxp-blog #vxpForm>p:not([class]),.vxp-blog .vxp-ok>p:not([class]){display:none}' +
+        '.vxp-blog h3{font-size:22px;line-height:1.2;margin:0 28px 12px;text-align:center}' +
+        '.vxp-blog h3 .vxp-big,.vxp-blog h3 .vxp-big span{display:inline;font-size:1em;margin:0;letter-spacing:inherit;font-style:normal}' +
+        '.vxp-blog h3 .vxp-big{margin-right:.25em}' +
+        '.vxp-blog form{flex-direction:row;flex-wrap:wrap;gap:8px}' +
+        '.vxp-blog input[type=email]{flex:1;min-width:0;padding:12px 14px;text-align:left}' +
+        '.vxp-blog button.vxp-go{flex:none;padding:12px 16px}' +
+        '.vxp-blog p.vxp-err{flex-basis:100%;text-align:left}.vxp-blog p.vxp-err:empty{display:none}' +
+        '.vxp-blog p.vxp-fine{font-size:11px;line-height:1.45;margin:10px 0 0}' +
+        '.vxp-blog .vxp-code{font-size:18px;padding:10px;margin:0 0 10px}' +
+        '.vxp-blog button.vxp-copy{padding:10px 20px;margin:0 0 8px}' +
+        '.vxp-blog .vxp-ok a.vxp-go{padding:12px 20px}' +
       '}' +
       /* In-article signup: one short line, one row. */
       '.vxp-foot.vxp-inline{margin:22px auto 0;padding:18px 0 0}' +
@@ -131,7 +132,7 @@
   function build() {
     css();
     root = document.createElement('div');
-    root.className = 'vxp';
+    root.className = 'vxp' + (/^\/blog(\/|$)/.test(location.pathname) ? ' vxp-blog' : '');
     root.setAttribute('role', 'dialog');
     root.setAttribute('aria-modal', 'true');
     root.setAttribute('aria-labelledby', 'vxpT');
