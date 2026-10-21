@@ -272,6 +272,7 @@ dd{margin:8px 0 0;color:rgba(10,22,40,.82)}
 .cta-box p{color:rgba(250,250,247,.82);max-width:560px;margin:0 auto 26px;font-size:16px}
 .cta-box a:not(.btn-primary):not(.btn-secondary){color:#FAFAF7;border-bottom:1px solid rgba(250,250,247,.5)}
 .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.cta-box p.cta-note{font-size:14px;margin:18px auto 0;color:rgba(250,250,247,.72)}
 .btn-primary,.btn-secondary{
   display:inline-block;padding:14px 28px;border-radius:999px;font-size:14.5px;font-weight:600;
   text-decoration:none !important;transition:all .25s;line-height:1.2;

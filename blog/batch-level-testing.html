@@ -150,9 +150,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3>Check a Batch</h3>
 <p>Every batch is independently tested by a third-party laboratory: HPLC purity, LC-MS identity, net peptide content and endotoxin.</p>
 <div class="cta-buttons">
-<a class="btn-primary" href="../verify.html">Verify a Batch</a>
+<a class="btn-primary" href="../verify.html?batch=VX-GHK100-001&amp;go=1">See a real lab report</a>
 <a class="btn-secondary" href="../shop.html">View Catalog</a>
-</div>
+</div><p class="cta-note">Have a vial? <a href="../verify.html">Verify your batch</a></p><div data-vx-signup></div>
 </div>
 <h3>References</h3>
 <ol class="refs">
@@ -192,5 +192,5 @@ try{if(sessionStorage.getItem('vbStickyOff')==='1')return}catch(e){}
 function u(){var h=document.documentElement,t=h.scrollHeight-h.clientHeight,p=t>0?h.scrollTop/t:0;b.hidden=!(p>.3&&p<.92)}
 window.addEventListener('scroll',u,{passive:true});u();
 document.getElementById('stickyClose').addEventListener('click',function(){b.hidden=true;window.removeEventListener('scroll',u);try{sessionStorage.setItem('vbStickyOff','1')}catch(e){}});})();
-</script></body>
+</script><script src="/leads-popup.js" defer></script></body>
 </html>

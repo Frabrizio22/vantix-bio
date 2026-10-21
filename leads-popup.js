@@ -1,5 +1,5 @@
 /* Vantix Bio: homepage signup popup. 15% off the first order for an email address.
- * Runs on the browsing pages (home, shop, product, about, FAQ, shipping, kits, explainers), never on checkout or order pages.
+ * Runs on the browsing pages (home, shop, product, about, FAQ, shipping, kits, explainers, blog posts), never on checkout or order pages.
  * Shows once per visitor: after 10 seconds of browsing in total (the clock carries across pages in the visit), or when a desktop visitor moves to leave (after 8 seconds).
  * Needs supabase/email_leads.sql (capture_lead function and the WELCOME15 promo code).
  * Not shown to people who already signed up, or who closed it in the last 30 days. */
@@ -82,8 +82,9 @@
       '.vxp-tab{position:fixed;left:16px;bottom:16px;z-index:350;display:none;padding:11px 18px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-family:"Geist",system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.03em;cursor:pointer;box-shadow:0 6px 20px rgba(10,22,40,.28);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp-tab.on{display:block}.vxp-tab:hover{background:var(--accent,#3973B0)}' +
       '.vxp-foot{max-width:520px;margin:0 auto 24px;padding:0 0 24px;border-bottom:1px solid rgba(255,255,255,.14);text-align:center;font-family:"Geist",system-ui,sans-serif;color:#E8EEF5}' +
+      '.vxp-foot.vxp-inline{max-width:460px;margin:30px auto 0;padding:26px 0 0;border-bottom:0;border-top:1px solid rgba(255,255,255,.18)}' +
       '.vxp-foot .vxp-k{color:rgba(232,238,245,.6);margin:0 0 10px}' +
-      '.vxp-foot h4{font-family:"Fraunces",serif;font-weight:300;font-size:22px;line-height:1.25;margin:0 0 16px;color:#fff}' +
+      '.vxp-foot h4{font-family:"Fraunces",serif;font-weight:300;font-size:22px;line-height:1.25;margin:0 0 16px;color:#fff;text-transform:none;letter-spacing:normal}' +
       '.vxp-foot form{display:flex;gap:8px;text-align:left}' +
       '.vxp-foot input[type=email]{flex:1;min-width:0;padding:12px 16px;border:1px solid rgba(255,255,255,.28);border-radius:24px;background:transparent;color:#fff;font-size:16px;font-family:inherit}' +
       '.vxp-foot input[type=email]::placeholder{color:rgba(232,238,245,.5)}' +
@@ -221,8 +222,8 @@
     try { if (!sessionStorage.getItem('vantixPromoCode')) sessionStorage.setItem('vantixPromoCode', CODE); } catch (e) {}
     try { (window.dataLayer = window.dataLayer || []).push({ event: 'email_signup', signup_source: via }); } catch (e) {}
     if (tab) tab.classList.remove('on');
-    var ft = document.querySelector('.vxp-foot');
-    if (ft) ft.innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your 15% welcome discount is saved on this device and applied at checkout.</p>';
+    var fts = document.querySelectorAll('.vxp-foot');
+    for (var i = 0; i < fts.length; i++) fts[i].innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your 15% welcome discount is saved on this device and applied at checkout.</p>';
   }
 
   // Quiet ways back in for someone who closed the popup and changed their mind.
@@ -275,6 +276,43 @@
     });
   }
 
+  // In-article signup (blog posts): fills any empty <div data-vx-signup> with the same one-field form as the footer.
+  function initInline() {
+    var slots = document.querySelectorAll('[data-vx-signup]');
+    if (!slots.length) return;
+    css();
+    for (var n = 0; n < slots.length; n++) (function (slot) {
+      if (slot.querySelector('.vxp-foot')) return;
+      var box = document.createElement('div');
+      box.className = 'vxp-foot vxp-inline';
+      box.innerHTML =
+        '<p class="vxp-k">Vantix Bio</p>' +
+        '<h4>Batch reports and restock notices.<br>15% off your first order.</h4>' +
+        '<form novalidate>' +
+          '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
+          '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<button type="submit">Join the list</button>' +
+        '</form>' +
+        '<p class="vxp-err" role="alert"></p>' +
+        '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html" style="color:inherit;text-decoration:underline">Privacy Policy</a></p>';
+      slot.appendChild(box);
+      var form = box.querySelector('form'), em = form.querySelector('input[type=email]'), err = box.querySelector('.vxp-err'), btn = form.querySelector('button');
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        err.textContent = '';
+        if (form.querySelector('input[name=website]').value) return;
+        var val = (em.value || '').trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) { err.textContent = 'Please enter a valid email address.'; em.focus(); return; }
+        btn.disabled = true; btn.textContent = 'One moment…';
+        via = 'blog';
+        capture(val, 'blog', onSuccess, function () {
+          btn.disabled = false; btn.textContent = 'Join the list';
+          err.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
+        });
+      });
+    })(slots[n]);
+  }
+
   // The clock counts visible browsing time across pages in this visit and restarts whenever the age gate or menu closes.
   var visibleMs = 0, wasBlocked = false;
   try { visibleMs = parseInt(sessionStorage.getItem('vxLeadMs') || '0', 10) || 0; } catch (e) {}
@@ -290,5 +328,6 @@
   });
 
   initFooter();
+  initInline();
   if (closedRecently) showTab();
 })();
