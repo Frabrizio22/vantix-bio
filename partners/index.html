@@ -133,7 +133,15 @@ function dashView() {
   const nextDue = months.filter((m) => m.status === 'due').sort((a, b) => a.month.localeCompare(b.month))[0];
   const kpi = (l, v, s) => '<div class="card kpi"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
   const pill = (m) => m.status === 'paid' ? '<span class="pill green">Paid ' + esc(dayFmt(m.paid_on)) + '</span>' : m.status === 'due' ? '<span class="pill amber">Due by ' + esc(dayFmt(m.due_by)) + '</span>' : '<span class="pill gray">In progress</span>';
+  const yr = nowYm.slice(0, 4);
+  const yrNet = months.filter((m) => m.month.slice(0, 4) === yr).reduce((t, m) => t + Number(m.net || 0), 0);
+  const taxNote = yrNet >= 2000
+    ? '<div class="card" style="border-color:#c9a227;background:#fff9e6"><h2>Tax form needed (W-9)</h2><div class="sub">Your commission for ' + yr + ' has reached $2,000. Before we can send any further payouts this year we need a completed Form W-9 on file. Email support@vantixbio.com and we will send it to you. Please do not put tax ID numbers in a regular email.</div></div>'
+    : yrNet >= 1500
+    ? '<div class="card"><div class="sub"><b>Heads up:</b> once your commission for ' + yr + ' passes $2,000 we need a completed Form W-9 on file before further payouts. Email support@vantixbio.com any time and we will send it to you.</div></div>'
+    : '';
   return header(true) +
+    taxNote +
     '<div><h1>' + esc(d.creator) + '</h1><div class="sub">Code' + (codes.length > 1 ? 's' : '') + ': <b>' + (codes.map((c) => esc(c.code)).join(', ') || 'none active') + '</b>' + (rate ? ' · ' + rate + ' commission' : '') + '</div></div>' +
     '<div class="grid g3">' +
       kpi('Ready to be paid', usd(d.owed_closed_months), nextDue ? monthName(nextDue.month) + ' payout, due by ' + esc(dayFmt(nextDue.due_by)) : 'Nothing due right now') +
@@ -153,6 +161,7 @@ function dashView() {
       '<li>Commission is ' + (rate || 'your agreed rate') + ' of the product total after discounts, before shipping and taxes.</li>' +
       '<li>Every paid order that uses your code counts. An order becomes payable once it has shipped, in the month it shipped.</li>' +
       '<li>Each month is paid in the first week of the following month, by the 7th.</li>' +
+      '<li>Once your total commission in a calendar year reaches $2,000, we need a completed Form W-9 on file before we can send further payouts that year.</li>' +
       '<li>If an order is refunded or charged back, the commission on it is deducted. If that happens before the payout it comes out of that payout, and if it happens after, it comes out of the next one.</li>' +
       '<li>You only see order numbers, dates and amounts. Customer names and emails stay private.</li></ul>' +
       '<div class="foot" style="margin-top:12px">Questions about a number? Email support@vantixbio.com with the order number.</div></div>';
