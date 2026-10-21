@@ -95,6 +95,35 @@
       '.vxp-foot p.vxp-err{color:#FFB4AB;margin:8px 0 0;font-size:13px;line-height:1.4}' +
       '.vxp-foot .vxp-code{background:transparent;border-color:rgba(255,255,255,.4);color:#fff;font-size:20px;padding:12px;margin:0 0 10px}' +
       '@media(max-width:480px){.vxp-foot form{flex-direction:column}.vxp-tab{left:12px;bottom:12px}}' +
+      /* Phones: the popup becomes a short bottom sheet (offer, one field, button) instead of a full-screen card. */
+      '@media(max-width:600px){' +
+        '.vxp{align-items:flex-end;padding:0;background:rgba(10,22,40,.32);-webkit-backdrop-filter:none;backdrop-filter:none}' +
+        '.vxp-box{max-width:none;border-radius:16px 16px 0 0;padding:16px 16px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(10,22,40,.22)}' +
+        '.vxp-x{top:0;right:0;width:40px;height:40px;font-size:22px}' +
+        '.vxp-box .vxp-k,.vxp-box .vxp-rule,.vxp p.vxp-ruo,#vxpForm>p:not([class]),.vxp-ok>p:not([class]){display:none}' +
+        '.vxp h3{font-size:22px;line-height:1.2;margin:0 28px 12px;text-align:center}' +
+        '.vxp h3 .vxp-big,.vxp h3 .vxp-big span{display:inline;font-size:1em;margin:0;letter-spacing:inherit;font-style:normal}' +
+        '.vxp h3 .vxp-big{margin-right:.25em}' +
+        '.vxp form{flex-direction:row;flex-wrap:wrap;gap:8px}' +
+        '.vxp input[type=email]{flex:1;min-width:0;padding:12px 14px;text-align:left}' +
+        '.vxp button.vxp-go{flex:none;padding:12px 16px}' +
+        '.vxp p.vxp-err{flex-basis:100%;text-align:left}.vxp p.vxp-err:empty{display:none}' +
+        '.vxp p.vxp-fine{font-size:11px;line-height:1.45;margin:10px 0 0}' +
+        '.vxp-code{font-size:18px;padding:10px;margin:0 0 10px}' +
+        '.vxp button.vxp-copy{padding:10px 20px;margin:0 0 8px}' +
+        '.vxp-ok a.vxp-go{padding:12px 20px}' +
+      '}' +
+      /* In-article signup: one short line, one row. */
+      '.vxp-foot.vxp-inline{margin:22px auto 0;padding:18px 0 0}' +
+      '.vxp-foot.vxp-inline .vxp-k{display:none}' +
+      '.vxp-foot.vxp-inline h4{font-size:16px;line-height:1.3;margin:0 0 12px}' +
+            '.vxp-foot.vxp-inline form{flex-direction:row}' +
+      '.vxp-foot.vxp-inline input[type=email]{padding:11px 14px}' +
+      '.vxp-foot.vxp-inline button{padding:11px 16px}' +
+      '.vxp-foot.vxp-inline p.vxp-fine{font-size:11px;line-height:1.45;margin:10px 0 0}' +
+      '.vxp-foot.vxp-inline p.vxp-err:empty{display:none}' +
+      /* Keep the small "15% off" tab clear of the blog's bottom bar. */
+      'body:has(.sticky-cta:not([hidden])) .vxp-tab{bottom:104px}' +
       '@media(prefers-reduced-motion:reduce){.vxp,.vxp-box{transition:none}}';
     document.head.appendChild(s);
   }
@@ -287,7 +316,7 @@
       box.className = 'vxp-foot vxp-inline';
       box.innerHTML =
         '<p class="vxp-k">Vantix Bio</p>' +
-        '<h4>Batch reports and restock notices.<br>15% off your first order.</h4>' +
+        '<h4>15% off your first order + batch reports</h4>' +
         '<form novalidate>' +
           '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
           '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
