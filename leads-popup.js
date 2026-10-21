@@ -1,5 +1,6 @@
 /* Vantix Bio: homepage signup popup. 15% off the first order for an email address.
- * Runs on the browsing pages (home, shop, product, about, FAQ, shipping, kits, explainers), never on checkout or order pages.
+ * Runs on the browsing pages (home, shop, product, about, FAQ, shipping, kits, explainers, blog posts), never on checkout or order pages.
+ * On blog posts (phones) the popup is a short bottom sheet; every other page keeps the full card.
  * Shows once per visitor: after 10 seconds of browsing in total (the clock carries across pages in the visit), or when a desktop visitor moves to leave (after 8 seconds).
  * Needs supabase/email_leads.sql (capture_lead function and the WELCOME15 promo code).
  * Not shown to people who already signed up, or who closed it in the last 30 days. */
@@ -82,8 +83,9 @@
       '.vxp-tab{position:fixed;left:16px;bottom:16px;z-index:350;display:none;padding:11px 18px;background:var(--navy,#0F1B2D);color:#fff;border:none;border-radius:24px;font-family:"Geist",system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.03em;cursor:pointer;box-shadow:0 6px 20px rgba(10,22,40,.28);transition:background .35s cubic-bezier(.16,1,.3,1)}' +
       '.vxp-tab.on{display:block}.vxp-tab:hover{background:var(--accent,#3973B0)}' +
       '.vxp-foot{max-width:520px;margin:0 auto 24px;padding:0 0 24px;border-bottom:1px solid rgba(255,255,255,.14);text-align:center;font-family:"Geist",system-ui,sans-serif;color:#E8EEF5}' +
+      '.vxp-foot.vxp-inline{max-width:460px;margin:30px auto 0;padding:26px 0 0;border-bottom:0;border-top:1px solid rgba(255,255,255,.18)}' +
       '.vxp-foot .vxp-k{color:rgba(232,238,245,.6);margin:0 0 10px}' +
-      '.vxp-foot h4{font-family:"Fraunces",serif;font-weight:300;font-size:22px;line-height:1.25;margin:0 0 16px;color:#fff}' +
+      '.vxp-foot h4{font-family:"Fraunces",serif;font-weight:300;font-size:22px;line-height:1.25;margin:0 0 16px;color:#fff;text-transform:none;letter-spacing:normal}' +
       '.vxp-foot form{display:flex;gap:8px;text-align:left}' +
       '.vxp-foot input[type=email]{flex:1;min-width:0;padding:12px 16px;border:1px solid rgba(255,255,255,.28);border-radius:24px;background:transparent;color:#fff;font-size:16px;font-family:inherit}' +
       '.vxp-foot input[type=email]::placeholder{color:rgba(232,238,245,.5)}' +
@@ -94,6 +96,35 @@
       '.vxp-foot p.vxp-err{color:#FFB4AB;margin:8px 0 0;font-size:13px;line-height:1.4}' +
       '.vxp-foot .vxp-code{background:transparent;border-color:rgba(255,255,255,.4);color:#fff;font-size:20px;padding:12px;margin:0 0 10px}' +
       '@media(max-width:480px){.vxp-foot form{flex-direction:column}.vxp-tab{left:12px;bottom:12px}}' +
+      /* Blog posts on phones: the popup is a short bottom sheet (offer, one field, button) so it does not cover the article. Other pages keep the full card. */
+      '@media(max-width:600px){' +
+        '.vxp.vxp-blog{align-items:flex-end;padding:0;background:rgba(10,22,40,.32);-webkit-backdrop-filter:none;backdrop-filter:none}' +
+        '.vxp-blog .vxp-box{max-width:none;border-radius:16px 16px 0 0;padding:16px 16px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(10,22,40,.22)}' +
+        '.vxp-blog .vxp-x{top:0;right:0;width:40px;height:40px;font-size:22px}' +
+        '.vxp-blog .vxp-k,.vxp-blog .vxp-rule,.vxp-blog p.vxp-ruo,.vxp-blog #vxpForm>p:not([class]),.vxp-blog .vxp-ok>p:not([class]){display:none}' +
+        '.vxp-blog h3{font-size:22px;line-height:1.2;margin:0 28px 12px;text-align:center}' +
+        '.vxp-blog h3 .vxp-big,.vxp-blog h3 .vxp-big span{display:inline;font-size:1em;margin:0;letter-spacing:inherit;font-style:normal}' +
+        '.vxp-blog h3 .vxp-big{margin-right:.25em}' +
+        '.vxp-blog form{flex-direction:row;flex-wrap:wrap;gap:8px}' +
+        '.vxp-blog input[type=email]{flex:1;min-width:0;padding:12px 14px;text-align:left}' +
+        '.vxp-blog button.vxp-go{flex:none;padding:12px 16px}' +
+        '.vxp-blog p.vxp-err{flex-basis:100%;text-align:left}.vxp-blog p.vxp-err:empty{display:none}' +
+        '.vxp-blog p.vxp-fine{font-size:11px;line-height:1.45;margin:10px 0 0}' +
+        '.vxp-blog .vxp-code{font-size:18px;padding:10px;margin:0 0 10px}' +
+        '.vxp-blog button.vxp-copy{padding:10px 20px;margin:0 0 8px}' +
+        '.vxp-blog .vxp-ok a.vxp-go{padding:12px 20px}' +
+      '}' +
+      /* In-article signup: one short line, one row. */
+      '.vxp-foot.vxp-inline{margin:22px auto 0;padding:18px 0 0}' +
+      '.vxp-foot.vxp-inline .vxp-k{display:none}' +
+      '.vxp-foot.vxp-inline h4{font-size:16px;line-height:1.3;margin:0 0 12px}' +
+            '.vxp-foot.vxp-inline form{flex-direction:row}' +
+      '.vxp-foot.vxp-inline input[type=email]{padding:11px 14px}' +
+      '.vxp-foot.vxp-inline button{padding:11px 16px}' +
+      '.vxp-foot.vxp-inline p.vxp-fine{font-size:11px;line-height:1.45;margin:10px 0 0}' +
+      '.vxp-foot.vxp-inline p.vxp-err:empty{display:none}' +
+      /* Keep the small "15% off" tab clear of the blog's bottom bar. */
+      'body:has(.sticky-cta:not([hidden])) .vxp-tab{bottom:104px}' +
       '@media(prefers-reduced-motion:reduce){.vxp,.vxp-box{transition:none}}';
     document.head.appendChild(s);
   }
@@ -101,7 +132,7 @@
   function build() {
     css();
     root = document.createElement('div');
-    root.className = 'vxp';
+    root.className = 'vxp' + (/^\/blog(\/|$)/.test(location.pathname) ? ' vxp-blog' : '');
     root.setAttribute('role', 'dialog');
     root.setAttribute('aria-modal', 'true');
     root.setAttribute('aria-labelledby', 'vxpT');
@@ -221,8 +252,8 @@
     try { if (!sessionStorage.getItem('vantixPromoCode')) sessionStorage.setItem('vantixPromoCode', CODE); } catch (e) {}
     try { (window.dataLayer = window.dataLayer || []).push({ event: 'email_signup', signup_source: via }); } catch (e) {}
     if (tab) tab.classList.remove('on');
-    var ft = document.querySelector('.vxp-foot');
-    if (ft) ft.innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your 15% welcome discount is saved on this device and applied at checkout.</p>';
+    var fts = document.querySelectorAll('.vxp-foot');
+    for (var i = 0; i < fts.length; i++) fts[i].innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your 15% welcome discount is saved on this device and applied at checkout.</p>';
   }
 
   // Quiet ways back in for someone who closed the popup and changed their mind.
@@ -275,6 +306,43 @@
     });
   }
 
+  // In-article signup (blog posts): fills any empty <div data-vx-signup> with the same one-field form as the footer.
+  function initInline() {
+    var slots = document.querySelectorAll('[data-vx-signup]');
+    if (!slots.length) return;
+    css();
+    for (var n = 0; n < slots.length; n++) (function (slot) {
+      if (slot.querySelector('.vxp-foot')) return;
+      var box = document.createElement('div');
+      box.className = 'vxp-foot vxp-inline';
+      box.innerHTML =
+        '<p class="vxp-k">Vantix Bio</p>' +
+        '<h4>15% off your first order + batch reports</h4>' +
+        '<form novalidate>' +
+          '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
+          '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<button type="submit">Join the list</button>' +
+        '</form>' +
+        '<p class="vxp-err" role="alert"></p>' +
+        '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html" style="color:inherit;text-decoration:underline">Privacy Policy</a></p>';
+      slot.appendChild(box);
+      var form = box.querySelector('form'), em = form.querySelector('input[type=email]'), err = box.querySelector('.vxp-err'), btn = form.querySelector('button');
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        err.textContent = '';
+        if (form.querySelector('input[name=website]').value) return;
+        var val = (em.value || '').trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) { err.textContent = 'Please enter a valid email address.'; em.focus(); return; }
+        btn.disabled = true; btn.textContent = 'One moment…';
+        via = 'blog';
+        capture(val, 'blog', onSuccess, function () {
+          btn.disabled = false; btn.textContent = 'Join the list';
+          err.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
+        });
+      });
+    })(slots[n]);
+  }
+
   // The clock counts visible browsing time across pages in this visit and restarts whenever the age gate or menu closes.
   var visibleMs = 0, wasBlocked = false;
   try { visibleMs = parseInt(sessionStorage.getItem('vxLeadMs') || '0', 10) || 0; } catch (e) {}
@@ -290,5 +358,6 @@
   });
 
   initFooter();
+  initInline();
   if (closedRecently) showTab();
 })();
