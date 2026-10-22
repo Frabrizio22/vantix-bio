@@ -62,8 +62,19 @@ h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease}
 .faq-item.active .faq-answer{max-height:800px}
 .faq-answer-inner{padding:0 18px 18px;color:rgba(10,22,40,.7);font-size:14px;line-height:1.65}@media(min-width:768px){.faq-answer-inner{padding:0 24px 24px;font-size:16px;line-height:1.7}}
-footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px;margin-top:80px}
-.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+footer{background:#0B2545;color:#E8EEF5;padding:32px 24px 20px;font-family:'Geist',-apple-system,sans-serif}@media(min-width:768px){footer{padding:64px 48px 36px}}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:8px;text-decoration:none;color:inherit}
+.footer-logo img{width:24px;height:24px}
+.footer-wordmark{font-size:14px;letter-spacing:.04em;font-weight:600}
+.footer-wordmark strong{color:#4A8DD8;font-weight:600}
+.ft-main{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:0 12px;font-size:13px;margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ft-main a,.ft-legal a{display:inline-flex;align-items:center;min-height:40px;text-decoration:none}
+.ft-main a{color:#E8EEF5}
+.ft-legal{display:flex;gap:0 20px;font-size:12.5px;margin-bottom:8px}
+.ft-legal a{color:rgba(232,238,245,.6)}
+.ft-ruo{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:rgba(232,238,245,.45);margin:0;line-height:1.7}
+.ft-ruo strong{color:rgba(232,238,245,.6)}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
@@ -216,14 +227,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 
-<footer>
-<div class="container">
-<div class="footer-legal">
-<p><strong>RUO</strong> — For laboratory research only. Not for personal use. Not FDA approved.</p>
-<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 Vantix Bio LLC</p>
+<footer style="padding:20px 24px 16px">
+<div class="footer-inner">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+<a href="/" class="footer-logo" style="margin-bottom:0">
+<img src="logo-mark-white.png" alt="VX" style="height:30px;width:auto">
+<span class="footer-wordmark">VANTIX<strong>BIO</strong></span>
+</a>
 </div>
+<nav class="ft-main" aria-label="Footer">
+<a href="shop.html">Catalog</a>
+<a href="verify.html">Verify</a>
+<a href="about.html">About</a>
+<a href="blog/">Articles</a>
+<a href="faq.html">FAQ</a>
+<a href="wholesale.html">10-Vial Kits</a>
+<a href="contact.html">Contact</a>
+</nav>
+<nav class="ft-legal" aria-label="Legal">
+<a href="terms.html">Terms</a>
+<a href="privacy.html">Privacy</a>
+<a href="shipping.html">Shipping &amp; Refund Policy</a>
+</nav>
+<p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p>
+<!-- Also searched as: Vantix peptides, Vantyx peptides, Vantx peptides, Vantx research -->
 </div>
-<p style="margin-top:8px;font-size:11px"><a href="terms.html" style="color:inherit;text-decoration:underline">Terms</a> &middot; <a href="privacy.html" style="color:inherit;text-decoration:underline">Privacy</a> &middot; <a href="shipping.html" style="color:inherit;text-decoration:underline">Shipping &amp; Refund</a></p>
 </footer>
 
 <script>
