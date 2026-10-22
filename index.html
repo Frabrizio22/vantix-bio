@@ -535,6 +535,7 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-tab:hover{border-color:var(--hp-blue);box-shadow:0 4px 14px rgba(57,115,176,.14)}
 .hp .hp-tab:active{transform:scale(.98)}
 @media(max-width:420px){.hp .hp-tab{padding:11px 9px;min-height:100px}.hp .hp-tab b{font-size:13.5px}.hp .hp-tab small{font-size:10.5px}.hp .hp-tab i{font-size:10px;padding:4px 6px}}
+.hp .hp-nform{display:flex;gap:8px;width:100%;flex-wrap:wrap}.hp .hp-nform input{flex:1 1 140px;min-width:0;height:44px;padding:0 14px;border:1px solid var(--hp-hair,#D8D6CF);border-radius:999px;font-family:'Geist',sans-serif;font-size:16px;background:#fff;color:var(--hp-navy,#0F1B2D)}.hp .hp-nform input:focus{outline:2px solid var(--hp-blue);outline-offset:1px}.hp .hp-nmsg{font-size:14px;color:#4A8568;font-weight:500}
 @media(min-width:900px){.hp .hp-shop{max-width:560px}}
 @media(max-width:899px){.hp .hp-hero{gap:14px;padding-top:24px}.hp .hp-cta{margin:0}.hp .hp-link{min-height:36px}.hp .hp-top>.hp-card{margin-top:10px}}
 @media(max-width:640px){#hdrShop{padding:9px 16px;font-size:12.5px;line-height:1.2}}
@@ -726,7 +727,7 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
    <article class="hp-pc"><div class="hp-pstage"><img src="images/products/vx-3r-20mg.jpg" alt="VX-3R 20mg vial" loading="lazy" decoding="async" width="236" height="184"></div><div class="hp-pb"><h3 class="hp-pn">VX-3R 20mg</h3><div class="hp-pm">20MG · &gt;99% PURE</div><div class="hp-pp">$67</div><div class="hp-pr"><a class="hp-btn hp-add" data-sku="VX-RETA-20" data-name="VX-3R 20mg" data-price="67" href="shop.html#VX-RETA-20">Add to cart</a><a class="hp-link" href="verify.html?product=vx-3r">View COA &rsaquo;</a></div></div></article>
    <article class="hp-pc"><div class="hp-pstage"><img src="images/products/vx-2t-30mg.jpg" alt="VX-2T 30mg vial" loading="lazy" decoding="async" width="236" height="184"></div><div class="hp-pb"><h3 class="hp-pn">VX-2T 30mg</h3><div class="hp-pm">30MG · &gt;99% PURE</div><div class="hp-pp">$59</div><div class="hp-pr"><a class="hp-btn hp-add" data-sku="VX-TIRZ-30" data-name="VX-2T 30mg" data-price="59" href="shop.html#VX-TIRZ-30">Add to cart</a><a class="hp-link" href="verify.html?product=vx-2t">View COA &rsaquo;</a></div></div></article>
    <article class="hp-pc"><div class="hp-pstage"><img src="images/products/ghk-cu-100mg.jpg" alt="GHK-Cu 100mg vial" loading="lazy" decoding="async" width="236" height="184"></div><div class="hp-pb"><h3 class="hp-pn">GHK-Cu 100mg</h3><div class="hp-pm">100MG · &gt;99% PURE</div><div class="hp-pp">$34</div><div class="hp-pr"><a class="hp-btn hp-add" data-sku="VX-GHK-100" data-name="GHK-Cu 100mg" data-price="34" href="shop.html#VX-GHK-100">Add to cart</a><a class="hp-link" href="verify.html?product=ghk-cu">View COA &rsaquo;</a></div></div></article>
-   <article class="hp-pc"><div class="hp-pstage"><img src="images/products/mots-c-10mg.jpg" alt="MOTS-c 10mg vial" loading="lazy" decoding="async" width="236" height="184"></div><div class="hp-pb"><h3 class="hp-pn">MOTS-c 10mg</h3><div class="hp-pm">10MG · &gt;99% PURE</div><div class="hp-pp">$32</div><div class="hp-pr"><a class="hp-btn hp-add" data-sku="VX-MOTS-10" data-name="MOTS-c 10mg" data-price="32" href="shop.html#VX-MOTS-10">Add to cart</a><a class="hp-link" href="verify.html?product=mots-c">View COA &rsaquo;</a></div></div></article>
+   <article class="hp-pc"><div class="hp-pstage"><img src="images/products/mots-c-10mg.jpg" alt="MOTS-c 10mg vial" loading="lazy" decoding="async" width="236" height="184"></div><div class="hp-pb"><h3 class="hp-pn">MOTS-c 10mg</h3><div class="hp-pm">10MG · &gt;99% PURE</div><div class="hp-pp">$32</div><div class="hp-pr"><a class="hp-btn hp-notify" data-slug="mots-c" data-name="MOTS-c 10mg" href="#notify">Notify me</a><a class="hp-link" href="verify.html?product=mots-c">View COA &rsaquo;</a></div></div></article>
    <article class="hp-pc"><div class="hp-pstage"><img src="images/products/nad-1000mg.jpg" alt="NAD+ 1000mg vial" loading="lazy" decoding="async" width="236" height="184"></div><div class="hp-pb"><h3 class="hp-pn">NAD+ 1000mg</h3><div class="hp-pm">1000MG · &gt;99% PURE</div><div class="hp-pp">$59</div><div class="hp-pr"><a class="hp-btn hp-add" data-sku="VX-NAD-1000" data-name="NAD+ 1000mg" data-price="59" href="shop.html#VX-NAD-1000">Add to cart</a><a class="hp-link" href="verify.html?product=nad-plus">View COA &rsaquo;</a></div></div></article>
   </div>
  </div>
@@ -869,6 +870,26 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;play()}})},{threshold:.2}).observe($('coa'));
  }
 
+
+ // Out-of-stock "Notify me": inline email form, same /waitlist endpoint as the shop page
+ var nb=document.querySelectorAll('.hp-notify');
+ for(var n=0;n<nb.length;n++){nb[n].addEventListener('click',function(e){
+  e.preventDefault();
+  var btn=this,slug=btn.getAttribute('data-slug'),row=btn.parentNode;
+  var f=document.createElement('form');f.className='hp-nform';f.noValidate=true;
+  f.innerHTML='<input type="email" inputmode="email" autocomplete="email" placeholder="your@email.com" aria-label="Email for restock notice" required><button class="hp-btn" type="submit">Notify me</button>';
+  row.replaceChild(f,btn);var inp=f.querySelector('input');inp.focus();
+  f.addEventListener('submit',function(ev){
+   ev.preventDefault();var em=inp.value.trim();
+   if(!/^\S+@\S+\.\S+$/.test(em)){inp.focus();return;}
+   var sb=f.querySelector('button');sb.disabled=true;sb.textContent='Sending\u2026';
+   fetch('https://vantix-checkout.prcpeptides.workers.dev/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,product:slug})})
+   .then(function(r){return r.json()}).then(function(d){
+    if(d&&d.status==='success'){var m=document.createElement('span');m.className='hp-nmsg';m.textContent='\u2713 You\u2019re on the list. We\u2019ll email you when it\u2019s back.';row.replaceChild(m,f);}
+    else{sb.disabled=false;sb.textContent='Notify me';alert((d&&d.message)||'Could not submit. Please try again.');}
+   }).catch(function(){sb.disabled=false;sb.textContent='Notify me';alert('Could not submit. Please try again.');});
+  });
+ })}
  // Bestseller "Add to cart": add 1 to the shop cart (same storage as shop.html), then offer View cart
  var adds=document.querySelectorAll('.hp-add');
  for(var i=0;i<adds.length;i++){adds[i].addEventListener('click',function(e){
