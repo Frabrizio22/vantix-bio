@@ -526,12 +526,15 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin:4px 0 8px}
 .hp .hp-btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--hp-blue);color:#fff;font-family:'Geist',sans-serif;font-weight:500;font-size:16px;letter-spacing:-.01em;text-decoration:none;cursor:pointer;box-shadow:0 6px 16px -8px rgba(57,115,176,.7);transition:transform .15s ease,filter .15s ease}
 .hp .hp-shop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:4px 0 0}
-.hp .hp-tab{display:flex;flex-direction:column;gap:2px;padding:14px 12px;border:1px solid var(--hp-hair,#D8D6CF);border-radius:14px;background:#fff;color:inherit;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .15s;min-height:64px;justify-content:center}
-.hp .hp-tab b{font-family:'Geist',sans-serif;font-weight:600;font-size:15px;letter-spacing:-.01em;color:var(--hp-blue)}
-.hp .hp-tab small{font-size:11.5px;line-height:1.3;color:rgba(15,27,45,.62)}
-.hp .hp-tab:hover{border-color:var(--hp-blue);box-shadow:0 4px 14px rgba(57,115,176,.12)}
+.hp .hp-tab{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:12px 11px 12px;border:1px solid var(--hp-hair,#D8D6CF);border-radius:14px;background:#fff;color:inherit;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .15s;min-height:104px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.hp .hp-tab i{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:#2F6B4C;background:rgba(123,168,143,.2);padding:4px 7px;border-radius:999px;margin-bottom:6px;white-space:nowrap}
+.hp .hp-tab b{font-family:'Geist',sans-serif;font-weight:600;font-size:15px;line-height:1.15;letter-spacing:-.01em;color:var(--hp-navy,#0F1B2D)}
+.hp .hp-tab small{font-size:11.5px;line-height:1.3;color:rgba(15,27,45,.62);padding-right:14px}
+.hp .hp-tab::after{content:'\203A';position:absolute;right:11px;bottom:9px;font-size:20px;line-height:1;color:var(--hp-blue)}
+.hp .hp-tab.is-main{border-color:var(--hp-navy,#0F1B2D);border-width:1.5px;background:linear-gradient(180deg,#fff,#F3F6FA)}
+.hp .hp-tab:hover{border-color:var(--hp-blue);box-shadow:0 4px 14px rgba(57,115,176,.14)}
 .hp .hp-tab:active{transform:scale(.98)}
-@media(max-width:420px){.hp .hp-tab{padding:12px 8px}.hp .hp-tab b{font-size:13.5px}.hp .hp-tab small{font-size:10.5px}}
+@media(max-width:420px){.hp .hp-tab{padding:11px 9px;min-height:100px}.hp .hp-tab b{font-size:13.5px}.hp .hp-tab small{font-size:10.5px}.hp .hp-tab i{font-size:9px;padding:4px 6px}}
 @media(min-width:900px){.hp .hp-shop{max-width:560px}}
 .hp .hp-btn:active{transform:scale(.97)}
 .hp .hp-btn:hover{filter:brightness(1.06)}
@@ -674,9 +677,9 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
  <h1 class="hp-h1">Don&rsquo;t take<br>our word.<br><em>Verify the results.</em></h1>
  <p class="hp-lede">Every batch is tested by an independent lab before we sell it, with a 99% purity minimum. Read the lab&rsquo;s own report before you order.</p>
  <nav class="hp-shop" aria-label="Shop">
-  <a class="hp-tab" href="shop.html"><b>Single Vials</b><small>Individual compounds</small></a>
-  <a class="hp-tab" href="kits.html"><b>Bundles</b><small>Two compounds, separate vials</small></a>
-  <a class="hp-tab" href="wholesale.html"><b>10-Vial Kits</b><small>One compound, tier pricing</small></a>
+  <a class="hp-tab is-main" href="shop.html"><i>From $30</i><b>Single Vials</b><small>Individual compounds</small></a>
+  <a class="hp-tab" href="kits.html"><i>Up to 15% off</i><b>Bundles</b><small>Two compounds</small></a>
+  <a class="hp-tab" href="wholesale.html"><i>Up to 32% off</i><b>10-Vial Kits</b><small>One compound, 10 vials</small></a>
  </nav>
  <div class="hp-cta">
   <a class="hp-link" href="#coa">See a lab report &rsaquo;</a>
