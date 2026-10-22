@@ -113,8 +113,9 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .kits-grid{gap:12px;padding:12px 0 24px}
 .kit-card{padding:12px 14px 14px}
 .kit-vials{margin-bottom:10px}
-.kit-vials img{height:84px}
-.kit-vials::after{width:22px;height:22px;font-size:17px}
+.kit-vials{display:flex;justify-content:center;align-items:center;height:184px;isolation:isolate}
+.kit-vials img{width:auto;max-width:none;height:184px;margin:0 -64px;clip-path:inset(0 25%)}
+.kit-vials::after{width:22px;height:22px;font-size:17px;z-index:2}
 .kit-header{margin-bottom:2px}
 .kit-label,.kit-composition-label{display:none}
 .kit-name{font-size:1.2rem;margin-bottom:2px}
