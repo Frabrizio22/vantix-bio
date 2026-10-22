@@ -529,8 +529,7 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-tab{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:11px 12px;border:1px solid var(--hp-hair,#D8D6CF);border-radius:12px;background:#fff;color:inherit;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .15s;min-height:58px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .hp .hp-tab b{font-family:'Geist',sans-serif;font-weight:600;font-size:14px;line-height:1.2;letter-spacing:-.01em;color:var(--hp-navy,#0F1B2D);white-space:nowrap}
 .hp .hp-tab i{font-style:normal;font-family:'Geist',sans-serif;font-size:11.5px;font-weight:500;line-height:1.2;color:rgba(15,27,45,.58);white-space:nowrap}
-.hp .hp-tab.is-main{border-color:var(--hp-navy,#0F1B2D);background:#fff}
-.hp .hp-tab:hover{border-color:var(--hp-blue);box-shadow:0 4px 14px rgba(57,115,176,.14)}
+.hp .hp-tab:hover,.hp .hp-tab:focus-visible{border-color:var(--hp-navy,#0F1B2D);background:#F3F6FA;box-shadow:0 4px 14px rgba(57,115,176,.14);outline:none}
 .hp .hp-tab:active{transform:scale(.98)}
 @media(max-width:420px){.hp .hp-tab{padding:10px 9px}.hp .hp-tab b{font-size:13px}.hp .hp-tab i{font-size:10.5px}}
 @media(min-width:900px){.hp .hp-shop{max-width:560px}}
@@ -677,7 +676,7 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
  <h1 class="hp-h1">Don&rsquo;t take<br>our word.<br><em>Verify the results.</em></h1>
  <p class="hp-lede">Every batch is tested by an independent lab before we sell it, with a 99% purity minimum. Read the lab&rsquo;s own report before you order.</p>
  <nav class="hp-shop" aria-label="Shop">
-  <a class="hp-tab is-main" href="shop.html"><b>Single Vials</b><i>From $30</i></a>
+  <a class="hp-tab" href="shop.html"><b>Single Vials</b><i>From $30</i></a>
   <a class="hp-tab" href="kits.html"><b>Bundles</b><i>Save up to 15%</i></a>
   <a class="hp-tab" href="wholesale.html"><b>10-Vial Kits</b><i>Save up to 32%</i></a>
  </nav>
