@@ -492,7 +492,7 @@ var currentPrices={
 };
 
 // 10-vial kits (10 vials of one compound). Display only: the server (create_order) sets the real price.
-var WS={'VX-W-RETA-20':[570,500,400],'VX-W-TIRZ-30':[500,440,350],'VX-W-TESA-10':[440,390,310],'VX-W-NAD-1000':[500,440,350],'VX-W-TB-10':[320,290,230],'VX-W-BPC-10':[260,230,180],'VX-W-GHK-100':[290,260,210],'VX-W-MOTS-10':[270,240,240]};
+var WS={'VX-W-RETA-20':[570,500,450],'VX-W-TIRZ-30':[500,440,400],'VX-W-TESA-10':[440,390,350],'VX-W-NAD-1000':[500,440,400],'VX-W-TB-10':[320,290,260],'VX-W-BPC-10':[255,230,210],'VX-W-GHK-100':[290,260,230],'VX-W-MOTS-10':[270,240,240]};
 function wsKits(){var n=0;cart.forEach(function(i){if(WS[i.sku])n+=i.quantity;});return n;}
 function wsHas(){return wsKits()>0;}
 function wsSubtotal(){var t=0;cart.forEach(function(i){if(WS[i.sku])t+=i.price*i.quantity;});return t;}
