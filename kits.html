@@ -144,10 +144,19 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .info-section{padding:80px 0;border-top:1px solid var(--hairline)}
 .info-section h2{margin-bottom:24px}
 .info-section p{font-size:17px;line-height:1.8;color:rgba(10,22,40,.7);margin-bottom:20px;max-width:800px}
-footer{background:#0B2545;color:#E8EEF5;padding:48px 20px 28px;margin-top:80px}@media(min-width:768px){footer{padding:64px 40px 36px;margin-top:120px}}
-.footer-legal{padding-top:16px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.5;color:rgba(255,255,255,.5);text-align:center}@media(min-width:768px){.footer-legal{font-size:11px}}
-.footer-legal p{margin-bottom:8px}
-.footer-legal p:last-child{margin-bottom:0}
+footer{background:#0B2545;color:#E8EEF5;padding:32px 24px 20px;font-family:'Geist',-apple-system,sans-serif}@media(min-width:768px){footer{padding:64px 48px 36px}}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:8px;text-decoration:none;color:inherit}
+.footer-logo img{width:24px;height:24px}
+.footer-wordmark{font-size:14px;letter-spacing:.04em;font-weight:600}
+.footer-wordmark strong{color:#4A8DD8;font-weight:600}
+.ft-main{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:0 12px;font-size:13px;margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ft-main a,.ft-legal a{display:inline-flex;align-items:center;min-height:40px;text-decoration:none}
+.ft-main a{color:#E8EEF5}
+.ft-legal{display:flex;gap:0 20px;font-size:12.5px;margin-bottom:8px}
+.ft-legal a{color:rgba(232,238,245,.6)}
+.ft-ruo{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:rgba(232,238,245,.45);margin:0;line-height:1.7}
+.ft-ruo strong{color:rgba(232,238,245,.6)}
 </style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -344,14 +353,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<footer>
-<div class="container">
-<div class="footer-legal">
-<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
-<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 <span style="white-space:nowrap">Vantix Bio</span> LLC</p>
+<footer style="padding:20px 24px 16px">
+<div class="footer-inner">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+<a href="/" class="footer-logo" style="margin-bottom:0">
+<img src="logo-mark-white.png" alt="VX" style="height:30px;width:auto">
+<span class="footer-wordmark">VANTIX<strong>BIO</strong></span>
+</a>
 </div>
+<nav class="ft-main" aria-label="Footer">
+<a href="shop.html">Catalog</a>
+<a href="verify.html">Verify</a>
+<a href="about.html">About</a>
+<a href="blog/">Articles</a>
+<a href="faq.html">FAQ</a>
+<a href="wholesale.html">10-Vial Kits</a>
+<a href="contact.html">Contact</a>
+</nav>
+<nav class="ft-legal" aria-label="Legal">
+<a href="terms.html">Terms</a>
+<a href="privacy.html">Privacy</a>
+<a href="shipping.html">Shipping &amp; Refund Policy</a>
+</nav>
+<p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p>
+<!-- Also searched as: Vantix peptides, Vantyx peptides, Vantx peptides, Vantx research -->
 </div>
-<p style="margin-top:8px;font-size:11px"><a href="terms.html" style="color:inherit;text-decoration:underline">Terms</a> &middot; <a href="privacy.html" style="color:inherit;text-decoration:underline">Privacy</a> &middot; <a href="shipping.html" style="color:inherit;text-decoration:underline">Shipping &amp; Refund</a></p>
 </footer>
 
 
