@@ -246,12 +246,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button class="btn" onclick="addKitToCart()">Add to Cart — $112</button>
 </div>
 
-<div class="kit-card is-out">
+<div class="kit-card">
 
 <div class="kit-vials"><img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 10mg vial" loading="lazy" width="200" height="150"><img src="images/products/tb-500-10mg.jpg" alt="TB-500 10mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.01</div>
-<div class="kit-savings">−$14</div>
+<div class="kit-savings">−$10</div>
 </div>
 <div class="kit-label">BPC-157 + TB-500</div>
 <h2 class="kit-name">BPC-157 + TB-500</h2>
@@ -262,11 +262,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="kit-item">TB-500 · <span class="kit-item-dose">10mg</span></div>
 </div>
 <div class="kit-pricing">
-<span class="kit-price">$54</span>
+<span class="kit-price">$58</span>
 <span class="kit-price-regular">$68</span>
 </div>
-<p class="kit-out">Currently out of stock</p>
-<a class="btn notify" href="#notify" onclick="return notifyMe(event)">Notify me when available</a>
+<button class="btn" onclick="addRepairToCart()">Add to Cart — $58</button>
 </div>
 
 <div class="kit-card is-out">
@@ -299,7 +298,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="kit-vials"><img src="images/products/nad-1000mg.jpg" alt="NAD+ 1000mg vial" loading="lazy" width="200" height="150"><img src="images/products/mots-c-10mg.jpg" alt="MOTS-C 10mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.04</div>
-<div class="kit-savings">−$10</div>
+<div class="kit-savings">−$9</div>
 </div>
 <div class="kit-label">Mitochondrial Pathways</div>
 <h2 class="kit-name">NAD+ + MOTS-C</h2>
@@ -310,8 +309,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="kit-item">MOTS-C · <span class="kit-item-dose">10mg</span></div>
 </div>
 <div class="kit-pricing">
-<span class="kit-price">$89</span>
-<span class="kit-price-regular">$99</span>
+<span class="kit-price">$82</span>
+<span class="kit-price-regular">$91</span>
 </div>
 <p class="kit-out">Currently out of stock</p>
 <a class="btn notify" href="#notify" onclick="return notifyMe(event)">Notify me when available</a>
@@ -356,6 +355,15 @@ if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
 if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
 if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 
+function addRepairToCart() {
+  var cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+  [['VX-BPC-10','BPC-157 10mg',30],['VX-TB-10','TB-500 10mg',38]].forEach(function(p){
+    var e = cart.find(function(i){ return i.sku === p[0]; });
+    if (e) { e.quantity = (e.quantity||0) + 1; } else { cart.push({sku:p[0], name:p[1], price:p[2], quantity:1}); }
+  });
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  window.location.href = 'checkout.html';
+}
 function addKitToCart() {
   // Add both products to cart
   let cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
