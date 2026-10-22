@@ -497,7 +497,7 @@ function wsKits(){var n=0;cart.forEach(function(i){if(WS[i.sku])n+=i.quantity;})
 function wsHas(){return wsKits()>0;}
 function wsSubtotal(){var t=0;cart.forEach(function(i){if(WS[i.sku])t+=i.price*i.quantity;});return t;}
 function applyWholesale(){var n=wsKits();if(!n)return;var t=n>=5?2:n>=2?1:0;var card=selectedPayment==='credit';
-cart.forEach(function(i){if(WS[i.sku]){var p=WS[i.sku][t];i.price=card?Math.round(p*110)/100:p;}});}
+cart.forEach(function(i){if(WS[i.sku]){var p=WS[i.sku][t];i.price=card?Math.round(p*1.08):p;}});}
 
 // Out of stock products - prevents checkout
 var outOfStock = [];
@@ -709,10 +709,10 @@ var label=(promoCode&&!wsHas())?'Discount ('+promoCode+')':'Zelle Discount (5%)'
 document.getElementById('discountLabel').textContent=label;
 discountRow.style.display='flex';
 }else{discountRow.style.display='none';}
-var zt=document.querySelector('#zelleOption .discount-tag');if(zt){if(!zt.dataset.o)zt.dataset.o=zt.textContent;zt.textContent=wsHas()?'✓ Best price for 10-vial kits (no card fee)':zt.dataset.o;}
+var zt=document.querySelector('#zelleOption .discount-tag');if(zt){if(!zt.dataset.o)zt.dataset.o=zt.textContent;zt.textContent=wsHas()?'✓ Zelle price for 10-vial kits (lowest price)':zt.dataset.o;}
 var wn=document.getElementById('wsNote');
 if(!wn){wn=document.createElement('div');wn.id='wsNote';wn.style.cssText='font-size:12px;color:#6b7280;margin:8px 0;line-height:1.5';document.getElementById('shippingMsg').parentNode.insertBefore(wn,document.getElementById('shippingMsg'));}
-wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. Promo codes and the Zelle discount do not apply to 10-vial kits.'+(selectedPayment==='credit'?' Card pricing includes a 10% processing fee.':' Pay by Zelle to avoid the card fee.')+(wsKits()>=5?' Orders of 5+ kits are paid by Zelle. Need another payment method? Email support@vantixbio.com.':'')):'';
+wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. Promo codes and the Zelle discount do not apply to 10-vial kits.'+(selectedPayment==='credit'?' The card price is 8% above the Zelle price.':' Pay by Zelle for the lower price.')+(wsKits()>=5?' Orders of 5+ kits are paid by Zelle. Need another payment method? Email support@vantixbio.com.':'')):'';
 var cd=document.querySelector('#creditOption .desc');if(cd){if(!cd.dataset.o)cd.dataset.o=cd.textContent;cd.textContent=(wsHas()&&wsKits()>=5)?'Not available for 5+ kits. Email support@vantixbio.com for other options.':cd.dataset.o;}
 if(wsHas()&&wsKits()>=5&&selectedPayment==='credit'){selectPayment('zelle');}
 var msg=document.getElementById('shippingMsg');
