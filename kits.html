@@ -109,6 +109,27 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .kit-item{font-size:14px}.kit-item-dose{font-size:12px}
 .kit-price{font-size:28px}.kit-price-regular{font-size:17px}
 .btn{font-size:12px;padding:13px 14px;min-height:46px}
+@media(max-width:619px){
+.kits-grid{gap:12px;padding:12px 0 24px}
+.kit-card{padding:12px 14px 14px}
+.kit-vials{margin-bottom:10px}
+.kit-vials img{height:84px}
+.kit-vials::after{width:22px;height:22px;font-size:17px}
+.kit-header{margin-bottom:2px}
+.kit-label,.kit-composition-label{display:none}
+.kit-name{font-size:1.2rem;margin-bottom:2px}
+.kit-desc{font-size:13px;line-height:1.35;margin-bottom:8px}
+.kit-items{display:flex;flex-wrap:wrap;gap:2px 14px;margin-bottom:10px;padding-top:8px;border-top:1px solid rgba(10,22,40,.08)}
+.kit-item{margin:0;font-size:13px}
+.kit-item::before{content:none}
+.kit-item-dose{font-size:11px}
+.kit-pricing{margin-bottom:8px}
+.kit-price{font-size:24px}.kit-price-regular{font-size:15px}
+.kit-card .btn{padding:12px 16px;font-size:12px;letter-spacing:.06em}
+.kit-out{margin:0 0 6px;font-size:9.5px}
+.why-section{padding:16px 0 4px}
+.why-text{font-size:13px}
+}
 .kit-card.is-out{opacity:1}
 .kit-card.is-out .kit-vials img{opacity:.55;filter:grayscale(.5)}
 .kit-card.is-out .kit-price,.kit-card.is-out .kit-name{color:rgba(10,22,40,.6)}
