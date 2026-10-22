@@ -712,7 +712,9 @@ discountRow.style.display='flex';
 var zt=document.querySelector('#zelleOption .discount-tag');if(zt){if(!zt.dataset.o)zt.dataset.o=zt.textContent;zt.textContent=wsHas()?'✓ Best price for 10-vial kits (no card fee)':zt.dataset.o;}
 var wn=document.getElementById('wsNote');
 if(!wn){wn=document.createElement('div');wn.id='wsNote';wn.style.cssText='font-size:12px;color:#6b7280;margin:8px 0;line-height:1.5';document.getElementById('shippingMsg').parentNode.insertBefore(wn,document.getElementById('shippingMsg'));}
-wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. Promo codes and the Zelle discount do not apply to 10-vial kits.'+(selectedPayment==='credit'?' Card pricing includes a 10% processing fee.':' Pay by Zelle to avoid the card fee.')):'';
+wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. Promo codes and the Zelle discount do not apply to 10-vial kits.'+(selectedPayment==='credit'?' Card pricing includes a 10% processing fee.':' Pay by Zelle to avoid the card fee.')+(wsKits()>=5?' Orders of 5+ kits are paid by Zelle. Need another payment method? Email support@vantixbio.com.':'')):'';
+var cd=document.querySelector('#creditOption .desc');if(cd){if(!cd.dataset.o)cd.dataset.o=cd.textContent;cd.textContent=(wsHas()&&wsKits()>=5)?'Not available for 5+ kits. Email support@vantixbio.com for other options.':cd.dataset.o;}
+if(wsHas()&&wsKits()>=5&&selectedPayment==='credit'){selectPayment('zelle');}
 var msg=document.getElementById('shippingMsg');
 if(subtotal>=150){
 msg.textContent='✓ You qualified for FREE shipping!';
@@ -776,6 +778,7 @@ document.getElementById('cardholderName').value=this.value;
 });
 
 function selectPayment(method){
+if(method==='credit'&&wsHas()&&wsKits()>=5){alert('Orders of 5 or more 10-vial kits are paid by Zelle. For another payment method, please email support@vantixbio.com.');method='zelle';}
 selectedPayment=method;
 try{if(window.vxTrack&&cart&&cart.length){window.vxTrack('add_payment_info',{payment_type:method==='zelle'?'zelle':'card',ecommerce:{currency:'USD',value:getTotal(),items:cart.map(function(i){return {item_id:i.sku,item_name:i.name,price:i.price,quantity:i.quantity};})}});}}catch(e){}
 document.getElementById('zelleOption').classList.remove('selected');

@@ -281,6 +281,7 @@ function friendlyError(msg) {
   if (msg.startsWith('invalid_discount_code')) return { expected: true, http: 400, text: "That code isn't active right now. Please remove it and try again, or email support@vantixbio.com." };
   if (msg.startsWith('unknown_or_inactive_sku')) return { expected: true, http: 400, text: 'An item in your cart is no longer available. Please refresh and try again.' };
   if (msg.startsWith('wholesale_quote_required')) return { expected: true, http: 400, text: 'Orders of 10+ kits are custom volume and quoted individually. Please email support@vantixbio.com for a quote.' };
+  if (msg.startsWith('wholesale_zelle_only')) return { expected: true, http: 400, text: 'Orders of 5 or more 10-vial kits are paid by Zelle. Please choose Zelle or email support@vantixbio.com for another payment method.' };
   if (msg.startsWith('wholesale_no_codes')) return { expected: true, http: 400, text: 'Promo codes cannot be combined with 10-vial kits. Please remove the code to continue.' };
   if (msg.startsWith('order_number_in_use')) return { expected: true, http: 409, text: 'Please try placing your order again.' };
   return { expected: false, http: 500, text: 'We could not place your order. Please try again or contact support.' };
