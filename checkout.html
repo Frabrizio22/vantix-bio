@@ -490,6 +490,14 @@ var currentPrices={
 'VX-KIT-TISSUE':54,'VX-KIT-GH':48,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':89
 };
 
+// 10-vial kits (10 vials of one compound). Display only: the server (create_order) sets the real price.
+var WS={'VX-W-RETA-20':[570,500,400],'VX-W-TIRZ-30':[500,440,350],'VX-W-TESA-10':[440,390,310],'VX-W-NAD-1000':[500,440,350],'VX-W-TB-10':[320,290,230],'VX-W-BPC-10':[260,230,180],'VX-W-GHK-100':[290,260,210],'VX-W-MOTS-10':[270,240,240]};
+function wsKits(){var n=0;cart.forEach(function(i){if(WS[i.sku])n+=i.quantity;});return n;}
+function wsHas(){return wsKits()>0;}
+function wsSubtotal(){var t=0;cart.forEach(function(i){if(WS[i.sku])t+=i.price*i.quantity;});return t;}
+function applyWholesale(){var n=wsKits();if(!n)return;var t=n>=5?2:n>=2?1:0;var card=selectedPayment==='credit';
+cart.forEach(function(i){if(WS[i.sku]){var p=WS[i.sku][t];i.price=card?Math.round(p*110)/100:p;}});}
+
 // Out of stock products - prevents checkout
 var outOfStock = [];
 
@@ -568,6 +576,7 @@ saveCart();
 
 function renderCart(){
 autoBundleKits();
+applyWholesale();
 var container=document.getElementById('cartItems');
 if(cart.length===0){
 container.innerHTML='<div class="cart-empty">Your cart is empty<br><br><a href="shop.html">Browse Products →</a></div>';
@@ -606,6 +615,7 @@ updateSummary();
 }
 
 function updateQty(index,change){
+if(change>0&&WS[cart[index].sku]&&wsKits()>=9){alert('Orders of 10+ kits are custom volume and quoted individually. Please email support@vantixbio.com for a quote.');return;}
 cart[index].quantity+=change;
 if(cart[index].quantity<1)cart[index].quantity=1;
 saveCart();renderCart();
@@ -636,7 +646,7 @@ var discount=0;
 var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','CHERNANDEZ10','WIZZA','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT'];
 
 // NAD+ auto-discount removed
-if(promoCode&&promoCodes[promoCode]){
+if(!wsHas()&&promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
 if(wholeOrderCodes.indexOf(promoCode)!==-1){
@@ -662,14 +672,14 @@ discount+=singlesTotal*promoValue.discount;
 }
 }
 }
-if(selectedPayment==='zelle'){discount+=subtotal*0.05;}
+if(selectedPayment==='zelle'){discount+=(subtotal-wsSubtotal())*0.05;}
 return discount;
 }
 
 function getShipping(){
-if(promoCode==='FREESHIP'){return 0;}
+if(!wsHas()&&promoCode==='FREESHIP'){return 0;}
 // Check for freeShipping in promo code object
-if(promoCode&&promoCodes[promoCode]){
+if(!wsHas()&&promoCode&&promoCodes[promoCode]){
 var promo=promoCodes[promoCode];
 if(typeof promo==='object'&&promo.freeShipping===true){return 0;}
 }
@@ -683,6 +693,7 @@ return getSubtotal()+getShipping()-getDiscount();
 }
 
 function updateSummary(){
+applyWholesale();
 var subtotal=getSubtotal();
 var discount=getDiscount();
 var shipping=getShipping();
@@ -693,10 +704,14 @@ document.getElementById('total').textContent='$'+total.toFixed(2);
 var discountRow=document.getElementById('discountRow');
 if(discount>0){
 document.getElementById('discount').textContent='-$'+discount.toFixed(2);
-var label=promoCode?'Discount ('+promoCode+')':'Zelle Discount (5%)';
+var label=(promoCode&&!wsHas())?'Discount ('+promoCode+')':'Zelle Discount (5%)';
 document.getElementById('discountLabel').textContent=label;
 discountRow.style.display='flex';
 }else{discountRow.style.display='none';}
+var zt=document.querySelector('#zelleOption .discount-tag');if(zt){if(!zt.dataset.o)zt.dataset.o=zt.textContent;zt.textContent=wsHas()?'✓ Best price for 10-vial kits (no card fee)':zt.dataset.o;}
+var wn=document.getElementById('wsNote');
+if(!wn){wn=document.createElement('div');wn.id='wsNote';wn.style.cssText='font-size:12px;color:#6b7280;margin:8px 0;line-height:1.5';document.getElementById('shippingMsg').parentNode.insertBefore(wn,document.getElementById('shippingMsg'));}
+wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. Promo codes and the Zelle discount do not apply to 10-vial kits.'+(selectedPayment==='credit'?' Card pricing includes a 10% processing fee.':' Pay by Zelle to avoid the card fee.')):'';
 var msg=document.getElementById('shippingMsg');
 if(subtotal>=150){
 msg.textContent='✓ You qualified for FREE shipping!';
@@ -774,7 +789,7 @@ document.getElementById('creditOption').classList.add('selected');
 cardholderFields.style.display='block';
 document.getElementById('cardholderName').setAttribute('required','required');
 }
-updateSummary();
+if(wsHas()){renderCart();}else{updateSummary();}
 }
 
 function generateOrderNumber(){
@@ -882,12 +897,12 @@ quantity:cart.reduce((sum,item)=>sum+item.quantity,0),
 items_detail:cart.map(item=>`${item.quantity}x ${item.name} ($${item.price})`).join('\n'),
 subtotal:getSubtotal(),
 discount:getDiscount(),
-discount_code:promoCode||'',
+discount_code:wsHas()?'':(promoCode||''),
 referral_source:referralSource||'',
 shipping:getShipping(),
 total:getTotal(),
 affirmation:window.vxAffirmation||{},
-creator_code:vxCreatorCode(),
+creator_code:wsHas()?'':vxCreatorCode(),
 first_touch:(function(){try{return window.vxTouches?window.vxTouches():null;}catch(e){return null;}})()
 };
 var submitBtn=document.getElementById('submitBtn');

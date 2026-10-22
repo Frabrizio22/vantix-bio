@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Research Kits — Vantix Bio</title>
+<title>Research Bundles — Vantix Bio</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <meta name="description" content="analytical-grade peptide research kits. Third-party verified combinations with separate COAs for complete analytical transparency.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,6 +91,31 @@ h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
 .btn::before{content:'→';font-size:16px;font-weight:400}
 .btn:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(57,115,176,.25)}
 .btn:active{transform:translateY(0);box-shadow:0 1px 3px rgba(10,22,40,.12)}
+
+/* bundles refresh: readable on phones, vial photos, compact unavailable state */
+.kits-grid{grid-template-columns:1fr;gap:16px}
+@media(min-width:620px){.kits-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(min-width:1024px){.kits-grid{gap:32px}}
+.kit-card{padding:16px 16px 16px}
+.kit-vials{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#FBFBFB;border:1px solid rgba(10,22,40,.06);border-radius:6px;margin-bottom:14px;position:relative;overflow:hidden}
+.kit-vials img{width:100%;height:132px;object-fit:contain;display:block}
+@media(min-width:768px){.kit-vials img{height:150px}}
+.kit-vials::after{content:'+';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Fraunces',serif;font-size:22px;color:rgba(10,22,40,.35);background:#FBFBFB;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1}
+.kit-number{font-size:10px}.kit-savings{font-size:11px}
+.kit-label{font-size:10px;margin-bottom:6px}
+.kit-name{font-size:1.35rem}
+.kit-desc{font-size:14px;line-height:1.45;margin-bottom:10px}
+.kit-composition-label{font-size:10px}
+.kit-item{font-size:14px}.kit-item-dose{font-size:12px}
+.kit-price{font-size:28px}.kit-price-regular{font-size:17px}
+.btn{font-size:12px;padding:13px 14px;min-height:46px}
+.kit-card.is-out{opacity:1}
+.kit-card.is-out .kit-vials img{opacity:.55;filter:grayscale(.5)}
+.kit-card.is-out .kit-price,.kit-card.is-out .kit-name{color:rgba(10,22,40,.6)}
+.btn.notify{background:#fff;color:var(--navy);border:1px solid var(--hairline)}
+.btn.notify::before{content:''}
+.btn.notify:hover{background:#fff;border-color:var(--accent);color:var(--accent);box-shadow:none;transform:none}
+.kit-out{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(10,22,40,.55);margin:0 0 8px}
 .why-section{padding:24px 0 16px;border:none}@media(min-width:768px){.why-section{padding:40px 0 24px}}
 .why-title{font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:12px;font-weight:300;line-height:1.15}@media(min-width:768px){.why-title{font-size:2rem;margin-bottom:20px}}
 .why-text{font-size:12px;line-height:1.55;color:rgba(10,22,40,.7);margin:0}@media(min-width:768px){.why-text{font-size:15px;line-height:1.7}}
@@ -135,7 +160,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="nav-dropdown">
 <a href="shop.html">Single Vials</a>
-<a href="kits.html">Research Kits</a>
+<a href="kits.html">Bundles</a>
 </div>
 </div>
 <a href="verify.html">Verify</a>
@@ -162,7 +187,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="menu-section-label">Product</div>
 <div class="menu-items">
 <a href="shop.html">Catalog</a>
-<a href="kits.html">Research Kits</a>
+<a href="kits.html">Bundles</a>
 <a href="verify.html">Verify Batch</a>
 </div>
 </div>
@@ -186,14 +211,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="container">
 <div class="hero">
 <div class="chapter">Chapter 003</div>
-<h1>Research Combination Kits</h1>
-<p style="margin-top:20px;font-size:15px;line-height:1.6;color:rgba(10,22,40,.7);max-width:650px">Pre-configured peptide combinations. Separate vials, individual COAs, third-party verified.</p>
+<h1>Research Bundles</h1>
+<p style="margin-top:20px;font-size:15px;line-height:1.6;color:rgba(10,22,40,.7);max-width:650px">Two compounds per bundle, shipped as separate vials. Each vial has its own batch COA, third-party verified.</p>
 </div>
 
 <div class="why-section">
 <div style="max-width:800px">
-<h2 class="why-title">Why Research Kits?</h2>
-<p class="why-text">Research kits contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>purity</strong>, <strong>identity</strong>, and <strong>safety testing</strong>. All components independently verified by third-party labs before release.</p>
+<h2 class="why-title">Why Bundles?</h2>
+<p class="why-text">Bundles contain separate, individually tested vials — not blends. Each peptide ships with its own batch COA covering <strong>purity</strong>, <strong>identity</strong>, and <strong>safety testing</strong>. All components independently verified by third-party labs before release.</p>
 </div>
 </div>
 
@@ -201,6 +226,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="kit-card">
 
+<div class="kit-vials"><img src="images/products/vx-2t-30mg.jpg" alt="VX-2T 30mg vial" loading="lazy" width="200" height="150"><img src="images/products/vx-3r-20mg.jpg" alt="VX-3R 20mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.03</div>
 <div class="kit-savings">−$14</div>
@@ -220,8 +246,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button class="btn" onclick="addKitToCart()">Add to Cart — $112</button>
 </div>
 
-<div class="kit-card" style="opacity:0.7">
+<div class="kit-card is-out">
 
+<div class="kit-vials"><img src="images/products/bpc-157-10mg.jpg" alt="BPC-157 10mg vial" loading="lazy" width="200" height="150"><img src="images/products/tb-500-10mg.jpg" alt="TB-500 10mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.01</div>
 <div class="kit-savings">−$14</div>
@@ -238,17 +265,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="kit-price">$54</span>
 <span class="kit-price-regular">$68</span>
 </div>
-<div style="background:linear-gradient(135deg, rgba(57,115,176,0.04) 0%, rgba(57,115,176,0.08) 100%);border:1px solid rgba(57,115,176,0.2);border-left:3px solid var(--accent);padding:10px 12px;margin-bottom:12px;border-radius:6px">
-<div style="display:flex;align-items:center;gap:6px">
-<span style="font-size:14px">⏳</span>
-<strong style="color:#0A1628;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em">Temporarily Unavailable</strong>
-</div>
-</div>
-<button class="btn" style="background:#9CA3AF;cursor:not-allowed" disabled>Out of Stock</button>
+<p class="kit-out">Currently out of stock</p>
+<a class="btn notify" href="#notify" onclick="return notifyMe(event)">Notify me when available</a>
 </div>
 
-<div class="kit-card" style="opacity:0.7">
+<div class="kit-card is-out">
 
+<div class="kit-vials"><img src="images/products/cjc-1295-10mg.jpg" alt="CJC-1295 5mg vial" loading="lazy" width="200" height="150"><img src="images/products/ipamorelin-10mg.jpg" alt="Ipamorelin 5mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.02</div>
 <div class="kit-savings">−$9</div>
@@ -265,19 +288,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="kit-price">$48</span>
 <span class="kit-price-regular">$57</span>
 </div>
-<div style="background:linear-gradient(135deg, rgba(57,115,176,0.04) 0%, rgba(57,115,176,0.08) 100%);border:1px solid rgba(57,115,176,0.2);border-left:3px solid var(--accent);padding:10px 12px;margin-bottom:12px;border-radius:6px">
-<div style="display:flex;align-items:center;gap:6px">
-<span style="font-size:14px">⏳</span>
-<strong style="color:#0A1628;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em">Temporarily Unavailable</strong>
-</div>
-</div>
-<button class="btn" style="background:#9CA3AF;cursor:not-allowed" disabled>Out of Stock</button>
+<p class="kit-out">Currently out of stock</p>
+<a class="btn notify" href="#notify" onclick="return notifyMe(event)">Notify me when available</a>
 </div>
 
 
 
-<div class="kit-card" style="opacity:0.7">
+<div class="kit-card is-out">
 
+<div class="kit-vials"><img src="images/products/nad-1000mg.jpg" alt="NAD+ 1000mg vial" loading="lazy" width="200" height="150"><img src="images/products/mots-c-10mg.jpg" alt="MOTS-C 10mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.04</div>
 <div class="kit-savings">−$10</div>
@@ -294,13 +313,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="kit-price">$89</span>
 <span class="kit-price-regular">$99</span>
 </div>
-<div style="background:linear-gradient(135deg, rgba(57,115,176,0.04) 0%, rgba(57,115,176,0.08) 100%);border:1px solid rgba(57,115,176,0.2);border-left:3px solid var(--accent);padding:10px 12px;margin-bottom:12px;border-radius:6px">
-<div style="display:flex;align-items:center;gap:6px">
-<span style="font-size:14px">⏳</span>
-<strong style="color:#0A1628;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em">Temporarily Unavailable</strong>
-</div>
-</div>
-<button class="btn" style="background:#9CA3AF;cursor:not-allowed" disabled>Out of Stock</button>
+<p class="kit-out">Currently out of stock</p>
+<a class="btn notify" href="#notify" onclick="return notifyMe(event)">Notify me when available</a>
 </div>
 
 </div>
@@ -367,5 +381,8 @@ function addKitToCart() {
 }
 </script>
 
+<script>
+function notifyMe(e){if(e)e.preventDefault();var f=document.querySelector('.vxp-foot');if(f){f.scrollIntoView({behavior:'smooth',block:'center'});var i=f.querySelector('input[type=email]');if(i)setTimeout(function(){i.focus()},500);}return false;}
+</script>
 <script src="/leads-popup.js" defer></script>
 <script src="/sticky-header.js?v=1" defer></script>

@@ -3,214 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wholesale Program — Vantix Bio</title>
-<meta name="description" content="Volume pricing for research institutions, university labs, and authorized distributors. Same batch-level verification, competitive wholesale rates.">
-<link rel="canonical" href="https://vantixbio.com/wholesale.html">
+<title>10-Vial Kits — Vantix Bio</title>
+<meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/geist" rel="stylesheet">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
-<script src="/vx-analytics.js"></script>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#FAFAF7;--text:#0F1B2D;--accent:#3973B0;--hairline:#E5E5E0;--navy:#0F1B2D}
+:root{--bg:#FAFAF7;--text:#0F1B2D;--accent:#3973B0;--accent-light:#6FA5D9;--sage:#7BA88F;--sage-d:#4A8568;--hairline:#D8D6CF;--navy:#0F1B2D;--mute:rgba(15,27,45,.62)}
+html,body{max-width:100%;overflow-x:hidden}
 body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
-.container{max-width:800px;margin:0 auto;padding:0 24px}
-.status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
-.status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
-.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline)}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
-.header-icons{display:flex;align-items:center;gap:8px}
-.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
-.icon-btn:hover{opacity:.6}
-.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
-.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px;align-items:center}}
-.nav-links a{position:relative;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
-.hero{padding:64px 24px 48px;background:var(--bg)}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:600;margin-bottom:12px}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,2.5rem);font-weight:400;line-height:1.1;margin-bottom:16px;color:var(--navy)}
-.hero p{font-size:16px;color:rgba(15,27,45,.65);max-width:560px;line-height:1.65}
-.section{padding:64px 24px}
-.section-title{font-family:'Fraunces',serif;font-size:28px;font-weight:400;margin-bottom:32px;color:var(--navy)}
-.card{background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:28px;margin-bottom:20px;border-left:3px solid var(--accent)}
-.card h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:600;margin-bottom:16px}
-.card p{font-size:14px;line-height:1.65;color:rgba(15,27,45,.7)}
-.card ul{margin:12px 0 0 0;padding:0;list-style:none}
-.card li{font-size:14px;line-height:1.8;color:rgba(15,27,45,.75);margin-bottom:10px;padding-left:20px;position:relative}
-.card li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:600}
-.form-group{margin-bottom:24px}
-.form-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(15,27,45,.6);font-weight:600;margin-bottom:8px;display:block}
-.form-input,.form-textarea,.form-select{width:100%;padding:12px 14px;border:1px solid var(--hairline);border-radius:6px;font-family:'Geist',sans-serif;font-size:14px;transition:all .2s;background:#fff}
-.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(57,115,176,.08)}
-.form-textarea{min-height:100px;resize:vertical;font-family:'Geist',sans-serif}
-.btn-submit{background:var(--navy);color:#fff;border:none;padding:14px 24px;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .2s;width:100%;font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
-.btn-submit:hover{background:#1a2d4d;box-shadow:0 4px 12px rgba(15,27,45,.15)}
-.not-fit{background:#FEF3F2;border:1px solid #FDA29B;border-radius:8px;padding:24px;margin-top:40px;border-left:3px solid #B42318}
-.not-fit h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#B42318;font-weight:600;margin-bottom:12px}
-.not-fit ul{margin:8px 0 0 0;padding:0;list-style:none}
-.not-fit li{font-size:13px;color:#B42318;margin-bottom:8px;padding-left:20px;position:relative}
-.not-fit li::before{content:'×';position:absolute;left:0;font-size:16px;font-weight:700}
-footer{background:var(--navy);color:#E8EEF5;padding:32px 24px;margin-top:64px}
-.footer-text{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(232,238,245,.4);text-align:center}
-@media(max-width:640px){.hero{padding:48px 20px 40px}.hero h1{font-size:1.75rem}.section{padding:48px 20px}.card{padding:24px}}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
+.status-bar{background:var(--navy);padding:8px 0}
+.status-inner{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
+.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--hairline)}
+.header-nav img{height:32px;display:block}
+.nav-links{display:none;gap:32px}@media(min-width:768px){.nav-links{display:flex}}
+.nav-links a{color:var(--text);text-decoration:none;font-size:15px;font-weight:500}
+.nav-links a.on{color:var(--accent)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);font-weight:600;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--accent)}
+h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+.hero{padding:44px 0 36px;border-bottom:1px solid var(--hairline)}@media(min-width:768px){.hero{padding:88px 0 64px}}
+.hero h1{font-size:clamp(2.2rem,8vw,4.2rem);margin:18px 0 20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{font-size:16px;color:var(--mute);max-width:560px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.04em;padding:14px 22px;border-radius:6px;text-decoration:none;border:1px solid var(--navy);transition:all .2s;cursor:pointer}
+.btn.pri{background:var(--navy);color:#fff}.btn.pri:hover{background:#1a2d4d;box-shadow:0 6px 16px rgba(15,27,45,.18)}
+.btn.sec{background:transparent;color:var(--navy)}.btn.sec:hover{background:#fff}
+.facts{display:grid;grid-template-columns:1fr;gap:0;border-bottom:1px solid var(--hairline)}
+@media(min-width:768px){.facts{grid-template-columns:repeat(3,1fr)}}
+.fact{padding:22px 0;border-top:1px solid var(--hairline)}.fact:first-child{border-top:0}
+@media(min-width:768px){.fact{border-top:0;padding:32px 28px;border-left:1px solid var(--hairline)}.fact:first-child{border-left:0;padding-left:0}}
+.fact .k{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:600;margin-bottom:8px}
+.fact .v{font-family:'Fraunces',serif;font-size:22px;font-weight:300;line-height:1.2;margin-bottom:6px}
+.fact p{font-size:14px;color:var(--mute)}
+section{padding:56px 0 0}@media(min-width:768px){section{padding:88px 0 0}}
+h2{font-size:clamp(1.75rem,4vw,2.5rem);margin:14px 0 12px}
+.lede{color:var(--mute);max-width:600px;font-size:15px}
+.table{margin-top:32px;background:#fff;border:1px solid var(--hairline);border-radius:10px;overflow:hidden}
+.thead{display:none}
+@media(min-width:768px){.thead{display:grid;grid-template-columns:1.4fr .9fr .9fr .9fr 1.5fr;padding:14px 28px;background:var(--navy);color:#FAFAF7;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em}
+.thead div:not(:first-child){text-align:right}}
+.thead .best{color:var(--sage)}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:20px 16px;border-top:1px solid var(--hairline)}
+.buy{grid-column:1/-1;display:flex;gap:10px;margin-top:6px}
+.stp{display:flex;align-items:center;border:1px solid var(--hairline);border-radius:6px;background:#fff}
+.stp button{width:40px;height:44px;border:0;background:none;font-size:18px;cursor:pointer;color:var(--navy)}
+.stp span{min-width:28px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:14px}
+.add{flex:1;height:46px;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:6px;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.add:hover{background:#1a2d4d}.add:disabled{background:#fff;color:var(--mute);border-color:var(--hairline);cursor:default}
+.add.ok{background:var(--sage-d);border-color:var(--sage-d)}
+.row:first-of-type{border-top:0}
+.pn{grid-column:1/-1;margin-bottom:6px}
+.nm{font-family:'Fraunces',serif;font-size:22px;font-weight:400;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mg{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);letter-spacing:.04em;margin-top:2px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--sage-d);border:1px solid var(--sage);border-radius:99px;padding:2px 8px;font-weight:600}
+.pc{display:flex;flex-direction:column;background:var(--bg);border-radius:8px;padding:10px 10px 8px}
+.pc::before{content:attr(data-label);font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:4px}
+.pc:last-child{background:#EEF4F0}
+.pc:last-child::before{color:var(--sage-d)}
+.big{font-family:'Fraunces',serif;font-size:22px;font-weight:400;line-height:1.1}
+.pv{font-size:11px;color:var(--mute);margin-top:2px}
+@media(min-width:768px){
+.row{grid-template-columns:1.4fr .9fr .9fr .9fr 1.5fr;gap:0;padding:22px 28px;align-items:center}
+.buy{grid-column:auto;margin:0 0 0 24px;justify-content:flex-end}.add{flex:0 1 130px}
+.pn{grid-column:auto;margin:0}
+.pc{background:none!important;padding:0;text-align:right}.pc::before{display:none}
+.big{font-size:26px}
+.pc:last-child .big{color:var(--sage-d)}
+.row:hover{background:#FCFCFA}}
+.note{font-size:12.5px;color:var(--mute);margin-top:16px;max-width:680px}
+.steps{display:grid;gap:0;margin-top:32px;border-top:1px solid var(--hairline)}
+@media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{padding:24px 0;border-bottom:1px solid var(--hairline)}
+@media(min-width:768px){.step{padding:28px 28px 28px 0;border-bottom:0}.step+.step{padding-left:28px;border-left:1px solid var(--hairline)}}
+.step .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;font-weight:600}
+.step h3{font-family:'Fraunces',serif;font-weight:400;font-size:20px;margin:8px 0 6px}
+.step p{font-size:14px;color:var(--mute)}
+.terms{margin-top:32px;display:grid;gap:0;background:#fff;border:1px solid var(--hairline);border-radius:10px}
+@media(min-width:768px){.terms{grid-template-columns:1fr 1fr}}
+.term{padding:20px 24px;border-top:1px solid var(--hairline);font-size:14px;color:var(--mute)}
+.term:first-child{border-top:0}
+@media(min-width:768px){.term:nth-child(2){border-top:0}.term:nth-child(even){border-left:1px solid var(--hairline)}}
+.term b{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:4px}
+.form-wrap{margin-top:32px;max-width:640px}
+.fg{margin-bottom:20px}
+.fl{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--mute);font-weight:600;margin-bottom:8px;display:block}
+.fi{width:100%;padding:13px 14px;border:1px solid var(--hairline);border-radius:6px;font-family:'Geist',sans-serif;font-size:16px;background:#fff;color:var(--text)}
+.fi:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(57,115,176,.1)}
+textarea.fi{min-height:96px;resize:vertical}
+.fr{display:grid;gap:0 16px}@media(min-width:600px){.fr{grid-template-columns:1fr 1fr}}
+button.btn{width:100%}
+.irow{display:grid;grid-template-columns:1fr 92px;gap:10px;margin-bottom:12px}.sum{font-family:'Fraunces',serif;font-size:22px;margin:0 0 24px;padding:16px 18px;background:#fff;border:1px solid var(--hairline);border-radius:8px}.sum small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.custom{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;background:#fff;border:1px solid var(--hairline);border-radius:10px}.custom b{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent)}.custom p{font-size:14px;color:var(--mute);margin-top:4px;max-width:520px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:#fff;padding:12px 20px;display:none;align-items:center;justify-content:space-between;gap:14px;z-index:50;box-shadow:0 -6px 20px rgba(15,27,45,.2)}.bar.on{display:flex}.bar small{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}.bar b{font-family:"Fraunces",serif;font-weight:400;font-size:20px}.bar a{background:#fff;color:var(--navy);text-decoration:none;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;padding:13px 20px;border-radius:6px;white-space:nowrap}
+footer{background:#0B2545;color:#E8EEF5;padding:40px 20px 28px;margin-top:80px;text-align:center}
+footer p{font-size:12px;opacity:.8}
+footer a{color:inherit}
 </style>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PM5J7G2C');</script>
-<!-- End Google Tag Manager -->
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM5J7G2C"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-
-
+<div class="status-bar"><div class="status-inner"><span class="pulse"></span><span>Typically ships within one business day</span></div></div>
 <div class="container">
 <nav class="header-nav">
-<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
-<button class="icon-btn" id="menuBtn" aria-label="Menu">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-</button>
-<a href="index.html" class="logo">
-<img src="logo-header.svg" alt="Vantix Bio" style="height:32px">
-</a>
-</div>
-<div class="nav-links">
-<a href="shop.html">Shop</a>
-<a href="verify.html">Verify</a>
-<a href="blog/">Research</a>
-<a href="contact.html">Contact</a>
-</div>
-<div class="header-icons">
-<button class="icon-btn" onclick="window.location.href='verify.html'" aria-label="Verify">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.2-5.2m2.7-5.3a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"/></svg>
-</button>
-</div>
+<a href="index.html"><img src="logo-header.svg" alt="Vantix Bio"></a>
+<div class="nav-links"><a href="shop.html">Catalog</a><a href="verify.html">Verify</a><a href="blog/">Research</a><a href="about.html">About</a><a class="on" href="wholesale.html">10-Vial Kits</a></div>
 </nav>
-</div>
 
 <div class="hero">
-<div class="container">
-<div class="eyebrow">Wholesale / Volume Pricing</div>
-<p style="margin-top:16px">Volume pricing for university labs, research facilities, and authorized distributors. Same batch-level verification, competitive wholesale rates.</p>
-</div>
-</div>
-
-<div class="container section">
-
-<div class="card">
-<h3>Program Benefits</h3>
-<ul>
-<li>Volume pricing — discount based on order size (larger orders = better pricing)</li>
-<li>Priority restocking — wholesale orders jump the fulfillment queue</li>
-<li>Custom vial sizes and additional research compounds on request</li>
-<li>Direct communication — work directly with the owner, no sales teams</li>
-</ul>
+<div class="eyebrow">10-vial kits</div>
+<h1>Verified compounds, <em>by the kit.</em></h1>
+<p>A kit is ten vials of a single compound, with the same batch-level third-party testing as every Vantix Bio vial. The more kits you order, the lower your price per kit.</p>
+<div class="hero-cta"><a class="btn pri" href="#pricing">View kit pricing</a><a class="btn sec" href="checkout.html">Go to cart</a></div>
 </div>
 
-<div style="margin:48px 0 32px">
-<div class="eyebrow">Wholesale Inquiry</div>
-<h2 class="section-title">Submit request.</h2>
+<div class="facts">
+<div class="fact"><div class="k">Unit</div><div class="v">10 vials per kit</div><p>One compound, one batch, individually COA-verified.</p></div>
+<div class="fact"><div class="k">Tiers</div><div class="v">1 &middot; 2&ndash;4 &middot; 5+ kits</div><p>Priced per order. Mix any compounds and every kit counts toward your tier.</p></div>
+<div class="fact"><div class="k">Fulfillment</div><div class="v">Ships in one business day</div><p>Typically ships within one business day of payment.</p></div>
 </div>
 
-<form action="https://formsubmit.co/vantixbio@gmail.com" method="POST">
-<input type="hidden" name="_subject" value="Wholesale Inquiry - Vantix Bio">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_template" value="box">
-<div class="form-group">
-<label class="form-label" for="name">Name <span style="color:#B42318">*</span></label>
-<input type="text" id="name" name="name" class="form-input" required>
+<section id="pricing">
+<div class="eyebrow">Kit pricing</div>
+<h2>Price per kit of ten.</h2>
+<p class="lede">Per-vial equivalents shown beneath each price. Research use only.</p>
+<div class="table">
+<div class="thead"><div>Compound</div><div>1 kit</div><div>2&ndash;4 kits</div><div class="best">5+ kits</div><div></div></div>
+<div class="row" data-sku="VX-W-RETA-20" data-name="VX-3R 20mg 10-Vial Kit"><div class="pn"><div class="nm">VX-3R</div><div class="mg">20mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$570</span><span class="pv">$57 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$500</span><span class="pv">$50 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$400</span><span class="pv">$40 / vial</span></div><div class="buy"><div class="stp"><button aria-label="Fewer">&minus;</button><span>1</span><button aria-label="More">+</button></div><button class="add">Add to cart</button></div></div>
+<div class="row" data-sku="VX-W-TIRZ-30" data-name="VX-2T 30mg 10-Vial Kit"><div class="pn"><div class="nm">VX-2T</div><div class="mg">30mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$500</span><span class="pv">$50 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$440</span><span class="pv">$44 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$350</span><span class="pv">$35 / vial</span></div><div class="buy"><div class="stp"><button aria-label="Fewer">&minus;</button><span>1</span><button aria-label="More">+</button></div><button class="add">Add to cart</button></div></div>
+<div class="row" data-sku="VX-W-TESA-10" data-name="Tesamorelin 10mg 10-Vial Kit"><div class="pn"><div class="nm">Tesamorelin</div><div class="mg">10mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$440</span><span class="pv">$44 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$390</span><span class="pv">$39 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$310</span><span class="pv">$31 / vial</span></div><div class="buy"><div class="stp"><button aria-label="Fewer">&minus;</button><span>1</span><button aria-label="More">+</button></div><button class="add">Add to cart</button></div></div>
+<div class="row" data-sku="VX-W-NAD-1000" data-name="NAD+ 1000mg 10-Vial Kit"><div class="pn"><div class="nm">NAD+</div><div class="mg">1000mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$500</span><span class="pv">$50 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$440</span><span class="pv">$44 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$350</span><span class="pv">$35 / vial</span></div><div class="buy"><div class="stp"><button aria-label="Fewer">&minus;</button><span>1</span><button aria-label="More">+</button></div><button class="add">Add to cart</button></div></div>
+<div class="row" data-sku="VX-W-TB-10" data-name="TB-500 10mg 10-Vial Kit"><div class="pn"><div class="nm">TB-500</div><div class="mg">10mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$320</span><span class="pv">$32 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$290</span><span class="pv">$29 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$230</span><span class="pv">$23 / vial</span></div><div class="buy"><div class="stp"><button aria-label="Fewer">&minus;</button><span>1</span><button aria-label="More">+</button></div><button class="add">Add to cart</button></div></div>
+<div class="row" data-sku="VX-W-BPC-10" data-name="BPC-157 10mg 10-Vial Kit"><div class="pn"><div class="nm">BPC-157</div><div class="mg">10mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$260</span><span class="pv">$26 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$230</span><span class="pv">$23 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$180</span><span class="pv">$18 / vial</span></div><div class="buy"><div class="stp"><button aria-label="Fewer">&minus;</button><span>1</span><button aria-label="More">+</button></div><button class="add">Add to cart</button></div></div>
+<div class="row" data-sku="VX-W-GHK-100" data-name="GHK-Cu 100mg 10-Vial Kit"><div class="pn"><div class="nm">GHK-Cu<span class="tag">Restocking</span></div><div class="mg">100mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$290</span><span class="pv">$29 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$260</span><span class="pv">$26 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$210</span><span class="pv">$21 / vial</span></div><div class="buy"><button class="add" disabled>Restocking</button></div></div>
+<div class="row" data-sku="VX-W-MOTS-10" data-name="MOTS-c 10mg 10-Vial Kit"><div class="pn"><div class="nm">MOTS-c<span class="tag">Restocking</span></div><div class="mg">10mg &middot; 10 vials</div></div><div class="pc" data-label="1 kit"><span class="big">$270</span><span class="pv">$27 / vial</span></div><div class="pc" data-label="2&ndash;4 kits"><span class="big">$240</span><span class="pv">$24 / vial</span></div><div class="pc" data-label="5+ kits"><span class="big">$240</span><span class="pv">$24 / vial</span></div><div class="buy"><button class="add" disabled>Restocking</button></div></div>
+
 </div>
+<div class="custom"><div><b>Custom volume</b><p>Need 10 or more kits, or a larger mix, like 20 of one compound and 5 each of two others? We quote those individually.</p></div><a class="btn sec" href="mailto:support@vantixbio.com?subject=Custom%20volume%20quote">Request a custom quote</a></div>
+<p class="note">Pay by Zelle at the listed price; card payments carry a 10% processing fee. 10-vial kits are not combinable with promo codes. Availability varies by compound.</p>
+</section>
 
-<div class="form-group">
-<label class="form-label" for="email">Email <span style="color:#B42318">*</span></label>
-<input type="email" id="email" name="email" class="form-input" required>
+<section>
+<div class="eyebrow">How it works</div>
+<h2>Three steps to your first kit.</h2>
+<div class="steps">
+<div class="step"><div class="n">01</div><h3>Choose your kits</h3><p>Add kits to your cart. Your tier price updates automatically as you add more.</p></div>
+<div class="step"><div class="n">02</div><h3>Check out</h3><p>Pay by Zelle at the listed price, or by card with a 10% processing fee.</p></div>
+<div class="step"><div class="n">03</div><h3>Receive your kits</h3><p>Discreet packaging, tracking provided, COAs included with every batch.</p></div>
 </div>
+</section>
 
-<div class="form-group">
-<label class="form-label" for="company">Institution / Company</label>
-<input type="text" id="company" name="company" class="form-input">
+<section>
+<div class="eyebrow">Terms</div>
+<h2>The fine print, kept short.</h2>
+<div class="terms">
+<div class="term"><b>Tier counting</b>Priced per order. Kits of any compound count toward the same tier.</div>
+<div class="term"><b>Payment</b>Zelle at the listed price. Cards add 10%.</div>
+<div class="term"><b>Eligibility</b>Buyers must be 21+ and purchasing for research use only.</div>
+<div class="term"><b>Custom volume</b>Orders of 10+ kits, or large mixed orders, are quoted individually. Email support@vantixbio.com.</div>
 </div>
-
-<div class="form-group">
-<label class="form-label" for="business-type">Business Type <span style="color:#B42318">*</span></label>
-<select id="business-type" name="business_type" class="form-select" required>
-<option value="">Select type...</option>
-<option value="research-institution">Research Institution / University Lab</option>
-<option value="biotech">Biotech Company</option>
-<option value="cro">Contract Research Organization (CRO)</option>
-<option value="distributor">Distributor / Reseller</option>
-<option value="other">Other</option>
-</select>
-</div>
-
-<div class="form-group">
-<label class="form-label" for="products">Typical Order Details <span style="color:#B42318">*</span></label>
-<textarea id="products" name="products" class="form-textarea" placeholder="Example: 20 vials Tirzepatide 30mg, 15 vials BPC-157 10mg, 10 vials Retatrutide 20mg" style="min-height:80px" required></textarea>
-<p style="font-size:12px;color:rgba(15,27,45,.5);margin-top:6px;line-height:1.4">List products and approximate quantities per order. Helps us provide accurate pricing.</p>
-</div>
-
-<div class="form-group">
-<label class="form-label" for="volume">Estimated Monthly Volume <span style="color:#B42318">*</span></label>
-<select id="volume" name="volume" class="form-select" required>
-<option value="">Select range...</option>
-<option value="under-1k">Under $1,000</option>
-<option value="1k-2k">$1,000 - $2,000</option>
-<option value="2k-5k">$2,000 - $5,000</option>
-<option value="5k-10k">$5,000 - $10,000</option>
-<option value="10k-20k">$10,000 - $20,000</option>
-<option value="20k+">$20,000+</option>
-</select>
-</div>
-
-<div class="form-group">
-<label class="form-label" for="frequency">Order Frequency <span style="font-size:9px;font-weight:400;opacity:0.6">(optional)</span></label>
-<select id="frequency" name="frequency" class="form-select">
-<option value="">Select frequency...</option>
-<option value="weekly">Weekly</option>
-<option value="biweekly">Every 2 weeks</option>
-<option value="monthly">Monthly</option>
-<option value="quarterly">Quarterly</option>
-<option value="as-needed">As needed</option>
-</select>
-</div>
-
-<div class="form-group">
-<label class="form-label" for="timeline">First Order Timeline <span style="font-size:9px;font-weight:400;opacity:0.6">(optional)</span></label>
-<select id="timeline" name="timeline" class="form-select">
-<option value="">Select timeline...</option>
-<option value="2-weeks">Within 2 weeks</option>
-<option value="1-month">Within 1 month</option>
-<option value="3-months">Within 3 months</option>
-<option value="exploring">Exploring options</option>
-</select>
-</div>
-
-<div class="form-group">
-<label class="form-label" for="message">Additional Details <span style="font-size:9px;font-weight:400;opacity:0.6">(optional)</span></label>
-<textarea id="message" name="message" class="form-textarea" placeholder="Research use case, special requirements, questions..."></textarea>
-</div>
-
-<button type="submit" class="btn-submit">Submit Inquiry</button>
-</form>
-
-
+</section>
 
 </div>
 
 <footer>
-<p class="footer-text">© 2026 Vantix Bio LLC · For Research Use Only</p>
+<p><strong>RUO</strong> &mdash; For research only. Not for human consumption. Not FDA approved.</p>
+<p style="margin-top:8px;font-size:10px;opacity:.6">&copy; 2026 Vantix Bio LLC</p>
 </footer>
-
-<script src="/sticky-header.js?v=1" defer></script>
+<div class="bar" id="bar"><div><small id="bt">0 kits</small><b id="bs">$0</b></div><a href="checkout.html">Checkout &rarr;</a></div>
+<script>
+var T={"VX-W-RETA-20":[570,500,400],"VX-W-TIRZ-30":[500,440,350],"VX-W-TESA-10":[440,390,310],"VX-W-NAD-1000":[500,440,350],"VX-W-TB-10":[320,290,230],"VX-W-BPC-10":[260,230,180],"VX-W-GHK-100":[290,260,210],"VX-W-MOTS-10":[270,240,240]};
+function gc(){try{return JSON.parse(localStorage.getItem('vantixCart')||'[]')}catch(e){return[]}}
+function sc(c){try{localStorage.setItem('vantixCart',JSON.stringify(c))}catch(e){}}
+function kits(c){return c.reduce(function(n,i){return n+(T[i.sku]?i.quantity:0)},0)}
+function bar(){var c=gc(),n=kits(c),ti=n>=5?2:n>=2?1:0,tot=0;c.forEach(function(i){if(T[i.sku])tot+=T[i.sku][ti]*i.quantity});
+document.getElementById('bar').classList.toggle('on',n>0);
+var nxt=n<2?'Add '+(2-n)+' more for 2\u20134 kit pricing':n<5?'Add '+(5-n)+' more for 5+ kit pricing':'Best tier unlocked';
+document.getElementById('bt').textContent=n+' kit'+(n==1?'':'s')+' \u00b7 '+nxt;document.getElementById('bs').textContent='$'+tot.toLocaleString()}
+document.querySelectorAll('.row[data-sku]').forEach(function(r){var q=1,s=r.querySelector('.stp span');if(!s)return;
+r.querySelectorAll('.stp button').forEach(function(b,i){b.onclick=function(){q=Math.max(1,Math.min(9,q+(i?1:-1)));s.textContent=q}});
+var a=r.querySelector('.add');a.onclick=function(){var c=gc();if(kits(c)+q>9){alert('Orders of 10+ kits are custom volume and quoted individually. Please use Request a custom quote.');return}
+var sku=r.dataset.sku,e=c.filter(function(i){return i.sku===sku})[0];if(e)e.quantity+=q;else c.push({sku:sku,name:r.dataset.name,price:T[sku][0],quantity:q});sc(c);bar();
+a.textContent='Added \u2713';a.classList.add('ok');setTimeout(function(){a.textContent='Add to cart';a.classList.remove('ok')},1200)}});
+bar();
+</script>
 </body>
 </html>
