@@ -515,6 +515,10 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp *{box-sizing:border-box}
 .hp h1,.hp h2,.hp h3,.hp p{margin:0}
 .hp .hp-eyebrow{font-family:'Geist',sans-serif;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--hp-blue)}
+.hp .hp-eyebrow-row{display:flex;justify-content:space-between;align-items:center;gap:12px;white-space:nowrap;font-weight:600;letter-spacing:.05em}
+.hp .hp-eyebrow-ver{display:inline-flex;align-items:center;gap:4px;color:#3D7058;text-decoration:none}
+.hp .hp-eyebrow-ver svg{width:13px;height:13px;flex:none}
+@media (max-width:350px){.hp .hp-eyebrow-row{letter-spacing:.02em}.hp .hp-eyebrow-ver svg{display:none}}
 .hp .hp-wrap{max-width:520px;margin:0 auto;padding:0 24px}
 .hp .hp-h2{font-family:'Fraunces',serif;font-weight:400;font-size:32px;line-height:1.1;letter-spacing:-.02em;color:var(--hp-navy);text-wrap:balance}
 .hp .hp-top{display:flex;flex-direction:column}
@@ -672,7 +676,7 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 <div class="hp">
 <div class="hp-wrap hp-top">
 <section class="hp-hero" aria-label="Verify before you buy">
- <div class="hp-eyebrow">Research peptides · Third-party verified</div>
+ <div class="hp-eyebrow hp-eyebrow-row"><span>Research peptides</span><a class="hp-eyebrow-ver" href="#coa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Third-party verified</a></div>
  <h1 class="hp-h1">Don&rsquo;t take<br>our word.<br><em>Verify the results.</em></h1>
  <p class="hp-lede">Every batch is tested by an independent lab before we sell it, with a 99% purity minimum. Read the lab&rsquo;s own report before you order.</p>
  <nav class="hp-shop" aria-label="Shop">
