@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Page not found — Vantix Bio</title>
+<meta name="description" content="This page has moved. Browse the Vantix Bio catalog.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFAF7;--text:#0A1628;--accent:#3973B0;--hairline:#E5E5E0;--navy:#143054}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+header{padding:14px 20px;border-bottom:1px solid var(--hairline)}
+header img{height:32px;display:block}
+main{flex:1;max-width:560px;width:100%;margin:0 auto;padding:56px 20px}
+h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2rem,6vw,2.75rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+p{margin-bottom:24px;color:rgba(10,22,40,.75)}
+.links{display:flex;flex-direction:column;gap:12px}
+.links a{display:block;padding:14px 18px;border:1px solid var(--hairline);border-radius:8px;background:#fff;color:var(--navy);text-decoration:none;font-weight:500}
+.links a.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+footer{padding:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:rgba(10,22,40,.55);border-top:1px solid var(--hairline)}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BBBNSQT84M');
+  // Log which missing address was requested, so dead links can be measured.
+  gtag('event', 'page_not_found', {missing_path: location.pathname, referrer_host: document.referrer ? (function(){try{return new URL(document.referrer).hostname}catch(e){return ''}})() : ''});
+</script>
+</head>
+<body>
+<header><a href="/"><img src="/logo-header.svg" alt="Vantix Bio"></a></header>
+<main>
+<h1>We couldn't find that page.</h1>
+<p>The link you followed may be out of date. Our catalog was reorganized, and some product pages now use catalog codes such as VX-2T and VX-3R. Your orders and lab reports are unchanged.</p>
+<div class="links">
+<a class="primary" href="/shop.html">Browse the catalog</a>
+<a href="/verify.html">Look up a batch COA</a>
+<a href="/kits.html">Kits</a>
+<a href="mailto:support@vantixbio.com">Contact support</a>
+</div>
+</main>
+<footer>FOR LABORATORY RESEARCH USE ONLY · NOT FOR HUMAN CONSUMPTION</footer>
+</body>
+</html>
