@@ -474,7 +474,8 @@ var promoCodes={
 'VB10':0.10,
 'WELCOME15':0.15,
 'WELCOMEBACK15':0.15,
-'THANKS10':0.10
+'THANKS10':0.10,
+'BADDIE':0.15
 };
 // VB10 (early-customer email offer) is valid through Oct 16, 2026, end of day Pacific
 if(new Date()>=new Date('2026-10-17T07:00:00Z')){delete promoCodes['VB10'];}
@@ -644,7 +645,7 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','CHERNANDEZ10','WIZZA','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','CHERNANDEZ10','WIZZA','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT','BADDIE'];
 
 // NAD+ auto-discount removed
 if(!wsHas()&&promoCode&&promoCodes[promoCode]){
