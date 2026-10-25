@@ -149,8 +149,8 @@ select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(57,115,176,.14);
 .kpi.hero{background:var(--navy);border-color:var(--navy);color:#fff;padding:26px 24px;isolation:isolate;justify-content:space-between;gap:28px;min-height:280px;box-shadow:0 30px 60px -34px rgba(15,27,45,.7)}
 @media(min-width:768px){.kpi.hero{padding:36px 38px;min-height:340px}}
 .kpi.hero::before{content:'';position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 85% at 100% 0%,rgba(57,115,176,.42),transparent 56%),radial-gradient(80% 60% at 0% 100%,rgba(123,168,143,.15),transparent 62%)}
-.kpi.hero .badge{position:absolute;top:22px;right:22px;width:40px;height:auto;opacity:.9;pointer-events:none}
-@media(min-width:768px){.kpi.hero .badge{top:32px;right:34px;width:48px}}
+.kpi.hero .mk{position:absolute;z-index:-1;top:18px;right:18px;height:min(calc(100% - 36px),208px);width:auto;aspect-ratio:383/449;pointer-events:none;opacity:.5;background:linear-gradient(160deg,#8FBBE6 0%,#3973B0 60%,#2D5E92 100%);-webkit-mask:url(/logo-mark-white.png) center/contain no-repeat;mask:url(/logo-mark-white.png) center/contain no-repeat}
+@media(min-width:768px){.kpi.hero .mk{top:26px;right:30px;height:min(calc(100% - 52px),280px)}}
 .kpi.hero .lab{color:rgba(255,255,255,.66)}
 .kpi.hero .val{font-size:clamp(3.2rem,9.5vw,5.6rem);line-height:.98;margin:12px 0 8px}
 .kpi.hero .d{color:rgba(255,255,255,.74);font-size:13.5px}
@@ -348,7 +348,7 @@ function dashView() {
     ? '<div class="notice soft' + rs(0) + '"><div class="sub"><b>Heads up:</b> once your commission for ' + yr + ' passes $2,000 we need a completed Form <span class="nb">W-9</span> on file before further payouts. Email support@vantixbio.com any time and we will send it to you.</div></div>'
     : '';
   const kpi = (l, v, s, i) => '<div class="card kpi' + rs(i) + '"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
-  const hero = '<div class="card kpi hero' + rs(2) + '"><img class="badge" src="/logo-mark-white.png" alt="" width="48" height="48">' +
+  const hero = '<div class="card kpi hero' + rs(2) + '"><span class="mk" aria-hidden="true"></span>' +
     '<div><div class="lab">' + (nextDue ? '<span class="pulse"></span>' : '') + 'Ready to be paid</div><div class="val num">' + usdBig(d.owed_closed_months) + '</div><div class="d">' + (nextDue ? monthName(nextDue.month) + ' payout, due by ' + esc(dayFmt(nextDue.due_by)) : 'Nothing due right now') + '</div></div>' +
     trend(months) + '</div>';
   const tbl = (head, rows) => '<div class="tw"><table class="stack"><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
