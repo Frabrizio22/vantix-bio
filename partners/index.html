@@ -42,6 +42,7 @@ button,input,select{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 a{color:var(--blue);text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.nb{white-space:nowrap}
 .num{font-variant-numeric:lining-nums tabular-nums}
 .mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
 
@@ -221,15 +222,19 @@ td b{font-weight:600}
 .terms{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:1fr;counter-reset:t}
 @media(min-width:900px){.terms{grid-template-columns:1fr 1fr;column-gap:56px}}
 .terms li{counter-increment:t;display:grid;grid-template-columns:40px 1fr;padding:17px 0;border-top:1px solid var(--hair2);font-size:14px}
+.terms li:last-child{padding-bottom:6px}
 .terms li::before{content:counter(t,decimal-leading-zero);font:500 11px/2 var(--mono);letter-spacing:.14em;color:var(--blue)}
-.card>.foot{margin-top:18px;padding-top:18px;border-top:1px solid var(--hair2)}
+.card>.foot{margin-top:14px;padding-top:18px;border-top:1px solid var(--hair2)}
 
 /* ---- page footer ---- */
-.pagefoot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 28px;padding-top:26px;margin-top:6px;border-top:1px solid var(--hair);font:500 10.5px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
-.pagefoot img{height:30px;width:auto;opacity:.9}
-.pagefoot a{color:var(--mut)}
-.pagefoot a:hover{color:var(--blue)}
-.pagefoot .c{display:flex;align-items:center;gap:16px;max-width:60ch}
+.pagefoot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 28px;padding-top:26px;margin-top:6px;border-top:1px solid var(--hair)}
+.pagefoot .c{display:flex;align-items:center;gap:16px}
+.pagefoot img{height:30px;width:auto;flex-shrink:0}
+.ft-ruo{font:400 10px/1.8 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin:0}
+.ft-ruo strong{font-weight:600;color:var(--ink)}
+.pagefoot a.m{font:500 10px/1.8 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.pagefoot a.m:hover{color:var(--blue)}
+@media(max-width:560px){.pagefoot .c{flex-direction:column;align-items:flex-start;gap:14px}.ft-ruo{font-size:9.5px;letter-spacing:.03em}}
 
 /* ---- boot ---- */
 .boot{display:flex;flex-direction:column;align-items:center;gap:20px;padding:18vh 0 12vh;color:var(--mut)}
@@ -292,7 +297,7 @@ function header(signedIn) {
 }
 
 function pageFoot() {
-  return '<footer class="pagefoot' + rs(9) + '"><div class="c"><img src="/logo-icon.svg" alt="" width="27" height="30"><span>Vantix Bio &middot; Research-use-only materials. Not for human or veterinary use.</span></div><a href="mailto:support@vantixbio.com">support@vantixbio.com</a></footer>';
+  return '<footer class="pagefoot' + rs(9) + '"><div class="c"><img src="/logo-icon.svg" alt="" width="27" height="30"><p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p></div><a class="m" href="mailto:support@vantixbio.com">support@vantixbio.com</a></footer>';
 }
 
 function loginView() {
@@ -336,9 +341,9 @@ function dashView() {
   const yr = nowYm.slice(0, 4);
   const yrNet = months.filter((m) => m.month.slice(0, 4) === yr).reduce((t, m) => t + Number(m.net || 0), 0);
   const taxNote = yrNet >= 2000
-    ? '<div class="notice' + rs(0) + '"><div class="eyebrow" style="color:var(--amber)">Action needed</div><h2>Tax form needed (W-9)</h2><div class="sub">Your commission for ' + yr + ' has reached $2,000. Before we can send any further payouts this year we need a completed Form W-9 on file. Email support@vantixbio.com and we will send it to you. Please do not put tax ID numbers in a regular email.</div></div>'
+    ? '<div class="notice' + rs(0) + '"><div class="eyebrow" style="color:var(--amber)">Action needed</div><h2>Tax form needed (<span class="nb">W-9</span>)</h2><div class="sub">Your commission for ' + yr + ' has reached $2,000. Before we can send any further payouts this year we need a completed Form <span class="nb">W-9</span> on file. Email support@vantixbio.com and we will send it to you. Please do not put tax ID numbers in a regular email.</div></div>'
     : yrNet >= 1500
-    ? '<div class="notice soft' + rs(0) + '"><div class="sub"><b>Heads up:</b> once your commission for ' + yr + ' passes $2,000 we need a completed Form W-9 on file before further payouts. Email support@vantixbio.com any time and we will send it to you.</div></div>'
+    ? '<div class="notice soft' + rs(0) + '"><div class="sub"><b>Heads up:</b> once your commission for ' + yr + ' passes $2,000 we need a completed Form <span class="nb">W-9</span> on file before further payouts. Email support@vantixbio.com any time and we will send it to you.</div></div>'
     : '';
   const kpi = (l, v, s, i) => '<div class="card kpi' + rs(i) + '"><div class="lab">' + l + '</div><div class="val num">' + v + '</div><div class="d">' + s + '</div></div>';
   const hero = '<div class="card kpi hero' + rs(2) + '"><img class="mk" src="/logo-mark-white.png" alt="">' +
@@ -356,7 +361,7 @@ function dashView() {
     '</div>' +
     (links.length ? '<section class="card' + rs(5) + '"><div class="eyebrow">Share</div><h2>' + (links.length > 1 ? 'Your links' : 'Your link') + '</h2><div class="sub" style="margin-top:8px">Share this in your bio, stories or posts. It applies your code automatically at checkout and tracks your orders. Your code also works if someone types it in.</div>' +
       links.map((l, i) => '<div class="lk">' + (links.length > 1 || l.label !== 'Your link' ? '<div class="eyebrow t">' + esc(l.label) + '</div>' : '') + '<div class="u num" id="lk' + i + '">' + esc(l.url) + '</div><button class="btn pri" data-act="copy" data-arg="' + i + '">Copy</button></div>').join('') +
-      '<div class="note"><span class="eyebrow">Posting guidelines</span>Please include a clear affiliate disclosure (for example, "I earn a commission") and the research-use-only notice when you post. Do not describe dosing, results or how to use any product.</div></section>' : '') +
+      '<div class="note"><span class="eyebrow">Posting guidelines</span>Please include a clear affiliate disclosure (for example, "I earn a commission") and the research-use-only notice when you post. Talk about Vantix Bio products only as research materials for laboratory use, in a factual, research-focused tone. Do not make medical or health claims, and do not describe dosing, results or how to use any product.</div></section>' : '') +
     '<section class="card' + rs(6) + '"><div class="sechead"><div class="eyebrow">Statements</div><h2>Monthly payouts</h2></div>' + (months.length ?
       tbl('<th>Month</th><th class="r">Commission earned</th><th class="r">Refunds and chargebacks</th><th class="r">Net</th><th class="r">Paid</th><th>Status</th>',
         months.map((m) => '<tr><td data-l="Month">' + esc(monthName(m.month)) + '</td><td class="r num" data-l="Commission earned">' + usd(m.earned) + '</td><td class="r num" data-l="Refunds and chargebacks">' + (Number(m.deducted) ? '−' + usd(m.deducted) : '—') + '</td><td class="r num" data-l="Net"><b>' + usd(m.net) + '</b></td><td class="r num" data-l="Paid">' + (m.paid == null ? '—' : usd(m.paid)) + '</td><td data-l="Status">' + pill(m) + '</td></tr>').join(''))
@@ -372,7 +377,7 @@ function dashView() {
       '<li><span>Commission is ' + (rate || 'your agreed rate') + ' of the product total after discounts, before shipping and taxes.</span></li>' +
       '<li><span>Every paid order that uses your code counts. An order becomes payable once it has shipped, in the month it shipped.</span></li>' +
       '<li><span>Each month is paid in the first week of the following month, by the 7th.</span></li>' +
-      '<li><span>Once your total commission in a calendar year reaches $2,000, we need a completed Form W-9 on file before we can send further payouts that year.</span></li>' +
+      '<li><span>Once your total commission in a calendar year reaches $2,000, we need a completed Form <span class="nb">W-9</span> on file before we can send further payouts that year.</span></li>' +
       '<li><span>If an order is refunded or charged back, the commission on it is deducted. If that happens before the payout it comes out of that payout, and if it happens after, it comes out of the next one.</span></li>' +
       '<li><span>You only see order numbers, dates and amounts. Customer names and emails stay private.</span></li></ul>' +
       '<div class="foot">Questions about a number? Email <a href="mailto:support@vantixbio.com">support@vantixbio.com</a> with the order number.</div></section>' +
