@@ -63,7 +63,7 @@ a{color:var(--blue);text-underline-offset:3px}
 header.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--hair)}
 .brand{display:flex;align-items:center;text-decoration:none}
 .brand img{display:block;height:38px;width:auto}
-@media(min-width:768px){.brand img{height:50px}}
+@media(min-width:768px){.brand img{height:48px}}
 
 /* ---- type ---- */
 h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.1;letter-spacing:-.02em;text-wrap:balance}
@@ -269,7 +269,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div class="strip"><div><span class="l"><span class="pulse"></span>Partner portal</span><span class="r">One-time code sign-in</span></div></div>
-<main class="wrap intro" id="app"><div class="boot"><img src="/partners/logo-icon-fit.svg" alt="" width="64" height="72"><span class="eyebrow">Loading</span></div></main>
+<main class="wrap intro" id="app"><div class="boot"><img src="/partners/logo-icon-fit.svg" alt="" width="64" height="76"><span class="eyebrow">Loading</span></div></main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 'use strict';
@@ -293,12 +293,12 @@ const S = { stage: 'boot', email: '', msg: '', err: '', busy: false, data: null,
 const HEX = '<svg viewBox="0 0 30 34" fill="none" stroke="#D9D2BF" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M15 1.5l12.5 7.2v14.6L15 30.5 2.5 23.3V8.7z"/><path d="M15 1.5v10M2.5 8.7l8.8 5M27.5 8.7l-8.8 5" stroke-opacity=".7"/><circle cx="15" cy="15.5" r="2.2" fill="#D9D2BF" stroke="none"/></svg>';
 
 function header(signedIn) {
-  return '<header class="bar"><a class="brand" href="https://vantixbio.com" aria-label="Vantix Bio"><img src="/partners/logo-header-fit.svg" alt="Vantix Bio" width="93" height="36"></a>' +
+  return '<header class="bar"><a class="brand" href="https://vantixbio.com" aria-label="Vantix Bio"><img src="/partners/logo-header-fit.svg" alt="Vantix Bio" width="103" height="38"></a>' +
     (signedIn ? '<button class="btn sm" data-act="out">Sign out</button>' : '') + '</header>';
 }
 
 function pageFoot() {
-  return '<footer class="pagefoot' + rs(9) + '"><div class="c"><img src="/partners/logo-icon-fit.svg" alt="" width="27" height="30"><p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p></div><a class="m" href="mailto:support@vantixbio.com">support@vantixbio.com</a></footer>';
+  return '<footer class="pagefoot' + rs(9) + '"><div class="c"><img src="/partners/logo-icon-fit.svg" alt="" width="26" height="31"><p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p></div><a class="m" href="mailto:support@vantixbio.com">support@vantixbio.com</a></footer>';
 }
 
 function loginView() {
@@ -401,7 +401,7 @@ function render() {
     app.innerHTML = body.replace('</header>', () => '</header>' + adminBar());
     return;
   }
-  app.innerHTML = S.stage === 'boot' ? '<div class="boot"><img src="/partners/logo-icon-fit.svg" alt="" width="64" height="72"><span class="eyebrow">Loading</span></div>' : (S.stage === 'dash' ? dashView() : loginView());
+  app.innerHTML = S.stage === 'boot' ? '<div class="boot"><img src="/partners/logo-icon-fit.svg" alt="" width="64" height="76"><span class="eyebrow">Loading</span></div>' : (S.stage === 'dash' ? dashView() : loginView());
 }
 
 async function loadData() {
