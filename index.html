@@ -589,6 +589,8 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-tabs button{flex:1;min-height:44px;padding:10px 12px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--hp-mute);cursor:pointer}
 .hp .hp-tabs button[aria-selected="true"]{color:var(--hp-navy);border-bottom-color:var(--hp-blue);background:#FBF9F0;font-weight:600}
 .hp .hp-tabs button:focus-visible{outline:2px solid var(--hp-blue);outline-offset:-2px}
+.hp .hp-tabs button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.hp .hp-sheet{touch-action:pan-y pinch-zoom}
 .hp .hp-rep{padding:16px;text-align:center}
 .hp .hp-rep img{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;border:1px solid #E6E2D6;background:#fff}
 .hp .hp-rep span{display:block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--hp-mute)}
@@ -808,6 +810,23 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
   if(nt)nt.textContent=tabs[i].note;
   if(nl){nl.href=tabs[i].href;nl.textContent=tabs[i].link}
   if(focus)tabs[i].tb.focus();
+ }
+ function curIdx(){for(var i=0;i<tabs.length;i++)if(tabs[i].tb.getAttribute('aria-selected')==='true')return i;return 0}
+ var sheet=document.querySelector('#coa .hp-sheet'),sx=0,sy=0,stt=0,track=false;
+ if(sheet){
+  sheet.addEventListener('touchstart',function(e){
+   var t=e.target;
+   track=e.touches.length===1&&!(t.closest&&t.closest('#hpChart,input'));
+   if(track){sx=e.touches[0].clientX;sy=e.touches[0].clientY;stt=Date.now()}
+  },{passive:true});
+  sheet.addEventListener('touchend',function(e){
+   if(!track)return;track=false;
+   var c=e.changedTouches[0],dx=c.clientX-sx,dy=c.clientY-sy;
+   if(Date.now()-stt>800||Math.abs(dx)<50||Math.abs(dx)<Math.abs(dy)*1.5)return;
+   var i=curIdx()+(dx<0?1:-1);
+   if(i>=0&&i<tabs.length)show(i);
+  },{passive:true});
+  sheet.addEventListener('touchcancel',function(){track=false},{passive:true});
  }
  tabs.forEach(function(x,k){
   x.tb.addEventListener('click',function(){show(k)});
