@@ -591,6 +591,23 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-tabs button:focus-visible{outline:2px solid var(--hp-blue);outline-offset:-2px}
 .hp .hp-tabs button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .hp .hp-sheet{touch-action:pan-y pinch-zoom}
+.hp .hp-panels{display:grid}
+.hp .hp-panels>[role=tabpanel]{grid-area:1/1;min-width:0}
+.hp .hp-panels>[role=tabpanel][hidden]{display:block!important;visibility:hidden;pointer-events:none}
+.hp #hpPanelData{display:flex;flex-direction:column}
+.hp #hpPanelData .hp-pf{margin-top:auto}
+@media (max-width:600px){
+.hp #hpPanelData .hp-sh{padding:12px 16px 10px}
+.hp #hpPanelData .hp-ph{padding:12px 16px 8px}
+.hp #hpPanelData .hp-chart{height:112px}
+.hp #hpPanelData .hp-mets{margin-top:10px}
+.hp #hpPanelData .hp-met>button{min-height:46px;padding-top:6px;padding-bottom:6px}
+.hp #hpPanelData .hp-pf{padding:10px 16px}
+}
+.hp .hp-dots{display:flex;justify-content:center;gap:7px;padding:2px 0 16px}
+.hp .hp-dots i{display:block;width:6px;height:6px;border-radius:3px;background:#D3CDB8;transition:width .2s ease,background-color .2s ease}
+.hp .hp-dots i.on{width:18px;background:var(--hp-navy)}
+@media (prefers-reduced-motion:reduce){.hp .hp-dots i{transition:none}}
 .vx-lb{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:flex-start;justify-content:center;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:rgba(15,27,45,.9);padding:max(56px,calc(env(safe-area-inset-top,0px) + 56px)) 12px max(24px,env(safe-area-inset-bottom,0px));touch-action:pan-x pan-y pinch-zoom;opacity:0;transition:opacity .18s ease}
 .vx-lb.on{opacity:1}
 .vx-lb img{display:block;width:min(100%,780px);height:auto;background:#fff;border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
@@ -753,6 +770,7 @@ body.vx-lb-open{overflow:hidden}
     <button type="button" role="tab" id="hpTabEndo" aria-selected="false" aria-controls="hpPanelEndo" tabindex="-1">Endotoxin report</button>
     <button type="button" role="tab" id="hpTabData" aria-selected="false" aria-controls="hpPanelData" tabindex="-1">Explore the data</button>
    </div>
+   <div class="hp-panels">
    <div id="hpPanelData" role="tabpanel" aria-labelledby="hpTabData" hidden>
    <div class="hp-sh"><span>VX-MOTS10-001 &middot; HPLC-PDA 280 nm</span><b>&bull; Verified</b></div>
    <div class="hp-ph"><strong>MOTS-c</strong><span>16 aa &middot; 2174.6 g/mol</span></div>
@@ -783,6 +801,8 @@ body.vx-lb-open{overflow:hidden}
    <div id="hpPanelEndo" role="tabpanel" aria-labelledby="hpTabEndo" hidden>
     <div class="hp-rep"><a href="coa/VX-MOTS10-001-endotoxin.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-endotoxin.jpg" alt="Janoshik endotoxin test report for batch VX-MOTS10-001: MOTS-c 10mg, endotoxin under 1 EU per vial, analysis conducted 28 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span class="hp-hint">Tap to enlarge</span></div>
    </div>
+   </div>
+   <div class="hp-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
   </div>
   <p class="hp-note"><span id="hpNoteTxt">The lab&rsquo;s original test report for batch VX-MOTS10-001.</span> <a id="hpNoteLink" href="https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC" target="_blank" rel="noopener" style="color:inherit;font-weight:600;text-decoration:underline">Open the original report on Janoshik &#8599;</a></p>
  </div>
@@ -815,6 +835,7 @@ body.vx-lb-open{overflow:hidden}
  if(tabs.some(function(x){return !x.tb||!x.pn}))return;
  function show(i,focus){
   tabs.forEach(function(x,k){var on=k===i;x.tb.setAttribute('aria-selected',on?'true':'false');x.tb.tabIndex=on?0:-1;x.pn.hidden=!on});
+  [].forEach.call(document.querySelectorAll('#coa .hp-dots i'),function(d,k){d.classList.toggle('on',k===i)});
   if(nt)nt.textContent=tabs[i].note;
   if(nl){nl.href=tabs[i].href;nl.textContent=tabs[i].link}
   if(focus)tabs[i].tb.focus();
