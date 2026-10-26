@@ -604,6 +604,12 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp #hpPanelData .hp-met>button{min-height:46px;padding-top:6px;padding-bottom:6px}
 .hp #hpPanelData .hp-pf{padding:10px 16px}
 }
+.hp .hp-sheet{position:relative}
+.hp .hp-arr{position:absolute;top:52%;z-index:2;width:34px;height:34px;margin-top:-17px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.82);box-shadow:0 1px 6px rgba(15,27,45,.22);display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;color:var(--hp-navy)}
+.hp .hp-arr svg{width:10px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hp .hp-arr-l{left:6px}.hp .hp-arr-r{right:6px}
+.hp .hp-arr.off{display:none}
+.hp .hp-arr:focus-visible{outline:2px solid var(--hp-blue);outline-offset:2px}
 .hp .hp-dots{display:flex;justify-content:center;gap:7px;padding:2px 0 16px}
 .hp .hp-dots i{display:block;width:6px;height:6px;border-radius:3px;background:#D3CDB8;transition:width .2s ease,background-color .2s ease}
 .hp .hp-dots i.on{width:18px;background:var(--hp-navy)}
@@ -803,6 +809,8 @@ body.vx-lb-open{overflow:hidden}
    </div>
    </div>
    <div class="hp-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+   <button type="button" class="hp-arr hp-arr-l off" id="hpArrL" aria-label="Previous report"><svg viewBox="0 0 10 16" aria-hidden="true"><path d="M8 1L2 8l6 7"/></svg></button>
+   <button type="button" class="hp-arr hp-arr-r" id="hpArrR" aria-label="Next report"><svg viewBox="0 0 10 16" aria-hidden="true"><path d="M2 1l6 7-6 7"/></svg></button>
   </div>
   <p class="hp-note"><span id="hpNoteTxt">The lab&rsquo;s original test report for batch VX-MOTS10-001.</span> <a id="hpNoteLink" href="https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC" target="_blank" rel="noopener" style="color:inherit;font-weight:600;text-decoration:underline">Open the original report on Janoshik &#8599;</a></p>
  </div>
@@ -836,10 +844,17 @@ body.vx-lb-open{overflow:hidden}
  function show(i,focus){
   tabs.forEach(function(x,k){var on=k===i;x.tb.setAttribute('aria-selected',on?'true':'false');x.tb.tabIndex=on?0:-1;x.pn.hidden=!on});
   [].forEach.call(document.querySelectorAll('#coa .hp-dots i'),function(d,k){d.classList.toggle('on',k===i)});
+  var al=document.getElementById('hpArrL'),ar=document.getElementById('hpArrR');
+  if(al)al.classList.toggle('off',i===0||i===2);
+  if(ar)ar.classList.toggle('off',i===2);
   if(nt)nt.textContent=tabs[i].note;
   if(nl){nl.href=tabs[i].href;nl.textContent=tabs[i].link}
   if(focus)tabs[i].tb.focus();
  }
+ (function(){var al=document.getElementById('hpArrL'),ar=document.getElementById('hpArrR');
+  if(al)al.addEventListener('click',function(){show(Math.max(0,curIdx()-1))});
+  if(ar)ar.addEventListener('click',function(){show(Math.min(tabs.length-1,curIdx()+1))});
+ })();
  function curIdx(){for(var i=0;i<tabs.length;i++)if(tabs[i].tb.getAttribute('aria-selected')==='true')return i;return 0}
  var sheet=document.querySelector('#coa .hp-sheet'),sx=0,sy=0,stt=0,track=false;
  if(sheet){
