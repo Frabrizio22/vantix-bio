@@ -591,6 +591,14 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-tabs button:focus-visible{outline:2px solid var(--hp-blue);outline-offset:-2px}
 .hp .hp-tabs button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .hp .hp-sheet{touch-action:pan-y pinch-zoom}
+.vx-lb{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:flex-start;justify-content:center;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:rgba(15,27,45,.9);padding:max(56px,calc(env(safe-area-inset-top,0px) + 56px)) 12px max(24px,env(safe-area-inset-bottom,0px));touch-action:pan-x pan-y pinch-zoom;opacity:0;transition:opacity .18s ease}
+.vx-lb.on{opacity:1}
+.vx-lb img{display:block;width:min(100%,780px);height:auto;background:#fff;border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.vx-lb-x{position:fixed;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#0F1B2D;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.3);z-index:1}
+.vx-lb-x:focus-visible{outline:3px solid #7FA6E8;outline-offset:2px}
+.vx-lb-x svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round}
+@media (prefers-reduced-motion:reduce){.vx-lb{transition:none}}
+body.vx-lb-open{overflow:hidden}
 .hp .hp-rep{padding:16px;text-align:center}
 .hp .hp-rep img{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;border:1px solid #E6E2D6;background:#fff}
 .hp .hp-rep span{display:block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--hp-mute)}
@@ -770,10 +778,10 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
    <div class="hp-pf"><div><b>$32</b><small>/ 10mg</small></div><a class="hp-btn" href="shop.html#VX-MOTS-10">Shop MOTS-c</a></div>
    </div>
    <div id="hpPanelReport" role="tabpanel" aria-labelledby="hpTabReport">
-    <div class="hp-rep"><a href="coa/VX-MOTS10-001-purity.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-purity.jpg" alt="Janoshik test report for batch VX-MOTS10-001: MOTS-c 10mg, 10.55 mg content, 99.402% purity, analysis conducted 29 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span>Tap to enlarge</span></div>
+    <div class="hp-rep"><a href="coa/VX-MOTS10-001-purity.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-purity.jpg" alt="Janoshik test report for batch VX-MOTS10-001: MOTS-c 10mg, 10.55 mg content, 99.402% purity, analysis conducted 29 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span class="hp-hint">Tap to enlarge</span></div>
    </div>
    <div id="hpPanelEndo" role="tabpanel" aria-labelledby="hpTabEndo" hidden>
-    <div class="hp-rep"><a href="coa/VX-MOTS10-001-endotoxin.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-endotoxin.jpg" alt="Janoshik endotoxin test report for batch VX-MOTS10-001: MOTS-c 10mg, endotoxin under 1 EU per vial, analysis conducted 28 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span>Tap to enlarge</span></div>
+    <div class="hp-rep"><a href="coa/VX-MOTS10-001-endotoxin.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-endotoxin.jpg" alt="Janoshik endotoxin test report for batch VX-MOTS10-001: MOTS-c 10mg, endotoxin under 1 EU per vial, analysis conducted 28 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span class="hp-hint">Tap to enlarge</span></div>
    </div>
   </div>
   <p class="hp-note"><span id="hpNoteTxt">The lab&rsquo;s original test report for batch VX-MOTS10-001.</span> <a id="hpNoteLink" href="https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC" target="_blank" rel="noopener" style="color:inherit;font-weight:600;text-decoration:underline">Open the original report on Janoshik &#8599;</a></p>
@@ -834,6 +842,43 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
    if(e.key==='ArrowRight'){e.preventDefault();show((k+1)%tabs.length,true)}
    else if(e.key==='ArrowLeft'){e.preventDefault();show((k+tabs.length-1)%tabs.length,true)}
   });
+ });
+
+ // Swipe hint on touch screens
+ if(window.matchMedia&&window.matchMedia('(pointer:coarse)').matches){
+  [].forEach.call(document.querySelectorAll('#coa .hp-hint'),function(h){h.textContent='Tap to enlarge \u00B7 swipe for more reports'});
+ }
+
+ // Enlarge in place (lightbox) instead of opening the image on its own page
+ var lb=null,lbFrom=null;
+ function closeLb(){
+  if(!lb)return;var el=lb;lb=null;
+  document.removeEventListener('keydown',onKey,true);
+  el.classList.remove('on');
+  setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el)},180);
+  document.body.classList.remove('vx-lb-open');
+  if(lbFrom&&lbFrom.focus)lbFrom.focus();
+ }
+ function onKey(e){
+  if(e.key==='Escape'){e.preventDefault();closeLb()}
+  else if(e.key==='Tab'){e.preventDefault();var x=lb&&lb.querySelector('.vx-lb-x');if(x)x.focus()}
+ }
+ function openLb(a){
+  if(lb)return;
+  var img=a.querySelector('img');if(!img)return;
+  lbFrom=a;
+  lb=document.createElement('div');lb.className='vx-lb';lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.setAttribute('aria-label','Test report, enlarged');
+  var big=document.createElement('img');big.src=a.getAttribute('href')||img.src;big.alt=img.alt;big.width=img.width;big.height=img.height;
+  var x=document.createElement('button');x.type='button';x.className='vx-lb-x';x.setAttribute('aria-label','Close');
+  x.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+  lb.appendChild(big);lb.appendChild(x);
+  lb.addEventListener('click',function(e){if(e.target!==big)closeLb()});
+  document.body.appendChild(lb);document.body.classList.add('vx-lb-open');
+  document.addEventListener('keydown',onKey,true);
+  requestAnimationFrame(function(){lb&&lb.classList.add('on');x.focus()});
+ }
+ [].forEach.call(document.querySelectorAll('#coa .hp-rep a'),function(a){
+  a.addEventListener('click',function(e){if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;e.preventDefault();openLb(a)});
  });
 })();
 </script>
