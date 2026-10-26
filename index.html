@@ -739,10 +739,11 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
   <h2 class="hp-h2">The data behind a batch.</h2>
   <div class="hp-sheet">
    <div class="hp-tabs" role="tablist" aria-label="Batch record view">
-    <button type="button" role="tab" id="hpTabData" aria-selected="true" aria-controls="hpPanelData">Interactive data</button>
-    <button type="button" role="tab" id="hpTabReport" aria-selected="false" aria-controls="hpPanelReport" tabindex="-1">Original report</button>
+    <button type="button" role="tab" id="hpTabReport" aria-selected="true" aria-controls="hpPanelReport">Original report</button>
+    <button type="button" role="tab" id="hpTabEndo" aria-selected="false" aria-controls="hpPanelEndo" tabindex="-1">Endotoxin report</button>
+    <button type="button" role="tab" id="hpTabData" aria-selected="false" aria-controls="hpPanelData" tabindex="-1">Explore the data</button>
    </div>
-   <div id="hpPanelData" role="tabpanel" aria-labelledby="hpTabData">
+   <div id="hpPanelData" role="tabpanel" aria-labelledby="hpTabData" hidden>
    <div class="hp-sh"><span>VX-MOTS10-001 &middot; HPLC-PDA 280 nm</span><b>&bull; Verified</b></div>
    <div class="hp-ph"><strong>MOTS-c</strong><span>16 aa &middot; 2174.6 g/mol</span></div>
    <div class="hp-plot">
@@ -766,11 +767,14 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
    </div>
    <div class="hp-pf"><div><b>$32</b><small>/ 10mg</small></div><a class="hp-btn" href="shop.html#VX-MOTS-10">Shop MOTS-c</a></div>
    </div>
-   <div id="hpPanelReport" role="tabpanel" aria-labelledby="hpTabReport" hidden>
+   <div id="hpPanelReport" role="tabpanel" aria-labelledby="hpTabReport">
     <div class="hp-rep"><a href="coa/VX-MOTS10-001-purity.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-purity.jpg" alt="Janoshik test report for batch VX-MOTS10-001: MOTS-c 10mg, 10.55 mg content, 99.402% purity, analysis conducted 29 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span>Tap to enlarge</span></div>
    </div>
+   <div id="hpPanelEndo" role="tabpanel" aria-labelledby="hpTabEndo" hidden>
+    <div class="hp-rep"><a href="coa/VX-MOTS10-001-endotoxin.jpg" target="_blank" rel="noopener"><img src="coa/VX-MOTS10-001-endotoxin.jpg" alt="Janoshik endotoxin test report for batch VX-MOTS10-001: MOTS-c 10mg, endotoxin under 1 EU per vial, analysis conducted 28 May 2026" width="868" height="1280" loading="lazy" decoding="async"></a><span>Tap to enlarge</span></div>
+   </div>
   </div>
-  <p class="hp-note"><span id="hpNoteTxt">Interactive view of the data for batch VX-MOTS10-001.</span> <a href="https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC" target="_blank" rel="noopener" style="color:inherit;font-weight:600;text-decoration:underline">Open the original report on Janoshik &#8599;</a></p>
+  <p class="hp-note"><span id="hpNoteTxt">The lab&rsquo;s original test report for batch VX-MOTS10-001.</span> <a id="hpNoteLink" href="https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC" target="_blank" rel="noopener" style="color:inherit;font-weight:600;text-decoration:underline">Open the original report on Janoshik &#8599;</a></p>
  </div>
 </section>
 
@@ -791,20 +795,27 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 
 <script>
 (function(){
- var td=document.getElementById('hpTabData'),tr=document.getElementById('hpTabReport'),pd=document.getElementById('hpPanelData'),pr=document.getElementById('hpPanelReport'),nt=document.getElementById('hpNoteTxt');
- if(!td||!tr||!pd||!pr)return;
- function show(rep,focus){
-  td.setAttribute('aria-selected',rep?'false':'true');tr.setAttribute('aria-selected',rep?'true':'false');
-  td.tabIndex=rep?-1:0;tr.tabIndex=rep?0:-1;
-  pd.hidden=rep;pr.hidden=!rep;
-  if(nt)nt.textContent=rep?'The lab\u2019s original test report for batch VX-MOTS10-001.':'Interactive view of the data for batch VX-MOTS10-001.';
-  if(focus)(rep?tr:td).focus();
+ var tabs=[
+  {t:'hpTabReport',p:'hpPanelReport',note:'The lab\u2019s original test report for batch VX-MOTS10-001.',href:'https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC',link:'Open the original report on Janoshik \u2197'},
+  {t:'hpTabEndo',p:'hpPanelEndo',note:'The lab\u2019s endotoxin report for batch VX-MOTS10-001. Verify it at janoshik.com/verify with key E8SZBFXHVEZV.',href:'https://www.janoshik.com/verify/',link:'Open the Janoshik verify page \u2197'},
+  {t:'hpTabData',p:'hpPanelData',note:'Interactive view of the data for batch VX-MOTS10-001.',href:'https://verify.janoshik.com/tests/165874-MOTS_c_10mg_SSELJFCHMJCC',link:'Open the original report on Janoshik \u2197'}
+ ];
+ var nt=document.getElementById('hpNoteTxt'),nl=document.getElementById('hpNoteLink');
+ tabs.forEach(function(x){x.tb=document.getElementById(x.t);x.pn=document.getElementById(x.p)});
+ if(tabs.some(function(x){return !x.tb||!x.pn}))return;
+ function show(i,focus){
+  tabs.forEach(function(x,k){var on=k===i;x.tb.setAttribute('aria-selected',on?'true':'false');x.tb.tabIndex=on?0:-1;x.pn.hidden=!on});
+  if(nt)nt.textContent=tabs[i].note;
+  if(nl){nl.href=tabs[i].href;nl.textContent=tabs[i].link}
+  if(focus)tabs[i].tb.focus();
  }
- td.addEventListener('click',function(){show(false)});
- tr.addEventListener('click',function(){show(true)});
- [td,tr].forEach(function(b){b.addEventListener('keydown',function(e){
-  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();show(b===td,true)}
- })});
+ tabs.forEach(function(x,k){
+  x.tb.addEventListener('click',function(){show(k)});
+  x.tb.addEventListener('keydown',function(e){
+   if(e.key==='ArrowRight'){e.preventDefault();show((k+1)%tabs.length,true)}
+   else if(e.key==='ArrowLeft'){e.preventDefault();show((k+tabs.length-1)%tabs.length,true)}
+  });
+ });
 })();
 </script>
 <script>
