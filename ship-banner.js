@@ -23,11 +23,14 @@
     var s1;
     if (promo) {
       s1 = document.createElement('a'); s1.href = '/shop.html?code=SPOOKY25&utm_source=site&utm_medium=banner&utm_campaign=spooky-2026';
-      s1.textContent = 'Halloween weekend: 25% off with code SPOOKY25'; s1.style.fontWeight = '600'; s1.style.opacity = '1';
+      s1.style.fontWeight = '600'; s1.style.opacity = '1';
+      s1.appendChild(document.createTextNode('\uD83C\uDF83 Halloween weekend: 25% off with code '));
+      var code = document.createElement('span'); code.textContent = 'SPOOKY25'; code.style.color = '#E39A4A'; code.style.letterSpacing = '.06em'; s1.appendChild(code);
     } else { s1 = document.createElement('span'); s1.textContent = LINE1; }
     var s2 = document.createElement('span'); s2.textContent = LINE2;
     var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Close shipping notice'); b.innerHTML = '&times;';
     b.onclick = function () { bar.remove(); try { sessionStorage.setItem(KEY, '1'); } catch (e) {} };
+    if (promo) bar.style.borderBottom = '3px solid #E39A4A';
     bar.appendChild(s1); bar.appendChild(s2); bar.appendChild(b);
     anchor.parentNode.insertBefore(bar, anchor.nextSibling);
   }
