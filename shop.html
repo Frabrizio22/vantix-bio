@@ -331,7 +331,7 @@ function renderProducts(filter='all'){
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
       <div class="product-meta">${p.size}${p.purity ? ' · ' + p.purity + ' PURE' : ''}</div>
-      <div class="product-price">$${p.price}</div>
+      <div class="product-price">${window.vxSale ? vxSale.html(p.price) : '$' + p.price}</div>
       <div class="product-cta">
         ${inStock
           ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
@@ -647,6 +647,7 @@ function joinWaitlist(productName) {
 
 <script src="/leads-popup.js" defer></script>
 <script src="/sticky-header.js?v=1" defer></script>
+<script src="/promo-sale.js?v=1"></script>
 <script src="/ship-banner.js?v=5" defer></script>
 </body>
 </html>
