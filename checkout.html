@@ -131,6 +131,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM5J7G2C');</script>
 <!-- End Google Tag Manager -->
+<script src="/promo-sale.js?v=1"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -544,6 +545,8 @@ var now=new Date();
 var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');if(!code){try{code=localStorage.getItem('vxLeadCode');}catch(e){}}
 // Creator link remembered for 30 days (vxCreator): applies only when no other code is present, so a browser that dropped the tab copy still gets the creator's offer.
 if(!code){code=vxCreatorCode();}
+// Halloween sale: apply SPOOKY25 automatically when no code was given, or when the only code is the lower WELCOME15 saved from the signup popup. Creator and other typed/link codes are left alone.
+try{if(window.vxSale&&vxSale.active&&promoCodes['SPOOKY25']&&(!code||(String(code).toUpperCase()==='WELCOME15'&&!getUrlParam('code')&&!sessionStorage.getItem('vantixPromoCode')))){code='SPOOKY25';}}catch(e){}
 if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
 }
 
