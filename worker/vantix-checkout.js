@@ -116,7 +116,7 @@ async function handleOrder(body, method, request, env, ctx, cors) {
     }
     if (!friendly.expected) await telegram(env, `⚠️ Order ${v.orderNumber} failed: ${res.message}`);
     else if (res.message.startsWith('invalid_discount_code') || res.message.startsWith('unknown_or_inactive_sku'))
-      await telegram(env, `⚠️ Checkout rejected ${v.orderNumber}: ${res.message} (a code/SKU on the site may be missing from the database)`);
+      await telegram(env, `⚠️ Checkout rejected ${v.orderNumber}: ${res.message} (a code/SKU on the site may be missing from the database)\nCustomer: ${v.name || '?'} <${v.email || '?'}>\nItems: ${v.items.map((i) => `${i.sku} x${i.qty}`).join(', ')}`);
     return json({ status: 'error', message: friendly.text }, friendly.http, cors);
   }
 
