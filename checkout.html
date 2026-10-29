@@ -510,10 +510,11 @@ var saved=localStorage.getItem('vantixCart');
 if(saved){
 cart=JSON.parse(saved);
 
-// Remove OOS items from cart
+// Remove OOS items and retired SKUs (stale carts) from cart
+var retiredSkus = ['VX-BAC-30'];
 var hadOOS = false;
 cart = cart.filter(function(item){
-if(outOfStock.indexOf(item.sku) !== -1){
+if(outOfStock.indexOf(item.sku) !== -1 || retiredSkus.indexOf(item.sku) !== -1){
 hadOOS = true;
 return false;
 }
@@ -522,7 +523,7 @@ return true;
 
 // Alert if OOS items were removed
 if(hadOOS){
-alert('Some items in your cart are currently out of stock and have been removed.');
+alert('Some items in your cart are no longer available and have been removed.');
 saveCart();
 if(cart.length === 0){
 window.location.href = 'shop.html';
