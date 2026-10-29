@@ -1272,6 +1272,16 @@ const heroBtn=document.querySelector('.hp-cta .hp-btn');
 if(shop&&heroBtn&&'IntersectionObserver' in window){new IntersectionObserver(es=>{shop.classList.toggle('is-quiet',es[0].isIntersecting)}).observe(heroBtn)}
 })();
 </script>
+<script src="/promo-sale.js?v=1"></script>
+<script>
+(function(){
+  if(!window.vxSale||!vxSale.active)return;
+  document.querySelectorAll('.hp-pp').forEach(function(el){
+    var m=/^\$(\d+(?:\.\d+)?)$/.exec(el.textContent.trim());
+    if(m)el.innerHTML=vxSale.html(parseFloat(m[1]));
+  });
+})();
+</script>
 <script src="leads-popup.js" defer></script>
 <script src="/ship-banner.js?v=5" defer></script>
 </body>
