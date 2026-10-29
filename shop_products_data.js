@@ -244,7 +244,7 @@ const VX_PRODUCTS = {
             purity: '>99%',
             price: 52,
             cogs: 20.03,
-            image: 'images/products/coming-soon.svg',
+            image: 'images/products/tesamorelin-10mg.jpg',
             url: 'products/tesamorelin.html',
             inStock: true,
             dualTested: false,
