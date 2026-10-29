@@ -556,10 +556,10 @@ function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
 // Auto-bundle cart items into kits when applicable
 function autoBundleKits(){
 var kits=[
-{name:'BPC-157 + TB-500 Research Pair (10mg + 10mg)',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
-{name:'GH Axis Kit (CJC-1295 5mg + Ipa 5mg)',price:48,skus:['VX-CJC-5','VX-IPA-5'],newSku:'VX-KIT-GH'},
-{name:'Next-Gen Kit (VX-2T 30mg + VX-3R 20mg)',price:112,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
-{name:'Mito Kit (NAD+ 1000mg + MOTS-C 10mg)',price:82,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
+{name:'BPC-157 + TB-500 Bundle (10mg + 10mg)',price:58,skus:['VX-BPC-10','VX-TB-10'],newSku:'VX-KIT-REPAIR'},
+{name:'CJC-1295 + Ipamorelin Bundle (5mg + 5mg)',price:48,skus:['VX-CJC-5','VX-IPA-5'],newSku:'VX-KIT-GH'},
+{name:'VX-2T + VX-3R Bundle (30mg + 20mg)',price:112,skus:['VX-TIRZ-30','VX-RETA-20'],newSku:'VX-KIT-NEXTGEN'},
+{name:'NAD+ + MOTS-C Bundle (1000mg + 10mg)',price:82,skus:['VX-NAD-1000','VX-MOTS-10'],newSku:'VX-KIT-MITO'}
 ];
 for(var k=0;k<kits.length;k++){
 var kit=kits[k];

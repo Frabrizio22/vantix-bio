@@ -342,7 +342,7 @@ const VX_PRODUCTS = {
     kits: [
         {
             id: 'tissue-repair',
-            name: 'BPC-157 + TB-500 Research Pair',
+            name: 'BPC-157 + TB-500 Bundle',
             shortName: 'BPC-157 + TB-500',
             description: 'Two-compound research pair',
             clinicalNote: 'BPC-157 10mg + TB-500 10mg research pair for in-vitro analysis',
@@ -355,7 +355,7 @@ const VX_PRODUCTS = {
         },
         {
             id: 'gh-axis',
-            name: 'GH Axis Research Pair',
+            name: 'CJC-1295 + Ipamorelin Bundle',
             shortName: 'CJC-1295 + Ipamorelin',
             description: 'GHRH and ghrelin receptor pathway research',
             clinicalNote: 'CJC-1295 + Ipamorelin research pair for GHRH and ghrelin receptor pathway analysis',
@@ -368,7 +368,7 @@ const VX_PRODUCTS = {
         },
         {
             id: 'mitochondrial-kit',
-            name: 'NAD+ + MOTS-C Research Pair',
+            name: 'NAD+ + MOTS-C Bundle',
             shortName: 'NAD+ + MOTS-C',
             description: 'Mitochondrial bioenergetics & NAD+ metabolism research',
             clinicalNote: 'NAD+ + MOTS-C combination for mitochondrial bioenergetics research',
