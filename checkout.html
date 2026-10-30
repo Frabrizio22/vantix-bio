@@ -55,7 +55,8 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 .promo-input:disabled{background:#f5f5f5;color:#999}
 .promo-btn{padding:12px 24px;background:var(--navy);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap;transition:background .2s}
 .promo-btn:hover:not(.applied){background:var(--accent)}
-.promo-btn.applied{background:var(--signal);cursor:default}
+.promo-btn.applied{background:var(--signal)}
+.promo-btn.applied:hover{background:#2f6a52}
 .form-group{margin-bottom:20px}
 .form-group label{display:block;margin-bottom:8px;font-size:14px;font-weight:500;color:var(--navy)}
 .form-group input,.form-group select{width:100%;padding:14px;border:1px solid var(--hairline);border-radius:8px;font-family:'Geist',sans-serif;font-size:16px;transition:border-color .2s;-webkit-appearance:none;appearance:none}
@@ -481,6 +482,8 @@ var promoCodes={
 };
 // VB10 (early-customer email offer) is valid through Oct 16, 2026, end of day Pacific
 if(new Date()>=new Date('2026-10-17T07:00:00Z')){delete promoCodes['VB10'];}
+function vxPct(c){var v=promoCodes[c];return typeof v==='number'?v:0;}
+var vxLinkCreator='';
 function vxCreatorCode(){try{var c=JSON.parse(localStorage.getItem('vxCreator')||'null');if(c&&c.c&&Date.now()-c.t<30*86400000)return c.c;}catch(e){}return '';}
 var cart=[];var selectedPayment=null;var promoCode=null;var orderNumber='';var referralSource=null;
 
@@ -546,9 +549,13 @@ var now=new Date();
 var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');if(!code){try{code=localStorage.getItem('vxLeadCode');}catch(e){}}
 // Creator link remembered for 30 days (vxCreator): applies only when no other code is present, so a browser that dropped the tab copy still gets the creator's offer.
 if(!code){code=vxCreatorCode();}
-// Halloween sale: apply SPOOKY25 automatically when no code was given, or when the only code is the lower WELCOME15 saved from the signup popup. Creator and other typed/link codes are left alone.
-try{if(window.vxSale&&vxSale.active&&promoCodes['SPOOKY25']&&(!code||(String(code).toUpperCase()==='WELCOME15'&&!getUrlParam('code')&&!sessionStorage.getItem('vantixPromoCode')))){code='SPOOKY25';}}catch(e){}
-if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;document.getElementById('promoInput').value=upperCode;document.getElementById('promoBtn').textContent='✓ Applied';document.getElementById('promoBtn').classList.add('applied');document.getElementById('promoInput').disabled=true;sessionStorage.removeItem('vantixPromoCode');}}
+// Remember which creator's link this visit came from, so the creator is still credited if the customer swaps to a bigger code.
+try{var lc=String(getUrlParam('code')||sessionStorage.getItem('vantixPromoCode')||code||'').toUpperCase();if(lc&&promoCodes[lc]&&['WELCOME15','WELCOMEBACK15','THANKS10','SPOOKY25'].indexOf(lc)<0)vxLinkCreator=lc;}catch(e){}
+// Best discount wins: while the Halloween sale runs, SPOOKY25 replaces any smaller code (creator link, popup or email code). A code the customer removed stays removed this session.
+var vxRemoved=false;try{vxRemoved=sessionStorage.getItem('vxPromoRemoved')==='1';}catch(e){}
+try{if(!vxRemoved&&window.vxSale&&vxSale.active&&promoCodes['SPOOKY25']&&(!code||vxPct(String(code).toUpperCase())<vxSale.pct)){code='SPOOKY25';}}catch(e){}
+if(vxRemoved){code=null;}
+if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;setPromoUI();sessionStorage.removeItem('vantixPromoCode');}}
 }
 
 function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
@@ -732,19 +739,31 @@ msg.className='shipping-msg remaining';
 }
 }
 
+function setPromoUI(){
+var i=document.getElementById('promoInput'),b=document.getElementById('promoBtn');
+if(promoCode){i.value=promoCode;b.textContent='Remove';b.classList.add('applied');}else{b.textContent='Apply';b.classList.remove('applied');}
+}
+function removePromo(){
+var prev=promoCode;promoCode=null;
+try{sessionStorage.setItem('vxPromoRemoved','1');sessionStorage.removeItem('vantixPromoCode');}catch(e){}
+document.getElementById('promoInput').value='';setPromoUI();updateSummary();
+try{window.vxTrack&&window.vxTrack('remove_promo',{promo_code:prev});}catch(e){}
+}
 function applyPromo(){
 var input=document.getElementById('promoInput');
 var code=input.value.toUpperCase().trim();
+if(promoCode&&(!code||code===promoCode)){removePromo();return;}
 if(!code)return;
 if(promoCodes[code]){
 promoCode=code;
-document.getElementById('promoBtn').textContent='✓ Applied';
-document.getElementById('promoBtn').classList.add('applied');
-input.disabled=true;
+try{sessionStorage.removeItem('vxPromoRemoved');}catch(e){}
+setPromoUI();
 updateSummary();
 try{window.vxTrack&&window.vxTrack('apply_promo',{promo_code:code,valid:true});}catch(e){}
 }else{try{window.vxTrack&&window.vxTrack('apply_promo',{promo_code:code.slice(0,20),valid:false});}catch(e){}alert('Invalid promo code');}
 }
+document.getElementById('promoInput').addEventListener('input',function(){var b=document.getElementById('promoBtn');b.textContent=(promoCode&&this.value.toUpperCase().trim()===promoCode)?'Remove':'Apply';if(!(promoCode&&this.value.toUpperCase().trim()===promoCode))b.classList.remove('applied');else b.classList.add('applied');});
+document.getElementById('promoInput').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();applyPromo();}});
 
 function toggleBillingAddress(){
 var checkbox=document.getElementById('billingSameAsShipping');
@@ -912,7 +931,7 @@ referral_source:referralSource||'',
 shipping:getShipping(),
 total:getTotal(),
 affirmation:window.vxAffirmation||{},
-creator_code:wsHas()?'':vxCreatorCode(),
+creator_code:wsHas()?'':(vxCreatorCode()||vxLinkCreator),
 first_touch:(function(){try{return window.vxTouches?window.vxTouches():null;}catch(e){return null;}})()
 };
 var submitBtn=document.getElementById('submitBtn');
