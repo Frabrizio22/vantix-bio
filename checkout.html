@@ -874,7 +874,11 @@ window.dataLayer.push({event:'place_order_clicked'});
 if(cart.length===0){console.error('Cart empty');alert('Your cart is empty');return;}
 if(!selectedPayment){console.error('No payment method selected');alert('Please select a payment method');return;}
 var name=document.getElementById('name').value.trim();
-var email=document.getElementById('email').value.trim();
+var email=document.getElementById('email').value.trim().replace(/[\s,;.]+$/,'').replace(/^[\s,;.]+/,'');
+// Fix obvious domain typos before the card gateway rejects the whole order (a trailing dot already cost us an order).
+var typoFix={'gmial.com':'gmail.com','gmai.com':'gmail.com','gmail.con':'gmail.com','gmail.co':'gmail.com','gnail.com':'gmail.com','gmal.com':'gmail.com','hotmial.com':'hotmail.com','hotmail.con':'hotmail.com','yaho.com':'yahoo.com','yahooo.com':'yahoo.com','yahoo.con':'yahoo.com','outlok.com':'outlook.com','outlook.con':'outlook.com','iclod.com':'icloud.com','icloud.con':'icloud.com'};
+var emDom=(email.split('@')[1]||'').toLowerCase();
+if(typoFix[emDom]){var fixed=email.split('@')[0]+'@'+typoFix[emDom];if(confirm('Did you mean '+fixed+'?\n\nOK = use '+fixed+'\nCancel = keep '+email)){email=fixed;document.getElementById('email').value=fixed;}}
 var phone=document.getElementById('phone').value.trim();
 var address=document.getElementById('address').value.trim();
 var city=document.getElementById('city').value.trim();
@@ -898,7 +902,7 @@ billingZip=zip;
 if(!name||!email||!phone||!address||!city||!state||!zip){alert('Please fill in all required fields');return;}
 
 // Validate email format
-var emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+var emailRegex=/^[^\s@,;]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 if(!emailRegex.test(email)){alert('Please enter a valid email address');return;}
 
 // Validate phone number (at least 10 digits)
@@ -972,6 +976,7 @@ body:JSON.stringify(orderData)
 .then(function(r){return r.json();})
 .then(function(data){
 if(data.hpp_url&&data.hpp_params){
+try{sessionStorage.setItem('vxGw',String(Date.now()));}catch(e){}
 localStorage.setItem('vantixLastOrder',JSON.stringify({orderNumber:orderNumber,total:getTotal(),items:cart.map(function(item){return {sku:item.sku,name:item.name,price:item.price,quantity:item.quantity};}),paymentMethod:'credit_card'}));
 var form=document.createElement('form');
 form.method='POST';
@@ -1004,6 +1009,18 @@ submitBtn.textContent='Place Order';
 
 loadCart();
 renderCart();
+
+// Coming back from the card gateway without paying (cancelled or declined) lands here: record it so the funnel shows where card buyers drop.
+try{
+var gwAt=sessionStorage.getItem('vxGw');
+if(gwAt){
+sessionStorage.removeItem('vxGw');
+var ref=document.referrer||'';
+if(/paybybankful\.com/i.test(ref)||(Date.now()-Number(gwAt))<45*60*1000){
+window.vxTrack&&window.vxTrack('checkout_error',{payment_type:'card',error_type:'gateway_return_unpaid'});
+}
+}
+}catch(e){}
 
 // Push InitiateCheckout event to Data Layer for GTM
 if (cart && cart.length > 0) {
