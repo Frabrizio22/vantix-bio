@@ -192,6 +192,7 @@ Continue Shopping
 <div class="form-group">
 <label>Email Address *</label>
 <input type="email" id="email" required>
+<div id="cartNotice" style="font-size:12px;line-height:1.5;color:#666;margin-top:6px">If you leave before finishing, we may email you a reminder about your cart. You can unsubscribe anytime. <a href="privacy.html" style="color:#666;text-decoration:underline">Privacy policy</a></div>
 </div>
 <div class="form-group">
 <label>Phone Number *</label>
@@ -1009,6 +1010,31 @@ submitBtn.textContent='Place Order';
 
 loadCart();
 renderCart();
+
+// Cart reminder capture: saves the email and the cart (SKUs and quantities only) to OUR database (Supabase) so one reminder can be sent
+// if the visitor leaves. Nothing goes to a third party. Skipped when the browser sends Global Privacy Control. The notice under the email field tells the visitor.
+(function(){
+var SB='https://mxhtxcpqgjmgwnurxguv.supabase.co',KEY='sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv',last='',timer=null;
+var RX=/^[^\s@,;]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+function cleanEmail(){var e=document.getElementById('email');return e?String(e.value||'').trim().replace(/[\s,;.]+$/,'').toLowerCase():'';}
+function send(unloading){
+try{
+if(navigator.globalPrivacyControl)return;
+var em=cleanEmail();if(!RX.test(em))return;
+var items=(window.cart||(typeof cart!=='undefined'?cart:[])||[]).map(function(i){return {sku:i.sku,qty:i.quantity||1};});
+var total=0;try{total=getTotal();}catch(e){}
+var sig=em+'|'+JSON.stringify(items);if(sig===last)return;last=sig;
+var notice=(document.getElementById('cartNotice')||{}).textContent||'';
+fetch(SB+'/rest/v1/rpc/capture_cart',{method:'POST',keepalive:!!unloading,
+headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},
+body:JSON.stringify({p_email:em,p_cart:items,p_total:total,p_consent:notice.replace(/\s+/g,' ').trim().slice(0,300),p_page:'/checkout.html'})}).catch(function(){});
+}catch(e){}
+}
+var el=document.getElementById('email');
+if(el){el.addEventListener('change',function(){clearTimeout(timer);timer=setTimeout(function(){send(false);},400);});el.addEventListener('blur',function(){send(false);});}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')send(true);});
+window.addEventListener('pagehide',function(){send(true);});
+})();
 
 // Coming back from the card gateway without paying (cancelled or declined) lands here: record it so the funnel shows where card buyers drop.
 try{
