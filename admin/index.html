@@ -692,6 +692,20 @@ function viewDiscounts() {
     '<tr><td><b>No code</b></td><td>—</td><td>—</td><td class="r num">' + none.length + '</td><td class="r num">' + usd(none.reduce((a, o) => a + n0(o.total), 0)) + '</td><td class="r num">' + (none.length ? usd(none.reduce((a, o) => a + n0(o.total), 0) / none.length) : '—') + '</td><td class="r num">—</td><td class="r num">—</td><td class="r num">' + (none.length ? usd(none.reduce((a, o) => a + profitOf(o), 0)) : '—') + '</td><td></td></tr></tbody></table></div>' +
     '<div class="sub">Profit = what is left on those orders after product cost, packaging, card fees, commission and labels entered so far.</div>';
 }
+function checkoutFunnel(rg) {
+  const all = S.orders.filter(chanOk).filter((o) => rg.test(dkey(o.created_at)));
+  if (!all.length) return '<div class="card"><h2>Checkout funnel</h2><div class="empty">No orders placed in this range.</div></div>';
+  const paidBy = {}; S.orders.filter(isPaid).forEach((o) => { const k = String(o.customer_email || '').toLowerCase(); (paidBy[k] || (paidBy[k] = [])).push(new Date(o.created_at).getTime()); });
+  const laterPaid = (o) => (paidBy[String(o.customer_email || '').toLowerCase()] || []).some((t) => t > new Date(o.created_at).getTime());
+  const row = (label, m) => {
+    const l = m ? all.filter((o) => o.payment_method === m) : all, paid = l.filter(isPaid), failed = l.filter((o) => o.payment_status === 'failed'), open = l.filter((o) => !isPaid(o) && o.payment_status !== 'failed');
+    const rec = failed.filter(laterPaid).length, lostL = failed.filter((o) => !laterPaid(o)), lostRev = lostL.reduce((t, o) => t + n0(o.total), 0);
+    return '<tr' + (m ? '' : ' style="font-weight:700"') + '><td>' + label + '</td><td class="r num">' + l.length + '</td><td class="r num">' + paid.length + '</td><td class="r num">' + (l.length ? Math.round(paid.length / l.length * 100) + '%' : '—') + '</td><td class="r num">' + open.length + '</td><td class="r num">' + failed.length + '</td><td class="r num">' + rec + '</td><td class="r num">' + lostL.length + (lostL.length ? ' (' + usd(lostRev, 0) + ')' : '') + '</td></tr>';
+  };
+  return '<div class="card"><h2>Checkout funnel</h2><div class="hint">' + esc(rg.label) + ' · from “Place order” to paid. Visits, product views and carts are in Google Analytics; this only counts people who reached Place Order.</div>' +
+    '<div class="tw" style="border:0"><table class="mini"><thead><tr><th></th><th class="r">Placed</th><th class="r">Paid</th><th class="r">Paid %</th><th class="r">Awaiting</th><th class="r">Failed</th><th class="r">Paid later</th><th class="r">Lost</th></tr></thead><tbody>' + row('All orders') + row('Card', 'credit_card') + row('Zelle', 'zelle') + '</tbody></table></div>' +
+    '<div class="sub" style="margin-top:6px">Failed = declined, cancelled or expired at the payment page. Paid later = the same email paid a later order. Lost = failed with no later paid order (amount in brackets).</div></div>';
+}
 function viewAnalytics() {
   const rg = getRange(), paid = S.orders.filter(isPaid).filter(chanOk), cur = paid.filter((o) => rg.test(dkey(o.created_at)));
   const hours = Array.from({ length: 24 }, (_, h) => ({ k: (h % 12 || 12) + (h < 12 ? 'a' : 'p'), v: cur.filter((o) => hourOf(o.created_at) === h).length }));
@@ -705,6 +719,7 @@ function viewAnalytics() {
   return chanChips() + '<div class="row" style="justify-content:space-between"><div class="sub">' + esc(rg.label) + ' · paid orders only (all times Pacific)</div>' + rangeSelect() + '</div>' +
     '<div class="card"><h2>Profit by month</h2><div class="hint">All time, regardless of the range above. Profit = revenue − product cost − packaging − fees − commission − labels.</div>' +
       (mo.length ? '<div class="tw" style="border:0"><table class="mini"><thead><tr><th>Month</th><th class="r">Orders</th><th class="r">Revenue</th><th class="r">Product cost</th><th class="r">Packaging, fees, labels</th><th class="r">Profit</th><th class="r">Margin</th></tr></thead><tbody>' + mo.slice().reverse().map((r) => mrow(esc(fmonth(r.k)), r)).join('') + mrow('All time', mt, 1) + '</tbody></table></div><div class="sub" style="margin-top:6px">* Some shipping labels not entered yet, so profit is a little high.</div>' : '<div class="empty">No paid orders yet.</div>') + '</div>' +
+    checkoutFunnel(rg) +
     '<div class="card"><h2>Revenue by day</h2><div class="hint">' + usd(a.rev) + ' from ' + a.n + ' orders</div>' + chart(daily(cur, rg), (v) => usd(v, 0)) + '</div>' +
     '<div class="grid g2"><div class="card"><h2>Orders by hour</h2><div class="hint">When customers buy</div>' + chart(hours, (v) => String(Math.round(v))) + '</div><div class="card"><h2>Orders by weekday</h2><div class="hint">Busiest days</div>' + chart(wd, (v) => String(Math.round(v))) + '</div></div>' +
     '<div class="grid g2"><div class="card"><h2>Where the money goes</h2><div class="hint">Per paid order, this range</div><div style="display:flex;flex-direction:column;gap:6px">' + kv('Revenue (incl. shipping charged)', usd(a.rev)) + kv('Product cost', '−' + usd(cost.cogs)) + kv('Packaging', '−' + usd(cost.pk)) + kv('Processing fees', '−' + usd(cost.fee)) + kv('Influencer commission', '−' + usd(cost.com)) + kv('Shipping labels', '−' + usd(cost.lab)) + kv('Profit' + (a.partial ? ' (so far)' : ''), usd(a.profit), 1) + '</div><div class="sub" style="margin-top:8px">Discounts given: ' + usd(cost.disc) + ' · Margin: ' + (a.rev ? Math.round(a.profit / a.rev * 100) : 0) + '%</div></div>' +

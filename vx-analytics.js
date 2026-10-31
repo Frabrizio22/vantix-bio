@@ -18,6 +18,17 @@
     email_signup: 'generate_lead', verify_lookup: 'verify_lookup', cta_click: 'cta_click',
     generate_lead: 'generate_lead', checkout_error: 'checkout_error'
   };
+  // GA4 item names must match the catalog (and the server-side purchase) so item reports line up. Keyed by SKU = item_id.
+  var ITEM_NAMES = {"VX-CJC-5":"CJC-1295 (no DAC) 5mg","VX-IPA-5":"Ipa 5mg","VX-TB-10":"TB-500 10mg","VX-BAC-10":"VX-BW 10mL","VX-BPC-10":"BPC-157 10mg","VX-KIT-GH":"CJC-1295 + Ipamorelin Bundle (5mg + 5mg)","VX-GHK-100":"GHK-Cu 100mg","VX-MOTS-10":"MOTS-C 10mg","VX-RETA-20":"VX-3R 20mg","VX-SEMA-10":"VX-1S 10mg","VX-TESA-10":"Tesa 10mg","VX-TIRZ-30":"VX-2T 30mg","VX-W-TB-10":"TB-500 10mg 10-Vial Kit","VX-KIT-MITO":"NAD+ + MOTS-C Bundle (1000mg + 10mg)","VX-NAD-1000":"NAD+ 1000mg","VX-W-BPC-10":"BPC-157 10mg 10-Vial Kit","VX-W-GHK-100":"GHK-Cu 100mg 10-Vial Kit","VX-W-MOTS-10":"MOTS-c 10mg 10-Vial Kit","VX-W-RETA-20":"VX-3R 20mg 10-Vial Kit","VX-W-TESA-10":"Tesamorelin 10mg 10-Vial Kit","VX-W-TIRZ-30":"VX-2T 30mg 10-Vial Kit","VX-KIT-REPAIR":"BPC-157 + TB-500 Bundle (10mg + 10mg)","VX-W-NAD-1000":"NAD+ 1000mg 10-Vial Kit","VX-KIT-NEXTGEN":"VX-2T + VX-3R Bundle (30mg + 20mg)"};
+  function normItems(items) {
+    if (!Array.isArray(items)) return items;
+    return items.map(function (it) {
+      if (!it || typeof it !== 'object') return it;
+      var c = {}; for (var k in it) c[k] = it[k];
+      if (c.item_id && ITEM_NAMES[c.item_id]) c.item_name = ITEM_NAMES[c.item_id];
+      return c;
+    });
+  }
   var SKIP = { event: 1, gtm: 1, ecommerce: 1, 'gtm.uniqueEventId': 1 };
   function forward(obj) {
     try {
@@ -28,6 +39,7 @@
       var ec = obj.ecommerce;
       if (ec && typeof ec === 'object') { for (var k in ec) p[k] = ec[k]; }
       for (var key in obj) { if (!SKIP[key] && key.indexOf('gtm.') !== 0) p[key] = obj[key]; }
+      if (p.items) p.items = normItems(p.items);
       if (obj.event === 'email_signup') { p.lead_type = 'email_signup'; p.method = obj.signup_source || 'unknown'; delete p.signup_source; }
       gt('event', name, p);
     } catch (e) {}
