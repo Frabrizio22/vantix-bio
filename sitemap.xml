@@ -31,13 +31,6 @@
     <priority>0.8</priority>
   </url>
   
-  <url>
-    <loc>https://vantixbio.com/checkout.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
   <!-- Blog Index -->
   <url>
     <loc>https://vantixbio.com/blog/index.html</loc>
@@ -119,73 +112,87 @@
 
   <url>
     <loc>https://vantixbio.com/products/vx-2t.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/vx-3r.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/bpc-157.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/ghk-cu.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/nad-1000mg.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/tb-500.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/cjc-1295.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/ipamorelin.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/mots-c.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://vantixbio.com/products/tesamorelin.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
+
+  <url>
+    <loc>https://vantixbio.com/about.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://vantixbio.com/faq.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
 </urlset>
