@@ -23,6 +23,12 @@
     var qq = new URLSearchParams(location.search), mm = (qq.get('utm_medium') || '').toLowerCase();
     if (mm === 'outreach' || mm === 'retention') set('vxLeadDone', '1');
   } catch (e) {}
+  // Remember a creator link (?code=JO10 and the like) for 30 days before the early exit below, so people who are already
+  // on the list still credit the creator on a later visit. Checkout reads the same key (vxCreator).
+  try {
+    var pc = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
+    if (/^[A-Z0-9]{2,20}$/.test(pc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10'].indexOf(pc) < 0) set('vxCreator', JSON.stringify({ c: pc, t: Date.now() }));
+  } catch (e) {}
   if (get('vxLeadDone')) return;
   // The big popup stays off for people who are already on the list or already shopping: email and
   // creator-link visitors, anyone with items in their cart, and anyone who closed it in the last 30 days.
