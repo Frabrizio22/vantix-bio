@@ -18,6 +18,7 @@
 //  * Supabase is the source of truth; Google Sheets (via Apps Script) is a mirror.
 // ============================================================
 
+const META_PIXEL_ID = '1020767607129004';   // vantixbio pixel
 const JSON_HEADERS = { 'Content-Type': 'application/json' };
 const SKU_ALIASES = { 'VX-KIT-TISSUE': 'VX-KIT-REPAIR' };   // checkout.html uses both names
 const MAX_BODY = 50_000;
@@ -135,7 +136,7 @@ async function handleOrder(body, method, request, env, ctx, cors) {
     // GA4: remember which GA visitor/session placed this order, so the purchase can be reported to it once paid.
     ctx.waitUntil(saveGaIds(env, o.order_number, v.ga));
     // Marketing source: first and last touch (utm/referrer/in-app browser), saved best-effort. No personal data.
-    ctx.waitUntil(saveFirstTouch(env, o.order_number, v.touch));
+    ctx.waitUntil(saveFirstTouch(env, o.order_number, v.touch, v.fb));
   }
 
   if (method === 'zelle') {
@@ -226,7 +227,7 @@ function validateOrder(b) {
     items.push({ sku: SKU_ALIASES[sku] || sku, qty });
   }
   const code = s(b.discount_code, 40).toUpperCase() || null;
-  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, ga: cleanGa(b.ga), touch: cleanTouch(b.first_touch) };
+  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, ga: cleanGa(b.ga), touch: cleanTouch(b.first_touch), fb: cleanFb(b.fb) };
 }
 
 // GA4: accept only values shaped like real GA ids (client_id "1234567890.1234567890", session_id = 10-digit unix time).
@@ -235,6 +236,16 @@ function cleanGa(g) {
   if (g && typeof g === 'object') {
     if (typeof g.client_id === 'string' && /^\d{5,12}\.\d{5,12}$/.test(g.client_id)) out.client_id = g.client_id;
     if (typeof g.session_id === 'string' && /^\d{8,12}$/.test(g.session_id)) out.session_id = g.session_id;
+  }
+  return out;
+}
+
+// Meta: only the two first-party ad cookies (_fbp "fb.1.<ms>.<digits>", _fbc "fb.1.<ms>.<fbclid>"). No email/phone ever goes to Meta from here.
+function cleanFb(f) {
+  const out = {};
+  if (f && typeof f === 'object') {
+    if (typeof f.fbp === 'string' && /^fb\.\d\.\d{10,14}\.\d{5,20}$/.test(f.fbp)) out.fbp = f.fbp;
+    if (typeof f.fbc === 'string' && /^fb\.\d\.\d{10,14}\.[A-Za-z0-9_-]{8,200}$/.test(f.fbc)) out.fbc = f.fbc;
   }
   return out;
 }
@@ -256,10 +267,12 @@ function cleanTouch(t) {
   return { first, last };
 }
 
-async function saveFirstTouch(env, orderNumber, touch) {
+async function saveFirstTouch(env, orderNumber, touch, fb) {
   try {
-    if (!touch) return;
-    const r = await dbPatch(env, `orders?order_number=eq.${encodeURIComponent(orderNumber)}`, { first_touch: touch });
+    const hasFb = fb && (fb.fbp || fb.fbc);
+    if (!touch && !hasFb) return;
+    const value = Object.assign({}, touch || {}, hasFb ? { fb } : {});   // fb rides inside first_touch (jsonb): no new column needed
+    const r = await dbPatch(env, `orders?order_number=eq.${encodeURIComponent(orderNumber)}`, { first_touch: value });
     if (!r.ok) console.log('saveFirstTouch failed (run supabase/orders_first_touch.sql?)', r.status);
   } catch (e) { console.log('saveFirstTouch error', e.message); }
 }
@@ -368,6 +381,7 @@ async function handleAdmin(request, url, env, ctx) {
   if (request.method !== 'POST') return new Response('Method not allowed', { status: 405 });
   if (url.pathname === '/admin/ship') return handleShip(request, env, ctx);
   if (url.pathname === '/admin/resend-ga') return handleResendGa(request, env);   // GA4
+  if (url.pathname === '/admin/resend-meta') return handleResendMeta(request, env);   // Meta CAPI
   if (url.pathname !== '/admin/confirm-payment') return new Response('Not found', { status: 404 });
   const b = await request.json().catch(() => ({}));
   const status = b.status || 'paid';
@@ -432,6 +446,7 @@ async function afterPaid(env, orderNumber) {
   // GA4 first: report the purchase now that the money is confirmed. It is fast and never throws; it runs BEFORE the slow Sheet/Apps Script call
   // so a slow mirror (which Cloudflare can cut off ~30s after the response) can no longer prevent it, as happened with VX45692 and VX74172.
   await sendGa4Purchase(env, o);
+  await sendMetaPurchase(env, o);   // Meta Conversions API, paid orders only
   await mirror(env, 'mirror_status', {
     order_number: o.order_number, payment_status: 'Paid', send_confirmation: true,
     customer_name: o.customer_name, customer_email: o.customer_email, items_detail,
@@ -538,6 +553,65 @@ async function handleResendGa(request, env) {
   if (!o) return json({ ok: false, error: 'order_not_found' }, 404);
   const out = await sendGa4Purchase(env, o, { force: true, debug: !!b.debug });
   return json({ ok: true, order_number: order, ...out });
+}
+
+
+// ------------------------------------------------------------
+// Meta Conversions API: server-side Purchase, PAID retail orders only (card confirmed or Zelle confirmed by you).
+// The page no longer sends Purchase (thank-you.html pushes card_order_returned), so this is the only Meta Purchase.
+// Privacy: sends order value, order number, SKUs and the visitor's _fbp/_fbc ad cookies. NO email, phone, name or address.
+// Needs secret META_CAPI_TOKEN (Events Manager > dataset > Settings > Conversions API > Generate access token).
+// Without it this does nothing, so deploying the Worker first is safe. Orders without _fbp/_fbc are skipped (Meta cannot match them).
+// ------------------------------------------------------------
+async function sendMetaPurchase(env, o, opts = {}) {
+  try {
+    if (!env.META_CAPI_TOKEN) return { sent: false, reason: 'META_CAPI_TOKEN not set' };
+    if (o.channel === 'wholesale') return { sent: false, reason: 'wholesale' };
+    const fb = (o.first_touch && o.first_touch.fb) || {};
+    if (!fb.fbp && !fb.fbc) return { sent: false, reason: 'no fbp/fbc saved for this order' };
+    const pixel = env.META_PIXEL_ID || META_PIXEL_ID;
+    const items = o.order_items || [];
+    const ev = {
+      event_name: 'Purchase',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: o.order_number,
+      action_source: 'website',
+      event_source_url: `${env.SITE_URL}/thank-you.html`,
+      user_data: Object.assign({}, fb.fbp ? { fbp: fb.fbp } : {}, fb.fbc ? { fbc: fb.fbc } : {}),
+      custom_data: {
+        currency: 'USD', value: Number(o.total), order_id: o.order_number,
+        content_type: 'product', content_ids: items.map((i) => i.sku),
+        contents: items.map((i) => ({ id: i.sku, quantity: Number(i.qty), item_price: Number(i.unit_price) })),
+        num_items: items.reduce((n, i) => n + Number(i.qty), 0),
+      },
+    };
+    const body = { data: [ev] };
+    const testCode = opts.test_event_code || env.META_TEST_EVENT_CODE;
+    if (testCode) body.test_event_code = testCode;
+    const r = await fetch(`https://graph.facebook.com/v21.0/${encodeURIComponent(pixel)}/events?access_token=${encodeURIComponent(env.META_CAPI_TOKEN)}`, {
+      method: 'POST', headers: JSON_HEADERS, body: JSON.stringify(body),
+    });
+    const t = await r.text();
+    if (!r.ok) {
+      await telegram(env, `⚠️ Meta Purchase for ${o.order_number} was rejected (HTTP ${r.status}). The order itself is fine.`);
+      return { sent: false, reason: `HTTP ${r.status}`, response: t.slice(0, 300) };
+    }
+    return { sent: true, test: !!testCode, response: t.slice(0, 200) };
+  } catch (e) {
+    console.log('sendMetaPurchase error', e.message);
+    return { sent: false, reason: String(e.message).slice(0, 120) };
+  }
+}
+
+// POST /admin/resend-meta {order_number, test_event_code?}  — with a test code the event shows only in Events Manager > Test events.
+// Meta de-duplicates on event_id (the order number) for 48h, so a repeat of a real send is harmless.
+async function handleResendMeta(request, env) {
+  const b = await request.json().catch(() => ({}));
+  const r = await db(env, `orders?order_number=eq.${encodeURIComponent(String(b.order_number || '').trim())}&select=*,order_items(*)`);
+  const o = r.ok && r.data[0];
+  if (!o) return json({ ok: false, error: 'order_not_found' }, 404);
+  const out = await sendMetaPurchase(env, o, { test_event_code: b.test_event_code ? String(b.test_event_code).slice(0, 40) : undefined });
+  return json({ ok: true, order_number: o.order_number, ...out });
 }
 
 // ------------------------------------------------------------

@@ -120,7 +120,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 // Push Purchase event to Data Layer for GTM
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
-                  event: 'purchase',
+                  event: 'card_order_returned',   // NOT 'purchase': this page also shows for pending/failed card returns. Meta Purchase is sent server-side once paid (worker sendMetaPurchase); GA4 likewise.
                   ecommerce: {
                     currency: 'USD',
                     transaction_id: order.orderNumber,
@@ -136,7 +136,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   }
                 });
                 
-                // Meta Purchase is fired by the Tag Manager 'purchase' trigger (no direct fbq call, which double-counted).
+                // Meta Purchase is sent by the Worker (Conversions API) when payment is confirmed; nothing on this page fires a Purchase.
                 
                 localStorage.removeItem('vantixLastOrder');
             } catch(e) {}
