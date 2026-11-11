@@ -938,7 +938,8 @@ shipping:getShipping(),
 total:getTotal(),
 affirmation:window.vxAffirmation||{},
 creator_code:wsHas()?'':(vxCreatorCode()||vxLinkCreator),
-first_touch:(function(){try{return window.vxTouches?window.vxTouches():null;}catch(e){return null;}})()
+first_touch:(function(){try{return window.vxTouches?window.vxTouches():null;}catch(e){return null;}})(),
+fb:(function(){try{var c=document.cookie,g=function(n){var m=c.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):'';};return {fbp:g('_fbp'),fbc:g('_fbc')};}catch(e){return {};}})()
 };
 var submitBtn=document.getElementById('submitBtn');
 submitBtn.disabled=true;
