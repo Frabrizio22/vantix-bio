@@ -55,6 +55,7 @@
     embed.searchParams.set('embed', '1');
     var full = new URL(url.href);
     full.searchParams.delete('embed');
+    full.searchParams.set('skip', '1'); // full page skips the loading animation (already seen in the popup)
     lastFocus = document.activeElement;
     loading.style.display = 'flex'; loading.style.opacity = '1';
     frame.src = embed.pathname + embed.search;
