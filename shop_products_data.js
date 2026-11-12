@@ -5,12 +5,12 @@
 // AUTO-INVENTORY SYSTEM
 // ============================================
 
-// Global inventory data (loaded from inventory.json)
+// Global inventory data (in-stock flags loaded from Supabase)
 let INVENTORY_DATA = {};
 let INVENTORY_LOADED = false;
 
 // Load in-stock flags from Supabase (public_stock() returns only sku + in_stock).
-// Falls back to inventory.json if the database call fails, then to each product's default inStock.
+// If the database call fails, each product keeps its default inStock value below.
 const VX_SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
 const VX_SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
 
@@ -30,12 +30,6 @@ async function loadInventory() {
       }
     }
   } catch (e) {}
-  if (!data) {
-    try {
-      const r2 = await fetch('/inventory.json?t=' + Date.now());
-      if (r2.ok) data = await r2.json();
-    } catch (e) {}
-  }
   if (data) {
     INVENTORY_DATA = data;
     INVENTORY_LOADED = true;
