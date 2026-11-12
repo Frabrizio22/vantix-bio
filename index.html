@@ -528,8 +528,12 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-h1 em{font-style:italic;font-weight:400;color:var(--hp-sage)}
 .hp .hp-lede{max-width:320px;font-size:16px;line-height:1.5;color:var(--hp-ink)}
 .hp .hp-origin{max-width:320px;font-size:14px;line-height:1.5;color:var(--hp-ink)}
-.hp .hp-hero .hp-lede+.hp-cta{margin:0}
-.hp .hp-h1-2{font-size:clamp(26px,7.6vw,32px);line-height:1.12;letter-spacing:-.02em}
+.hp .hp-hero .hp-lede+.hp-cta{margin:-4px 0 -6px}
+.hp .hp-h1-2{font-size:clamp(22px,6.2vw,30px);line-height:1.15;letter-spacing:-.02em}
+.hp .hp-h1-2 span,.hp .hp-h1-2 em{white-space:nowrap}
+.hp .hp-h1-2 em{font-style:normal}
+.hp .hp-btn-full{width:100%}
+.hp .hp-cta2{gap:4px 0}
 .hp .hp-h1-2 span,.hp .hp-h1-2 em{display:block}
 .hp .hp-h1-2 em{margin-top:6px}
 .hp .hp-origin-std{margin-top:12px}
@@ -687,7 +691,8 @@ body.vx-lb-open{overflow:hidden}
  .hp .hp-h1{font-size:clamp(52px,5.6vw,76px);line-height:1.02}
  .hp .hp-lede{font-size:18px;max-width:460px}
  .hp .hp-origin{font-size:15px;max-width:460px}
- .hp .hp-h1-2{font-size:clamp(40px,4.2vw,56px);line-height:1.08}
+ .hp .hp-h1-2{font-size:clamp(30px,3.2vw,42px);line-height:1.1}
+ .hp .hp-btn-full{width:auto}
  .hp .hp-stage img{height:340px}
  .hp .hp-stage{padding:28px 0}
  .hp .hp-spec>div{padding:16px 20px}
@@ -719,10 +724,11 @@ body.vx-lb-open{overflow:hidden}
 <div class="hp">
 <div class="hp-wrap hp-top">
 <section class="hp-hero" aria-label="Verify before you buy">
- <div class="hp-eyebrow hp-eyebrow-row"><span>Premium research peptides</span><a class="hp-eyebrow-ver" href="#coa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Batch tested</a></div>
+ <div class="hp-eyebrow hp-eyebrow-row"><span>Research peptides</span><a class="hp-eyebrow-ver" href="#coa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Third-party tested</a></div>
  <h1 class="hp-h1 hp-h1-2"><span>Quality you can verify.</span> <em>Consistency you can count on.</em></h1>
- <p class="hp-lede">Consistently sourced research peptides, independently tested by a third-party lab. Every batch has a publicly accessible COA, so you can review the data before you buy.</p>
+ <p class="hp-lede">Premium research peptides from a consistent U.S. manufacturing partner. Independently tested, with batch-specific COAs you can review before you buy.</p>
  <div class="hp-cta hp-cta2">
+  <a class="hp-btn hp-btn-full" href="shop.html">Shop Research Peptides</a>
   <a class="hp-link" href="#coa">View a batch COA &rsaquo;</a>
  </div>
  <nav class="hp-shop" aria-label="Shop">
