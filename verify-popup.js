@@ -88,5 +88,5 @@
     if (/[?&]embed=1/.test(location.search)) return;
     e.preventDefault();
     open(u);
-  });
+  }, true); // capture phase: some links (shop cards) stop click propagation
 })();

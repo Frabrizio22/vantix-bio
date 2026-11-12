@@ -581,8 +581,7 @@ function showToast(message) {
   }, 4000);
 }
 
-var VX_SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
-var VX_SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
+// VX_SB_URL and VX_SB_KEY come from shop_products_data.js (declaring them again here broke this whole script)
 var NOTIFY_CONSENT = "We'll email you once when it's back in stock.";
 
 // Inline "Notify me" for sold-out cards (saves to Supabase notify_requests via request_restock_notify).
@@ -661,7 +660,7 @@ function openNotify(btn, sku, name) {
 <script src="/sticky-header.js?v=1" defer></script>
 <script src="/promo-sale.js?v=1"></script>
 <script src="/ship-banner.js?v=5" defer></script>
-<script src="/verify-popup.js?v=1" defer></script>
+<script src="/verify-popup.js?v=2" defer></script>
 </body>
 </html>
 <!-- rebuild Mon Jul  6 06:40:09 PDT 2026 -->
