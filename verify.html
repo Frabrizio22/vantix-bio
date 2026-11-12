@@ -290,6 +290,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM5J7G2C');</script>
 <!-- End Google Tag Manager -->
+<script>try{if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed')}catch(e){}</script>
+<style>
+/* embed mode: verify page shown inside the popup on product / shop pages */
+html.embed .header-nav,html.embed footer,html.embed .footer-nav,html.embed .menu-overlay,html.embed .vx-hdr-space,html.embed .vx-hdr,html.embed #siteHeader,html.embed #vxShipBanner{display:none!important}
+html.embed body{padding-top:0!important}
+html.embed .container{padding-top:18px}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -499,16 +506,24 @@ Independently verified
 <script src="/batches.js?v=1"></script>
 <script>
 
-const terminalSteps = [
-'INITIALIZING VERIFICATION',
-'CONNECTING TO JANOSHIK DATABASE',
-'AUTHENTICATING BATCH SIGNATURE',
-'LOADING HPLC DATA',
-'PARSING LC-MS/MS RESULTS',
-'VALIDATING ENDOTOXIN SCREENING',
-'RETRIEVING BATCH RECORD',
-'✓ VERIFICATION COMPLETE'
-];
+// Loading lines are built from the batch record, so they only mention what that batch actually has.
+function buildSteps(b) {
+const tests = b.tests || [];
+const urls = tests.map(t => t.verifyUrl || '').join(' ');
+const labs = [];
+if (/phsolutionslab/i.test(urls)) labs.push('PH SOLUTIONS LAB');
+if (/janoshik/i.test(urls)) labs.push('JANOSHIK');
+const hplc = tests.some(t => (t.rows || []).some(r => r.key === 'Method' && /HPLC/i.test(r.value)));
+const steps = ['INITIALIZING VERIFICATION'];
+steps.push(labs.length === 1 ? 'CONNECTING TO ' + labs[0] : 'CONNECTING TO LAB RECORDS');
+steps.push('MATCHING BATCH ID TO LAB REPORT');
+if (hplc) steps.push('LOADING HPLC DATA');
+if (b.content && b.contentUnit) steps.push('LOADING CONTENT RESULTS');
+if (b.endotoxin === 'Pass' && /Microbials/i.test(b.endotoxinSpec || '')) steps.push('REVIEWING SAFETY PANEL');
+else if (b.endotoxin && /^\s*[<≤]?\s*\d/.test(b.endotoxin)) steps.push('REVIEWING ENDOTOXIN RESULT');
+steps.push('RETRIEVING ORIGINAL COA', '✓ VERIFICATION COMPLETE');
+return steps;
+}
 
 function searchBatch() {
 let input = document.getElementById('batchInput').value.trim().toUpperCase();
@@ -542,6 +557,7 @@ const terminal = document.getElementById('terminalOverlay');
 const terminalText = document.getElementById('terminalText');
 terminal.classList.add('active');
 let step = 0;
+const terminalSteps = buildSteps(batch);
 const interval = setInterval(() => {
 if (step < terminalSteps.length) {
 terminalText.innerHTML = terminalSteps[step] + '<span class="terminal-cursor"></span>';
@@ -553,7 +569,7 @@ terminal.classList.remove('active');
 showResults(input, batch);
 }, 500);
 }
-}, 220);
+}, 240);
 }
 
 function showResults(batchId, batch) {
