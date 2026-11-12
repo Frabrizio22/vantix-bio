@@ -89,6 +89,11 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .btn-waitlist{flex:1;text-align:center;padding:7px 12px;font-size:11px}@media(min-width:768px){.btn-waitlist{padding:9px 18px;font-size:13px}}
 .coa-link{font-size:13px;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:4px;transition:opacity .3s}
 .coa-link:hover{opacity:.7}
+.notify-form{display:flex;flex-direction:column;gap:6px;width:100%}
+.notify-row{display:flex;gap:6px}
+.notify-row input{flex:1;min-width:0;padding:8px 10px;font-size:14px;border:1px solid var(--hairline);border-radius:8px;background:#fff;color:inherit}
+.notify-note{font-size:11px;line-height:1.35;color:rgba(10,22,40,.55)}
+.notify-ok{font-size:13px;line-height:1.4}
 .verification-strip{background:var(--navy);padding:16px 0;margin:60px 0;color:rgba(255,255,255,.9)}
 .verification-inner{max-width:1400px;margin:0 auto;padding:0 20px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;text-align:center;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
 .verification-inner span{opacity:.7}
@@ -327,7 +332,7 @@ function renderProducts(filter='all'){
     return `
     <div class="product-card" onclick="window.location.href='${p.url}'" style="cursor:pointer">
       ${p.image ? `<img src="${p.image}" alt="${p.name}" class="product-image" loading="lazy" decoding="async">` : '<div class="product-image" style="background:var(--hairline);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(10,22,40,.4)">Image Pending</div>'}
-      ${!inStock ? '<div class="oos-label">COA Pending</div>' : ''}
+      ${!inStock ? '<div class="oos-label">Out of stock</div>' : ''}
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
       <div class="product-meta">${p.size}${p.purity ? ' · ' + p.purity + ' PURE' : ''}</div>
@@ -335,7 +340,7 @@ function renderProducts(filter='all'){
       <div class="product-cta">
         ${inStock
           ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
-          : `<button class="btn btn-dark btn-waitlist" onclick="joinWaitlist('${p.shortName}'); event.stopPropagation()">Notify Me</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
+          : `<button class="btn btn-dark btn-waitlist" onclick="openNotify(this, '${p.sku}', '${p.shortName}'); event.stopPropagation()">Notify Me</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
     </div>
@@ -576,29 +581,36 @@ function showToast(message) {
   }, 4000);
 }
 
-function joinWaitlist(productName) {
-  var email = prompt('Enter your email to be notified when ' + productName + ' is back in stock:');
-  if (!email || !email.includes('@')) { return; }
-  fetch('https://vantix-checkout.prcpeptides.workers.dev', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      action: 'notify',
-      email: email,
-      product: productName,
-      source: 'shop_page'
-    })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.status === 'success' || data.status === 'duplicate') {
-      alert('✓ You\'re on the waitlist! We\'ll notify you when ' + productName + ' is back in stock.');
-    } else {
-      alert('Error joining waitlist. Please try again.');
-    }
-  })
-  .catch(function() {
-    alert('Error joining waitlist. Please try again.');
+var VX_SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
+var VX_SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
+var NOTIFY_CONSENT = "We'll email you once when it's back in stock.";
+
+// Inline "Notify me" for sold-out cards (saves to Supabase notify_requests via request_restock_notify).
+function openNotify(btn, sku, name) {
+  var cta = btn.closest('.product-cta');
+  cta.innerHTML = '<form class="notify-form" onclick="event.stopPropagation()">' +
+    '<div class="notify-row"><input type="email" required autocomplete="email" inputmode="email" placeholder="Your email" aria-label="Email for restock notice">' +
+    '<button type="submit" class="btn btn-dark btn-waitlist" style="flex:none">Notify me</button></div>' +
+    '<div class="notify-note">' + NOTIFY_CONSENT + '</div></form>';
+  var form = cta.querySelector('form');
+  form.querySelector('input').focus();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var email = form.querySelector('input').value.trim();
+    var submit = form.querySelector('button');
+    submit.disabled = true; submit.textContent = 'Saving...';
+    fetch(VX_SB_URL + '/rest/v1/rpc/request_restock_notify', {
+      method: 'POST',
+      headers: { apikey: VX_SB_KEY, Authorization: 'Bearer ' + VX_SB_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_sku: sku, p_email: email, p_consent: NOTIFY_CONSENT })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('bad');
+      cta.innerHTML = '<div class="notify-ok">Got it. We\'ll email you once when ' + name + ' is back.</div>';
+      if (window.dataLayer) window.dataLayer.push({ event: 'generate_lead', lead_source: 'notify_me', sku: sku });
+    }).catch(function () {
+      submit.disabled = false; submit.textContent = 'Notify me';
+      var n = form.querySelector('.notify-note'); n.textContent = 'Something went wrong. Check the email and try again.';
+    });
   });
 }
 </script>
