@@ -552,6 +552,13 @@ try { window.vxTrack && window.vxTrack('verify_lookup', { batch_id: input.slice(
 const errorMsg = document.getElementById('errorMsg');
 if (errorMsg) errorMsg.style.display = 'none';
 
+// Coming from the popup's "Open full page" link (?skip=1): they already saw the animation, go straight to results
+if (new URLSearchParams(location.search).get('skip') === '1') {
+document.getElementById('searchCard').style.display = 'none';
+showResults(input, batch);
+return;
+}
+
 // Show terminal animation
 const terminal = document.getElementById('terminalOverlay');
 const terminalText = document.getElementById('terminalText');
