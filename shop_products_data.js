@@ -9,24 +9,37 @@
 let INVENTORY_DATA = {};
 let INVENTORY_LOADED = false;
 
-// Load inventory from GitHub (auto-updated by Apps Script)
+// Load in-stock flags from Supabase (public_stock() returns only sku + in_stock).
+// Falls back to inventory.json if the database call fails, then to each product's default inStock.
+const VX_SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
+const VX_SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
+
 async function loadInventory() {
+  let data = null;
   try {
-    const response = await fetch('/inventory.json?t=' + Date.now());
-    if (response.ok) {
-      INVENTORY_DATA = await response.json();
-      INVENTORY_LOADED = true;
-      console.log('✅ Inventory loaded:', INVENTORY_DATA);
-      
-      // Refresh product displays if they're already rendered
-      if (typeof refreshProductGrid === 'function') {
-        refreshProductGrid();
+    const r = await fetch(VX_SB_URL + '/rest/v1/rpc/public_stock', {
+      method: 'POST',
+      headers: { apikey: VX_SB_KEY, Authorization: 'Bearer ' + VX_SB_KEY, 'Content-Type': 'application/json' },
+      body: '{}'
+    });
+    if (r.ok) {
+      const rows = await r.json();
+      if (Array.isArray(rows) && rows.length) {
+        data = {};
+        rows.forEach(function (row) { data[row.sku] = { inStock: !!row.in_stock }; });
       }
-    } else {
-      console.warn('⚠️ Could not load inventory.json, using default inStock values');
     }
-  } catch (error) {
-    console.warn('⚠️ Inventory fetch failed:', error);
+  } catch (e) {}
+  if (!data) {
+    try {
+      const r2 = await fetch('/inventory.json?t=' + Date.now());
+      if (r2.ok) data = await r2.json();
+    } catch (e) {}
+  }
+  if (data) {
+    INVENTORY_DATA = data;
+    INVENTORY_LOADED = true;
+    if (typeof refreshProductGrid === 'function') refreshProductGrid();
   }
 }
 
@@ -63,7 +76,6 @@ const VX_PRODUCTS = {
             size: '30mg',
             purity: '>99%',
             price: 59,
-            cogs: 17.38,
             image: 'images/products/vx-2t-30mg.jpg',
             url: 'products/vx-2t.html',
             inStock: true,  // Back in stock
@@ -89,7 +101,6 @@ const VX_PRODUCTS = {
             size: '20mg',
             purity: '>99%',
             price: 67,
-            cogs: 19.98,
             image: 'images/products/vx-3r-20mg.jpg',
             url: 'products/vx-3r.html',
             inStock: true,
@@ -116,7 +127,6 @@ const VX_PRODUCTS = {
             size: '10mg',
             purity: '>99%',
             price: 30,
-            cogs: 15.50,
             image: 'images/products/bpc-157-10mg.jpg',
             url: 'products/bpc-157.html',
             inStock: true,
@@ -141,7 +151,6 @@ const VX_PRODUCTS = {
             size: '10mg',
             purity: '>99%',
             price: 38,
-            cogs: 21.24,
             image: 'images/products/tb-500-10mg.jpg',
             url: 'products/tb-500.html',
             inStock: true,
@@ -166,7 +175,6 @@ const VX_PRODUCTS = {
             size: '100mg',
             purity: '>99%',
             price: 34,
-            cogs: 10.30,
             image: 'images/products/ghk-cu-100mg.jpg',
             url: 'products/ghk-cu.html',
             inStock: true,
@@ -193,7 +201,6 @@ const VX_PRODUCTS = {
             size: '5mg',
             purity: '>99%',
             price: 29,
-            cogs: 8.29,
             image: 'images/products/cjc-1295-10mg.jpg',
             url: 'products/cjc-1295.html',
             inStock: false,
@@ -218,7 +225,6 @@ const VX_PRODUCTS = {
             size: '5mg',
             purity: '>99%',
             price: 28,
-            cogs: 5.85,
             image: 'images/products/ipamorelin-10mg.jpg',
             url: 'products/ipamorelin.html',
             inStock: false,
@@ -243,7 +249,6 @@ const VX_PRODUCTS = {
             size: '10mg',
             purity: '>99%',
             price: 52,
-            cogs: 20.03,
             image: 'images/products/tesamorelin-10mg.jpg',
             url: 'products/tesamorelin.html',
             inStock: true,
@@ -270,7 +275,6 @@ const VX_PRODUCTS = {
             size: '10mg',
             purity: '>99%',
             price: 32,
-            cogs: 16.65,
             image: 'images/products/mots-c-10mg.jpg',
             url: 'products/mots-c.html',
             inStock: false,
@@ -295,7 +299,6 @@ const VX_PRODUCTS = {
             size: '1000mg',
             purity: '>99%',
             price: 59,
-            cogs: 12.00,
             image: 'images/products/nad-1000mg.jpg',
             url: 'products/nad-1000mg.html',
             inStock: true,
@@ -322,7 +325,6 @@ const VX_PRODUCTS = {
             size: '10mL',
             purity: '',
             price: 12,
-            cogs: 3.50,
             image: 'images/products/bac-water-10ml.jpg',
             url: '#',
             inStock: true,
