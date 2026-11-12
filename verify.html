@@ -500,14 +500,11 @@ Independently verified
 <script>
 
 const terminalSteps = [
-'INITIALIZING VERIFICATION',
-'CONNECTING TO JANOSHIK DATABASE',
-'AUTHENTICATING BATCH SIGNATURE',
-'LOADING HPLC DATA',
-'PARSING LC-MS/MS RESULTS',
-'VALIDATING ENDOTOXIN SCREENING',
-'RETRIEVING BATCH RECORD',
-'✓ VERIFICATION COMPLETE'
+'LOOKING UP BATCH',
+'MATCHING BATCH TO LAB RECORD',
+'LOADING LAB RESULTS',
+'LINKING ORIGINAL COA',
+'✓ BATCH VERIFIED'
 ];
 
 function searchBatch() {
@@ -553,7 +550,7 @@ terminal.classList.remove('active');
 showResults(input, batch);
 }, 500);
 }
-}, 220);
+}, 280);
 }
 
 function showResults(batchId, batch) {
