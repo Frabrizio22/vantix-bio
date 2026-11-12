@@ -17,12 +17,11 @@
       '.vxvp-bar{flex:none;display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 20px;border-bottom:1px solid #D9D2BF;background:#FAFAF7;font:500 12px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#0F1B2D}' +
       '.vxvp-bar a{color:#3973B0;text-decoration:none;margin-right:6px}' +
       '.vxvp-x{appearance:none;border:0;background:#0F1B2D;color:#FAFAF7;width:34px;height:34px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}' +
-      '.vxvp-x:focus-visible,.vxvp-bar a:focus-visible{outline:2px solid #3973B0;outline-offset:2px}' +
+      '.vxvp-box:focus{outline:none}.vxvp-x:focus-visible,.vxvp-bar a:focus-visible{outline:2px solid #3973B0;outline-offset:2px}' +
       '.vxvp iframe{flex:1;width:100%;border:0;background:#FAFAF7}' +
       '.vxvp-load{position:absolute;left:0;right:0;top:58px;bottom:0;display:flex;align-items:center;justify-content:center;background:#FAFAF7;font:500 12px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#0F1B2D;transition:opacity .2s}' +
       'body.vxvp-lock{overflow:hidden}' +
-      '@media(max-width:640px){.vxvp{align-items:flex-end}.vxvp-box{width:100vw;height:86vh;height:86dvh;border-radius:22px 22px 0 0;animation:vxvps .25s ease-out}}' +
-      '@keyframes vxvps{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}' +
+      '@media(max-width:640px){.vxvp-box{width:calc(100vw - 28px);height:min(78vh,720px);height:min(78dvh,720px);border-radius:22px}}' +
       '@keyframes vxvpf{from{opacity:0}to{opacity:1}}@keyframes vxvpu{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}' +
       '@media(prefers-reduced-motion:reduce){.vxvp.on,.vxvp-box{animation:none}}';
     document.head.appendChild(st);
@@ -37,7 +36,7 @@
     overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-label', 'Batch verification');
     overlay.innerHTML =
-      '<div class="vxvp-box"><div class="vxvp-bar"><span>Batch verification</span><span style="display:flex;align-items:center"><a href="/verify.html" target="_blank" rel="noopener" id="vxvpFull">Open full page</a>' +
+      '<div class="vxvp-box" tabindex="-1"><div class="vxvp-bar"><span>Batch verification</span><span style="display:flex;align-items:center"><a href="/verify.html" target="_blank" rel="noopener" id="vxvpFull">Open full page</a>' +
       '<button type="button" class="vxvp-x" aria-label="Close">&times;</button></span></div>' +
       '<div class="vxvp-load">Loading</div><iframe title="Batch verification results"></iframe></div>';
     document.body.appendChild(overlay);
@@ -62,7 +61,7 @@
     fullLink.href = full.pathname + full.search;
     overlay.classList.add('on');
     document.body.classList.add('vxvp-lock');
-    closeBtn.focus();
+    overlay.querySelector('.vxvp-box').focus({preventScroll:true});
     try { window.vxTrack && window.vxTrack('verify_popup_open', { page: location.pathname.slice(0, 60) }); } catch (e) {}
   }
 
