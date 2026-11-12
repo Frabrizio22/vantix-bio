@@ -13,7 +13,7 @@
     st.textContent =
       '.vxvp{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;background:rgba(15,27,45,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}' +
       '.vxvp.on{display:flex;animation:vxvpf .18s ease-out}' +
-      '.vxvp-box{position:relative;width:min(560px,94vw);height:min(86vh,880px);background:#FAFAF7;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(15,27,45,.35);display:flex;flex-direction:column;animation:vxvpu .22s ease-out}' +
+      '.vxvp-box{position:relative;width:min(520px,94vw);height:min(80vh,780px);background:#FAFAF7;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(15,27,45,.35);display:flex;flex-direction:column;animation:vxvpu .22s ease-out}' +
       '.vxvp-bar{flex:none;display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 20px;border-bottom:1px solid #D9D2BF;background:#FAFAF7;font:500 12px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#0F1B2D}' +
       '.vxvp-bar a{color:#3973B0;text-decoration:none;margin-right:6px}' +
       '.vxvp-x{appearance:none;border:0;background:#0F1B2D;color:#FAFAF7;width:34px;height:34px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}' +
@@ -21,7 +21,8 @@
       '.vxvp iframe{flex:1;width:100%;border:0;background:#FAFAF7}' +
       '.vxvp-load{position:absolute;left:0;right:0;top:58px;bottom:0;display:flex;align-items:center;justify-content:center;background:#FAFAF7;font:500 12px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#0F1B2D;transition:opacity .2s}' +
       'body.vxvp-lock{overflow:hidden}' +
-      '@media(max-width:640px){.vxvp-box{width:100vw;height:100vh;height:100dvh;border-radius:0}.vxvp{align-items:stretch}}' +
+      '@media(max-width:640px){.vxvp{align-items:flex-end}.vxvp-box{width:100vw;height:86vh;height:86dvh;border-radius:22px 22px 0 0;animation:vxvps .25s ease-out}}' +
+      '@keyframes vxvps{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}' +
       '@keyframes vxvpf{from{opacity:0}to{opacity:1}}@keyframes vxvpu{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}' +
       '@media(prefers-reduced-motion:reduce){.vxvp.on,.vxvp-box{animation:none}}';
     document.head.appendChild(st);
