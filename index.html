@@ -527,6 +527,11 @@ ageBtn.addEventListener('click', function() { if (gateAllChecked()) { try { loca
 .hp .hp-h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(34px,10.9vw,44px);line-height:1.04;letter-spacing:-.025em;color:var(--hp-navy)}
 .hp .hp-h1 em{font-style:italic;font-weight:400;color:var(--hp-sage)}
 .hp .hp-lede{max-width:320px;font-size:16px;line-height:1.5;color:var(--hp-ink)}
+.hp .hp-origin{max-width:320px;font-size:14px;line-height:1.5;color:var(--hp-ink)}
+.hp .hp-hero .hp-lede+.hp-cta{margin:0}
+.hp .hp-origin-std{margin-top:12px}
+.hp .hp-cta2{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px}
+.hp .hp-hero .hp-cta+.hp-origin{margin:0}
 .hp .hp-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin:4px 0 8px}
 .hp .hp-btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--hp-blue);color:#fff;font-family:'Geist',sans-serif;font-weight:500;font-size:16px;letter-spacing:-.01em;text-decoration:none;cursor:pointer;box-shadow:0 6px 16px -8px rgba(57,115,176,.7);transition:transform .15s ease,filter .15s ease}
 .hp .hp-shop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 4px}
@@ -678,6 +683,7 @@ body.vx-lb-open{overflow:hidden}
  .hp .hp-vbox{grid-area:verify;margin:28px 0 72px;max-width:520px}
  .hp .hp-h1{font-size:clamp(52px,5.6vw,76px);line-height:1.02}
  .hp .hp-lede{font-size:18px;max-width:460px}
+ .hp .hp-origin{font-size:15px;max-width:460px}
  .hp .hp-stage img{height:340px}
  .hp .hp-stage{padding:28px 0}
  .hp .hp-spec>div{padding:16px 20px}
@@ -710,16 +716,17 @@ body.vx-lb-open{overflow:hidden}
 <div class="hp-wrap hp-top">
 <section class="hp-hero" aria-label="Verify before you buy">
  <div class="hp-eyebrow hp-eyebrow-row"><span>Research peptides</span><a class="hp-eyebrow-ver" href="#coa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Third-party verified</a></div>
- <h1 class="hp-h1">Don&rsquo;t take<br>our word.<br><em>Verify the results.</em></h1>
- <p class="hp-lede">Every batch is tested by an independent lab before we sell it, with a 99% purity minimum. Read the lab&rsquo;s own report before you order.</p>
+ <h1 class="hp-h1">Research peptides,<br><em>filled in the U.S.</em></h1>
+ <p class="hp-lede">Independently tested, with COAs you can check. Scan the QR on your vial to open the report for your lot, linked to the original on the lab&rsquo;s own site.</p>
+ <div class="hp-cta hp-cta2">
+  <a class="hp-btn" href="shop.html">Shop research peptides</a>
+  <a class="hp-link" href="#coa">View a batch COA &rsaquo;</a>
+ </div>
  <nav class="hp-shop" aria-label="Shop">
   <a class="hp-tab" href="shop.html"><b>Single Vials</b><i>From $30</i></a>
   <a class="hp-tab" href="kits.html"><b>Bundles</b><i>Save up to 15%</i></a>
   <a class="hp-tab" href="wholesale.html"><b>10-Vial Kits</b><i>Save up to 32%</i></a>
  </nav>
- <div class="hp-cta">
-  <a class="hp-link" href="#coa">See a lab report &rsaquo;</a>
- </div>
 </section>
  <div class="hp-card">
   <div class="hp-stage"><img src="images/products/mots-c-10mg.jpg" alt="Vantix Bio MOTS-c 10mg vial with batch label and QR code" width="300" height="234" fetchpriority="high"></div>
@@ -821,8 +828,9 @@ body.vx-lb-open{overflow:hidden}
   <div class="hp-eyebrow">Tested &middot; Verified &middot; Archived</div>
   <h2 class="hp-h2">Verification doesn&rsquo;t end when a batch sells out.</h2>
   <p class="hp-sub">When inventory is gone, the record stays. Look up your batch number and open its testing, even years later.</p>
+  <p class="hp-origin hp-origin-std">Where it&rsquo;s made: formulated, filled, and freeze-dried in the U.S. from imported peptide material.</p>
   <div class="hp-rows">
-   <div class="hp-row"><span>01</span><div><h3>Third-party verified</h3><p>A sample from every batch is sent to an independent laboratory before release. The lab&rsquo;s certificate of analysis (COA) is published for that batch.</p></div></div>
+   <div class="hp-row"><span>01</span><div><h3>Third-party verified</h3><p>A representative sample from each batch is tested by an independent laboratory, not every vial. The lab&rsquo;s certificate of analysis (COA) is published for that batch.</p></div></div>
    <div class="hp-row"><span>02</span><div><h3>Public verification</h3><p>Scan the QR code on your vial. Each report links to the laboratory&rsquo;s own website so you can confirm it.</p></div></div>
    <div class="hp-row"><span>03</span><div><h3>Always accessible</h3><p>Batch records stay online. Check yours anytime, years after purchase.</p></div></div>
   </div>
