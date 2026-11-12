@@ -1,68 +1,32 @@
 {
   "VX-TIRZ-30": {
-    "sku": "VX-TIRZ-30",
-    "name": "Tirzepatide 30mg",
-    "stock": 50,
     "inStock": true
   },
   "VX-RETA-20": {
-    "sku": "VX-RETA-20",
-    "name": "Retatrutide 20mg",
-    "stock": 50,
     "inStock": true
   },
-  "VX-SEMA-10": {
-    "sku": "VX-SEMA-10",
-    "name": "Semaglutide 10mg",
-    "stock": 0,
-    "inStock": false
-  },
   "VX-BPC-10": {
-    "sku": "VX-BPC-10",
-    "name": "BPC-157 10mg",
-    "stock": 50,
     "inStock": true
   },
   "VX-TB-10": {
-    "sku": "VX-TB-10",
-    "name": "TB-500 10mg",
-    "stock": 50,
     "inStock": true
   },
   "VX-GHK-100": {
-    "sku": "VX-GHK-100",
-    "name": "GHK-Cu 100mg",
-    "stock": 50,
     "inStock": true
   },
   "VX-CJC-5": {
-    "sku": "VX-CJC-5",
-    "name": "CJC-1295 (No DAC) 5mg",
-    "stock": 0,
     "inStock": false
   },
   "VX-IPA-5": {
-    "sku": "VX-IPA-5",
-    "name": "Ipamorelin 5mg",
-    "stock": 0,
     "inStock": false
   },
   "VX-TESA-10": {
-    "sku": "VX-TESA-10",
-    "name": "Tesamorelin 10mg",
-    "stock": 50,
     "inStock": true
   },
   "VX-MOTS-10": {
-    "sku": "VX-MOTS-10",
-    "name": "MOTS-C 10mg",
-    "stock": 0,
     "inStock": false
   },
   "VX-NAD-1000": {
-    "sku": "VX-NAD-1000",
-    "name": "NAD+ 1000mg",
-    "stock": 35,
     "inStock": true
   }
 }
