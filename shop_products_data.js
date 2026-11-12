@@ -9,24 +9,37 @@
 let INVENTORY_DATA = {};
 let INVENTORY_LOADED = false;
 
-// Load inventory from GitHub (auto-updated by Apps Script)
+// Load in-stock flags from Supabase (public_stock() returns only sku + in_stock).
+// Falls back to inventory.json if the database call fails, then to each product's default inStock.
+const VX_SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
+const VX_SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
+
 async function loadInventory() {
+  let data = null;
   try {
-    const response = await fetch('/inventory.json?t=' + Date.now());
-    if (response.ok) {
-      INVENTORY_DATA = await response.json();
-      INVENTORY_LOADED = true;
-      console.log('✅ Inventory loaded:', INVENTORY_DATA);
-      
-      // Refresh product displays if they're already rendered
-      if (typeof refreshProductGrid === 'function') {
-        refreshProductGrid();
+    const r = await fetch(VX_SB_URL + '/rest/v1/rpc/public_stock', {
+      method: 'POST',
+      headers: { apikey: VX_SB_KEY, Authorization: 'Bearer ' + VX_SB_KEY, 'Content-Type': 'application/json' },
+      body: '{}'
+    });
+    if (r.ok) {
+      const rows = await r.json();
+      if (Array.isArray(rows) && rows.length) {
+        data = {};
+        rows.forEach(function (row) { data[row.sku] = { inStock: !!row.in_stock }; });
       }
-    } else {
-      console.warn('⚠️ Could not load inventory.json, using default inStock values');
     }
-  } catch (error) {
-    console.warn('⚠️ Inventory fetch failed:', error);
+  } catch (e) {}
+  if (!data) {
+    try {
+      const r2 = await fetch('/inventory.json?t=' + Date.now());
+      if (r2.ok) data = await r2.json();
+    } catch (e) {}
+  }
+  if (data) {
+    INVENTORY_DATA = data;
+    INVENTORY_LOADED = true;
+    if (typeof refreshProductGrid === 'function') refreshProductGrid();
   }
 }
 
