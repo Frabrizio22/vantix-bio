@@ -1,6 +1,6 @@
 /* Slim shipping notice under the header on browsing pages. Closable for the session. Update LINE1/LINE2 here to change it everywhere. */
 (function () {
-  var LINE1 = 'Ships next business day \u00b7 typically arrives in 4 business days';
+  var LINE1 = 'Ships next business day';
   var LINE2 = 'Free shipping on orders over $150';
   // Halloween promo: replaces LINE1 until Nov 2, 2026 00:00 PST (08:00 UTC), then the normal shipping line returns on its own.
   var PROMO_END = Date.UTC(2026, 10, 2, 8, 0, 0);
