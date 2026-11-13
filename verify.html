@@ -515,7 +515,7 @@ if (/phsolutionslab/i.test(urls)) labs.push('PH SOLUTIONS LAB');
 if (/janoshik/i.test(urls)) labs.push('JANOSHIK');
 const hplc = tests.some(t => (t.rows || []).some(r => r.key === 'Method' && /HPLC/i.test(r.value)));
 const steps = ['INITIALIZING VERIFICATION'];
-steps.push(labs.length === 1 ? 'CONNECTING TO ' + labs[0] : 'CONNECTING TO LAB RECORDS');
+steps.push(labs.length === 1 ? 'CONNECTING TO ' + labs[0].replace(/ LAB$/, '') : 'CONNECTING TO LAB RECORDS');
 steps.push('MATCHING LAB REPORT');
 if (hplc) steps.push('LOADING HPLC DATA');
 if (b.content && b.contentUnit) steps.push('LOADING CONTENT RESULTS');
