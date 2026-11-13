@@ -228,6 +228,48 @@ imageUrl: '/img/vx-mots10-001-endotoxin.jpg'
 }
 ]
 },
+'VX-MOTS10-002': {
+name: 'MOTS-c 10mg',
+content: '11.56',
+contentUnit: 'mg/vial',
+purity: '98.939',
+endotoxin: '<1',
+endotoxinUnit: 'EU/vial',
+endotoxinSpec: '≤ 1 EU/mg spec',
+contentSpec: 'Label claim 10 mg',
+puritySpec: 'Below our standard 99% spec',
+tested: 'October 15, 2026',
+tests: [
+{
+title: 'Purity & Content',
+taskId: '241199',
+date: '15 Oct 2026',
+status: 'Reported',
+rows: [
+{ key: 'Content', value: '11.56', unit: 'mg/vial', large: true },
+{ key: 'Purity', value: '98.939', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/241199-MOTSc_10mg_LVTNBGY1L5FU',
+verifyKey: 'LVTNBGY1L5FU',
+downloadUrl: '/coa/VX-MOTS10-002-purity.png',
+imageUrl: '/img/vx-mots10-002-purity.png'
+},
+{
+title: 'Endotoxin',
+taskId: '241200',
+date: '14 Oct 2026',
+status: 'Reported',
+rows: [
+{ key: 'Endotoxin', value: '<1', unit: 'EU/vial', large: true }
+],
+verifyUrl: 'https://verify.janoshik.com/tests/241200-MOTSc_10mg_KAREF1E5L8R6',
+verifyKey: 'KAREF1E5L8R6',
+downloadUrl: '/coa/VX-MOTS10-002-endotoxin.png',
+imageUrl: '/img/vx-mots10-002-endotoxin.png'
+}
+]
+},
 'VX-TIRZ30-001': {
 name: 'Tirzepatide 30mg',
 content: '32.35',
@@ -479,6 +521,7 @@ const currentBatch = {
   "tesamorelin": "NHS-TSM10-20260921-01",
   "ghk-cu": "VX-GHK100-001",
   "mots-c": "VX-MOTS10-001",
+  "mots-c-batch-2": "VX-MOTS10-002",
   "nad-1000mg": "VX-NAD1K-001",
   "cjc-1295": "VX-CJC5-001",
   "ipamorelin": "VX-IPA5-001"

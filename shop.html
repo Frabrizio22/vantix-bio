@@ -159,6 +159,9 @@ footer{background:#0B2545;color:#E8EEF5;padding:32px 24px 20px;font-family:'Geis
 .ft-legal a{color:rgba(232,238,245,.6)}
 .ft-ruo{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:rgba(232,238,245,.45);margin:0;line-height:1.7}
 .ft-ruo strong{color:rgba(232,238,245,.6)}
+.pack-toggle{display:flex;gap:6px;margin:8px 0 2px}
+.pack{flex:1;font:500 12px 'JetBrains Mono',monospace;padding:7px 4px;border:1px solid var(--hairline,#D9D2BF);border-radius:8px;background:transparent;color:#0F1B2D;cursor:pointer}
+.pack.on{background:#0F1B2D;color:#FAFAF7;border-color:#0F1B2D}
 </style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -336,10 +339,11 @@ function renderProducts(filter='all'){
       <div class="product-category">${p.categoryLabel}</div>
       <h3 class="product-name">${p.name}</h3>
       <div class="product-meta">${p.size}${p.purity ? ' · ' + p.purity + ' PURE' : ''}</div>
-      <div class="product-price">${window.vxSale ? vxSale.html(p.price) : '$' + p.price}</div>
+      ${p.packs ? `<div class="pack-toggle" onclick="event.stopPropagation()">${p.packs.map((k, i) => `<button type="button" class="pack${i === 0 ? ' on' : ''}" data-sku="${k.sku}" data-name="${k.cartName}" data-price="${k.price}" onclick="pickPack(this)">${k.label}</button>`).join('')}</div>` : ''}
+      <div class="product-price">${p.packs ? '$' + p.packs[0].price : (window.vxSale ? vxSale.html(p.price) : '$' + p.price)}</div>
       <div class="product-cta">
         ${inStock
-          ? `<button class="btn btn-dark btn-waitlist" onclick="quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price}); event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
+          ? `<button class="btn btn-dark btn-waitlist" onclick="${p.packs ? 'quickAddPack(this)' : `quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price})`}; event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
           : `<button class="btn btn-dark btn-waitlist" onclick="openNotify(this, '${p.sku}', '${p.shortName}'); event.stopPropagation()">Notify Me</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
@@ -502,6 +506,18 @@ window.addEventListener('storage', updateCartBadge);
 
 // Quick Add - Premium E-commerce UX
 let currentQuickAddProduct = null;
+
+function pickPack(btn) {
+  const card = btn.closest('.product-card');
+  card.querySelectorAll('.pack').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  card.querySelector('.product-price').textContent = '$' + btn.dataset.price;
+}
+
+function quickAddPack(btn) {
+  const on = btn.closest('.product-card').querySelector('.pack.on');
+  quickAdd(on.dataset.sku, on.dataset.name, Number(on.dataset.price));
+}
 
 function quickAdd(sku, productName, price) {
   currentQuickAddProduct = {sku, name: productName, price};
