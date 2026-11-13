@@ -297,7 +297,7 @@ const VX_PRODUCTS = {
                 { label: '1 vial', sku: 'VX-MOTS-10B', cartName: 'MOTS-c 10mg Batch 002', price: 25 },
                 { label: '4 vials', sku: 'VX-MOTS-10B-4', cartName: 'MOTS-c 10mg Batch 002 (4 vials)', price: 89 }
             ],
-            image: 'images/products/mots-c-10mg.jpg',
+            image: 'images/products/mots-c-10mg-batch2.jpg',
             url: 'products/mots-c-batch-2.html',
             inStock: true,
             dualTested: true,
