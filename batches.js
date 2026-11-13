@@ -233,7 +233,6 @@ name: 'MOTS-c 10mg',
 content: '11.56',
 contentUnit: 'mg/vial',
 purity: '98.939',
-purityMethod: '',
 endotoxin: '<1',
 endotoxinUnit: 'EU/vial',
 endotoxinSpec: '≤ 1 EU/mg spec',
@@ -248,7 +247,8 @@ date: '15 Oct 2026',
 status: 'Reported',
 rows: [
 { key: 'Content', value: '11.56', unit: 'mg/vial', large: true },
-{ key: 'Purity', value: '98.939', unit: '%', large: true }
+{ key: 'Purity', value: '98.939', unit: '%', large: true },
+{ key: 'Method', value: 'HPLC' }
 ],
 verifyUrl: 'https://verify.janoshik.com/tests/241199-MOTSc_10mg_LVTNBGY1L5FU',
 verifyKey: 'LVTNBGY1L5FU',
