@@ -335,19 +335,19 @@ const VX_PRODUCTS = {
             }
         },
 
-        // SUPPLIES - Bacteriostatic water
+        // SUPPLIES
         {
             sku: 'VX-BAC-10',
             name: 'VX-BW 10mL', 
             cartName: 'VX-BW 10mL',
             shortName: 'VX-BW',
-            slug: 'bac-water',
+            slug: 'vx-bw',
             category: 'supplies',
             categoryLabel: 'LAB SUPPLY',
             size: '10mL',
             purity: '',
             price: 12,
-            image: 'images/products/bac-water-10ml.jpg',
+            image: 'images/products/vx-bw-10ml.jpg',
             url: '#',
             inStock: true,
             dualTested: false,
