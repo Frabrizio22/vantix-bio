@@ -495,13 +495,16 @@ function getUrlParam(name){var params=new URLSearchParams(window.location.search
 // Current prices - validates cart against stale/cached prices
 var currentPrices={
 'VX-TIRZ-30':59,'VX-RETA-20':67,'VX-SEMA-10':42,'VX-BPC-10':30,'VX-TB-10':38,
-'VX-GHK-100':34,'VX-CJC-5':29,'VX-IPA-5':28,'VX-TESA-10':52,'VX-MOTS-10':32,'VX-MOTS-10B':25,'VX-MOTS-10B-4':89,
+'VX-GHK-100':34,'VX-CJC-5':29,'VX-IPA-5':28,'VX-TESA-10':52,'VX-MOTS-10':32,'VX-MOTS-10B':25,
 'VX-NAD-1000':59,'VX01':10,
 'VX-KIT-TISSUE':58,'VX-KIT-GH':48,'VX-KIT-NEXTGEN':112,'VX-KIT-MITO':82
 };
 
 // 10-vial kits (10 vials of one compound). Display only: the server (create_order) sets the real price.
 var WS={'VX-W-RETA-20':[570,500,450],'VX-W-TIRZ-30':[500,440,400],'VX-W-TESA-10':[440,390,350],'VX-W-NAD-1000':[500,440,400],'VX-W-TB-10':[320,290,260],'VX-W-BPC-10':[255,230,210],'VX-W-GHK-100':[290,260,230],'VX-W-MOTS-10':[270,240,240]};
+// Pack pricing: 4 vials of the same SKU cost less than 4 singles. Display only: the server (create_order) sets the real price.
+var PACKS={'VX-MOTS-10B':{size:4,price:89}};
+function lineAmt(sku,price,qty){var p=PACKS[sku];if(p&&qty>=p.size){return Math.floor(qty/p.size)*p.price+(qty%p.size)*price;}return price*qty;}
 function wsKits(){var n=0;cart.forEach(function(i){if(WS[i.sku])n+=i.quantity;});return n;}
 function wsHas(){return wsKits()>0;}
 function wsSubtotal(){var t=0;cart.forEach(function(i){if(WS[i.sku])t+=i.price*i.quantity;});return t;}
@@ -612,7 +615,8 @@ priceLabel=' <span style="text-decoration:line-through;opacity:0.5">$'+item.pric
 }else{
 priceLabel='$'+price.toFixed(2);
 }
-var lineTotal=(price*item.quantity).toFixed(2);
+var lineTotal=lineAmt(item.sku,price,item.quantity).toFixed(2);
+if(PACKS[item.sku]&&item.quantity>=PACKS[item.sku].size){priceLabel+=' ('+PACKS[item.sku].size+' for $'+PACKS[item.sku].price.toFixed(2)+')';}
 html+='<div class="cart-item">';
 html+='<div class="item-info">';
 html+='<div class="item-name">'+item.name+'</div>';
@@ -652,7 +656,7 @@ var price=item.price;
 if(promoCode&&promoCodes[promoCode]&&promoCodes[promoCode].type==='override'&&item.sku===promoCodes[promoCode].sku){
 price=promoCodes[promoCode].price;
 }
-subtotal+=price*item.quantity;
+subtotal+=lineAmt(item.sku,price,item.quantity);
 }
 return subtotal;
 }
@@ -672,19 +676,19 @@ discount+=subtotal*promoValue;
 }else{
 // Singles only (exclude kits)
 var singlesTotal=0;
-cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=item.price*item.quantity;}});
+cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=lineAmt(item.sku,item.price,item.quantity);}});
 discount+=singlesTotal*promoValue;
 }
 }else if(promoValue.discount){
 if(promoValue.sku){
 // Product-specific discount (e.g., RETA15)
 var targetTotal=0;
-cart.forEach(function(item){if(item.sku&&item.sku.indexOf(promoValue.sku)!==-1){targetTotal+=item.price*item.quantity;}});
+cart.forEach(function(item){if(item.sku&&item.sku.indexOf(promoValue.sku)!==-1){targetTotal+=lineAmt(item.sku,item.price,item.quantity);}});
 discount+=targetTotal*promoValue.discount;
 }else{
 // Generic object discount
 var singlesTotal=0;
-cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=item.price*item.quantity;}});
+cart.forEach(function(item){if(item.sku&&item.sku.indexOf('KIT')===-1){singlesTotal+=lineAmt(item.sku,item.price,item.quantity);}});
 discount+=singlesTotal*promoValue.discount;
 }
 }
@@ -839,7 +843,7 @@ document.getElementById('confirmationView').style.display='block';
 document.getElementById('confirmOrderNumber').textContent='Order #'+orderNumber;
 var itemsHtml='';
 for(var i=0;i<cart.length;i++){
-itemsHtml+='<p>'+cart[i].name+' × '+cart[i].quantity+' — $'+(cart[i].price*cart[i].quantity).toFixed(2)+'</p>';
+itemsHtml+='<p>'+cart[i].name+' × '+cart[i].quantity+' — $'+lineAmt(cart[i].sku,cart[i].price,cart[i].quantity).toFixed(2)+'</p>';
 }
 document.getElementById('confirmItems').innerHTML=itemsHtml;
 document.getElementById('confirmTotal').textContent='$'+getTotal().toFixed(2);
@@ -1029,7 +1033,7 @@ window.vxTrack&&window.vxTrack('checkout_error',{payment_type:'card',error_type:
 // Push InitiateCheckout event to Data Layer for GTM
 if (cart && cart.length > 0) {
   window.dataLayer = window.dataLayer || [];
-  var totalValue = cart.reduce(function(sum, item) { return sum + (item.price * item.quantity); }, 0);
+  var totalValue = cart.reduce(function(sum, item) { return sum + lineAmt(item.sku, item.price, item.quantity); }, 0);
   window.dataLayer.push({
     event: 'begin_checkout',
     ecommerce: {
