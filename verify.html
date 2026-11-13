@@ -516,7 +516,7 @@ if (/janoshik/i.test(urls)) labs.push('JANOSHIK');
 const hplc = tests.some(t => (t.rows || []).some(r => r.key === 'Method' && /HPLC/i.test(r.value)));
 const steps = ['INITIALIZING VERIFICATION'];
 steps.push(labs.length === 1 ? 'CONNECTING TO ' + labs[0] : 'CONNECTING TO LAB RECORDS');
-steps.push('MATCHING BATCH ID TO LAB REPORT');
+steps.push('MATCHING LAB REPORT');
 if (hplc) steps.push('LOADING HPLC DATA');
 if (b.content && b.contentUnit) steps.push('LOADING CONTENT RESULTS');
 if (b.endotoxin === 'Pass' && /Microbials/i.test(b.endotoxinSpec || '')) steps.push('REVIEWING SAFETY PANEL');
