@@ -283,6 +283,34 @@ const VX_PRODUCTS = {
             }
         },
         {
+            sku: 'VX-MOTS-10B',
+            name: 'MOTS-c 10mg, Batch 002',
+            cartName: 'MOTS-c 10mg Batch 002',
+            shortName: 'MOTS-c Batch 002',
+            slug: 'mots-c-batch-2',
+            category: 'metabolic',
+            categoryLabel: 'LIMITED BATCH',
+            size: '10mg',
+            purity: '98.939%',
+            price: 25,
+            packs: [
+                { label: '1 vial', sku: 'VX-MOTS-10B', cartName: 'MOTS-c 10mg Batch 002', price: 25 },
+                { label: '4 vials', sku: 'VX-MOTS-10B-4', cartName: 'MOTS-c 10mg Batch 002 (4 vials)', price: 89 }
+            ],
+            image: 'images/products/mots-c-10mg.jpg',
+            url: 'products/mots-c-batch-2.html',
+            inStock: true,
+            dualTested: true,
+            get stock() {
+                const status = getStockStatus(this.sku);
+                return status ? status.stock : null;
+            },
+            get isInStock() {
+                const status = getStockStatus(this.sku);
+                return status !== null ? status.inStock : this.inStock;
+            }
+        },
+        {
             sku: 'VX-NAD-1000',
             name: 'NAD+ 1000mg', 
             cartName: 'NAD+ 1000mg',
