@@ -626,7 +626,7 @@ function openNotify(btn, sku, name) {
       body: JSON.stringify({ p_sku: sku, p_email: email, p_consent: NOTIFY_CONSENT })
     }).then(function (r) {
       if (!r.ok) throw new Error('bad');
-      cta.innerHTML = '<div class="notify-ok">You\'re on the list. We\'ll send one email when ' + name + ' is back in stock.</div>';
+      cta.innerHTML = '<div class="notify-ok">You\'re on the list! We\'ll email you as soon as ' + name + ' is back in stock.</div>';
       if (window.dataLayer) window.dataLayer.push({ event: 'generate_lead', lead_source: 'notify_me', sku: sku });
     }).catch(function () {
       submit.disabled = false; submit.textContent = 'Notify me';
