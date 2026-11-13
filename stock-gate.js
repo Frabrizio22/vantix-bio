@@ -50,7 +50,7 @@
           body: JSON.stringify({ p_sku: product.sku, p_email: email, p_consent: CONSENT })
         }).then(function (r) {
           if (!r.ok) throw new Error('bad');
-          cta.innerHTML = '<div class="vx-oos-form"><div class="vx-oos-title">Got it. We\'ll email you once when ' + product.shortName + ' is back.</div></div>';
+          cta.innerHTML = '<div class="vx-oos-form"><div class="vx-oos-title">You\'re on the list. We\'ll send one email when ' + product.shortName + ' is back in stock.</div></div>';
           if (window.dataLayer) window.dataLayer.push({ event: 'generate_lead', lead_source: 'notify_me', sku: product.sku });
         }).catch(function () {
           btn.disabled = false; btn.textContent = 'Notify me';
