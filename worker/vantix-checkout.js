@@ -116,8 +116,13 @@ async function handleOrder(body, method, request, env, ctx, cors) {
       if (names.length) friendly = { expected: true, http: 409, text: `Sorry, ${names.join(', ')} ${names.length > 1 ? 'are' : 'is'} out of stock. Please remove ${names.length > 1 ? 'them' : 'it'} from your cart to continue.` };
     }
     if (!friendly.expected) await telegram(env, `⚠️ Order ${v.orderNumber} failed: ${res.message}`);
-    else if (res.message.startsWith('invalid_discount_code') || res.message.startsWith('unknown_or_inactive_sku'))
-      await telegram(env, `⚠️ Checkout rejected ${v.orderNumber}: ${res.message} (a code/SKU on the site may be missing from the database)\nCustomer: ${v.name || '?'} <${v.email || '?'}>\nItems: ${v.items.map((i) => `${i.sku} x${i.qty}`).join(', ')}`);
+    else if (res.message.startsWith('invalid_discount_code') || res.message.startsWith('unknown_or_inactive_sku')) {
+      const isCode = res.message.startsWith('invalid_discount_code');
+      const why = isCode
+        ? (res.message.includes(':') ? `code ${v.code || '?'} not allowed (${res.message.split(':')[1]})` : `code ${v.code || '?'} is not in the database or is switched off`)
+        : `item not available (${res.message.split(':')[1] || '?'})`;
+      await telegram(env, `⚠️ Checkout rejected ${v.orderNumber}: ${why}\nThe customer was told to ${isCode ? 'remove the code' : 'refresh'} and can retry.\nCustomer: ${v.name || '?'} <${v.email || '?'}>\nItems: ${v.items.map((i) => `${i.sku} x${i.qty}`).join(', ')}`);
+    }
     return json({ status: 'error', message: friendly.text }, friendly.http, cors);
   }
 
