@@ -508,6 +508,9 @@ var PACKS={'VX-MOTS-10B':{size:4,price:89}};
 function lineAmt(sku,price,qty){var p=PACKS[sku];if(p&&qty>=p.size){return Math.floor(qty/p.size)*p.price+(qty%p.size)*price;}return price*qty;}
 function wsKits(){var n=0;cart.forEach(function(i){if(WS[i.sku])n+=i.quantity;});return n;}
 function wsHas(){return wsKits()>0;}
+// Only affiliate codes (promo_codes.influencer set, 10% whole order) work with 10-vial kits. Keep in sync with Supabase; the server (create_order) is the real check.
+var KIT_CODES=['JO10','KITZEL10','SHEILA10','JESS10','JAZZY10','JUANBODYHEALTH','CHERNANDEZ10','WIZZA','HAILEY10','MISFIT','DRAGON'];
+function kitCodeOk(){return !!promoCode&&KIT_CODES.indexOf(promoCode)!==-1;}
 function wsSubtotal(){var t=0;cart.forEach(function(i){if(WS[i.sku])t+=i.price*i.quantity;});return t;}
 function applyWholesale(){var n=wsKits();if(!n)return;var t=n>=5?2:n>=2?1:0;var card=selectedPayment==='credit';
 cart.forEach(function(i){if(WS[i.sku]){var p=WS[i.sku][t];i.price=card?Math.round(p*1.08):p;}});}
@@ -668,7 +671,7 @@ var discount=0;
 var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','JAZZY10','JUANBODYHEALTH','CHERNANDEZ10','WIZZA','HAILEY10','MISFIT','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT','BADDIE','SPOOKY25'];
 
 // NAD+ auto-discount removed
-if(!wsHas()&&promoCode&&promoCodes[promoCode]){
+if((!wsHas()||kitCodeOk())&&promoCode&&promoCodes[promoCode]){
 var promoValue=promoCodes[promoCode];
 if(typeof promoValue==='number'){
 if(wholeOrderCodes.indexOf(promoCode)!==-1){
@@ -726,16 +729,14 @@ document.getElementById('total').textContent='$'+total.toFixed(2);
 var discountRow=document.getElementById('discountRow');
 if(discount>0){
 document.getElementById('discount').textContent='-$'+discount.toFixed(2);
-var label=(promoCode&&!wsHas())?'Discount ('+promoCode+')':'Zelle Discount (5%)';
+var label=(promoCode&&(!wsHas()||kitCodeOk()))?'Discount ('+promoCode+')':'Zelle Discount (5%)';
 document.getElementById('discountLabel').textContent=label;
 discountRow.style.display='flex';
 }else{discountRow.style.display='none';}
 var zt=document.querySelector('#zelleOption .discount-tag');if(zt){if(!zt.dataset.o)zt.dataset.o=zt.textContent;zt.textContent=wsHas()?'✓ Zelle price for 10-vial kits (lowest price)':zt.dataset.o;}
 var wn=document.getElementById('wsNote');
 if(!wn){wn=document.createElement('div');wn.id='wsNote';wn.style.cssText='font-size:12px;color:#6b7280;margin:8px 0;line-height:1.5';document.getElementById('shippingMsg').parentNode.insertBefore(wn,document.getElementById('shippingMsg'));}
-wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. Promo codes and the Zelle discount do not apply to 10-vial kits.'+(selectedPayment==='credit'?' The card price is 8% above the Zelle price.':' Pay by Zelle for the lower price.')+(wsKits()>=5?' Orders of 5+ kits are paid by Zelle. Need another payment method? Email support@vantixbio.com.':'')):'';
-var cd=document.querySelector('#creditOption .desc');if(cd){if(!cd.dataset.o)cd.dataset.o=cd.textContent;cd.textContent=(wsHas()&&wsKits()>=5)?'Not available for 5+ kits. Email support@vantixbio.com for other options.':cd.dataset.o;}
-if(wsHas()&&wsKits()>=5&&selectedPayment==='credit'){selectPayment('zelle');}
+wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. '+(kitCodeOk()?'Your affiliate code is applied to the kits. ':(promoCode?'The code '+promoCode+' cannot be used with 10-vial kits; only affiliate codes work. ':''))+'The extra Zelle discount does not apply to kits.'+(selectedPayment==='credit'?' The card price is 8% above the Zelle price.':' Pay by Zelle for the lower price.')):'';
 var msg=document.getElementById('shippingMsg');
 if(subtotal>=150){
 msg.textContent='✓ You qualified for FREE shipping!';
@@ -811,7 +812,6 @@ document.getElementById('cardholderName').value=this.value;
 });
 
 function selectPayment(method){
-if(method==='credit'&&wsHas()&&wsKits()>=5){alert('Orders of 5 or more 10-vial kits are paid by Zelle. For another payment method, please email support@vantixbio.com.');method='zelle';}
 selectedPayment=method;
 try{if(window.vxTrack&&cart&&cart.length){window.vxTrack('add_payment_info',{payment_type:method==='zelle'?'zelle':'card',ecommerce:{currency:'USD',value:getTotal(),items:cart.map(function(i){return {item_id:i.sku,item_name:i.name,price:i.price,quantity:i.quantity};})}});}}catch(e){}
 document.getElementById('zelleOption').classList.remove('selected');
@@ -938,12 +938,12 @@ quantity:cart.reduce((sum,item)=>sum+item.quantity,0),
 items_detail:cart.map(item=>`${item.quantity}x ${item.name} ($${item.price})`).join('\n'),
 subtotal:getSubtotal(),
 discount:getDiscount(),
-discount_code:wsHas()?'':(promoCode||''),
+discount_code:(wsHas()&&!kitCodeOk())?'':(promoCode||''),
 referral_source:referralSource||'',
 shipping:getShipping(),
 total:getTotal(),
 affirmation:window.vxAffirmation||{},
-creator_code:wsHas()?'':(vxCreatorCode()||vxLinkCreator),
+creator_code:(wsHas()&&!kitCodeOk())?'':(vxCreatorCode()||vxLinkCreator),
 first_touch:(function(){try{return window.vxTouches?window.vxTouches():null;}catch(e){return null;}})(),
 fb:(function(){try{var c=document.cookie,g=function(n){var m=c.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):'';};return {fbp:g('_fbp'),fbc:g('_fbc')};}catch(e){return {};}})()
 };
