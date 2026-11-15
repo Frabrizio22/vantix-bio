@@ -472,6 +472,7 @@ var promoCodes={
 'CHERNANDEZ10':0.10,
 'WIZZA':0.10,
 'HAILEY10':0.10,
+'MISFIT':0.10,
 'LIVE':0.25,
 'CHAT':0.30,
 'TIRZ10':{discount:0.10,sku:'VX-TIRZ'},
@@ -664,7 +665,7 @@ return subtotal;
 function getDiscount(){
 var subtotal=getSubtotal();
 var discount=0;
-var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','JAZZY10','JUANBODYHEALTH','CHERNANDEZ10','WIZZA','HAILEY10','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT','BADDIE','SPOOKY25'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','JAZZY10','JUANBODYHEALTH','CHERNANDEZ10','WIZZA','HAILEY10','MISFIT','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT','BADDIE','SPOOKY25'];
 
 // NAD+ auto-discount removed
 if(!wsHas()&&promoCode&&promoCodes[promoCode]){
