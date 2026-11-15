@@ -697,7 +697,7 @@ discount+=singlesTotal*promoValue.discount;
 }
 }
 }
-if(selectedPayment==='zelle'){discount+=(subtotal-wsSubtotal())*0.05;}
+if(selectedPayment==='zelle'){discount+=subtotal*0.05;}
 return discount;
 }
 
@@ -736,7 +736,7 @@ discountRow.style.display='flex';
 var zt=document.querySelector('#zelleOption .discount-tag');if(zt){if(!zt.dataset.o)zt.dataset.o=zt.textContent;zt.textContent=wsHas()?'✓ Zelle price for 10-vial kits (lowest price)':zt.dataset.o;}
 var wn=document.getElementById('wsNote');
 if(!wn){wn=document.createElement('div');wn.id='wsNote';wn.style.cssText='font-size:12px;color:#6b7280;margin:8px 0;line-height:1.5';document.getElementById('shippingMsg').parentNode.insertBefore(wn,document.getElementById('shippingMsg'));}
-wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. '+(kitCodeOk()?'Your affiliate code is applied to the kits. ':(promoCode?'The code '+promoCode+' cannot be used with 10-vial kits; only affiliate codes work. ':''))+'The extra Zelle discount does not apply to kits.'+(selectedPayment==='credit'?' The card price is 8% above the Zelle price.':' Pay by Zelle for the lower price.')):'';
+wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. '+(kitCodeOk()?'Your affiliate code is applied to the kits. ':(promoCode?'The code '+promoCode+' cannot be used with 10-vial kits; only affiliate codes work. ':''))+(selectedPayment==='credit'?' The card price is 8% above the Zelle price.':' Pay by Zelle for the lower price plus an extra 5% off.')):'';
 var msg=document.getElementById('shippingMsg');
 if(subtotal>=150){
 msg.textContent='✓ You qualified for FREE shipping!';
