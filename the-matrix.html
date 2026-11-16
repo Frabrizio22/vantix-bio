@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How Every Batch Is Tested and Verified | Vantix Bio</title>
+<meta name="description" content="How each Vantix Bio batch is sourced, tested, finished, tested again, and published, with a public COA and a direct link to the original lab report.">
+<link rel="canonical" href="https://vantixbio.com/the-matrix.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vantixbio.com/the-matrix.html">
+<meta property="og:title" content="How Every Batch Is Tested and Verified | Vantix Bio">
+<meta property="og:description" content="From imported material to a public COA: how each batch is tested and how to verify yours.">
+<meta property="og:image" content="https://vantixbio.com/og-image-new.jpg">
+
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,42 +24,206 @@
 html,body{max-width:100%;overflow-x:hidden}
 body{font-family:'Geist',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 h1,h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
-h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em}
-h2{font-size:clamp(1.75rem,4vw,2.5rem);letter-spacing:-.015em}
-.container{max-width:1200px;margin:0 auto;padding:0 20px}@media(min-width:768px){.container{padding:0 40px}}
+h1{font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.02em;line-height:1.2;padding:0 20px;margin-bottom:16px}@media(max-width:640px){h1{font-size:2.25rem}}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-.015em;margin-bottom:14px;color:var(--navy)}
+.container{max-width:900px;margin:0 auto;padding:0 48px}@media(min-width:768px){.container{padding:0 80px}}
 .status-bar{background:#0F1B2D;padding:8px 0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(26,41,66,.5)}
 .status-inner{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#FAFAF7;display:flex;justify-content:center;align-items:center;gap:8px}
 .pulse{width:6px;height:6px;border-radius:50%;background:#7BA88F;animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,168,143,0.7)}70%{box-shadow:0 0 0 6px rgba(123,168,143,0)}100%{box-shadow:0 0 0 0 rgba(123,168,143,0)}}
-.header{background:rgba(250,250,247,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline);padding:12px 0;position:sticky;top:37px;z-index:99}
-.header-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px}
-.back-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;transition:opacity .2s}
-.back-btn:hover{opacity:.6}
-.back-btn svg{width:20px;height:20px;stroke-width:2}
-.logo{display:flex;align-items:center}
-.logo img{height:32px}
-.hero{padding:80px 0 60px;text-align:center;border-bottom:1px solid var(--hairline)}
-.chapter{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:12px}
-.chapter::before{content:'';width:32px;height:1px;background:var(--accent)}
-.chapter::after{content:'';width:32px;height:1px;background:var(--accent)}
-.steps{padding:60px 0}
-.mid-cta{text-align:center;margin:60px 0;padding:40px 20px;background:rgba(57,115,176,.03);border:1px solid var(--hairline);border-radius:12px}
-.mid-cta .btn{background:var(--navy);color:#fff}
-.mid-cta .btn:hover{background:var(--accent)}
-.step{margin-bottom:40px;display:grid;grid-template-columns:40px 1fr;gap:20px;padding:24px;background:#fff;border:1px solid var(--hairline);border-radius:12px}@media(max-width:640px){.step{grid-template-columns:32px 1fr;gap:16px;padding:20px;margin-bottom:24px}}
-.step-number{width:32px;height:32px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;flex-shrink:0}@media(min-width:768px){.step-number{width:36px;height:36px;font-size:16px}}
-.step-content h3{font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin-bottom:8px;color:var(--navy)}@media(min-width:768px){.step-content h3{font-size:22px}}
-.step-content p{font-size:15px;line-height:1.6;color:rgba(10,22,40,.7)}
-.cta{background:var(--navy);padding:80px 20px;text-align:center;color:#fff}
-.cta h2{color:#fff;margin-bottom:20px}
-.cta p{color:rgba(255,255,255,.8);font-size:17px;max-width:600px;margin:0 auto 32px}
-.btn{padding:14px 32px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;border:none;background:#fff;color:var(--navy);text-decoration:none;display:inline-block}
-.btn:hover{background:var(--accent-light);color:#fff}
-footer{background:#0B2545;color:#E8EEF5;padding:24px 20px 16px}
-.footer-legal{padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.3;color:rgba(255,255,255,.5);text-align:center}
+.header-nav{padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hairline)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);flex-shrink:0}
+.header-icons{display:flex;align-items:center;gap:8px}
+.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:var(--navy);display:flex;align-items:center;justify-content:center;transition:opacity .2s;flex-shrink:0}
+.icon-btn:hover{opacity:.6}
+.icon-btn svg{width:22px;height:22px;stroke-width:1.8;stroke:currentColor}
+.nav-links{display:none}@media(min-width:1024px){.nav-links{display:flex;gap:32px;align-items:center}}
+.nav-links a{position:relative;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
+.nav-item{position:relative}
+.catalog-link{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text);font-size:15px;font-weight:500}
+.catalog-link svg{width:14px;height:14px;transition:transform .2s;stroke:currentColor;stroke-width:2}
+.nav-item:hover .catalog-link svg{transform:rotate(180deg)}
+.nav-dropdown{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--hairline);border-radius:8px;padding:8px 0;min-width:180px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:100}
+.nav-dropdown::before{content:'';position:absolute;top:-8px;left:0;right:0;height:8px}
+.nav-item:hover .nav-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-dropdown a{display:block;padding:10px 16px;color:var(--text);text-decoration:none;font-size:14px;transition:background .2s;font-weight:500}
+.nav-dropdown a:hover{background:var(--bg)}
+.nav-dropdown a::after{display:none}
+.menu-overlay{position:fixed;inset:0;background:#FAFAF7;z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;display:none}
+.menu-overlay.active{opacity:1;pointer-events:auto;display:block}
+.menu-inner{padding:32px 24px;max-width:600px;margin:0 auto}
+.menu-close{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.95);border:2px solid #143054;border-radius:50%;padding:12px;cursor:pointer;color:#143054;z-index:10001;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:all .2s}
+.menu-close:hover{background:var(--navy);color:#fff;transform:scale(1.05)}
+.menu-close:active{transform:scale(.95)}
+.menu-close svg{width:20px;height:20px;stroke-width:2.5}
+.menu-section{margin-bottom:32px}
+.menu-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(10,22,40,.5);margin-bottom:16px}
+.menu-items{display:flex;flex-direction:column;gap:12px}
+.menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
+.menu-items a:hover{color:var(--accent)}
+.hero{padding:60px 0 48px;text-align:center;background:linear-gradient(180deg,rgba(57,115,176,.03) 0%,var(--bg) 100%);border-bottom:1px solid var(--hairline)}@media(max-width:640px){.hero{padding:40px 0 32px}}
+.hero p{margin-top:20px;color:rgba(10,22,40,.65);font-size:17px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto}@media(max-width:640px){.hero p{font-size:16px;line-height:1.6;padding:0 8px}}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:720px;margin:40px auto;padding:0 20px}@media(max-width:640px){.stats-grid{grid-template-columns:1fr;gap:16px}}
+.stat-card{text-align:center;padding:28px 20px;background:#fff;border:1px solid var(--hairline);border-radius:10px;transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(57,115,176,.12)}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;color:var(--accent);margin-bottom:8px;line-height:1}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);font-weight:600}
+.content{padding:56px 0}@media(max-width:640px){.content{padding:48px 0}}
+.content p{font-size:17px;line-height:1.7;color:rgba(10,22,40,.75);margin-bottom:20px}@media(max-width:640px){.content p{font-size:16px;line-height:1.65;margin-bottom:18px}}
+.content h2{margin:48px 0 16px;color:var(--navy);letter-spacing:-.01em;padding-top:48px;border-top:1px solid var(--hairline)}@media(max-width:640px){.content h2{margin:40px 0 14px;font-size:1.5rem;padding-top:40px}}
+.content h2:first-child{border-top:none;padding-top:0;margin-top:0}
+.content h2:first-child{margin-top:0}
+.content strong{color:var(--navy);font-weight:600}
+:root{--card:#FFFFFF;--sage:#7BA88F;--mark:#D3E4F5;--footer:#0B2545;--font-body:'Geist',-apple-system,'Helvetica Neue',Arial,sans-serif;--font-display:'Fraunces',Georgia,serif;--font-data:'JetBrains Mono',ui-monospace,Menlo,monospace}
+h1,h2,h3{font-family:var(--font-display);font-weight:300;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2.25rem,6vw,4rem);letter-spacing:-.02em;line-height:1.2;padding:0 20px;margin-bottom:16px}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);letter-spacing:-.015em;margin-bottom:14px;color:var(--navy)}
+.container{padding:0 24px}@media(min-width:640px){.container{padding:0 48px}}@media(min-width:768px){.container{padding:0 80px}}
+/* Hero */
+.hero{padding:60px 0 44px;text-align:center;background:linear-gradient(180deg,rgba(57,115,176,.03) 0%,var(--bg) 100%);border-bottom:1px solid var(--hairline)}
+@media(max-width:640px){.hero{padding:40px 0 32px}}
+.hero p{text-wrap:pretty;margin:20px auto 0;color:rgba(10,22,40,.65);font-size:17px;line-height:1.65;max-width:560px}
+.hero p.tie{text-wrap:balance;font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.25rem;color:var(--navy);margin-top:16px}
+@media(max-width:640px){.hero p{font-size:16px;line-height:1.6;padding:0 8px}}
+.cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px;padding:0 8px}
+.btn{display:inline-block;font-family:var(--font-body);font-weight:600;font-size:15px;line-height:1;text-decoration:none;padding:15px 26px;border-radius:8px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .2s,transform .2s}
+.btn:hover{background:var(--navy);border-color:var(--navy);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn:focus-visible,.icon-btn:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.vials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:600px;margin:36px auto 0;padding:0 8px}
+.vials img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--hairline);background:#f6f6f4}
+@media(max-width:640px){.vials{gap:8px;margin-top:28px;padding:0}.cta-row{flex-direction:column;align-items:stretch;max-width:300px;margin-inline:auto;padding:0}.btn{text-align:center}}
+
+/* Stat cards */
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:720px;margin:40px auto;padding:0 20px}
+@media(max-width:640px){.stats-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin:28px auto;padding:0}}
+.stat-card{text-align:center;padding:28px 20px;background:var(--card);border:1px solid var(--hairline);border-radius:10px;transition:transform .2s,box-shadow .2s}
+@media(max-width:640px){.stat-card{padding:20px}}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(57,115,176,.12)}
+.stat-value{font-family:var(--font-data);font-size:36px;font-weight:600;color:var(--accent);margin-bottom:8px;line-height:1;white-space:nowrap}
+.stat-label{font-family:var(--font-data);font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:rgba(10,22,40,.5);font-weight:600}
+
+/* Content */
+.content{padding:40px 0 56px}
+.content p{text-wrap:pretty;font-size:17px;line-height:1.7;color:rgba(10,22,40,.75);margin-bottom:20px}
+@media(max-width:640px){.content p{font-size:16px;line-height:1.65;margin-bottom:18px}}
+.content h2{margin:48px 0 16px;padding-top:48px;border-top:1px solid var(--hairline)}
+@media(max-width:640px){.content h2{margin:40px 0 14px;padding-top:40px}}
+.content h2:first-child{border-top:none;padding-top:0;margin-top:0}
+.content strong{color:var(--navy);font-weight:600}
+.content a.inline{color:var(--accent);text-decoration:none;font-weight:600}
+.content p.pull{font-size:1.4rem;text-wrap:balance;font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.4rem;line-height:1.3;color:var(--navy)!important;margin:28px 0 8px!important}
+.lede-in{font-size:17px}
+
+/* Vial figure */
+.figure{background:var(--card);border:1px solid var(--hairline);border-radius:10px;padding:28px 20px 20px;margin:8px 0 20px}
+.figure svg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto}
+.fig-note{text-wrap:balance;font-family:var(--font-data);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(10,22,40,.5);text-align:center;margin-top:12px}
+
+.photo{position:relative;max-width:440px;margin:0 auto}
+.photo img{width:100%;height:auto;display:block;border-radius:6px}
+.hl{position:absolute;border:2px solid var(--accent);background:rgba(111,165,217,.16);border-radius:4px}
+.hl-batch{left:29.1%;top:70.3%;width:22.5%;height:5.1%}
+.hl-qr{left:64.3%;top:63.2%;width:6.7%;height:12.7%}
+.ln{position:absolute;height:2px;background:var(--accent)}
+.ln-batch{left:26%;width:3.1%;top:72.8%}
+.ln-qr{left:71%;width:3%;top:69.5%}
+.pill{position:absolute;font-family:var(--font-data);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--navy);padding:4px 7px;border-radius:999px;white-space:nowrap;transform:translateY(-50%)}
+.pill-batch{right:74%;top:72.9%}
+.pill-qr{left:74%;top:69.6%}
+.figure.coa{padding:16px}
+.figure.coa img{width:100%;max-width:640px;height:auto;display:block;margin:0 auto;border:1px solid var(--hairline)}
+
+/* Chain */
+.chain{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 12px}
+@media(max-width:640px){.chain{grid-template-columns:minmax(0,1fr)}}
+.step{background:var(--card);border:1px solid var(--hairline);border-radius:10px;padding:22px 22px 8px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.step .n{font-family:var(--font-data);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.step svg{width:100%;height:auto;display:block;max-height:120px}
+.step h3{font-size:1.3rem;color:var(--navy);font-weight:400}
+.step p{font-size:15px!important;line-height:1.6!important;margin-bottom:14px!important}
+
+/* Expectations */
+.expect{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:12px}
+@media(max-width:768px){.expect{grid-template-columns:minmax(0,1fr)}}
+.expect > div{background:var(--card);border:1px solid var(--hairline);border-radius:10px;padding:22px 22px 6px;min-width:0}
+.expect h3{font-size:1.2rem;color:var(--navy);font-weight:400;margin-bottom:10px}
+.expect p{font-size:15px!important;line-height:1.6!important;margin-bottom:14px!important}
+
+/* RUO panel */
+.ruo{background:linear-gradient(135deg,#f0f6fc 0%,#e4eef8 100%);border:1px solid #c9dcef;border-radius:12px;padding:28px 24px 10px;margin:8px 0 24px}
+.ruo p:last-child{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.1rem;color:var(--navy)}
+
+
+/* Rules band */
+.rules{background:var(--footer);color:#E8EEF5;border-radius:14px;padding:34px 28px 28px;margin:28px 0 8px;position:relative;overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px}
+.rules .eyebrow{font-family:var(--font-data);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600}
+.rules h3{font-size:clamp(1.7rem,5vw,2.4rem);color:#fff;font-weight:300;line-height:1.15;margin:12px 0 6px;letter-spacing:-.015em}
+.rules .sub{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:1.15rem;color:var(--accent-light);margin-bottom:26px}
+.rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:700px){.rule-grid{grid-template-columns:minmax(0,1fr)}.rules{padding:28px 20px 22px}}
+.rule{border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:18px 18px 6px;background:rgba(11,37,69,.78);min-width:0}
+.rule b{display:block;font-family:var(--font-data);font-size:30px;font-weight:600;color:#fff;line-height:1;margin-bottom:10px}
+.rule b i{font-style:normal;color:var(--accent-light)}
+.content .rule p{font-size:15px;line-height:1.55;color:rgba(232,238,245,.82);margin-bottom:14px}
+.content .rule p strong{color:#fff}
+
+/* Don't list */
+.nots{list-style:none;margin:6px 0 4px;border-top:1px solid var(--hairline)}
+.nots li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:16px 0;border-bottom:1px solid var(--hairline);font-size:16.5px;line-height:1.55;color:rgba(10,22,40,.75);text-wrap:pretty}
+.nots li::before{content:"\00D7";font-family:var(--font-data);font-weight:600;font-size:22px;line-height:1.2;color:var(--accent)}
+.nots li strong{color:var(--navy);font-weight:600}
+
+/* Ledger */
+.ledger{background:var(--card);border:1px solid var(--hairline);border-radius:12px;overflow:hidden;margin:10px 0 10px;box-shadow:0 2px 0 var(--navy)}
+.lhead,.lrow{display:grid;grid-template-columns:minmax(0,2.1fr) .8fr .9fr .95fr 1.05fr .9fr;gap:12px;align-items:center;padding:14px 18px}
+.lhead{background:var(--navy);color:rgba(255,255,255,.75);font-family:var(--font-data);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.lrow{border-top:1px solid var(--hairline);font-size:14px}
+.lrow:first-of-type{border-top:none}
+.lprod b{display:block;font-weight:600;color:var(--navy);font-size:15px}
+.lprod span{display:block;font-family:var(--font-data);font-size:10.5px;color:rgba(10,22,40,.5);margin-top:2px;letter-spacing:.02em}
+.lrow .m{font-family:var(--font-data);font-size:13px;color:var(--text)}
+.lrow .pur{font-family:var(--font-data);font-size:15px;font-weight:600;color:var(--accent)}
+.pass{display:inline-block;font-family:var(--font-data);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#2F6B4B;background:#E3F1E9;border:1px solid #BFDCCB;border-radius:999px;padding:2px 7px;margin-right:6px;vertical-align:1px}
+.lrow a.rep{font-weight:600;font-size:13.5px;color:var(--accent);text-decoration:none;white-space:nowrap}
+.lrow a.rep:hover{text-decoration:underline}
+.lrow .k{display:none}
+@media(max-width:700px){
+  .lhead{display:none}
+  .lrow{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 10px;padding:16px 16px}
+  .lprod{grid-column:1/-1}
+  .lrow .k{display:block;font-family:var(--font-data);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,22,40,.45);font-weight:600;margin-bottom:3px}
+  .lrow .rcell{grid-column:1/-1}
+}
+.content p.lnote{font-family:var(--font-data);font-size:10.5px;line-height:1.6;letter-spacing:.03em;color:rgba(10,22,40,.5);margin:12px 2px 0;text-wrap:pretty}
+
+.closer{text-align:center;border-top:1px solid var(--hairline);margin-top:40px;padding-top:40px}
+.closer h3{font-size:clamp(1.5rem,4vw,1.9rem);color:var(--navy);margin-bottom:8px}
+.content .closer p{margin-bottom:20px}
+footer{background:#0B2545;color:#E8EEF5;padding:32px 24px 20px;font-family:'Geist',-apple-system,sans-serif}@media(min-width:768px){footer{padding:64px 48px 36px}}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:8px;text-decoration:none;color:inherit}
+.footer-logo img{width:24px;height:24px}
+.footer-wordmark{font-size:14px;letter-spacing:.04em;font-weight:600}
+.footer-wordmark strong{color:#4A8DD8;font-weight:600}
+.ft-main{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:0 12px;font-size:13px;margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ft-main a,.ft-legal a{display:inline-flex;align-items:center;min-height:40px;text-decoration:none}
+.ft-main a{color:#E8EEF5}
+.ft-legal{display:flex;gap:0 20px;font-size:12.5px;margin-bottom:8px}
+.ft-legal a{color:rgba(232,238,245,.6)}
+.ft-ruo{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:rgba(232,238,245,.45);margin:0;line-height:1.7}
+.ft-ruo strong{color:rgba(232,238,245,.6)}
 </style>
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBBNSQT84M"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BBBNSQT84M');</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BBBNSQT84M');
+</script>
 <script src="/vx-analytics.js"></script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -64,101 +238,171 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM5J7G2C"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<!-- VANTIX AGE GATE -->
 
+<div class="container">
+<nav class="header-nav">
+<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+<button class="icon-btn" id="menuBtn" aria-label="Menu">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+</button>
+<a href="index.html" class="logo">
+<img src="logo-header.svg" alt="Vantix Bio" style="height:32px">
+</a>
+</div>
+<div class="nav-links">
+<div class="nav-item">
+<div class="catalog-link">
+<span>Catalog</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
+</div>
+<div class="nav-dropdown">
+<a href="shop.html">Single Vials</a>
+<a href="kits.html">Bundles</a>
+<a href="wholesale.html">10-Vial Kits</a>
+</div>
+</div>
+<a href="verify.html">Verify</a>
+<a href="blog/">Research</a>
+<a href="about.html">About</a>
+</div>
+<div class="header-icons">
+<button class="icon-btn" id="searchBtn" aria-label="Search">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+</button>
+<button class="icon-btn" id="cartBtn" aria-label="Cart" title="Available Mid-May 2026">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+</button>
+</div>
+</nav>
+</div>
 
-<div class="status-bar">
-<div class="status-inner">
-    <span class="pulse"></span>
-    <span>INDEPENDENTLY TESTED — COAs LIVE</span>
+<div class="menu-overlay" id="menuOverlay">
+<button class="menu-close" id="menuClose" aria-label="Close menu">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+</button>
+<div class="menu-inner">
+<div class="menu-section">
+<div class="menu-section-label">Product</div>
+<div class="menu-items">
+<a href="shop.html">Single Vials</a>
+<a href="kits.html">Bundles</a>
+<a href="wholesale.html">10-Vial Kits</a>
+<a href="verify.html">Verify Batch</a>
+</div>
+</div>
+<div class="menu-section">
+<div class="menu-section-label">Science</div>
+<div class="menu-items">
+<a href="blog/index.html">Articles</a>
+<a href="faq.html">FAQ</a>
+</div>
+</div>
+<div class="menu-section">
+<div class="menu-section-label">Support</div>
+<div class="menu-items">
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container about">
+  <div class="hero">
+    <h1>How Every Batch<br>Is Verified.</h1>
+    <p>How each batch is sourced, tested, finished, tested again, and published, from imported peptide material to a public COA you can check yourself.</p>
+    <div class="cta-row">
+      <a class="btn" href="verify.html">Verify a Batch &rarr;</a>
+      <a class="btn ghost" href="about.html">About Vantix Bio</a>
+    </div>
+  </div>
+  <div class="content">
+    <h2>From Material to Report</h2>
+    <p>Every batch goes through the same six steps. Testing happens twice: once on the incoming material and once on the finished product, and the finished-batch results are the ones published for you.</p>
+    <ol class="chain">
+      <li class="step">
+        <span class="n">Step 1</span>
+        <h3>Imported peptide material</h3>
+        <p>The peptide material is made by a separate manufacturer and imported to the U.S.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 2</span>
+        <h3>Incoming material testing</h3>
+        <p>The incoming peptide material is tested by a laboratory accredited to ISO/IEC 17025 before it is used.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 3</span>
+        <h3>Formulated and finished in the U.S.</h3>
+        <p>Each batch is formulated, filled, and freeze-dried in a U.S. laboratory.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 4</span>
+        <h3>Finished product testing</h3>
+        <p>A representative sample from each finished batch goes to an independent third-party laboratory for purity by HPLC, identity confirmation, peptide content per vial, and endotoxin. We test a sample of the batch, not every vial.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 5</span>
+        <h3>Release standard</h3>
+        <p>A batch is released for sale only after independent testing shows it meets our requirements, including a minimum of 99% purity. Any batch outside our standard is listed as such, with its COA public.</p>
+      </li>
+      <li class="step">
+        <span class="n">Step 6</span>
+        <h3>Batch numbers and public COAs</h3>
+        <p>Every batch has its own batch number. Scan the QR code on your vial or enter the batch number to open that batch&rsquo;s public certificate of analysis (COA), with a direct link to the original report on the laboratory&rsquo;s own website.</p>
+      </li>
+    </ol>
+    <p class="pull">A sample of every finished batch, a public report for every batch.</p>
+    <div class="closer">
+      <h3>Have a vial? Check its batch.</h3>
+      <p>Scan the QR code or enter the batch number on the label.</p>
+      <a class="btn" href="verify.html">Verify a Batch &rarr;</a>
+    </div>
   </div>
 </div>
 
-<div class="header">
-<div class="header-inner">
-<button class="back-btn" onclick="window.location.href='index.html'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
-<span>Back</span>
-</button>
-<a href="index.html" class="logo">
-<img src="logo-header.svg" alt="Vantix Bio">
+<footer style="padding:20px 24px 16px">
+<div class="footer-inner">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+<a href="/" class="footer-logo" style="margin-bottom:0">
+<img src="logo-mark-white.png" alt="VX" style="height:30px;width:auto">
+<span class="footer-wordmark">VANTIX<strong>BIO</strong></span>
 </a>
 </div>
-</div>
-
-<div class="container">
-<div class="hero">
-<h1>Verification Process</h1>
-<p style="margin-top:24px;max-width:700px;margin-left:auto;margin-right:auto;font-size:17px;line-height:1.7;color:rgba(10,22,40,.7)">How each batch is sourced, tested, finished, tested again, and published, from imported peptide material to a public COA you can check yourself.</p>
-</div>
-
-<div class="steps">
-<div class="step">
-<div class="step-number">1</div>
-<div class="step-content">
-<h3>Imported peptide material</h3>
-<p>The peptide material is made by a separate manufacturer and imported to the U.S.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">2</div>
-<div class="step-content">
-<h3>Incoming material testing</h3>
-<p>The incoming peptide material is tested by a laboratory accredited to ISO/IEC 17025 before it is used.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">3</div>
-<div class="step-content">
-<h3>Formulated and finished in the U.S.</h3>
-<p>Each batch is formulated, filled, and freeze-dried in a U.S. laboratory.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">4</div>
-<div class="step-content">
-<h3>Finished product testing</h3>
-<p>A representative sample from each finished batch goes to an independent third-party laboratory for purity by HPLC, identity confirmation, peptide content per vial, and endotoxin. We test a sample of the batch, not every vial.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">5</div>
-<div class="step-content">
-<h3>Release standard</h3>
-<p>A batch is released for sale only after independent testing shows it meets our requirements, including a minimum of 99% purity. Any batch outside our standard is listed as such, with its COA public.</p>
-</div>
-</div>
-
-<div class="step">
-<div class="step-number">6</div>
-<div class="step-content">
-<h3>Batch numbers and public COAs</h3>
-<p>Every batch has its own batch number. Scan the QR code on your vial or enter the batch number to open that batch&rsquo;s public certificate of analysis (COA), with a direct link to the original report on the laboratory&rsquo;s own website.</p>
-</div>
-</div>
-
-</div>
-</div>
-
-<div class="cta">
-<div class="container">
-<h2>Verify a batch now</h2>
-<p>Enter any Vantix Bio batch ID to open its COA and testing results.</p>
-<a href="verify.html" class="btn">Open Verification Portal →</a>
-</div>
-</div>
-
-<footer>
-<div class="container">
-<div class="footer-legal">
-<p><strong>RUO</strong> — For research only. Not for human consumption. Not FDA approved.</p>
-<p style="margin-top:8px;font-size:10px;opacity:0.6">© 2026 Vantix Bio LLC</p>
-</div>
+<nav class="ft-main" aria-label="Footer">
+<a href="shop.html">Catalog</a>
+<a href="verify.html">Verify</a>
+<a href="about.html">About</a>
+<a href="blog/">Articles</a>
+<a href="faq.html">FAQ</a>
+<a href="wholesale.html">10-Vial Kits</a>
+<a href="contact.html">Contact</a>
+</nav>
+<nav class="ft-legal" aria-label="Legal">
+<a href="terms.html">Terms</a>
+<a href="privacy.html">Privacy</a>
+<a href="shipping.html">Shipping &amp; Refund Policy</a>
+</nav>
+<p class="ft-ruo"><strong>RUO</strong> &mdash; For research only. Not for human consumption.<br>&copy; 2026 Vantix Bio LLC</p>
+<!-- Also searched as: Vantix peptides, Vantyx peptides, Vantx peptides, Vantx research -->
 </div>
 </footer>
 
-</body>
-</html>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const searchBtn = document.getElementById('searchBtn');
+const cartBtn = document.getElementById('cartBtn');
+const menuOverlay = document.getElementById('menuOverlay');
+const menuClose = document.getElementById('menuClose');
+
+if (menuBtn) menuBtn.onclick = () => menuOverlay.classList.add('active');
+if (menuClose) menuClose.onclick = () => menuOverlay.classList.remove('active');
+if (searchBtn) searchBtn.onclick = () => window.location.href = 'verify.html';
+if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
+</script>
+
+
+<script src="/leads-popup.js" defer></script>
+<script src="/sticky-header.js?v=1" defer></script>
+<script src="/ship-banner.js?v=5" defer></script>
