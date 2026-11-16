@@ -236,6 +236,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .about .hero h1{text-wrap:balance}
 .about .hero p,.about .content p,.about .step p,.about .closer p{text-wrap:pretty;overflow-wrap:break-word}
 .about .step h3,.about .content h2,.about .closer h3{text-wrap:balance}
+.about .step.key{border-color:var(--accent);box-shadow:0 2px 0 var(--navy)}
+.about .step .badge{align-self:flex-start;font-family:var(--font-data);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--navy);background:var(--mark);border-radius:999px;padding:4px 9px;margin-top:-2px}
 @media(max-width:640px){
 .about .hero h1{font-size:2rem;padding:0 8px}
 .about .chain{gap:12px}
@@ -323,7 +325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="container about">
   <div class="hero">
-    <h1>How every batch is verified</h1>
+    <h1>Every batch tested. Every report public.</h1>
     <p>From imported material to a public COA you can check yourself, here is how each batch is sourced, tested, and published.</p>
     <div class="cta-row">
       <a class="btn" href="verify.html">Verify a Batch &rarr;</a>
@@ -342,7 +344,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="step">
         <span class="n">Step 2</span>
         <h3>Incoming material testing</h3>
-        <p>The incoming peptide material is tested by a laboratory accredited to ISO/IEC&nbsp;17025 before it is used.</p>
+        <p>The incoming peptide material is tested by a laboratory accredited to ISO/IEC&nbsp;17025 before it is used. This confirms what goes into the batch before we build on it.</p>
       </li>
       <li class="step">
         <span class="n">Step 3</span>
@@ -352,10 +354,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="step">
         <span class="n">Step 4</span>
         <h3>Finished product testing</h3>
-        <p>A representative sample from each finished batch goes to an independent third-party laboratory for purity by HPLC, identity confirmation, peptide content per vial, and endotoxin. We test a sample of the batch, not every vial.</p>
+        <p>A random, representative sample from each finished batch is sent blind to an independent third-party laboratory for purity by HPLC, identity confirmation, and peptide content per vial. This confirms what is in the finished vial.</p>
       </li>
-      <li class="step">
-        <span class="n">Step 5</span>
+      <li class="step key">
+        <span class="n">Step 5</span><span class="badge">99%&nbsp;minimum purity</span>
         <h3>Release standard</h3>
         <p>A batch is released for sale only after independent testing shows it meets our requirements, including a minimum of 99%&nbsp;purity. Any batch outside our standard is listed as such, with its COA public.</p>
       </li>
