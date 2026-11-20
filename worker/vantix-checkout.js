@@ -249,8 +249,10 @@ function cleanGa(g) {
 function cleanFb(f) {
   const out = {};
   if (f && typeof f === 'object') {
-    if (typeof f.fbp === 'string' && /^fb\.\d\.\d{10,14}\.\d{5,20}$/.test(f.fbp)) out.fbp = f.fbp;
-    if (typeof f.fbc === 'string' && /^fb\.\d\.\d{10,14}\.[A-Za-z0-9_-]{8,200}$/.test(f.fbc)) out.fbc = f.fbc;
+    // Meta now appends a short suffix to both cookies (e.g. "fb.1.1790718460612.824874015517689244.AQYAAQMC"), so the old strict patterns
+    // rejected every real cookie and no order ever got an fbp/fbc saved. Accept the optional suffix.
+    if (typeof f.fbp === 'string' && /^fb\.\d\.\d{10,14}\.\d{5,20}(\.[A-Za-z0-9_-]{1,40})?$/.test(f.fbp)) out.fbp = f.fbp;
+    if (typeof f.fbc === 'string' && /^fb\.\d\.\d{10,14}\.[A-Za-z0-9_-]{6,300}(\.[A-Za-z0-9_-]{1,40})?$/.test(f.fbc)) out.fbc = f.fbc;
   }
   return out;
 }
