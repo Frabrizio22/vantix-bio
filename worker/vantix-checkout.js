@@ -245,12 +245,12 @@ function cleanGa(g) {
   return out;
 }
 
-// Meta: only the two first-party ad cookies (_fbp "fb.1.<ms>.<digits>", _fbc "fb.1.<ms>.<fbclid>"). No email/phone ever goes to Meta from here.
+// Meta: only the two first-party ad cookies (_fbp "fb.1.<ms>.<digits>", _fbc "fb.1.<ms>.<fbclid>"), each optionally followed by Meta's newer ".AQYAAQMC"-style suffix. No email/phone ever goes to Meta from here.
 function cleanFb(f) {
   const out = {};
   if (f && typeof f === 'object') {
-    if (typeof f.fbp === 'string' && /^fb\.\d\.\d{10,14}\.\d{5,20}$/.test(f.fbp)) out.fbp = f.fbp;
-    if (typeof f.fbc === 'string' && /^fb\.\d\.\d{10,14}\.[A-Za-z0-9_-]{8,200}$/.test(f.fbc)) out.fbc = f.fbc;
+    if (typeof f.fbp === 'string' && /^fb\.\d\.\d{10,14}\.\d{5,20}(\.[A-Za-z0-9_-]{1,40})?$/.test(f.fbp)) out.fbp = f.fbp;
+    if (typeof f.fbc === 'string' && /^fb\.\d\.\d{10,14}\.[A-Za-z0-9_-]{8,200}(\.[A-Za-z0-9_-]{1,40})?$/.test(f.fbc)) out.fbc = f.fbc;
   }
   return out;
 }
