@@ -346,7 +346,7 @@ function renderProducts(filter='all'){
       <div class="product-price">${p.packs ? '$' + p.packs[0].price : (window.vxSale ? vxSale.html(p.price) : '$' + p.price)}</div>
       <div class="product-cta">
         ${inStock
-          ? `<button class="btn btn-dark btn-waitlist" onclick="${p.packs ? 'quickAddPack(this)' : `quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price})`}; event.stopPropagation()">Add to Cart</button><a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`
+          ? `<button class="btn btn-dark btn-waitlist" onclick="${p.packs ? 'quickAddPack(this)' : `quickAdd('${p.sku}', '${p.cartName || p.name}', ${p.price})`}; event.stopPropagation()">Add to Cart</button>${p.category === 'supplies' ? '' : `<a href="verify.html?product=${p.slug}" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View COA →</a>`}`
           : `<button class="btn btn-dark btn-waitlist" onclick="openNotify(this, '${p.sku}', '${p.shortName}'); event.stopPropagation()">Notify Me</button><a href="products/${p.slug}.html" class="coa-link" onclick="event.stopPropagation()" style="text-decoration:none">View Details →</a>`
         }
       </div>
