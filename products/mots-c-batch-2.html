@@ -168,7 +168,7 @@ let cart=JSON.parse(localStorage.getItem('vantixCart')||'[]');
 const existing=cart.find(item=>item.sku===product.sku);
 if(existing){existing.quantity+=1;}else{cart.push(product);}
 localStorage.setItem('vantixCart',JSON.stringify(cart));
-window.location.href='../checkout.html';
+vxCartToast('Added to cart');
 }
 </script>
 
@@ -199,5 +199,6 @@ window.location.href='../checkout.html';
 <script src="/verify-popup.js?v=5" defer></script>
 <script src="/shop_products_data.js"></script>
 <script src="/stock-gate.js"></script>
+<script src="/cart-toast.js"></script>
 </body>
 </html>

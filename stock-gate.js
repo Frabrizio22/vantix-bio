@@ -67,7 +67,7 @@
           var ex = cart.filter(function (i) { return i.sku === product.sku; })[0];
           if (ex) ex.quantity += 1; else cart.push({ sku: product.sku, name: product.cartName || product.name, price: product.price, quantity: 1 });
           localStorage.setItem('vantixCart', JSON.stringify(cart));
-          window.location.href = '../checkout.html';
+          if (window.vxCartToast) { window.vxCartToast('Added to cart'); } else { window.location.href = '../checkout.html'; }
         };
       }
     }

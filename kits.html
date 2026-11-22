@@ -381,6 +381,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 
+<script src="/cart-toast.js"></script>
 <script>
 function addKitToCart(sku, name, price) {
   var cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
@@ -412,7 +413,7 @@ function addRepairToCart() {
     if (e) { e.quantity = (e.quantity||0) + 1; } else { cart.push({sku:p[0], name:p[1], price:p[2], quantity:1}); }
   });
   localStorage.setItem('vantixCart', JSON.stringify(cart));
-  window.location.href = 'checkout.html';
+  vxCartToast('Bundle added to cart');
 }
 function addKitToCart() {
   // Add both products to cart
@@ -435,7 +436,7 @@ function addKitToCart() {
   }
   
   localStorage.setItem('vantixCart', JSON.stringify(cart));
-  window.location.href = 'checkout.html';
+  vxCartToast('Bundle added to cart');
 }
 </script>
 
