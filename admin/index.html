@@ -695,8 +695,11 @@ function viewDiscounts() {
 function checkoutFunnel(rg) {
   const all = S.orders.filter(chanOk).filter((o) => rg.test(dkey(o.created_at)));
   if (!all.length) return '<div class="card"><h2>Checkout funnel</h2><div class="empty">No orders placed in this range.</div></div>';
-  const paidBy = {}; S.orders.filter(isPaid).forEach((o) => { const k = String(o.customer_email || '').toLowerCase(); (paidBy[k] || (paidBy[k] = [])).push(new Date(o.created_at).getTime()); });
-  const laterPaid = (o) => (paidBy[String(o.customer_email || '').toLowerCase()] || []).some((t) => t > new Date(o.created_at).getTime());
+  // "Paid later" matches the same email OR the same phone number (one customer fixed a mistyped email and paid by Zelle).
+  const digits = (v) => String(v || '').replace(/\D/g, '').slice(-10), paidBy = {};
+  const keysOf = (o) => [String(o.customer_email || '').toLowerCase().trim(), digits(o.phone).length === 10 ? 'p' + digits(o.phone) : ''].filter(Boolean);
+  S.orders.filter(isPaid).forEach((o) => { keysOf(o).forEach((k) => { (paidBy[k] || (paidBy[k] = [])).push(new Date(o.created_at).getTime()); }); });
+  const laterPaid = (o) => keysOf(o).some((k) => (paidBy[k] || []).some((t) => t > new Date(o.created_at).getTime()));
   const row = (label, m) => {
     const l = m ? all.filter((o) => o.payment_method === m) : all, paid = l.filter(isPaid), failed = l.filter((o) => o.payment_status === 'failed'), open = l.filter((o) => !isPaid(o) && o.payment_status !== 'failed');
     const rec = failed.filter(laterPaid).length, lostL = failed.filter((o) => !laterPaid(o)), lostRev = lostL.reduce((t, o) => t + n0(o.total), 0);
