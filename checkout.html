@@ -46,7 +46,7 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 .summary-row.total{font-size:24px;font-weight:600;margin-top:20px;padding-top:20px;border-top:1.5px solid var(--hairline);color:var(--navy);letter-spacing:-0.01em}
 .summary-value{font-family:'JetBrains Mono',monospace;font-weight:500}
 .discount-label{color:var(--signal);font-weight:500}
-.shipping-msg{text-align:center;margin-top:12px;font-size:13px;padding:10px;border-radius:6px;background:#f5f5f5}
+.shipping-msg{text-align:center;margin-top:12px;font-size:13px;padding:10px;border-radius:6px;background:#f5f5f5;text-wrap:balance}
 .shipping-msg.qualified{color:var(--signal);background:#f0f8f5}
 .shipping-msg.remaining{color:#d97706}
 .promo-section{display:flex;gap:10px;margin-top:20px}
@@ -73,8 +73,8 @@ h2{font-family:'Fraunces',serif;font-size:clamp(20px,3.5vw,26px);font-weight:300
 .payment-option.selected{border-color:var(--accent);background:linear-gradient(135deg,#f8fbff 0%,#eff6ff 100%);box-shadow:0 2px 8px rgba(57,115,176,0.12)}
 .payment-option.selected::before{opacity:0}
 .payment-option .title{font-weight:600;font-size:16px;margin-bottom:6px;display:flex;align-items:center;gap:8px;color:var(--navy)}
-.payment-option .desc{font-size:14px;color:#6b7280;line-height:1.5}
-.payment-option .discount-tag{color:var(--signal);font-size:13px;font-weight:600;margin-top:8px;display:inline-block}
+.payment-option .desc{font-size:14px;color:#6b7280;line-height:1.5;text-wrap:balance}
+.payment-option .discount-tag{color:var(--signal);font-size:13px;font-weight:600;margin-top:8px;display:inline-block;text-wrap:balance}
 .instructions{background:#fef3c7;border-left:4px solid #f59e0b;padding:20px;border-radius:8px;margin-top:20px}
 .instructions h3{font-size:16px;font-weight:600;margin-bottom:10px;color:#92400e}
 .instructions p{font-size:14px;color:#78350f;line-height:1.6;margin:6px 0}
@@ -282,7 +282,7 @@ Continue Shopping
 <div class="desc">Secure payment via Bankful</div>
 </div>
 </div>
-<p style="font-size:13px;color:#6b7280;line-height:1.5;margin-top:14px">Need a different payment method? Email <a href="mailto:support@vantixbio.com?subject=Payment%20method" style="color:var(--accent)">support@vantixbio.com</a> before you order and we will help.</p>
+<p style="font-size:13px;color:#6b7280;line-height:1.5;margin-top:14px;text-wrap:balance">Need a different payment method? Email <a href="mailto:support@vantixbio.com?subject=Payment%20method" style="color:var(--accent)">support@vantixbio.com</a> before you order and we will help.</p>
 <div id="cardholderFields" style="display:none;margin-top:24px;padding:24px;background:#f8fbff;border:1px solid #e5e7eb;border-radius:10px">
 <h3 style="font-family:'Fraunces',serif;font-size:20px;font-weight:400;margin-bottom:16px;color:var(--navy)">Billing Information</h3>
 <label style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;margin-bottom:20px;padding:8px 0">
@@ -739,11 +739,12 @@ var wn=document.getElementById('wsNote');
 if(!wn){wn=document.createElement('div');wn.id='wsNote';wn.style.cssText='font-size:12px;color:#6b7280;margin:8px 0;line-height:1.5';document.getElementById('shippingMsg').parentNode.insertBefore(wn,document.getElementById('shippingMsg'));}
 wn.textContent=wsHas()?('10-vial kits ('+wsKits()+'): tier pricing applied. '+(kitCodeOk()?'Your affiliate code is applied to the kits. ':(promoCode?'The code '+promoCode+' cannot be used with 10-vial kits; only affiliate codes work. ':''))+(selectedPayment==='credit'?' The card price is 8% above the Zelle price.':' Pay by Zelle for the lower price plus an extra 5% off.')):'';
 var msg=document.getElementById('shippingMsg');
-if(subtotal>=150){
+if(shipping===0){
 msg.textContent='✓ You qualified for FREE shipping!';
 msg.className='shipping-msg qualified';
 }else{
-var remaining=(150-subtotal).toFixed(2);
+// same rule as getShipping(): the $150 is measured AFTER discounts (incl. the Zelle 5%)
+var remaining=Math.max(0.01,150-(subtotal-discount)).toFixed(2);
 msg.textContent='Add $'+remaining+' more for FREE shipping';
 msg.className='shipping-msg remaining';
 }
