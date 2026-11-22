@@ -145,7 +145,7 @@ h2{font-size:clamp(1.75rem,4.5vw,3rem);letter-spacing:-.015em}
 .menu-items{display:flex;flex-direction:column;gap:12px}
 .menu-items a{font-family:'Fraunces',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color .3s}
 .menu-items a:hover{color:var(--accent)}
-.toast-notification{position:fixed;bottom:-100px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px 20px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:9999;transition:bottom .3s ease;max-width:90%;width:auto}
+.toast-notification{position:fixed;bottom:-100px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px 20px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:9999;transition:bottom .3s ease;width:max-content;max-width:min(92vw,440px)}
 .toast-notification.show{bottom:24px}
 .toast-content{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;color:var(--text)}
 @media(min-width:768px){.toast-notification{max-width:480px}}
@@ -583,10 +583,7 @@ function confirmQuickAdd() {
   const addedName = currentQuickAddProduct.name;
   closeQuickAdd();
   showToast(`${quantity}x ${addedName} added to cart`);
-  
-  setTimeout(() => {
-    window.location.href = 'checkout.html';
-  }, 1500);
+  // Stay on the shop so people can keep adding; the toast's View Cart button (and the cart icon) go to checkout.
 }
 
 function showToast(message) {
