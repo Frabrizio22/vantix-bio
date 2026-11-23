@@ -97,7 +97,7 @@ async function handleOrder(body, method, request, env, ctx, cors) {
     payment_method: method,
     customer_name: v.name, customer_email: v.email, phone: v.phone,
     address: v.address, city: v.city, state: v.state, zip: v.zip,
-    discount_code: v.code, referral_source: v.referral, creator_code: v.creator,
+    discount_code: v.code, referral_source: v.referral, creator_code: v.creator, store_credit_code: v.scCode,
     items: v.items,
     affirmation: body.affirmation && typeof body.affirmation === 'object' ? body.affirmation : null,
     client_meta: {
@@ -134,7 +134,7 @@ async function handleOrder(body, method, request, env, ctx, cors) {
       order_number: o.order_number, customer_name: v.name, customer_email: v.email, phone: v.phone,
       address: v.address, city: v.city, state: v.state, zip: v.zip,
       items_detail: o.items_detail, quantity: v.items.reduce((s, i) => s + i.qty, 0),
-      payment_method: method, subtotal: o.subtotal, discount_code: v.code || '', discount: o.discount,
+      payment_method: method, subtotal: o.subtotal, discount_code: v.code || '', discount: Number(o.discount) + Number(o.store_credit || 0),
       shipping: o.shipping, total: o.total, cogs: o.cogs, cc_fees: o.processing_fee,
       payment_status: 'Pending',
     }));
@@ -232,7 +232,7 @@ function validateOrder(b) {
     items.push({ sku: SKU_ALIASES[sku] || sku, qty });
   }
   const code = s(b.discount_code, 40).toUpperCase() || null;
-  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, ga: cleanGa(b.ga), touch: cleanTouch(b.first_touch), fb: cleanFb(b.fb) };
+  return { orderNumber, name, email, phone, address, city, state, zip, items, code, referral: s(b.referral_source, 80) || null, creator: s(b.creator_code, 20).toUpperCase() || null, scCode: /^CR-[A-Z0-9]{10}$/.test(s(b.store_credit_code, 20).toUpperCase()) ? s(b.store_credit_code, 20).toUpperCase() : null, ga: cleanGa(b.ga), touch: cleanTouch(b.first_touch), fb: cleanFb(b.fb) };
 }
 
 // GA4: accept only values shaped like real GA ids (client_id "1234567890.1234567890", session_id = 10-digit unix time).
@@ -297,6 +297,7 @@ function friendlyError(msg) {
   if (msg.startsWith('out_of_stock')) return { expected: true, http: 409, text: 'Sorry, one of the items in your cart just went out of stock. Please review your cart.' };
   if (msg.startsWith('invalid_discount_code:first_order_only')) return { expected: true, http: 400, text: 'That code is for first orders only. Please remove it to continue.' };
   if (msg.startsWith('invalid_discount_code')) return { expected: true, http: 400, text: "That code isn't active right now. Please remove it and try again, or email support@vantixbio.com." };
+  if (msg.startsWith('invalid_store_credit')) return { expected: true, http: 400, text: 'That store credit code has no balance left. Please remove it to continue.' };
   if (msg.startsWith('unknown_or_inactive_sku')) return { expected: true, http: 400, text: 'An item in your cart is no longer available. Please refresh and try again.' };
   if (msg.startsWith('wholesale_quote_required')) return { expected: true, http: 400, text: 'Orders of 10+ kits are custom volume and quoted individually. Please email support@vantixbio.com for a quote.' };
   if (msg.startsWith('wholesale_no_codes')) return { expected: true, http: 400, text: 'Only affiliate codes can be used with 10-vial kits. Please remove the code to continue.' };
@@ -455,7 +456,7 @@ async function afterPaid(env, orderNumber) {
     order_number: o.order_number, payment_status: 'Paid', send_confirmation: true,
     customer_name: o.customer_name, customer_email: o.customer_email, items_detail,
     address: o.address, city: o.city, state: o.state, zip: o.zip, discount_code: o.discount_code || '',
-    subtotal: o.subtotal, discount: o.discount, shipping: o.shipping_charged, total: o.total, payment_method: o.payment_method,
+    subtotal: o.subtotal, discount: Number(o.discount) + Number(o.store_credit || 0), shipping: o.shipping_charged, total: o.total, payment_method: o.payment_method,
   });
 
   let influencer = '';
@@ -471,6 +472,7 @@ async function afterPaid(env, orderNumber) {
     `${o.customer_name} · ${o.city}, ${o.state}`, '', items_detail,
   ];
   if (o.discount_code) lines.push('', `Code ${o.discount_code}: -$${Number(o.discount).toFixed(2)}`);
+  if (Number(o.store_credit) > 0) lines.push(`🎟️ Store credit ${o.store_credit_code}: -$${Number(o.store_credit).toFixed(2)}`);
   if (Number(o.commission) > 0) lines.push(`🤝 ${influencer || 'Influencer'} commission: $${Number(o.commission).toFixed(2)}`);
   lines.push('', o.cogs === null || o.cost_missing ? '⚠️ Some item costs not set — profit incomplete'
     : `Profit before label: $${(Number(o.total) - costs).toFixed(2)}`);

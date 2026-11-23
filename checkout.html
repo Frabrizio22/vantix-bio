@@ -169,6 +169,10 @@ Continue Shopping
 <span class="discount-label" id="discountLabel">Discount</span>
 <span class="summary-value discount-label" id="discount">-$0.00</span>
 </div>
+<div class="summary-row" id="creditRow" style="display:none">
+<span class="discount-label">Store credit</span>
+<span class="summary-value discount-label" id="creditAmt">-$0.00</span>
+</div>
 <div class="summary-row">
 <span>Shipping</span>
 <span class="summary-value" id="shipping">$0.00</span>
@@ -183,6 +187,11 @@ Continue Shopping
 <input type="text" class="promo-input" id="promoInput" placeholder="PROMO CODE">
 <button class="promo-btn" id="promoBtn" onclick="applyPromo()">Apply</button>
 </div>
+<div class="promo-section" id="creditSection" style="margin-top:8px">
+<input type="text" class="promo-input" id="creditInput" placeholder="STORE CREDIT CODE" autocomplete="off" autocapitalize="characters">
+<button class="promo-btn" id="creditBtn" onclick="applyCredit()">Apply</button>
+</div>
+<div id="creditMsg" style="font-size:12px;margin-top:6px;color:#6b7280;display:none"></div>
 </div>
 </div>
 
@@ -717,8 +726,32 @@ var afterDiscount=getSubtotal()-getDiscount();
 return afterDiscount>=150?0:9.99;
 }
 
+// Store credit (affiliate payouts taken as credit): pays product dollars only, never shipping, always leaves at least $1 to pay. The server (create_order) is the real check.
+var storeCredit={code:'',balance:0};
+function getCredit(){
+if(!storeCredit.code)return 0;
+return Math.round(Math.min(storeCredit.balance,Math.max(0,getSubtotal()-getDiscount()-1))*100)/100;
+}
 function getTotal(){
-return getSubtotal()+getShipping()-getDiscount();
+return getSubtotal()+getShipping()-getDiscount()-getCredit();
+}
+function removeCredit(){storeCredit={code:'',balance:0};var i=document.getElementById('creditInput');i.value='';i.disabled=false;document.getElementById('creditBtn').textContent='Apply';setCreditMsg('');updateSummary();}
+function setCreditMsg(t,bad){var m=document.getElementById('creditMsg');m.textContent=t;m.style.color=bad?'#b91c1c':'#3f7d5c';m.style.display=t?'block':'none';}
+function applyCredit(){
+if(storeCredit.code){removeCredit();return;}
+var code=document.getElementById('creditInput').value.toUpperCase().trim();
+if(!/^CR-[A-Z0-9]{10}$/.test(code)){setCreditMsg('That store credit code is not valid.',true);return;}
+var btn=document.getElementById('creditBtn');btn.disabled=true;
+fetch('https://mxhtxcpqgjmgwnurxguv.supabase.co/rest/v1/rpc/check_store_credit',{method:'POST',headers:{'Content-Type':'application/json',apikey:'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv'},body:JSON.stringify({p_code:code})})
+.then(function(r){return r.ok?r.json():null;})
+.then(function(bal){
+btn.disabled=false;
+if(bal===null||bal===undefined||Number(bal)<=0){setCreditMsg('That store credit code is not valid or has no balance left.',true);return;}
+storeCredit={code:code,balance:Number(bal)};
+document.getElementById('creditInput').disabled=true;btn.textContent='Remove';
+setCreditMsg('Store credit applied. Balance on this code: $'+Number(bal).toFixed(2));
+updateSummary();
+}).catch(function(){btn.disabled=false;setCreditMsg('Could not check that code. Please try again.',true);});
 }
 
 function updateSummary(){
@@ -730,6 +763,7 @@ var total=getTotal();
 document.getElementById('subtotal').textContent='$'+subtotal.toFixed(2);
 document.getElementById('shipping').textContent=shipping===0?'FREE':'$'+shipping.toFixed(2);
 document.getElementById('total').textContent='$'+total.toFixed(2);
+var cr=getCredit();var cRow=document.getElementById('creditRow');if(cr>0){document.getElementById('creditAmt').textContent='-$'+cr.toFixed(2);cRow.style.display='flex';}else{cRow.style.display='none';}
 var discountRow=document.getElementById('discountRow');
 if(discount>0){
 document.getElementById('discount').textContent='-$'+discount.toFixed(2);
@@ -947,6 +981,7 @@ subtotal:getSubtotal(),
 discount:getDiscount(),
 discount_code:(wsHas()&&!kitCodeOk())?'':(promoCode||''),
 referral_source:referralSource||'',
+store_credit_code:getCredit()>0?storeCredit.code:'',
 shipping:getShipping(),
 total:getTotal(),
 affirmation:window.vxAffirmation||{},
