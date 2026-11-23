@@ -340,6 +340,7 @@ function dashView() {
   const open = months.find((m) => m.month === nowYm && m.status === 'open');
   const nextDue = months.filter((m) => m.status === 'due').sort((a, b) => a.month.localeCompare(b.month))[0];
   const pill = (m) => m.status === 'paid' ? '<span class="pill green">Paid ' + esc(dayFmt(m.paid_on)) + '</span>' : m.status === 'due' ? '<span class="pill amber">Due by ' + esc(dayFmt(m.due_by)) + '</span>' : '<span class="pill gray">In progress</span>';
+  const sc = d.store_credit || {}, bonus = Number(sc.bonus_pct == null ? 0.2 : sc.bonus_pct);
   const yr = nowYm.slice(0, 4);
   const yrNet = months.filter((m) => m.month.slice(0, 4) === yr).reduce((t, m) => t + Number(m.net || 0), 0);
   const taxNote = yrNet >= 2000
@@ -364,9 +365,13 @@ function dashView() {
     (links.length ? '<section class="card' + rs(5) + '"><div class="eyebrow">Share</div><h2>' + (links.length > 1 ? 'Your links' : 'Your link') + '</h2><div class="sub" style="margin-top:8px">Share this in your bio, stories or posts. It applies your code automatically at checkout and tracks your orders. Your code also works if someone types it in.</div>' +
       links.map((l, i) => '<div class="lk">' + (links.length > 1 || l.label !== 'Your link' ? '<div class="eyebrow t">' + esc(l.label) + '</div>' : '') + '<div class="u num" id="lk' + i + '">' + esc(l.url) + '</div><button class="btn pri" data-act="copy" data-arg="' + i + '">Copy</button></div>').join('') +
       '<div class="note"><span class="eyebrow">Posting guidelines</span>Please make your affiliate disclosure clear and easy to see on every post, visible without tapping "more". Use the paid partnership label your platform provides, or write "I earn a commission", #ad or #paidpartner. Also include the research-use-only notice. Talk about Vantix Bio products only as research materials for laboratory use, in a factual, research-focused tone. Do not make medical or health claims, and do not describe dosing, results or how to use any product.</div></section>' : '') +
+    (sc.code || nextDue ? '<section class="card' + rs(6) + '"><div class="eyebrow">Store credit</div><h2>' + (sc.code ? 'Your store credit' : 'Take your payout as store credit') + '</h2>' +
+      (sc.code ? '<div class="sub" style="margin-top:8px">Balance <b class="num">' + usd(sc.balance) + '</b>. Enter this code in the Store credit box at checkout on vantixbio.com. It works together with your own discount code and covers product dollars (not shipping).</div><div class="lk"><div class="u num">' + esc(sc.code) + '</div><button class="btn pri" data-act="copycode" data-arg="' + esc(sc.code) + '">Copy</button></div>' : '') +
+      '<div class="sub" style="margin-top:8px">Instead of waiting for a payout, you can turn any closed month into store credit with a ' + Math.round(bonus * 100) + '% bonus (for example $20.00 becomes ' + usd(20 * (1 + bonus)) + '). Credit adds up on one code, never expires, and cannot be turned back into cash. Use the button next to a month below.</div>' +
+      (S.msg ? '<div class="msg ok" role="status">' + esc(S.msg) + '</div>' : '') + (S.err ? '<div class="msg err" role="alert">' + esc(S.err) + '</div>' : '') + '</section>' : '') +
     '<section class="card' + rs(6) + '"><div class="sechead"><div class="eyebrow">Statements</div><h2>Monthly payouts</h2></div>' + (months.length ?
       tbl('<th>Month</th><th class="r">Commission earned</th><th class="r">Refunds and chargebacks</th><th class="r">Net</th><th class="r">Paid</th><th>Status</th>',
-        months.map((m) => '<tr><td data-l="Month">' + esc(monthName(m.month)) + '</td><td class="r num" data-l="Commission earned">' + usd(m.earned) + '</td><td class="r num" data-l="Refunds and chargebacks">' + (Number(m.deducted) ? '−' + usd(m.deducted) : '—') + '</td><td class="r num" data-l="Net"><b>' + usd(m.net) + '</b></td><td class="r num" data-l="Paid">' + (m.paid == null ? '—' : usd(m.paid)) + '</td><td data-l="Status">' + pill(m) + '</td></tr>').join(''))
+        months.map((m) => '<tr><td data-l="Month">' + esc(monthName(m.month)) + '</td><td class="r num" data-l="Commission earned">' + usd(m.earned) + '</td><td class="r num" data-l="Refunds and chargebacks">' + (Number(m.deducted) ? '−' + usd(m.deducted) : '—') + '</td><td class="r num" data-l="Net"><b>' + usd(m.net) + '</b></td><td class="r num" data-l="Paid">' + (m.paid == null ? '—' : usd(m.paid)) + '</td><td data-l="Status">' + pill(m) + (m.status === 'due' && !S.admin && Number(m.net) > 0 ? ' <button class="btn sm" data-act="credit" data-arg="' + esc(m.month) + '">Take as store credit &rarr; ' + usd(Number(m.net) * (1 + bonus)) + '</button>' : '') + (m.status === 'paid' && m.method === 'Store credit' ? ' <span class="pill blue">Store credit</span>' : '') + '</td></tr>').join(''))
       : empty('No commission yet. Orders that use your code will appear here once they ship.')) + '</section>' +
     '<section class="card' + rs(7) + '"><div class="sechead"><div class="eyebrow">Activity</div><h2>Orders with your code</h2></div>' + (orders.length ?
       tbl('<th>Order</th><th>Date</th><th>Code</th><th class="r">Product total after discounts</th><th class="r">Commission</th><th>Status</th>',
@@ -454,6 +459,17 @@ app.addEventListener('click', async (e) => {
     try { await navigator.clipboard.writeText(txt); b.textContent = 'Copied'; b.classList.add('done'); }
     catch (err) { const r = document.createRange(); r.selectNodeContents(el); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent = 'Press copy'; }
     setTimeout(() => { b.textContent = 'Copy'; b.classList.remove('done'); }, 1800);
+  }
+  if (b.dataset.act === 'copycode') { try { await navigator.clipboard.writeText(b.dataset.arg); b.textContent = 'Copied'; } catch (err) {} setTimeout(() => { b.textContent = 'Copy'; }, 1800); }
+  if (b.dataset.act === 'credit' && !S.busy) {
+    const m = (S.data.months || []).find((x) => x.month === b.dataset.arg); if (!m) return;
+    const bp = Number((S.data.store_credit || {}).bonus_pct == null ? 0.2 : S.data.store_credit.bonus_pct);
+    if (!confirm('Turn your ' + monthName(m.month) + ' payout of ' + usd(m.net) + ' into ' + usd(Number(m.net) * (1 + bp)) + ' of store credit? This cannot be changed back to cash.')) return;
+    S.busy = true; b.disabled = true; S.err = ''; S.msg = '';
+    const r = await sb.rpc('creator_take_store_credit', { p_period: m.month });
+    S.busy = false;
+    if (r.error) { S.err = 'Could not convert that month. Please refresh and try again, or email support@vantixbio.com.'; return render(); }
+    await loadData(); S.msg = usd(r.data.credit) + ' added. Your code is ' + r.data.code + ' (balance ' + usd(r.data.balance) + ').'; render();
   }
   if (b.dataset.act === 'back') { S.stage = 'email'; S.err = ''; S.msg = ''; render(); }
 });
