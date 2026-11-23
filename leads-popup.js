@@ -29,6 +29,24 @@
     var pc = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
     if (/^[A-Z0-9]{2,20}$/.test(pc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10'].indexOf(pc) < 0) set('vxCreator', JSON.stringify({ c: pc, t: Date.now() }));
   } catch (e) {}
+  // In-app browsers (TikTok, Instagram, Facebook) sometimes refuse to open a page and send the visitor to Safari/Chrome, which starts with empty
+  // storage and loses the creator. So when someone taps a link to another page of ours, carry the saved creator code in that link's address.
+  try {
+    var cr0 = JSON.parse(get('vxCreator') || 'null');
+    if (cr0 && cr0.c && Date.now() - cr0.t < 30 * 86400000 && /TikTok|musical_ly|Bytedance|Instagram|FBAN|FBAV/i.test(navigator.userAgent)) {
+      document.addEventListener('click', function (e) {
+        try {
+          var a = e.target.closest && e.target.closest('a[href]');
+          if (!a || a.origin !== location.origin || /^(mailto|tel):/i.test(a.getAttribute('href'))) return;
+          var u = new URL(a.href);
+          if (u.searchParams.get('code') || /checkout|thank-you|order-received/.test(u.pathname)) return;
+          u.searchParams.set('code', cr0.c);
+          a.href = u.toString();
+        } catch (err) {}
+      }, true);
+    }
+  } catch (e) {}
+
   if (get('vxLeadDone')) return;
   // The big popup stays off for people who are already on the list or already shopping: email and
   // creator-link visitors, anyone with items in their cart, and anyone who closed it in the last 30 days.
