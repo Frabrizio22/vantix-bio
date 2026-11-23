@@ -591,7 +591,7 @@ function showToast(message) {
   if (existing) existing.remove();
   const toast = document.createElement('div');
   toast.className = 'toast-notification';
-  toast.innerHTML = `<div class="toast-content"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:#7BA88F;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>${message}</span><button onclick="window.location.href='checkout.html'" style="background:var(--navy);color:#fff;border:none;padding:6px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">View Cart</button></div>`;
+  toast.innerHTML = `<div class="toast-content"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:#7BA88F;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>${message}</span><button onclick="window.location.href='checkout.html'" style="background:var(--navy);color:#fff;border:none;padding:6px 12px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">View Cart</button></div>${window.vxShipHtml ? window.vxShipHtml() : ''}`;
   document.body.appendChild(toast);
   setTimeout(() => toast.classList.add('show'), 10);
   setTimeout(() => {
@@ -680,6 +680,7 @@ function openNotify(btn, sku, name) {
 <script src="/promo-sale.js?v=1"></script>
 <script src="/ship-banner.js?v=5" defer></script>
 <script src="/verify-popup.js?v=5" defer></script>
+<script src="/cart-toast.js"></script>
 </body>
 </html>
 <!-- rebuild Mon Jul  6 06:40:09 PDT 2026 -->
