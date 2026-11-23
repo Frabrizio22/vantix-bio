@@ -1,6 +1,17 @@
 /* Small "Added to cart" pop-up with a View Cart button. Used on product pages and the bundles page so shoppers can keep browsing
    instead of being sent straight to checkout. Shows ~4 seconds, tap anywhere on it (except View Cart) to close. No product names on purpose. */
 (function () {
+  // Free-shipping progress line for the pop-up. Same $150 threshold as checkout; prices come from the cart. Returns '' if the cart can't be read.
+  window.vxShipHtml = function () {
+    try {
+      var c = JSON.parse(localStorage.getItem('vantixCart') || '[]'), net = 0;
+      c.forEach(function (i) { if (String(i.sku).indexOf('VX-W-') !== 0) net += (Number(i.price) || 0) * (Number(i.quantity) || 0); });
+      if (!(net > 0)) return '';
+      var left = (150 - net).toFixed(2), pct = Math.min(100, Math.round(net / 150 * 100)), done = net >= 150;
+      var txt = done ? '\u2713 Free shipping unlocked' : (net >= 105 ? 'Only <b>$' + left + '</b> to free shipping' : '<b>$' + left + '</b> away from free shipping');
+      return '<div class="vx-ship" style="margin-top:10px;font-size:13px;color:' + (done ? '#3f7d5c' : '#0F1B2D') + '"><div>' + txt.replace(/<b>/g, '<b style="color:' + (done ? '#3f7d5c' : '#3b73b0') + '">') + '</div><div style="height:6px;border-radius:3px;background:#e9e5da;margin-top:6px;overflow:hidden"><i style="display:block;height:100%;width:' + pct + '%;border-radius:3px;background:' + (done ? '#4a8a68' : '#3b73b0') + '"></i></div></div>';
+    } catch (e) { return ''; }
+  };
   window.vxCartToast = function (message) {
     try {
       if (!document.getElementById('vxCartToastCss')) {
@@ -10,7 +21,7 @@
       }
       var old = document.querySelector('.vx-cart-toast'); if (old) old.remove();
       var t = document.createElement('div'); t.className = 'vx-cart-toast'; t.setAttribute('role', 'status');
-      t.innerHTML = '<div class="c"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span></span><a href="/checkout.html">View Cart</a></div>';
+      t.innerHTML = '<div class="c"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span></span><a href="/checkout.html">View Cart</a></div>' + window.vxShipHtml();
       t.querySelector('span').textContent = message || 'Added to cart';
       var gone = false;
       function close() { if (gone) return; gone = true; t.classList.remove('show'); setTimeout(function () { t.remove(); }, 300); }
