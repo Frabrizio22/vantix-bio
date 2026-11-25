@@ -37,7 +37,7 @@
       var cd = document.createElement('span'); cd.className = 'vx-bf-code'; cd.textContent = 'BF25';
       s1.appendChild(t); s1.appendChild(m); s1.appendChild(cd);
     } else { s1 = document.createElement('span'); s1.textContent = LINE1; }
-    var s2 = document.createElement('span'); s2.textContent = promo ? 'Ends Nov 30, 11:59 PM PST \u00B7 First orders only' : LINE2; if (promo) s2.className = 'vx-bf-sub';
+    var s2 = document.createElement('span'); s2.textContent = promo ? 'Ends Nov 30, 11:59 PM PST' : LINE2; if (promo) s2.className = 'vx-bf-sub';
     var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', promo ? 'Close Black Friday notice' : 'Close shipping notice'); b.innerHTML = '&times;';
     b.onclick = function () { bar.remove(); try { sessionStorage.setItem(KEY, '1'); } catch (e) {} };
     bar.appendChild(s1); bar.appendChild(s2); bar.appendChild(b);
