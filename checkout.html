@@ -187,6 +187,7 @@ Continue Shopping
 <input type="text" class="promo-input" id="promoInput" placeholder="PROMO CODE">
 <button class="promo-btn" id="promoBtn" onclick="applyPromo()">Apply</button>
 </div>
+<div id="vipHint" style="display:none;font-size:13px;line-height:1.45;color:#3973B0;margin:6px 0 0"></div>
 <div class="promo-section" id="creditSection" style="margin-top:8px">
 <input type="text" class="promo-input" id="creditInput" placeholder="STORE CREDIT CODE" autocomplete="off" autocapitalize="characters">
 <button class="promo-btn" id="creditBtn" onclick="applyCredit()">Apply</button>
@@ -495,8 +496,15 @@ var promoCodes={
 'WELCOMEBACK15':0.15,
 'THANKS10':0.10,
 'BADDIE':0.15,
-'SPOOKY25':0.25
+'SPOOKY25':0.25,
+'BF25':0.25,
+'BFVIP15':0.15,
+'BFVIP25':0.25
 };
+// Black Friday 2026: BF25 (new customers) and BFVIP (returning customers, invite list). Customers type BFVIP; it resolves to BFVIP25 at $200+ (before discount), else BFVIP15. The server (create_order trigger) is the real check.
+if(Date.now()>=Date.UTC(2026,11,1,8,0,0)){delete promoCodes['BF25'];delete promoCodes['BFVIP15'];delete promoCodes['BFVIP25'];}
+function vxIsVip(c){return c==='BFVIP'||c==='BFVIP15'||c==='BFVIP25';}
+function vxShow(c){return vxIsVip(c)?'BFVIP':c;}
 // VB10 (early-customer email offer) is valid through Oct 16, 2026, end of day Pacific
 if(new Date()>=new Date('2026-10-17T07:00:00Z')){delete promoCodes['VB10'];}
 function vxPct(c){var v=promoCodes[c];return typeof v==='number'?v:0;}
@@ -573,12 +581,12 @@ var code=getUrlParam('code')||sessionStorage.getItem('vantixPromoCode');if(!code
 // Creator link remembered for 30 days (vxCreator): applies only when no other code is present, so a browser that dropped the tab copy still gets the creator's offer.
 if(!code){code=vxCreatorCode();}
 // Remember which creator's link this visit came from, so the creator is still credited if the customer swaps to a bigger code.
-try{var lc=String(getUrlParam('code')||sessionStorage.getItem('vantixPromoCode')||code||'').toUpperCase();if(lc&&promoCodes[lc]&&['WELCOME15','WELCOMEBACK15','THANKS10','SPOOKY25'].indexOf(lc)<0)vxLinkCreator=lc;}catch(e){}
+try{var lc=String(getUrlParam('code')||sessionStorage.getItem('vantixPromoCode')||code||'').toUpperCase();if(lc&&promoCodes[lc]&&['WELCOME15','WELCOMEBACK15','THANKS10','SPOOKY25','BF25','BFVIP','BFVIP15','BFVIP25'].indexOf(lc)<0)vxLinkCreator=lc;}catch(e){}
 // Best discount wins: while the Halloween sale runs, SPOOKY25 replaces any smaller code (creator link, popup or email code). A code the customer removed stays removed this session.
 var vxRemoved=false;try{vxRemoved=sessionStorage.getItem('vxPromoRemoved')==='1';}catch(e){}
 try{if(!vxRemoved&&window.vxSale&&vxSale.active&&promoCodes['SPOOKY25']&&(!code||vxPct(String(code).toUpperCase())<vxSale.pct)){code='SPOOKY25';}}catch(e){}
 if(vxRemoved){code=null;}
-if(code){var upperCode=code.toUpperCase();if(promoCodes[upperCode]){promoCode=upperCode;setPromoUI();sessionStorage.removeItem('vantixPromoCode');}}
+if(code){var upperCode=code.toUpperCase();if(upperCode==='BFVIP'&&promoCodes['BFVIP15'])upperCode='BFVIP15';if(promoCodes[upperCode]){promoCode=upperCode;setPromoUI();sessionStorage.removeItem('vantixPromoCode');}}
 }
 
 function saveCart(){localStorage.setItem('vantixCart',JSON.stringify(cart));}
@@ -680,8 +688,11 @@ return subtotal;
 
 function getDiscount(){
 var subtotal=getSubtotal();
+// BFVIP: 25% at $200+ (before discount), otherwise 15%. Re-checked every time the cart changes.
+if(vxIsVip(promoCode)){var vt=(subtotal>=200&&promoCodes['BFVIP25'])?'BFVIP25':'BFVIP15';if(promoCode!==vt)promoCode=vt;}
+var vh=document.getElementById('vipHint');if(vh){if(promoCode==='BFVIP15'&&!wsHas()){vh.style.display='block';vh.textContent='BFVIP: 15% off applied. Add $'+Math.ceil(200-subtotal)+' more for 25% off.';}else if(promoCode==='BFVIP25'&&!wsHas()){vh.style.display='block';vh.textContent='BFVIP: 25% off applied.';}else{vh.style.display='none';}}
 var discount=0;
-var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','JAZZY10','JUANBODYHEALTH','CHERNANDEZ10','WIZZA','HAILEY10','MISFIT','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT','BADDIE','SPOOKY25'];
+var wholeOrderCodes=['FOUNDER10','SAVE10','VB10','WELCOME15','WELCOMEBACK15','THANKS10','MURPHY15','JO10','KITZEL10','SHEILA10','JESS10','JAZZY10','JUANBODYHEALTH','CHERNANDEZ10','WIZZA','HAILEY10','MISFIT','FOUNDER','BREEZY','DRAGON','JJ10','LIVE','CHAT','BADDIE','SPOOKY25','BF25','BFVIP15','BFVIP25'];
 
 // NAD+ auto-discount removed
 if((!wsHas()||kitCodeOk())&&promoCode&&promoCodes[promoCode]){
@@ -767,7 +778,7 @@ var cr=getCredit();var cRow=document.getElementById('creditRow');if(cr>0){docume
 var discountRow=document.getElementById('discountRow');
 if(discount>0){
 document.getElementById('discount').textContent='-$'+discount.toFixed(2);
-var label=(promoCode&&(!wsHas()||kitCodeOk()))?'Discount ('+promoCode+')':'Zelle Discount (5%)';
+var label=(promoCode&&(!wsHas()||kitCodeOk()))?'Discount ('+vxShow(promoCode)+')':'Zelle Discount (5%)';
 document.getElementById('discountLabel').textContent=label;
 discountRow.style.display='flex';
 }else{discountRow.style.display='none';}
@@ -791,7 +802,7 @@ msg.className='shipping-msg remaining';
 
 function setPromoUI(){
 var i=document.getElementById('promoInput'),b=document.getElementById('promoBtn');
-if(promoCode){i.value=promoCode;b.textContent='Remove';b.classList.add('applied');}else{b.textContent='Apply';b.classList.remove('applied');}
+if(promoCode){i.value=vxShow(promoCode);b.textContent='Remove';b.classList.add('applied');}else{b.textContent='Apply';b.classList.remove('applied');}
 }
 function removePromo(){
 var prev=promoCode;promoCode=null;
@@ -802,8 +813,9 @@ try{window.vxTrack&&window.vxTrack('remove_promo',{promo_code:prev});}catch(e){}
 function applyPromo(){
 var input=document.getElementById('promoInput');
 var code=input.value.toUpperCase().trim();
-if(promoCode&&(!code||code===promoCode)){removePromo();return;}
+if(promoCode&&(!code||code===promoCode||code===vxShow(promoCode))){removePromo();return;}
 if(!code)return;
+if(code==='BFVIP'&&promoCodes['BFVIP15'])code='BFVIP15';
 if(promoCodes[code]){
 promoCode=code;
 try{sessionStorage.removeItem('vxPromoRemoved');}catch(e){}
@@ -812,7 +824,7 @@ updateSummary();
 try{window.vxTrack&&window.vxTrack('apply_promo',{promo_code:code,valid:true});}catch(e){}
 }else{try{window.vxTrack&&window.vxTrack('apply_promo',{promo_code:code.slice(0,20),valid:false});}catch(e){}alert('Invalid promo code');}
 }
-document.getElementById('promoInput').addEventListener('input',function(){var b=document.getElementById('promoBtn');b.textContent=(promoCode&&this.value.toUpperCase().trim()===promoCode)?'Remove':'Apply';if(!(promoCode&&this.value.toUpperCase().trim()===promoCode))b.classList.remove('applied');else b.classList.add('applied');});
+document.getElementById('promoInput').addEventListener('input',function(){var b=document.getElementById('promoBtn');b.textContent=(promoCode&&this.value.toUpperCase().trim()===vxShow(promoCode))?'Remove':'Apply';if(!(promoCode&&this.value.toUpperCase().trim()===vxShow(promoCode)))b.classList.remove('applied');else b.classList.add('applied');});
 document.getElementById('promoInput').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();applyPromo();}});
 
 function toggleBillingAddress(){
