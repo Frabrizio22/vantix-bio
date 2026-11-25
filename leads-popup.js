@@ -168,9 +168,9 @@
         '<button type="button" class="vxp-x" aria-label="Close">&times;</button>' +
         '<div id="vxpForm">' +
           '<p class="vxp-k">Vantix Bio</p>' +
-          '<h3 id="vxpT"><span class="vxp-big">15<span>%</span></span>off <em>your first order.</em></h3>' +
+          '<h3 id="vxpT"><span class="vxp-big">' + PCT.replace('%', '') + '<span>%</span></span>off <em>your first order.</em></h3>' +
           '<hr class="vxp-rule">' +
-          '<p>Independently tested batch reports,<br>restock notices and new arrivals.<br>Your code appears the moment you sign up.</p>' +
+          '<p>Independently tested batch reports,<br>restock notices and new arrivals.<br>' + (BF ? 'Black Friday offer, ends Monday night.<br>' : '') + 'Your code appears the moment you sign up.</p>' +
           '<form novalidate>' +
             '<input type="email" id="vxpE" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
             '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
