@@ -9,7 +9,10 @@
 
   var SB_URL = 'https://mxhtxcpqgjmgwnurxguv.supabase.co';
   var SB_KEY = 'sb_publishable_S1BVqOpFWobGC2XiJV-E2w_BvJkkIkv';
-  var CODE = 'WELCOME15';
+  // Black Friday 2026 (Nov 25 to Dec 1 00:00 PST): the welcome offer is BF25 / 25%, then it returns to WELCOME15 / 15% on its own.
+  var BF = Date.now() >= Date.UTC(2026, 10, 25, 0, 0, 0) && Date.now() < Date.UTC(2026, 11, 1, 8, 0, 0);
+  var CODE = BF ? 'BF25' : 'WELCOME15';
+  var PCT = BF ? '25%' : '15%';
   var DELAY_MS = 10000;
   var EXIT_MIN_MS = 8000;
   var QUIET_DAYS = 30;
@@ -27,7 +30,7 @@
   // on the list still credit the creator on a later visit. Checkout reads the same key (vxCreator).
   try {
     var pc = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
-    if (/^[A-Z0-9]{2,20}$/.test(pc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10'].indexOf(pc) < 0) set('vxCreator', JSON.stringify({ c: pc, t: Date.now() }));
+    if (/^[A-Z0-9]{2,20}$/.test(pc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10', 'BF25', 'BFVIP', 'BFVIP15', 'BFVIP25'].indexOf(pc) < 0) set('vxCreator', JSON.stringify({ c: pc, t: Date.now() }));
   } catch (e) {}
   // In-app browsers (TikTok, Instagram, Facebook) sometimes refuse to open a page and send the visitor to Safari/Chrome, which starts with empty
   // storage and loses the creator. So when someone taps a link to another page of ours, carry the saved creator code in that link's address.
@@ -57,7 +60,7 @@
     // A creator link (?code=JO10 and the like) is remembered for 30 days so the welcome offer does not
     // compete with the creator's code on later pages. Checkout reads the same key (vxCreator) to credit the creator.
     var cc = (q.get('code') || '').toUpperCase();
-    if (/^[A-Z0-9]{2,20}$/.test(cc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10'].indexOf(cc) < 0) set('vxCreator', JSON.stringify({ c: cc, t: Date.now() }));
+    if (/^[A-Z0-9]{2,20}$/.test(cc) && ['WELCOME15', 'WELCOMEBACK15', 'THANKS10', 'BF25', 'BFVIP', 'BFVIP15', 'BFVIP25'].indexOf(cc) < 0) set('vxCreator', JSON.stringify({ c: cc, t: Date.now() }));
     var cr = JSON.parse(get('vxCreator') || 'null');
     if (cr && cr.c && Date.now() - cr.t < 30 * 86400000) popupOff = true;
   } catch (e) {}
@@ -172,7 +175,7 @@
             '<input type="email" id="vxpE" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
             '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
             '<p class="vxp-err" id="vxpM" role="alert"></p>' +
-            '<button type="submit" class="vxp-go">Get my 15% off</button>' +
+            '<button type="submit" class="vxp-go">Get my ' + PCT + ' off</button>' +
           '</form>' +
           '<p class="vxp-fine">' + CONSENT + ' <a href="/privacy.html">Privacy Policy</a></p>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
@@ -182,7 +185,7 @@
           '<h3>You&rsquo;re on <em>the list.</em></h3>' +
           '<hr class="vxp-rule">' +
           '<div class="vxp-code">' + CODE + '</div>' +
-          '<p>Your 15% welcome discount is ready.<br>Saved on this device and applied at checkout.</p>' +
+          '<p>Your ' + PCT + ' welcome discount is ready.<br>Saved on this device and applied at checkout.</p>' +
           '<button type="button" class="vxp-copy">Copy code</button>' +
           '<a class="vxp-go" href="/shop.html">Browse the catalog</a>' +
           '<p class="vxp-ruo">For laboratory research use only</p>' +
@@ -253,7 +256,7 @@
       root.querySelector('#vxpOk').style.display = 'block';
       var c2 = root.querySelector('.vxp-copy'); if (c2) c2.focus();
     }, function () {
-      btn.disabled = false; btn.textContent = 'Get my 15% off';
+      btn.disabled = false; btn.textContent = 'Get my ' + PCT + ' off';
       msg.textContent = 'Something went wrong. Please try again, or email support@vantixbio.com.';
     });
   }
@@ -277,7 +280,7 @@
     try { (window.dataLayer = window.dataLayer || []).push({ event: 'email_signup', signup_source: via }); } catch (e) {}
     if (tab) tab.classList.remove('on');
     var fts = document.querySelectorAll('.vxp-foot');
-    for (var i = 0; i < fts.length; i++) fts[i].innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your 15% welcome discount is saved on this device and applied at checkout.</p>';
+    for (var i = 0; i < fts.length; i++) fts[i].innerHTML = '<p class="vxp-k">You&rsquo;re on the list</p><div class="vxp-code">' + CODE + '</div><p class="vxp-fine">Your ' + PCT + ' welcome discount is saved on this device and applied at checkout.</p>';
   }
 
   // Quiet ways back in for someone who closed the popup and changed their mind.
@@ -288,8 +291,8 @@
       tab = document.createElement('button');
       tab.type = 'button';
       tab.className = 'vxp-tab';
-      tab.textContent = '15% off';
-      tab.setAttribute('aria-label', 'Get 15% off your first order');
+      tab.textContent = PCT + ' off';
+      tab.setAttribute('aria-label', 'Get ' + PCT + ' off your first order');
       tab.addEventListener('click', function () { lastFocus = tab; show('tab'); });
       document.body.appendChild(tab);
     }
@@ -305,7 +308,7 @@
     box.className = 'vxp-foot';
     box.innerHTML =
       '<p class="vxp-k">Vantix Bio</p>' +
-      '<h4>Batch reports and restock notices.<br>15% off your first order.</h4>' +
+      '<h4>Batch reports and restock notices.<br>' + PCT + ' off your first order.</h4>' +
       '<form novalidate>' +
         '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
         '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
@@ -341,7 +344,7 @@
       box.className = 'vxp-foot vxp-inline';
       box.innerHTML =
         '<p class="vxp-k">Vantix Bio</p>' +
-        '<h4>15% off your first order + batch reports</h4>' +
+        '<h4>' + PCT + ' off your first order + batch reports</h4>' +
         '<form novalidate>' +
           '<input type="email" autocomplete="email" inputmode="email" placeholder="Your email address" aria-label="Email address" required>' +
           '<input type="text" class="vxp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
