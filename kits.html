@@ -326,12 +326,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
-<div class="kit-card is-out">
+<div class="kit-card">
 
-<div class="kit-vials"><img src="images/products/nad-1000mg.jpg" alt="NAD+ 1000mg vial" loading="lazy" width="200" height="150"><img src="images/products/mots-c-10mg.jpg" alt="MOTS-C 10mg vial" loading="lazy" width="200" height="150"></div>
+<div class="kit-vials"><img src="images/products/nad-1000mg.jpg" alt="NAD+ 1000mg vial" loading="lazy" width="200" height="150"><img src="images/products/mots-c-10mg-batch2.jpg" alt="MOTS-C 10mg vial" loading="lazy" width="200" height="150"></div>
 <div class="kit-header">
 <div class="kit-number">№ 003.04</div>
-<div class="kit-savings">−$9</div>
+<div class="kit-savings">−$2</div>
 </div>
 <div class="kit-label">2 × LYOPHILIZED</div>
 <h2 class="kit-name">NAD+ + MOTS-C</h2>
@@ -343,10 +343,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="kit-pricing">
 <span class="kit-price">$82</span>
-<span class="kit-price-regular">$91</span>
+<span class="kit-price-regular">$84</span>
 </div>
-<p class="kit-out">Currently out of stock</p>
-<a class="btn notify" href="#notify" onclick="return notifyMe(event)">Notify me when available</a>
+<button class="btn" onclick="addMitoToCart()">Add to Cart — $82</button>
 </div>
 
 </div>
@@ -409,6 +408,15 @@ if (cartBtn) cartBtn.onclick = () => window.location.href = 'checkout.html';
 function addRepairToCart() {
   var cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
   [['VX-BPC-10','BPC-157 10mg',30],['VX-TB-10','TB-500 10mg',38]].forEach(function(p){
+    var e = cart.find(function(i){ return i.sku === p[0]; });
+    if (e) { e.quantity = (e.quantity||0) + 1; } else { cart.push({sku:p[0], name:p[1], price:p[2], quantity:1}); }
+  });
+  localStorage.setItem('vantixCart', JSON.stringify(cart));
+  vxCartToast('Bundle added to cart');
+}
+function addMitoToCart() {
+  var cart = JSON.parse(localStorage.getItem('vantixCart') || '[]');
+  [['VX-NAD-1000','NAD+ 1000mg',59],['VX-MOTS-10B','MOTS-c 10mg Batch 002',25]].forEach(function(p){
     var e = cart.find(function(i){ return i.sku === p[0]; });
     if (e) { e.quantity = (e.quantity||0) + 1; } else { cart.push({sku:p[0], name:p[1], price:p[2], quantity:1}); }
   });
