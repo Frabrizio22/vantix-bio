@@ -398,9 +398,9 @@ const VX_PRODUCTS = {
             clinicalNote: 'NAD+ + MOTS-C combination for mitochondrial bioenergetics research',
             products: ['VX-NAD-1000', 'VX-MOTS-10B'],
             regularPrice: 84,
-            stackPrice: 82,
-            discount: 2.4,
-            savings: 2,
+            stackPrice: 72,
+            discount: 14.3,
+            savings: 12,
             category: 'metabolic',
             inStock: true
         },
