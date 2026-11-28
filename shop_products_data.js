@@ -242,7 +242,7 @@ const VX_PRODUCTS = {
             categoryLabel: 'LYOPHILIZED',
             size: '10mg',
             purity: '≥99%',
-            price: 52,
+            price: 49,
             image: 'images/products/tesamorelin-10mg.jpg',
             url: 'products/tesamorelin.html',
             inStock: true,
